@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>2</version>
+  <attributes>
+    <entry>
+      <string>romContent</string>
+      <romList>
+        <roms/>
+      </romList>
+    </entry>
+    <entry>
+      <string>view0</string>
+      <transform>
+        <matrix>
+          <double>0.6177586985991873</double>
+          <double>0.0</double>
+          <double>0.0</double>
+          <double>0.6177586985991873</double>
+          <double>832.5377617344986</double>
+          <double>-62.4967302427159</double>
+        </matrix>
+      </transform>
+    </entry>
+    <entry>
+      <string>Width</string>
+      <int>8</int>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes/>
+      <pos x="200" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes/>
+      <pos x="260" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>gnd</string>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>vcc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>FETCH</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDR_BUS</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-20" y="1080"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>PC_OUT</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>IR_ADDR</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>bus-arbitration-exhaustive</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>FETCH MEM_RD_IN PC_OUT IR_ADDR reg_a addr_sel ADDR_BUS MEM_RD_OUT
+
+# bus-arbitration.v: sel={FETCH,addr_sel}  MEM_RD_OUT = MEM_RD_IN | FETCH
+
+# A. All 8 control corners (tagged PC/IR/reg_a)
+0 0 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 0
+0 1 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
+0 0 0x00AA01 0x00BB02 0x00CC03 1 0x00BB02 0
+0 1 0x00AA01 0x00BB02 0x00CC03 1 0x00BB02 1
+1 0 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
+1 1 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
+1 0 0x00AA01 0x00BB02 0x00CC03 1 0x00CC03 1
+1 1 0x00AA01 0x00BB02 0x00CC03 1 0x00CC03 1
+
+# B. Four address modes (smoke)
+0 0 0x000001 0x000002 0x000003 0 0x000001 0
+0 0 0x000001 0x000002 0x000003 1 0x000002 0
+1 0 0x000001 0x000002 0x000003 0 0x000001 1
+1 0 0x000001 0x000002 0x000003 1 0x000003 1
+
+# C. MEM_RD_OUT truth (FETCH OR MEM_RD_IN)
+0 0 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 0
+0 1 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
+1 0 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
+1 1 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
+
+# D. Walking-one PC (modes 0x0 and 0x2)
+0 0 0x000001 0x000000 0x000000 0 0x000001 0
+1 0 0x000001 0x000000 0x000000 0 0x000001 1
+0 0 0x000002 0x000000 0x000000 0 0x000002 0
+1 0 0x000002 0x000000 0x000000 0 0x000002 1
+0 0 0x000004 0x000000 0x000000 0 0x000004 0
+1 0 0x000004 0x000000 0x000000 0 0x000004 1
+0 0 0x000008 0x000000 0x000000 0 0x000008 0
+1 0 0x000008 0x000000 0x000000 0 0x000008 1
+0 0 0x000010 0x000000 0x000000 0 0x000010 0
+1 0 0x000010 0x000000 0x000000 0 0x000010 1
+0 0 0x000020 0x000000 0x000000 0 0x000020 0
+1 0 0x000020 0x000000 0x000000 0 0x000020 1
+0 0 0x000040 0x000000 0x000000 0 0x000040 0
+1 0 0x000040 0x000000 0x000000 0 0x000040 1
+0 0 0x000080 0x000000 0x000000 0 0x000080 0
+1 0 0x000080 0x000000 0x000000 0 0x000080 1
+0 0 0x000100 0x000000 0x000000 0 0x000100 0
+1 0 0x000100 0x000000 0x000000 0 0x000100 1
+0 0 0x000200 0x000000 0x000000 0 0x000200 0
+1 0 0x000200 0x000000 0x000000 0 0x000200 1
+0 0 0x000400 0x000000 0x000000 0 0x000400 0
+1 0 0x000400 0x000000 0x000000 0 0x000400 1
+0 0 0x000800 0x000000 0x000000 0 0x000800 0
+1 0 0x000800 0x000000 0x000000 0 0x000800 1
+0 0 0x001000 0x000000 0x000000 0 0x001000 0
+1 0 0x001000 0x000000 0x000000 0 0x001000 1
+0 0 0x002000 0x000000 0x000000 0 0x002000 0
+1 0 0x002000 0x000000 0x000000 0 0x002000 1
+0 0 0x004000 0x000000 0x000000 0 0x004000 0
+1 0 0x004000 0x000000 0x000000 0 0x004000 1
+0 0 0x008000 0x000000 0x000000 0 0x008000 0
+1 0 0x008000 0x000000 0x000000 0 0x008000 1
+0 0 0x010000 0x000000 0x000000 0 0x010000 0
+1 0 0x010000 0x000000 0x000000 0 0x010000 1
+0 0 0x020000 0x000000 0x000000 0 0x020000 0
+1 0 0x020000 0x000000 0x000000 0 0x020000 1
+0 0 0x040000 0x000000 0x000000 0 0x040000 0
+1 0 0x040000 0x000000 0x000000 0 0x040000 1
+0 0 0x080000 0x000000 0x000000 0 0x080000 0
+1 0 0x080000 0x000000 0x000000 0 0x080000 1
+0 0 0x100000 0x000000 0x000000 0 0x100000 0
+1 0 0x100000 0x000000 0x000000 0 0x100000 1
+0 0 0x200000 0x000000 0x000000 0 0x200000 0
+1 0 0x200000 0x000000 0x000000 0 0x200000 1
+0 0 0x400000 0x000000 0x000000 0 0x400000 0
+1 0 0x400000 0x000000 0x000000 0 0x400000 1
+0 0 0x800000 0x000000 0x000000 0 0x800000 0
+1 0 0x800000 0x000000 0x000000 0 0x800000 1
+
+# E. Walking-one IR (mode 0x1)
+0 0 0x000000 0x000001 0x000000 1 0x000001 0
+0 0 0x000000 0x000002 0x000000 1 0x000002 0
+0 0 0x000000 0x000004 0x000000 1 0x000004 0
+0 0 0x000000 0x000008 0x000000 1 0x000008 0
+0 0 0x000000 0x000010 0x000000 1 0x000010 0
+0 0 0x000000 0x000020 0x000000 1 0x000020 0
+0 0 0x000000 0x000040 0x000000 1 0x000040 0
+0 0 0x000000 0x000080 0x000000 1 0x000080 0
+0 0 0x000000 0x000100 0x000000 1 0x000100 0
+0 0 0x000000 0x000200 0x000000 1 0x000200 0
+0 0 0x000000 0x000400 0x000000 1 0x000400 0
+0 0 0x000000 0x000800 0x000000 1 0x000800 0
+0 0 0x000000 0x001000 0x000000 1 0x001000 0
+0 0 0x000000 0x002000 0x000000 1 0x002000 0
+0 0 0x000000 0x004000 0x000000 1 0x004000 0
+0 0 0x000000 0x008000 0x000000 1 0x008000 0
+0 0 0x000000 0x010000 0x000000 1 0x010000 0
+0 0 0x000000 0x020000 0x000000 1 0x020000 0
+0 0 0x000000 0x040000 0x000000 1 0x040000 0
+0 0 0x000000 0x080000 0x000000 1 0x080000 0
+0 0 0x000000 0x100000 0x000000 1 0x100000 0
+0 0 0x000000 0x200000 0x000000 1 0x200000 0
+0 0 0x000000 0x400000 0x000000 1 0x400000 0
+0 0 0x000000 0x800000 0x000000 1 0x800000 0
+
+# F. Walking-one reg_a (mode 0x3)
+1 0 0x000000 0x000000 0x000001 1 0x000001 1
+1 0 0x000000 0x000000 0x000002 1 0x000002 1
+1 0 0x000000 0x000000 0x000004 1 0x000004 1
+1 0 0x000000 0x000000 0x000008 1 0x000008 1
+1 0 0x000000 0x000000 0x000010 1 0x000010 1
+1 0 0x000000 0x000000 0x000020 1 0x000020 1
+1 0 0x000000 0x000000 0x000040 1 0x000040 1
+1 0 0x000000 0x000000 0x000080 1 0x000080 1
+1 0 0x000000 0x000000 0x000100 1 0x000100 1
+1 0 0x000000 0x000000 0x000200 1 0x000200 1
+1 0 0x000000 0x000000 0x000400 1 0x000400 1
+1 0 0x000000 0x000000 0x000800 1 0x000800 1
+1 0 0x000000 0x000000 0x001000 1 0x001000 1
+1 0 0x000000 0x000000 0x002000 1 0x002000 1
+1 0 0x000000 0x000000 0x004000 1 0x004000 1
+1 0 0x000000 0x000000 0x008000 1 0x008000 1
+1 0 0x000000 0x000000 0x010000 1 0x010000 1
+1 0 0x000000 0x000000 0x020000 1 0x020000 1
+1 0 0x000000 0x000000 0x040000 1 0x040000 1
+1 0 0x000000 0x000000 0x080000 1 0x080000 1
+1 0 0x000000 0x000000 0x100000 1 0x100000 1
+1 0 0x000000 0x000000 0x200000 1 0x200000 1
+1 0 0x000000 0x000000 0x400000 1 0x400000 1
+1 0 0x000000 0x000000 0x800000 1 0x800000 1
+
+# G. Unselected inputs are dont-care
+0 0 0x111111 0x222222 0x333333 1 0x222222 0
+1 0 0x111111 0x222222 0x333333 1 0x333333 1
+0 0 0xABCDEF 0x000002 0x333333 0 0xABCDEF 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="820"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mem_rd_out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="1640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>mem_rd_in</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-560" y="1880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="-560" y="1880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>MEM_RD_OUT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="1640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mem_rd_out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-480" y="1900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>FETCH</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-560" y="1920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>reg_a</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>PC_OUT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>IR_ADDR</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>reg_a</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>MEM_RD_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mem_rd_in</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>FETCH</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>addr_sel</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>addr_sel</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Selector Bits</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>splitterSpreading</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-120" y="1160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>FETCH</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-120" y="1200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>addr_sel</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-120" y="1160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>PC_OUT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>IR_ADDR</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="1060"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ALU_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="1080"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>reg_a</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="1100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ALU_IN</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-600" y="780"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>ALU_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-480" y="780"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>32</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>24</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-560" y="780"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="-60" y="1080"/>
+      <p2 x="-20" y="1080"/>
+    </wire>
+    <wire>
+      <p1 x="-100" y="1160"/>
+      <p2 x="-80" y="1160"/>
+    </wire>
+    <wire>
+      <p1 x="-600" y="780"/>
+      <p2 x="-560" y="780"/>
+    </wire>
+    <wire>
+      <p1 x="-540" y="780"/>
+      <p2 x="-480" y="780"/>
+    </wire>
+    <wire>
+      <p1 x="-80" y="1120"/>
+      <p2 x="-80" y="1160"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
