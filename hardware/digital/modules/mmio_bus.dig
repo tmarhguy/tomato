@@ -1,0 +1,440 @@
+<?xml version='1.0' encoding='utf-8'?>
+<circuit>
+  <version>2</version>
+  <attributes>
+    <entry>
+      <string>romContent</string>
+      <romList>
+        <roms />
+      </romList>
+    </entry>
+    <entry>
+      <string>Width</string>
+      <int>9</int>
+    </entry>
+  </attributes>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDR</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="160" />
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2" />
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>CPU_ADDR_OUT</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="240" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>ADDR</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="160" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>CPU_ADDR_OUT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="240" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2" />
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ADDR</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-20" y="360" />
+    </visualElement>
+    <visualElement>
+      <elementName>Ground</elementName>
+      <elementAttributes />
+      <pos x="320" y="160" />
+    </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes />
+      <pos x="360" y="160" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3" />
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>gnd</string>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="160" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3" />
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>vcc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="160" />
+    </visualElement>
+    <visualElement>
+      <elementName>Comparator</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="380" />
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>24</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>20,4</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-20" y="360" />
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>15</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>4</int>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="400" />
+    </visualElement>
+    <visualElement>
+      <elementName>DriverInvSel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="400" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2" />
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ADDR</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="400" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>add_check</string>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="400" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2" />
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>add_check</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="360" />
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2" />
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>mmio_addr</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="240" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mmio_addr</string>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="240" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2" />
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ADDR</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="540" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2" />
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>add_check</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="500" />
+    </visualElement>
+    <visualElement>
+      <elementName>Driver</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="540" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mmio_addr</string>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="540" />
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>CPU_ADDR_OUT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="400" />
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>is_mmio</string>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="460" />
+    </visualElement>
+  <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mmio_bus exhaustive</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>ADDR is_mmio CPU_ADDR_OUT mmio_addr
+
+# A — decode corners (last CPU addr, first/last MMIO)
+0x000000 0 0x000000 Z
+0xEFFFFF 0 0xEFFFFF Z
+0xF00000 1 Z 0xF00000
+0xFFFFFF 1 Z 0xFFFFFF
+
+# B — all 16 values of ADDR[23:20] (only 0xF selects MMIO)
+0xABCDEF 0 0xABCDEF Z
+0xBBCDEF 0 0xBBCDEF Z
+0xABCDEF 0 0xABCDEF Z
+0xBBCDEF 0 0xBBCDEF Z
+0xEBCDEF 0 0xEBCDEF Z
+0xFBCDEF 1 Z 0xFBCDEF
+0xEBCDEF 0 0xEBCDEF Z
+0xFBCDEF 1 Z 0xFBCDEF
+0xABCDEF 0 0xABCDEF Z
+0xBBCDEF 0 0xBBCDEF Z
+0xABCDEF 0 0xABCDEF Z
+0xBBCDEF 0 0xBBCDEF Z
+0xEBCDEF 0 0xEBCDEF Z
+0xFBCDEF 1 Z 0xFBCDEF
+0xEBCDEF 0 0xEBCDEF Z
+0xFBCDEF 1 Z 0xFBCDEF
+
+# C — walking-one in ADDR[23:20] at fixed low 20 bits
+0x100001 0 0x100001 Z
+0x200001 0 0x200001 Z
+0x400001 0 0x400001 Z
+0x800001 0 0x800001 Z
+
+# D — walking-one in ADDR[19:0] must not change decode (nibble=0)
+0x000001 0 0x000001 Z
+0x000002 0 0x000002 Z
+0x000004 0 0x000004 Z
+0x000008 0 0x000008 Z
+0x000010 0 0x000010 Z
+0x000020 0 0x000020 Z
+0x000040 0 0x000040 Z
+0x000080 0 0x000080 Z
+0x000100 0 0x000100 Z
+0x000200 0 0x000200 Z
+0x000400 0 0x000400 Z
+0x000800 0 0x000800 Z
+0x001000 0 0x001000 Z
+0x002000 0 0x002000 Z
+0x004000 0 0x004000 Z
+0x008000 0 0x008000 Z
+0x010000 0 0x010000 Z
+0x020000 0 0x020000 Z
+0x040000 0 0x040000 Z
+0x080000 0 0x080000 Z
+
+# E — walking-one in ADDR[19:0] inside MMIO window (nibble=F)
+0xF00001 1 Z 0xF00001
+0xF00002 1 Z 0xF00002
+0xF00004 1 Z 0xF00004
+0xF00008 1 Z 0xF00008
+0xF00010 1 Z 0xF00010
+0xF00020 1 Z 0xF00020
+0xF00040 1 Z 0xF00040
+0xF00080 1 Z 0xF00080
+0xF00100 1 Z 0xF00100
+0xF00200 1 Z 0xF00200
+0xF00400 1 Z 0xF00400
+0xF00800 1 Z 0xF00800
+0xF01000 1 Z 0xF01000
+0xF02000 1 Z 0xF02000
+0xF04000 1 Z 0xF04000
+0xF08000 1 Z 0xF08000
+0xF10000 1 Z 0xF10000
+0xF20000 1 Z 0xF20000
+0xF40000 1 Z 0xF40000
+0xF80000 1 Z 0xF80000
+
+# F — boundary nibble transitions
+0x0FFFFF 0 0x0FFFFF Z
+0x100000 0 0x100000 Z
+0xE00000 0 0xE00000 Z
+0xEFFFFF 0 0xEFFFFF Z
+0xF00000 1 Z 0xF00000
+0xF00001 1 Z 0xF00001
+0xFFFFFE 1 Z 0xFFFFFE
+0xFFFFFF 1 Z 0xFFFFFF
+
+# G — tagged patterns (low bits don't affect is_mmio)
+0x012345 0 0x012345 Z
+0xFEDCBA 1 Z 0xFEDCBA
+0xF12345 1 Z 0xF12345
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="40" />
+    </visualElement></visualElements>
+  <wires>
+    <wire>
+      <p1 x="360" y="500" />
+      <p2 x="380" y="500" />
+    </wire>
+    <wire>
+      <p1 x="360" y="360" />
+      <p2 x="380" y="360" />
+    </wire>
+    <wire>
+      <p1 x="0" y="380" />
+      <p2 x="60" y="380" />
+    </wire>
+    <wire>
+      <p1 x="380" y="460" />
+      <p2 x="460" y="460" />
+    </wire>
+    <wire>
+      <p1 x="380" y="360" />
+      <p2 x="380" y="380" />
+    </wire>
+    <wire>
+      <p1 x="380" y="460" />
+      <p2 x="380" y="500" />
+    </wire>
+    <wire>
+      <p1 x="380" y="500" />
+      <p2 x="380" y="520" />
+    </wire>
+  </wires>
+  <measurementOrdering />
+</circuit>
