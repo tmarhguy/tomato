@@ -12,6 +12,7 @@
 \definecolor{logiccolor}{RGB}{20, 50, 120}
 
 \setlength{\parindent}{0pt}
+\setlength{\tabcolsep}{3.5pt} 
 
 \begin{document}
 
@@ -23,7 +24,7 @@
 
 \vspace{0.8em}
 
-\begin{minipage}[t]{0.30\textwidth}
+\begin{minipage}[t]{0.31\textwidth}
         \textbf{\large \textcolor{arithcolor}{PART 1 --- Arithmetic}} \\
     {\tiny \texttt{csel=0} $\rightarrow$ \texttt{ctrl} \texttt{0x00--0x0F}. SUM(\texttt{0x96}) for sub.}\\[0.4em]
     \scriptsize
@@ -57,15 +58,15 @@
     24 & ANOM & \texttt{0x69} & \texttt{0x04} & GND & $B$ & 1 & $-B$ \\
     25 & ANOM & \texttt{0x69} & \texttt{0x05} & $A$ & $B$ & 0 & $-A-B-1$ \\
     26 & ANOM & \texttt{0x69} & \texttt{0x05} & $A$ & $B$ & 1 & $-A-B$ \\
-    27 & ANOM & \texttt{0x69} & \texttt{0x06} & VCC & $B$ & 0 & $B$ \\
-    28 & ANOM & \texttt{0x69} & \texttt{0x06} & VCC & $B$ & 1 & $B+1$ \\
+    27 & ANOM & \texttt{0x69} & \texttt{0x0C} & GND & $\sim B$ & 0 & $B$ \\
+    28 & ANOM & \texttt{0x69} & \texttt{0x0C} & GND & $\sim B$ & 1 & $B+1$ \\
     29 & ANOM & \texttt{0x96} & \texttt{0x0F} & $\sim A$ & $\sim B$ & 1 & $\sim(A+B)$ \\
     30 & ANOM & \texttt{0x96} & \texttt{0x0F} & $\sim A$ & $\sim B$ & 0 & $-A-B-2$ \\
     \bottomrule
     \end{tabular}
 \end{minipage}%
 \hfill
-\begin{minipage}[t]{0.21\textwidth}
+\begin{minipage}[t]{0.19\textwidth}
         \textbf{\textcolor{arithcolor}{\normalsize Routing States}} \\[0.4em]
     \scriptsize
     \begin{tabular}{@{}cll@{}}
@@ -100,78 +101,78 @@
     \toprule
     \textbf{\#} & \textbf{Mnemonic} & \textbf{LUT} & \textbf{Expression} \\
     \midrule
-    25 & ZERO & \texttt{0x00} & $0$ \\
-    26 & ONES & \texttt{0xFF} & $1$ \\
-    27 & MOV A & \texttt{0xAA} & $A$ \\
-    28 & NOT A & \texttt{0x55} & $\sim A$ \\
-    29 & MOV B & \texttt{0xCC} & $B$ \\
-    30 & NOT B & \texttt{0x33} & $\sim B$ \\
-    31 & MOV C & \texttt{0xF0} & $C$ \\
-    32 & NOT C & \texttt{0x0F} & $\sim C$ \\
-    33 & AND A,B & \texttt{0x88} & $A \wedge B$ \\
-    34 & OR A,B & \texttt{0xEE} & $A \vee B$ \\
-    35 & NAND A,B & \texttt{0x77} & $\sim(A \wedge B)$ \\
-    36 & NOR A,B & \texttt{0x11} & $\sim(A \vee B)$ \\
-    37 & XOR A,B & \texttt{0x66} & $A \oplus B$ \\
-    38 & XNOR A,B & \texttt{0x99} & $\sim(A \oplus B)$ \\
-    39 & AND A,C & \texttt{0xA0} & $A \wedge C$ \\
-    40 & OR A,C & \texttt{0xFA} & $A \vee C$ \\
-    41 & NAND A,C & \texttt{0x5F} & $\sim(A \wedge C)$ \\
-    42 & NOR A,C & \texttt{0x05} & $\sim(A \vee C)$ \\
-    43 & XOR A,C & \texttt{0x5A} & $A \oplus C$ \\
-    44 & XNOR A,C & \texttt{0xA5} & $\sim(A \oplus C)$ \\
-    45 & AND B,C & \texttt{0xC0} & $B \wedge C$ \\
-    46 & OR B,C & \texttt{0xFC} & $B \vee C$ \\
-    47 & NAND B,C & \texttt{0x3F} & $\sim(B \wedge C)$ \\
-    48 & NOR B,C & \texttt{0x03} & $\sim(B \vee C)$ \\
-    49 & XOR B,C & \texttt{0x3C} & $B \oplus C$ \\
-    50 & XNOR B,C & \texttt{0xC3} & $\sim(B \oplus C)$ \\
-    51 & BIC A,B & \texttt{0x22} & $A \wedge \sim B$ \\
-    52 & BIC B,A & \texttt{0x44} & $\sim A \wedge B$ \\
-    53 & ORN A,B & \texttt{0xBB} & $A \vee \sim B$ \\
-    54 & IMP A$\to$B & \texttt{0xDD} & $\sim A \vee B$ \\
-    55 & BIC A,C & \texttt{0x0A} & $A \wedge \sim C$ \\
-    56 & BIC C,A & \texttt{0x50} & $\sim A \wedge C$ \\
+    31 & ZERO & \texttt{0x00} & $0$ \\
+    32 & ONES & \texttt{0xFF} & $1$ \\
+    33 & MOV A & \texttt{0xAA} & $A$ \\
+    34 & NOT A & \texttt{0x55} & $\sim A$ \\
+    35 & MOV B & \texttt{0xCC} & $B$ \\
+    36 & NOT B & \texttt{0x33} & $\sim B$ \\
+    37 & MOV C & \texttt{0xF0} & $C$ \\
+    38 & NOT C & \texttt{0x0F} & $\sim C$ \\
+    39 & AND A,B & \texttt{0x88} & $A \wedge B$ \\
+    40 & OR A,B & \texttt{0xEE} & $A \vee B$ \\
+    41 & NAND A,B & \texttt{0x77} & $\sim(A \wedge B)$ \\
+    42 & NOR A,B & \texttt{0x11} & $\sim(A \vee B)$ \\
+    43 & XOR A,B & \texttt{0x66} & $A \oplus B$ \\
+    44 & XNOR A,B & \texttt{0x99} & $\sim(A \oplus B)$ \\
+    45 & AND A,C & \texttt{0xA0} & $A \wedge C$ \\
+    46 & OR A,C & \texttt{0xFA} & $A \vee C$ \\
+    47 & NAND A,C & \texttt{0x5F} & $\sim(A \wedge C)$ \\
+    48 & NOR A,C & \texttt{0x05} & $\sim(A \vee C)$ \\
+    49 & XOR A,C & \texttt{0x5A} & $A \oplus C$ \\
+    50 & XNOR A,C & \texttt{0xA5} & $\sim(A \oplus C)$ \\
+    51 & AND B,C & \texttt{0xC0} & $B \wedge C$ \\
+    52 & OR B,C & \texttt{0xFC} & $B \vee C$ \\
+    53 & NAND B,C & \texttt{0x3F} & $\sim(B \wedge C)$ \\
+    54 & NOR B,C & \texttt{0x03} & $\sim(B \vee C)$ \\
+    55 & XOR B,C & \texttt{0x3C} & $B \oplus C$ \\
+    56 & XNOR B,C & \texttt{0xC3} & $\sim(B \oplus C)$ \\
+    57 & BIC A,B & \texttt{0x22} & $A \wedge \sim B$ \\
+    58 & BIC B,A & \texttt{0x44} & $\sim A \wedge B$ \\
+    59 & ORN A,B & \texttt{0xBB} & $A \vee \sim B$ \\
+    60 & IMP A$\to$B & \texttt{0xDD} & $\sim A \vee B$ \\
+    61 & BIC A,C & \texttt{0x0A} & $A \wedge \sim C$ \\
+    62 & BIC C,A & \texttt{0x50} & $\sim A \wedge C$ \\
     \bottomrule
     \end{tabular}
 \end{minipage}%
 \hfill
-\begin{minipage}[t]{0.22\textwidth}
+\begin{minipage}[t]{0.25\textwidth}
         \textbf{\large \textcolor{logiccolor}{PART 2 --- Continued}} \\[0.75em]
     \scriptsize
     \begin{tabular}{@{}rlcl@{}}
     \toprule
     \textbf{\#} & \textbf{Mnemonic} & \textbf{LUT} & \textbf{Expression} \\
     \midrule
-    57 & ORN A,C & \texttt{0xAF} & $A \vee \sim C$ \\
-    58 & IMP A$\to$C & \texttt{0xF5} & $\sim A \vee C$ \\
-    59 & BIC B,C & \texttt{0x0C} & $B \wedge \sim C$ \\
-    60 & BIC C,B & \texttt{0x30} & $\sim B \wedge C$ \\
-    61 & ORN B,C & \texttt{0xCF} & $B \vee \sim C$ \\
-    62 & IMP B$\to$C & \texttt{0xF3} & $\sim B \vee C$ \\
-    63 & AND3 & \texttt{0x80} & $A \wedge B \wedge C$ \\
-    64 & OR3 & \texttt{0xFE} & $A \vee B \vee C$ \\
-    65 & NAND3 & \texttt{0x7F} & $\sim(A \wedge B \wedge C)$ \\
-    66 & NOR3 & \texttt{0x01} & $\sim(A \vee B \vee C)$ \\
-    67 & XOR3 / SUM & \texttt{0x96} & $A \oplus B \oplus C$ \\
-    68 & XNOR3 & \texttt{0x69} & $\sim(A \oplus B \oplus C)$ \\
-    69 & MAJ & \texttt{0xE8} & $AB \vee BC \vee AC$ \\
-    70 & MIN & \texttt{0x17} & $\sim(AB \vee BC \vee AC)$ \\
-    71 & MUX C?B:A & \texttt{0xCA} & $C ? B : A$ \\
-    72 & MUX B?C:A & \texttt{0xE2} & $B ? C : A$ \\
-    73 & MUX A?C:B & \texttt{0xE4} & $A ? C : B$ \\
-    74 & AO21 & \texttt{0xEA} & $A \vee (B \wedge C)$ \\
-    75 & AO21 & \texttt{0xEC} & $B \vee (A \wedge C)$ \\
-    76 & AO21 & \texttt{0xF8} & $C \vee (A \wedge B)$ \\
-    77 & OA21 & \texttt{0xA8} & $A \wedge (B \vee C)$ \\
-    78 & OA21 & \texttt{0xC8} & $B \wedge (A \vee C)$ \\
-    79 & OA21 & \texttt{0xE0} & $C \wedge (A \vee B)$ \\
-    80 & AOI21 & \texttt{0x15} & $\sim(A \vee (B \wedge C))$ \\
-    81 & AOI21 & \texttt{0x13} & $\sim(B \vee (A \wedge C))$ \\
-    82 & AOI21 & \texttt{0x07} & $\sim(C \vee (A \wedge B))$ \\
-    83 & OAI21 & \texttt{0x57} & $\sim(A \wedge (B \vee C))$ \\
-    84 & OAI21 & \texttt{0x37} & $\sim(B \wedge (A \vee C))$ \\
-    85 & OAI21 & \texttt{0x1F} & $\sim(C \wedge (A \vee B))$ \\
+    63 & ORN A,C & \texttt{0xAF} & $A \vee \sim C$ \\
+    64 & IMP A$\to$C & \texttt{0xF5} & $\sim A \vee C$ \\
+    65 & BIC B,C & \texttt{0x0C} & $B \wedge \sim C$ \\
+    66 & BIC C,B & \texttt{0x30} & $\sim B \wedge C$ \\
+    67 & ORN B,C & \texttt{0xCF} & $B \vee \sim C$ \\
+    68 & IMP B$\to$C & \texttt{0xF3} & $\sim B \vee C$ \\
+    69 & AND3 & \texttt{0x80} & $A \wedge B \wedge C$ \\
+    70 & OR3 & \texttt{0xFE} & $A \vee B \vee C$ \\
+    71 & NAND3 & \texttt{0x7F} & $\sim(A \wedge B \wedge C)$ \\
+    72 & NOR3 & \texttt{0x01} & $\sim(A \vee B \vee C)$ \\
+    73 & XOR3 / SUM & \texttt{0x96} & $A \oplus B \oplus C$ \\
+    74 & XNOR3 & \texttt{0x69} & $\sim(A \oplus B \oplus C)$ \\
+    75 & MAJ & \texttt{0xE8} & $AB \vee BC \vee AC$ \\
+    76 & MIN & \texttt{0x17} & $\sim(AB \vee BC \vee AC)$ \\
+    77 & MUX C?B:A & \texttt{0xCA} & $C ? B : A$ \\
+    78 & MUX B?C:A & \texttt{0xE2} & $B ? C : A$ \\
+    79 & MUX A?C:B & \texttt{0xE4} & $A ? C : B$ \\
+    80 & AO21 & \texttt{0xEA} & $A \vee (B \wedge C)$ \\
+    81 & AO21 & \texttt{0xEC} & $B \vee (A \wedge C)$ \\
+    82 & AO21 & \texttt{0xF8} & $C \vee (A \wedge B)$ \\
+    83 & OA21 & \texttt{0xA8} & $A \wedge (B \vee C)$ \\
+    84 & OA21 & \texttt{0xC8} & $B \wedge (A \vee C)$ \\
+    85 & OA21 & \texttt{0xE0} & $C \wedge (A \vee B)$ \\
+    86 & AOI21 & \texttt{0x15} & $\sim(A \vee (B \wedge C))$ \\
+    87 & AOI21 & \texttt{0x13} & $\sim(B \vee (A \wedge C))$ \\
+    88 & AOI21 & \texttt{0x07} & $\sim(C \vee (A \wedge B))$ \\
+    89 & OAI21 & \texttt{0x57} & $\sim(A \wedge (B \vee C))$ \\
+    90 & OAI21 & \texttt{0x37} & $\sim(B \wedge (A \vee C))$ \\
+    91 & OAI21 & \texttt{0x1F} & $\sim(C \wedge (A \vee B))$ \\
     \bottomrule
     \end{tabular}
 \end{minipage}
