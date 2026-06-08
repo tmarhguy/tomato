@@ -5,6 +5,12 @@
 	(uuid "e5859897-cf2d-498b-93e5-16a1182f13d3")
 	(paper "A4")
 	(lib_symbols)
+	(junction
+		(at 119.38 58.42)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bb1cc544-361a-44ca-913d-e135024e4fe5")
+	)
 	(wire
 		(pts
 			(xy 100.33 66.04) (xy 93.98 66.04)
@@ -47,6 +53,16 @@
 	)
 	(wire
 		(pts
+			(xy 121.92 53.34) (xy 119.38 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7f562d4c-821c-47c4-a108-df62211bf849")
+	)
+	(wire
+		(pts
 			(xy 138.938 66.04) (xy 142.24 66.04)
 		)
 		(stroke
@@ -54,6 +70,16 @@
 			(type default)
 		)
 		(uuid "818a32f5-d3e9-4502-b285-58f3490fc01d")
+	)
+	(wire
+		(pts
+			(xy 119.38 53.34) (xy 119.38 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e47f235-641f-4ae3-b88f-cdd81f06fc39")
 	)
 	(wire
 		(pts
@@ -177,6 +203,17 @@
 			(justify right)
 		)
 		(uuid "364b40e2-bd02-4fb4-a3d4-1127de4f2261")
+	)
+	(hierarchical_label "mux1-out"
+		(shape output)
+		(at 121.92 53.34 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3c5c58e5-26ed-4a6c-a112-baa56edea8ae")
 	)
 	(hierarchical_label "a0"
 		(shape input)
