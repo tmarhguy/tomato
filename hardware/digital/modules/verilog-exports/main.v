@@ -1079,326 +1079,29 @@ module sc_adder24 (
   assign S[23] = S_23;
 endmodule
 
-// quad 2-line to 1-line data selectors/multiplexers
-module \74157  (
-  input S, // select
-  input A1,
-  input A2,
-  input A3,
-  input A4,
-  input B1,
-  input B2,
-  input B3,
-  input B4,
-  input G, // strobe
-  input VCC,
-  input GND,
-  output Y1,
-  output Y2,
-  output Y3,
-  output Y4
+module Mux_4x1_NBits #(
+    parameter Bits = 2
+)
+(
+    input [1:0] sel,
+    input [(Bits - 1):0] in_0,
+    input [(Bits - 1):0] in_1,
+    input [(Bits - 1):0] in_2,
+    input [(Bits - 1):0] in_3,
+    output reg [(Bits - 1):0] out
 );
-  wire [3:0] s0;
-  wire [3:0] s1;
-  wire [3:0] s2;
-  wire [3:0] s3;
-  assign s1[0] = B1;
-  assign s1[1] = B2;
-  assign s1[2] = B3;
-  assign s1[3] = B4;
-  assign s0[0] = A1;
-  assign s0[1] = A2;
-  assign s0[2] = A3;
-  assign s0[3] = A4;
-  Mux_2x1_NBits #(
-    .Bits(4)
-  )
-  Mux_2x1_NBits_i0 (
-    .sel( S ),
-    .in_0( s0 ),
-    .in_1( s1 ),
-    .out( s2 )
-  );
-  Mux_2x1_NBits #(
-    .Bits(4)
-  )
-  Mux_2x1_NBits_i1 (
-    .sel( G ),
-    .in_0( s2 ),
-    .in_1( 4'b0 ),
-    .out( s3 )
-  );
-  assign Y1 = s3[0];
-  assign Y2 = s3[1];
-  assign Y3 = s3[2];
-  assign Y4 = s3[3];
+    always @ (*) begin
+        case (sel)
+            2'h0: out = in_0;
+            2'h1: out = in_1;
+            2'h2: out = in_2;
+            2'h3: out = in_3;
+            default:
+                out = 'h0;
+        endcase
+    end
 endmodule
 
-module sc_mux24_2to1 (
-  input [23:0] B,
-  input [23:0] A,
-  input SEL,
-  output [23:0] Y
-);
-  wire A_0;
-  wire B_0;
-  wire Y_0;
-  wire A_1;
-  wire B_1;
-  wire Y_1;
-  wire Y_2;
-  wire B_2;
-  wire A_2;
-  wire Y_3;
-  wire B_3;
-  wire A_3;
-  wire A_4;
-  wire B_4;
-  wire Y_4;
-  wire A_5;
-  wire B_5;
-  wire Y_5;
-  wire Y_6;
-  wire B_6;
-  wire A_6;
-  wire Y_7;
-  wire B_7;
-  wire A_7;
-  wire A_8;
-  wire B_8;
-  wire Y_8;
-  wire A_9;
-  wire B_9;
-  wire Y_9;
-  wire Y_10;
-  wire B_10;
-  wire A_10;
-  wire Y_11;
-  wire B_11;
-  wire A_11;
-  wire A_12;
-  wire B_12;
-  wire Y_12;
-  wire A_13;
-  wire B_13;
-  wire Y_13;
-  wire Y_14;
-  wire B_14;
-  wire A_14;
-  wire Y_15;
-  wire B_15;
-  wire A_15;
-  wire A_16;
-  wire B_16;
-  wire Y_16;
-  wire A_17;
-  wire B_17;
-  wire Y_17;
-  wire Y_18;
-  wire B_18;
-  wire A_18;
-  wire Y_19;
-  wire B_19;
-  wire A_19;
-  wire A_20;
-  wire B_20;
-  wire Y_20;
-  wire A_21;
-  wire B_21;
-  wire Y_21;
-  wire Y_22;
-  wire B_22;
-  wire A_22;
-  wire Y_23;
-  wire B_23;
-  wire A_23;
-  assign A_0 = A[0];
-  assign A_1 = A[1];
-  assign A_2 = A[2];
-  assign A_3 = A[3];
-  assign A_4 = A[4];
-  assign A_5 = A[5];
-  assign A_6 = A[6];
-  assign A_7 = A[7];
-  assign A_8 = A[8];
-  assign A_9 = A[9];
-  assign A_10 = A[10];
-  assign A_11 = A[11];
-  assign A_12 = A[12];
-  assign A_13 = A[13];
-  assign A_14 = A[14];
-  assign A_15 = A[15];
-  assign A_16 = A[16];
-  assign A_17 = A[17];
-  assign A_18 = A[18];
-  assign A_19 = A[19];
-  assign A_20 = A[20];
-  assign A_21 = A[21];
-  assign A_22 = A[22];
-  assign A_23 = A[23];
-  assign B_0 = B[0];
-  assign B_1 = B[1];
-  assign B_2 = B[2];
-  assign B_3 = B[3];
-  assign B_4 = B[4];
-  assign B_5 = B[5];
-  assign B_6 = B[6];
-  assign B_7 = B[7];
-  assign B_8 = B[8];
-  assign B_9 = B[9];
-  assign B_10 = B[10];
-  assign B_11 = B[11];
-  assign B_12 = B[12];
-  assign B_13 = B[13];
-  assign B_14 = B[14];
-  assign B_15 = B[15];
-  assign B_16 = B[16];
-  assign B_17 = B[17];
-  assign B_18 = B[18];
-  assign B_19 = B[19];
-  assign B_20 = B[20];
-  assign B_21 = B[21];
-  assign B_22 = B[22];
-  assign B_23 = B[23];
-  // U1
-  \74157  \74157_i0 (
-    .S( SEL ),
-    .A1( A_0 ),
-    .B1( B_0 ),
-    .A2( A_1 ),
-    .B2( B_1 ),
-    .GND( 1'b0 ),
-    .B3( B_2 ),
-    .A3( A_2 ),
-    .B4( B_3 ),
-    .A4( A_3 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( Y_0 ),
-    .Y2( Y_1 ),
-    .Y3( Y_2 ),
-    .Y4( Y_3 )
-  );
-  // U2
-  \74157  \74157_i1 (
-    .S( SEL ),
-    .A1( A_4 ),
-    .B1( B_4 ),
-    .A2( A_5 ),
-    .B2( B_5 ),
-    .GND( 1'b0 ),
-    .B3( B_6 ),
-    .A3( A_6 ),
-    .B4( B_7 ),
-    .A4( A_7 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( Y_4 ),
-    .Y2( Y_5 ),
-    .Y3( Y_6 ),
-    .Y4( Y_7 )
-  );
-  // U3
-  \74157  \74157_i2 (
-    .S( SEL ),
-    .A1( A_8 ),
-    .B1( B_8 ),
-    .A2( A_9 ),
-    .B2( B_9 ),
-    .GND( 1'b0 ),
-    .B3( B_10 ),
-    .A3( A_10 ),
-    .B4( B_11 ),
-    .A4( A_11 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( Y_8 ),
-    .Y2( Y_9 ),
-    .Y3( Y_10 ),
-    .Y4( Y_11 )
-  );
-  // U4
-  \74157  \74157_i3 (
-    .S( SEL ),
-    .A1( A_12 ),
-    .B1( B_12 ),
-    .A2( A_13 ),
-    .B2( B_13 ),
-    .GND( 1'b0 ),
-    .B3( B_14 ),
-    .A3( A_14 ),
-    .B4( B_15 ),
-    .A4( A_15 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( Y_12 ),
-    .Y2( Y_13 ),
-    .Y3( Y_14 ),
-    .Y4( Y_15 )
-  );
-  // U5
-  \74157  \74157_i4 (
-    .S( SEL ),
-    .A1( A_16 ),
-    .B1( B_16 ),
-    .A2( A_17 ),
-    .B2( B_17 ),
-    .GND( 1'b0 ),
-    .B3( B_18 ),
-    .A3( A_18 ),
-    .B4( B_19 ),
-    .A4( A_19 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( Y_16 ),
-    .Y2( Y_17 ),
-    .Y3( Y_18 ),
-    .Y4( Y_19 )
-  );
-  // U6
-  \74157  \74157_i5 (
-    .S( SEL ),
-    .A1( A_20 ),
-    .B1( B_20 ),
-    .A2( A_21 ),
-    .B2( B_21 ),
-    .GND( 1'b0 ),
-    .B3( B_22 ),
-    .A3( A_22 ),
-    .B4( B_23 ),
-    .A4( A_23 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( Y_20 ),
-    .Y2( Y_21 ),
-    .Y3( Y_22 ),
-    .Y4( Y_23 )
-  );
-  assign Y[0] = Y_0;
-  assign Y[1] = Y_1;
-  assign Y[2] = Y_2;
-  assign Y[3] = Y_3;
-  assign Y[4] = Y_4;
-  assign Y[5] = Y_5;
-  assign Y[6] = Y_6;
-  assign Y[7] = Y_7;
-  assign Y[8] = Y_8;
-  assign Y[9] = Y_9;
-  assign Y[10] = Y_10;
-  assign Y[11] = Y_11;
-  assign Y[12] = Y_12;
-  assign Y[13] = Y_13;
-  assign Y[14] = Y_14;
-  assign Y[15] = Y_15;
-  assign Y[16] = Y_16;
-  assign Y[17] = Y_17;
-  assign Y[18] = Y_18;
-  assign Y[19] = Y_19;
-  assign Y[20] = Y_20;
-  assign Y[21] = Y_21;
-  assign Y[22] = Y_22;
-  assign Y[23] = Y_23;
-endmodule
 
 module pc (
   input CLK,
@@ -1423,7 +1126,7 @@ module pc (
   input [23:0] SP_DELTA,
   input SP_LOAD_N,
   input JUMP_UNCOND,
-  input \pc-en ,
+  input PCEN,
   output INT_EN,
   output HALTED,
   output [23:0] PC_OUT,
@@ -1440,11 +1143,10 @@ module pc (
   wire [23:0] SP_D;
   wire COND_RESULT;
   wire [23:0] PC_REL;
-  wire [23:0] L1_OUT;
-  wire [23:0] \SC2-2Y ;
   wire [23:0] INT_VECTOR;
   wire INT_ACK_temp;
   wire [23:0] \PC+1 ;
+  wire [1:0] \mux-sel ;
   // SC4-1
   sc_branch sc_branch_i0 (
     .FLAG_N( FLAG_N ),
@@ -1504,13 +1206,15 @@ module pc (
     .FLAGS_SAVE( FLAGS_SAVE )
   );
   assign PC_LOAD_N = ~ (COND_RESULT | INT_ACK_temp | JUMP_UNCOND);
+  assign \mux-sel [0] = (INT_ACK_temp | (~ MUX2_SEL & MUX1_SEL));
+  assign \mux-sel [1] = (MUX2_SEL | INT_ACK_temp);
   // SC1-1
   sc_pc_counter sc_pc_counter_i3 (
     .\~SR ( \~SR  ),
     .clk( CLK_GATED ),
     .\~PE ( PC_LOAD_N ),
     .D( LOAD_ADDR ),
-    .\pc-en ( \pc-en  ),
+    .\pc-en ( PCEN ),
     .Q( PC_OUT_temp )
   );
   // SC2-2
@@ -1525,7 +1229,7 @@ module pc (
     .clk( CLK_GATED ),
     .\~PE ( SP_LOAD_N ),
     .D( SP_D ),
-    .\pc-en ( \pc-en  ),
+    .\pc-en ( PCEN ),
     .Q( SP_OUT_temp )
   );
   // SC2-1
@@ -1534,301 +1238,26 @@ module pc (
     .A( PC_OUT_temp ),
     .S( PC_REL )
   );
-  // SC3-1
-  sc_mux24_2to1 sc_mux24_2to1_i7 (
-    .B( PC_REL ),
-    .A( ADDR_ABS ),
-    .SEL( MUX1_SEL ),
-    .Y( L1_OUT )
-  );
-  // SC3-2
-  sc_mux24_2to1 sc_mux24_2to1_i8 (
-    .B( ADDR_RET ),
-    .A( L1_OUT ),
-    .SEL( MUX2_SEL ),
-    .Y( \SC2-2Y  )
-  );
-  // SC3-3
-  sc_mux24_2to1 sc_mux24_2to1_i9 (
-    .B( INT_VECTOR ),
-    .A( \SC2-2Y  ),
-    .SEL( INT_ACK_temp ),
-    .Y( LOAD_ADDR )
-  );
   // SC2-3
-  sc_adder24 sc_adder24_i10 (
+  sc_adder24 sc_adder24_i7 (
     .B( \PC+1  ),
     .A( PC_OUT_temp ),
     .S( PC_SAVE )
   );
+  Mux_4x1_NBits #(
+    .Bits(24)
+  )
+  Mux_4x1_NBits_i8 (
+    .sel( \mux-sel  ),
+    .in_0( ADDR_ABS ),
+    .in_1( PC_REL ),
+    .in_2( ADDR_RET ),
+    .in_3( INT_VECTOR ),
+    .out( LOAD_ADDR )
+  );
   assign PC_OUT = PC_OUT_temp;
   assign SP_OUT = SP_OUT_temp;
   assign INT_ACK = INT_ACK_temp;
-endmodule
-
-module bus_arbitration (
-  input FETCH,
-  input [23:0] PC_OUT,
-  input [23:0] IR_ADDR,
-  input MEM_RD_IN,
-  output [23:0] ADDR_BUS,
-  output MEM_RD_OUT
-);
-  wire \~FETCH ;
-  wire PC_OUT_0;
-  wire IR_ADDR_0;
-  wire ADDR_BUS_0;
-  wire PC_OUT_2;
-  wire IR_ADDR_2;
-  wire ADDR_BUS_2;
-  wire ADDR_BUS_3;
-  wire IR_ADDR_3;
-  wire PC_OUT_3;
-  wire ADDR_BUS_1;
-  wire IR_ADDR_1;
-  wire PC_OUT_1;
-  wire PC_OUT_4;
-  wire IR_ADDR_4;
-  wire ADDR_BUS_4;
-  wire PC_OUT_6;
-  wire IR_ADDR_6;
-  wire ADDR_BUS_6;
-  wire ADDR_BUS_7;
-  wire IR_ADDR_7;
-  wire PC_OUT_7;
-  wire ADDR_BUS_5;
-  wire IR_ADDR_5;
-  wire PC_OUT_5;
-  wire PC_OUT_8;
-  wire IR_ADDR_8;
-  wire ADDR_BUS_8;
-  wire PC_OUT_10;
-  wire IR_ADDR_10;
-  wire ADDR_BUS_10;
-  wire ADDR_BUS_11;
-  wire IR_ADDR_11;
-  wire PC_OUT_11;
-  wire ADDR_BUS_9;
-  wire IR_ADDR_9;
-  wire PC_OUT_9;
-  wire PC_OUT_12;
-  wire IR_ADDR_12;
-  wire ADDR_BUS_12;
-  wire PC_OUT_14;
-  wire IR_ADDR_14;
-  wire ADDR_BUS_14;
-  wire ADDR_BUS_15;
-  wire IR_ADDR_15;
-  wire PC_OUT_15;
-  wire ADDR_BUS_13;
-  wire IR_ADDR_13;
-  wire PC_OUT_13;
-  wire PC_OUT_16;
-  wire IR_ADDR_16;
-  wire ADDR_BUS_16;
-  wire PC_OUT_18;
-  wire IR_ADDR_18;
-  wire ADDR_BUS_18;
-  wire ADDR_BUS_19;
-  wire IR_ADDR_19;
-  wire PC_OUT_19;
-  wire ADDR_BUS_17;
-  wire IR_ADDR_17;
-  wire PC_OUT_17;
-  wire PC_OUT_20;
-  wire IR_ADDR_20;
-  wire ADDR_BUS_20;
-  wire PC_OUT_22;
-  wire IR_ADDR_22;
-  wire ADDR_BUS_22;
-  wire ADDR_BUS_23;
-  wire IR_ADDR_23;
-  wire PC_OUT_23;
-  wire ADDR_BUS_21;
-  wire IR_ADDR_21;
-  wire PC_OUT_21;
-  assign MEM_RD_OUT = (MEM_RD_IN | FETCH);
-  assign \~FETCH  = ~ FETCH;
-  assign PC_OUT_0 = PC_OUT[0];
-  assign PC_OUT_1 = PC_OUT[1];
-  assign PC_OUT_2 = PC_OUT[2];
-  assign PC_OUT_3 = PC_OUT[3];
-  assign PC_OUT_4 = PC_OUT[4];
-  assign PC_OUT_5 = PC_OUT[5];
-  assign PC_OUT_6 = PC_OUT[6];
-  assign PC_OUT_7 = PC_OUT[7];
-  assign PC_OUT_8 = PC_OUT[8];
-  assign PC_OUT_9 = PC_OUT[9];
-  assign PC_OUT_10 = PC_OUT[10];
-  assign PC_OUT_11 = PC_OUT[11];
-  assign PC_OUT_12 = PC_OUT[12];
-  assign PC_OUT_13 = PC_OUT[13];
-  assign PC_OUT_14 = PC_OUT[14];
-  assign PC_OUT_15 = PC_OUT[15];
-  assign PC_OUT_16 = PC_OUT[16];
-  assign PC_OUT_17 = PC_OUT[17];
-  assign PC_OUT_18 = PC_OUT[18];
-  assign PC_OUT_19 = PC_OUT[19];
-  assign PC_OUT_20 = PC_OUT[20];
-  assign PC_OUT_21 = PC_OUT[21];
-  assign PC_OUT_22 = PC_OUT[22];
-  assign PC_OUT_23 = PC_OUT[23];
-  assign IR_ADDR_0 = IR_ADDR[0];
-  assign IR_ADDR_1 = IR_ADDR[1];
-  assign IR_ADDR_2 = IR_ADDR[2];
-  assign IR_ADDR_3 = IR_ADDR[3];
-  assign IR_ADDR_4 = IR_ADDR[4];
-  assign IR_ADDR_5 = IR_ADDR[5];
-  assign IR_ADDR_6 = IR_ADDR[6];
-  assign IR_ADDR_7 = IR_ADDR[7];
-  assign IR_ADDR_8 = IR_ADDR[8];
-  assign IR_ADDR_9 = IR_ADDR[9];
-  assign IR_ADDR_10 = IR_ADDR[10];
-  assign IR_ADDR_11 = IR_ADDR[11];
-  assign IR_ADDR_12 = IR_ADDR[12];
-  assign IR_ADDR_13 = IR_ADDR[13];
-  assign IR_ADDR_14 = IR_ADDR[14];
-  assign IR_ADDR_15 = IR_ADDR[15];
-  assign IR_ADDR_16 = IR_ADDR[16];
-  assign IR_ADDR_17 = IR_ADDR[17];
-  assign IR_ADDR_18 = IR_ADDR[18];
-  assign IR_ADDR_19 = IR_ADDR[19];
-  assign IR_ADDR_20 = IR_ADDR[20];
-  assign IR_ADDR_21 = IR_ADDR[21];
-  assign IR_ADDR_22 = IR_ADDR[22];
-  assign IR_ADDR_23 = IR_ADDR[23];
-  \74157  \74157_i0 (
-    .S( \~FETCH  ),
-    .A1( PC_OUT_0 ),
-    .B1( IR_ADDR_0 ),
-    .A2( PC_OUT_2 ),
-    .B2( IR_ADDR_2 ),
-    .GND( 1'b0 ),
-    .B3( IR_ADDR_3 ),
-    .A3( PC_OUT_3 ),
-    .B4( IR_ADDR_1 ),
-    .A4( PC_OUT_1 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( ADDR_BUS_0 ),
-    .Y2( ADDR_BUS_2 ),
-    .Y3( ADDR_BUS_3 ),
-    .Y4( ADDR_BUS_1 )
-  );
-  \74157  \74157_i1 (
-    .S( \~FETCH  ),
-    .A1( PC_OUT_4 ),
-    .B1( IR_ADDR_4 ),
-    .A2( PC_OUT_6 ),
-    .B2( IR_ADDR_6 ),
-    .GND( 1'b0 ),
-    .B3( IR_ADDR_7 ),
-    .A3( PC_OUT_7 ),
-    .B4( IR_ADDR_5 ),
-    .A4( PC_OUT_5 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( ADDR_BUS_4 ),
-    .Y2( ADDR_BUS_6 ),
-    .Y3( ADDR_BUS_7 ),
-    .Y4( ADDR_BUS_5 )
-  );
-  \74157  \74157_i2 (
-    .S( \~FETCH  ),
-    .A1( PC_OUT_8 ),
-    .B1( IR_ADDR_8 ),
-    .A2( PC_OUT_10 ),
-    .B2( IR_ADDR_10 ),
-    .GND( 1'b0 ),
-    .B3( IR_ADDR_11 ),
-    .A3( PC_OUT_11 ),
-    .B4( IR_ADDR_9 ),
-    .A4( PC_OUT_9 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( ADDR_BUS_8 ),
-    .Y2( ADDR_BUS_10 ),
-    .Y3( ADDR_BUS_11 ),
-    .Y4( ADDR_BUS_9 )
-  );
-  \74157  \74157_i3 (
-    .S( \~FETCH  ),
-    .A1( PC_OUT_12 ),
-    .B1( IR_ADDR_12 ),
-    .A2( PC_OUT_14 ),
-    .B2( IR_ADDR_14 ),
-    .GND( 1'b0 ),
-    .B3( IR_ADDR_15 ),
-    .A3( PC_OUT_15 ),
-    .B4( IR_ADDR_13 ),
-    .A4( PC_OUT_13 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( ADDR_BUS_12 ),
-    .Y2( ADDR_BUS_14 ),
-    .Y3( ADDR_BUS_15 ),
-    .Y4( ADDR_BUS_13 )
-  );
-  \74157  \74157_i4 (
-    .S( \~FETCH  ),
-    .A1( PC_OUT_16 ),
-    .B1( IR_ADDR_16 ),
-    .A2( PC_OUT_18 ),
-    .B2( IR_ADDR_18 ),
-    .GND( 1'b0 ),
-    .B3( IR_ADDR_19 ),
-    .A3( PC_OUT_19 ),
-    .B4( IR_ADDR_17 ),
-    .A4( PC_OUT_17 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( ADDR_BUS_16 ),
-    .Y2( ADDR_BUS_18 ),
-    .Y3( ADDR_BUS_19 ),
-    .Y4( ADDR_BUS_17 )
-  );
-  \74157  \74157_i5 (
-    .S( \~FETCH  ),
-    .A1( PC_OUT_20 ),
-    .B1( IR_ADDR_20 ),
-    .A2( PC_OUT_22 ),
-    .B2( IR_ADDR_22 ),
-    .GND( 1'b0 ),
-    .B3( IR_ADDR_23 ),
-    .A3( PC_OUT_23 ),
-    .B4( IR_ADDR_21 ),
-    .A4( PC_OUT_21 ),
-    .G( 1'b0 ),
-    .VCC( 1'b1 ),
-    .Y1( ADDR_BUS_20 ),
-    .Y2( ADDR_BUS_22 ),
-    .Y3( ADDR_BUS_23 ),
-    .Y4( ADDR_BUS_21 )
-  );
-  assign ADDR_BUS[0] = ADDR_BUS_0;
-  assign ADDR_BUS[1] = ADDR_BUS_1;
-  assign ADDR_BUS[2] = ADDR_BUS_2;
-  assign ADDR_BUS[3] = ADDR_BUS_3;
-  assign ADDR_BUS[4] = ADDR_BUS_4;
-  assign ADDR_BUS[5] = ADDR_BUS_5;
-  assign ADDR_BUS[6] = ADDR_BUS_6;
-  assign ADDR_BUS[7] = ADDR_BUS_7;
-  assign ADDR_BUS[8] = ADDR_BUS_8;
-  assign ADDR_BUS[9] = ADDR_BUS_9;
-  assign ADDR_BUS[10] = ADDR_BUS_10;
-  assign ADDR_BUS[11] = ADDR_BUS_11;
-  assign ADDR_BUS[12] = ADDR_BUS_12;
-  assign ADDR_BUS[13] = ADDR_BUS_13;
-  assign ADDR_BUS[14] = ADDR_BUS_14;
-  assign ADDR_BUS[15] = ADDR_BUS_15;
-  assign ADDR_BUS[16] = ADDR_BUS_16;
-  assign ADDR_BUS[17] = ADDR_BUS_17;
-  assign ADDR_BUS[18] = ADDR_BUS_18;
-  assign ADDR_BUS[19] = ADDR_BUS_19;
-  assign ADDR_BUS[20] = ADDR_BUS_20;
-  assign ADDR_BUS[21] = ADDR_BUS_21;
-  assign ADDR_BUS[22] = ADDR_BUS_22;
-  assign ADDR_BUS[23] = ADDR_BUS_23;
 endmodule
 module DIG_RAMDualAccess
 #(
@@ -1868,7 +1297,7 @@ module register (
   input [7:0] ADDR_W,
   input EXEC,
   input addr_c_sel,
-  input [7:0] IR_ADDR_CIN,
+  input [31:0] ir_bus,
   input clk,
   output [31:0] DATA_A,
   output [31:0] DATA_B,
@@ -1877,6 +1306,7 @@ module register (
   wire \ram-and ;
   wire [7:0] ADDR_C;
   wire [7:0] \0x00 ;
+  wire [7:0] IR_ADDR_CIN;
   assign \ram-and  = (EXEC & WE);
   assign \0x00 [0] = 1'b0;
   assign \0x00 [1] = 1'b0;
@@ -1886,6 +1316,7 @@ module register (
   assign \0x00 [5] = 1'b0;
   assign \0x00 [6] = 1'b0;
   assign \0x00 [7] = 1'b0;
+  assign IR_ADDR_CIN = ir_bus[23:16];
   // U1
   DIG_RAMDualAccess #(
     .Bits(32),
@@ -1992,23 +1423,31 @@ module flag_reg (
   );
 endmodule
 
-module Mux_4x1_NBits #(
+module Mux_8x1_NBits #(
     parameter Bits = 2
 )
 (
-    input [1:0] sel,
+    input [2:0] sel,
     input [(Bits - 1):0] in_0,
     input [(Bits - 1):0] in_1,
     input [(Bits - 1):0] in_2,
     input [(Bits - 1):0] in_3,
+    input [(Bits - 1):0] in_4,
+    input [(Bits - 1):0] in_5,
+    input [(Bits - 1):0] in_6,
+    input [(Bits - 1):0] in_7,
     output reg [(Bits - 1):0] out
 );
     always @ (*) begin
         case (sel)
-            2'h0: out = in_0;
-            2'h1: out = in_1;
-            2'h2: out = in_2;
-            2'h3: out = in_3;
+            3'h0: out = in_0;
+            3'h1: out = in_1;
+            3'h2: out = in_2;
+            3'h3: out = in_3;
+            3'h4: out = in_4;
+            3'h5: out = in_5;
+            3'h6: out = in_6;
+            3'h7: out = in_7;
             default:
                 out = 'h0;
         endcase
@@ -2017,32 +1456,38 @@ endmodule
 
 
 module wb_mux (
-  input [1:0] wb_sel,
+  input [2:0] wb_sel,
   input [31:0] alu_out,
   input [31:0] shift_out,
   input [23:0] pc_save,
   input [31:0] mem_din,
+  input [31:0] io_datain,
+  input [31:0] reg_a,
+  input [31:0] \ir-bus ,
   output [31:0] reg_w_data
 );
   wire [31:0] pc_save_32;
+  wire [31:0] \ir-bus(8-23) ;
+  wire [31:0] \ir-bus(0-23) ;
   assign pc_save_32[23:0] = pc_save;
-  assign pc_save_32[24] = 1'b0;
-  assign pc_save_32[25] = 1'b0;
-  assign pc_save_32[26] = 1'b0;
-  assign pc_save_32[27] = 1'b0;
-  assign pc_save_32[28] = 1'b0;
-  assign pc_save_32[29] = 1'b0;
-  assign pc_save_32[30] = 1'b0;
-  assign pc_save_32[31] = 1'b0;
-  Mux_4x1_NBits #(
+  assign pc_save_32[31:24] = 8'b0;
+  assign \ir-bus(8-23) [15:0] = \ir-bus [23:8];
+  assign \ir-bus(8-23) [31:16] = 16'b0;
+  assign \ir-bus(0-23) [23:0] = \ir-bus [23:0];
+  assign \ir-bus(0-23) [31:24] = 8'b0;
+  Mux_8x1_NBits #(
     .Bits(32)
   )
-  Mux_4x1_NBits_i0 (
+  Mux_8x1_NBits_i0 (
     .sel( wb_sel ),
     .in_0( alu_out ),
     .in_1( shift_out ),
     .in_2( pc_save_32 ),
     .in_3( mem_din ),
+    .in_4( io_datain ),
+    .in_5( reg_a ),
+    .in_6( \ir-bus(8-23)  ),
+    .in_7( \ir-bus(0-23)  ),
     .out( reg_w_data )
   );
 endmodule
@@ -2067,7 +1512,7 @@ module DIG_Register_BUS #(
    end
 endmodule
 
-module ir3 (
+module ir (
   input [31:0] DATA_IN,
   input LOAD,
   input CLK,
@@ -2105,277 +1550,328 @@ module ir3 (
   assign ADDR_ABS = OFFSET_temp;
   assign OFFSET = OFFSET_temp;
 endmodule
-module DIG_ROM_256X32_microcodeeeprom (
+
+module bus_arbitration (
+  input FETCH,
+  input [23:0] PC_OUT,
+  input [23:0] IR_ADDR,
+  input [31:0] Reg_A,
+  input MEM_RD_IN,
+  input [2:0] addr_sel,
+  input [31:0] Reg_b,
+  input [31:0] \Reg-A-off ,
+  input [31:0] \Reg-B-off ,
+  input [31:0] \Reg-AB ,
+  input [31:0] \PC-offset ,
+  input [31:0] \SP-out ,
+  input [31:0] \Alu-in ,
+  output [23:0] ADDR_BUS,
+  output MEM_RD_OUT
+);
+  wire [23:0] s_reg_a;
+  wire [23:0] s_reg_b;
+  wire [23:0] \reg-a-offset ;
+  wire [23:0] \reg-b-offset ;
+  wire [23:0] s_\pc-offset ;
+  wire [23:0] \reg-a-b ;
+  wire [23:0] s_\sp-out ;
+  wire [23:0] \alu-out ;
+  assign MEM_RD_OUT = (MEM_RD_IN | FETCH);
+  assign s_reg_a = Reg_A[23:0];
+  assign s_reg_b = Reg_b[23:0];
+  assign \reg-a-offset  = \Reg-A-off [23:0];
+  assign \reg-b-offset  = \Reg-B-off [23:0];
+  assign \reg-a-b  = \Reg-AB [23:0];
+  assign s_\pc-offset  = \PC-offset [23:0];
+  assign s_\sp-out  = \SP-out [23:0];
+  assign \alu-out  = \Alu-in [23:0];
+  Mux_8x1_NBits #(
+    .Bits(24)
+  )
+  Mux_8x1_NBits_i0 (
+    .sel( addr_sel ),
+    .in_0( IR_ADDR ),
+    .in_1( s_reg_a ),
+    .in_2( s_reg_b ),
+    .in_3( \reg-a-offset  ),
+    .in_4( \reg-b-offset  ),
+    .in_5( s_\pc-offset  ),
+    .in_6( \reg-a-b  ),
+    .in_7( s_\sp-out  ),
+    .out( ADDR_BUS )
+  );
+endmodule
+module DIG_ROM_256X48_microcodeeeprom (
     input [7:0] A,
     input sel,
-    output reg [31:0] D
+    output reg [47:0] D
 );
-    reg [31:0] my_rom [0:255];
+    reg [47:0] my_rom [0:255];
 
     always @ (*) begin
         if (~sel)
-            D = 32'hz;
+            D = 48'hz;
         else
             D = my_rom[A];
     end
 
     initial begin
-        my_rom[0] = 32'h8000000;
-        my_rom[1] = 32'h100c0596;
-        my_rom[2] = 32'h100c2d96;
-        my_rom[3] = 32'h100c0588;
-        my_rom[4] = 32'h100c05ee;
-        my_rom[5] = 32'h100c0566;
-        my_rom[6] = 32'h100c0133;
-        my_rom[7] = 32'h0;
-        my_rom[8] = 32'h0;
-        my_rom[9] = 32'h0;
-        my_rom[10] = 32'h0;
-        my_rom[11] = 32'h0;
-        my_rom[12] = 32'h0;
-        my_rom[13] = 32'h0;
-        my_rom[14] = 32'h0;
-        my_rom[15] = 32'h0;
-        my_rom[16] = 32'h100c4000;
-        my_rom[17] = 32'h100d4000;
-        my_rom[18] = 32'h100e4000;
-        my_rom[19] = 32'h100f4000;
-        my_rom[20] = 32'h100c4000;
-        my_rom[21] = 32'h0;
-        my_rom[22] = 32'h0;
-        my_rom[23] = 32'h0;
-        my_rom[24] = 32'h0;
-        my_rom[25] = 32'h0;
-        my_rom[26] = 32'h0;
-        my_rom[27] = 32'h0;
-        my_rom[28] = 32'h0;
-        my_rom[29] = 32'h0;
-        my_rom[30] = 32'h0;
-        my_rom[31] = 32'h0;
-        my_rom[32] = 32'h1818c000;
-        my_rom[33] = 32'h18200000;
-        my_rom[34] = 32'h300804cc;
-        my_rom[35] = 32'h0;
-        my_rom[36] = 32'h0;
-        my_rom[37] = 32'h0;
-        my_rom[38] = 32'h0;
-        my_rom[39] = 32'h0;
-        my_rom[40] = 32'h0;
-        my_rom[41] = 32'h0;
-        my_rom[42] = 32'h0;
-        my_rom[43] = 32'h0;
-        my_rom[44] = 32'h0;
-        my_rom[45] = 32'h0;
-        my_rom[46] = 32'h0;
-        my_rom[47] = 32'h0;
-        my_rom[48] = 32'h11800000;
-        my_rom[49] = 32'h10800000;
-        my_rom[50] = 32'h13888000;
-        my_rom[51] = 32'h11800000;
-        my_rom[52] = 32'h0;
-        my_rom[53] = 32'h0;
-        my_rom[54] = 32'h0;
-        my_rom[55] = 32'h0;
-        my_rom[56] = 32'h0;
-        my_rom[57] = 32'h0;
-        my_rom[58] = 32'h0;
-        my_rom[59] = 32'h0;
-        my_rom[60] = 32'h0;
-        my_rom[61] = 32'h0;
-        my_rom[62] = 32'h0;
-        my_rom[63] = 32'h0;
-        my_rom[64] = 32'h0;
-        my_rom[65] = 32'h0;
-        my_rom[66] = 32'h0;
-        my_rom[67] = 32'h0;
-        my_rom[68] = 32'h0;
-        my_rom[69] = 32'h0;
-        my_rom[70] = 32'h0;
-        my_rom[71] = 32'h0;
-        my_rom[72] = 32'h0;
-        my_rom[73] = 32'h0;
-        my_rom[74] = 32'h0;
-        my_rom[75] = 32'h0;
-        my_rom[76] = 32'h0;
-        my_rom[77] = 32'h0;
-        my_rom[78] = 32'h0;
-        my_rom[79] = 32'h0;
-        my_rom[80] = 32'h0;
-        my_rom[81] = 32'h0;
-        my_rom[82] = 32'h0;
-        my_rom[83] = 32'h0;
-        my_rom[84] = 32'h0;
-        my_rom[85] = 32'h0;
-        my_rom[86] = 32'h0;
-        my_rom[87] = 32'h0;
-        my_rom[88] = 32'h0;
-        my_rom[89] = 32'h0;
-        my_rom[90] = 32'h0;
-        my_rom[91] = 32'h0;
-        my_rom[92] = 32'h0;
-        my_rom[93] = 32'h0;
-        my_rom[94] = 32'h0;
-        my_rom[95] = 32'h0;
-        my_rom[96] = 32'h0;
-        my_rom[97] = 32'h0;
-        my_rom[98] = 32'h0;
-        my_rom[99] = 32'h0;
-        my_rom[100] = 32'h0;
-        my_rom[101] = 32'h0;
-        my_rom[102] = 32'h0;
-        my_rom[103] = 32'h0;
-        my_rom[104] = 32'h0;
-        my_rom[105] = 32'h0;
-        my_rom[106] = 32'h0;
-        my_rom[107] = 32'h0;
-        my_rom[108] = 32'h0;
-        my_rom[109] = 32'h0;
-        my_rom[110] = 32'h0;
-        my_rom[111] = 32'h0;
-        my_rom[112] = 32'h0;
-        my_rom[113] = 32'h0;
-        my_rom[114] = 32'h0;
-        my_rom[115] = 32'h0;
-        my_rom[116] = 32'h0;
-        my_rom[117] = 32'h0;
-        my_rom[118] = 32'h0;
-        my_rom[119] = 32'h0;
-        my_rom[120] = 32'h0;
-        my_rom[121] = 32'h0;
-        my_rom[122] = 32'h0;
-        my_rom[123] = 32'h0;
-        my_rom[124] = 32'h0;
-        my_rom[125] = 32'h0;
-        my_rom[126] = 32'h0;
-        my_rom[127] = 32'h0;
-        my_rom[128] = 32'h10080080;
-        my_rom[129] = 32'h10080081;
-        my_rom[130] = 32'h10080082;
-        my_rom[131] = 32'h10080083;
-        my_rom[132] = 32'h10080084;
-        my_rom[133] = 32'h10080085;
-        my_rom[134] = 32'h10080086;
-        my_rom[135] = 32'h10080087;
-        my_rom[136] = 32'h10080088;
-        my_rom[137] = 32'h10080089;
-        my_rom[138] = 32'h1008008a;
-        my_rom[139] = 32'h1008008b;
-        my_rom[140] = 32'h1008008c;
-        my_rom[141] = 32'h1008008d;
-        my_rom[142] = 32'h1008008e;
-        my_rom[143] = 32'h1008008f;
-        my_rom[144] = 32'h10080090;
-        my_rom[145] = 32'h10080091;
-        my_rom[146] = 32'h10080092;
-        my_rom[147] = 32'h10080093;
-        my_rom[148] = 32'h10080094;
-        my_rom[149] = 32'h10080095;
-        my_rom[150] = 32'h80c2196;
-        my_rom[151] = 32'h10080097;
-        my_rom[152] = 32'h10080098;
-        my_rom[153] = 32'h10080099;
-        my_rom[154] = 32'h1008009a;
-        my_rom[155] = 32'h1008009b;
-        my_rom[156] = 32'h1008009c;
-        my_rom[157] = 32'h1008009d;
-        my_rom[158] = 32'h1008009e;
-        my_rom[159] = 32'h1008009f;
-        my_rom[160] = 32'h100800a0;
-        my_rom[161] = 32'h100800a1;
-        my_rom[162] = 32'h100800a2;
-        my_rom[163] = 32'h100800a3;
-        my_rom[164] = 32'h100800a4;
-        my_rom[165] = 32'h100800a5;
-        my_rom[166] = 32'h100800a6;
-        my_rom[167] = 32'h100800a7;
-        my_rom[168] = 32'h100800a8;
-        my_rom[169] = 32'h100800a9;
-        my_rom[170] = 32'h100800aa;
-        my_rom[171] = 32'h100800ab;
-        my_rom[172] = 32'h100800ac;
-        my_rom[173] = 32'h100800ad;
-        my_rom[174] = 32'h100800ae;
-        my_rom[175] = 32'h100800af;
-        my_rom[176] = 32'h100800b0;
-        my_rom[177] = 32'h100800b1;
-        my_rom[178] = 32'h100800b2;
-        my_rom[179] = 32'h100800b3;
-        my_rom[180] = 32'h100800b4;
-        my_rom[181] = 32'h100800b5;
-        my_rom[182] = 32'h100800b6;
-        my_rom[183] = 32'h100800b7;
-        my_rom[184] = 32'h100800b8;
-        my_rom[185] = 32'h100800b9;
-        my_rom[186] = 32'h100800ba;
-        my_rom[187] = 32'h100800bb;
-        my_rom[188] = 32'h100800bc;
-        my_rom[189] = 32'h100800bd;
-        my_rom[190] = 32'h100800be;
-        my_rom[191] = 32'h100800bf;
-        my_rom[192] = 32'h100800c0;
-        my_rom[193] = 32'h100800c1;
-        my_rom[194] = 32'h100800c2;
-        my_rom[195] = 32'h100800c3;
-        my_rom[196] = 32'h100800c4;
-        my_rom[197] = 32'h100800c5;
-        my_rom[198] = 32'h100800c6;
-        my_rom[199] = 32'h100800c7;
-        my_rom[200] = 32'h100800c8;
-        my_rom[201] = 32'h100800c9;
-        my_rom[202] = 32'h100800ca;
-        my_rom[203] = 32'h100800cb;
-        my_rom[204] = 32'h100800cc;
-        my_rom[205] = 32'h100800cd;
-        my_rom[206] = 32'h100800ce;
-        my_rom[207] = 32'h100800cf;
-        my_rom[208] = 32'h100800d0;
-        my_rom[209] = 32'h100800d1;
-        my_rom[210] = 32'h100800d2;
-        my_rom[211] = 32'h100800d3;
-        my_rom[212] = 32'h100800d4;
-        my_rom[213] = 32'h100800d5;
-        my_rom[214] = 32'h100800d6;
-        my_rom[215] = 32'h100800d7;
-        my_rom[216] = 32'h100800d8;
-        my_rom[217] = 32'h100800d9;
-        my_rom[218] = 32'h100800da;
-        my_rom[219] = 32'h100800db;
-        my_rom[220] = 32'h100800dc;
-        my_rom[221] = 32'h100800dd;
-        my_rom[222] = 32'h100800de;
-        my_rom[223] = 32'h100800df;
-        my_rom[224] = 32'h100800e0;
-        my_rom[225] = 32'h100800e1;
-        my_rom[226] = 32'h100800e2;
-        my_rom[227] = 32'h100800e3;
-        my_rom[228] = 32'h100800e4;
-        my_rom[229] = 32'h100800e5;
-        my_rom[230] = 32'h100800e6;
-        my_rom[231] = 32'h100800e7;
-        my_rom[232] = 32'h100800e8;
-        my_rom[233] = 32'h100800e9;
-        my_rom[234] = 32'h100800ea;
-        my_rom[235] = 32'h100800eb;
-        my_rom[236] = 32'h100800ec;
-        my_rom[237] = 32'h100800ed;
-        my_rom[238] = 32'h100800ee;
-        my_rom[239] = 32'h100800ef;
-        my_rom[240] = 32'h100800f0;
-        my_rom[241] = 32'h100800f1;
-        my_rom[242] = 32'h100800f2;
-        my_rom[243] = 32'h100800f3;
-        my_rom[244] = 32'h100800f4;
-        my_rom[245] = 32'h100800f5;
-        my_rom[246] = 32'h100800f6;
-        my_rom[247] = 32'h100800f7;
-        my_rom[248] = 32'h100800f8;
-        my_rom[249] = 32'h100800f9;
-        my_rom[250] = 32'h100800fa;
-        my_rom[251] = 32'h100800fb;
-        my_rom[252] = 32'h100800fc;
-        my_rom[253] = 32'h100800fd;
-        my_rom[254] = 32'h100800fe;
-        my_rom[255] = 32'h10000000;
+        my_rom[0] = 48'h8000000;
+        my_rom[1] = 48'h100c0596;
+        my_rom[2] = 48'h100c0769;
+        my_rom[3] = 48'h100c0588;
+        my_rom[4] = 48'h100c05ee;
+        my_rom[5] = 48'h100c0566;
+        my_rom[6] = 48'h100c0133;
+        my_rom[7] = 48'h100c0796;
+        my_rom[8] = 48'h100c1d96;
+        my_rom[9] = 48'h100c1796;
+        my_rom[10] = 48'h100c1d96;
+        my_rom[11] = 48'h100c1096;
+        my_rom[12] = 48'h100c2596;
+        my_rom[13] = 48'h100c2296;
+        my_rom[14] = 48'h100c2a96;
+        my_rom[15] = 48'h100c0f96;
+        my_rom[16] = 48'h100c4000;
+        my_rom[17] = 48'h100d4000;
+        my_rom[18] = 48'h100e4000;
+        my_rom[19] = 48'h100f4000;
+        my_rom[20] = 48'h100c4000;
+        my_rom[21] = 48'h104c1500;
+        my_rom[22] = 48'h104c1502;
+        my_rom[23] = 48'h104c1503;
+        my_rom[24] = 48'h104c1504;
+        my_rom[25] = 48'h104c1505;
+        my_rom[26] = 48'h104c1506;
+        my_rom[27] = 48'h104c1508;
+        my_rom[28] = 48'h104c1509;
+        my_rom[29] = 48'h104c150b;
+        my_rom[30] = 48'h104c150c;
+        my_rom[31] = 48'h104c150d;
+        my_rom[32] = 48'h1818c000;
+        my_rom[33] = 48'h18200000;
+        my_rom[34] = 48'h300804cc;
+        my_rom[35] = 48'h5818c000;
+        my_rom[36] = 48'h58200000;
+        my_rom[37] = 48'h104c150e;
+        my_rom[38] = 48'h104c150f;
+        my_rom[39] = 48'h104c1510;
+        my_rom[40] = 48'h104c1511;
+        my_rom[41] = 48'h104c1512;
+        my_rom[42] = 48'h104c1513;
+        my_rom[43] = 48'h104c1514;
+        my_rom[44] = 48'h104c1515;
+        my_rom[45] = 48'h104c1518;
+        my_rom[46] = 48'h104c1519;
+        my_rom[47] = 48'h104c151a;
+        my_rom[48] = 48'h11800000;
+        my_rom[49] = 48'h10800000;
+        my_rom[50] = 48'h13888000;
+        my_rom[51] = 48'h11800000;
+        my_rom[52] = 48'h100c0596;
+        my_rom[53] = 48'h100c2d96;
+        my_rom[54] = 48'h100c2b96;
+        my_rom[55] = 48'h100c0c96;
+        my_rom[56] = 48'h100c0e96;
+        my_rom[57] = 48'h100c2f96;
+        my_rom[58] = 48'h100c0896;
+        my_rom[59] = 48'h100c2696;
+        my_rom[60] = 48'h100c0196;
+        my_rom[61] = 48'h100c0496;
+        my_rom[62] = 48'h104c151c;
+        my_rom[63] = 48'h104c151d;
+        my_rom[64] = 48'h104c1540;
+        my_rom[65] = 48'h104c1541;
+        my_rom[66] = 48'h104c1542;
+        my_rom[67] = 48'h104c1543;
+        my_rom[68] = 48'h104c1544;
+        my_rom[69] = 48'h104c1545;
+        my_rom[70] = 48'h104c1546;
+        my_rom[71] = 48'h104c1547;
+        my_rom[72] = 48'h104c1548;
+        my_rom[73] = 48'h104c1549;
+        my_rom[74] = 48'h104c154a;
+        my_rom[75] = 48'h104c154b;
+        my_rom[76] = 48'h104c154c;
+        my_rom[77] = 48'h104c154d;
+        my_rom[78] = 48'h104c154e;
+        my_rom[79] = 48'h104c154f;
+        my_rom[80] = 48'h104c1550;
+        my_rom[81] = 48'h104c1551;
+        my_rom[82] = 48'h104c1552;
+        my_rom[83] = 48'h104c1553;
+        my_rom[84] = 48'h104c1554;
+        my_rom[85] = 48'h104c1555;
+        my_rom[86] = 48'h104c1556;
+        my_rom[87] = 48'h104c1557;
+        my_rom[88] = 48'h104c1558;
+        my_rom[89] = 48'h104c1559;
+        my_rom[90] = 48'h104c155a;
+        my_rom[91] = 48'h104c155b;
+        my_rom[92] = 48'h104c155c;
+        my_rom[93] = 48'h104c155d;
+        my_rom[94] = 48'h104c155e;
+        my_rom[95] = 48'h104c155f;
+        my_rom[96] = 48'h104c1501;
+        my_rom[97] = 48'h104c1517;
+        my_rom[98] = 48'h104c1516;
+        my_rom[99] = 48'h104c151b;
+        my_rom[100] = 48'h104c1527;
+        my_rom[101] = 48'h104c1528;
+        my_rom[102] = 48'h104c1536;
+        my_rom[103] = 48'h104c1556;
+        my_rom[104] = 48'h104c1555;
+        my_rom[105] = 48'h104c155a;
+        my_rom[106] = 48'h104c15e8;
+        my_rom[107] = 48'h104c15d8;
+        my_rom[108] = 48'h104c1507;
+        my_rom[109] = 48'h104c150a;
+        my_rom[110] = 48'h104c1544;
+        my_rom[111] = 48'h104c1550;
+        my_rom[112] = 48'h100c0096;
+        my_rom[113] = 48'h100c2196;
+        my_rom[114] = 48'h100c2396;
+        my_rom[115] = 48'h100c2496;
+        my_rom[116] = 48'h100c2796;
+        my_rom[117] = 48'h100c0996;
+        my_rom[118] = 48'h100c0d96;
+        my_rom[119] = 48'h100c2d96;
+        my_rom[120] = 48'h100c0596;
+        my_rom[121] = 48'h100c2596;
+        my_rom[122] = 48'h104c151e;
+        my_rom[123] = 48'h104c151f;
+        my_rom[124] = 48'h104c1520;
+        my_rom[125] = 48'h104c1521;
+        my_rom[126] = 48'h104c1522;
+        my_rom[127] = 48'h104c1523;
+        my_rom[128] = 48'h104c1524;
+        my_rom[129] = 48'h104c1525;
+        my_rom[130] = 48'h104c1526;
+        my_rom[131] = 48'h104c1529;
+        my_rom[132] = 48'h104c152a;
+        my_rom[133] = 48'h104c152b;
+        my_rom[134] = 48'h104c152c;
+        my_rom[135] = 48'h104c152d;
+        my_rom[136] = 48'h104c152e;
+        my_rom[137] = 48'h104c152f;
+        my_rom[138] = 48'h104c1530;
+        my_rom[139] = 48'h104c1531;
+        my_rom[140] = 48'h104c1532;
+        my_rom[141] = 48'h104c1533;
+        my_rom[142] = 48'h104c1534;
+        my_rom[143] = 48'h104c1535;
+        my_rom[144] = 48'h100c0590;
+        my_rom[145] = 48'h100c0591;
+        my_rom[146] = 48'h100c0592;
+        my_rom[147] = 48'h100c0593;
+        my_rom[148] = 48'h100c0594;
+        my_rom[149] = 48'h100c0595;
+        my_rom[150] = 48'h100c0596;
+        my_rom[151] = 48'h100c0597;
+        my_rom[152] = 48'h100c0598;
+        my_rom[153] = 48'h100c0599;
+        my_rom[154] = 48'h100c059a;
+        my_rom[155] = 48'h100c059b;
+        my_rom[156] = 48'h100c059c;
+        my_rom[157] = 48'h100c059d;
+        my_rom[158] = 48'h100c059e;
+        my_rom[159] = 48'h100c059f;
+        my_rom[160] = 48'h100c05a0;
+        my_rom[161] = 48'h100c05a1;
+        my_rom[162] = 48'h100c05a2;
+        my_rom[163] = 48'h100c05a3;
+        my_rom[164] = 48'h100c05a4;
+        my_rom[165] = 48'h100c05a5;
+        my_rom[166] = 48'h100c05a6;
+        my_rom[167] = 48'h100c05a7;
+        my_rom[168] = 48'h100c05a8;
+        my_rom[169] = 48'h100c05a9;
+        my_rom[170] = 48'h100c05aa;
+        my_rom[171] = 48'h100c05ab;
+        my_rom[172] = 48'h100c05ac;
+        my_rom[173] = 48'h100c05ad;
+        my_rom[174] = 48'h100c05ae;
+        my_rom[175] = 48'h100c05af;
+        my_rom[176] = 48'h100c05b0;
+        my_rom[177] = 48'h100c05b1;
+        my_rom[178] = 48'h100c05b2;
+        my_rom[179] = 48'h100c05b3;
+        my_rom[180] = 48'h100c05b4;
+        my_rom[181] = 48'h100c05b5;
+        my_rom[182] = 48'h100c05b6;
+        my_rom[183] = 48'h100c05b7;
+        my_rom[184] = 48'h100c05b8;
+        my_rom[185] = 48'h100c05b9;
+        my_rom[186] = 48'h100c05ba;
+        my_rom[187] = 48'h100c05bb;
+        my_rom[188] = 48'h100c05bc;
+        my_rom[189] = 48'h100c05bd;
+        my_rom[190] = 48'h100c05be;
+        my_rom[191] = 48'h100c05bf;
+        my_rom[192] = 48'h100c0585;
+        my_rom[193] = 48'h100c05c1;
+        my_rom[194] = 48'h100c05c2;
+        my_rom[195] = 48'h100c0588;
+        my_rom[196] = 48'h100c05c4;
+        my_rom[197] = 48'h100c05c5;
+        my_rom[198] = 48'h100c05c6;
+        my_rom[199] = 48'h100c05c7;
+        my_rom[200] = 48'h100c05c8;
+        my_rom[201] = 48'h100c05c9;
+        my_rom[202] = 48'h100c05ca;
+        my_rom[203] = 48'h100c05cb;
+        my_rom[204] = 48'h100c05cc;
+        my_rom[205] = 48'h100c05cd;
+        my_rom[206] = 48'h100c05ce;
+        my_rom[207] = 48'h100c05cf;
+        my_rom[208] = 48'h100c05d0;
+        my_rom[209] = 48'h100c05d1;
+        my_rom[210] = 48'h100c05d2;
+        my_rom[211] = 48'h100c05d3;
+        my_rom[212] = 48'h100c05d4;
+        my_rom[213] = 48'h100c05d5;
+        my_rom[214] = 48'h100c05d6;
+        my_rom[215] = 48'h100c05d7;
+        my_rom[216] = 48'h100c05d8;
+        my_rom[217] = 48'h100c05d9;
+        my_rom[218] = 48'h100c05da;
+        my_rom[219] = 48'h100c05db;
+        my_rom[220] = 48'h100c05dc;
+        my_rom[221] = 48'h100c05dd;
+        my_rom[222] = 48'h100c05de;
+        my_rom[223] = 48'h100c05df;
+        my_rom[224] = 48'h100c05e0;
+        my_rom[225] = 48'h100c05e1;
+        my_rom[226] = 48'h100c05e2;
+        my_rom[227] = 48'h100c05e3;
+        my_rom[228] = 48'h100c05e4;
+        my_rom[229] = 48'h100c05e5;
+        my_rom[230] = 48'h100c05e6;
+        my_rom[231] = 48'h100c05e7;
+        my_rom[232] = 48'h100c05e8;
+        my_rom[233] = 48'h100c05e9;
+        my_rom[234] = 48'h100c05ea;
+        my_rom[235] = 48'h100c05eb;
+        my_rom[236] = 48'h100c05ec;
+        my_rom[237] = 48'h100c05ed;
+        my_rom[238] = 48'h100c05ee;
+        my_rom[239] = 48'h100c05ef;
+        my_rom[240] = 48'h100c05f0;
+        my_rom[241] = 48'h100c05f1;
+        my_rom[242] = 48'h100c05f2;
+        my_rom[243] = 48'h100c05f3;
+        my_rom[244] = 48'h100c05f4;
+        my_rom[245] = 48'h100c05f5;
+        my_rom[246] = 48'h100c05f6;
+        my_rom[247] = 48'h100c05f7;
+        my_rom[248] = 48'h100c05f8;
+        my_rom[249] = 48'h100c05f9;
+        my_rom[250] = 48'h100c05fa;
+        my_rom[251] = 48'h100c05fb;
+        my_rom[252] = 48'h100c05fc;
+        my_rom[253] = 48'h100c05fd;
+        my_rom[254] = 48'h100c05fe;
+        my_rom[255] = 48'h10000000;
     end
 endmodule
 
@@ -2385,7 +1881,7 @@ module microcode (
   output [7:0] \alu-op ,
   output [4:0] \alu-pre ,
   output \cin-sel ,
-  output [1:0] \wb-sel ,
+  output [2:0] \wb-sel ,
   output [1:0] \shift-op ,
   output \flags-we ,
   output \reg-we ,
@@ -2396,12 +1892,14 @@ module microcode (
   output \jump-type ,
   output [1:0] \sp-op ,
   output [1:0] cycles,
-  output [1:0] unused,
-  output \b-main-sel 
+  output [2:0] ctrl_bus_sel,
+  output [2:0] \b-main-sel ,
+  output \pc-rel ,
+  output [1:0] unused
 );
-  wire [31:0] s0;
+  wire [47:0] s0;
   // microcode eeprom
-  DIG_ROM_256X32_microcodeeeprom DIG_ROM_256X32_microcodeeeprom_i0 (
+  DIG_ROM_256X48_microcodeeeprom DIG_ROM_256X48_microcodeeeprom_i0 (
     .A( op ),
     .sel( 1'b1 ),
     .D( s0 )
@@ -2409,19 +1907,21 @@ module microcode (
   assign \alu-op  = s0[7:0];
   assign \alu-pre  = s0[12:8];
   assign \cin-sel  = s0[13];
-  assign \wb-sel  = s0[15:14];
-  assign \shift-op  = s0[17:16];
-  assign \flags-we  = s0[18];
-  assign \reg-we  = s0[19];
-  assign \mem-rd  = s0[20];
-  assign \mem-wr  = s0[21];
-  assign \addr-csel  = s0[22];
-  assign \branch-en  = s0[23];
-  assign \jump-type  = s0[24];
-  assign \sp-op  = s0[26:25];
-  assign cycles = s0[28:27];
-  assign \b-main-sel  = s0[29];
-  assign unused = s0[31:30];
+  assign \wb-sel  = s0[16:14];
+  assign \shift-op  = s0[18:17];
+  assign \flags-we  = s0[19];
+  assign \reg-we  = s0[20];
+  assign \mem-rd  = s0[21];
+  assign \mem-wr  = s0[22];
+  assign \addr-csel  = s0[23];
+  assign \branch-en  = s0[24];
+  assign \jump-type  = s0[25];
+  assign \sp-op  = s0[27:26];
+  assign cycles = s0[29:28];
+  assign \b-main-sel  = s0[32:30];
+  assign ctrl_bus_sel = s0[35:33];
+  assign \pc-rel  = s0[36];
+  assign unused = s0[38:37];
 endmodule
 
 module CompUnsigned #(
@@ -2497,54 +1997,60 @@ module mmio_bus (
   );
   assign is_mmio = is_mmio_temp;
 endmodule
-module DIG_RAMDualPort
-#(
-    parameter Bits = 8,
-    parameter AddrBits = 4
-)
-(
-  input [(AddrBits-1):0] A,
-  input [(Bits-1):0] Din,
-  input str,
-  input C,
-  input ld,
-  output [(Bits-1):0] D
+
+// quad 2-line to 1-line data selectors/multiplexers
+module \74157  (
+  input S, // select
+  input A1,
+  input A2,
+  input A3,
+  input A4,
+  input B1,
+  input B2,
+  input B3,
+  input B4,
+  input G, // strobe
+  input VCC,
+  input GND,
+  output Y1,
+  output Y2,
+  output Y3,
+  output Y4
 );
-  reg [(Bits-1):0] memory[0:((1 << AddrBits) - 1)];
-
-  assign D = ld? memory[A] : 'hz;
-
-  always @ (posedge C) begin
-    if (str)
-      memory[A] <= Din;
-  end
-endmodule
-
-
-module memory (
-  input [23:0] ADDR,
-  input MEM_RD,
-  input MEM_WR,
-  input CLK,
-  input [31:0] CPU_DIN,
-  output [31:0] CPU_D_OUT
-);
-  wire \~WE ;
-  wire \~OE ;
-  assign \~WE  = ~ MEM_WR;
-  assign \~OE  = ~ MEM_RD;
-  DIG_RAMDualPort #(
-    .Bits(32),
-    .AddrBits(24)
+  wire [3:0] s0;
+  wire [3:0] s1;
+  wire [3:0] s2;
+  wire [3:0] s3;
+  assign s1[0] = B1;
+  assign s1[1] = B2;
+  assign s1[2] = B3;
+  assign s1[3] = B4;
+  assign s0[0] = A1;
+  assign s0[1] = A2;
+  assign s0[2] = A3;
+  assign s0[3] = A4;
+  Mux_2x1_NBits #(
+    .Bits(4)
   )
-  DIG_RAMDualPort_i0 (
-    .A( ADDR ),
-    .Din( CPU_DIN ),
-    .str( MEM_WR ),
-    .C( CLK ),
-    .ld( MEM_RD ),
-    .D( CPU_D_OUT )
+  Mux_2x1_NBits_i0 (
+    .sel( S ),
+    .in_0( s0 ),
+    .in_1( s1 ),
+    .out( s2 )
   );
+  Mux_2x1_NBits #(
+    .Bits(4)
+  )
+  Mux_2x1_NBits_i1 (
+    .sel( G ),
+    .in_0( s2 ),
+    .in_1( 4'b0 ),
+    .out( s3 )
+  );
+  assign Y1 = s3[0];
+  assign Y2 = s3[1];
+  assign Y3 = s3[2];
+  assign Y4 = s3[3];
 endmodule
 
 module shift (
@@ -2651,6 +2157,7 @@ module shift (
   wire in_b29;
   wire in_b30;
   wire in_b31;
+  wire [4:0] bin;
   wire shamt0;
   wire shamt1;
   wire shamt3;
@@ -2850,15 +2357,16 @@ module shift (
   assign in_b29 = A[29];
   assign in_b30 = A[30];
   assign in_b31 = A[31];
-  assign shamt0 = B[0];
-  assign shamt1 = B[1];
-  assign shamt2 = B[2];
-  assign shamt3 = B[3];
-  assign shamt4 = B[4];
   assign MODE0 = mode[0];
   assign MODE1 = mode[1];
+  assign bin = B[4:0];
   assign fill = ((MODE1 & ~ MODE0) & in_b31);
   assign LSL = (MODE0 & ~ MODE1);
+  assign shamt0 = bin[0];
+  assign shamt1 = bin[1];
+  assign shamt2 = bin[2];
+  assign shamt3 = bin[3];
+  assign shamt4 = bin[4];
   \74157  \74157_i0 (
     .S( LSL ),
     .A1( in_b00 ),
@@ -3972,6 +3480,164 @@ module io_controller (
   );
 endmodule
 
+module b_mux (
+  input [31:0] ir,
+  input [31:0] reg_b,
+  input [2:0] sel,
+  output [31:0] \alu-b 
+);
+  wire [31:0] ir0;
+  wire [31:0] ir1;
+  wire [31:0] ir2;
+  wire [31:0] ir3;
+  wire [31:0] ir4;
+  wire [31:0] ir5;
+  wire [23:0] ir4_out;
+  wire ir_23;
+  wire [15:0] ir1_out;
+  wire ir_7;
+  assign ir0[15:0] = ir[23:8];
+  assign ir0[31:16] = 16'b0;
+  assign ir2[15:0] = 16'b0;
+  assign ir2[31:16] = ir[23:8];
+  assign ir3[11:0] = 12'b0;
+  assign ir3[31:12] = ir[23:4];
+  assign ir_23 = ir[23];
+  assign ir_7 = ir[7];
+  assign ir4_out[0] = ir_7;
+  assign ir4_out[1] = ir_7;
+  assign ir4_out[2] = ir_7;
+  assign ir4_out[3] = ir_7;
+  assign ir4_out[4] = ir_7;
+  assign ir4_out[5] = ir_7;
+  assign ir4_out[6] = ir_7;
+  assign ir4_out[7] = ir_7;
+  assign ir4_out[8] = ir_7;
+  assign ir4_out[9] = ir_7;
+  assign ir4_out[10] = ir_7;
+  assign ir4_out[11] = ir_7;
+  assign ir4_out[12] = ir_7;
+  assign ir4_out[13] = ir_7;
+  assign ir4_out[14] = ir_7;
+  assign ir4_out[15] = ir_7;
+  assign ir4_out[16] = ir_7;
+  assign ir4_out[17] = ir_7;
+  assign ir4_out[18] = ir_7;
+  assign ir4_out[19] = ir_7;
+  assign ir4_out[20] = ir_7;
+  assign ir4_out[21] = ir_7;
+  assign ir4_out[22] = ir_7;
+  assign ir4_out[23] = ir_7;
+  assign ir1_out[0] = ir_23;
+  assign ir1_out[1] = ir_23;
+  assign ir1_out[2] = ir_23;
+  assign ir1_out[3] = ir_23;
+  assign ir1_out[4] = ir_23;
+  assign ir1_out[5] = ir_23;
+  assign ir1_out[6] = ir_23;
+  assign ir1_out[7] = ir_23;
+  assign ir1_out[8] = ir_23;
+  assign ir1_out[9] = ir_23;
+  assign ir1_out[10] = ir_23;
+  assign ir1_out[11] = ir_23;
+  assign ir1_out[12] = ir_23;
+  assign ir1_out[13] = ir_23;
+  assign ir1_out[14] = ir_23;
+  assign ir1_out[15] = ir_23;
+  assign ir5[22:0] = ir[23:1];
+  assign ir5[23] = ir_23;
+  assign ir5[24] = ir_23;
+  assign ir5[25] = ir_23;
+  assign ir5[26] = ir_23;
+  assign ir5[27] = ir_23;
+  assign ir5[28] = ir_23;
+  assign ir5[29] = ir_23;
+  assign ir5[30] = ir_23;
+  assign ir5[31] = ir_23;
+  assign ir4[7:0] = ir[7:0];
+  assign ir4[31:8] = ir4_out;
+  assign ir1[15:0] = ir[23:8];
+  assign ir1[31:16] = ir1_out;
+  Mux_8x1_NBits #(
+    .Bits(32)
+  )
+  Mux_8x1_NBits_i0 (
+    .sel( sel ),
+    .in_0( reg_b ),
+    .in_1( ir0 ),
+    .in_2( ir1 ),
+    .in_3( ir2 ),
+    .in_4( ir3 ),
+    .in_5( ir4 ),
+    .in_6( ir5 ),
+    .in_7( 32'b0 ),
+    .out( \alu-b  )
+  );
+endmodule
+module DIG_RAMDualPort
+#(
+    parameter Bits = 8,
+    parameter AddrBits = 4
+)
+(
+  input [(AddrBits-1):0] A,
+  input [(Bits-1):0] Din,
+  input str,
+  input C,
+  input ld,
+  output [(Bits-1):0] D
+);
+  reg [(Bits-1):0] memory[0:((1 << AddrBits) - 1)];
+
+  assign D = ld? memory[A] : 'hz;
+
+  always @ (posedge C) begin
+    if (str)
+      memory[A] <= Din;
+  end
+endmodule
+
+
+module Mux_4x1
+(
+    input [1:0] sel,
+    input in_0,
+    input in_1,
+    input in_2,
+    input in_3,
+    output reg out
+);
+    always @ (*) begin
+        case (sel)
+            2'h0: out = in_0;
+            2'h1: out = in_1;
+            2'h2: out = in_2;
+            2'h3: out = in_3;
+            default:
+                out = 'h0;
+        endcase
+    end
+endmodule
+
+
+module Mux_2x1
+(
+    input [0:0] sel,
+    input in_0,
+    input in_1,
+    output reg out
+);
+    always @ (*) begin
+        case (sel)
+            1'h0: out = in_0;
+            1'h1: out = in_1;
+            default:
+                out = 'h0;
+        endcase
+    end
+endmodule
+
+
 module alu_1b_final (
   input [7:0] OPCODE,
   input A,
@@ -3985,44 +3651,62 @@ module alu_1b_final (
   output G,
   output P
 );
-  wire [2:0] s0;
-  wire s1;
-  wire s2;
-  wire s3;
+  wire [3:0] s0;
+  wire [3:0] s1;
+  wire A_eff;
+  wire B_eff;
+  wire [1:0] s2;
+  wire P_temp;
+  wire [1:0] s3;
   wire s4;
   wire s5;
   wire s6;
   wire s7;
   wire s8;
-  wire B_eff;
-  wire A_eff;
+  wire s9;
+  wire s10;
+  wire s11;
+  wire s12;
   assign A_eff = ((Asel & A) ^ A_inv);
   assign B_eff = ((Bsel & B) ^ B_inv);
-  assign s1 = OPCODE[0];
-  assign s2 = OPCODE[1];
-  assign s3 = OPCODE[2];
-  assign s4 = OPCODE[3];
-  assign s5 = OPCODE[4];
-  assign s6 = OPCODE[5];
-  assign s7 = OPCODE[6];
-  assign s8 = OPCODE[7];
-  assign s0[0] = C;
-  assign s0[1] = B_eff;
-  assign s0[2] = A_eff;
+  assign s0 = OPCODE[3:0];
+  assign s1 = OPCODE[7:4];
+  assign s2[0] = A_eff;
+  assign s2[1] = B_eff;
   assign G = (A_eff & B_eff);
-  assign P = (A_eff | B_eff);
-  Mux_8x1 Mux_8x1_i0 (
-    .sel( s0 ),
-    .in_0( s1 ),
-    .in_1( s2 ),
-    .in_2( s3 ),
-    .in_3( s4 ),
-    .in_4( s5 ),
-    .in_5( s6 ),
-    .in_6( s7 ),
-    .in_7( s8 ),
+  assign s3[0] = A_eff;
+  assign s3[1] = B_eff;
+  assign s4 = s0[0];
+  assign s5 = s0[1];
+  assign s6 = s0[2];
+  assign s7 = s0[3];
+  assign s8 = s1[0];
+  assign s9 = s1[1];
+  assign s10 = s1[2];
+  assign s11 = s1[3];
+  Mux_4x1 Mux_4x1_i0 (
+    .sel( s3 ),
+    .in_0( s4 ),
+    .in_1( s5 ),
+    .in_2( s6 ),
+    .in_3( s7 ),
+    .out( P_temp )
+  );
+  Mux_4x1 Mux_4x1_i1 (
+    .sel( s2 ),
+    .in_0( s8 ),
+    .in_1( s9 ),
+    .in_2( s10 ),
+    .in_3( s11 ),
+    .out( s12 )
+  );
+  Mux_2x1 Mux_2x1_i2 (
+    .sel( C ),
+    .in_0( P_temp ),
+    .in_1( s12 ),
     .out( MUX_OUT )
   );
+  assign P = P_temp;
 endmodule
 
 // quad 2-input AND gate
@@ -4646,16 +4330,9 @@ module alu_32b_final (
   wire binv;
   wire csel;
   wire [31:0] FLAG_C32;
-  wire [31:0] \const1-32 ;
   wire [31:0] s0;
-  wire [6:0] gnd7;
-  assign gnd7[0] = 1'b0;
-  assign gnd7[1] = 1'b0;
-  assign gnd7[2] = 1'b0;
-  assign gnd7[3] = 1'b0;
-  assign gnd7[4] = 1'b0;
-  assign gnd7[5] = 1'b0;
-  assign gnd7[6] = 1'b0;
+  assign FLAG_C32[0] = FLAG_C;
+  assign FLAG_C32[31:1] = 31'b1;
   assign \a0-7  = A[7:0];
   assign \a8-15  = A[15:8];
   assign \a16-23  = A[23:16];
@@ -4669,29 +4346,13 @@ module alu_32b_final (
   assign bsel = control[2];
   assign binv = control[3];
   assign csel = control[4];
-  assign \const1-32 [0] = 1'b1;
-  assign \const1-32 [7:1] = gnd7;
-  assign \const1-32 [14:8] = gnd7;
-  assign \const1-32 [21:15] = gnd7;
-  assign \const1-32 [28:22] = gnd7;
-  assign \const1-32 [29] = 1'b0;
-  assign \const1-32 [30] = 1'b0;
-  assign \const1-32 [31] = 1'b0;
-  assign FLAG_C32[0] = FLAG_C;
-  assign FLAG_C32[7:1] = gnd7;
-  assign FLAG_C32[14:8] = gnd7;
-  assign FLAG_C32[21:15] = gnd7;
-  assign FLAG_C32[28:22] = gnd7;
-  assign FLAG_C32[29] = 1'b0;
-  assign FLAG_C32[30] = 1'b0;
-  assign FLAG_C32[31] = 1'b0;
   Mux_2x1_NBits #(
     .Bits(32)
   )
   Mux_2x1_NBits_i0 (
     .sel( \cin-sel  ),
     .in_0( FLAG_C32 ),
-    .in_1( \const1-32  ),
+    .in_1( 32'b1 ),
     .out( s0 )
   );
   Mux_2x1_NBits #(
@@ -4789,13 +4450,20 @@ module main (
   output [31:0] p,
   output [15:0] term_data,
   output [15:0] vram_addr,
-  output term_we
+  output term_we,
+  output [31:0] r,
+  output [31:0] n,
+  output a1,
+  output [7:0] a2,
+  output [7:0] a3,
+  output [23:0] t8
 );
   wire [1:0] ctrl_cycles;
   wire seq_fetch;
   wire seq_exec;
   wire [23:0] i_temp;
   wire [23:0] e_temp;
+  wire [23:0] t8_temp;
   wire \pc-mux-sel-1 ;
   wire \pc-mux-sel-2 ;
   wire flag_n;
@@ -4803,35 +4471,36 @@ module main (
   wire flag_z;
   wire flag_v;
   wire [2:0] cond;
-  wire ctrl_branch_en;
-  wire ctrl_jump_type;
+  wire \pc-branch-en ;
+  wire HALT_IN;
+  wire [23:0] sp_delta;
+  wire sp_load_n;
+  wire \pc-jump-uncond ;
   wire [23:0] b_temp;
-  wire [23:0] pc_save;
-  wire ctrl_mem_rd;
-  wire [23:0] mem_addr;
-  wire mem_rd_out;
-  wire [23:0] CPU_ADDR_OUT;
-  wire ctrl_mem_wr;
-  wire [31:0] reg_b;
   wire [31:0] l_temp;
   wire [31:0] f_temp;
-  wire [7:0] h_temp;
+  wire [7:0] a3_temp;
   wire [7:0] d_temp;
-  wire [7:0] g_temp;
+  wire [7:0] a2_temp;
   wire [7:0] c_temp;
   wire [7:0] k_temp;
   wire [4:0] ctrl_alu_pre;
   wire ctrl_cin_sel;
-  wire [1:0] ctrl_wb_sel;
+  wire [2:0] ctrl_wb_sel;
   wire [1:0] ctrl_shift_op;
   wire ctrl_flags_we;
-  wire ctrl_reg_we;
+  wire a1_temp;
+  wire ctrl_mem_rd;
+  wire ctrl_mem_wr;
   wire ctrl_addr_csel;
+  wire ctrl_branch_en;
+  wire ctrl_jump_type;
   wire [1:0] ctrl_sp_op;
-  wire b_main_sel;
+  wire [2:0] ctrl_bus_sel;
+  wire [2:0] \b-main-sel ;
   wire [31:0] m_temp;
-  wire [7:0] \ir_bus-16-23 ;
-  wire [31:0] reg_a;
+  wire [31:0] n_temp;
+  wire [31:0] r_temp;
   wire [31:0] reg_c;
   wire [31:0] alu_b;
   wire alu_vout;
@@ -4841,16 +4510,22 @@ module main (
   wire [31:0] j_temp;
   wire alu_cout;
   wire [31:0] shift_out;
-  wire [4:0] \reg_b-0-4 ;
-  wire [31:0] \ir_bus-8-23-32b ;
+  wire [31:0] io_data_in;
   wire s0;
   wire s1;
-  wire s2;
+  wire [23:0] mem_addr;
+  wire [23:0] CPU_ADDR_OUT;
   wire [23:0] mmio_addr;
-  wire [31:0] io_data_in;
+  wire is_mmio;
   wire ram_cs;
   wire vram_we;
   wire [15:0] vram_data;
+  wire mem_rd_out;
+  wire s2;
+  wire [23:0] mem_addr_in;
+  wire s3;
+  wire [7:0] \ir-24-31 ;
+  wire [31:0] \mem-eeprom-out ;
   sequencer sequencer_i0 (
     .reset( reset ),
     .cycles( ctrl_cycles ),
@@ -4863,7 +4538,7 @@ module main (
     .\~SR ( reset ),
     .ADDR_ABS( i_temp ),
     .OFFSET( e_temp ),
-    .ADDR_RET( 24'b11 ),
+    .ADDR_RET( t8_temp ),
     .MUX1_SEL( \pc-mux-sel-1  ),
     .MUX2_SEL( \pc-mux-sel-2  ),
     .FLAG_N( flag_n ),
@@ -4871,43 +4546,35 @@ module main (
     .FLAG_Z( flag_z ),
     .FLAG_O( flag_v ),
     .COND( cond ),
-    .BRANCH_EN( ctrl_branch_en ),
+    .BRANCH_EN( \pc-branch-en  ),
     .INT_EN_IN( 1'b0 ),
-    .HALT_IN( 1'b0 ),
+    .HALT_IN( HALT_IN ),
     .INT_REQ( 1'b0 ),
-    .INT_VEC_0( 1'b0 ),
-    .INT_VEC_1( 1'b0 ),
-    .INT_VEC_2( 1'b0 ),
-    .SP_DELTA( 24'b0 ),
-    .SP_LOAD_N( 1'b1 ),
-    .JUMP_UNCOND( ctrl_jump_type ),
-    .\pc-en ( seq_fetch ),
+    .INT_VEC_0( 1'b1 ),
+    .INT_VEC_1( 1'b1 ),
+    .INT_VEC_2( 1'b1 ),
+    .SP_DELTA( sp_delta ),
+    .SP_LOAD_N( sp_load_n ),
+    .JUMP_UNCOND( \pc-jump-uncond  ),
+    .PCEN( seq_fetch ),
     .PC_OUT( b_temp ),
-    .PC_SAVE( pc_save )
+    .PC_SAVE( t8_temp )
   );
-  bus_arbitration bus_arbitration_i2 (
-    .FETCH( seq_fetch ),
-    .PC_OUT( b_temp ),
-    .IR_ADDR( i_temp ),
-    .MEM_RD_IN( ctrl_mem_rd ),
-    .ADDR_BUS( mem_addr ),
-    .MEM_RD_OUT( mem_rd_out )
-  );
-  register register_i3 (
-    .WE( ctrl_reg_we ),
+  register register_i2 (
+    .WE( a1_temp ),
     .DATA_W( m_temp ),
-    .ADDR_A( g_temp ),
+    .ADDR_A( a2_temp ),
     .ADDR_B( d_temp ),
-    .ADDR_W( h_temp ),
+    .ADDR_W( a3_temp ),
     .EXEC( seq_exec ),
     .addr_c_sel( ctrl_addr_csel ),
-    .IR_ADDR_CIN( f_temp[7:0] ),
+    .ir_bus( f_temp ),
     .clk( clk ),
-    .DATA_A( reg_a ),
-    .DATA_B( reg_b ),
+    .DATA_A( n_temp ),
+    .DATA_B( r_temp ),
     .DATA_C( reg_c )
   );
-  flag_reg flag_reg_i4 (
+  flag_reg flag_reg_i3 (
     .ZERO_IN( alu_zout ),
     .CARRY_IN( alu_cout ),
     .NEGATIVE_IN( alu_nout ),
@@ -4920,30 +4587,51 @@ module main (
     .FLAG_N( flag_n ),
     .FLAG_O( flag_v )
   );
-  wb_mux wb_mux_i5 (
+  wb_mux wb_mux_i4 (
     .wb_sel( ctrl_wb_sel ),
     .alu_out( j_temp ),
     .shift_out( shift_out ),
-    .pc_save( pc_save ),
+    .pc_save( t8_temp ),
     .mem_din( l_temp ),
+    .io_datain( io_data_in ),
+    .reg_a( n_temp ),
+    .\ir-bus ( f_temp ),
     .reg_w_data( m_temp )
   );
-  ir3 ir3_i6 (
+  assign s0 = (seq_exec & a1_temp & s1);
+  assign HALT_IN = (s3 & seq_exec);
+  assign \pc-branch-en  = (ctrl_branch_en & seq_exec);
+  assign \pc-jump-uncond  = (ctrl_jump_type & seq_exec);
+  ir ir_i5 (
     .DATA_IN( l_temp ),
     .LOAD( seq_fetch ),
     .CLK( clk ),
     .IR_BUS( f_temp ),
     .OPCODE( c_temp ),
-    .ADDR_A( g_temp ),
+    .ADDR_A( a2_temp ),
     .ADDR_B( d_temp ),
-    .ADDR_W( h_temp ),
+    .ADDR_W( a3_temp ),
     .ADDR_ABS( i_temp ),
     .OFFSET( e_temp ),
-    .COND( cond ),
-    .MUX1_SEL( \pc-mux-sel-1  ),
-    .MUX2_SEL( \pc-mux-sel-2  )
+    .COND( cond )
   );
-  assign s1 = (s0 & seq_exec & ctrl_reg_we & s2);
+  bus_arbitration bus_arbitration_i6 (
+    .FETCH( seq_fetch ),
+    .PC_OUT( b_temp ),
+    .IR_ADDR( i_temp ),
+    .Reg_A( j_temp ),
+    .MEM_RD_IN( ctrl_mem_rd ),
+    .addr_sel( ctrl_bus_sel ),
+    .Reg_b( 32'b1 ),
+    .\Reg-A-off ( 32'b1 ),
+    .\Reg-B-off ( 32'b1 ),
+    .\Reg-AB ( 32'b1 ),
+    .\PC-offset ( 32'b1 ),
+    .\SP-out ( 32'b1 ),
+    .\Alu-in ( 32'b1 ),
+    .ADDR_BUS( mem_addr ),
+    .MEM_RD_OUT( mem_rd_out )
+  );
   microcode microcode_i7 (
     .op( c_temp ),
     .\alu-op ( k_temp ),
@@ -4952,7 +4640,7 @@ module main (
     .\wb-sel ( ctrl_wb_sel ),
     .\shift-op ( ctrl_shift_op ),
     .\flags-we ( ctrl_flags_we ),
-    .\reg-we ( ctrl_reg_we ),
+    .\reg-we ( a1_temp ),
     .\mem-rd ( ctrl_mem_rd ),
     .\mem-wr ( ctrl_mem_wr ),
     .\addr-csel ( ctrl_addr_csel ),
@@ -4960,61 +4648,44 @@ module main (
     .\jump-type ( ctrl_jump_type ),
     .\sp-op ( ctrl_sp_op ),
     .cycles( ctrl_cycles ),
-    .\b-main-sel ( b_main_sel )
+    .ctrl_bus_sel( ctrl_bus_sel ),
+    .\b-main-sel ( \b-main-sel  ),
+    .\pc-rel ( \pc-mux-sel-1  )
   );
-  assign \ir_bus-8-23-32b [15:0] = f_temp[23:8];
-  assign \ir_bus-8-23-32b [31:16] = 16'b0;
   CompUnsigned #(
     .Bits(8)
   )
   CompUnsigned_i8 (
-    .a( 8'b1 ),
-    .b( c_temp ),
-    .\= ( s0 )
+    .a( 8'b10 ),
+    .b( a3_temp ),
+    .\= ( s1 )
+  );
+  mmio_bus mmio_bus_i9 (
+    .ADDR( mem_addr ),
+    .CPU_ADDR_OUT( CPU_ADDR_OUT ),
+    .mmio_addr( mmio_addr ),
+    .is_mmio( is_mmio )
   );
   CompUnsigned #(
     .Bits(8)
   )
-  CompUnsigned_i9 (
-    .a( 8'b0 ),
-    .b( h_temp ),
-    .\= ( s2 )
+  CompUnsigned_i10 (
+    .a( 8'b11111111 ),
+    .b( c_temp ),
+    .\= ( s3 )
   );
-  mmio_bus mmio_bus_i10 (
-    .ADDR( mem_addr ),
-    .CPU_ADDR_OUT( CPU_ADDR_OUT ),
-    .mmio_addr( mmio_addr )
-  );
-  assign \ir_bus-16-23  = f_temp[23:16];
-  assign \reg_b-0-4  = reg_b[4:0];
-  memory memory_i11 (
-    .ADDR( CPU_ADDR_OUT ),
-    .MEM_RD( mem_rd_out ),
-    .MEM_WR( ctrl_mem_wr ),
-    .CLK( clk ),
-    .CPU_DIN( reg_b ),
-    .CPU_D_OUT( l_temp )
-  );
-  shift shift_i12 (
-    .A( reg_a ),
+  assign \ir-24-31  = f_temp[31:24];
+  shift shift_i11 (
+    .A( n_temp ),
     .mode( ctrl_shift_op ),
-    .B( \reg_b-0-4  ),
+    .B( r_temp ),
     .Out( shift_out )
   );
-  Mux_2x1_NBits #(
-    .Bits(32)
-  )
-  Mux_2x1_NBits_i13 (
-    .sel( b_main_sel ),
-    .in_0( reg_b ),
-    .in_1( \ir_bus-8-23-32b  ),
-    .out( alu_b )
-  );
-  io_controller io_controller_i14 (
-    .mem_addr( mem_addr ),
+  io_controller io_controller_i12 (
+    .mem_addr( mmio_addr ),
     .c_wr( ctrl_mem_wr ),
     .kb_data( 16'b1 ),
-    .mem_data_out( reg_b ),
+    .mem_data_out( r_temp ),
     .io_data_in( io_data_in ),
     .ram_cs( ram_cs ),
     .vram_we( vram_we ),
@@ -5023,8 +4694,47 @@ module main (
     .term_we( term_we ),
     .term_data( term_data )
   );
-  alu_32b_final alu_32b_final_i15 (
-    .A( reg_a ),
+  assign s2 = (is_mmio & mem_rd_out);
+  CompUnsigned #(
+    .Bits(8)
+  )
+  CompUnsigned_i13 (
+    .a( \ir-24-31  ),
+    .b( 8'b110011 ),
+    .\= ( \pc-mux-sel-2  )
+  );
+  Mux_4x1_NBits #(
+    .Bits(24)
+  )
+  Mux_4x1_NBits_i14 (
+    .sel( ctrl_sp_op ),
+    .in_0( 24'b0 ),
+    .in_1( 24'b1 ),
+    .in_2( 24'b111111111111111111111111 ),
+    .in_3( 24'b0 ),
+    .out( sp_delta )
+  );
+  assign sp_load_n = ~ (ctrl_sp_op[0] | ctrl_sp_op[1]);
+  b_mux b_mux_i15 (
+    .ir( f_temp ),
+    .reg_b( r_temp ),
+    .sel( \b-main-sel  ),
+    .\alu-b ( alu_b )
+  );
+  DIG_RAMDualPort #(
+    .Bits(32),
+    .AddrBits(24)
+  )
+  DIG_RAMDualPort_i16 (
+    .A( mem_addr ),
+    .Din( r_temp ),
+    .str( ctrl_mem_wr ),
+    .C( clk ),
+    .ld( mem_rd_out ),
+    .D( \mem-eeprom-out  )
+  );
+  alu_32b_final alu_32b_final_i17 (
+    .A( n_temp ),
     .nz0( 1'b0 ),
     .B( alu_b ),
     .Opcode( k_temp ),
@@ -5042,23 +4752,47 @@ module main (
   DIG_Register_BUS #(
     .Bits(32)
   )
-  DIG_Register_BUS_i16 (
+  DIG_Register_BUS_i18 (
     .D( alu_b ),
     .C( clk ),
-    .en( s1 ),
+    .en( s0 ),
     .Q( p )
+  );
+  Mux_2x1_NBits #(
+    .Bits(24)
+  )
+  Mux_2x1_NBits_i19 (
+    .sel( s2 ),
+    .in_0( CPU_ADDR_OUT ),
+    .in_1( mmio_addr ),
+    .out( mem_addr_in )
+  );
+  Mux_2x1_NBits #(
+    .Bits(32)
+  )
+  Mux_2x1_NBits_i20 (
+    .sel( ram_cs ),
+    .in_0( \mem-eeprom-out  ),
+    .in_1( io_data_in ),
+    .out( l_temp )
   );
   assign b = b_temp;
   assign a = l_temp;
   assign f = f_temp;
   assign e = e_temp;
   assign i = i_temp;
-  assign h = h_temp;
+  assign h = a3_temp;
   assign d = d_temp;
-  assign g = g_temp;
+  assign g = a2_temp;
   assign c = c_temp;
   assign k = k_temp;
   assign j = j_temp;
   assign l = l_temp;
   assign m = m_temp;
+  assign r = r_temp;
+  assign n = n_temp;
+  assign a1 = a1_temp;
+  assign a2 = a2_temp;
+  assign a3 = a3_temp;
+  assign t8 = t8_temp;
 endmodule
