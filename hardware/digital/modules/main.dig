@@ -211,7 +211,7 @@
           <string>mem_addr</string>
         </entry>
       </elementAttributes>
-      <pos x="140" y="820"/>
+      <pos x="1060" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1391,7 +1391,7 @@
           <intFormat>dec</intFormat>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="20"/>
+      <pos x="1040" y="-60"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1401,7 +1401,7 @@
           <string>reg_w_data</string>
         </entry>
       </elementAttributes>
-      <pos x="1040" y="20"/>
+      <pos x="1040" y="-60"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1820,7 +1820,7 @@
     <visualElement>
       <elementName>mmio_bus.dig</elementName>
       <elementAttributes/>
-      <pos x="140" y="820"/>
+      <pos x="1060" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1830,7 +1830,7 @@
           <string>CPU_ADDR_OUT</string>
         </entry>
       </elementAttributes>
-      <pos x="320" y="820"/>
+      <pos x="1240" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1840,7 +1840,7 @@
           <string>mmio_addr</string>
         </entry>
       </elementAttributes>
-      <pos x="320" y="840"/>
+      <pos x="1240" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>io_controller.dig</elementName>
@@ -2047,7 +2047,7 @@
           <string>is_mmio</string>
         </entry>
       </elementAttributes>
-      <pos x="320" y="860"/>
+      <pos x="1240" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -2176,20 +2176,6 @@
         </entry>
       </elementAttributes>
       <pos x="940" y="1220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>mem_addr</string>
-        </entry>
-      </elementAttributes>
-      <pos x="940" y="1160"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -3129,16 +3115,6 @@
           <int>32</int>
         </entry>
       </elementAttributes>
-      <pos x="540" y="480"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Bits</string>
-          <int>32</int>
-        </entry>
-      </elementAttributes>
       <pos x="540" y="500"/>
     </visualElement>
     <visualElement>
@@ -3263,6 +3239,34 @@
         <entry>
           <string>Bits</string>
           <int>32</int>
+        </entry>
+      </elementAttributes>
+      <pos x="940" y="1160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>reg_b</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>CPU_ADDR_OUT</string>
         </entry>
       </elementAttributes>
       <pos x="940" y="1160"/>
