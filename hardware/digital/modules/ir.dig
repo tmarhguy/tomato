@@ -1991,12 +1991,12 @@ C 1 0x00ABCDEF 0x00ABCDEF 0x00 0xAB 0xCD 0xEF 0xABCDEF 0xABCDEF 7 1 1
       <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
-          <string>Input Splitting</string>
-          <string>24,8</string>
-        </entry>
-        <entry>
           <string>splitterSpreading</string>
           <int>2</int>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>24,8</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -2074,6 +2074,34 @@ C 1 0x00ABCDEF 0x00ABCDEF 0x00 0xAB 0xCD 0xEF 0xABCDEF 0xABCDEF 7 1 1
         </entry>
       </elementAttributes>
       <pos x="-200" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>DATA_IN</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="570425375" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>DATA_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="320" y="160"/>
     </visualElement>
   </visualElements>
   <wires>
