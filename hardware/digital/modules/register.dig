@@ -740,132 +740,6 @@
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>0x00</string>
-        </entry>
-      </elementAttributes>
-      <pos x="80" y="-1800"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>0x00</string>
-        </entry>
-      </elementAttributes>
-      <pos x="300" y="-2040"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>mirror</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Input Splitting</string>
-          <string>1,1,1,1,1,1,1,1</string>
-        </entry>
-      </elementAttributes>
-      <pos x="340" y="-2040"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>gnd</string>
-        </entry>
-      </elementAttributes>
-      <pos x="340" y="-2040"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>gnd</string>
-        </entry>
-      </elementAttributes>
-      <pos x="340" y="-2020"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>gnd</string>
-        </entry>
-      </elementAttributes>
-      <pos x="340" y="-2000"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>gnd</string>
-        </entry>
-      </elementAttributes>
-      <pos x="340" y="-1980"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>gnd</string>
-        </entry>
-      </elementAttributes>
-      <pos x="340" y="-1960"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>gnd</string>
-        </entry>
-      </elementAttributes>
-      <pos x="340" y="-1940"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>gnd</string>
-        </entry>
-      </elementAttributes>
-      <pos x="340" y="-1920"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>gnd</string>
-        </entry>
-      </elementAttributes>
-      <pos x="340" y="-1900"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
           <string>NetName</string>
           <string>ADDR_C</string>
         </entry>
@@ -1013,6 +887,20 @@ C 1 1 0x0BADF00D 0 0 0x63 0 0 x x x
       </elementAttributes>
       <pos x="100" y="-1860"/>
     </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="-1800"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -1022,10 +910,6 @@ C 1 1 0x0BADF00D 0 0 0x63 0 0 x x x
     <wire>
       <p1 x="60" y="-1860"/>
       <p2 x="100" y="-1860"/>
-    </wire>
-    <wire>
-      <p1 x="300" y="-2040"/>
-      <p2 x="320" y="-2040"/>
     </wire>
     <wire>
       <p1 x="120" y="-1840"/>
