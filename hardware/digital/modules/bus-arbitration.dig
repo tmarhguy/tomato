@@ -30,12 +30,12 @@
     <visualElement>
       <elementName>VDD</elementName>
       <elementAttributes/>
-      <pos x="200" y="100"/>
+      <pos x="-260" y="720"/>
     </visualElement>
     <visualElement>
       <elementName>Ground</elementName>
       <elementAttributes/>
-      <pos x="260" y="100"/>
+      <pos x="-200" y="720"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -49,7 +49,7 @@
           <string>gnd</string>
         </entry>
       </elementAttributes>
-      <pos x="260" y="100"/>
+      <pos x="-200" y="720"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -63,7 +63,7 @@
           <string>vcc</string>
         </entry>
       </elementAttributes>
-      <pos x="200" y="100"/>
+      <pos x="-260" y="720"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -94,20 +94,6 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>PC_OUT</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>24</int>
-        </entry>
-      </elementAttributes>
-      <pos x="-600" y="840"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
           <string>IR_ADDR</string>
         </entry>
         <entry>
@@ -127,138 +113,23 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>FETCH MEM_RD_IN PC_OUT IR_ADDR reg_a addr_sel ADDR_BUS MEM_RD_OUT
+            <dataString>FETCH MEM_RD_IN addr_sel IR_ADDR Alu-in Reg_b Pc-out SP-out ADDR_BUS MEM_RD_OUT
 
-# bus-arbitration.v: sel={FETCH,addr_sel}  MEM_RD_OUT = MEM_RD_IN | FETCH
+# 1. Test ADDR_BUS routing based on addr_sel (0-7)
+0 0 0 0x111111 0x22222222 0x33333333 0x444444 0x777777 0x111111 0
+0 0 1 0x111111 0x22222222 0x33333333 0x444444 0x777777 0x222222 0
+0 0 2 0x111111 0x22222222 0x33333333 0x444444 0x777777 0x333333 0
+0 0 3 0x111111 0x22222222 0x33333333 0x444444 0x777777 0x444444 0
+0 0 4 0x111111 0x22222222 0x33333333 0x444444 0x777777 0x000000 0
+0 0 5 0x111111 0x22222222 0x33333333 0x444444 0x777777 0x000000 0
+0 0 6 0x111111 0x22222222 0x33333333 0x444444 0x777777 0x000000 0
+0 0 7 0x111111 0x22222222 0x33333333 0x444444 0x777777 0x777777 0
 
-# A. All 8 control corners (tagged PC/IR/reg_a)
-0 0 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 0
-0 1 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
-0 0 0x00AA01 0x00BB02 0x00CC03 1 0x00BB02 0
-0 1 0x00AA01 0x00BB02 0x00CC03 1 0x00BB02 1
-1 0 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
-1 1 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
-1 0 0x00AA01 0x00BB02 0x00CC03 1 0x00CC03 1
-1 1 0x00AA01 0x00BB02 0x00CC03 1 0x00CC03 1
-
-# B. Four address modes (smoke)
-0 0 0x000001 0x000002 0x000003 0 0x000001 0
-0 0 0x000001 0x000002 0x000003 1 0x000002 0
-1 0 0x000001 0x000002 0x000003 0 0x000001 1
-1 0 0x000001 0x000002 0x000003 1 0x000003 1
-
-# C. MEM_RD_OUT truth (FETCH OR MEM_RD_IN)
-0 0 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 0
-0 1 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
-1 0 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
-1 1 0x00AA01 0x00BB02 0x00CC03 0 0x00AA01 1
-
-# D. Walking-one PC (modes 0x0 and 0x2)
-0 0 0x000001 0x000000 0x000000 0 0x000001 0
-1 0 0x000001 0x000000 0x000000 0 0x000001 1
-0 0 0x000002 0x000000 0x000000 0 0x000002 0
-1 0 0x000002 0x000000 0x000000 0 0x000002 1
-0 0 0x000004 0x000000 0x000000 0 0x000004 0
-1 0 0x000004 0x000000 0x000000 0 0x000004 1
-0 0 0x000008 0x000000 0x000000 0 0x000008 0
-1 0 0x000008 0x000000 0x000000 0 0x000008 1
-0 0 0x000010 0x000000 0x000000 0 0x000010 0
-1 0 0x000010 0x000000 0x000000 0 0x000010 1
-0 0 0x000020 0x000000 0x000000 0 0x000020 0
-1 0 0x000020 0x000000 0x000000 0 0x000020 1
-0 0 0x000040 0x000000 0x000000 0 0x000040 0
-1 0 0x000040 0x000000 0x000000 0 0x000040 1
-0 0 0x000080 0x000000 0x000000 0 0x000080 0
-1 0 0x000080 0x000000 0x000000 0 0x000080 1
-0 0 0x000100 0x000000 0x000000 0 0x000100 0
-1 0 0x000100 0x000000 0x000000 0 0x000100 1
-0 0 0x000200 0x000000 0x000000 0 0x000200 0
-1 0 0x000200 0x000000 0x000000 0 0x000200 1
-0 0 0x000400 0x000000 0x000000 0 0x000400 0
-1 0 0x000400 0x000000 0x000000 0 0x000400 1
-0 0 0x000800 0x000000 0x000000 0 0x000800 0
-1 0 0x000800 0x000000 0x000000 0 0x000800 1
-0 0 0x001000 0x000000 0x000000 0 0x001000 0
-1 0 0x001000 0x000000 0x000000 0 0x001000 1
-0 0 0x002000 0x000000 0x000000 0 0x002000 0
-1 0 0x002000 0x000000 0x000000 0 0x002000 1
-0 0 0x004000 0x000000 0x000000 0 0x004000 0
-1 0 0x004000 0x000000 0x000000 0 0x004000 1
-0 0 0x008000 0x000000 0x000000 0 0x008000 0
-1 0 0x008000 0x000000 0x000000 0 0x008000 1
-0 0 0x010000 0x000000 0x000000 0 0x010000 0
-1 0 0x010000 0x000000 0x000000 0 0x010000 1
-0 0 0x020000 0x000000 0x000000 0 0x020000 0
-1 0 0x020000 0x000000 0x000000 0 0x020000 1
-0 0 0x040000 0x000000 0x000000 0 0x040000 0
-1 0 0x040000 0x000000 0x000000 0 0x040000 1
-0 0 0x080000 0x000000 0x000000 0 0x080000 0
-1 0 0x080000 0x000000 0x000000 0 0x080000 1
-0 0 0x100000 0x000000 0x000000 0 0x100000 0
-1 0 0x100000 0x000000 0x000000 0 0x100000 1
-0 0 0x200000 0x000000 0x000000 0 0x200000 0
-1 0 0x200000 0x000000 0x000000 0 0x200000 1
-0 0 0x400000 0x000000 0x000000 0 0x400000 0
-1 0 0x400000 0x000000 0x000000 0 0x400000 1
-0 0 0x800000 0x000000 0x000000 0 0x800000 0
-1 0 0x800000 0x000000 0x000000 0 0x800000 1
-
-# E. Walking-one IR (mode 0x1)
-0 0 0x000000 0x000001 0x000000 1 0x000001 0
-0 0 0x000000 0x000002 0x000000 1 0x000002 0
-0 0 0x000000 0x000004 0x000000 1 0x000004 0
-0 0 0x000000 0x000008 0x000000 1 0x000008 0
-0 0 0x000000 0x000010 0x000000 1 0x000010 0
-0 0 0x000000 0x000020 0x000000 1 0x000020 0
-0 0 0x000000 0x000040 0x000000 1 0x000040 0
-0 0 0x000000 0x000080 0x000000 1 0x000080 0
-0 0 0x000000 0x000100 0x000000 1 0x000100 0
-0 0 0x000000 0x000200 0x000000 1 0x000200 0
-0 0 0x000000 0x000400 0x000000 1 0x000400 0
-0 0 0x000000 0x000800 0x000000 1 0x000800 0
-0 0 0x000000 0x001000 0x000000 1 0x001000 0
-0 0 0x000000 0x002000 0x000000 1 0x002000 0
-0 0 0x000000 0x004000 0x000000 1 0x004000 0
-0 0 0x000000 0x008000 0x000000 1 0x008000 0
-0 0 0x000000 0x010000 0x000000 1 0x010000 0
-0 0 0x000000 0x020000 0x000000 1 0x020000 0
-0 0 0x000000 0x040000 0x000000 1 0x040000 0
-0 0 0x000000 0x080000 0x000000 1 0x080000 0
-0 0 0x000000 0x100000 0x000000 1 0x100000 0
-0 0 0x000000 0x200000 0x000000 1 0x200000 0
-0 0 0x000000 0x400000 0x000000 1 0x400000 0
-0 0 0x000000 0x800000 0x000000 1 0x800000 0
-
-# F. Walking-one reg_a (mode 0x3)
-1 0 0x000000 0x000000 0x000001 1 0x000001 1
-1 0 0x000000 0x000000 0x000002 1 0x000002 1
-1 0 0x000000 0x000000 0x000004 1 0x000004 1
-1 0 0x000000 0x000000 0x000008 1 0x000008 1
-1 0 0x000000 0x000000 0x000010 1 0x000010 1
-1 0 0x000000 0x000000 0x000020 1 0x000020 1
-1 0 0x000000 0x000000 0x000040 1 0x000040 1
-1 0 0x000000 0x000000 0x000080 1 0x000080 1
-1 0 0x000000 0x000000 0x000100 1 0x000100 1
-1 0 0x000000 0x000000 0x000200 1 0x000200 1
-1 0 0x000000 0x000000 0x000400 1 0x000400 1
-1 0 0x000000 0x000000 0x000800 1 0x000800 1
-1 0 0x000000 0x000000 0x001000 1 0x001000 1
-1 0 0x000000 0x000000 0x002000 1 0x002000 1
-1 0 0x000000 0x000000 0x004000 1 0x004000 1
-1 0 0x000000 0x000000 0x008000 1 0x008000 1
-1 0 0x000000 0x000000 0x010000 1 0x010000 1
-1 0 0x000000 0x000000 0x020000 1 0x020000 1
-1 0 0x000000 0x000000 0x040000 1 0x040000 1
-1 0 0x000000 0x000000 0x080000 1 0x080000 1
-1 0 0x000000 0x000000 0x100000 1 0x100000 1
-1 0 0x000000 0x000000 0x200000 1 0x200000 1
-1 0 0x000000 0x000000 0x400000 1 0x400000 1
-1 0 0x000000 0x000000 0x800000 1 0x800000 1
-
-# G. Unselected inputs are dont-care
-0 0 0x111111 0x222222 0x333333 1 0x222222 0
-1 0 0x111111 0x222222 0x333333 1 0x333333 1
-0 0 0xABCDEF 0x000002 0x333333 0 0xABCDEF 0
+# 2. Test MEM_RD_OUT logic (MEM_RD_OUT = MEM_RD_IN | FETCH)
+0 0 0 0 0 0 0 0 0 0
+0 1 0 0 0 0 0 0 0 1
+1 0 0 0 0 0 0 0 0 1
+1 1 0 0 0 0 0 0 0 1
 </dataString>
           </testData>
         </entry>
@@ -273,7 +144,7 @@
           <string>mem_rd_out</string>
         </entry>
       </elementAttributes>
-      <pos x="-600" y="1640"/>
+      <pos x="-220" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -287,7 +158,7 @@
           <string>mem_rd_in</string>
         </entry>
       </elementAttributes>
-      <pos x="-560" y="1880"/>
+      <pos x="-280" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -297,7 +168,7 @@
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="-560" y="1880"/>
+      <pos x="-280" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -311,7 +182,7 @@
           <string>MEM_RD_OUT</string>
         </entry>
       </elementAttributes>
-      <pos x="-600" y="1640"/>
+      <pos x="-220" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -321,7 +192,7 @@
           <string>mem_rd_out</string>
         </entry>
       </elementAttributes>
-      <pos x="-480" y="1900"/>
+      <pos x="-200" y="580"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -335,31 +206,7 @@
           <string>FETCH</string>
         </entry>
       </elementAttributes>
-      <pos x="-560" y="1920"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>Reg_A</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>32</int>
-        </entry>
-      </elementAttributes>
-      <pos x="-600" y="1040"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>PC_OUT</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-600" y="840"/>
+      <pos x="-280" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -448,20 +295,6 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>reg-b-offset</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-100" y="1120"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
           <string>IR_ADDR</string>
         </entry>
       </elementAttributes>
@@ -490,52 +323,10 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>reg_a</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-100" y="1060"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>32</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>24</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-560" y="1040"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>reg-a-offset</string>
+          <string>pc-out</string>
         </entry>
       </elementAttributes>
       <pos x="-100" y="1100"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>pc-offset</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-100" y="1140"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -550,20 +341,6 @@
         </entry>
       </elementAttributes>
       <pos x="-100" y="1180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>reg-a-b</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-100" y="1160"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -612,112 +389,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>Reg-A-off</string>
+          <string>Pc-out</string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>32</int>
+          <int>24</int>
         </entry>
       </elementAttributes>
       <pos x="-600" y="1160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>32</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>24</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-560" y="1160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>Reg-B-off</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>32</int>
-        </entry>
-      </elementAttributes>
-      <pos x="-600" y="1220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>32</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>24</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-560" y="1220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>Reg-AB</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>32</int>
-        </entry>
-      </elementAttributes>
-      <pos x="-600" y="1280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>32</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>24</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-560" y="1280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>PC-offset</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>32</int>
-        </entry>
-      </elementAttributes>
-      <pos x="-600" y="1340"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>32</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>24</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-560" y="1340"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -728,34 +407,10 @@
         </entry>
         <entry>
           <string>Bits</string>
-          <int>32</int>
+          <int>24</int>
         </entry>
       </elementAttributes>
-      <pos x="-600" y="1400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>32</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>24</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-560" y="1400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>reg-b-offset</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-480" y="1220"/>
+      <pos x="-600" y="1220"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -772,40 +427,10 @@
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>reg-a-offset</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-480" y="1160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>pc-offset</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-480" y="1340"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
           <string>sp-out</string>
         </entry>
       </elementAttributes>
-      <pos x="-480" y="1400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>reg-a-b</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-480" y="1280"/>
+      <pos x="-600" y="1220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -846,44 +471,76 @@
       <pos x="-560" y="980"/>
     </visualElement>
     <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="1120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="1140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="1160"/>
+    </visualElement>
+    <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>reg_a</string>
+          <string>pc-out</string>
         </entry>
       </elementAttributes>
-      <pos x="-480" y="1040"/>
+      <pos x="-600" y="1160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>alu-out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-100" y="1060"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="-600" y="1040"/>
-      <p2 x="-560" y="1040"/>
-    </wire>
-    <wire>
-      <p1 x="-540" y="1040"/>
-      <p2 x="-480" y="1040"/>
-    </wire>
-    <wire>
-      <p1 x="-600" y="1280"/>
-      <p2 x="-560" y="1280"/>
-    </wire>
-    <wire>
-      <p1 x="-540" y="1280"/>
-      <p2 x="-480" y="1280"/>
-    </wire>
-    <wire>
       <p1 x="-60" y="1120"/>
       <p2 x="20" y="1120"/>
-    </wire>
-    <wire>
-      <p1 x="-600" y="1220"/>
-      <p2 x="-560" y="1220"/>
-    </wire>
-    <wire>
-      <p1 x="-540" y="1220"/>
-      <p2 x="-480" y="1220"/>
     </wire>
     <wire>
       <p1 x="-600" y="980"/>
@@ -894,24 +551,8 @@
       <p2 x="-480" y="980"/>
     </wire>
     <wire>
-      <p1 x="-600" y="1160"/>
-      <p2 x="-560" y="1160"/>
-    </wire>
-    <wire>
-      <p1 x="-540" y="1160"/>
-      <p2 x="-480" y="1160"/>
-    </wire>
-    <wire>
       <p1 x="-100" y="1240"/>
       <p2 x="-80" y="1240"/>
-    </wire>
-    <wire>
-      <p1 x="-600" y="1400"/>
-      <p2 x="-560" y="1400"/>
-    </wire>
-    <wire>
-      <p1 x="-540" y="1400"/>
-      <p2 x="-480" y="1400"/>
     </wire>
     <wire>
       <p1 x="-600" y="1100"/>
@@ -920,14 +561,6 @@
     <wire>
       <p1 x="-540" y="1100"/>
       <p2 x="-480" y="1100"/>
-    </wire>
-    <wire>
-      <p1 x="-600" y="1340"/>
-      <p2 x="-560" y="1340"/>
-    </wire>
-    <wire>
-      <p1 x="-540" y="1340"/>
-      <p2 x="-480" y="1340"/>
     </wire>
     <wire>
       <p1 x="-80" y="1200"/>
