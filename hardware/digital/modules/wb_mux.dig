@@ -626,18 +626,42 @@
       <pos x="240" y="580"/>
     </visualElement>
     <visualElement>
-      <elementName>Const</elementName>
+      <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
-          <string>Value</string>
-          <long>0</long>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>mul-in</string>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mul-in</string>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="580"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mul-in</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>32</int>
         </entry>
       </elementAttributes>
-      <pos x="480" y="360"/>
+      <pos x="480" y="580"/>
     </visualElement>
   </visualElements>
   <wires>

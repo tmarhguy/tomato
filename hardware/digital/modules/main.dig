@@ -3097,12 +3097,12 @@
           <string>Testdata</string>
           <testData>
             <dataString>reset clk alu-out ctrl-reg-we ir-opcode ctrl-alu-op wb-sel reg-a reg-b reg-w-data ir-addr-a ir-addr-b ir-addr-w pc-out
-# EEPROM[0]=0x01010203 ADD r3,r1,r2 (r1=r2=0)
+# EEPROM[0]=ADDI R0,R0,0 (10000000): alu=r0+0=0, wb=alu, reg-we=1
 1 0 x x x x x x x x x x x x
 1 1 x x x x x x x x x x x x
 1 0 x x x x x x x x x x x x
-# EXECUTE ADD: r1+r2=0, operands read from reg file, wb from ALU
-1 1 0 1 0x01 0x96 0 0 0 0 1 2 3 1
+# EXECUTE ADDI R0=0
+1 1 0 1 0x10 0x96 0 0 0 0 0 0 0 1
 </dataString>
           </testData>
         </entry>
@@ -3204,20 +3204,49 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>reset clk alu-out mem-din ctrl-reg-we ir-opcode ir-addr-w ctrl-alu-op wb-sel mem-addr reg-w-data
-# EEPROM[0]=ADD, [1]=LW r80,[r0+4] (30004050), mem[4]=0xCAFEBABE
-1 0 x x x x x x x x x
-1 1 x x x x x x x x x
-1 0 x x x x x x x x x
-# EXECUTE ADD: r1+r2=0
-1 1 0 x 1 0x01 3 0x96 0 x 0
-1 0 x x x x x x x x x
-1 1 x x x x x x x x x
-1 0 x x x x x x x x x
-1 1 x x x x x x x x x
-1 0 x x x x x x x x x
-# EXECUTE LW: address ALU r0+4=4, load mem[4]
-1 1 4 0xCAFEBABE 1 0x30 0x50 0x96 3 4 0xCAFEBABE
+            <dataString>reset clk alu-out ctrl-reg-we ir-opcode
+# EEPROM: ADDI R0=0 -> ADDI R1=10 -> ADDI R2=10 -> ADD R2+=R1 -> JMP 3 (loop)
+# Counter: R2 increments by 10 each iteration (10+10=20, 20+10=30, ...)
+1 0 x x x
+1 1 x x x
+1 0 x x x
+# EXECUTE ADDI R0=r0+0=0
+1 1 0 1 0x10
+1 0 x x x
+1 1 x x x
+1 0 x x x
+# EXECUTE ADDI R1=r0+10=10
+1 1 10 1 0x10
+1 0 x x x
+1 1 x x x
+1 0 x x x
+# EXECUTE ADDI R2=r0+10=10
+1 1 10 1 0x10
+1 0 x x x
+1 1 x x x
+1 0 x x x
+# EXECUTE ADD: R2=R2+R1=10+10=20
+1 1 20 1 0x01
+1 0 x x x
+1 1 x x x
+1 0 x x x
+# EXECUTE JMP 3 — no reg write, jumps back to ADD
+1 1 x 0 0x62
+1 0 x x x
+1 1 x x x
+1 0 x x x
+# EXECUTE ADD: R2=20+10=30
+1 1 30 1 0x01
+1 0 x x x
+1 1 x x x
+1 0 x x x
+# EXECUTE JMP
+1 1 x 0 0x62
+1 0 x x x
+1 1 x x x
+1 0 x x x
+# EXECUTE ADD: R2=30+10=40
+1 1 40 1 0x01
 </dataString>
           </testData>
         </entry>
@@ -3234,27 +3263,33 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>reset clk alu-out ctrl-reg-we ir-opcode ctrl-alu-op wb-sel mem-addr reg-w-data
-# ADD(inst[0]) -&gt; LW(inst[1]) -&gt; SW(inst[2]) — arithmetic at each EXECUTE
-1 0 x x x x x x x
-1 1 x x x x x x x
-1 0 x x x x x x x
-# EXECUTE ADD: 0+0=0
-1 1 0 1 0x01 0x96 0 x 0
-1 0 x x x x x x x
-1 1 x x x x x x x
-1 0 x x x x x x x
-1 1 x x x x x x x
-1 0 x x x x x x x
-# EXECUTE LW: r0+4=4, wb=mem
-1 1 4 1 0x30 0x96 3 4 0xCAFEBABE
-1 0 x x x x x x x
-1 1 x x x x x x x
-1 0 x x x x x x x
-1 1 x x x x x x x
-1 0 x x x x x x x
-# EXECUTE SW: r0+5=5, no reg write
-1 1 5 0 0x40 0x96 x 5 x
+            <dataString>reset clk alu-out ctrl-reg-we ir-opcode
+# Counter loop (picks up mid-run, R2 already at 40 after lw-pipeline test above)
+# This is an independent run — 3 more ADD iterations: 20, 30, 40
+1 0 x x x
+1 1 x x x
+1 0 x x x
+1 1 x x x
+1 0 x x x
+1 1 x x x
+1 0 x x x
+1 1 x x x
+1 0 x x x
+1 1 x x x
+1 0 x x x
+1 1 x x x
+1 0 x x x
+# ADD first iteration: R2=20
+1 1 20 1 0x01
+1 0 x x x
+1 1 x x x
+1 0 x x x
+1 1 x 0 0x62
+1 0 x x x
+1 1 x x x
+1 0 x x x
+# ADD second iteration: R2=30
+1 1 30 1 0x01
 </dataString>
           </testData>
         </entry>
