@@ -1,0 +1,88 @@
+# Tomato32 opcode reference — instruction word is 32-bit big-endian in EEPROM
+# Layout: [31:24]=opcode  [23:16]=rA  [15:8]=rB/imm-high  [7:0]=rd (+ bit0=abs/rel for jumps/branches)
+# PC target: IR[0]=0 absolute (use bits[23:0] as address)  IR[0]=1 PC-relative (PC + bits[23:0])
+# ADDI imm12: immediate = byte2 >> 4  (e.g. byte2=0xA0 -> imm=10)  example word: 0x1000A001 = ADDI R1,R0,#10
+# Branch taken when sc_branch COND=IR[2:0] selects a set flag (see branch_when column)
+#
+opcode,mnemonic,group,operation,syntax,writes_reg,updates_flags,branch_when,notes
+0x00,NOP,system,No operation,NOP,no,no,,Advance PC only
+0xFF,HALT,system,Halt CPU,HALT,no,no,,Stops sequence
+0x01,ADD,alu-reg,Add registers,"ADD R{rd}, R{rA}, R{rB}",yes,yes,,rd = rA + rB
+0x02,SUB,alu-reg,Subtract registers,"SUB R{rd}, R{rA}, R{rB}",yes,yes,,rd = rA - rB
+0x03,AND,alu-reg,Bitwise AND,"AND R{rd}, R{rA}, R{rB}",yes,yes,,rd = rA & rB
+0x04,OR,alu-reg,Bitwise OR,"OR R{rd}, R{rA}, R{rB}",yes,yes,,rd = rA | rB
+0x05,XOR,alu-reg,Bitwise XOR,"XOR R{rd}, R{rA}, R{rB}",yes,yes,,rd = rA ^ rB
+0x06,NOT,alu-reg,Bitwise NOT,"NOT R{rd}, R{rA}",yes,yes,,rd = ~rA
+0x07,NEG,alu-reg,Negate,"NEG R{rd}, R{rA}",yes,yes,,rd = -rA
+0x08,ADC,alu-reg,Add with carry,"ADC R{rd}, R{rA}, R{rB}",yes,yes,,rd = rA + rB + C
+0x09,SBC,alu-reg,Subtract with borrow,"SBC R{rd}, R{rA}, R{rB}",yes,yes,,rd = rA - rB - borrow
+0x0A,ANDN,alu-reg,A AND NOT B,"ANDN R{rd}, R{rA}, R{rB}",yes,yes,,rd = rA & ~rB (BIC)
+0x0B,ORN,alu-reg,A OR NOT B,"ORN R{rd}, R{rA}, R{rB}",yes,yes,,rd = rA | ~rB
+0x0C,INC,alu-reg,Increment,"INC R{rd}, R{rA}",yes,yes,,rd = rA + 1
+0x0D,DEC,alu-reg,Decrement,"DEC R{rd}, R{rA}",yes,yes,,rd = rA - 1
+0x0E,MOV,alu-reg,Move register,"MOV R{rd}, R{rB}",yes,no,,rd = rB (pass-through ALU)
+0x0F,CMP,alu-reg,Compare (subtract flags only),"CMP R{rA}, R{rB}",no,yes,,Sets flags from rA - rB; no writeback
+0x10,ADDI,alu-imm,Add immediate (12-bit signed),"ADDI R{rd}, R{rA}, #{imm12}",yes,yes,,imm = byte2>>4; rd = rA + imm
+0x11,SUBI,alu-imm,Subtract immediate (12-bit signed),"SUBI R{rd}, R{rA}, #{imm12}",yes,yes,,imm = byte2>>4
+0x12,ANDI,alu-imm,AND immediate (16-bit zero-ext),"ANDI R{rd}, R{rA}, #{imm16z}",yes,yes,,imm in low 16 bits
+0x13,ORI,alu-imm,OR immediate (16-bit zero-ext),"ORI R{rd}, R{rA}, #{imm16z}",yes,yes,,imm in low 16 bits
+0x14,XORI,alu-imm,XOR immediate (16-bit zero-ext),"XORI R{rd}, R{rA}, #{imm16z}",yes,yes,,imm in low 16 bits
+0x15,ADDI16,alu-imm,Add immediate (16-bit signed),"ADDI R{rd}, R{rA}, #{imm16s}",yes,yes,,Alternate ADDI encoding
+0x16,ADDI8,alu-imm,Add immediate (8-bit signed),"ADDI R{rd}, R{rA}, #{imm8s}",yes,yes,,Compact immediate
+0x17,TST,alu-imm,Test bits (AND flags only),"TST R{rA}, #{imm}",no,yes,,Sets flags from rA & imm
+0x18,CMPI,alu-imm,Compare immediate,"CMPI R{rA}, #{imm12s}",no,yes,,Sets flags from rA - imm
+0x19,LUI,alu-imm,Load upper immediate,"LUI R{rd}, #{imm20}",yes,no,,rd = imm20 << 12
+0x1A,AUIPC,alu-imm,Add upper immediate to PC,"AUIPC R{rd}, #{imm20}",yes,no,,rd = PC + (imm20 << 12)
+0x1B,MOVT,alu-imm,Move to upper half,"MOVT R{rd}, #{imm16}",yes,no,,ARM MOVT-style upper 16
+0x1C,MOVI8,alu-imm,Move small immediate,"MOVI R{rd}, #{imm8s}",yes,no,,Quick constant load
+0x1D,MOVI16,alu-imm,Move immediate,"MOVI R{rd}, #{imm16s}",yes,no,,16-bit constant load
+0x1E,SLT,alu-reg,Set if less than (signed),"SLT R{rd}, R{rA}, R{rB}",yes,yes,,rd = (rA < rB) ? 1 : 0
+0x1F,SLTU,alu-reg,Set if less than (unsigned),"SLTU R{rd}, R{rA}, R{rB}",yes,yes,,rd = (rA <u rB) ? 1 : 0
+0x20,LSL,shift,Logical shift left by register,"LSL R{rd}, R{rA}, R{rB}",yes,no,,Shift amount = rB[4:0]
+0x21,LSR,shift,Logical shift right by register,"LSR R{rd}, R{rA}, R{rB}",yes,no,,Shift amount = rB[4:0]
+0x22,ASR,shift,Arithmetic shift right by register,"ASR R{rd}, R{rA}, R{rB}",yes,no,,Shift amount = rB[4:0]
+0x23,ROR,shift,Rotate right by register,"ROR R{rd}, R{rA}, R{rB}",yes,no,,Shift amount = rB[4:0]
+0x24,LSLI,shift,Logical shift left immediate,"LSLI R{rd}, R{rA}, #{shamt}",yes,no,,shamt in immediate field
+0x25,LSRI,shift,Logical shift right immediate,"LSRI R{rd}, R{rA}, #{shamt}",yes,no,,shamt in immediate field
+0x26,ASRI,shift,Arithmetic shift right immediate,"ASRI R{rd}, R{rA}, #{shamt}",yes,no,,shamt in immediate field
+0x27,RORI,shift,Rotate right immediate,"RORI R{rd}, R{rA}, #{shamt}",yes,no,,shamt in immediate field
+0x30,LW,load,Load word from memory,"LW R{rd}, [R{rB}+#{off12}]",yes,no,,mem word; 2-cycle
+0x31,LH,load,Load halfword signed,"LH R{rd}, [R{rB}+#{off12}]",yes,no,,sign-extends half
+0x32,LHU,load,Load halfword unsigned,"LHU R{rd}, [R{rB}+#{off12}]",yes,no,,zero-extends half
+0x33,LB,load,Load byte signed,"LB R{rd}, [R{rB}+#{off12}]",yes,no,,sign-extends byte
+0x34,LBU,load,Load byte unsigned,"LBU R{rd}, [R{rB}+#{off12}]",yes,no,,zero-extends byte
+0x35,LW0,load,Load word indirect,"LW R{rd}, [R{rB}]",yes,no,,No offset; reg indirect
+0x40,SW,store,Store word to memory,"SW R{rA}, [R{rB}+#{off12}]",no,no,,mem word; 2-cycle
+0x41,SH,store,Store halfword,"SH R{rA}, [R{rB}+#{off12}]",no,no,,Stores low 16 bits
+0x42,SB,store,Store byte,"SB R{rA}, [R{rB}+#{off12}]",no,no,,Stores low 8 bits
+0x43,SW0,store,Store word indirect,"SW R{rA}, [R{rB}]",no,no,,No offset; reg indirect
+0x50,BEQ,branch,Branch if equal (semantic),"BEQ R{rA}, R{rB}, #{target}",no,no,FLAG_Z=1,COND=IR[2:0]=0; abs if IR[0]=0 else PC+offset; run CMP/SUB first to set Z
+0x51,BNE,branch,Branch if not equal (microcode name),"BNE R{rA}, R{rB}, #{target}",no,no,FLAG_C=1,COND=IR[2:0]=1 — hardware tests C not Z; use 0x54 for Z=0 branch
+0x52,BLT,branch,Branch if less than (microcode name),"BLT R{rA}, R{rB}, #{target}",no,no,FLAG_N=1,COND=IR[2:0]=2 — hardware tests N not signed-compare
+0x53,BGE,branch,Branch if greater or equal (microcode name),"BGE R{rA}, R{rB}, #{target}",no,no,FLAG_O=1,COND=IR[2:0]=3
+0x54,BLTU,branch,Branch if less than unsigned (microcode name),"BLTU R{rA}, R{rB}, #{target}",no,no,FLAG_Z=0,COND=IR[2:0]=4 (~Z); actually branches when Z=0
+0x55,BGEU,branch,Branch if greater/equal unsigned (microcode name),"BGEU R{rA}, R{rB}, #{target}",no,no,FLAG_C=0,COND=IR[2:0]=5 (~C)
+0x56,BLEZ,branch,Branch if less or equal zero (microcode name),"BLEZ R{rA}, #{target}",no,no,FLAG_N=0,COND=IR[2:0]=6 (~N)
+0x57,BGTZ,branch,Branch if greater than zero (microcode name),"BGTZ R{rA}, #{target}",no,no,FLAG_O=0,COND=IR[2:0]=7 (~O)
+0x60,JAL,jump,Jump and link,"JAL R{rd}, #{target24}",yes,no,,Saves PC+1 to rd; abs/rel via IR[0]
+0x61,JALR,jump,Jump register and link,"JALR R{rd}, R{rB}, #{off12}",yes,no,,Target = rB + offset
+0x62,JMP,jump,Unconditional jump,"JMP #{target26x4}",no,no,,Example abs: 0x62000002  rel: 0x62000003 (IR[0]=1)
+0x63,JR,jump,Jump register,"JR R{rB}",no,no,,PC = rB
+0x64,RET,jump,Return,"RET",no,no,,Jump via return address path (ADDR_RET)
+0x70,PUSH,stack,Push register to stack,"PUSH R{rA}",no,no,,SP -= 4; mem[SP] = rA
+0x71,POP,stack,Pop register from stack,"POP R{rd}",yes,no,,rd = mem[SP]; SP += 4
+0x72,CALL,stack,Call subroutine,"CALL #{target24}",yes,no,,Push PC then jump
+0x73,RTS,stack,Return from subroutine,"RTS",no,no,,Pop PC and jump
+0x80,MUL,muldiv,Signed multiply low,"MUL R{rd}, R{rA}, R{rB}",yes,no,,rd = low 32 of rA * rB
+0x81,MULH,muldiv,Signed multiply high,"MULH R{rd}, R{rA}, R{rB}",yes,no,,rd = high 32 of signed product
+0x82,MULHU,muldiv,Unsigned multiply high,"MULHU R{rd}, R{rA}, R{rB}",yes,no,,rd = high 32 of unsigned product
+0x83,MULHSU,muldiv,Signed×unsigned multiply high,"MULHSU R{rd}, R{rA}, R{rB}",yes,no,,Mixed-sign high product
+0x84,MFHI,muldiv,Move from HI register,"MFHI R{rd}",yes,no,,Read mul/div high result
+0x85,MULI,muldiv,Multiply immediate,"MULI R{rd}, R{rA}, #{imm16s}",yes,no,,Signed multiply by immediate
+0x90,DIV,muldiv,Signed divide quotient,"DIV R{rd}, R{rA}, R{rB}",yes,no,,rd = rA / rB (signed)
+0x91,DIVU,muldiv,Unsigned divide quotient,"DIVU R{rd}, R{rA}, R{rB}",yes,no,,rd = rA / rB (unsigned)
+0x92,REM,muldiv,Signed remainder,"REM R{rd}, R{rA}, R{rB}",yes,no,,rd = rA % rB (signed)
+0x93,REMU,muldiv,Unsigned remainder,"REMU R{rd}, R{rA}, R{rB}",yes,no,,rd = rA % rB (unsigned)
+0xA0,CSRR,flags,Read flags to register,"CSRR R{rd}",yes,no,,Copies flag status word
+0xA1,CSRW,flags,Write flags from register,"CSRW R{rA}",no,yes,,Future / partial
+0xA2,CLZ,flags,Count leading zeros,"CLZ R{rd}, R{rA}",yes,no,,Future / partial
