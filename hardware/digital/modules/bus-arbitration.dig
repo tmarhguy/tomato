@@ -87,7 +87,31 @@
           <int>24</int>
         </entry>
       </elementAttributes>
-      <pos x="20" y="1120"/>
+      <pos x="140" y="1300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>FETCH</string>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="1360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>addr_mux_out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-60" y="1120"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -130,6 +154,11 @@
 0 1 0 0 0 0 0 0 0 1
 1 0 0 0 0 0 0 0 0 1
 1 1 0 0 0 0 0 0 0 1
+
+# 3. FETCH forces Pc-out on ADDR_BUS (instruction fetch must track PC)
+1 0 0 0xDEADBE 0x11111111 0x22222222 0x000004 0x777777 0x000004 1
+1 0 3 0x111111 0x22222222 0x33333333 0x000010 0x777777 0x000010 1
+1 1 1 0x111111 0x22222222 0x33333333 0x000020 0x777777 0x000020 1
 </dataString>
           </testData>
         </entry>
@@ -536,11 +565,53 @@
       </elementAttributes>
       <pos x="-100" y="1060"/>
     </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Selector Bits</string>
+          <int>1</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="1280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>addr_mux_out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="1280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>pc-out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="1320"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="-60" y="1120"/>
-      <p2 x="20" y="1120"/>
+      <p1 x="60" y="1360"/>
+      <p2 x="80" y="1360"/>
     </wire>
     <wire>
       <p1 x="-600" y="980"/>
@@ -549,6 +620,10 @@
     <wire>
       <p1 x="-540" y="980"/>
       <p2 x="-480" y="980"/>
+    </wire>
+    <wire>
+      <p1 x="100" y="1300"/>
+      <p2 x="140" y="1300"/>
     </wire>
     <wire>
       <p1 x="-100" y="1240"/>
@@ -561,6 +636,10 @@
     <wire>
       <p1 x="-540" y="1100"/>
       <p2 x="-480" y="1100"/>
+    </wire>
+    <wire>
+      <p1 x="80" y="1320"/>
+      <p2 x="80" y="1360"/>
     </wire>
     <wire>
       <p1 x="-80" y="1200"/>
