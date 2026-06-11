@@ -1,53 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>2</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>romContent</string>
+      <romList>
+        <roms/>
+      </romList>
+    </entry>
+    <entry>
+      <string>Width</string>
+      <int>9</int>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Mul</elementName>
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>16</int>
+          <int>32</int>
         </entry>
       </elementAttributes>
-      <pos x="560" y="180"/>
+      <pos x="500" y="180"/>
     </visualElement>
     <visualElement>
-      <elementName>Div</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="51" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="2" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mul-out</string>
+        </entry>
         <entry>
           <string>Bits</string>
           <int>32</int>
         </entry>
       </elementAttributes>
-      <pos x="560" y="300"/>
+      <pos x="720" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>64</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>32,32</string>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="200"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="520" y="320"/>
-      <p2 x="560" y="320"/>
+      <p1 x="420" y="180"/>
+      <p2 x="500" y="180"/>
     </wire>
     <wire>
-      <p1 x="480" y="180"/>
-      <p2 x="560" y="180"/>
+      <p1 x="560" y="200"/>
+      <p2 x="640" y="200"/>
     </wire>
     <wire>
-      <p1 x="520" y="220"/>
-      <p2 x="560" y="220"/>
+      <p1 x="660" y="200"/>
+      <p2 x="720" y="200"/>
     </wire>
     <wire>
-      <p1 x="480" y="300"/>
-      <p2 x="560" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="480" y="180"/>
-      <p2 x="480" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="220"/>
-      <p2 x="520" y="320"/>
+      <p1 x="340" y="220"/>
+      <p2 x="500" y="220"/>
     </wire>
   </wires>
   <measurementOrdering/>
