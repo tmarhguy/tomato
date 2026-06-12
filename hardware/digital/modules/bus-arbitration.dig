@@ -122,7 +122,7 @@
         </entry>
         <entry>
           <string>Bits</string>
-          <int>24</int>
+          <int>22</int>
         </entry>
       </elementAttributes>
       <pos x="-600" y="900"/>
@@ -242,10 +242,10 @@
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>IR_ADDR</string>
+          <string>ir-addr</string>
         </entry>
       </elementAttributes>
-      <pos x="-600" y="900"/>
+      <pos x="-480" y="900"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -324,7 +324,7 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>IR_ADDR</string>
+          <string>ir-addr</string>
         </entry>
       </elementAttributes>
       <pos x="-100" y="1040"/>
@@ -607,6 +607,34 @@
       </elementAttributes>
       <pos x="60" y="1320"/>
     </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>22,2</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>24</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-540" y="900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-580" y="920"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -626,8 +654,20 @@
       <p2 x="140" y="1300"/>
     </wire>
     <wire>
+      <p1 x="-520" y="900"/>
+      <p2 x="-480" y="900"/>
+    </wire>
+    <wire>
+      <p1 x="-600" y="900"/>
+      <p2 x="-540" y="900"/>
+    </wire>
+    <wire>
       <p1 x="-100" y="1240"/>
       <p2 x="-80" y="1240"/>
+    </wire>
+    <wire>
+      <p1 x="-580" y="920"/>
+      <p2 x="-540" y="920"/>
     </wire>
     <wire>
       <p1 x="-600" y="1100"/>
