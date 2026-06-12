@@ -634,7 +634,7 @@
           <string>ctrl_cycles</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="400"/>
+      <pos x="1160" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -667,7 +667,7 @@
     <visualElement>
       <elementName>register.dig</elementName>
       <elementAttributes/>
-      <pos x="120" y="700"/>
+      <pos x="140" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -681,7 +681,7 @@
           <string>ir_addr_a</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="740"/>
+      <pos x="140" y="820"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -695,7 +695,7 @@
           <string>ir_addr_b</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="760"/>
+      <pos x="140" y="840"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -709,7 +709,7 @@
           <string>ir_addr_w</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="780"/>
+      <pos x="140" y="860"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -723,7 +723,7 @@
           <string>clk</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="820"/>
+      <pos x="140" y="900"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -737,7 +737,7 @@
           <string>ctrl_reg_we</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="700"/>
+      <pos x="140" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -747,7 +747,7 @@
           <string>reg_a</string>
         </entry>
       </elementAttributes>
-      <pos x="260" y="700"/>
+      <pos x="280" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -757,7 +757,7 @@
           <string>reg_b</string>
         </entry>
       </elementAttributes>
-      <pos x="260" y="720"/>
+      <pos x="280" y="800"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -767,7 +767,7 @@
           <string>reg_c</string>
         </entry>
       </elementAttributes>
-      <pos x="260" y="740"/>
+      <pos x="280" y="820"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -781,7 +781,7 @@
           <string>seq_exec</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="800"/>
+      <pos x="140" y="880"/>
     </visualElement>
     <visualElement>
       <elementName>alu-32b-final.dig</elementName>
@@ -1601,20 +1601,6 @@
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>reg_b</string>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="760"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
           <string>NetName</string>
           <string>io_data_in</string>
         </entry>
@@ -1779,7 +1765,7 @@
           <string>ctrl_bus_sel</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="420"/>
+      <pos x="1160" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1790,10 +1776,10 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>reg_b</string>
+          <string>mem-in</string>
         </entry>
       </elementAttributes>
-      <pos x="620" y="1020"/>
+      <pos x="820" y="1000"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1807,7 +1793,7 @@
           <string>mem_rd_out</string>
         </entry>
       </elementAttributes>
-      <pos x="620" y="1080"/>
+      <pos x="820" y="1060"/>
     </visualElement>
     <visualElement>
       <elementName>Comparator</elementName>
@@ -1897,7 +1883,7 @@
           <string>ctrl_pc_src</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="480"/>
+      <pos x="1160" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1925,7 +1911,7 @@
           <string>reg_w_data</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="720"/>
+      <pos x="140" y="800"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1949,7 +1935,7 @@
           <string>mem-ram-out</string>
         </entry>
       </elementAttributes>
-      <pos x="680" y="1040"/>
+      <pos x="880" y="1020"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2233,7 +2219,7 @@
           <string>CPU_ADDR_OUT</string>
         </entry>
       </elementAttributes>
-      <pos x="620" y="1000"/>
+      <pos x="820" y="980"/>
     </visualElement>
     <visualElement>
       <elementName>byte-lane-decoder.dig</elementName>
@@ -2255,7 +2241,7 @@
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>ctrl_mem_sel</string>
+          <string>ctrl_byte_sel</string>
         </entry>
       </elementAttributes>
       <pos x="1160" y="340"/>
@@ -2269,7 +2255,7 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>ctrl_mem_sel</string>
+          <string>ctrl_byte_sel</string>
         </entry>
       </elementAttributes>
       <pos x="1200" y="1000"/>
@@ -2338,7 +2324,7 @@
           <string>ctrl_mem_wr</string>
         </entry>
       </elementAttributes>
-      <pos x="620" y="1040"/>
+      <pos x="820" y="1020"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2352,7 +2338,7 @@
           <string>clk</string>
         </entry>
       </elementAttributes>
-      <pos x="620" y="1060"/>
+      <pos x="820" y="1040"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -2893,7 +2879,7 @@
           <string>BANK_SEL</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="840"/>
+      <pos x="140" y="920"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2917,21 +2903,7 @@
           <string>bank-en</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="860"/>
-    </visualElement>
-    <visualElement>
-      <elementName>RAMDualPort</elementName>
-      <elementAttributes>
-        <entry>
-          <string>AddrBits</string>
-          <int>24</int>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>32</int>
-        </entry>
-      </elementAttributes>
-      <pos x="620" y="1000"/>
+      <pos x="140" y="940"/>
     </visualElement>
     <visualElement>
       <elementName>program-counter.dig</elementName>
@@ -2967,18 +2939,4371 @@
       <pos x="120" y="260"/>
     </visualElement>
     <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>HALT_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>ctrl_pc_link_WE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1160" y="520"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ctrl_pc_link_WE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="660"/>
+    </visualElement>
+    <visualElement>
       <elementName>Const</elementName>
       <elementAttributes>
         <entry>
           <string>Value</string>
           <long>0</long>
         </entry>
+      </elementAttributes>
+      <pos x="120" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
         <entry>
-          <string>Bits</string>
-          <int>24</int>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="620"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="580"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="540"/>
+    </visualElement>
+    <visualElement>
+      <elementName>store-mux.dig</elementName>
+      <elementAttributes/>
+      <pos x="440" y="1000"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mem-in</string>
+        </entry>
+      </elementAttributes>
+      <pos x="600" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>alu_out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="1020"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>reg_b</string>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="1060"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>pc_save</string>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ctrl_mem_sel</string>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="1080"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>reg_a</string>
+        </entry>
+      </elementAttributes>
+      <pos x="440" y="1000"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>ctrl_mem_sel</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1160" y="540"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>mem-in</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>sp.dig</elementName>
+      <elementAttributes/>
+      <pos x="1500" y="900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>ctrl_sp_out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1160" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ctrl_sp_out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1500" y="900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>clk</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1500" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>reset</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1500" y="940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>sp_out</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>sp_out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1640" y="940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>alu_out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1500" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>seq_exec</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1500" y="980"/>
+    </visualElement>
+    <visualElement>
+      <elementName>EEPROMDualPort</elementName>
+      <elementAttributes>
+        <entry>
+          <string>AddrBits</string>
+          <int>24</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+        <entry>
+          <string>Data</string>
+          <data>10203,1010203,2010203,3010203,4010203,5010203,6010203,7010203
+,8010203,9010203,a010203,b010203,c010203,d010203,e010203,f010203
+,10011003,11011003,120100ff,130100ff,140100ff,150100ff,16015003
+,170100ff,18011003,19001233,19001233,1b2af343,1c015003,1d0100ff
+,1e010203,1f010203,20010203,21010203,22010203,23010203,24010003
+,25010003,26010003,27010003,30011003,31011003,32011003,33011003
+,34011003,35010203,40011003,41011003,42011003,43010203,50010300
+,51010300,52010300,53010300,54010300,55010300,56010300,57010300
+,60011000,61011003,62000200,63010203,64010203,70010203,71010203
+,72011000,73010203,80010203,81010203,82010203,83010203,84010203
+,850100ff,90010203,91010203,92010203,93010203,a0010203,a1010203
+,a2010203,ff010203</data>
+        </entry>
+      </elementAttributes>
+      <pos x="820" y="980"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mc-system-alu-rr</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+# auto-generated mc-system-alu-rr — microcode dispatch via main.dig
+# Assert ir-opcode + ctrl-alu-op + ctrl-reg-we on EXECUTE for each native op
+# NOP (0x00)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x00 0x00
+# ADD (0x01)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x01 0x96
+# SUB (0x02)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x02 0x96
+# AND (0x03)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x03 0x88
+# OR (0x04)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x04 0xEE
+# XOR (0x05)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x05 0x66
+# NOT (0x06)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x06 0x33
+# NEG (0x07)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x07 0x96
+# ADC (0x08)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x08 0x96
+# SBC (0x09)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x09 0x69
+# ANDN (0x0A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x0A 0xC0
+# ORN (0x0B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x0B 0xEE
+# INC (0x0C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x0C 0x96
+# DEC (0x0D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x0D 0x96
+# MOV (0x0E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x0E 0xCC
+# CMP (0x0F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x0F 0x69
+# ADDI (0x10)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUBI (0x11)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDI (0x12)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORI (0x13)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XORI (0x14)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI16 (0x15)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI8 (0x16)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# TST (0x17)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMPI (0x18)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LUI (0x19)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AUIPC (0x1A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVT (0x1B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI8 (0x1C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI16 (0x1D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLT (0x1E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLTU (0x1F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSL (0x20)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSR (0x21)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASR (0x22)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ROR (0x23)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSLI (0x24)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSRI (0x25)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASRI (0x26)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RORI (0x27)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW (0x30)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LH (0x31)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LHU (0x32)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LB (0x33)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LBU (0x34)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW0 (0x35)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW (0x40)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SH (0x41)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SB (0x42)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW0 (0x43)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BEQ (0x50)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BNE (0x51)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLT (0x52)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGE (0x53)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLTU (0x54)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGEU (0x55)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLEZ (0x56)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGTZ (0x57)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JAL (0x60)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JALR (0x61)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JMP (0x62)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JR (0x63)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RET (0x64)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# PUSH (0x70)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# POP (0x71)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CALL (0x72)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RTS (0x73)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MUL (0x80)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULH (0x81)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHU (0x82)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHSU (0x83)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MFHI (0x84)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULI (0x85)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIV (0x90)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIVU (0x91)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REM (0x92)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REMU (0x93)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRR (0xA0)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRW (0xA1)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CLZ (0xA2)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# HALT (0xFF)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1060" y="-800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mc-alu-imm-a</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+# auto-generated mc-alu-imm-a — microcode dispatch via main.dig
+# Assert ir-opcode + ctrl-alu-op + ctrl-reg-we on EXECUTE for each native op
+# NOP (0x00)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADD (0x01)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUB (0x02)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AND (0x03)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# OR (0x04)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XOR (0x05)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NOT (0x06)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NEG (0x07)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADC (0x08)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SBC (0x09)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDN (0x0A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORN (0x0B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# INC (0x0C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DEC (0x0D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOV (0x0E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMP (0x0F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI (0x10)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x10 0x96
+# SUBI (0x11)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x11 0x69
+# ANDI (0x12)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x12 0x88
+# ORI (0x13)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x13 0xEE
+# XORI (0x14)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x14 0x66
+# ADDI16 (0x15)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x15 0x96
+# ADDI8 (0x16)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x16 0x96
+# TST (0x17)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x17 0x88
+# CMPI (0x18)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x18 0x69
+# LUI (0x19)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AUIPC (0x1A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVT (0x1B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI8 (0x1C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI16 (0x1D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLT (0x1E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLTU (0x1F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSL (0x20)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSR (0x21)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASR (0x22)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ROR (0x23)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSLI (0x24)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSRI (0x25)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASRI (0x26)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RORI (0x27)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW (0x30)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LH (0x31)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LHU (0x32)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LB (0x33)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LBU (0x34)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW0 (0x35)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW (0x40)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SH (0x41)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SB (0x42)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW0 (0x43)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BEQ (0x50)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BNE (0x51)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLT (0x52)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGE (0x53)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLTU (0x54)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGEU (0x55)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLEZ (0x56)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGTZ (0x57)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JAL (0x60)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JALR (0x61)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JMP (0x62)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JR (0x63)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RET (0x64)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# PUSH (0x70)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# POP (0x71)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CALL (0x72)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RTS (0x73)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MUL (0x80)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULH (0x81)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHU (0x82)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHSU (0x83)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MFHI (0x84)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULI (0x85)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIV (0x90)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIVU (0x91)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REM (0x92)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REMU (0x93)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRR (0xA0)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRW (0xA1)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CLZ (0xA2)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# HALT (0xFF)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="2040" y="-1020"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mc-alu-imm-b</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+# auto-generated mc-alu-imm-b — microcode dispatch via main.dig
+# Assert ir-opcode + ctrl-alu-op + ctrl-reg-we on EXECUTE for each native op
+# NOP (0x00)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADD (0x01)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUB (0x02)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AND (0x03)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# OR (0x04)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XOR (0x05)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NOT (0x06)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NEG (0x07)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADC (0x08)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SBC (0x09)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDN (0x0A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORN (0x0B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# INC (0x0C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DEC (0x0D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOV (0x0E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMP (0x0F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI (0x10)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUBI (0x11)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDI (0x12)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORI (0x13)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XORI (0x14)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI16 (0x15)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI8 (0x16)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# TST (0x17)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMPI (0x18)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LUI (0x19)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x19 0x00
+# AUIPC (0x1A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x1A 0x96
+# MOVT (0x1B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x1B 0x00
+# MOVI8 (0x1C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x1C 0x00
+# MOVI16 (0x1D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x1D 0x00
+# SLT (0x1E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x1E 0x69
+# SLTU (0x1F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x1F 0x69
+# LSL (0x20)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSR (0x21)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASR (0x22)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ROR (0x23)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSLI (0x24)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSRI (0x25)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASRI (0x26)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RORI (0x27)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW (0x30)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LH (0x31)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LHU (0x32)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LB (0x33)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LBU (0x34)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW0 (0x35)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW (0x40)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SH (0x41)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SB (0x42)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW0 (0x43)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BEQ (0x50)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BNE (0x51)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLT (0x52)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGE (0x53)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLTU (0x54)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGEU (0x55)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLEZ (0x56)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGTZ (0x57)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JAL (0x60)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JALR (0x61)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JMP (0x62)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JR (0x63)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RET (0x64)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# PUSH (0x70)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# POP (0x71)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CALL (0x72)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RTS (0x73)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MUL (0x80)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULH (0x81)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHU (0x82)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHSU (0x83)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MFHI (0x84)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULI (0x85)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIV (0x90)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIVU (0x91)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REM (0x92)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REMU (0x93)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRR (0xA0)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRW (0xA1)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CLZ (0xA2)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# HALT (0xFF)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1960" y="-900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mc-shift</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+# auto-generated mc-shift — microcode dispatch via main.dig
+# Assert ir-opcode + ctrl-alu-op + ctrl-reg-we on EXECUTE for each native op
+# NOP (0x00)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADD (0x01)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUB (0x02)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AND (0x03)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# OR (0x04)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XOR (0x05)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NOT (0x06)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NEG (0x07)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADC (0x08)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SBC (0x09)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDN (0x0A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORN (0x0B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# INC (0x0C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DEC (0x0D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOV (0x0E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMP (0x0F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI (0x10)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUBI (0x11)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDI (0x12)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORI (0x13)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XORI (0x14)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI16 (0x15)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI8 (0x16)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# TST (0x17)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMPI (0x18)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LUI (0x19)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AUIPC (0x1A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVT (0x1B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI8 (0x1C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI16 (0x1D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLT (0x1E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLTU (0x1F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSL (0x20)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x20 0x00
+# LSR (0x21)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x21 0x00
+# ASR (0x22)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x22 0x00
+# ROR (0x23)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x23 0x00
+# LSLI (0x24)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x24 0x00
+# LSRI (0x25)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x25 0x00
+# ASRI (0x26)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x26 0x00
+# RORI (0x27)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x27 0x00
+# LW (0x30)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LH (0x31)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LHU (0x32)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LB (0x33)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LBU (0x34)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW0 (0x35)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW (0x40)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SH (0x41)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SB (0x42)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW0 (0x43)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BEQ (0x50)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BNE (0x51)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLT (0x52)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGE (0x53)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLTU (0x54)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGEU (0x55)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLEZ (0x56)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGTZ (0x57)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JAL (0x60)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JALR (0x61)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JMP (0x62)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JR (0x63)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RET (0x64)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# PUSH (0x70)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# POP (0x71)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CALL (0x72)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RTS (0x73)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MUL (0x80)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULH (0x81)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHU (0x82)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHSU (0x83)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MFHI (0x84)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULI (0x85)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIV (0x90)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIVU (0x91)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REM (0x92)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REMU (0x93)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRR (0xA0)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRW (0xA1)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CLZ (0xA2)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# HALT (0xFF)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="2040" y="-660"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mc-load</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+# auto-generated mc-load — microcode dispatch via main.dig
+# Assert ir-opcode + ctrl-alu-op + ctrl-reg-we on EXECUTE for each native op
+# NOP (0x00)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADD (0x01)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUB (0x02)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AND (0x03)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# OR (0x04)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XOR (0x05)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NOT (0x06)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NEG (0x07)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADC (0x08)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SBC (0x09)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDN (0x0A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORN (0x0B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# INC (0x0C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DEC (0x0D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOV (0x0E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMP (0x0F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI (0x10)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUBI (0x11)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDI (0x12)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORI (0x13)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XORI (0x14)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI16 (0x15)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI8 (0x16)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# TST (0x17)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMPI (0x18)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LUI (0x19)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AUIPC (0x1A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVT (0x1B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI8 (0x1C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI16 (0x1D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLT (0x1E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLTU (0x1F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSL (0x20)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSR (0x21)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASR (0x22)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ROR (0x23)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSLI (0x24)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSRI (0x25)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASRI (0x26)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RORI (0x27)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW (0x30)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x30 0x00
+# LH (0x31)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x31 0x00
+# LHU (0x32)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x32 0x00
+# LB (0x33)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x33 0x00
+# LBU (0x34)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x34 0x00
+# LW0 (0x35)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x35 0x00
+# SW (0x40)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SH (0x41)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SB (0x42)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW0 (0x43)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BEQ (0x50)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BNE (0x51)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLT (0x52)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGE (0x53)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLTU (0x54)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGEU (0x55)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLEZ (0x56)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGTZ (0x57)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JAL (0x60)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JALR (0x61)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JMP (0x62)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JR (0x63)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RET (0x64)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# PUSH (0x70)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# POP (0x71)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CALL (0x72)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RTS (0x73)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MUL (0x80)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULH (0x81)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHU (0x82)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHSU (0x83)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MFHI (0x84)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULI (0x85)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIV (0x90)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIVU (0x91)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REM (0x92)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REMU (0x93)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRR (0xA0)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRW (0xA1)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CLZ (0xA2)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# HALT (0xFF)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1540" y="-1060"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mc-store</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+# auto-generated mc-store — microcode dispatch via main.dig
+# Assert ir-opcode + ctrl-alu-op + ctrl-reg-we on EXECUTE for each native op
+# NOP (0x00)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADD (0x01)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUB (0x02)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AND (0x03)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# OR (0x04)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XOR (0x05)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NOT (0x06)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NEG (0x07)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADC (0x08)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SBC (0x09)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDN (0x0A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORN (0x0B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# INC (0x0C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DEC (0x0D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOV (0x0E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMP (0x0F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI (0x10)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUBI (0x11)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDI (0x12)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORI (0x13)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XORI (0x14)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI16 (0x15)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI8 (0x16)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# TST (0x17)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMPI (0x18)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LUI (0x19)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AUIPC (0x1A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVT (0x1B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI8 (0x1C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI16 (0x1D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLT (0x1E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLTU (0x1F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSL (0x20)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSR (0x21)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASR (0x22)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ROR (0x23)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSLI (0x24)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSRI (0x25)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASRI (0x26)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RORI (0x27)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW (0x30)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LH (0x31)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LHU (0x32)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LB (0x33)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LBU (0x34)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW0 (0x35)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW (0x40)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x40 0x00
+# SH (0x41)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x41 0x00
+# SB (0x42)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x42 0x00
+# SW0 (0x43)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x43 0x00
+# BEQ (0x50)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BNE (0x51)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLT (0x52)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGE (0x53)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLTU (0x54)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGEU (0x55)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLEZ (0x56)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGTZ (0x57)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JAL (0x60)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JALR (0x61)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JMP (0x62)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JR (0x63)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RET (0x64)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# PUSH (0x70)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# POP (0x71)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CALL (0x72)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RTS (0x73)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MUL (0x80)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULH (0x81)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHU (0x82)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHSU (0x83)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MFHI (0x84)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULI (0x85)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIV (0x90)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIVU (0x91)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REM (0x92)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REMU (0x93)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRR (0xA0)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRW (0xA1)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CLZ (0xA2)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# HALT (0xFF)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="-1060"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mc-branch</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+# auto-generated mc-branch — microcode dispatch via main.dig
+# Assert ir-opcode + ctrl-alu-op + ctrl-reg-we on EXECUTE for each native op
+# NOP (0x00)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADD (0x01)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUB (0x02)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AND (0x03)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# OR (0x04)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XOR (0x05)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NOT (0x06)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NEG (0x07)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADC (0x08)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SBC (0x09)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDN (0x0A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORN (0x0B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# INC (0x0C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DEC (0x0D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOV (0x0E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMP (0x0F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI (0x10)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUBI (0x11)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDI (0x12)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORI (0x13)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XORI (0x14)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI16 (0x15)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI8 (0x16)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# TST (0x17)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMPI (0x18)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LUI (0x19)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AUIPC (0x1A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVT (0x1B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI8 (0x1C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI16 (0x1D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLT (0x1E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLTU (0x1F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSL (0x20)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSR (0x21)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASR (0x22)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ROR (0x23)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSLI (0x24)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSRI (0x25)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASRI (0x26)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RORI (0x27)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW (0x30)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LH (0x31)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LHU (0x32)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LB (0x33)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LBU (0x34)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW0 (0x35)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW (0x40)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SH (0x41)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SB (0x42)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW0 (0x43)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BEQ (0x50)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x50 0x00
+# BNE (0x51)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x51 0x00
+# BLT (0x52)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x52 0x00
+# BGE (0x53)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x53 0x00
+# BLTU (0x54)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x54 0x00
+# BGEU (0x55)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x55 0x00
+# BLEZ (0x56)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x56 0x00
+# BGTZ (0x57)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x57 0x00
+# JAL (0x60)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JALR (0x61)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JMP (0x62)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JR (0x63)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RET (0x64)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# PUSH (0x70)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# POP (0x71)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CALL (0x72)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RTS (0x73)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MUL (0x80)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULH (0x81)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHU (0x82)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHSU (0x83)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MFHI (0x84)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULI (0x85)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIV (0x90)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIVU (0x91)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REM (0x92)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REMU (0x93)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRR (0xA0)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRW (0xA1)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CLZ (0xA2)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# HALT (0xFF)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="-940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mc-jump-stack</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+# auto-generated mc-jump-stack — microcode dispatch via main.dig
+# Assert ir-opcode + ctrl-alu-op + ctrl-reg-we on EXECUTE for each native op
+# NOP (0x00)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADD (0x01)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUB (0x02)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AND (0x03)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# OR (0x04)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XOR (0x05)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NOT (0x06)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NEG (0x07)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADC (0x08)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SBC (0x09)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDN (0x0A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORN (0x0B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# INC (0x0C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DEC (0x0D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOV (0x0E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMP (0x0F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI (0x10)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUBI (0x11)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDI (0x12)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORI (0x13)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XORI (0x14)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI16 (0x15)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI8 (0x16)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# TST (0x17)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMPI (0x18)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LUI (0x19)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AUIPC (0x1A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVT (0x1B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI8 (0x1C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI16 (0x1D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLT (0x1E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLTU (0x1F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSL (0x20)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSR (0x21)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASR (0x22)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ROR (0x23)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSLI (0x24)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSRI (0x25)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASRI (0x26)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RORI (0x27)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW (0x30)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LH (0x31)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LHU (0x32)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LB (0x33)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LBU (0x34)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW0 (0x35)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW (0x40)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SH (0x41)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SB (0x42)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW0 (0x43)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BEQ (0x50)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BNE (0x51)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLT (0x52)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGE (0x53)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLTU (0x54)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGEU (0x55)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLEZ (0x56)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGTZ (0x57)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JAL (0x60)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x60 0x00
+# JALR (0x61)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x61 0x96
+# JMP (0x62)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x62 0x00
+# JR (0x63)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x63 0x00
+# RET (0x64)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x64 0x00
+# PUSH (0x70)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x70 0x00
+# POP (0x71)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x71 0x00
+# CALL (0x72)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x72 0x00
+# RTS (0x73)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0x73 0x00
+# MUL (0x80)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULH (0x81)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHU (0x82)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULHSU (0x83)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MFHI (0x84)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MULI (0x85)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIV (0x90)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DIVU (0x91)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REM (0x92)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# REMU (0x93)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRR (0xA0)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CSRW (0xA1)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CLZ (0xA2)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# HALT (0xFF)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="-960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mc-muldiv-flags</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+# auto-generated mc-muldiv-flags — microcode dispatch via main.dig
+# Assert ir-opcode + ctrl-alu-op + ctrl-reg-we on EXECUTE for each native op
+# NOP (0x00)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADD (0x01)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUB (0x02)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AND (0x03)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# OR (0x04)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XOR (0x05)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NOT (0x06)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# NEG (0x07)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADC (0x08)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SBC (0x09)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDN (0x0A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORN (0x0B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# INC (0x0C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# DEC (0x0D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOV (0x0E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMP (0x0F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI (0x10)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SUBI (0x11)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ANDI (0x12)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ORI (0x13)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# XORI (0x14)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI16 (0x15)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ADDI8 (0x16)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# TST (0x17)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CMPI (0x18)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LUI (0x19)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# AUIPC (0x1A)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVT (0x1B)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI8 (0x1C)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MOVI16 (0x1D)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLT (0x1E)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SLTU (0x1F)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSL (0x20)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSR (0x21)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASR (0x22)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ROR (0x23)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSLI (0x24)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LSRI (0x25)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# ASRI (0x26)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RORI (0x27)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW (0x30)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LH (0x31)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LHU (0x32)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LB (0x33)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LBU (0x34)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# LW0 (0x35)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW (0x40)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SH (0x41)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SB (0x42)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# SW0 (0x43)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BEQ (0x50)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BNE (0x51)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLT (0x52)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGE (0x53)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLTU (0x54)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGEU (0x55)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BLEZ (0x56)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# BGTZ (0x57)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JAL (0x60)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JALR (0x61)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JMP (0x62)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# JR (0x63)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RET (0x64)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# PUSH (0x70)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# POP (0x71)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# CALL (0x72)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# RTS (0x73)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# MUL (0x80)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x80 0x00
+# MULH (0x81)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x81 0x00
+# MULHU (0x82)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x82 0x00
+# MULHSU (0x83)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x83 0x00
+# MFHI (0x84)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x84 0x00
+# MULI (0x85)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x85 0x00
+# DIV (0x90)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x90 0x00
+# DIVU (0x91)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x91 0x00
+# REM (0x92)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x92 0x00
+# REMU (0x93)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0x93 0x00
+# CSRR (0xA0)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0xA0 0x00
+# CSRW (0xA1)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0xA1 0x00
+# CLZ (0xA2)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 1 0xA2 0x00
+# HALT (0xFF)
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x 0 0xFF 0x00
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="2300" y="-800"/>
     </visualElement>
   </visualElements>
   <wires>
