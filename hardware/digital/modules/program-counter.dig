@@ -191,20 +191,6 @@
       <pos x="180" y="180"/>
     </visualElement>
     <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>0</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>24</int>
-        </entry>
-      </elementAttributes>
-      <pos x="180" y="120"/>
-    </visualElement>
-    <visualElement>
       <elementName>Register</elementName>
       <elementAttributes>
         <entry>
@@ -242,22 +228,12 @@
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
-          <string>NetName</string>
-          <string>CLK</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-660" y="1080"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
           <string>rotation</string>
           <rotation rotation="2"/>
         </entry>
         <entry>
           <string>NetName</string>
-          <string>CLK</string>
+          <string>CLK_GATED</string>
         </entry>
       </elementAttributes>
       <pos x="160" y="-40"/>
@@ -404,20 +380,6 @@
           <int>24</int>
         </entry>
       </elementAttributes>
-      <pos x="180" y="140"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>0</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>24</int>
-        </entry>
-      </elementAttributes>
       <pos x="180" y="200"/>
     </visualElement>
     <visualElement>
@@ -496,6 +458,10 @@
         <entry>
           <string>wideShape</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
         </entry>
       </elementAttributes>
       <pos x="300" y="460"/>
@@ -587,8 +553,12 @@
           <string>wideShape</string>
           <boolean>true</boolean>
         </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
       </elementAttributes>
-      <pos x="60" y="460"/>
+      <pos x="60" y="960"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -602,17 +572,7 @@
           <string>FETCH</string>
         </entry>
       </elementAttributes>
-      <pos x="60" y="460"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Or</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-      </elementAttributes>
-      <pos x="60" y="540"/>
+      <pos x="60" y="900"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -626,7 +586,7 @@
           <string>FETCH</string>
         </entry>
       </elementAttributes>
-      <pos x="60" y="540"/>
+      <pos x="60" y="960"/>
     </visualElement>
     <visualElement>
       <elementName>Or</elementName>
@@ -660,17 +620,7 @@
           <string>mux0</string>
         </entry>
       </elementAttributes>
-      <pos x="140" y="480"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>mux1</string>
-        </entry>
-      </elementAttributes>
-      <pos x="140" y="560"/>
+      <pos x="140" y="880"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -680,7 +630,7 @@
           <string>mux2</string>
         </entry>
       </elementAttributes>
-      <pos x="380" y="560"/>
+      <pos x="460" y="580"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -715,34 +665,6 @@
         </entry>
       </elementAttributes>
       <pos x="-580" y="1020"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>pc-src0</string>
-        </entry>
-      </elementAttributes>
-      <pos x="60" y="500"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>pc-src1</string>
-        </entry>
-      </elementAttributes>
-      <pos x="60" y="580"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1249,7 +1171,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
         </entry>
         <entry>
           <string>NetName</string>
-          <string>CLK</string>
+          <string>CLK_GATED</string>
         </entry>
       </elementAttributes>
       <pos x="900" y="-380"/>
@@ -2441,7 +2363,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
       <elementAttributes>
         <entry>
           <string>RectHeight</string>
-          <int>47</int>
+          <int>54</int>
         </entry>
         <entry>
           <string>Label</string>
@@ -2521,6 +2443,102 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
       <pos x="-240" y="600"/>
     </visualElement>
     <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>INT_EN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-300" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_EN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-300" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>HALT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="40" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>HALT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="40" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>INT_GATE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="820"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_GATE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="820"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>CLK_GATED</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-260" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>CLK_GATED</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-260" y="640"/>
+    </visualElement>
+    <visualElement>
       <elementName>Testcase</elementName>
       <elementAttributes>
         <entry>
@@ -2595,11 +2613,1833 @@ C 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x57 0x58
 0 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 x x
 C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
 0 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
+
+# 12. Branch in FETCH (cycles=0): must increment only, not branch
+0 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 x x
+C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
+0 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
 </dataString>
           </testData>
         </entry>
       </elementAttributes>
       <pos x="480" y="-600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>CLK</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-660" y="1080"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>CLK</string>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="980"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>INT_EN_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_EN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="720" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>HALT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="720" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>HALT_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="1020"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>CLK</string>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="1060"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="1020" y="1020"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_GATE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1100" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>INT_REQ</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1020" y="1020"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>INT_EN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1020" y="1060"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="1040" y="1120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>HALT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="1120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>~HALT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1080" y="1120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="1020" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>CLK</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1020" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>~HALT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1020" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>CLK_GATED</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1100" y="940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>mirror</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>3,1,1,1,18</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>24</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1100" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_VEC_0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1100" y="780"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_VEC_1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1100" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_VEC_2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1100" y="820"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>INT_EN_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_EN_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>HALT_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>HALT_IN</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>INT_REQ</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_REQ</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>INT_VEC_0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_VEC_0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>INT_VEC_1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_VEC_1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>INT_VEC_2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_VEC_2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1380" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sc-control-flags-tests</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk INT_EN_IN HALT_IN INT_REQ INT_VEC_0 INT_VEC_1 INT_VEC_2 INT_EN HALT INT_GATE CLK_GATED
+
+# Interrupt enable + halt + INT_GATE + CLK_GATED + INT_VEC inputs
+# C = rising clock edge on 7474; exhaustive sections use CLK=1 to verify FFs
+
+
+# 1. Plan milestone — latch INT_EN
+
+0 1 0 0 0 0 0 x x 0 0
+C 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+
+# 2. INT_GATE = INT_REQ AND INT_EN
+
+0 1 0 1 0 0 0 1 0 1 0
+0 1 0 0 0 0 0 1 0 0 0
+C 0 0 1 0 0 0 0 0 0 0
+0 0 0 1 0 0 0 0 0 0 0
+0 0 0 1 0 0 0 0 0 0 0
+
+# 3. Halt — HALT=1, CLK_GATED=0 when CLK=1
+
+C 1 1 0 0 0 0 1 1 0 0
+0 1 1 0 0 0 0 1 1 0 0
+1 1 1 0 0 0 0 1 1 0 0
+
+# 4. Release halt — two clocks to clear HALT, then CLK_GATED=1
+
+C 1 0 0 0 0 0 1 1 0 0
+0 1 0 0 0 0 0 1 1 0 0
+C 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+1 1 0 0 0 0 0 1 0 0 1
+
+# 5. INT_VEC inputs encoding (bits 3–5 = vec × 8)
+
+0 1 0 0 1 1 0 1 0 0 0
+0 1 0 0 1 1 1 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 1 0 0 1 0 0 0
+0 1 0 0 0 1 0 1 0 0 0
+0 1 0 0 0 0 1 1 0 0 0
+
+# 6. INT_EN clears on clock when INT_EN_IN=0
+
+C 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0
+
+# 7. HALT_IN sequence — set then clear HALT
+
+C 1 1 0 0 0 0 1 1 0 0
+0 1 1 0 0 0 0 1 1 0 0
+C 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+
+# 8. Re-latch INT_EN=1 for INT_GATE checks
+
+C 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+0 1 0 1 0 0 0 1 0 1 0
+
+# 9. All 8 INT_VEC inputs combinations (steady-state)
+
+0 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 1 0 0 1 0 0 0
+0 1 0 0 0 1 0 1 0 0 0
+0 1 0 0 1 1 0 1 0 0 0
+0 1 0 0 0 0 1 1 0 0 0
+0 1 0 0 1 0 1 1 0 0 0
+0 1 0 0 0 1 1 1 0 0 0
+0 1 0 0 1 1 1 1 0 0 0
+
+# 10. CLK_GATED low when CLK=0 (halt released)
+
+C 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+1 1 0 0 0 0 0 1 0 0 1
+
+# 11. Halt blocks gated clock even if CLK held high
+
+C 1 1 0 0 0 0 1 x 0 0
+0 1 1 0 0 0 0 1 x 0 0
+1 1 1 0 0 0 0 1 1 0 0
+
+# 12. HALT=1, INT_GATE and vector while halted
+
+C 1 1 0 0 0 0 1 x 0 0
+0 1 1 0 0 0 0 1 x 0 0
+1 1 1 1 1 1 1 1 1 1 0
+
+# 13. Release halt then hold INT_EN across extra clocks
+
+C 1 0 0 0 0 0 1 1 0 0
+0 1 0 0 0 0 0 1 1 0 0
+C 1 0 0 0 0 0 1 x 0 0
+0 1 0 0 0 0 0 1 x 0 0
+C 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+C 1 0 0 0 0 0 1 0 0 0
+0 1 0 0 0 0 0 1 0 0 0
+1 1 0 0 0 0 0 1 0 0 1
+
+# 14. Vector stable while toggling unrelated inputs
+
+0 1 0 1 1 0 1 1 0 1 0
+0 0 1 0 1 0 1 1 0 0 0
+
+# 15. Exhaustive — all 4 latch input combinations (C pulse + CLK=1 verify)
+
+C 0 0 0 0 0 0 x x 0 0
+1 0 0 0 0 0 0 0 0 0 1
+C 0 1 0 0 0 0 x x 0 0
+1 0 1 0 0 0 0 0 1 0 0
+C 1 0 0 0 0 0 x x 0 0
+1 1 0 0 0 0 0 1 0 0 1
+C 1 1 0 0 0 0 x x 0 0
+1 1 1 0 0 0 0 1 1 0 0
+
+# 16. Exhaustive — INT_GATE truth table at CLK=0
+
+C 0 0 0 0 0 0 x x 0 0
+1 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 x x 0 0
+0 0 0 1 0 0 0 x x 0 0
+C 1 0 0 0 0 0 x x 0 0
+1 1 0 0 0 0 0 1 0 0 1
+0 1 0 0 0 0 0 x x 0 0
+0 1 0 1 0 0 0 x x 1 0
+
+# 17. Exhaustive — CLK_GATED truth table (CLK × HALT)
+
+C 1 0 0 0 0 0 x x 0 0
+1 1 0 0 0 0 0 1 0 0 1
+0 1 0 0 0 0 0 x x 0 0
+1 1 0 0 0 0 0 x x 0 1
+C 1 1 0 0 0 0 x x 0 0
+1 1 1 0 0 0 0 1 1 0 0
+0 1 1 0 0 0 0 x x 0 0
+1 1 1 0 0 0 0 x x 0 0
+
+# 18. Exhaustive — INT_VEC inputs all 8 encodings at CLK=0
+
+C 1 0 0 0 0 0 x x 0 0
+1 1 0 0 0 0 0 1 0 0 1
+0 1 0 0 0 0 0 x x 0 0
+0 1 0 0 1 0 0 x x 0 0
+0 1 0 0 0 1 0 x x 0 0
+0 1 0 0 1 1 0 x x 0 0
+0 1 0 0 0 0 1 x x 0 0
+0 1 0 0 1 0 1 x x 0 0
+0 1 0 0 0 1 1 x x 0 0
+0 1 0 0 1 1 1 x x 0 0
+
+# 19. Exhaustive — combinational grid per latched (INT_EN, HALT) state
+
+C 0 0 0 0 0 0 x x 0 0
+1 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 x x 0 0
+0 0 0 0 1 0 0 x x 0 0
+0 0 0 0 0 1 0 x x 0 0
+0 0 0 0 1 1 0 x x 0 0
+0 0 0 0 0 0 1 x x 0 0
+0 0 0 0 1 0 1 x x 0 0
+0 0 0 0 0 1 1 x x 0 0
+0 0 0 0 1 1 1 x x 0 0
+0 0 0 1 0 0 0 x x 0 0
+0 0 0 1 1 0 0 x x 0 0
+0 0 0 1 0 1 0 x x 0 0
+0 0 0 1 1 1 0 x x 0 0
+0 0 0 1 0 0 1 x x 0 0
+0 0 0 1 1 0 1 x x 0 0
+0 0 0 1 0 1 1 x x 0 0
+0 0 0 1 1 1 1 x x 0 0
+0 0 0 0 0 0 0 x x 0 0
+1 0 0 0 0 0 0 0 0 0 1
+C 0 1 0 0 0 0 x x 0 0
+1 0 1 0 0 0 0 0 1 0 0
+0 0 1 0 0 0 0 x x 0 0
+0 0 1 0 1 0 0 x x 0 0
+0 0 1 0 0 1 0 x x 0 0
+0 0 1 0 1 1 0 x x 0 0
+0 0 1 0 0 0 1 x x 0 0
+0 0 1 0 1 0 1 x x 0 0
+0 0 1 0 0 1 1 x x 0 0
+0 0 1 0 1 1 1 x x 0 0
+0 0 1 1 0 0 0 x x 0 0
+0 0 1 1 1 0 0 x x 0 0
+0 0 1 1 0 1 0 x x 0 0
+0 0 1 1 1 1 0 x x 0 0
+0 0 1 1 0 0 1 x x 0 0
+0 0 1 1 1 0 1 x x 0 0
+0 0 1 1 0 1 1 x x 0 0
+0 0 1 1 1 1 1 x x 0 0
+0 0 1 0 0 0 0 x x 0 0
+1 0 1 0 0 0 0 0 1 0 0
+C 1 0 0 0 0 0 x x 0 0
+1 1 0 0 0 0 0 1 0 0 1
+0 1 0 0 0 0 0 x x 0 0
+0 1 0 0 1 0 0 x x 0 0
+0 1 0 0 0 1 0 x x 0 0
+0 1 0 0 1 1 0 x x 0 0
+0 1 0 0 0 0 1 x x 0 0
+0 1 0 0 1 0 1 x x 0 0
+0 1 0 0 0 1 1 x x 0 0
+0 1 0 0 1 1 1 x x 0 0
+0 1 0 1 0 0 0 x x 1 0
+0 1 0 1 1 0 0 x x 1 0
+0 1 0 1 0 1 0 x x 1 0
+0 1 0 1 1 1 0 x x 1 0
+0 1 0 1 0 0 1 x x 1 0
+0 1 0 1 1 0 1 x x 1 0
+0 1 0 1 0 1 1 x x 1 0
+0 1 0 1 1 1 1 x x 1 0
+0 1 0 0 0 0 0 x x 0 0
+1 1 0 0 0 0 0 1 0 0 1
+C 1 1 0 0 0 0 x x 0 0
+1 1 1 0 0 0 0 1 1 0 0
+0 1 1 0 0 0 0 x x 0 0
+0 1 1 0 1 0 0 x x 0 0
+0 1 1 0 0 1 0 x x 0 0
+0 1 1 0 1 1 0 x x 0 0
+0 1 1 0 0 0 1 x x 0 0
+0 1 1 0 1 0 1 x x 0 0
+0 1 1 0 0 1 1 x x 0 0
+0 1 1 0 1 1 1 x x 0 0
+0 1 1 1 0 0 0 x x 1 0
+0 1 1 1 1 0 0 x x 1 0
+0 1 1 1 0 1 0 x x 1 0
+0 1 1 1 1 1 0 x x 1 0
+0 1 1 1 0 0 1 x x 1 0
+0 1 1 1 1 0 1 x x 1 0
+0 1 1 1 0 1 1 x x 1 0
+0 1 1 1 1 1 1 x x 1 0
+0 1 1 0 0 0 0 x x 0 0
+1 1 1 0 0 0 0 1 1 0 0
+
+# 20. Exhaustive — INT_REQ × INT_EN latched (interrupt gating)
+
+C 0 0 0 0 0 0 x x 0 0
+1 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 1 1 x x 0 0
+0 0 0 1 1 1 1 x x 0 0
+C 1 0 0 0 0 0 x x 0 0
+1 1 0 0 0 0 0 1 0 0 1
+0 1 0 0 1 1 1 x x 0 0
+0 1 0 1 1 1 1 x x 1 0
+
+# 21. Exhaustive — halt blocks gate; INT_GATE still combinational when halted
+
+C 1 1 0 0 0 0 x x 0 0
+1 1 1 0 0 0 0 1 1 0 0
+1 1 1 0 0 0 0 1 1 0 0
+1 1 1 1 0 0 0 1 1 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="-740"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1100" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>18</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1100" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>D_FF</elementName>
+      <elementAttributes/>
+      <pos x="660" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>D_FF</elementName>
+      <elementAttributes/>
+      <pos x="660" y="1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="1020"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>RESET</string>
+        </entry>
+      </elementAttributes>
+      <pos x="580" y="1200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="580" y="1200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>~RESET</string>
+        </entry>
+      </elementAttributes>
+      <pos x="620" y="1200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>~RESET</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="1060"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>~RESET</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="980"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>int-vec</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>int-vec</string>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>INT_GATE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="860"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="860"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mux1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="140" y="980"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>pc-src0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>pc-src1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="1000"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>INT_GATE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="980"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>INT_GATE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="560"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="340" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>INT_GATE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>pc-link</string>
+        </entry>
+      </elementAttributes>
+      <pos x="180" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="-320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>RESET</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="-340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="-280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Register</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-140" y="-260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>CLK_GATED</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-140" y="-240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>link-reg-en</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-140" y="-220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>pc-link</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="-240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="1240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>EXECUTE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="1240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>link-in</string>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="1260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>link-in</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-660" y="1240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>link-in</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-660" y="1240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>pc-save</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="-320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="200" y="1260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>PC-LINK</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-link-latch</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles link-in jump-type RESET pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK
+
+# Latch PC-SAVE into pc_link on EXEC when link-in=1 (RESET=1 hold / RESET=0 run)
+
+# 1. RESET hold
+0 0 0 0 1 0 0 0 0 x x x
+C 0 0 0 1 0 0 0 0 0 1 0
+
+# 2. Release RESET, FETCH (PC 0-&gt;1)
+0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 1 2 0
+0 0 0 0 0 0 0 0 0 1 2 0
+
+# 3. EXEC (no link-in) — advance to PC=2
+0 1 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 2 3 0
+0 1 0 0 0 0 0 0 0 2 3 0
+
+# 4. EXEC + link-in: latch PC-SAVE=3 into pc_link
+0 1 1 0 0 0 0 0 0 x x x
+C 1 1 0 0 0 0 0 0 2 3 3
+0 1 1 0 0 0 0 0 0 2 3 3
+
+# 5. Hold — pc_link unchanged
+0 1 1 0 0 0 0 0 0 2 3 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-link-ret</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles link-in jump-type RESET pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK
+
+# RET via mux in_2 (pc-src=2)
+
+# Latch PC-LINK=2
+0 0 0 0 1 0 0 0 0 x x x
+C 0 0 0 1 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 1 2 0
+0 0 0 0 0 0 0 0 0 1 2 0
+0 1 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 2 3 0
+0 1 0 0 0 0 0 0 0 2 3 0
+0 1 1 0 0 0 0 0 0 x x x
+C 1 1 0 0 0 0 0 0 2 3 3
+0 1 1 0 0 0 0 0 0 2 3 3
+
+# EXEC settle before jump
+0 1 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 3 4 3
+0 1 0 0 0 0 0 0 0 3 4 3
+
+# Jump away to 0x100
+0 1 0 1 0 0 0x100 0 0 x x x
+C 1 0 1 0 0 0x100 0 0 0x100 0x101 3
+0 1 0 1 0 0 0x100 0 0 0x100 0x101 3
+
+# FETCH — PC increments
+0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 0x101 0x102 3
+0 0 0 0 0 0 0 0 0 0x101 0x102 3
+
+# EXEC settle before RET (avoid FETCH mux override)
+0 1 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0x102 0x103 3
+0 1 0 0 0 0 0 0 0 0x102 0x103 3
+
+# RET: pc-src=2 restores PC-LINK
+0 1 0 1 0 2 0 0 0 x x x
+C 1 0 1 0 2 0 0 0 3 4 3
+0 1 0 1 0 2 0 0 0 3 4 3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-link-reset</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles link-in jump-type RESET pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK
+
+# RESET clears pc_link flop
+
+# Latch PC-LINK=2
+0 0 0 0 1 0 0 0 0 x x x
+C 0 0 0 1 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 1 2 0
+0 0 0 0 0 0 0 0 0 1 2 0
+0 1 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 2 3 0
+0 1 0 0 0 0 0 0 0 2 3 0
+0 1 1 0 0 0 0 0 0 x x x
+C 1 1 0 0 0 0 0 0 2 3 3
+0 1 1 0 0 0 0 0 0 2 3 3
+
+# RESET=1 clocks link to 0
+0 1 1 0 1 0 0 0 0 2 3 3
+C 1 1 0 1 0 0 0 0 0 1 0
+0 1 1 0 1 0 0 0 0 0 1 0
+
+# Release RESET — pc_link stays 0
+0 1 1 0 0 0 0 0 0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-link-gate</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles link-in jump-type RESET pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK
+
+# Negative enable gating for link-in
+
+# Setup: FETCH to PC=1
+0 0 0 0 1 0 0 0 0 x x x
+C 0 0 0 1 0 0 0 0 0 1 0
+0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 1 2 0
+0 0 0 0 0 0 0 0 0 1 2 0
+
+# FETCH only (cycles=0): link-in=1 must not latch
+0 0 1 0 0 0 0 0 0 x x x
+C 0 0 1 0 0 0 0 0 2 3 0
+0 0 1 0 0 0 0 0 0 2 3 0
+
+# EXEC, link-in=0: must not latch
+0 1 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 3 4 0
+0 1 0 0 0 0 0 0 0 3 4 0
+
+# EXEC, link-in=1: sanity latch PC-SAVE=4
+0 1 1 0 0 0 0 0 0 x x x
+C 1 1 0 0 0 0 0 0 3 4 4
+0 1 1 0 0 0 0 0 0 3 4 4
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="-60" y="-760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-fetch-override</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din FLAG_Z FLAG_C FLAG_N FLAG_V COND PC-OUT PC-SAVE
+
+# FETCH forces mux sel=7 (PC+1); jump-type/pc-src ignored in FETCH
+
+# RESET hold
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+
+# Release RESET, first FETCH
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+
+# FETCH: pc-src=0 IR_ABS=max jump-type=1 ignored (increment only)
+0 0 1 0 0 0 0xFFFFFF 0 0 0 0 0 0 0 x x
+C 0 1 0 0 0 0xFFFFFF 0 0 0 0 0 0 0 2 3
+0 0 1 0 0 0 0xFFFFFF 0 0 0 0 0 0 0 2 3
+
+# FETCH: pc-src=1 negative offset (bit21=1) increment only
+0 0 1 0 0 1 0x200000 0 0 0 0 0 0 0 x x
+C 0 1 0 0 1 0x200000 0 0 0 0 0 0 0 3 4
+0 0 1 0 0 1 0x200000 0 0 0 0 0 0 0 3 4
+
+# EXEC settle
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 4 5
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 4 5
+
+# EXEC: same pc-src=1 offset -4 - rel jump PC=0
+0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 x x
+C 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0 1
+0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0 1
+
+# FETCH after jump: increment from 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="-60" y="-900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-mux-sources</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din FLAG_Z FLAG_C FLAG_N FLAG_V COND INT_VEC_0 INT_VEC_1 INT_VEC_2 PC-OUT PC-SAVE PC-LINK
+
+# Untested mux sources: pc-src 5 (mem), 6 (glue/0), 3 (int-vec), 2 (RET miss)
+
+# RESET hold
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+
+# Release RESET, FETCH
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+
+# EXEC settle
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 3 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 3 0
+
+# 1. mem jump (pc-src=5): mem-din lower 24b = 0xBBCCDD
+0 1 1 0 0 5 0 0 0xBBCCDD 0 0 0 0 0 0 0 0 x x x
+C 1 1 0 0 5 0 0 0xBBCCDD 0 0 0 0 0 0 0 0 0xBBCCDD 0xBBCCDE 0
+0 1 1 0 0 5 0 0 0xBBCCDD 0 0 0 0 0 0 0 0 0xBBCCDD 0xBBCCDE 0
+
+# FETCH-&gt;EXEC setup
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0xBBCCDE 0xBBCCDF 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0xBBCCDE 0xBBCCDF 0
+
+# 2. glue jump (pc-src=6): loads 0
+0 1 1 0 0 6 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 1 1 0 0 6 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+0 1 1 0 0 6 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+
+# FETCH-&gt;EXEC setup
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+
+# 3. int-vec jump (pc-src=3): vector 0x28 (VEC_0=1 VEC_1=0 VEC_2=1)
+0 1 1 0 0 3 0 0 0 0 0 0 0 0 1 0 1 x x x
+C 1 1 0 0 3 0 0 0 0 0 0 0 0 1 0 1 0x28 0x29 0
+0 1 1 0 0 3 0 0 0 0 0 0 0 0 1 0 1 0x28 0x29 0
+
+# FETCH-&gt;EXEC setup
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x29 0x2A 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x29 0x2A 0
+
+# 4. RET miss (pc-src=2, PC-LINK=0)
+0 1 1 0 0 2 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 1 1 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+0 1 1 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-boundary-arith</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din FLAG_Z FLAG_C FLAG_N FLAG_V COND PC-OUT PC-SAVE
+
+# 24-bit wrap and sign-ext relative adder edge cases
+
+# RESET hold
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+
+# Release RESET, FETCH
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+
+# EXEC settle
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
+
+# Abs jump to 0x3FFFFE (22-bit ir-abs max-1)
+0 1 1 0 0 0 0x3FFFFE 0 0 0 0 0 0 0 x x
+C 1 1 0 0 0 0x3FFFFE 0 0 0 0 0 0 0 0x3FFFFE 0x3FFFFF
+0 1 1 0 0 0 0x3FFFFE 0 0 0 0 0 0 0 0x3FFFFE 0x3FFFFF
+
+# FETCH increment at 22-bit boundary
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 0x3FFFFF 0x400000
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x3FFFFF 0x400000
+
+# FETCH increment past 22-bit max
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 0x400000 0x400001
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x400000 0x400001
+
+# RESET then abs jump to 0x10 for sign-ext rel test
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
+0 1 1 0 0 0 0x10 0 0 0 0 0 0 0 x x
+C 1 1 0 0 0 0x10 0 0 0 0 0 0 0 0x10 0x11
+0 1 1 0 0 0 0x10 0 0 0 0 0 0 0 0x10 0x11
+
+# EXEC settle
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 0x11 0x12
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0x11 0x12
+
+# Sign-ext rel jump with negative offset
+0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 x x
+C 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0xD 0xE
+0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0xD 0xE
+
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="-900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-irq-jump</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din INT_EN_IN INT_REQ INT_VEC_0 INT_VEC_1 INT_VEC_2 PC-OUT PC-SAVE
+
+# INT_GATE forces irq vector mux and pc-reg-en on FETCH
+
+# RESET hold
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+
+# Release RESET, first FETCH
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+
+# Latch interrupt enable
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 1 0 0 0 0 2 3
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 2 3
+
+# IRQ on FETCH with encoded vector
+0 0 0 0 0 0 0 0 0 1 1 1 0 1 x x
+C 0 0 0 0 0 0 0 0 1 1 1 0 1 0x28 0x29
+0 0 0 0 0 0 0 0 0 1 1 1 0 1 0x28 0x29
+
+# FETCH with pc-src=0 IR_ABS=max - IRQ override still loads vector
+0 0 1 0 0 0 0xFFFFFF 0 0 1 1 1 0 1 x x
+C 0 1 0 0 0 0xFFFFFF 0 0 1 1 1 0 1 0x28 0x29
+0 0 1 0 0 0 0xFFFFFF 0 0 1 1 1 0 1 0x28 0x29
+
+# EXEC settle
+0 1 0 0 0 0 0 0 0 1 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 1 0 0 0 0 0x29 0x2A
+0 1 0 0 0 0 0 0 0 1 0 0 0 0 0x29 0x2A
+
+# Abs jump to target address
+0 1 1 0 0 0 0x50 0 0 1 0 0 0 0 x x
+C 1 1 0 0 0 0x50 0 0 1 0 0 0 0 0x50 0x51
+0 1 1 0 0 0 0x50 0 0 1 0 0 0 0 0x50 0x51
+
+# Clear INT_EN then INT_REQ ignored on FETCH
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 0x51 0x52
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x51 0x52
+0 0 0 0 0 0 0 0 0 0 1 1 0 1 x x
+C 0 0 0 0 0 0 0 0 0 1 1 0 1 0x52 0x53
+0 0 0 0 0 0 0 0 0 0 1 1 0 1 0x52 0x53
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="-60" y="-1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-halt-frozen</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles HALT_IN jump-type RESET pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK link-in
+
+# HALT freezes PC and link via CLK_GATED=0
+
+# RESET hold
+0 0 0 0 1 0 0 0 0 x x x 0
+C 0 0 0 1 0 0 0 0 0 1 0 0
+0 0 0 0 1 0 0 0 0 0 1 0 0
+
+# Release RESET, FETCH increments
+0 0 0 0 0 0 0 0 0 x x x 0
+C 0 0 0 0 0 0 0 0 1 2 0 0
+0 0 0 0 0 0 0 0 0 1 2 0 0
+0 0 0 0 0 0 0 0 0 x x x 0
+C 0 0 0 0 0 0 0 0 2 3 0 0
+0 0 0 0 0 0 0 0 0 2 3 0 0
+
+# EXEC settle (PC=3)
+0 1 0 0 0 0 0 0 0 x x x 0
+C 1 0 0 0 0 0 0 0 3 4 0 0
+0 1 0 0 0 0 0 0 0 3 4 0 0
+
+# Latch HALT=1 on clock edge
+0 1 1 0 0 0 0 0 0 x x x 0
+C 1 1 0 0 0 0 0 0 3 4 0 0
+0 1 1 0 0 0 0 0 0 3 4 0 0
+
+# Halted: abs jump must not change PC
+0 1 1 1 0 0 0x50 0 0 x x x 0
+C 1 1 1 0 0 0x50 0 0 3 4 0 0
+0 1 1 1 0 0 0x50 0 0 3 4 0 0
+
+# Halted + link-in=1 in EXEC: PC-LINK unchanged
+0 1 1 0 0 0 0 0 0 x x x 1
+C 1 1 0 0 0 0 0 0 3 4 0 1
+0 1 1 0 0 0 0 0 0 3 4 0 1
+
+# RESET while halted clears PC and link
+0 1 1 0 1 0 0 0 0 x x x 1
+C 1 1 0 1 0 0 0 0 0 1 0 0
+0 1 1 0 1 0 0 0 0 0 1 0 0
+
+# Release RESET, clear HALT (two clocks)
+0 1 0 0 0 0 0 0 0 x x x 0
+C 1 0 0 0 0 0 0 0 1 2 0 0
+0 1 0 0 0 0 0 0 0 1 2 0 0
+C 1 0 0 0 0 0 0 0 1 2 0 0
+0 1 0 0 0 0 0 0 0 1 2 0 0
+
+# EXEC settle then jump works after de-halt
+0 1 0 0 0 0 0 0 0 x x x 0
+C 1 0 0 0 0 0 0 0 2 3 0 0
+0 1 0 0 0 0 0 0 0 2 3 0 0
+0 1 0 1 0 0 0x40 0 0 x x x 0
+C 1 0 1 0 0 0x40 0 0 0x40 0x41 0 0
+0 1 0 1 0 0 0x40 0 0 0x40 0x41 0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-link-edge</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles link-in jump-type RESET HALT_IN pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK
+
+# Link register edge cases: overwrite, RESET priority, halt block, post-RET latch
+
+# RESET hold
+0 0 0 0 1 0 0 0 0 0 x x x
+C 0 0 0 1 0 0 0 0 0 0 1 0
+0 0 0 0 1 0 0 0 0 0 0 1 0
+
+# Release RESET, FETCH
+0 0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 0 1 2 0
+0 0 0 0 0 0 0 0 0 0 1 2 0
+
+# EXEC settle
+0 1 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 2 3 0
+0 1 0 0 0 0 0 0 0 0 2 3 0
+
+# Jump to 0xAABB
+0 1 0 1 0 0 0 0xAABB 0 0 x x x
+C 1 0 1 0 0 0 0xAABB 0 0 0xAABB 0xAABC 0
+0 1 0 1 0 0 0 0xAABB 0 0 0xAABB 0xAABC 0
+
+# EXEC settle, latch PC-SAVE=0xAABC
+0 1 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 0xAABC 0xAABD 0
+0 1 0 0 0 0 0 0 0 0 0xAABC 0xAABD 0
+0 1 1 0 0 0 0 0 0 0 x x x
+C 1 1 0 0 0 0 0 0 0 0xAABC 0xAABD 0xAABD
+0 1 1 0 0 0 0 0 0 0 0xAABC 0xAABD 0xAABD
+
+# Second latch overwrites link
+0 1 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 0xAABD 0xAABE 0xAABD
+0 1 0 0 0 0 0 0 0 0 0xAABD 0xAABE 0xAABD
+0 1 1 0 0 0 0 0 0 0 x x x
+C 1 1 0 0 0 0 0 0 0 0xAABD 0xAABE 0xAABE
+0 1 1 0 0 0 0 0 0 0 0xAABD 0xAABE 0xAABE
+
+# RESET during EXEC with link-in=1 clears link
+0 1 1 0 1 0 0 0 0 0 x x x
+C 1 1 0 1 0 0 0 0 0 0 1 0
+0 1 1 0 1 0 0 0 0 0 0 1 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="480" y="-1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc-sequencer-jump</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din FLAG_Z FLAG_C FLAG_N FLAG_V COND PC-OUT PC-SAVE
+
+# Jumps only in EXEC; MEM-WAIT negative
+
+# RESET hold
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+
+# Release RESET, FETCH
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+
+# EXEC settle, abs jump to 0x60
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
+0 1 1 0 0 0 0x60 0 0 0 0 0 0 0 x x
+C 1 1 0 0 0 0x60 0 0 0 0 0 0 0 0x60 0x61
+0 1 1 0 0 0 0x60 0 0 0 0 0 0 0 0x60 0x61
+
+# FETCH increment to 0x61, switch to cycles=2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 0x61 0x62
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x61 0x62
+0 2 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 2 0 0 0 0 0 0 0 0 0 0 0 0 0x62 0x63
+0 2 0 0 0 0 0 0 0 0 0 0 0 0 0x62 0x63
+0 2 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 2 0 0 0 0 0 0 0 0 0 0 0 0 0x62 0x63
+0 2 0 0 0 0 0 0 0 0 0 0 0 0 0x62 0x63
+
+# jump-type=1 in MEM-WAIT (cycles=2): must not load
+0 2 1 0 0 0 0x70 0 0 0 0 0 0 0 x x
+C 2 1 0 0 0 0x70 0 0 0 0 0 0 0 0x62 0x63
+0 2 1 0 0 0 0x70 0 0 0 0 0 0 0 0x62 0x63
+
+# Branch taken in EXEC only (cycles=1)
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 0x63 0x64
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0x63 0x64
+0 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 x x
+C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
+0 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-1200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>pc-link</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-80" y="-140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>link-reg-en</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="1280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>~RESET</string>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="1280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>RESET</string>
+        </entry>
+      </elementAttributes>
+      <pos x="120" y="1300"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -2612,8 +4452,16 @@ C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
       <p2 x="200" y="640"/>
     </wire>
     <wire>
+      <p1 x="600" y="960"/>
+      <p2 x="660" y="960"/>
+    </wire>
+    <wire>
       <p1 x="960" y="-260"/>
       <p2 x="980" y="-260"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="-260"/>
+      <p2 x="-140" y="-260"/>
     </wire>
     <wire>
       <p1 x="-660" y="900"/>
@@ -2648,6 +4496,10 @@ C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
       <p2 x="180" y="720"/>
     </wire>
     <wire>
+      <p1 x="600" y="1040"/>
+      <p2 x="660" y="1040"/>
+    </wire>
+    <wire>
       <p1 x="-160" y="-20"/>
       <p2 x="-120" y="-20"/>
     </wire>
@@ -2658,6 +4510,10 @@ C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
     <wire>
       <p1 x="-360" y="-20"/>
       <p2 x="-180" y="-20"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="-340"/>
+      <p2 x="-200" y="-340"/>
     </wire>
     <wire>
       <p1 x="-220" y="20"/>
@@ -2674,6 +4530,10 @@ C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
     <wire>
       <p1 x="-600" y="980"/>
       <p2 x="-580" y="980"/>
+    </wire>
+    <wire>
+      <p1 x="120" y="1300"/>
+      <p2 x="200" y="1300"/>
     </wire>
     <wire>
       <p1 x="960" y="-280"/>
@@ -2712,6 +4572,10 @@ C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
       <p2 x="-580" y="1000"/>
     </wire>
     <wire>
+      <p1 x="-180" y="-300"/>
+      <p2 x="-160" y="-300"/>
+    </wire>
+    <wire>
       <p1 x="600" y="300"/>
       <p2 x="620" y="300"/>
     </wire>
@@ -2734,6 +4598,10 @@ C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
     <wire>
       <p1 x="1060" y="120"/>
       <p2 x="1080" y="120"/>
+    </wire>
+    <wire>
+      <p1 x="1040" y="760"/>
+      <p2 x="1080" y="760"/>
     </wire>
     <wire>
       <p1 x="140" y="-60"/>
@@ -2760,6 +4628,10 @@ C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
       <p2 x="-360" y="100"/>
     </wire>
     <wire>
+      <p1 x="-200" y="-340"/>
+      <p2 x="-200" y="-320"/>
+    </wire>
+    <wire>
       <p1 x="1080" y="120"/>
       <p2 x="1080" y="140"/>
     </wire>
@@ -2778,6 +4650,10 @@ C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
     <wire>
       <p1 x="140" y="-80"/>
       <p2 x="140" y="-60"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="-300"/>
+      <p2 x="-160" y="-260"/>
     </wire>
   </wires>
   <measurementOrdering/>
