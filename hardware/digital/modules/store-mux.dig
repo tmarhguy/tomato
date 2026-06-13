@@ -286,13 +286,43 @@
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>store-mux-select</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reg_a reg_b alu_out pc_save mem-sel mem-mux
+# mem-sel: 0=reg_a 1=reg_b 2=pc_save (zero-ext) 3=alu_out
+# 1. One row per select — distinct sources
+0x11111111 0x22222222 0x33333333 0x001234 0 0x11111111
+0x11111111 0x22222222 0x33333333 0x001234 1 0x22222222
+0x11111111 0x22222222 0x33333333 0x001234 2 0x00001234
+0x11111111 0x22222222 0x33333333 0x001234 3 0x33333333
+# 2. pc_save zero-extension (upper 8 bits forced to 0)
+0xAAAAAAAA 0xBBBBBBBB 0xCCCCCCCC 0xFEDCBA 2 0x00FEDCBA
+0xAAAAAAAA 0xBBBBBBBB 0xCCCCCCCC 0xFFFFFF 2 0x00FFFFFF
+0xAAAAAAAA 0xBBBBBBBB 0xCCCCCCCC 0 2 0x00000000
+# 3. Cross-talk — only selected input matters
+0xDEADBEEF 0xCAFEBABE 0x13572468 0xABCDEF 0 0xDEADBEEF
+0xDEADBEEF 0xCAFEBABE 0x13572468 0xABCDEF 1 0xCAFEBABE
+0xDEADBEEF 0xCAFEBABE 0x13572468 0xABCDEF 2 0x00ABCDEF
+0xDEADBEEF 0xCAFEBABE 0x13572468 0xABCDEF 3 0x13572468
+# 4. All-zero / all-one inputs
+0 0 0 0 0 0
+0 0 0 0 1 0
+0 0 0 0 2 0
+0 0 0 0 3 0
+0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF 0xFFFFFF 0 0xFFFFFFFF
+0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF 0xFFFFFF 1 0xFFFFFFFF
+0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF 0xFFFFFF 2 0x00FFFFFF
+0xFFFFFFFF 0xFFFFFFFF 0xFFFFFFFF 0xFFFFFF 3 0xFFFFFFFF</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
       <pos x="240" y="-240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Testcase</elementName>
-      <elementAttributes/>
-      <pos x="560" y="-240"/>
     </visualElement>
   </visualElements>
   <wires>
