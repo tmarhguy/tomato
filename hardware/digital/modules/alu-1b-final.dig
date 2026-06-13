@@ -64,7 +64,7 @@
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="300"/>
+      <pos x="1620" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -74,7 +74,7 @@
           <string>A</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="300"/>
+      <pos x="1620" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -84,7 +84,7 @@
           <string>B</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="360"/>
+      <pos x="1620" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -94,7 +94,7 @@
           <string>B</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="360"/>
+      <pos x="1620" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -104,7 +104,7 @@
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="420"/>
+      <pos x="1620" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -114,7 +114,7 @@
           <string>C</string>
         </entry>
       </elementAttributes>
-      <pos x="1400" y="420"/>
+      <pos x="1620" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -225,54 +225,6 @@
         </entry>
       </elementAttributes>
       <pos x="760" y="240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>gnd</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1300" y="140"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>vcc</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1300" y="180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Ground</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="1300" y="140"/>
-    </visualElement>
-    <visualElement>
-      <elementName>VDD</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="3"/>
-        </entry>
-      </elementAttributes>
-      <pos x="1300" y="180"/>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
@@ -429,26 +381,6 @@
         </entry>
       </elementAttributes>
       <pos x="1400" y="540"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>A_inv</string>
-        </entry>
-      </elementAttributes>
-      <pos x="100" y="600"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>B_inv</string>
-        </entry>
-      </elementAttributes>
-      <pos x="80" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -2703,12 +2635,12 @@ OPCODE Asel A_inv Bsel B_inv A B C MUX_OUT P G
       <elementName>Multiplexer</elementName>
       <elementAttributes>
         <entry>
-          <string>flipSelPos</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
           <string>Selector Bits</string>
           <int>2</int>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
       <pos x="640" y="260"/>
@@ -2797,6 +2729,74 @@ OPCODE Asel A_inv Bsel B_inv A B C MUX_OUT P G
         </entry>
       </elementAttributes>
       <pos x="620" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>A_inv</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1400" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>B_inv</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1400" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>A_inv</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1400" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>B_inv</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1400" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>A_inv</string>
+        </entry>
+      </elementAttributes>
+      <pos x="100" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>B_inv</string>
+        </entry>
+      </elementAttributes>
+      <pos x="80" y="740"/>
     </visualElement>
   </visualElements>
   <wires>
