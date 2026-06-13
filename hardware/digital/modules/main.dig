@@ -3075,50 +3075,7717 @@
         </entry>
         <entry>
           <string>Data</string>
-          <data>04001010,0d400420,00000000,00000000,00000042</data>
+          <data>0400F010,0D400420,0400F460,0D401850,00421420,10C20400,0D400440,0400F860,0D401870,00C21C30,01031C30,01430830,00821420,00000000,01820030,01C20040,03851430,03030030,03430030,02821C30,02C21C30,07030042,04001060,08021830,09021040,08421830,09421040,08821830,09821040,07821430,07C50830,03C21400,04452050,08C21830,09C21040,04021C30,02021430,02421440,0482F030,04C30033,05030035,06021400,07441044,05420034,05820038,05C21C00,06430000,06C4F340,06834000,28820030,20021430,21420033,20C21430,28400020,1C000020,10030400,00000000,00000000,00000000,00000000,DEADBEEF,0000A5A5,F0F0F0F0</data>
         </entry>
       </elementAttributes>
       <pos x="820" y="980"/>
-    </visualElement>
-    <visualElement>
+    </visualElement>    <visualElement>
       <elementName>Testcase</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>memory-test</string>
+          <string>memory-roundtrip-test</string>
         </entry>
         <entry>
           <string>Testdata</string>
           <testData>
             <dataString>reset clk pc-out ir-opcode ctrl-reg-we ctrl-w-sel mem-addr reg-b m-out reg-w-data
 
-# hold (main reset=1) — sync sequencer while held
+# hold
 1 0 x x x x x x x x
 1 1 x x x x x x x x
 1 0 x x x x x x x x
 1 1 x x x x x x x x
-# run (main reset=0) — release with clk low, then first edge
+# run
 0 0 x x x x x x x x
 0 0 x x x x x x x x
 0 1 x x x x x x x x
-# FETCH ADDI @ PC=0
+# LDI 60 R1
+0 0 x x x x x x x x
+0 1 1 0x10 1 0 x x x 60
 0 0 x x x x x x x x
 0 1 x x x x x x x x
-# EXECUTE ADDI R1=4 (pc-out=1 on clk=1)
-0 1 1 0x10 1 0 x x x 4
+# LW0 R2 — 0xdeadbeef
 0 0 x x x x x x x x
 0 1 x x x x x x x x
-# FETCH LW0 @ PC=1
+0 0 2 0x35 1 3 60 60 0xdeadbeef 0xdeadbeef
 0 0 x x x x x x x x
 0 1 x x x x x x x x
-# EXECUTE LW0 — load 0x42 from mem[4] into R2 (pc-out=2, sample clk=0)
-0 0 2 0x35 1 3 4 4 0x42 0x42
+# LDI 61 R6
+0 0 x x x x x x x x
+0 1 3 0x10 1 0 x x x 61
+0 0 x x x x x x x x
+0 1 x x x x x x x x
+# LW0 R5 — addend 0xa5a5
+0 0 x x x x x x x x
+0 1 x x x x x x x x
+0 0 4 0x35 1 3 61 61 0xa5a5 0xa5a5
+0 0 x x x x x x x x
+0 1 x x x x x x x x
+# ADD R2 — 0xdeae6494
+0 0 x x x x x x x x
+0 1 5 0x01 1 0 x x x 0xdeae6494
+0 0 x x x x x x x x
+0 1 x x x x x x x x
+# SW0 R2 — store mem[60]
+0 0 x x x x x x x x
+0 1 6 0x43 0 0 x 60 x x
+0 0 x x x x x x x x
+0 1 x x x x x x x x
+# LW0 R4 — verify 0xdeae6494
+0 0 x x x x x x x x
+0 1 x x x x x x x x
+0 0 7 0x35 1 3 60 60 0xdeae6494 0xdeae6494
 </dataString>
           </testData>
         </entry>
       </elementAttributes>
       <pos x="1360" y="-920"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>add-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+# add-test @ PC=4
+0 0 x x x x
+0 1 0xdeae6494 0x1 0x96 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>and-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+# and-test @ PC=9
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xd0a06090 0x3 0x88 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>or-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# or-test @ PC=10
+0 0 x x x x
+0 1 0xf0f0f0f0 0x4 0xee 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>xor-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# xor-test @ PC=11
+0 0 x x x x
+0 1 0x2e5e9464 0x5 0x66 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sub-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# sub-test @ PC=12
+0 0 x x x x
+0 1 0xdeadbeef 0x2 0x96 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>nop-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# nop-test @ PC=13
+0 0 x x x x
+0 1 x 0x0 0x0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>not-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# not-test @ PC=14
+0 0 x x x x
+0 1 0xffffffff 0x6 0x33 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>neg-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# neg-test @ PC=15
+0 0 x x x x
+0 1 0x21524111 0x7 0x96 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mov-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# mov-test @ PC=16
+0 0 x x x x
+0 1 0xa5a5 0xe 0xcc 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>inc-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# inc-test @ PC=17
+0 0 x x x x
+0 1 0xa5a6 0xc 0x96 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>dec-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# dec-test @ PC=18
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xa5a7 0xd 0x96 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>andn-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# andn-test @ PC=19
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xa04060c0 0xa 0xc0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>orn-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# orn-test @ PC=20
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xffffffff 0xb 0xee 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>movi8-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# movi8-test @ PC=21
+0 0 x x x x
+0 1 0x42 0x1c 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>lsl-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# lsl-test @ PC=23
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0x6f56df7 0x20 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>lsli-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# lsli-test @ PC=24
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0x6f56df77 0x24 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>lsr-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# lsr-test @ PC=25
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xd5b7dde0 0x21 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>lsri-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# lsri-test @ PC=26
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xbd5b7dde 0x25 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>asr-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# asr-test @ PC=27
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xfef56df7 0x22 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>asri-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# asri-test @ PC=28
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xef56df77 0x26 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>slt-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# slt-test @ PC=29
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0x0 0x1e 0x69 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sltu-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# sltu-test @ PC=30
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0x0 0x1f 0x69 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>cmp-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# cmp-test @ PC=31
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xdead1d4a 0xf 0x69 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>subi-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# subi-test @ PC=32
+0 0 x x x x
+0 1 0xa57d 0x11 0x69 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ror-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# ror-test @ PC=33
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0x6f56df7 0x23 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>rori-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# rori-test @ PC=34
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0x6f56df77 0x27 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>addi-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# addi-test @ PC=35
+0 0 x x x x
+0 1 0xdeadbf76 0x10 0x96 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>adc-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# adc-test @ PC=36
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xdeae646d 0x8 0x96 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sbc-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# sbc-test @ PC=37
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xdead1db3 0x9 0x69 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>andi-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# andi-test @ PC=38
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xb020 0x12 0x88 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ori-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# ori-test @ PC=39
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xb033 0x13 0xee 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>xori-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# xori-test @ PC=40
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xb033 0x14 0x66 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>cmpi-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# cmpi-test @ PC=41
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xdeadbe6a 0x18 0x69 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>movi16-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# movi16-test @ PC=42
+0 0 x x x x
+0 1 0x1044 0x1d 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>addi16-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# addi16-test @ PC=43
+0 0 x x x x
+0 1 0x34 0x15 0x96 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>addi8-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# addi8-test @ PC=44
+0 0 x x x x
+0 1 0x38 0x16 0x96 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>tst-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# tst-test @ PC=45
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0x0 0x17 0x88 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>lui-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# lui-test @ PC=46
+0 0 x x x x
+0 1 0xc000000 0x19 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>movt-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# movt-test @ PC=47
+0 0 x x x x
+0 1 0x13cd0000 0x1b 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>auipc-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# auipc-test @ PC=48
+0 0 x x x x
+0 1 0xd00b006 0x1a 0x96 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>clz-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# clz-test @ PC=49
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0x0 0xa2 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mul-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# mul-test @ PC=50
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0xb6e645b3 0x80 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>muli-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# muli-test @ PC=51
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 0x5c9d099d 0x85 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mulhsu-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk reg-w-data ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# mulhsu-test @ PC=52
+0 0 x x x x
+0 1 0xb6e645b3 0x83 0x0 1
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>csrw-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# csrw-test @ PC=53
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x 0xa1 0x0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>push-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# push-test @ PC=54
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x 0x70 0x0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>sw-test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset clk alu-out ir-opcode ctrl-alu-op ctrl-reg-we
+
+# hold
+1 0 x x x x
+1 1 x x x x
+1 0 x x x x
+1 1 x x x x
+# run
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x x x x
+# sw-test @ PC=55
+0 0 x x x x
+0 1 x x x x
+0 0 x x x x
+0 1 x 0x40 0x0 0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="1360" y="-920"/>
+    </visualElement>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </visualElements>
   <wires>
     <wire>
