@@ -30,7 +30,7 @@
           <value v="3145728" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="-120" y="180"/>
+      <pos x="-180" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -44,7 +44,7 @@
           <string>13,6,1,1,1</string>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="180"/>
+      <pos x="-140" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -178,16 +178,6 @@
       <pos x="260" y="20"/>
     </visualElement>
     <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>disp-write-addr</string>
-        </entry>
-      </elementAttributes>
-      <pos x="40" y="140"/>
-    </visualElement>
-    <visualElement>
       <elementName>And</elementName>
       <elementAttributes>
         <entry>
@@ -199,12 +189,7 @@
           <int>3</int>
         </entry>
       </elementAttributes>
-      <pos x="80" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="40" y="220"/>
+      <pos x="-20" y="300"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -214,7 +199,7 @@
           <string>vga_en</string>
         </entry>
       </elementAttributes>
-      <pos x="160" y="240"/>
+      <pos x="60" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -393,24 +378,6 @@
       <pos x="260" y="-100"/>
     </visualElement>
     <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>16,16</string>
-        </entry>
-        <entry>
-          <string>splitterSpreading</string>
-          <int>8</int>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>32</string>
-        </entry>
-      </elementAttributes>
-      <pos x="380" y="-160"/>
-    </visualElement>
-    <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
@@ -424,6 +391,92 @@
       </elementAttributes>
       <pos x="480" y="-160"/>
     </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>vga-tile-write-read</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>mem_addr mem_din disp-read-addr clk disp-data-out
+
+# Tile RAM: CPU write port A, scan-out read port B. disp-data-out = {lo16, hi16}.
+0x000000 0x00000000 0 0 0x00000000
+0xF10000 0xFFFF0041 0 0 x
+0xF10000 0xFFFF0041 0 C 0x41FFFF
+0xF10004 0x0000FF42 4 0 x
+0xF10004 0x0000FF42 4 C 0xFF420000
+0xF10000 0xFFFF0041 0 0 0x41FFFF
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="-560" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>vga-dual-port-poll</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>mem_addr mem_din disp-read-addr clk disp-data-out
+
+# Dual-port: poll read addr 0 while CPU writes addr 4; MMIO addr does not hit tile 0.
+0x000000 0x00000000 0 0 0x00000000
+0xF10000 0x07E00041 0 0 x
+0xF10000 0x07E00041 0 C 0x4107E0
+0xF10004 0xF8000042 0 0 0x4107E0
+0xF10004 0xF8000042 0 C 0x4107E0
+0xF10004 0xF8000042 4 0 0x42F800
+0xF10000 0x07E00041 0 0 0x4107E0
+0xF00018 0xDEADBEEF 0 0 0x4107E0
+0xF00018 0xDEADBEEF 0 C 0x4107E0
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="-540" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>splitterSpreading</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>16,16</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>32</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="-160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="-80" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>disp-write-addr</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-60" y="260"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -431,32 +484,32 @@
       <p2 x="380" y="0"/>
     </wire>
     <wire>
-      <p1 x="-40" y="240"/>
-      <p2 x="80" y="240"/>
+      <p1 x="-120" y="320"/>
+      <p2 x="-20" y="320"/>
     </wire>
     <wire>
-      <p1 x="-120" y="180"/>
-      <p2 x="-60" y="180"/>
+      <p1 x="-180" y="260"/>
+      <p2 x="-140" y="260"/>
     </wire>
     <wire>
-      <p1 x="-40" y="180"/>
-      <p2 x="0" y="180"/>
+      <p1 x="-120" y="260"/>
+      <p2 x="-60" y="260"/>
     </wire>
     <wire>
-      <p1 x="-40" y="260"/>
-      <p2 x="80" y="260"/>
+      <p1 x="-120" y="340"/>
+      <p2 x="-20" y="340"/>
     </wire>
     <wire>
       <p1 x="-200" y="-140"/>
       <p2 x="-160" y="-140"/>
     </wire>
     <wire>
-      <p1 x="0" y="140"/>
-      <p2 x="40" y="140"/>
+      <p1 x="-40" y="300"/>
+      <p2 x="-20" y="300"/>
     </wire>
     <wire>
-      <p1 x="-40" y="220"/>
-      <p2 x="40" y="220"/>
+      <p1 x="-120" y="300"/>
+      <p2 x="-80" y="300"/>
     </wire>
     <wire>
       <p1 x="-200" y="-160"/>
@@ -473,10 +526,6 @@
     <wire>
       <p1 x="400" y="-160"/>
       <p2 x="480" y="-160"/>
-    </wire>
-    <wire>
-      <p1 x="0" y="140"/>
-      <p2 x="0" y="180"/>
     </wire>
   </wires>
   <measurementOrdering/>
