@@ -224,7 +224,7 @@
           <string>P</string>
         </entry>
       </elementAttributes>
-      <pos x="760" y="240"/>
+      <pos x="1120" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>XOr</elementName>
@@ -2798,6 +2798,44 @@ OPCODE Asel A_inv Bsel B_inv A B C MUX_OUT P G
       </elementAttributes>
       <pos x="80" y="740"/>
     </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="980" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>A_eff</string>
+        </entry>
+      </elementAttributes>
+      <pos x="980" y="640"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>B_eff</string>
+        </entry>
+      </elementAttributes>
+      <pos x="980" y="680"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -2829,10 +2867,6 @@ OPCODE Asel A_inv Bsel B_inv A B C MUX_OUT P G
       <p2 x="1120" y="560"/>
     </wire>
     <wire>
-      <p1 x="720" y="240"/>
-      <p2 x="760" y="240"/>
-    </wire>
-    <wire>
       <p1 x="720" y="340"/>
       <p2 x="740" y="340"/>
     </wire>
@@ -2843,6 +2877,10 @@ OPCODE Asel A_inv Bsel B_inv A B C MUX_OUT P G
     <wire>
       <p1 x="640" y="180"/>
       <p2 x="660" y="180"/>
+    </wire>
+    <wire>
+      <p1 x="1060" y="660"/>
+      <p2 x="1120" y="660"/>
     </wire>
     <wire>
       <p1 x="100" y="600"/>
@@ -2859,10 +2897,6 @@ OPCODE Asel A_inv Bsel B_inv A B C MUX_OUT P G
     <wire>
       <p1 x="600" y="380"/>
       <p2 x="620" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="720" y="240"/>
-      <p2 x="720" y="300"/>
     </wire>
     <wire>
       <p1 x="720" y="380"/>
