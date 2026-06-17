@@ -1,0 +1,46 @@
+# Tomato32 ISA profile: JVM bytecode (ALU/control subset) — maps external mnemonics onto docs/isa/opcodes.csv. Not hardware authority.
+external_mnemonic,fmt,semantic_op,rom_addr,encoding_variant,ir_imm_sel,hardware_status,test_status,gap_notes
+nop,JVM,NOP,0x000,reg_reg,0,primitive_ok,unknown,
+iconst,JVM,ADDI,0x010,reg_reg,0,trap_emulate,unknown,push immediate via operand stack
+iadd,JVM,ADD,0x001,reg_reg,0,trap_emulate,unknown,pop2 push1 stack discipline
+isub,JVM,SUB,0x002,reg_reg,0,trap_emulate,unknown,
+imul,JVM,MUL,0x080,reg_reg,0,trap_emulate,unknown,
+idiv,JVM,DIV,0x090,reg_reg,0,trap_emulate,unknown,
+irem,JVM,REM,0x092,reg_reg,0,trap_emulate,unknown,
+ineg,JVM,NEG,0x007,reg_reg,0,trap_emulate,unknown,
+iand,JVM,AND,0x003,reg_reg,0,trap_emulate,unknown,
+ior,JVM,OR,0x004,reg_reg,0,trap_emulate,unknown,
+ixor,JVM,XOR,0x005,reg_reg,0,trap_emulate,unknown,
+ishl,JVM,LSL,0x020,reg_reg,0,trap_emulate,unknown,
+ishr,JVM,ASR,0x022,reg_reg,0,trap_emulate,unknown,
+iushr,JVM,LSR,0x021,reg_reg,0,trap_emulate,unknown,
+ladd,JVM,ADD,0x001,reg_reg,0,trap_emulate,unknown,64-bit long pair in reg file
+lsub,JVM,SUB,0x002,reg_reg,0,trap_emulate,unknown,
+lmul,JVM,MUL,0x080,reg_reg,0,trap_emulate,unknown,
+ldiv,JVM,DIV,0x090,reg_reg,0,trap_emulate,unknown,
+lrem,JVM,REM,0x092,reg_reg,0,trap_emulate,unknown,
+lneg,JVM,NEG,0x007,reg_reg,0,trap_emulate,unknown,
+land,JVM,AND,0x003,reg_reg,0,trap_emulate,unknown,
+lor,JVM,OR,0x004,reg_reg,0,trap_emulate,unknown,
+lxor,JVM,XOR,0x005,reg_reg,0,trap_emulate,unknown,
+lshl,JVM,LSL,0x020,reg_reg,0,trap_emulate,unknown,
+lshr,JVM,ASR,0x022,reg_reg,0,trap_emulate,unknown,
+lushr,JVM,LSR,0x021,reg_reg,0,trap_emulate,unknown,
+ifeq,JVM,BEQ,0x050,reg_reg,0,trap_emulate,unknown,operand-stack compare branch
+ifne,JVM,BNE,0x051,reg_reg,0,trap_emulate,unknown,
+iflt,JVM,BLT,0x052,reg_reg,0,trap_emulate,unknown,
+ifge,JVM,BGE,0x053,reg_reg,0,trap_emulate,unknown,
+ifgt,JVM,BGTZ,0x057,reg_reg,0,trap_emulate,unknown,
+ifle,JVM,BLEZ,0x056,reg_reg,0,trap_emulate,unknown,
+goto,JVM,JMP,0x062,reg_reg,0,trap_emulate,unknown,
+jsr,JVM,CALL,0x072,reg_reg,0,trap_emulate,unknown,invoke* family
+ret,JVM,RET,0x064,reg_reg,0,trap_emulate,unknown,return from method
+pop,JVM,POP,0x071,reg_reg,0,trap_emulate,unknown,
+dup,JVM,MOV,0x00E,reg_reg,0,trap_emulate,unknown,stack duplicate
+swap,JVM,MOV,0x00E,reg_reg,0,trap_emulate,unknown,
+iload,JVM,LW,0x030,reg_reg,0,trap_emulate,unknown,local var to stack
+istore,JVM,SW,0x040,reg_reg,0,trap_emulate,unknown,
+aload,JVM,LW,0x030,reg_reg,0,trap_emulate,unknown,array load
+astore,JVM,SW,0x040,reg_reg,0,trap_emulate,unknown,
+baload,JVM,LB,0x033,reg_reg,0,trap_emulate,unknown,
+bastore,JVM,SB,0x042,reg_reg,0,trap_emulate,unknown,

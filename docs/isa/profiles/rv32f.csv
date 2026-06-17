@@ -1,0 +1,28 @@
+# Tomato32 ISA profile: RV32F — maps external mnemonics onto docs/isa/opcodes.csv. Not hardware authority.
+external_mnemonic,fmt,semantic_op,rom_addr,encoding_variant,ir_imm_sel,hardware_status,test_status,gap_notes
+flw,I,LW,0x030,off12_sign,3,trap_emulate,unknown,softfloat seq
+fsw,S,SW,0x040,off12_sign,3,trap_emulate,unknown,softfloat seq
+fmadd.s,R4,MADD,0x0BE,reg_reg,0,trap_emulate,unknown,softfloat seq
+fmsub.s,R4,MADD,0x0BE,reg_reg,0,trap_emulate,unknown,softfloat seq
+fnmsub.s,R4,MADD,0x0BE,reg_reg,0,trap_emulate,unknown,softfloat seq
+fnmadd.s,R4,MADD,0x0BE,reg_reg,0,trap_emulate,unknown,softfloat seq
+fadd.s,R,ADD,0x001,reg_reg,0,trap_emulate,unknown,softfloat seq
+fsub.s,R,SUB,0x002,reg_reg,0,trap_emulate,unknown,softfloat seq
+fmul.s,R,MUL,0x080,reg_reg,0,trap_emulate,unknown,softfloat seq
+fdiv.s,R,DIV,0x090,reg_reg,0,trap_emulate,unknown,softfloat seq
+fsqrt.s,R,DIV,0x090,reg_reg,0,trap_emulate,unknown,softfloat seq
+fsgnj.s,R,OR,0x004,reg_reg,0,trap_emulate,unknown,softfloat seq
+fsgnjn.s,R,XOR,0x005,reg_reg,0,trap_emulate,unknown,softfloat seq
+fsgnjx.s,R,XOR,0x005,reg_reg,0,trap_emulate,unknown,softfloat seq
+fmin.s,R,SLT,0x01E,reg_reg,0,trap_emulate,unknown,softfloat seq
+fmax.s,R,SGT,0x0C2,reg_reg,0,trap_emulate,unknown,softfloat seq
+fcvt.w.s,R,MOV,0x00E,reg_reg,0,trap_emulate,unknown,softfloat seq
+fcvt.wu.s,R,MOV,0x00E,reg_reg,0,trap_emulate,unknown,softfloat seq
+fmv.x.w,R,MOV,0x00E,reg_reg,0,trap_emulate,unknown,softfloat seq
+fmv.w.x,R,MOV,0x00E,reg_reg,0,trap_emulate,unknown,softfloat seq
+feq.s,R,SEQ,0x0C0,reg_reg,0,trap_emulate,unknown,softfloat seq
+flt.s,R,SLT,0x01E,reg_reg,0,trap_emulate,unknown,softfloat seq
+fle.s,R,SGE,0x0C3,reg_reg,0,trap_emulate,unknown,softfloat seq
+fclass.s,R,CLZ,0x0A2,reg_reg,0,trap_emulate,unknown,softfloat seq
+fcvt.s.w,R,MOV,0x00E,reg_reg,0,trap_emulate,unknown,softfloat seq
+fcvt.s.wu,R,MOV,0x00E,reg_reg,0,trap_emulate,unknown,softfloat seq

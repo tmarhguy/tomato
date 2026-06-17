@@ -1,0 +1,30 @@
+# Tomato32 ISA profile: Zilog Z180 — maps external mnemonics onto docs/isa/opcodes.csv. Not hardware authority.
+external_mnemonic,fmt,semantic_op,rom_addr,encoding_variant,ir_imm_sel,hardware_status,test_status,gap_notes
+add,Z180,ADD,0x001,reg_reg,0,primitive_ok,unknown,Z80 superset base
+adc,Z180,ADC,0x008,reg_reg,0,primitive_ok,unknown,
+and,Z180,AND,0x003,reg_reg,0,primitive_ok,unknown,
+call,Z180,CALL,0x072,reg_reg,0,primitive_ok,unknown,
+cp,Z180,CMP,0x00F,reg_reg,0,primitive_ok,unknown,
+dec,Z180,DEC,0x00D,reg_reg,0,primitive_ok,unknown,
+di,Z180,CLI,0x0D7,reg_reg,0,trap_emulate,unknown,
+djnz,Z180,DEC,0x00D,reg_reg,0,primitive_ok,unknown,loop via DEC+branch microcode
+ei,Z180,SEI,0x0D6,reg_reg,0,trap_emulate,unknown,
+halt,Z180,HALT,0x3FF,reg_reg,0,primitive_ok,unknown,
+in,Z180,IN,0x0D0,reg_reg,0,primitive_ok,unknown,
+inc,Z180,INC,0x00C,reg_reg,0,primitive_ok,unknown,
+jp,Z180,JMP,0x062,reg_reg,0,primitive_ok,unknown,
+jr,Z180,JMP,0x062,reg_reg,0,primitive_ok,unknown,
+ld,Z180,MOV,0x00E,reg_reg,0,primitive_ok,unknown,
+mlt,Z180,MUL,0x080,reg_reg,0,primitive_ok,unknown,Z180 16x16 multiply
+nop,Z180,NOP,0x000,reg_reg,0,primitive_ok,unknown,
+or,Z180,OR,0x004,reg_reg,0,primitive_ok,unknown,
+out,Z180,OUT,0x0D1,reg_reg,0,primitive_ok,unknown,
+pop,Z180,POP,0x071,reg_reg,0,primitive_ok,unknown,
+push,Z180,PUSH,0x070,reg_reg,0,primitive_ok,unknown,
+ret,Z180,RET,0x064,reg_reg,0,primitive_ok,unknown,
+sbc,Z180,SBC,0x009,reg_reg,0,primitive_ok,unknown,
+slp,Z180,HALT,0x3FF,reg_reg,0,trap_emulate,unknown,clock stop; wake via IRQ
+sub,Z180,SUB,0x002,reg_reg,0,primitive_ok,unknown,
+tmam,Z180,MOV,0x00E,reg_reg,0,trap_emulate,unknown,test-and-reset memory mode
+tstio,Z180,TST,0x017,reg_reg,0,trap_emulate,unknown,I/O test opcode
+xor,Z180,XOR,0x005,reg_reg,0,primitive_ok,unknown,

@@ -1,0 +1,39 @@
+# Tomato32 ISA profile: Ethereum EVM — maps external mnemonics onto docs/isa/opcodes.csv. Not hardware authority.
+external_mnemonic,fmt,semantic_op,rom_addr,encoding_variant,ir_imm_sel,hardware_status,test_status,gap_notes
+add,EVM,ADD,0x001,reg_reg,0,trap_emulate,unknown,stack pop2; push via SP mux
+sub,EVM,SUB,0x002,reg_reg,0,trap_emulate,unknown,
+mul,EVM,MUL,0x080,reg_reg,0,trap_emulate,unknown,256-bit width truncated to 32b lane
+div,EVM,DIV,0x090,reg_reg,0,trap_emulate,unknown,
+sdiv,EVM,DIV,0x090,reg_reg,0,trap_emulate,unknown,signed
+mod,EVM,REM,0x092,reg_reg,0,trap_emulate,unknown,
+smod,EVM,REM,0x092,reg_reg,0,trap_emulate,unknown,
+addmod,EVM,ADD,0x001,reg_reg,0,trap_emulate,unknown,3-operand stack
+mulmod,EVM,MUL,0x080,reg_reg,0,trap_emulate,unknown,
+exp,EVM,MUL,0x080,reg_reg,0,trap_emulate,unknown,exponentiation loop
+and,EVM,AND,0x003,reg_reg,0,trap_emulate,unknown,
+or,EVM,OR,0x004,reg_reg,0,trap_emulate,unknown,
+xor,EVM,XOR,0x005,reg_reg,0,trap_emulate,unknown,
+not,EVM,NOT,0x006,reg_reg,0,trap_emulate,unknown,
+byte,EVM,LB,0x033,reg_reg,0,trap_emulate,unknown,extract byte from word
+shl,EVM,LSL,0x020,reg_reg,0,trap_emulate,unknown,
+shr,EVM,LSR,0x021,reg_reg,0,trap_emulate,unknown,
+sar,EVM,ASR,0x022,reg_reg,0,trap_emulate,unknown,
+signextend,EVM,ASR,0x022,reg_reg,0,trap_emulate,unknown,
+eq,EVM,BEQ,0x050,reg_reg,0,trap_emulate,unknown,iszero/eq via CMP microcode
+lt,EVM,BLT,0x052,reg_reg,0,trap_emulate,unknown,
+gt,EVM,BGTZ,0x057,reg_reg,0,trap_emulate,unknown,
+slt,EVM,SLT,0x01E,reg_reg,0,trap_emulate,unknown,
+sgt,EVM,BGTZ,0x057,reg_reg,0,trap_emulate,unknown,
+jump,EVM,JMP,0x062,reg_reg,0,trap_emulate,unknown,
+jumpi,EVM,JMP,0x062,reg_reg,0,trap_emulate,unknown,conditional via stack flag
+pc,EVM,MOV,0x00E,reg_reg,0,trap_emulate,unknown,push PC
+pop,EVM,POP,0x071,reg_reg,0,trap_emulate,unknown,
+push,EVM,PUSH,0x070,reg_reg,0,trap_emulate,unknown,
+dup,EVM,MOV,0x00E,reg_reg,0,trap_emulate,unknown,stack peek/copy
+swap,EVM,MOV,0x00E,reg_reg,0,trap_emulate,unknown,
+mload,EVM,LW,0x030,reg_reg,0,trap_emulate,unknown,
+mstore,EVM,SW,0x040,reg_reg,0,trap_emulate,unknown,
+mstore8,EVM,SB,0x042,reg_reg,0,trap_emulate,unknown,
+stop,EVM,HALT,0x3FF,reg_reg,0,trap_emulate,unknown,
+return,EVM,RET,0x064,reg_reg,0,trap_emulate,unknown,
+revert,EVM,HALT,0x3FF,reg_reg,0,trap_emulate,unknown,

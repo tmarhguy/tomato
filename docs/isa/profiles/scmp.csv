@@ -1,0 +1,23 @@
+# Tomato32 ISA profile: National SC/MP (INS8060) — maps external mnemonics onto docs/isa/opcodes.csv. Not hardware authority.
+external_mnemonic,fmt,semantic_op,rom_addr,encoding_variant,ir_imm_sel,hardware_status,test_status,gap_notes
+add,SCMP,ADD,0x001,reg_reg,0,primitive_ok,unknown,simple 8-bit accumulator ISA
+adc,SCMP,ADC,0x008,reg_reg,0,primitive_ok,unknown,
+and,SCMP,AND,0x003,reg_reg,0,primitive_ok,unknown,
+ccl,SCMP,CLI,0x0D7,reg_reg,0,trap_emulate,unknown,clear carry
+cma,SCMP,NOT,0x006,reg_reg,0,primitive_ok,unknown,
+dcl,SCMP,CLI,0x0D7,reg_reg,0,trap_emulate,unknown,clear decimal
+dly,SCMP,NOP,0x000,reg_reg,0,trap_emulate,unknown,delay loop
+dph,SCMP,MOV,0x00E,reg_reg,0,primitive_ok,unknown,load pointer high
+dpl,SCMP,MOV,0x00E,reg_reg,0,primitive_ok,unknown,load pointer low
+ldi,SCMP,ADDI,0x010,reg_reg,0,primitive_ok,unknown,load immediate
+ld,SCMP,LB,0x033,reg_reg,0,primitive_ok,unknown,
+or,SCMP,OR,0x004,reg_reg,0,primitive_ok,unknown,
+scl,SCMP,SEI,0x0D6,reg_reg,0,trap_emulate,unknown,set carry
+sda,SCMP,SEI,0x0D6,reg_reg,0,trap_emulate,unknown,set decimal
+st,SCMP,SB,0x042,reg_reg,0,primitive_ok,unknown,
+szc,SCMP,BEQ,0x050,reg_reg,0,primitive_ok,unknown,skip if carry zero
+sze,SCMP,BEQ,0x050,reg_reg,0,primitive_ok,unknown,skip if zero
+szf,SCMP,BEQ,0x050,reg_reg,0,primitive_ok,unknown,skip if flag
+xor,SCMP,XOR,0x005,reg_reg,0,primitive_ok,unknown,
+xpc,SCMP,JMP,0x062,reg_reg,0,primitive_ok,unknown,exchange PC
+xpchl,SCMP,CALL,0x072,reg_reg,0,trap_emulate,unknown,exchange PC and HL

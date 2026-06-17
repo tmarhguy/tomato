@@ -1,0 +1,58 @@
+# Tomato32 ISA profile: MOS 6502 — maps external mnemonics onto docs/isa/opcodes.csv. Not hardware authority.
+external_mnemonic,fmt,semantic_op,rom_addr,encoding_variant,ir_imm_sel,hardware_status,test_status,gap_notes
+adc,6502,ADC,0x008,reg_reg,0,primitive_ok,unknown,accumulator via byte engine alias
+and,6502,AND,0x003,reg_reg,0,primitive_ok,unknown,
+asl,6502,LSL,0x024,shamt5,5,primitive_ok,unknown,1-bit shift via shamt=1 micro-sequence
+bcc,6502,BCC,0x054,reg_reg,0,primitive_ok,unknown,
+bcs,6502,BCS,0x055,reg_reg,0,primitive_ok,unknown,
+beq,6502,BEQ,0x050,reg_reg,0,primitive_ok,unknown,
+bit,6502,AND,0x003,reg_reg,0,primitive_ok,unknown,flags from A&mem; bit7/6 via microcode
+bmi,6502,BMI,0x058,reg_reg,0,primitive_ok,unknown,
+bne,6502,BNE,0x051,reg_reg,0,primitive_ok,unknown,
+bpl,6502,BPL,0x059,reg_reg,0,primitive_ok,unknown,
+brk,6502,CALL,0x072,reg_reg,0,trap_emulate,unknown,IRQ vector push sequence
+bvc,6502,BVC,0x05A,reg_reg,0,primitive_ok,unknown,
+bvs,6502,BVS,0x05B,reg_reg,0,primitive_ok,unknown,
+clc,6502,CLI,0x0D7,reg_reg,0,trap_emulate,unknown,clear carry flag
+cld,6502,CLI,0x0D7,reg_reg,0,trap_emulate,unknown,decimal mode not native
+cli,6502,CLI,0x0D7,reg_reg,0,trap_emulate,unknown,
+clv,6502,CLI,0x0D7,reg_reg,0,trap_emulate,unknown,clear overflow
+cmp,6502,CMP,0x00F,reg_reg,0,primitive_ok,unknown,
+cpx,6502,CMP,0x00F,reg_reg,0,primitive_ok,unknown,X vs immediate/mem
+cpy,6502,CMP,0x00F,reg_reg,0,primitive_ok,unknown,Y vs immediate/mem
+dec,6502,DEC,0x00D,reg_reg,0,primitive_ok,unknown,
+dex,6502,DEC,0x00D,reg_reg,0,primitive_ok,unknown,
+dey,6502,DEC,0x00D,reg_reg,0,primitive_ok,unknown,
+eor,6502,XOR,0x005,reg_reg,0,primitive_ok,unknown,
+inc,6502,INC,0x00C,reg_reg,0,primitive_ok,unknown,
+inx,6502,INC,0x00C,reg_reg,0,primitive_ok,unknown,
+iny,6502,INC,0x00C,reg_reg,0,primitive_ok,unknown,
+jmp,6502,JMP,0x062,reg_reg,0,primitive_ok,unknown,
+jsr,6502,CALL,0x072,reg_reg,0,primitive_ok,unknown,
+lda,6502,LB,0x033,reg_reg,0,primitive_ok,unknown,A=mem; zero-extend
+ldx,6502,LB,0x033,reg_reg,0,primitive_ok,unknown,
+ldy,6502,LB,0x033,reg_reg,0,primitive_ok,unknown,
+lsr,6502,LSR,0x025,shamt5,5,primitive_ok,unknown,
+nop,6502,NOP,0x000,reg_reg,0,primitive_ok,unknown,
+ora,6502,OR,0x004,reg_reg,0,primitive_ok,unknown,
+pha,6502,PUSH,0x070,reg_reg,0,primitive_ok,unknown,
+php,6502,PUSH,0x070,reg_reg,0,primitive_ok,unknown,push P
+pla,6502,POP,0x071,reg_reg,0,primitive_ok,unknown,
+plp,6502,POP,0x071,reg_reg,0,primitive_ok,unknown,
+rol,6502,ROL,,reg_reg,0,primitive_ok,unknown,rotate via shift+ADC micro-sequence
+ror,6502,ROR,0x023,reg_reg,0,primitive_ok,unknown,
+rti,6502,RET,0x064,reg_reg,0,trap_emulate,unknown,restore P from stack
+rts,6502,RET,0x064,reg_reg,0,primitive_ok,unknown,
+sbc,6502,SBC,0x009,reg_reg,0,primitive_ok,unknown,
+sec,6502,SEI,0x0D6,reg_reg,0,trap_emulate,unknown,set carry
+sed,6502,SEI,0x0D6,reg_reg,0,trap_emulate,unknown,decimal mode
+sei,6502,SEI,0x0D6,reg_reg,0,trap_emulate,unknown,
+sta,6502,SB,0x042,reg_reg,0,primitive_ok,unknown,
+stx,6502,SB,0x042,reg_reg,0,primitive_ok,unknown,
+sty,6502,SB,0x042,reg_reg,0,primitive_ok,unknown,
+tax,6502,MOV,0x00E,reg_reg,0,primitive_ok,unknown,
+tay,6502,MOV,0x00E,reg_reg,0,primitive_ok,unknown,
+tsx,6502,MOV,0x00E,reg_reg,0,primitive_ok,unknown,SP to X
+txa,6502,MOV,0x00E,reg_reg,0,primitive_ok,unknown,
+txs,6502,MOV,0x00E,reg_reg,0,primitive_ok,unknown,X to SP
+tya,6502,MOV,0x00E,reg_reg,0,primitive_ok,unknown,
