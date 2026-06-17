@@ -29,3 +29,6 @@ To solve this, I’m moving away from naïve sequencing toward a high-speed, spa
 Honestly? This is the most efficient design I can conceive for this build. If new ideas hit, I’ll pivot, but for now, the math is solid. It just makes sense.
 
 **Next Steps:** Test the full loop in _Digital_ simulation. I need to verify the timing and latching before I commit to the physical build.
+
+#### Status
+I designed with 
