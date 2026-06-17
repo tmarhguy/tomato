@@ -1,0 +1,67 @@
+# Tomato32 ISA profiles index. tomato32_pct = aspirational hardware coverage from retired tomato32.txt matrix. Set claimed=yes only after end-to-end verification.
+profile_id,display_name,isa_family,version,file,mnemonics,mappable,blocked,tomato32_pct,claimed,notes
+alpha,Alpha,other,21264,alpha.csv,39,39,0,90,,64-bit RISC operations emulated sequentially.
+arc-v-rmx,ARC_V_RMX,other,ARCv2,arc-v-rmx.csv,25,25,0,100,,
+arm-a32,ARM_A32,arm,v8,arm-a32.csv,51,51,0,100,,
+arm-thumb2,ARM_Thumb2,arm,v8,arm-thumb2.csv,44,44,0,100,,
+armv8-r,Armv8_R,arm,32-bit,armv8-r.csv,40,40,0,95,,
+avr,AVR,other,avrxmega,avr.csv,34,34,0,100,,Base 8-bit AVR RISC instructions map 1:1.
+chip8,CHIP8,other,1.0,chip8.csv,30,30,0,100,,
+coldfire,ColdFire,other,V4,coldfire.csv,29,29,0,95,,Reduced 68k ISA utilizes minimal microcode.
+cortex-m0,Cortex_M0,arm,v6-M,cortex-m0.csv,29,29,0,100,,
+cortex-m3,Cortex_M3,arm,v7-M,cortex-m3.csv,33,33,0,100,,
+cortex-m4,Cortex_M4,arm,v7E-M,cortex-m4.csv,34,34,0,100,,
+cortex-r4,Cortex_R4,arm,v7-R,cortex-r4.csv,38,38,0,98,,
+cp1600,CP1600,other,GI,cp1600.csv,18,18,0,100,,16-bit historical processor maps perfectly to datapath.
+dlx,DLX,other,edu,dlx.csv,34,34,0,100,,The standard Hennessy and Patterson architecture translates to the datapath intuitively.
+evm,Ethereum_EVM,vm,shanghai,evm.csv,37,37,0,70,,Stack-based 256-bit integer VM; SP mux + trap microcode for stack discipline.
+ebpf,eBPF,bpf,ALU32,ebpf.csv,24,24,0,100,,Extended Berkeley Packet Filter pseudo-ISA translates natively.
+bpf-classic,Classic_BPF,bpf,cBPF,bpf-classic.csv,27,27,0,100,,Pre-eBPF packet filter; A/X accumulator model maps to byte engine.
+h8-300,H8_300,other,Renesas,h8-300.csv,24,24,0,95,,
+ia64,IA64,other,IPF,ia64.csv,30,29,1,40,,
+intel-8051,Intel_8051,x86,classic,intel-8051.csv,22,22,0,100,,Accumulator and SFR logic natively supported.
+intel-8080,Intel_8080,x86,8bit,intel-8080.csv,24,24,0,95,,Mapped via the byte engine and 8-bit instruction aliases.
+intel-8086,Intel_8086,x86,8086,intel-8086.csv,34,34,0,100,,16-bit registers fit perfectly. Segment registers utilize upper 64-reg file.
+leon,LEON,other,3,leon.csv,33,33,0,100,,Radiation-hardened SPARC soft-core matches hardware design.
+jvm,JVM_Bytecode,vm,Java_8,jvm.csv,44,44,0,65,,Operand-stack ALU/control subset; trap emulation for stack and locals.
+lm32,LM32,mips,1.0,lm32.csv,35,35,0,100,,LatticeMico32 open-source RISC perfectly translated.
+m6800,M6800,other,8bit,m6800.csv,24,24,0,100,,
+mos6502,MOS_6502,other,2A03,mos6502.csv,56,56,0,95,,8-bit accumulator ISA; byte engine + Sweet16 companion already mapped.
+mc68000,MC68000,other,rev,mc68000.csv,50,49,1,95,,
+microblaze,MicroBlaze,mips,v11,microblaze.csv,52,52,0,100,,32-bit RISC soft-core perfectly mapped to the registers.
+mips16,MIPS16,mips,MIPS,mips16.csv,28,28,0,100,,Compressed 16-bit instructions decode easily in the immediate engine.
+mips32,MIPS32,mips,rev6,mips32.csv,52,52,0,100,,Base integer mapped natively.
+msp430,MSP430,other,v2,msp430.csv,29,29,0,100,,16-bit highly orthogonal RISC maps 1:1.
+openrisc,OpenRISC,other,1000,openrisc.csv,38,37,1,98,,Open-source 32-bit RISC executes flawlessly.
+pa-risc,PA_RISC,other,2.0,pa-risc.csv,35,34,1,90,,
+pdp11,PDP11,other,v7,pdp11.csv,41,39,2,90,,
+pic16,PIC16,other,mid,pic16.csv,20,20,0,100,,Standard mid-range 14-bit architecture mapped smoothly.
+pic18,PIC18,other,ext,pic18.csv,21,21,0,100,,High-end 8-bit architecture utilizes the hardware multiplier.
+pic32,PIC32,mips,MX,pic32.csv,44,44,0,100,,Standard MIPS32 M4K core mapping works perfectly.
+powerpc32,PowerPC32,powerpc,2.07,powerpc32.csv,41,40,1,95,,Highly regular register-to-register load/stores function perfectly.
+risc-i,RISC_I,other,Berkeley,risc-i.csv,32,32,0,100,,Early register windows directly correspond to the 16x64 hardware addressing implementation.
+rx,Renesas_RX,other,v3,rx.csv,38,38,0,95,,32-bit RISC MCU; V850-class load/store and ALU mapping.
+rv32c,RV32C,riscv,2.2,rv32c.csv,27,27,0,100,,Decoded efficiently via the immediate engine and mapped to base ops.
+rv32e,RV32E,riscv,2.2,rv32e.csv,40,40,0,100,,"Only requires 16 registers, perfectly fitting within the 64 available."
+rv32f,RV32F,riscv,2.2,rv32f.csv,26,26,0,0,,Requires deterministic soft-float sequences via trap emulation.
+rv32i,RV32I,riscv,2.2,rv32i.csv,40,40,0,100,,Direct 1:1 mapping of base integer operations to datapath.
+rv32m,RV32M,riscv,2.2,rv32m.csv,8,8,0,100,,Subsumed entirely by the integrated 16-cycle mul-div board.
+rv32zba,RV32ZBA,riscv,1.0,rv32zba.csv,2,2,0,100,,Handled natively by ALU shift-and-add combinations.
+rv32zbb,RV32Zbb,riscv,1.0,rv32zbb.csv,21,20,1,98,,Ternary bit logic mapped via LUT3; POPCNT requires micro-looping.
+rv32zbc,RV32ZBC,riscv,1.0,rv32zbc.csv,1,1,0,60,,Requires custom microcode sequences for carry-less state tracking.
+rv32zbs,RV32ZBS,riscv,1.0,rv32zbs.csv,2,2,0,100,,Handled seamlessly by the immediate bitmask logic and LUT3.
+rv32zkn,RV32_Zkn,riscv,1.0,rv32zkn.csv,15,15,0,55,,Scalar crypto (AES/SHA/SM4); LUT3 + microcode trap sequences.
+sh1,SH1,other,rev,sh1.csv,22,22,0,100,,
+sh2,SH2,other,rev,sh2.csv,40,39,1,98,,
+sh3,SH3,other,rev,sh3.csv,29,28,1,95,,
+scmp,SC_MP,other,INS8060,scmp.csv,21,21,0,90,,National Semiconductor microcontroller; simple accumulator + pointer ops.
+sparc-v8,SPARC_V8,sparc,rev,sparc-v8.csv,43,43,0,100,,Added integer multiply/divide handled by the fast 1-16 cycle hardware.
+sweet16,Sweet16,other,Woz,sweet16.csv,20,20,0,100,,16-bit pseudo-machine for 6502 perfectly mapped.
+sweet16c,Sweet16c,other,ext,sweet16c.csv,21,21,0,100,,The more advanced Apple IIGS machine variant is comfortably absorbed by the microcode.
+thumb-v1,Thumb_v1,arm,ARMv4T,thumb-v1.csv,26,26,0,100,,
+v850,V850,other,E2,v850.csv,28,28,0,95,,The baseline 32-bit RISC microcontroller operates completely native to Tomato32 hardware.
+wasm-i32,WASM_i32,wasm,1.0,wasm-i32.csv,50,49,1,98,,32-bit web virtual machine operations execute directly.
+x86-32,x86_32,x86,i686,x86-32.csv,55,55,0,85,,
+xtensa,Xtensa,other,LX7,xtensa.csv,36,36,0,100,,Configurable processor mapped directly to LUT logic.
+z80,Z80,other,all,z80.csv,30,30,0,100,,Extended 8080 logic; alternate register sets map to 64-reg file.
+z180,Zilog_Z180,other,all,z180.csv,28,28,0,98,,Z80 superset; MLT maps to mul-div; SLP/TSTIO via trap microcode.

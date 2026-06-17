@@ -1,0 +1,29 @@
+# Tomato32 ISA profile: Classic BPF (cBPF) — maps external mnemonics onto docs/isa/opcodes.csv. Not hardware authority.
+external_mnemonic,fmt,semantic_op,rom_addr,encoding_variant,ir_imm_sel,hardware_status,test_status,gap_notes
+add,cBPF,ADD,0x001,reg_reg,0,primitive_ok,unknown,A+=X
+and,cBPF,AND,0x003,reg_reg,0,primitive_ok,unknown,A&=X
+div,cBPF,DIV,0x090,reg_reg,0,primitive_ok,unknown,A/=X
+ja,cBPF,JMP,0x062,reg_reg,0,primitive_ok,unknown,unconditional
+jeq,cBPF,BEQ,0x050,reg_reg,0,primitive_ok,unknown,A==X
+jge,cBPF,BGE,0x053,reg_reg,0,primitive_ok,unknown,A>=X
+jgt,cBPF,BGTZ,0x057,reg_reg,0,primitive_ok,unknown,A>X
+jset,cBPF,AND,0x003,reg_reg,0,primitive_ok,unknown,test bit via AND
+ld,cBPF,LW,0x030,reg_reg,0,primitive_ok,unknown,A=mem32[X+k]
+ldh,cBPF,LH,0x031,reg_reg,0,primitive_ok,unknown,A=mem16[X+k]
+ldb,cBPF,LB,0x033,reg_reg,0,primitive_ok,unknown,A=mem8[X+k]
+ldx,cBPF,MOV,0x00E,reg_reg,0,primitive_ok,unknown,X=imm
+ldxb,cBPF,LB,0x033,reg_reg,0,primitive_ok,unknown,M[pc]=A; X=imm
+ldxh,cBPF,LH,0x031,reg_reg,0,primitive_ok,unknown,M[pc]=A; X=imm
+ldxw,cBPF,LW,0x030,reg_reg,0,primitive_ok,unknown,M[pc]=A; X=imm
+lsh,cBPF,LSL,0x020,reg_reg,0,primitive_ok,unknown,A<<=X
+mod,cBPF,REM,0x092,reg_reg,0,primitive_ok,unknown,A%=X
+mul,cBPF,MUL,0x080,reg_reg,0,primitive_ok,unknown,A*=X
+neg,cBPF,NEG,0x007,reg_reg,0,primitive_ok,unknown,A=-A
+or,cBPF,OR,0x004,reg_reg,0,primitive_ok,unknown,A|=X
+ret,cBPF,RET,0x064,reg_reg,0,primitive_ok,unknown,return packet verdict
+rsh,cBPF,LSR,0x021,reg_reg,0,primitive_ok,unknown,A>>=X
+st,cBPF,SW,0x040,reg_reg,0,primitive_ok,unknown,mem32[X+k]=A
+sub,cBPF,SUB,0x002,reg_reg,0,primitive_ok,unknown,A-=X
+tax,cBPF,MOV,0x00E,reg_reg,0,primitive_ok,unknown,X=A
+txa,cBPF,MOV,0x00E,reg_reg,0,primitive_ok,unknown,A=X
+xor,cBPF,XOR,0x005,reg_reg,0,primitive_ok,unknown,A^=X
