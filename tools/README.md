@@ -1,3 +1,0 @@
-# Tools
-
-venv setup, dependencies
