@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>2</version>
   <attributes>
@@ -14,181 +14,6 @@
     </entry>
   </attributes>
   <visualElements>
-
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-        <entry>
-          <string>Input Splitting</string>
-          <string>32</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</string>
-        </entry>
-      </elementAttributes>
-      <pos x="520" y="120"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>A</string>
-        </entry>
-      </elementAttributes>
-      <pos x="520" y="120"/>
-    </visualElement>
-    <visualElement>
-      <elementName>PriorityEncoder</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Selector Bits</string>
-          <int>5</int>
-        </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="620" y="120"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>27,5</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>32</string>
-        </entry>
-      </elementAttributes>
-      <pos x="720" y="120"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>0</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>27</int>
-        </entry>
-      </elementAttributes>
-      <pos x="680" y="100"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>p-enc-val</string>
-        </entry>
-      </elementAttributes>
-      <pos x="780" y="120"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Or</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Inputs</string>
-          <int>32</int>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>~A_is_Zero</string>
-        </entry>
-      </elementAttributes>
-      <pos x="640" y="160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Multiplexer</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Bits</string>
-          <int>32</int>
-        </entry>
-      </elementAttributes>
-      <pos x="700" y="480"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>mul-div</string>
-        </entry>
-      </elementAttributes>
-      <pos x="660" y="480"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Multiplexer</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Bits</string>
-          <int>32</int>
-        </entry>
-      </elementAttributes>
-      <pos x="1180" y="240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>p-enc-out</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1140" y="260"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>p-enc-val</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1140" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>shift-res</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1140" y="280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>Shift-Out</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1260" y="240"/>
-    </visualElement>
     <visualElement>
       <elementName>shift.dig</elementName>
       <elementAttributes/>
@@ -232,56 +57,7 @@
           <value v="1" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="700" y="420"/>
-    </visualElement>
-
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>mul-div</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>1</int>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>mul-div</string>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>p-enc-out</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>1</int>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>p-enc-out</string>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="220"/>
+      <pos x="280" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>PriorityEncoder</elementName>
@@ -290,20 +66,12 @@
           <string>Selector Bits</string>
           <int>4</int>
         </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
       </elementAttributes>
-      <pos x="600" y="840"/>
+      <pos x="160" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
       <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
         <entry>
           <string>Input Splitting</string>
           <string>16</string>
@@ -313,14 +81,14 @@
           <string>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</string>
         </entry>
       </elementAttributes>
-      <pos x="600" y="860"/>
+      <pos x="140" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation rotation="2"/>
+          <rotation rotation="1"/>
         </entry>
         <entry>
           <string>Bits</string>
@@ -331,75 +99,19 @@
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="560" y="580"/>
+      <pos x="420" y="660"/>
     </visualElement>
     <visualElement>
-      <elementName>Splitter</elementName>
+      <elementName>In</elementName>
       <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>4,28</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>32</string>
-        </entry>
-      </elementAttributes>
-      <pos x="680" y="480"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>0</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>28</int>
-        </entry>
-      </elementAttributes>
-      <pos x="640" y="500"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Clock</elementName>
-      <elementAttributes>
-        <entry>
-          <string>runRealTime</string>
-          <boolean>true</boolean>
-        </entry>
         <entry>
           <string>Label</string>
-          <string>clk</string>
+          <string>mul-div</string>
         </entry>
       </elementAttributes>
-      <pos x="480" y="240"/>
+      <pos x="1240" y="240"/>
     </visualElement>
     <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>clk</string>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="240"/>
-    </visualElement>
-<visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>nxt-enc</string>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="560"/>
-    </visualElement>
-<visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -416,62 +128,20 @@
         </entry>
         <entry>
           <string>InDefault</string>
-          <value v="30000" z="false"/>
+          <value v="100000" z="false"/>
         </entry>
       </elementAttributes>
-      <pos x="680" y="240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>32</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>16</string>
-        </entry>
-      </elementAttributes>
-      <pos x="520" y="360"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>0</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="380"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>16,16</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>32</string>
-        </entry>
-      </elementAttributes>
-      <pos x="600" y="360"/>
+      <pos x="840" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>A</string>
+          <string>mul-div-en</string>
         </entry>
       </elementAttributes>
-      <pos x="680" y="240"/>
+      <pos x="1240" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -484,6 +154,480 @@
       <pos x="840" y="240"/>
     </visualElement>
     <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>Out</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>dec</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>enc-out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="680"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Decoder</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Selector Bits</string>
+          <int>4</int>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="700"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="700"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="720"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="740"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="760"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="780"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="800"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="820"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="840"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="860"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="960"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="980"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="320" y="1000"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="360" y="700"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>new-enc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="420" y="740"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>A B mode mul-div p-enc-out clk Shift-Out nxt-enc ~A_is_Zero\n0xAAAAAAAA 0x0 0 0 0 0 0xAAAAAAAA 0x0 1\n0xAAAAAAAA 0x1 0 0 0 0 0x55555554 0x0 1\n0xAAAAAAAA 0x2 0 0 0 0 0xAAAAAAA8 0x0 1\n0xAAAAAAAA 0x3 0 0 0 0 0x55555550 0x0 1\n0xAAAAAAAA 0x4 0 0 0 0 0xAAAAAAA0 0x0 1\n0xAAAAAAAA 0x5 0 0 0 0 0x55555540 0x0 1\n0xAAAAAAAA 0x6 0 0 0 0 0xAAAAAA80 0x0 1\n0xAAAAAAAA 0x7 0 0 0 0 0x55555500 0x0 1\n0xAAAAAAAA 0x8 0 0 0 0 0xAAAAAA00 0x0 1\n0xAAAAAAAA 0x9 0 0 0 0 0x55555400 0x0 1\n0xAAAAAAAA 0xA 0 0 0 0 0xAAAAA800 0x0 1\n0xAAAAAAAA 0xB 0 0 0 0 0x55555000 0x0 1\n0xAAAAAAAA 0xC 0 0 0 0 0xAAAAA000 0x0 1\n0xAAAAAAAA 0xD 0 0 0 0 0x55554000 0x0 1\n0xAAAAAAAA 0xE 0 0 0 0 0xAAAA8000 0x0 1\n0xAAAAAAAA 0xF 0 0 0 0 0x55550000 0x0 1\n0xAAAAAAAA 0x10 0 0 0 0 0xAAAA0000 0x0 1\n0xAAAAAAAA 0x11 0 0 0 0 0x55540000 0x0 1\n0xAAAAAAAA 0x12 0 0 0 0 0xAAA80000 0x0 1\n0xAAAAAAAA 0x13 0 0 0 0 0x55500000 0x0 1\n0xAAAAAAAA 0x14 0 0 0 0 0xAAA00000 0x0 1\n0xAAAAAAAA 0x15 0 0 0 0 0x55400000 0x0 1\n0xAAAAAAAA 0x16 0 0 0 0 0xAA800000 0x0 1\n0xAAAAAAAA 0x17 0 0 0 0 0x55000000 0x0 1\n0xAAAAAAAA 0x18 0 0 0 0 0xAA000000 0x0 1\n0xAAAAAAAA 0x19 0 0 0 0 0x54000000 0x0 1\n0xAAAAAAAA 0x1A 0 0 0 0 0xA8000000 0x0 1\n0xAAAAAAAA 0x1B 0 0 0 0 0x50000000 0x0 1\n0xAAAAAAAA 0x1C 0 0 0 0 0xA0000000 0x0 1\n0xAAAAAAAA 0x1D 0 0 0 0 0x40000000 0x0 1\n0xAAAAAAAA 0x1E 0 0 0 0 0x80000000 0x0 1\n0xAAAAAAAA 0x1F 0 0 0 0 0x0 0x0 1\n0x55555555 0x0 0 0 0 0 0x55555555 0x0 1\n0x55555555 0x1 0 0 0 0 0xAAAAAAAA 0x0 1\n0x55555555 0x2 0 0 0 0 0x55555554 0x0 1\n0x55555555 0x3 0 0 0 0 0xAAAAAAA8 0x0 1\n0x55555555 0x4 0 0 0 0 0x55555550 0x0 1\n0x55555555 0x5 0 0 0 0 0xAAAAAAA0 0x0 1\n0x55555555 0x6 0 0 0 0 0x55555540 0x0 1\n0x55555555 0x7 0 0 0 0 0xAAAAAA80 0x0 1\n0x55555555 0x8 0 0 0 0 0x55555500 0x0 1\n0x55555555 0x9 0 0 0 0 0xAAAAAA00 0x0 1\n0x55555555 0xA 0 0 0 0 0x55555400 0x0 1\n0x55555555 0xB 0 0 0 0 0xAAAAA800 0x0 1\n0x55555555 0xC 0 0 0 0 0x55555000 0x0 1\n0x55555555 0xD 0 0 0 0 0xAAAAA000 0x0 1\n0x55555555 0xE 0 0 0 0 0x55554000 0x0 1\n0x55555555 0xF 0 0 0 0 0xAAAA8000 0x0 1\n0x55555555 0x10 0 0 0 0 0x55550000 0x0 1\n0x55555555 0x11 0 0 0 0 0xAAAA0000 0x0 1\n0x55555555 0x12 0 0 0 0 0x55540000 0x0 1\n0x55555555 0x13 0 0 0 0 0xAAA80000 0x0 1\n0x55555555 0x14 0 0 0 0 0x55500000 0x0 1\n0x55555555 0x15 0 0 0 0 0xAAA00000 0x0 1\n0x55555555 0x16 0 0 0 0 0x55400000 0x0 1\n0x55555555 0x17 0 0 0 0 0xAA800000 0x0 1\n0x55555555 0x18 0 0 0 0 0x55000000 0x0 1\n0x55555555 0x19 0 0 0 0 0xAA000000 0x0 1\n0x55555555 0x1A 0 0 0 0 0x54000000 0x0 1\n0x55555555 0x1B 0 0 0 0 0xA8000000 0x0 1\n0x55555555 0x1C 0 0 0 0 0x50000000 0x0 1\n0x55555555 0x1D 0 0 0 0 0xA0000000 0x0 1\n0x55555555 0x1E 0 0 0 0 0x40000000 0x0 1\n0x55555555 0x1F 0 0 0 0 0x80000000 0x0 1\n0x12345678 0x0 0 0 0 0 0x12345678 0x0 1\n0x12345678 0x1 0 0 0 0 0x2468ACF0 0x0 1\n0x12345678 0x2 0 0 0 0 0x48D159E0 0x0 1\n0x12345678 0x3 0 0 0 0 0x91A2B3C0 0x0 1\n0x12345678 0x4 0 0 0 0 0x23456780 0x0 1\n0x12345678 0x5 0 0 0 0 0x468ACF00 0x0 1\n0x12345678 0x6 0 0 0 0 0x8D159E00 0x0 1\n0x12345678 0x7 0 0 0 0 0x1A2B3C00 0x0 1\n0x12345678 0x8 0 0 0 0 0x34567800 0x0 1\n0x12345678 0x9 0 0 0 0 0x68ACF000 0x0 1\n0x12345678 0xA 0 0 0 0 0xD159E000 0x0 1\n0x12345678 0xB 0 0 0 0 0xA2B3C000 0x0 1\n0x12345678 0xC 0 0 0 0 0x45678000 0x0 1\n0x12345678 0xD 0 0 0 0 0x8ACF0000 0x0 1\n0x12345678 0xE 0 0 0 0 0x159E0000 0x0 1\n0x12345678 0xF 0 0 0 0 0x2B3C0000 0x0 1\n0x12345678 0x10 0 0 0 0 0x56780000 0x0 1\n0x12345678 0x11 0 0 0 0 0xACF00000 0x0 1\n0x12345678 0x12 0 0 0 0 0x59E00000 0x0 1\n0x12345678 0x13 0 0 0 0 0xB3C00000 0x0 1\n0x12345678 0x14 0 0 0 0 0x67800000 0x0 1\n0x12345678 0x15 0 0 0 0 0xCF000000 0x0 1\n0x12345678 0x16 0 0 0 0 0x9E000000 0x0 1\n0x12345678 0x17 0 0 0 0 0x3C000000 0x0 1\n0x12345678 0x18 0 0 0 0 0x78000000 0x0 1\n0x12345678 0x19 0 0 0 0 0xF0000000 0x0 1\n0x12345678 0x1A 0 0 0 0 0xE0000000 0x0 1\n0x12345678 0x1B 0 0 0 0 0xC0000000 0x0 1\n0x12345678 0x1C 0 0 0 0 0x80000000 0x0 1\n0x12345678 0x1D 0 0 0 0 0x0 0x0 1\n0x12345678 0x1E 0 0 0 0 0x0 0x0 1\n0x12345678 0x1F 0 0 0 0 0x0 0x0 1\n0xAAAAAAAA 0x0 1 0 0 0 0xAAAAAAAA 0x0 1\n0xAAAAAAAA 0x1 1 0 0 0 0x55555555 0x0 1\n0xAAAAAAAA 0x2 1 0 0 0 0x2AAAAAAA 0x0 1\n0xAAAAAAAA 0x3 1 0 0 0 0x15555555 0x0 1\n0xAAAAAAAA 0x4 1 0 0 0 0xAAAAAAA 0x0 1\n0xAAAAAAAA 0x5 1 0 0 0 0x5555555 0x0 1\n0xAAAAAAAA 0x6 1 0 0 0 0x2AAAAAA 0x0 1\n0xAAAAAAAA 0x7 1 0 0 0 0x1555555 0x0 1\n0xAAAAAAAA 0x8 1 0 0 0 0xAAAAAA 0x0 1\n0xAAAAAAAA 0x9 1 0 0 0 0x555555 0x0 1\n0xAAAAAAAA 0xA 1 0 0 0 0x2AAAAA 0x0 1\n0xAAAAAAAA 0xB 1 0 0 0 0x155555 0x0 1\n0xAAAAAAAA 0xC 1 0 0 0 0xAAAAA 0x0 1\n0xAAAAAAAA 0xD 1 0 0 0 0x55555 0x0 1\n0xAAAAAAAA 0xE 1 0 0 0 0x2AAAA 0x0 1\n0xAAAAAAAA 0xF 1 0 0 0 0x15555 0x0 1\n0xAAAAAAAA 0x10 1 0 0 0 0xAAAA 0x0 1\n0xAAAAAAAA 0x11 1 0 0 0 0x5555 0x0 1\n0xAAAAAAAA 0x12 1 0 0 0 0x2AAA 0x0 1\n0xAAAAAAAA 0x13 1 0 0 0 0x1555 0x0 1\n0xAAAAAAAA 0x14 1 0 0 0 0xAAA 0x0 1\n0xAAAAAAAA 0x15 1 0 0 0 0x555 0x0 1\n0xAAAAAAAA 0x16 1 0 0 0 0x2AA 0x0 1\n0xAAAAAAAA 0x17 1 0 0 0 0x155 0x0 1\n0xAAAAAAAA 0x18 1 0 0 0 0xAA 0x0 1\n0xAAAAAAAA 0x19 1 0 0 0 0x55 0x0 1\n0xAAAAAAAA 0x1A 1 0 0 0 0x2A 0x0 1\n0xAAAAAAAA 0x1B 1 0 0 0 0x15 0x0 1\n0xAAAAAAAA 0x1C 1 0 0 0 0xA 0x0 1\n0xAAAAAAAA 0x1D 1 0 0 0 0x5 0x0 1\n0xAAAAAAAA 0x1E 1 0 0 0 0x2 0x0 1\n0xAAAAAAAA 0x1F 1 0 0 0 0x1 0x0 1\n0x55555555 0x0 1 0 0 0 0x55555555 0x0 1\n0x55555555 0x1 1 0 0 0 0x2AAAAAAA 0x0 1\n0x55555555 0x2 1 0 0 0 0x15555555 0x0 1\n0x55555555 0x3 1 0 0 0 0xAAAAAAA 0x0 1\n0x55555555 0x4 1 0 0 0 0x5555555 0x0 1\n0x55555555 0x5 1 0 0 0 0x2AAAAAA 0x0 1\n0x55555555 0x6 1 0 0 0 0x1555555 0x0 1\n0x55555555 0x7 1 0 0 0 0xAAAAAA 0x0 1\n0x55555555 0x8 1 0 0 0 0x555555 0x0 1\n0x55555555 0x9 1 0 0 0 0x2AAAAA 0x0 1\n0x55555555 0xA 1 0 0 0 0x155555 0x0 1\n0x55555555 0xB 1 0 0 0 0xAAAAA 0x0 1\n0x55555555 0xC 1 0 0 0 0x55555 0x0 1\n0x55555555 0xD 1 0 0 0 0x2AAAA 0x0 1\n0x55555555 0xE 1 0 0 0 0x15555 0x0 1\n0x55555555 0xF 1 0 0 0 0xAAAA 0x0 1\n0x55555555 0x10 1 0 0 0 0x5555 0x0 1\n0x55555555 0x11 1 0 0 0 0x2AAA 0x0 1\n0x55555555 0x12 1 0 0 0 0x1555 0x0 1\n0x55555555 0x13 1 0 0 0 0xAAA 0x0 1\n0x55555555 0x14 1 0 0 0 0x555 0x0 1\n0x55555555 0x15 1 0 0 0 0x2AA 0x0 1\n0x55555555 0x16 1 0 0 0 0x155 0x0 1\n0x55555555 0x17 1 0 0 0 0xAA 0x0 1\n0x55555555 0x18 1 0 0 0 0x55 0x0 1\n0x55555555 0x19 1 0 0 0 0x2A 0x0 1\n0x55555555 0x1A 1 0 0 0 0x15 0x0 1\n0x55555555 0x1B 1 0 0 0 0xA 0x0 1\n0x55555555 0x1C 1 0 0 0 0x5 0x0 1\n0x55555555 0x1D 1 0 0 0 0x2 0x0 1\n0x55555555 0x1E 1 0 0 0 0x1 0x0 1\n0x55555555 0x1F 1 0 0 0 0x0 0x0 1\n0x12345678 0x0 1 0 0 0 0x12345678 0x0 1\n0x12345678 0x1 1 0 0 0 0x91A2B3C 0x0 1\n0x12345678 0x2 1 0 0 0 0x48D159E 0x0 1\n0x12345678 0x3 1 0 0 0 0x2468ACF 0x0 1\n0x12345678 0x4 1 0 0 0 0x1234567 0x0 1\n0x12345678 0x5 1 0 0 0 0x91A2B3 0x0 1\n0x12345678 0x6 1 0 0 0 0x48D159 0x0 1\n0x12345678 0x7 1 0 0 0 0x2468AC 0x0 1\n0x12345678 0x8 1 0 0 0 0x123456 0x0 1\n0x12345678 0x9 1 0 0 0 0x91A2B 0x0 1\n0x12345678 0xA 1 0 0 0 0x48D15 0x0 1\n0x12345678 0xB 1 0 0 0 0x2468A 0x0 1\n0x12345678 0xC 1 0 0 0 0x12345 0x0 1\n0x12345678 0xD 1 0 0 0 0x91A2 0x0 1\n0x12345678 0xE 1 0 0 0 0x48D1 0x0 1\n0x12345678 0xF 1 0 0 0 0x2468 0x0 1\n0x12345678 0x10 1 0 0 0 0x1234 0x0 1\n0x12345678 0x11 1 0 0 0 0x91A 0x0 1\n0x12345678 0x12 1 0 0 0 0x48D 0x0 1\n0x12345678 0x13 1 0 0 0 0x246 0x0 1\n0x12345678 0x14 1 0 0 0 0x123 0x0 1\n0x12345678 0x15 1 0 0 0 0x91 0x0 1\n0x12345678 0x16 1 0 0 0 0x48 0x0 1\n0x12345678 0x17 1 0 0 0 0x24 0x0 1\n0x12345678 0x18 1 0 0 0 0x12 0x0 1\n0x12345678 0x19 1 0 0 0 0x9 0x0 1\n0x12345678 0x1A 1 0 0 0 0x4 0x0 1\n0x12345678 0x1B 1 0 0 0 0x2 0x0 1\n0x12345678 0x1C 1 0 0 0 0x1 0x0 1\n0x12345678 0x1D 1 0 0 0 0x0 0x0 1\n0x12345678 0x1E 1 0 0 0 0x0 0x0 1\n0x12345678 0x1F 1 0 0 0 0x0 0x0 1\n0xAAAAAAAA 0x0 2 0 0 0 0xAAAAAAAA 0x0 1\n0xAAAAAAAA 0x1 2 0 0 0 0xD5555555 0x0 1\n0xAAAAAAAA 0x2 2 0 0 0 0xEAAAAAAA 0x0 1\n0xAAAAAAAA 0x3 2 0 0 0 0xF5555555 0x0 1\n0xAAAAAAAA 0x4 2 0 0 0 0xFAAAAAAA 0x0 1\n0xAAAAAAAA 0x5 2 0 0 0 0xFD555555 0x0 1\n0xAAAAAAAA 0x6 2 0 0 0 0xFEAAAAAA 0x0 1\n0xAAAAAAAA 0x7 2 0 0 0 0xFF555555 0x0 1\n0xAAAAAAAA 0x8 2 0 0 0 0xFFAAAAAA 0x0 1\n0xAAAAAAAA 0x9 2 0 0 0 0xFFD55555 0x0 1\n0xAAAAAAAA 0xA 2 0 0 0 0xFFEAAAAA 0x0 1\n0xAAAAAAAA 0xB 2 0 0 0 0xFFF55555 0x0 1\n0xAAAAAAAA 0xC 2 0 0 0 0xFFFAAAAA 0x0 1\n0xAAAAAAAA 0xD 2 0 0 0 0xFFFD5555 0x0 1\n0xAAAAAAAA 0xE 2 0 0 0 0xFFFEAAAA 0x0 1\n0xAAAAAAAA 0xF 2 0 0 0 0xFFFF5555 0x0 1\n0xAAAAAAAA 0x10 2 0 0 0 0xFFFFAAAA 0x0 1\n0xAAAAAAAA 0x11 2 0 0 0 0xFFFFD555 0x0 1\n0xAAAAAAAA 0x12 2 0 0 0 0xFFFFEAAA 0x0 1\n0xAAAAAAAA 0x13 2 0 0 0 0xFFFFF555 0x0 1\n0xAAAAAAAA 0x14 2 0 0 0 0xFFFFFAAA 0x0 1\n0xAAAAAAAA 0x15 2 0 0 0 0xFFFFFD55 0x0 1\n0xAAAAAAAA 0x16 2 0 0 0 0xFFFFFEAA 0x0 1\n0xAAAAAAAA 0x17 2 0 0 0 0xFFFFFF55 0x0 1\n0xAAAAAAAA 0x18 2 0 0 0 0xFFFFFFAA 0x0 1\n0xAAAAAAAA 0x19 2 0 0 0 0xFFFFFFD5 0x0 1\n0xAAAAAAAA 0x1A 2 0 0 0 0xFFFFFFEA 0x0 1\n0xAAAAAAAA 0x1B 2 0 0 0 0xFFFFFFF5 0x0 1\n0xAAAAAAAA 0x1C 2 0 0 0 0xFFFFFFFA 0x0 1\n0xAAAAAAAA 0x1D 2 0 0 0 0xFFFFFFFD 0x0 1\n0xAAAAAAAA 0x1E 2 0 0 0 0xFFFFFFFE 0x0 1\n0xAAAAAAAA 0x1F 2 0 0 0 0xFFFFFFFF 0x0 1\n0x55555555 0x0 2 0 0 0 0x55555555 0x0 1\n0x55555555 0x1 2 0 0 0 0x2AAAAAAA 0x0 1\n0x55555555 0x2 2 0 0 0 0x15555555 0x0 1\n0x55555555 0x3 2 0 0 0 0xAAAAAAA 0x0 1\n0x55555555 0x4 2 0 0 0 0x5555555 0x0 1\n0x55555555 0x5 2 0 0 0 0x2AAAAAA 0x0 1\n0x55555555 0x6 2 0 0 0 0x1555555 0x0 1\n0x55555555 0x7 2 0 0 0 0xAAAAAA 0x0 1\n0x55555555 0x8 2 0 0 0 0x555555 0x0 1\n0x55555555 0x9 2 0 0 0 0x2AAAAA 0x0 1\n0x55555555 0xA 2 0 0 0 0x155555 0x0 1\n0x55555555 0xB 2 0 0 0 0xAAAAA 0x0 1\n0x55555555 0xC 2 0 0 0 0x55555 0x0 1\n0x55555555 0xD 2 0 0 0 0x2AAAA 0x0 1\n0x55555555 0xE 2 0 0 0 0x15555 0x0 1\n0x55555555 0xF 2 0 0 0 0xAAAA 0x0 1\n0x55555555 0x10 2 0 0 0 0x5555 0x0 1\n0x55555555 0x11 2 0 0 0 0x2AAA 0x0 1\n0x55555555 0x12 2 0 0 0 0x1555 0x0 1\n0x55555555 0x13 2 0 0 0 0xAAA 0x0 1\n0x55555555 0x14 2 0 0 0 0x555 0x0 1\n0x55555555 0x15 2 0 0 0 0x2AA 0x0 1\n0x55555555 0x16 2 0 0 0 0x155 0x0 1\n0x55555555 0x17 2 0 0 0 0xAA 0x0 1\n0x55555555 0x18 2 0 0 0 0x55 0x0 1\n0x55555555 0x19 2 0 0 0 0x2A 0x0 1\n0x55555555 0x1A 2 0 0 0 0x15 0x0 1\n0x55555555 0x1B 2 0 0 0 0xA 0x0 1\n0x55555555 0x1C 2 0 0 0 0x5 0x0 1\n0x55555555 0x1D 2 0 0 0 0x2 0x0 1\n0x55555555 0x1E 2 0 0 0 0x1 0x0 1\n0x55555555 0x1F 2 0 0 0 0x0 0x0 1\n0x12345678 0x0 2 0 0 0 0x12345678 0x0 1\n0x12345678 0x1 2 0 0 0 0x91A2B3C 0x0 1\n0x12345678 0x2 2 0 0 0 0x48D159E 0x0 1\n0x12345678 0x3 2 0 0 0 0x2468ACF 0x0 1\n0x12345678 0x4 2 0 0 0 0x1234567 0x0 1\n0x12345678 0x5 2 0 0 0 0x91A2B3 0x0 1\n0x12345678 0x6 2 0 0 0 0x48D159 0x0 1\n0x12345678 0x7 2 0 0 0 0x2468AC 0x0 1\n0x12345678 0x8 2 0 0 0 0x123456 0x0 1\n0x12345678 0x9 2 0 0 0 0x91A2B 0x0 1\n0x12345678 0xA 2 0 0 0 0x48D15 0x0 1\n0x12345678 0xB 2 0 0 0 0x2468A 0x0 1\n0x12345678 0xC 2 0 0 0 0x12345 0x0 1\n0x12345678 0xD 2 0 0 0 0x91A2 0x0 1\n0x12345678 0xE 2 0 0 0 0x48D1 0x0 1\n0x12345678 0xF 2 0 0 0 0x2468 0x0 1\n0x12345678 0x10 2 0 0 0 0x1234 0x0 1\n0x12345678 0x11 2 0 0 0 0x91A 0x0 1\n0x12345678 0x12 2 0 0 0 0x48D 0x0 1\n0x12345678 0x13 2 0 0 0 0x246 0x0 1\n0x12345678 0x14 2 0 0 0 0x123 0x0 1\n0x12345678 0x15 2 0 0 0 0x91 0x0 1\n0x12345678 0x16 2 0 0 0 0x48 0x0 1\n0x12345678 0x17 2 0 0 0 0x24 0x0 1\n0x12345678 0x18 2 0 0 0 0x12 0x0 1\n0x12345678 0x19 2 0 0 0 0x9 0x0 1\n0x12345678 0x1A 2 0 0 0 0x4 0x0 1\n0x12345678 0x1B 2 0 0 0 0x2 0x0 1\n0x12345678 0x1C 2 0 0 0 0x1 0x0 1\n0x12345678 0x1D 2 0 0 0 0x0 0x0 1\n0x12345678 0x1E 2 0 0 0 0x0 0x0 1\n0x12345678 0x1F 2 0 0 0 0x0 0x0 1\n0x12345678 0x0 0 1 0 0 0x12345678 0x0 1\n0x12345678 0x1 0 1 0 0 0x12345678 0x0 1\n0x12345678 0x2 0 1 0 0 0x2468ACF0 0x0 1\n0x12345678 0x5 0 1 0 0 0x48D159E0 0x1 1\n0x12345678 0xF 0 1 0 0 0x91A2B3C0 0x7 1\n0x12345678 0xAAAA 0 1 0 0 0x2B3C0000 0x2AAA 1\n0x12345678 0x5555 0 1 0 0 0x159E0000 0x1555 1\n0x12345678 0xFFFF 0 1 0 0 0x2B3C0000 0x7FFF 1\n0xFFFFFFFF 0x0 0 1 0 0 0xFFFFFFFF 0x0 1\n0xFFFFFFFF 0x1 0 1 0 0 0xFFFFFFFF 0x0 1\n0xFFFFFFFF 0x2 0 1 0 0 0xFFFFFFFE 0x0 1\n0xFFFFFFFF 0x5 0 1 0 0 0xFFFFFFFC 0x1 1\n0xFFFFFFFF 0xF 0 1 0 0 0xFFFFFFF8 0x7 1\n0xFFFFFFFF 0xAAAA 0 1 0 0 0xFFFF8000 0x2AAA 1\n0xFFFFFFFF 0x5555 0 1 0 0 0xFFFFC000 0x1555 1\n0xFFFFFFFF 0xFFFF 0 1 0 0 0xFFFF8000 0x7FFF 1\n0x0 0x0 0 1 0 0 0x0 0x0 0\n0x0 0x1 0 1 0 0 0x0 0x0 0\n0x0 0x2 0 1 0 0 0x0 0x0 0\n0x0 0x5 0 1 0 0 0x0 0x1 0\n0x0 0xF 0 1 0 0 0x0 0x7 0\n0x0 0xAAAA 0 1 0 0 0x0 0x2AAA 0\n0x0 0x5555 0 1 0 0 0x0 0x1555 0\n0x0 0xFFFF 0 1 0 0 0x0 0x7FFF 0\n0x0 0x3 0 0 1 0 0x0 0x0 0\n0x0 0x1234 0 0 1 0 0x0 0x0 0\n0x1 0x3 0 0 1 0 0x0 0x0 1\n0x1 0x1234 0 0 1 0 0x0 0x0 1\n0x2 0x3 0 0 1 0 0x1 0x0 1\n0x2 0x1234 0 0 1 0 0x1 0x0 1\n0x5 0x3 0 0 1 0 0x2 0x0 1\n0x5 0x1234 0 0 1 0 0x2 0x0 1\n0xF 0x3 0 0 1 0 0x3 0x0 1\n0xF 0x1234 0 0 1 0 0x3 0x0 1\n0x10 0x3 0 0 1 0 0x4 0x0 1\n0x10 0x1234 0 0 1 0 0x4 0x0 1\n0xAAAA 0x3 0 0 1 0 0xF 0x0 1\n0xAAAA 0x1234 0 0 1 0 0xF 0x0 1\n0x5555 0x3 0 0 1 0 0xE 0x0 1\n0x5555 0x1234 0 0 1 0 0xE 0x0 1\n0xFFFF 0x3 0 0 1 0 0xF 0x0 1\n0xFFFF 0x1234 0 0 1 0 0xF 0x0 1\n0x80000000 0x3 0 0 1 0 0x1F 0x0 1\n0x80000000 0x1234 0 0 1 0 0x1F 0x0 1\n</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="-400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="880" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>p_enc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>p-enc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>a</string>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mode</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>mode</string>
+        </entry>
+      </elementAttributes>
+      <pos x="760" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mul-nxt_enc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mul-nxt_enc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="540"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>5</int>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Multiplexer</elementName>
+      <elementAttributes>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PriorityEncoder</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Selector Bits</string>
+          <int>5</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-260" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>32</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-280" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>a</string>
+        </entry>
+      </elementAttributes>
+      <pos x="840" y="120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>a</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-300" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>~flag_a_is_zero</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-180" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>~flag_a_is_zero</string>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>~flag_A_is_Z</string>
+        </entry>
+      </elementAttributes>
+      <pos x="240" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>p-enc-A</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-180" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>p-enc-A</string>
+        </entry>
+      </elementAttributes>
+      <pos x="520" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>p-enc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="640" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>4,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>5</string>
+        </entry>
+      </elementAttributes>
+      <pos x="600" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>enc-out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="560" y="480"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>mul-div-en</string>
+        </entry>
+      </elementAttributes>
+      <pos x="780" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>32</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>16</string>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="700"/>
+    </visualElement>
+    <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
@@ -495,219 +639,17 @@
           <string>b</string>
         </entry>
       </elementAttributes>
-      <pos x="500" y="360"/>
-    </visualElement>
-<visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>out</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1300" y="440"/>
-    </visualElement>
-<visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>d0</string>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="540"/>
+      <pos x="20" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
           <string>NetName</string>
-          <string>enc-out</string>
+          <string>b</string>
         </entry>
       </elementAttributes>
-      <pos x="580" y="740"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Decoder</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Selector Bits</string>
-          <int>4</int>
-        </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-        <entry>
-          <string>flipSelPos</string>
-          <boolean>true</boolean>
-        </entry>
-      </elementAttributes>
-      <pos x="600" y="720"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="600" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="620" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="640" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="660" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="680" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="700" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="720" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="740" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="760" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="780" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="800" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="820" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="840" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="860" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="880" y="680"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="1"/>
-        </entry>
-      </elementAttributes>
-      <pos x="900" y="680"/>
+      <pos x="480" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -718,24 +660,60 @@
         </entry>
         <entry>
           <string>Input Splitting</string>
-          <string>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</string>
+          <string>32</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
           <string>16</string>
         </entry>
       </elementAttributes>
-      <pos x="600" y="640"/>
+      <pos x="460" y="720"/>
     </visualElement>
     <visualElement>
-      <elementName>Tunnel</elementName>
+      <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
-          <string>NetName</string>
-          <string>nxt-enc</string>
+          <string>Input Splitting</string>
+          <string>5,27</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>32</string>
         </entry>
       </elementAttributes>
-      <pos x="640" y="580"/>
+      <pos x="540" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>27</int>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>mul-nxt_enc</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1240" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -746,394 +724,230 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>enc-out</string>
+          <string>b</string>
         </entry>
       </elementAttributes>
-      <pos x="1000" y="620"/>
+      <pos x="260" y="420"/>
     </visualElement>
-  
     <visualElement>
-      <elementName>Out</elementName>
+      <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>Shift-Out</string>
+          <string>Input Splitting</string>
+          <string>32</string>
         </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>5</string>
+        </entry>
+      </elementAttributes>
+      <pos x="300" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>NOr</elementName>
+      <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>32</int>
+          <int>5</int>
+        </entry>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="1320" y="240"/>
+      <pos x="340" y="420"/>
     </visualElement>
     <visualElement>
-      <elementName>Tunnel</elementName>
+      <elementName>BitExtender</elementName>
       <elementAttributes>
         <entry>
-          <string>NetName</string>
-          <string>Shift-Out</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1320" y="240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>nxt-enc</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>16</int>
-        </entry>
-      </elementAttributes>
-      <pos x="1320" y="280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>nxt-enc</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1320" y="280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>~A_is_Zero</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
+          <string>inputBits</string>
           <int>1</int>
         </entry>
+        <entry>
+          <string>outputBits</string>
+          <int>5</int>
+        </entry>
       </elementAttributes>
-      <pos x="1320" y="320"/>
+      <pos x="280" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>p-enc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="280" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>~A_is_Zero</string>
+          <string>p-enc</string>
         </entry>
       </elementAttributes>
-      <pos x="1320" y="320"/>
+      <pos x="820" y="540"/>
     </visualElement>
     <visualElement>
-      <elementName>Testcase</elementName>
+      <elementName>And</elementName>
       <elementAttributes>
         <entry>
-          <string>Testdata</string>
-          <testData>
-            <dataString>A B mode mul-div p-enc-out clk Shift-Out nxt-enc ~A_is_Zero\n0xAAAAAAAA 0x0 0 0 0 0 0xAAAAAAAA 0x0 1\n0xAAAAAAAA 0x1 0 0 0 0 0x55555555 0x0 1\n0xAAAAAAAA 0x2 0 0 0 0 0x2AAAAAAA 0x0 1\n0xAAAAAAAA 0x3 0 0 0 0 0x15555555 0x0 1\n0xAAAAAAAA 0x4 0 0 0 0 0xAAAAAAA 0x0 1\n0xAAAAAAAA 0x5 0 0 0 0 0x5555555 0x0 1\n0xAAAAAAAA 0x6 0 0 0 0 0x2AAAAAA 0x0 1\n0xAAAAAAAA 0x7 0 0 0 0 0x1555555 0x0 1\n0xAAAAAAAA 0x8 0 0 0 0 0xAAAAAA 0x0 1\n0xAAAAAAAA 0x9 0 0 0 0 0x555555 0x0 1\n0xAAAAAAAA 0xA 0 0 0 0 0x2AAAAA 0x0 1\n0xAAAAAAAA 0xB 0 0 0 0 0x155555 0x0 1\n0xAAAAAAAA 0xC 0 0 0 0 0xAAAAA 0x0 1\n0xAAAAAAAA 0xD 0 0 0 0 0x55555 0x0 1\n0xAAAAAAAA 0xE 0 0 0 0 0x2AAAA 0x0 1\n0xAAAAAAAA 0xF 0 0 0 0 0x15555 0x0 1\n0xAAAAAAAA 0x10 0 0 0 0 0xAAAA 0x0 1\n0xAAAAAAAA 0x11 0 0 0 0 0x5555 0x0 1\n0xAAAAAAAA 0x12 0 0 0 0 0x2AAA 0x0 1\n0xAAAAAAAA 0x13 0 0 0 0 0x1555 0x0 1\n0xAAAAAAAA 0x14 0 0 0 0 0xAAA 0x0 1\n0xAAAAAAAA 0x15 0 0 0 0 0x555 0x0 1\n0xAAAAAAAA 0x16 0 0 0 0 0x2AA 0x0 1\n0xAAAAAAAA 0x17 0 0 0 0 0x155 0x0 1\n0xAAAAAAAA 0x18 0 0 0 0 0xAA 0x0 1\n0xAAAAAAAA 0x19 0 0 0 0 0x55 0x0 1\n0xAAAAAAAA 0x1A 0 0 0 0 0x2A 0x0 1\n0xAAAAAAAA 0x1B 0 0 0 0 0x15 0x0 1\n0xAAAAAAAA 0x1C 0 0 0 0 0xA 0x0 1\n0xAAAAAAAA 0x1D 0 0 0 0 0x5 0x0 1\n0xAAAAAAAA 0x1E 0 0 0 0 0x2 0x0 1\n0xAAAAAAAA 0x1F 0 0 0 0 0x1 0x0 1\n0x55555555 0x0 0 0 0 0 0x55555555 0x0 1\n0x55555555 0x1 0 0 0 0 0x2AAAAAAA 0x0 1\n0x55555555 0x2 0 0 0 0 0x15555555 0x0 1\n0x55555555 0x3 0 0 0 0 0xAAAAAAA 0x0 1\n0x55555555 0x4 0 0 0 0 0x5555555 0x0 1\n0x55555555 0x5 0 0 0 0 0x2AAAAAA 0x0 1\n0x55555555 0x6 0 0 0 0 0x1555555 0x0 1\n0x55555555 0x7 0 0 0 0 0xAAAAAA 0x0 1\n0x55555555 0x8 0 0 0 0 0x555555 0x0 1\n0x55555555 0x9 0 0 0 0 0x2AAAAA 0x0 1\n0x55555555 0xA 0 0 0 0 0x155555 0x0 1\n0x55555555 0xB 0 0 0 0 0xAAAAA 0x0 1\n0x55555555 0xC 0 0 0 0 0x55555 0x0 1\n0x55555555 0xD 0 0 0 0 0x2AAAA 0x0 1\n0x55555555 0xE 0 0 0 0 0x15555 0x0 1\n0x55555555 0xF 0 0 0 0 0xAAAA 0x0 1\n0x55555555 0x10 0 0 0 0 0x5555 0x0 1\n0x55555555 0x11 0 0 0 0 0x2AAA 0x0 1\n0x55555555 0x12 0 0 0 0 0x1555 0x0 1\n0x55555555 0x13 0 0 0 0 0xAAA 0x0 1\n0x55555555 0x14 0 0 0 0 0x555 0x0 1\n0x55555555 0x15 0 0 0 0 0x2AA 0x0 1\n0x55555555 0x16 0 0 0 0 0x155 0x0 1\n0x55555555 0x17 0 0 0 0 0xAA 0x0 1\n0x55555555 0x18 0 0 0 0 0x55 0x0 1\n0x55555555 0x19 0 0 0 0 0x2A 0x0 1\n0x55555555 0x1A 0 0 0 0 0x15 0x0 1\n0x55555555 0x1B 0 0 0 0 0xA 0x0 1\n0x55555555 0x1C 0 0 0 0 0x5 0x0 1\n0x55555555 0x1D 0 0 0 0 0x2 0x0 1\n0x55555555 0x1E 0 0 0 0 0x1 0x0 1\n0x55555555 0x1F 0 0 0 0 0x0 0x0 1\n0x12345678 0x0 0 0 0 0 0x12345678 0x0 1\n0x12345678 0x1 0 0 0 0 0x91A2B3C 0x0 1\n0x12345678 0x2 0 0 0 0 0x48D159E 0x0 1\n0x12345678 0x3 0 0 0 0 0x2468ACF 0x0 1\n0x12345678 0x4 0 0 0 0 0x1234567 0x0 1\n0x12345678 0x5 0 0 0 0 0x91A2B3 0x0 1\n0x12345678 0x6 0 0 0 0 0x48D159 0x0 1\n0x12345678 0x7 0 0 0 0 0x2468AC 0x0 1\n0x12345678 0x8 0 0 0 0 0x123456 0x0 1\n0x12345678 0x9 0 0 0 0 0x91A2B 0x0 1\n0x12345678 0xA 0 0 0 0 0x48D15 0x0 1\n0x12345678 0xB 0 0 0 0 0x2468A 0x0 1\n0x12345678 0xC 0 0 0 0 0x12345 0x0 1\n0x12345678 0xD 0 0 0 0 0x91A2 0x0 1\n0x12345678 0xE 0 0 0 0 0x48D1 0x0 1\n0x12345678 0xF 0 0 0 0 0x2468 0x0 1\n0x12345678 0x10 0 0 0 0 0x1234 0x0 1\n0x12345678 0x11 0 0 0 0 0x91A 0x0 1\n0x12345678 0x12 0 0 0 0 0x48D 0x0 1\n0x12345678 0x13 0 0 0 0 0x246 0x0 1\n0x12345678 0x14 0 0 0 0 0x123 0x0 1\n0x12345678 0x15 0 0 0 0 0x91 0x0 1\n0x12345678 0x16 0 0 0 0 0x48 0x0 1\n0x12345678 0x17 0 0 0 0 0x24 0x0 1\n0x12345678 0x18 0 0 0 0 0x12 0x0 1\n0x12345678 0x19 0 0 0 0 0x9 0x0 1\n0x12345678 0x1A 0 0 0 0 0x4 0x0 1\n0x12345678 0x1B 0 0 0 0 0x2 0x0 1\n0x12345678 0x1C 0 0 0 0 0x1 0x0 1\n0x12345678 0x1D 0 0 0 0 0x0 0x0 1\n0x12345678 0x1E 0 0 0 0 0x0 0x0 1\n0x12345678 0x1F 0 0 0 0 0x0 0x0 1\n0xAAAAAAAA 0x0 1 0 0 0 0xAAAAAAAA 0x0 1\n0xAAAAAAAA 0x1 1 0 0 0 0x55555554 0x0 1\n0xAAAAAAAA 0x2 1 0 0 0 0xAAAAAAA8 0x0 1\n0xAAAAAAAA 0x3 1 0 0 0 0x55555550 0x0 1\n0xAAAAAAAA 0x4 1 0 0 0 0xAAAAAAA0 0x0 1\n0xAAAAAAAA 0x5 1 0 0 0 0x55555540 0x0 1\n0xAAAAAAAA 0x6 1 0 0 0 0xAAAAAA80 0x0 1\n0xAAAAAAAA 0x7 1 0 0 0 0x55555500 0x0 1\n0xAAAAAAAA 0x8 1 0 0 0 0xAAAAAA00 0x0 1\n0xAAAAAAAA 0x9 1 0 0 0 0x55555400 0x0 1\n0xAAAAAAAA 0xA 1 0 0 0 0xAAAAA800 0x0 1\n0xAAAAAAAA 0xB 1 0 0 0 0x55555000 0x0 1\n0xAAAAAAAA 0xC 1 0 0 0 0xAAAAA000 0x0 1\n0xAAAAAAAA 0xD 1 0 0 0 0x55554000 0x0 1\n0xAAAAAAAA 0xE 1 0 0 0 0xAAAA8000 0x0 1\n0xAAAAAAAA 0xF 1 0 0 0 0x55550000 0x0 1\n0xAAAAAAAA 0x10 1 0 0 0 0xAAAA0000 0x0 1\n0xAAAAAAAA 0x11 1 0 0 0 0x55540000 0x0 1\n0xAAAAAAAA 0x12 1 0 0 0 0xAAA80000 0x0 1\n0xAAAAAAAA 0x13 1 0 0 0 0x55500000 0x0 1\n0xAAAAAAAA 0x14 1 0 0 0 0xAAA00000 0x0 1\n0xAAAAAAAA 0x15 1 0 0 0 0x55400000 0x0 1\n0xAAAAAAAA 0x16 1 0 0 0 0xAA800000 0x0 1\n0xAAAAAAAA 0x17 1 0 0 0 0x55000000 0x0 1\n0xAAAAAAAA 0x18 1 0 0 0 0xAA000000 0x0 1\n0xAAAAAAAA 0x19 1 0 0 0 0x54000000 0x0 1\n0xAAAAAAAA 0x1A 1 0 0 0 0xA8000000 0x0 1\n0xAAAAAAAA 0x1B 1 0 0 0 0x50000000 0x0 1\n0xAAAAAAAA 0x1C 1 0 0 0 0xA0000000 0x0 1\n0xAAAAAAAA 0x1D 1 0 0 0 0x40000000 0x0 1\n0xAAAAAAAA 0x1E 1 0 0 0 0x80000000 0x0 1\n0xAAAAAAAA 0x1F 1 0 0 0 0x0 0x0 1\n0x55555555 0x0 1 0 0 0 0x55555555 0x0 1\n0x55555555 0x1 1 0 0 0 0xAAAAAAAA 0x0 1\n0x55555555 0x2 1 0 0 0 0x55555554 0x0 1\n0x55555555 0x3 1 0 0 0 0xAAAAAAA8 0x0 1\n0x55555555 0x4 1 0 0 0 0x55555550 0x0 1\n0x55555555 0x5 1 0 0 0 0xAAAAAAA0 0x0 1\n0x55555555 0x6 1 0 0 0 0x55555540 0x0 1\n0x55555555 0x7 1 0 0 0 0xAAAAAA80 0x0 1\n0x55555555 0x8 1 0 0 0 0x55555500 0x0 1\n0x55555555 0x9 1 0 0 0 0xAAAAAA00 0x0 1\n0x55555555 0xA 1 0 0 0 0x55555400 0x0 1\n0x55555555 0xB 1 0 0 0 0xAAAAA800 0x0 1\n0x55555555 0xC 1 0 0 0 0x55555000 0x0 1\n0x55555555 0xD 1 0 0 0 0xAAAAA000 0x0 1\n0x55555555 0xE 1 0 0 0 0x55554000 0x0 1\n0x55555555 0xF 1 0 0 0 0xAAAA8000 0x0 1\n0x55555555 0x10 1 0 0 0 0x55550000 0x0 1\n0x55555555 0x11 1 0 0 0 0xAAAA0000 0x0 1\n0x55555555 0x12 1 0 0 0 0x55540000 0x0 1\n0x55555555 0x13 1 0 0 0 0xAAA80000 0x0 1\n0x55555555 0x14 1 0 0 0 0x55500000 0x0 1\n0x55555555 0x15 1 0 0 0 0xAAA00000 0x0 1\n0x55555555 0x16 1 0 0 0 0x55400000 0x0 1\n0x55555555 0x17 1 0 0 0 0xAA800000 0x0 1\n0x55555555 0x18 1 0 0 0 0x55000000 0x0 1\n0x55555555 0x19 1 0 0 0 0xAA000000 0x0 1\n0x55555555 0x1A 1 0 0 0 0x54000000 0x0 1\n0x55555555 0x1B 1 0 0 0 0xA8000000 0x0 1\n0x55555555 0x1C 1 0 0 0 0x50000000 0x0 1\n0x55555555 0x1D 1 0 0 0 0xA0000000 0x0 1\n0x55555555 0x1E 1 0 0 0 0x40000000 0x0 1\n0x55555555 0x1F 1 0 0 0 0x80000000 0x0 1\n0x12345678 0x0 1 0 0 0 0x12345678 0x0 1\n0x12345678 0x1 1 0 0 0 0x2468ACF0 0x0 1\n0x12345678 0x2 1 0 0 0 0x48D159E0 0x0 1\n0x12345678 0x3 1 0 0 0 0x91A2B3C0 0x0 1\n0x12345678 0x4 1 0 0 0 0x23456780 0x0 1\n0x12345678 0x5 1 0 0 0 0x468ACF00 0x0 1\n0x12345678 0x6 1 0 0 0 0x8D159E00 0x0 1\n0x12345678 0x7 1 0 0 0 0x1A2B3C00 0x0 1\n0x12345678 0x8 1 0 0 0 0x34567800 0x0 1\n0x12345678 0x9 1 0 0 0 0x68ACF000 0x0 1\n0x12345678 0xA 1 0 0 0 0xD159E000 0x0 1\n0x12345678 0xB 1 0 0 0 0xA2B3C000 0x0 1\n0x12345678 0xC 1 0 0 0 0x45678000 0x0 1\n0x12345678 0xD 1 0 0 0 0x8ACF0000 0x0 1\n0x12345678 0xE 1 0 0 0 0x159E0000 0x0 1\n0x12345678 0xF 1 0 0 0 0x2B3C0000 0x0 1\n0x12345678 0x10 1 0 0 0 0x56780000 0x0 1\n0x12345678 0x11 1 0 0 0 0xACF00000 0x0 1\n0x12345678 0x12 1 0 0 0 0x59E00000 0x0 1\n0x12345678 0x13 1 0 0 0 0xB3C00000 0x0 1\n0x12345678 0x14 1 0 0 0 0x67800000 0x0 1\n0x12345678 0x15 1 0 0 0 0xCF000000 0x0 1\n0x12345678 0x16 1 0 0 0 0x9E000000 0x0 1\n0x12345678 0x17 1 0 0 0 0x3C000000 0x0 1\n0x12345678 0x18 1 0 0 0 0x78000000 0x0 1\n0x12345678 0x19 1 0 0 0 0xF0000000 0x0 1\n0x12345678 0x1A 1 0 0 0 0xE0000000 0x0 1\n0x12345678 0x1B 1 0 0 0 0xC0000000 0x0 1\n0x12345678 0x1C 1 0 0 0 0x80000000 0x0 1\n0x12345678 0x1D 1 0 0 0 0x0 0x0 1\n0x12345678 0x1E 1 0 0 0 0x0 0x0 1\n0x12345678 0x1F 1 0 0 0 0x0 0x0 1\n0xAAAAAAAA 0x0 2 0 0 0 0xAAAAAAAA 0x0 1\n0xAAAAAAAA 0x1 2 0 0 0 0xD5555555 0x0 1\n0xAAAAAAAA 0x2 2 0 0 0 0xEAAAAAAA 0x0 1\n0xAAAAAAAA 0x3 2 0 0 0 0xF5555555 0x0 1\n0xAAAAAAAA 0x4 2 0 0 0 0xFAAAAAAA 0x0 1\n0xAAAAAAAA 0x5 2 0 0 0 0xFD555555 0x0 1\n0xAAAAAAAA 0x6 2 0 0 0 0xFEAAAAAA 0x0 1\n0xAAAAAAAA 0x7 2 0 0 0 0xFF555555 0x0 1\n0xAAAAAAAA 0x8 2 0 0 0 0xFFAAAAAA 0x0 1\n0xAAAAAAAA 0x9 2 0 0 0 0xFFD55555 0x0 1\n0xAAAAAAAA 0xA 2 0 0 0 0xFFEAAAAA 0x0 1\n0xAAAAAAAA 0xB 2 0 0 0 0xFFF55555 0x0 1\n0xAAAAAAAA 0xC 2 0 0 0 0xFFFAAAAA 0x0 1\n0xAAAAAAAA 0xD 2 0 0 0 0xFFFD5555 0x0 1\n0xAAAAAAAA 0xE 2 0 0 0 0xFFFEAAAA 0x0 1\n0xAAAAAAAA 0xF 2 0 0 0 0xFFFF5555 0x0 1\n0xAAAAAAAA 0x10 2 0 0 0 0xFFFFAAAA 0x0 1\n0xAAAAAAAA 0x11 2 0 0 0 0xFFFFD555 0x0 1\n0xAAAAAAAA 0x12 2 0 0 0 0xFFFFEAAA 0x0 1\n0xAAAAAAAA 0x13 2 0 0 0 0xFFFFF555 0x0 1\n0xAAAAAAAA 0x14 2 0 0 0 0xFFFFFAAA 0x0 1\n0xAAAAAAAA 0x15 2 0 0 0 0xFFFFFD55 0x0 1\n0xAAAAAAAA 0x16 2 0 0 0 0xFFFFFEAA 0x0 1\n0xAAAAAAAA 0x17 2 0 0 0 0xFFFFFF55 0x0 1\n0xAAAAAAAA 0x18 2 0 0 0 0xFFFFFFAA 0x0 1\n0xAAAAAAAA 0x19 2 0 0 0 0xFFFFFFD5 0x0 1\n0xAAAAAAAA 0x1A 2 0 0 0 0xFFFFFFEA 0x0 1\n0xAAAAAAAA 0x1B 2 0 0 0 0xFFFFFFF5 0x0 1\n0xAAAAAAAA 0x1C 2 0 0 0 0xFFFFFFFA 0x0 1\n0xAAAAAAAA 0x1D 2 0 0 0 0xFFFFFFFD 0x0 1\n0xAAAAAAAA 0x1E 2 0 0 0 0xFFFFFFFE 0x0 1\n0xAAAAAAAA 0x1F 2 0 0 0 0xFFFFFFFF 0x0 1\n0x55555555 0x0 2 0 0 0 0x55555555 0x0 1\n0x55555555 0x1 2 0 0 0 0x2AAAAAAA 0x0 1\n0x55555555 0x2 2 0 0 0 0x15555555 0x0 1\n0x55555555 0x3 2 0 0 0 0xAAAAAAA 0x0 1\n0x55555555 0x4 2 0 0 0 0x5555555 0x0 1\n0x55555555 0x5 2 0 0 0 0x2AAAAAA 0x0 1\n0x55555555 0x6 2 0 0 0 0x1555555 0x0 1\n0x55555555 0x7 2 0 0 0 0xAAAAAA 0x0 1\n0x55555555 0x8 2 0 0 0 0x555555 0x0 1\n0x55555555 0x9 2 0 0 0 0x2AAAAA 0x0 1\n0x55555555 0xA 2 0 0 0 0x155555 0x0 1\n0x55555555 0xB 2 0 0 0 0xAAAAA 0x0 1\n0x55555555 0xC 2 0 0 0 0x55555 0x0 1\n0x55555555 0xD 2 0 0 0 0x2AAAA 0x0 1\n0x55555555 0xE 2 0 0 0 0x15555 0x0 1\n0x55555555 0xF 2 0 0 0 0xAAAA 0x0 1\n0x55555555 0x10 2 0 0 0 0x5555 0x0 1\n0x55555555 0x11 2 0 0 0 0x2AAA 0x0 1\n0x55555555 0x12 2 0 0 0 0x1555 0x0 1\n0x55555555 0x13 2 0 0 0 0xAAA 0x0 1\n0x55555555 0x14 2 0 0 0 0x555 0x0 1\n0x55555555 0x15 2 0 0 0 0x2AA 0x0 1\n0x55555555 0x16 2 0 0 0 0x155 0x0 1\n0x55555555 0x17 2 0 0 0 0xAA 0x0 1\n0x55555555 0x18 2 0 0 0 0x55 0x0 1\n0x55555555 0x19 2 0 0 0 0x2A 0x0 1\n0x55555555 0x1A 2 0 0 0 0x15 0x0 1\n0x55555555 0x1B 2 0 0 0 0xA 0x0 1\n0x55555555 0x1C 2 0 0 0 0x5 0x0 1\n0x55555555 0x1D 2 0 0 0 0x2 0x0 1\n0x55555555 0x1E 2 0 0 0 0x1 0x0 1\n0x55555555 0x1F 2 0 0 0 0x0 0x0 1\n0x12345678 0x0 2 0 0 0 0x12345678 0x0 1\n0x12345678 0x1 2 0 0 0 0x91A2B3C 0x0 1\n0x12345678 0x2 2 0 0 0 0x48D159E 0x0 1\n0x12345678 0x3 2 0 0 0 0x2468ACF 0x0 1\n0x12345678 0x4 2 0 0 0 0x1234567 0x0 1\n0x12345678 0x5 2 0 0 0 0x91A2B3 0x0 1\n0x12345678 0x6 2 0 0 0 0x48D159 0x0 1\n0x12345678 0x7 2 0 0 0 0x2468AC 0x0 1\n0x12345678 0x8 2 0 0 0 0x123456 0x0 1\n0x12345678 0x9 2 0 0 0 0x91A2B 0x0 1\n0x12345678 0xA 2 0 0 0 0x48D15 0x0 1\n0x12345678 0xB 2 0 0 0 0x2468A 0x0 1\n0x12345678 0xC 2 0 0 0 0x12345 0x0 1\n0x12345678 0xD 2 0 0 0 0x91A2 0x0 1\n0x12345678 0xE 2 0 0 0 0x48D1 0x0 1\n0x12345678 0xF 2 0 0 0 0x2468 0x0 1\n0x12345678 0x10 2 0 0 0 0x1234 0x0 1\n0x12345678 0x11 2 0 0 0 0x91A 0x0 1\n0x12345678 0x12 2 0 0 0 0x48D 0x0 1\n0x12345678 0x13 2 0 0 0 0x246 0x0 1\n0x12345678 0x14 2 0 0 0 0x123 0x0 1\n0x12345678 0x15 2 0 0 0 0x91 0x0 1\n0x12345678 0x16 2 0 0 0 0x48 0x0 1\n0x12345678 0x17 2 0 0 0 0x24 0x0 1\n0x12345678 0x18 2 0 0 0 0x12 0x0 1\n0x12345678 0x19 2 0 0 0 0x9 0x0 1\n0x12345678 0x1A 2 0 0 0 0x4 0x0 1\n0x12345678 0x1B 2 0 0 0 0x2 0x0 1\n0x12345678 0x1C 2 0 0 0 0x1 0x0 1\n0x12345678 0x1D 2 0 0 0 0x0 0x0 1\n0x12345678 0x1E 2 0 0 0 0x0 0x0 1\n0x12345678 0x1F 2 0 0 0 0x0 0x0 1\n0x12345678 0x0 0 1 0 0 0x12345678 0x0 1\n0x12345678 0x1 0 1 0 0 0x12345678 0x0 1\n0x12345678 0x2 0 1 0 0 0x2468ACF0 0x0 1\n0x12345678 0x5 0 1 0 0 0x48D159E0 0x1 1\n0x12345678 0xF 0 1 0 0 0x91A2B3C0 0x7 1\n0x12345678 0xAAAA 0 1 0 0 0x2B3C0000 0x2AAA 1\n0x12345678 0x5555 0 1 0 0 0x159E0000 0x1555 1\n0x12345678 0xFFFF 0 1 0 0 0x2B3C0000 0x7FFF 1\n0xFFFFFFFF 0x0 0 1 0 0 0xFFFFFFFF 0x0 1\n0xFFFFFFFF 0x1 0 1 0 0 0xFFFFFFFF 0x0 1\n0xFFFFFFFF 0x2 0 1 0 0 0xFFFFFFFE 0x0 1\n0xFFFFFFFF 0x5 0 1 0 0 0xFFFFFFFC 0x1 1\n0xFFFFFFFF 0xF 0 1 0 0 0xFFFFFFF8 0x7 1\n0xFFFFFFFF 0xAAAA 0 1 0 0 0xFFFF8000 0x2AAA 1\n0xFFFFFFFF 0x5555 0 1 0 0 0xFFFFC000 0x1555 1\n0xFFFFFFFF 0xFFFF 0 1 0 0 0xFFFF8000 0x7FFF 1\n0x0 0x0 0 1 0 0 0x0 0x0 0\n0x0 0x1 0 1 0 0 0x0 0x0 0\n0x0 0x2 0 1 0 0 0x0 0x0 0\n0x0 0x5 0 1 0 0 0x0 0x1 0\n0x0 0xF 0 1 0 0 0x0 0x7 0\n0x0 0xAAAA 0 1 0 0 0x0 0x2AAA 0\n0x0 0x5555 0 1 0 0 0x0 0x1555 0\n0x0 0xFFFF 0 1 0 0 0x0 0x7FFF 0\n0x0 0x3 0 0 1 0 0x0 0x0 0\n0x0 0x1234 0 0 1 0 0x0 0x0 0\n0x1 0x3 0 0 1 0 0x0 0x0 1\n0x1 0x1234 0 0 1 0 0x0 0x0 1\n0x2 0x3 0 0 1 0 0x1 0x0 1\n0x2 0x1234 0 0 1 0 0x1 0x0 1\n0x5 0x3 0 0 1 0 0x2 0x0 1\n0x5 0x1234 0 0 1 0 0x2 0x0 1\n0xF 0x3 0 0 1 0 0x3 0x0 1\n0xF 0x1234 0 0 1 0 0x3 0x0 1\n0x10 0x3 0 0 1 0 0x4 0x0 1\n0x10 0x1234 0 0 1 0 0x4 0x0 1\n0xAAAA 0x3 0 0 1 0 0xF 0x0 1\n0xAAAA 0x1234 0 0 1 0 0xF 0x0 1\n0x5555 0x3 0 0 1 0 0xE 0x0 1\n0x5555 0x1234 0 0 1 0 0xE 0x0 1\n0xFFFF 0x3 0 0 1 0 0xF 0x0 1\n0xFFFF 0x1234 0 0 1 0 0xF 0x0 1\n0x80000000 0x3 0 0 1 0 0x1F 0x0 1\n0x80000000 0x1234 0 0 1 0 0x1F 0x0 1\n</dataString>
-          </testData>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="0" y="-500"/>
+      <pos x="780" y="540"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+      </elementAttributes>
+      <pos x="820" y="540"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
-      <p1 x="1040" y="640"/>
-      <p2 x="1080" y="640"/>
+      <p1 x="-300" y="320"/>
+      <p2 x="-280" y="320"/>
     </wire>
     <wire>
-      <p1 x="700" y="480"/>
-      <p2 x="720" y="480"/>
+      <p1 x="560" y="480"/>
+      <p2 x="600" y="480"/>
     </wire>
     <wire>
-      <p1 x="640" y="480"/>
-      <p2 x="680" y="480"/>
+      <p1 x="620" y="480"/>
+      <p2 x="640" y="480"/>
     </wire>
     <wire>
-      <p1 x="920" y="320"/>
-      <p2 x="980" y="320"/>
+      <p1 x="460" y="740"/>
+      <p2 x="480" y="740"/>
     </wire>
     <wire>
-      <p1 x="580" y="740"/>
-      <p2 x="600" y="740"/>
+      <p1 x="580" y="420"/>
+      <p2 x="640" y="420"/>
     </wire>
     <wire>
-      <p1 x="560" y="580"/>
-      <p2 x="600" y="580"/>
+      <p1 x="260" y="420"/>
+      <p2 x="300" y="420"/>
     </wire>
     <wire>
-      <p1 x="860" y="580"/>
-      <p2 x="1280" y="580"/>
+      <p1 x="320" y="420"/>
+      <p2 x="340" y="420"/>
     </wire>
     <wire>
-      <p1 x="600" y="580"/>
-      <p2 x="640" y="580"/>
+      <p1 x="660" y="520"/>
+      <p2 x="700" y="520"/>
     </wire>
     <wire>
-      <p1 x="700" y="420"/>
-      <p2 x="760" y="420"/>
+      <p1 x="680" y="460"/>
+      <p2 x="720" y="460"/>
     </wire>
     <wire>
-      <p1 x="1000" y="420"/>
-      <p2 x="1080" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="880" y="420"/>
-      <p2 x="920" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="1140" y="420"/>
-      <p2 x="1200" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="680"/>
-      <p2 x="1100" y="680"/>
-    </wire>
-    <wire>
-      <p1 x="1020" y="520"/>
-      <p2 x="1040" y="520"/>
-    </wire>
-    <wire>
-      <p1 x="540" y="360"/>
-      <p2 x="600" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="500" y="360"/>
-      <p2 x="520" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="680" y="240"/>
-      <p2 x="720" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="680" y="360"/>
-      <p2 x="720" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="620"/>
-      <p2 x="1060" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="1080" y="620"/>
-      <p2 x="1100" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="1000" y="620"/>
-      <p2 x="1020" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="680" y="300"/>
-      <p2 x="700" y="300"/>
-    </wire>
-    <wire>
-      <p1 x="720" y="400"/>
+      <p1 x="680" y="400"/>
       <p2 x="760" y="400"/>
     </wire>
     <wire>
-      <p1 x="1040" y="660"/>
-      <p2 x="1100" y="660"/>
+      <p1 x="640" y="340"/>
+      <p2 x="660" y="340"/>
     </wire>
     <wire>
-      <p1 x="1020" y="820"/>
-      <p2 x="1040" y="820"/>
-    </wire>
-    <wire>
-      <p1 x="640" y="500"/>
-      <p2 x="680" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="860" y="500"/>
-      <p2 x="960" y="500"/>
+      <p1 x="560" y="500"/>
+      <p2 x="600" y="500"/>
     </wire>
     <wire>
       <p1 x="720" y="440"/>
       <p2 x="760" y="440"/>
     </wire>
     <wire>
-      <p1 x="1040" y="440"/>
-      <p2 x="1080" y="440"/>
+      <p1 x="440" y="440"/>
+      <p2 x="640" y="440"/>
     </wire>
     <wire>
-      <p1 x="920" y="440"/>
-      <p2 x="960" y="440"/>
+      <p1 x="240" y="700"/>
+      <p2 x="260" y="700"/>
     </wire>
     <wire>
-      <p1 x="1240" y="440"/>
-      <p2 x="1280" y="440"/>
+      <p1 x="380" y="700"/>
+      <p2 x="420" y="700"/>
     </wire>
     <wire>
-      <p1 x="1280" y="440"/>
-      <p2 x="1300" y="440"/>
+      <p1 x="80" y="700"/>
+      <p2 x="140" y="700"/>
     </wire>
     <wire>
-      <p1 x="1060" y="760"/>
-      <p2 x="1140" y="760"/>
+      <p1 x="20" y="700"/>
+      <p2 x="60" y="700"/>
     </wire>
     <wire>
-      <p1 x="1060" y="600"/>
-      <p2 x="1100" y="600"/>
+      <p1 x="260" y="700"/>
+      <p2 x="300" y="700"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="540"/>
+      <p2 x="460" y="540"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="380"/>
+      <p2 x="540" y="380"/>
     </wire>
     <wire>
       <p1 x="560" y="380"/>
-      <p2 x="600" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="1200" y="380"/>
-      <p2 x="1220" y="380"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="780"/>
-      <p2 x="1040" y="820"/>
-    </wire>
-    <wire>
-      <p1 x="1040" y="440"/>
-      <p2 x="1040" y="520"/>
+      <p2 x="580" y="380"/>
     </wire>
     <wire>
       <p1 x="720" y="440"/>
-      <p2 x="720" y="480"/>
+      <p2 x="720" y="460"/>
     </wire>
     <wire>
-      <p1 x="720" y="360"/>
-      <p2 x="720" y="400"/>
+      <p1 x="260" y="680"/>
+      <p2 x="260" y="700"/>
     </wire>
     <wire>
-      <p1 x="1280" y="440"/>
-      <p2 x="1280" y="580"/>
+      <p1 x="420" y="660"/>
+      <p2 x="420" y="700"/>
     </wire>
     <wire>
-      <p1 x="1060" y="600"/>
-      <p2 x="1060" y="620"/>
+      <p1 x="420" y="700"/>
+      <p2 x="420" y="740"/>
     </wire>
     <wire>
-      <p1 x="980" y="320"/>
-      <p2 x="980" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="1220" y="380"/>
-      <p2 x="1220" y="420"/>
-    </wire>
-    <wire>
-      <p1 x="1080" y="620"/>
-      <p2 x="1080" y="640"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="700"/>
-      <p2 x="600" y="740"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="860"/>
-      <p2 x="600" y="880"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="580"/>
-      <p2 x="600" y="620"/>
-    </wire>
-    <wire>
-      <p1 x="600" y="740"/>
-      <p2 x="600" y="760"/>
-    </wire>
-    <wire>
-      <p1 x="920" y="420"/>
-      <p2 x="920" y="440"/>
-    </wire>
-    <wire>
-      <p1 x="680" y="300"/>
-      <p2 x="680" y="360"/>
-    </wire>
-    <wire>
-      <p1 x="860" y="500"/>
-      <p2 x="860" y="580"/>
-    </wire>
-
-    <wire>
-      <p1 x="680" y="240"/>
-      <p2 x="520" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="560" y="120"/>
-      <p2 x="600" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="560" y="140"/>
-      <p2 x="560" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="620" y="120"/>
-      <p2 x="680" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="680" y="100"/>
-      <p2 x="700" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="720" y="120"/>
-      <p2 x="780" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="620" y="120"/>
-      <p2 x="720" y="120"/>
-    </wire>
-    <wire>
-      <p1 x="680" y="100"/>
-      <p2 x="720" y="100"/>
-    </wire>
-    <wire>
-      <p1 x="780" y="120"/>
-      <p2 x="1140" y="220"/>
-    </wire>
-    <wire>
-      <p1 x="520" y="160"/>
-      <p2 x="560" y="160"/>
-    </wire>
-    <wire>
-      <p1 x="640" y="160"/>
-      <p2 x="1320" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="720" y="480"/>
-      <p2 x="660" y="480"/>
-    </wire>
-    <wire>
-      <p1 x="840" y="240"/>
-      <p2 x="660" y="500"/>
-    </wire>
-    <wire>
-      <p1 x="740" y="480"/>
-      <p2 x="760" y="440"/>
-    </wire>
-    <wire>
-      <p1 x="1000" y="240"/>
-      <p2 x="1140" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="1180" y="240"/>
-      <p2 x="1260" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="1260" y="240"/>
-      <p2 x="1320" y="240"/>
-    </wire>
-    <wire>
-      <p1 x="640" y="580"/>
-      <p2 x="1320" y="280"/>
-    </wire>
-    <wire>
-      <p1 x="480" y="200"/>
-      <p2 x="660" y="480"/>
+      <p1 x="660" y="340"/>
+      <p2 x="660" y="380"/>
     </wire>
     <wire>
       <p1 x="660" y="480"/>
-      <p2 x="700" y="480"/>
+      <p2 x="660" y="520"/>
     </wire>
     <wire>
-      <p1 x="480" y="220"/>
-      <p2 x="1140" y="260"/>
+      <p1 x="580" y="380"/>
+      <p2 x="580" y="420"/>
     </wire>
     <wire>
-      <p1 x="1140" y="260"/>
-      <p2 x="1180" y="260"/>
+      <p1 x="440" y="540"/>
+      <p2 x="440" y="580"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="660"/>
+      <p2 x="460" y="700"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="720"/>
+      <p2 x="460" y="740"/>
     </wire>
   </wires>
   <measurementOrdering/>

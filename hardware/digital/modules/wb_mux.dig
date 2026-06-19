@@ -596,7 +596,7 @@
         </entry>
         <entry>
           <string>Bits</string>
-          <int>12</int>
+          <int>13</int>
         </entry>
       </elementAttributes>
       <pos x="140" y="820"/>
@@ -610,7 +610,7 @@
         </entry>
         <entry>
           <string>Input Splitting</string>
-          <string>12,20</string>
+          <string>13,19</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
@@ -628,7 +628,7 @@
         </entry>
         <entry>
           <string>Bits</string>
-          <int>20</int>
+          <int>19</int>
         </entry>
       </elementAttributes>
       <pos x="160" y="860"/>
@@ -638,24 +638,56 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>mul-in</string>
+          <string>mul-nxt-enc</string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>32</int>
+          <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="240" y="460"/>
+      <pos x="500" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>mul-in</string>
+          <string>mul-enc-next</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="460"/>
+      <pos x="600" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>splitterSpreading</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>16,16</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>32</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>16</int>
+        </entry>
+      </elementAttributes>
+      <pos x="500" y="80"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -666,13 +698,17 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>mul-in</string>
+          <string>mul-enc-next</string>
         </entry>
       </elementAttributes>
       <pos x="480" y="360"/>
     </visualElement>
   </visualElements>
   <wires>
+    <wire>
+      <p1 x="500" y="80"/>
+      <p2 x="540" y="80"/>
+    </wire>
     <wire>
       <p1 x="200" y="660"/>
       <p2 x="240" y="660"/>
@@ -692,6 +728,14 @@
     <wire>
       <p1 x="140" y="820"/>
       <p2 x="200" y="820"/>
+    </wire>
+    <wire>
+      <p1 x="500" y="40"/>
+      <p2 x="540" y="40"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="40"/>
+      <p2 x="600" y="40"/>
     </wire>
     <wire>
       <p1 x="520" y="300"/>
