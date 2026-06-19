@@ -207,7 +207,7 @@
           <string>clk</string>
         </entry>
       </elementAttributes>
-      <pos x="780" y="640"/>
+      <pos x="900" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -221,7 +221,7 @@
           <string>seq_fetch</string>
         </entry>
       </elementAttributes>
-      <pos x="780" y="620"/>
+      <pos x="900" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -235,7 +235,7 @@
           <string>mem_din</string>
         </entry>
       </elementAttributes>
-      <pos x="780" y="600"/>
+      <pos x="900" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -245,7 +245,7 @@
           <string>ir_opcode</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="600"/>
+      <pos x="1060" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -255,7 +255,7 @@
           <string>ir_addr_a</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="620"/>
+      <pos x="1060" y="620"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -265,7 +265,7 @@
           <string>ir_addr_b</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="640"/>
+      <pos x="1060" y="640"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -275,7 +275,7 @@
           <string>ir_addr_w</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="660"/>
+      <pos x="1060" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -285,7 +285,7 @@
           <string>IR_ADDR</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="680"/>
+      <pos x="1060" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -295,7 +295,7 @@
           <string>ir_offset</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="700"/>
+      <pos x="1060" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -648,7 +648,7 @@
     <visualElement>
       <elementName>register.dig</elementName>
       <elementAttributes/>
-      <pos x="1140" y="600"/>
+      <pos x="300" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -662,7 +662,7 @@
           <string>ir_addr_a</string>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="640"/>
+      <pos x="300" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -676,7 +676,7 @@
           <string>ir_addr_b</string>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="660"/>
+      <pos x="300" y="460"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -690,7 +690,7 @@
           <string>ir_addr_w</string>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="680"/>
+      <pos x="300" y="480"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -704,7 +704,7 @@
           <string>clk</string>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="720"/>
+      <pos x="300" y="520"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -718,7 +718,7 @@
           <string>ctrl_reg_we</string>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="600"/>
+      <pos x="300" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -728,7 +728,7 @@
           <string>reg_a</string>
         </entry>
       </elementAttributes>
-      <pos x="1280" y="600"/>
+      <pos x="440" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -738,7 +738,7 @@
           <string>reg_b</string>
         </entry>
       </elementAttributes>
-      <pos x="1280" y="620"/>
+      <pos x="440" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -748,7 +748,7 @@
           <string>reg_c</string>
         </entry>
       </elementAttributes>
-      <pos x="1280" y="640"/>
+      <pos x="440" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -762,7 +762,7 @@
           <string>seq_exec</string>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="700"/>
+      <pos x="300" y="500"/>
     </visualElement>
     <visualElement>
       <elementName>alu-32b-final.dig</elementName>
@@ -947,7 +947,7 @@
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>reg_w_data</string>
+          <string>wb_data</string>
         </entry>
       </elementAttributes>
       <pos x="2280" y="440"/>
@@ -979,7 +979,7 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>reg_w_data</string>
+          <string>wb_data</string>
         </entry>
       </elementAttributes>
       <pos x="780" y="0"/>
@@ -1076,21 +1076,7 @@
           <string>ctrl_bus_sel</string>
         </entry>
       </elementAttributes>
-      <pos x="-60" y="400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>mem-in</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1120" y="160"/>
+      <pos x="-60" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1139,10 +1125,10 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>reg_w_data</string>
+          <string>wb_data</string>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="620"/>
+      <pos x="300" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1185,7 +1171,7 @@
     <visualElement>
       <elementName>ir.dig</elementName>
       <elementAttributes/>
-      <pos x="780" y="600"/>
+      <pos x="900" y="600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1374,7 +1360,7 @@
           <string>ctrl_ir_sel</string>
         </entry>
       </elementAttributes>
-      <pos x="780" y="660"/>
+      <pos x="900" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1384,7 +1370,7 @@
           <string>ir_bus</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="720"/>
+      <pos x="1060" y="720"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1398,7 +1384,7 @@
           <string>reg_b</string>
         </entry>
       </elementAttributes>
-      <pos x="780" y="680"/>
+      <pos x="900" y="680"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1767,7 +1753,7 @@
           <string>BANK_SEL</string>
         </entry>
       </elementAttributes>
-      <pos x="940" y="740"/>
+      <pos x="1060" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1781,7 +1767,7 @@
           <string>BANK_SEL</string>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="740"/>
+      <pos x="300" y="540"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1805,7 +1791,7 @@
           <string>ctrl_bank_en</string>
         </entry>
       </elementAttributes>
-      <pos x="1140" y="760"/>
+      <pos x="300" y="560"/>
     </visualElement>
     <visualElement>
       <elementName>program-counter.dig</elementName>
@@ -1877,101 +1863,6 @@
         </entry>
       </elementAttributes>
       <pos x="1580" y="540"/>
-    </visualElement>
-    <visualElement>
-      <elementName>store-mux.dig</elementName>
-      <elementAttributes/>
-      <pos x="2120" y="180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>mem-in</string>
-        </entry>
-      </elementAttributes>
-      <pos x="2280" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>alu_out</string>
-        </entry>
-      </elementAttributes>
-      <pos x="2120" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>reg_b</string>
-        </entry>
-      </elementAttributes>
-      <pos x="2120" y="240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>pc_save</string>
-        </entry>
-      </elementAttributes>
-      <pos x="2120" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>ctrl_mem_sel</string>
-        </entry>
-      </elementAttributes>
-      <pos x="2120" y="260"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>reg_a</string>
-        </entry>
-      </elementAttributes>
-      <pos x="2120" y="180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>ctrl_mem_sel</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-60" y="380"/>
     </visualElement>
     <visualElement>
       <elementName>sp.dig</elementName>
@@ -2185,20 +2076,6 @@
         </entry>
       </elementAttributes>
       <pos x="800" y="240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>mem-in</string>
-        </entry>
-      </elementAttributes>
-      <pos x="800" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2423,26 +2300,12 @@
           <string>ctrl_enc</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="580"/>
+      <pos x="240" y="780"/>
     </visualElement>
     <visualElement>
       <elementName>mul-div.dig</elementName>
       <elementAttributes/>
-      <pos x="240" y="500"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>clk</string>
-        </entry>
-      </elementAttributes>
-      <pos x="240" y="600"/>
+      <pos x="240" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2456,7 +2319,7 @@
           <string>ir_bus</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="500"/>
+      <pos x="240" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2470,7 +2333,7 @@
           <string>reg_a</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="560"/>
+      <pos x="240" y="760"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2480,7 +2343,7 @@
           <string>shift-mul-p-enc</string>
         </entry>
       </elementAttributes>
-      <pos x="420" y="500"/>
+      <pos x="420" y="700"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2494,7 +2357,7 @@
           <string>ctrl_shift_op</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="520"/>
+      <pos x="240" y="720"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2518,7 +2381,7 @@
           <string>ctrl_mul_div_en</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="540"/>
+      <pos x="240" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2538,7 +2401,7 @@
           <string>~flag_A_zero</string>
         </entry>
       </elementAttributes>
-      <pos x="420" y="540"/>
+      <pos x="420" y="720"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2562,7 +2425,7 @@
           <string>mul-nxt-enc</string>
         </entry>
       </elementAttributes>
-      <pos x="420" y="520"/>
+      <pos x="420" y="740"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2605,7 +2468,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>Register</string>
+          <string>Instruction Register</string>
         </entry>
         <entry>
           <string>RectWidth</string>
@@ -2655,7 +2518,7 @@
       <elementAttributes>
         <entry>
           <string>RectHeight</string>
-          <int>14</int>
+          <int>25</int>
         </entry>
         <entry>
           <string>Label</string>
@@ -2684,7 +2547,7 @@
           <int>21</int>
         </entry>
       </elementAttributes>
-      <pos x="140" y="460"/>
+      <pos x="140" y="660"/>
     </visualElement>
     <visualElement>
       <elementName>Rectangle</elementName>
@@ -2829,6 +2692,1053 @@
       <pos x="-200" y="800"/>
     </visualElement>
     <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Trace Execution</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk reset disp-read kb_en pc-out ir-opcode
+0 1 0 0 x x
+C 1 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x
+C 0 0 0 x x
+0 0 0 0 999 x</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="-340" y="-300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>wb_data</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1120" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>wb_data</string>
+        </entry>
+      </elementAttributes>
+      <pos x="800" y="260"/>
+    </visualElement>
+    <visualElement>
       <elementName>EEPROMDualPort</elementName>
       <elementAttributes>
         <entry>
@@ -2839,14 +3749,10 @@
           <string>Bits</string>
           <int>32</int>
         </entry>
-        <entry>
-          <string>Data</string>
-          <data>1d000000,1d000501,1d000002,01010202,62ffffff</data>
-        </entry>
       </elementAttributes>
       <pos x="1120" y="140"/>
     </visualElement>
   </visualElements>
   <wires/>
   <measurementOrdering/>
-</circuit>can 
+</circuit>
