@@ -1,0 +1,18 @@
+# Formal cover: FLAG_WE + dual-rail flag reachability (exact latch checked in UVM)
+# Run: make formal_32b_flags
+
+[options]
+mode cover
+depth 3
+
+[engines]
+smtbmc z3
+
+[script]
+read -formal alu-32b-final.v
+read -formal alu_32b_flags_verify_bind.v
+prep -top alu_32b_flags_verify
+
+[files]
+../rtl/alu-32b-final.v
+alu_32b_flags_verify_bind.v

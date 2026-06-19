@@ -1,4 +1,9 @@
-# Thin wrapper → tools/build + verification
+# Thin wrapper → verification
 
 all:
-	@echo "Welcome to Mosaic32"
+	@$(MAKE) -C verification help
+
+test:
+	@$(MAKE) -C verification signoff
+
+.PHONY: all test

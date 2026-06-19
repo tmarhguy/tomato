@@ -5,9 +5,29 @@
 .trash/
 .cursor/
 .env
+
+# Python tooling
 /tools/__pycache__
 /tools
-*.v
-*.txt
+
+# KiCad
 *.kicad_prl
 *.dsn
+*~*.lck
+
+# Digital Verilog exports (copy locally for sim/formal; not source-of-truth in git)
+*.v
+*.txt
+
+# Verification — hand-authored Verilog (exceptions to *.v above)
+!verification/formal/*_bind.v
+!verification/directed/alu_ref.v
+!verification/directed/alu_32b_dut_wrap.v
+!verification/directed/alu-32b-final*_tb.v
+
+# Verification — build artifacts (make clean)
+verification/work/
+verification/results/
+verification/formal/alu_*_verify/
+verification/formal/alu_*_prove/
+verification/directed/run_extracted_tb.v

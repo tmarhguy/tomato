@@ -1,0 +1,17 @@
+# SymbiYosys formal verification for 8-bit ALU slice
+
+[options]
+mode prove
+depth 1
+
+[engines]
+smtbmc z3
+
+[script]
+read -formal alu-8b-final.v
+read -formal alu_8b_verify_bind.v
+prep -top alu_8b_verify
+
+[files]
+../rtl/alu-8b-final.v
+alu_8b_verify_bind.v

@@ -1,0 +1,20 @@
+# Full combinational equivalence: alu-32b-final Out vs golden (all inputs)
+# Run: make formal_32b_equiv   (~30-45 min wall time)
+
+[options]
+mode prove
+depth 1
+
+[engines]
+smtbmc z3
+
+[script]
+read -formal alu-32b-final.v
+read -formal alu_ref.v
+read -formal alu_32b_equiv_verify_bind.v
+prep -top alu_32b_equiv_verify
+
+[files]
+../rtl/alu-32b-final.v
+../directed/alu_ref.v
+alu_32b_equiv_verify_bind.v
