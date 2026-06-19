@@ -1,0 +1,17 @@
+# SymbiYosys formal verification for 1-bit ALU slice
+
+[options]
+mode prove
+depth 1
+
+[engines]
+smtbmc z3
+
+[script]
+read -formal alu-1b-final.v
+read -formal alu_1b_verify_bind.v
+prep -top alu_1b_verify
+
+[files]
+../rtl/alu-1b-final.v
+alu_1b_verify_bind.v
