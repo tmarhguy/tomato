@@ -1122,8 +1122,6 @@
       </elementAttributes>
       <pos x="1160" y="360"/>
     </visualElement>
-
-
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
@@ -9648,7 +9646,7 @@
         </entry>
         <entry>
           <string>Bits</string>
-          <int>12</int>
+          <int>13</int>
         </entry>
       </elementAttributes>
       <pos x="2260" y="440"/>
@@ -9658,11 +9656,11 @@
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>1,1,1,1,1,1,1,1,1,1,1,1,</string>
+          <string>1,1,1,1,1,1,1,1,1,1,1,1,1</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>12</string>
+          <string>13</string>
         </entry>
       </elementAttributes>
       <pos x="2200" y="440"/>
@@ -9874,6 +9872,44 @@
         </entry>
       </elementAttributes>
       <pos x="2820" y="1600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>~flag_a_is_zero</string>
+        </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>hex</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="-880" y="660"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>~flag_a_is_zero</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-880" y="660"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>~flag_a_is_zero</string>
+        </entry>
+      </elementAttributes>
+      <pos x="2200" y="680"/>
     </visualElement>
   </visualElements>
   <wires>
