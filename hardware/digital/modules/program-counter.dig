@@ -233,7 +233,7 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>CLK_GATED</string>
+          <string>CLK</string>
         </entry>
       </elementAttributes>
       <pos x="160" y="-40"/>
@@ -246,7 +246,7 @@
           <string>pc-out</string>
         </entry>
       </elementAttributes>
-      <pos x="-240" y="520"/>
+      <pos x="-800" y="-300"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -264,95 +264,7 @@
           <int>24</int>
         </entry>
       </elementAttributes>
-      <pos x="-240" y="520"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Add</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Bits</string>
-          <int>24</int>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="-180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>pc-out</string>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="-160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Add</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Bits</string>
-          <int>24</int>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="-280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>pc-out</string>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="-260"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>0</long>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="-240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>0</long>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="-140"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Bits</string>
-          <int>24</int>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="-180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>pc-save</string>
-        </entry>
-      </elementAttributes>
-      <pos x="220" y="-180"/>
+      <pos x="-800" y="-300"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -381,16 +293,6 @@
         </entry>
       </elementAttributes>
       <pos x="180" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>pc-rel</string>
-        </entry>
-      </elementAttributes>
-      <pos x="220" y="-280"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -474,7 +376,7 @@
           <string>pc-reg-en</string>
         </entry>
       </elementAttributes>
-      <pos x="380" y="480"/>
+      <pos x="540" y="440"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -572,7 +474,7 @@
           <string>FETCH</string>
         </entry>
       </elementAttributes>
-      <pos x="60" y="900"/>
+      <pos x="-1140" y="140"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -685,7 +587,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>IR_ABS</string>
+          <string>OFFSET</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -758,25 +660,11 @@
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>ir-abs-x</string>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="-280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
           <string>NetName</string>
           <string>pc-save</string>
         </entry>
       </elementAttributes>
-      <pos x="-240" y="440"/>
+      <pos x="-800" y="-380"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -794,7 +682,7 @@
           <int>24</int>
         </entry>
       </elementAttributes>
-      <pos x="-240" y="440"/>
+      <pos x="-800" y="-380"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -804,7 +692,7 @@
           <string>RESET</string>
         </entry>
       </elementAttributes>
-      <pos x="-660" y="300"/>
+      <pos x="-520" y="-100"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -814,7 +702,7 @@
           <string>RESET</string>
         </entry>
       </elementAttributes>
-      <pos x="-660" y="300"/>
+      <pos x="-520" y="-100"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
@@ -854,72 +742,72 @@
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din FLAG_Z FLAG_C FLAG_N FLAG_V COND PC-OUT PC-SAVE
+            <dataString>clk cycles jump-type branch-en RESET pc-src OFFSET alu-in mem-din csr_flags pc-cond PC-OUT PC-SAVE
 
 # PC smoke (cycles=0 FETCH / cycles=1 EXEC). RESET=1 hold / RESET=0 run.
-# Jumps: jump-type=1 in EXEC. Branches: branch-en=1, jump-type=0, flags+COND.
+# Jumps: jump-type=1 in EXEC. Branches: branch-en=1, jump-type=0, flags+pc-cond.
 
 # 1. Idle
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 0 0 0 0 1
 
 # 2. RESET hold clears PC
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 1
 
 # 3. Release RESET: first FETCH edge PC 0-&gt;1
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 1 2
 
 # 4. Second FETCH
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 2 3
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 3
+C 0 0 0 0 0 0 0 0 0 0 2 3
+0 0 0 0 0 0 0 0 0 0 0 2 3
 
 # 5. cycles=1: enter EXEC (last FETCH bumps PC 2-&gt;3)
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 2 3
-C 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 3 4
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 3 4
+0 1 0 0 0 0 0x3FFF 0 0 0 0 2 3
+C 1 0 0 0 0 0x3FFF 0 0 0 0 3 4
+0 1 0 0 0 0 0x3FFF 0 0 0 0 3 4
 
 # 6. Absolute jump (EXEC + jump-type)
-0 1 1 0 0 0 0x50 0 0 0 0 0 0 0 x x
-C 1 1 0 0 0 0x50 0 0 0 0 0 0 0 0x50 0x51
-0 1 1 0 0 0 0x50 0 0 0 0 0 0 0 0x50 0x51
+0 1 1 0 0 0 0x50 0 0 0 0 x x
+C 1 1 0 0 0 0x50 0 0 0 0 0x50 0x51
+0 1 1 0 0 0 0x50 0 0 0 0 0x50 0x51
 
 # FETCH-&gt;EXEC setup for next jump
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x50 0x51
-C 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x51 0x52
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x51 0x52
+0 1 0 0 0 0 0x3FFF 0 0 0 0 0x50 0x51
+C 1 0 0 0 0 0x3FFF 0 0 0 0 0x51 0x52
+0 1 0 0 0 0 0x3FFF 0 0 0 0 0x51 0x52
 
 # 7. PC-relative jump (0x51 - 4 = 0x4D)
-0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 x x
-C 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0x4D 0x4E
-0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0x4D 0x4E
+0 1 1 0 0 1 0x3FFFFC 0 0 0 0 x x
+C 1 1 0 0 1 0x3FFFFC 0 0 0 0 0x4D 0x4E
+0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0x4D 0x4E
 
 # FETCH-&gt;EXEC setup for ALU jump
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x4D 0x4E
-C 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x4E 0x4F
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x4E 0x4F
+0 1 0 0 0 0 0x3FFF 0 0 0 0 0x4D 0x4E
+C 1 0 0 0 0 0x3FFF 0 0 0 0 0x4E 0x4F
+0 1 0 0 0 0 0x3FFF 0 0 0 0 0x4E 0x4F
 
 # 8. ALU jump
-0 1 1 0 0 4 0 0x200 0 0 0 0 0 0 x x
-C 1 1 0 0 4 0 0x200 0 0 0 0 0 0 0x200 0x201
-0 1 1 0 0 4 0 0x200 0 0 0 0 0 0 0x200 0x201
+0 1 1 0 0 4 0 0x200 0 0 0 x x
+C 1 1 0 0 4 0 0x200 0 0 0 0x200 0x201
+0 1 1 0 0 4 0 0x200 0 0 0 0x200 0x201
 
 # 9. RESET forces PC=0
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 1
 
 # 10. FETCH after RESET release
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 1 2
 
 # 11. Leave sequencer in RESET hold for sequencer-exhaustive
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 1
 </dataString>
           </testData>
         </entry>
@@ -1171,15 +1059,10 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
         </entry>
         <entry>
           <string>NetName</string>
-          <string>CLK_GATED</string>
+          <string>CLK</string>
         </entry>
       </elementAttributes>
-      <pos x="900" y="-380"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="900" y="-380"/>
+      <pos x="1100" y="-340"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -1210,20 +1093,6 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
       <pos x="-240" y="300"/>
     </visualElement>
     <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>MEM-WAIT</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-240" y="360"/>
-    </visualElement>
-    <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
@@ -1242,16 +1111,6 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
         </entry>
       </elementAttributes>
       <pos x="-240" y="300"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>MEM-WAIT</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-240" y="360"/>
     </visualElement>
     <visualElement>
       <elementName>Const</elementName>
@@ -1470,89 +1329,6 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
       <pos x="1100" y="280"/>
     </visualElement>
     <visualElement>
-      <elementName>Testcase</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>sequencer</string>
-        </entry>
-        <entry>
-          <string>Testdata</string>
-          <testData>
-            <dataString>RESET cycles clk FETCH EXECUTE MEM-WAIT
-
-# From sequencer.dig; RESET active-high hold (invert main reset)
-# RESET=1 hold, RESET=0 run
-
-# Sync after prog-count-2-smoke (phase may not be FETCH)
-1 0 C x x x
-
-# Hold (RESET=1): counter cleared — FETCH
-1 0 0 1 0 0
-1 0 C 1 0 0
-
-# Release run (RESET=0), cycles=0: single-phase (FETCH only)
-0 0 0 1 0 0
-0 0 C 1 0 0
-0 0 C 1 0 0
-
-# cycles=1: FETCH -&gt; EXECUTE -&gt; FETCH (2 phases)
-0 1 0 1 0 0
-0 1 C 0 1 0
-0 1 C 1 0 0
-0 1 C 0 1 0
-0 1 C 1 0 0
-
-# cycles=2: FETCH -&gt; EXECUTE -&gt; MEM_WAIT -&gt; FETCH (3 phases)
-0 2 0 1 0 0
-0 2 C 0 1 0
-0 2 C 0 0 1
-0 2 C 1 0 0
-0 2 C 0 1 0
-0 2 C 0 0 1
-0 2 C 1 0 0
-
-# cycles=3: four counter steps — terminal reload at 11
-0 3 0 1 0 0
-0 3 C 0 1 0
-0 3 C 0 0 1
-0 3 C 0 0 0
-0 3 C 1 0 0
-
-# Run hold: RESET=1 clears counter (FETCH)
-0 2 C 0 1 0
-1 2 0 0 1 0
-1 2 C 1 0 0
-0 2 C 0 1 0
-
-# Mid-flight cycles change
-1 0 C 1 0 0
-0 1 C 0 1 0
-0 2 0 0 1 0
-0 2 C 0 0 1
-0 2 C 1 0 0
-
-# cycles=0 lock: never leaves FETCH
-1 0 C 1 0 0
-0 0 C 1 0 0
-0 0 C 1 0 0
-0 0 C 1 0 0</dataString>
-          </testData>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="-200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>clk</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-660" y="1080"/>
-    </visualElement>
-    <visualElement>
       <elementName>Const</elementName>
       <elementAttributes>
         <entry>
@@ -1571,37 +1347,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>flag_z</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-660" y="540"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>flag_c</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-660" y="600"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>flag_n</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-660" y="660"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>flag_v</string>
+          <string>csr_flags</string>
         </entry>
       </elementAttributes>
       <pos x="-660" y="480"/>
@@ -1611,37 +1357,11 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>FLAG_N</string>
+          <string>csr_flags</string>
         </entry>
-      </elementAttributes>
-      <pos x="-660" y="660"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
         <entry>
-          <string>Label</string>
-          <string>FLAG_C</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-660" y="600"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>FLAG_Z</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-660" y="540"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>FLAG_V</string>
+          <string>Bits</string>
+          <int>13</int>
         </entry>
       </elementAttributes>
       <pos x="-660" y="480"/>
@@ -1651,7 +1371,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
       <elementAttributes>
         <entry>
           <string>NetName</string>
-          <string>COND</string>
+          <string>pc-cond</string>
         </entry>
       </elementAttributes>
       <pos x="-660" y="740"/>
@@ -1661,11 +1381,11 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>COND</string>
+          <string>pc-cond</string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>3</int>
+          <int>4</int>
         </entry>
       </elementAttributes>
       <pos x="-660" y="740"/>
@@ -1718,7 +1438,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
           <string>MUX_Y</string>
         </entry>
       </elementAttributes>
-      <pos x="640" y="200"/>
+      <pos x="1640" y="200"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -1728,7 +1448,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
           <boolean>true</boolean>
         </entry>
       </elementAttributes>
-      <pos x="560" y="0"/>
+      <pos x="1560" y="-80"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1742,7 +1462,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
           <string>MUX_Y</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="0"/>
+      <pos x="1560" y="-80"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -1752,343 +1472,17 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
           <string>COND_RESULT</string>
         </entry>
       </elementAttributes>
-      <pos x="640" y="20"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Testcase</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>branch</string>
-        </entry>
-        <entry>
-          <string>Testdata</string>
-          <testData>
-            <dataString>FLAG_Z FLAG_C FLAG_N FLAG_V COND branch-en COND_RESULT
-
-# Branch condition mux (74151) + branch-en gate; combinational
-
-
-# 1. Plan milestone cases
-
-1 0 0 0 0 1 1
-1 0 0 0 4 1 0
-1 0 0 0 0 0 0
-0 1 0 0 1 1 1
-0 0 0 0 4 1 1
-
-# 2. All eight conditions — taken, not-taken, BRANCH_EN gate
-
-1 0 0 0 0 1 1
-1 0 0 0 0 0 0
-0 1 0 0 1 1 1
-0 1 0 0 1 0 0
-0 0 1 0 2 1 1
-0 0 1 0 2 0 0
-0 0 0 1 3 1 1
-0 0 0 1 3 0 0
-0 0 0 0 4 1 1
-0 0 0 0 4 0 0
-0 0 0 0 5 1 1
-0 0 0 0 5 0 0
-0 0 0 0 6 1 1
-0 0 0 0 6 0 0
-0 0 0 0 7 1 1
-0 0 0 0 7 0 0
-0 0 0 0 0 1 0
-0 0 0 0 1 1 0
-0 0 0 0 2 1 0
-0 0 0 0 3 1 0
-1 0 0 0 4 1 0
-0 1 0 0 5 1 0
-0 0 1 0 6 1 0
-0 0 0 1 7 1 0
-
-# 3. Cross-condition — wrong flag for opcode
-
-0 1 0 0 0 1 0
-1 0 0 0 1 1 0
-
-# 4. Inverted conditions vs direct (JZ vs JNZ)
-
-1 0 0 0 0 1 1
-1 0 0 0 4 1 0
-0 0 0 0 4 1 1
-0 0 0 0 0 1 0
-
-# 5. Complete truth table — 2^8 inputs (all flags × cond × BRANCH_EN)
-
-0 0 0 0 0 0 0
-0 0 0 0 0 1 0
-0 0 0 1 0 0 0
-0 0 0 1 0 1 0
-0 0 1 0 0 0 0
-0 0 1 0 0 1 0
-0 0 1 1 0 0 0
-0 0 1 1 0 1 0
-0 1 0 0 0 0 0
-0 1 0 0 0 1 0
-0 1 0 1 0 0 0
-0 1 0 1 0 1 0
-0 1 1 0 0 0 0
-0 1 1 0 0 1 0
-0 1 1 1 0 0 0
-0 1 1 1 0 1 0
-1 0 0 0 0 0 0
-1 0 0 0 0 1 1
-1 0 0 1 0 0 0
-1 0 0 1 0 1 1
-1 0 1 0 0 0 0
-1 0 1 0 0 1 1
-1 0 1 1 0 0 0
-1 0 1 1 0 1 1
-1 1 0 0 0 0 0
-1 1 0 0 0 1 1
-1 1 0 1 0 0 0
-1 1 0 1 0 1 1
-1 1 1 0 0 0 0
-1 1 1 0 0 1 1
-1 1 1 1 0 0 0
-1 1 1 1 0 1 1
-0 0 0 0 1 0 0
-0 0 0 0 1 1 0
-0 0 0 1 1 0 0
-0 0 0 1 1 1 0
-0 0 1 0 1 0 0
-0 0 1 0 1 1 0
-0 0 1 1 1 0 0
-0 0 1 1 1 1 0
-0 1 0 0 1 0 0
-0 1 0 0 1 1 1
-0 1 0 1 1 0 0
-0 1 0 1 1 1 1
-0 1 1 0 1 0 0
-0 1 1 0 1 1 1
-0 1 1 1 1 0 0
-0 1 1 1 1 1 1
-1 0 0 0 1 0 0
-1 0 0 0 1 1 0
-1 0 0 1 1 0 0
-1 0 0 1 1 1 0
-1 0 1 0 1 0 0
-1 0 1 0 1 1 0
-1 0 1 1 1 0 0
-1 0 1 1 1 1 0
-1 1 0 0 1 0 0
-1 1 0 0 1 1 1
-1 1 0 1 1 0 0
-1 1 0 1 1 1 1
-1 1 1 0 1 0 0
-1 1 1 0 1 1 1
-1 1 1 1 1 0 0
-1 1 1 1 1 1 1
-0 0 0 0 2 0 0
-0 0 0 0 2 1 0
-0 0 0 1 2 0 0
-0 0 0 1 2 1 0
-0 0 1 0 2 0 0
-0 0 1 0 2 1 1
-0 0 1 1 2 0 0
-0 0 1 1 2 1 1
-0 1 0 0 2 0 0
-0 1 0 0 2 1 0
-0 1 0 1 2 0 0
-0 1 0 1 2 1 0
-0 1 1 0 2 0 0
-0 1 1 0 2 1 1
-0 1 1 1 2 0 0
-0 1 1 1 2 1 1
-1 0 0 0 2 0 0
-1 0 0 0 2 1 0
-1 0 0 1 2 0 0
-1 0 0 1 2 1 0
-1 0 1 0 2 0 0
-1 0 1 0 2 1 1
-1 0 1 1 2 0 0
-1 0 1 1 2 1 1
-1 1 0 0 2 0 0
-1 1 0 0 2 1 0
-1 1 0 1 2 0 0
-1 1 0 1 2 1 0
-1 1 1 0 2 0 0
-1 1 1 0 2 1 1
-1 1 1 1 2 0 0
-1 1 1 1 2 1 1
-0 0 0 0 3 0 0
-0 0 0 0 3 1 0
-0 0 0 1 3 0 0
-0 0 0 1 3 1 1
-0 0 1 0 3 0 0
-0 0 1 0 3 1 0
-0 0 1 1 3 0 0
-0 0 1 1 3 1 1
-0 1 0 0 3 0 0
-0 1 0 0 3 1 0
-0 1 0 1 3 0 0
-0 1 0 1 3 1 1
-0 1 1 0 3 0 0
-0 1 1 0 3 1 0
-0 1 1 1 3 0 0
-0 1 1 1 3 1 1
-1 0 0 0 3 0 0
-1 0 0 0 3 1 0
-1 0 0 1 3 0 0
-1 0 0 1 3 1 1
-1 0 1 0 3 0 0
-1 0 1 0 3 1 0
-1 0 1 1 3 0 0
-1 0 1 1 3 1 1
-1 1 0 0 3 0 0
-1 1 0 0 3 1 0
-1 1 0 1 3 0 0
-1 1 0 1 3 1 1
-1 1 1 0 3 0 0
-1 1 1 0 3 1 0
-1 1 1 1 3 0 0
-1 1 1 1 3 1 1
-0 0 0 0 4 0 0
-0 0 0 0 4 1 1
-0 0 0 1 4 0 0
-0 0 0 1 4 1 1
-0 0 1 0 4 0 0
-0 0 1 0 4 1 1
-0 0 1 1 4 0 0
-0 0 1 1 4 1 1
-0 1 0 0 4 0 0
-0 1 0 0 4 1 1
-0 1 0 1 4 0 0
-0 1 0 1 4 1 1
-0 1 1 0 4 0 0
-0 1 1 0 4 1 1
-0 1 1 1 4 0 0
-0 1 1 1 4 1 1
-1 0 0 0 4 0 0
-1 0 0 0 4 1 0
-1 0 0 1 4 0 0
-1 0 0 1 4 1 0
-1 0 1 0 4 0 0
-1 0 1 0 4 1 0
-1 0 1 1 4 0 0
-1 0 1 1 4 1 0
-1 1 0 0 4 0 0
-1 1 0 0 4 1 0
-1 1 0 1 4 0 0
-1 1 0 1 4 1 0
-1 1 1 0 4 0 0
-1 1 1 0 4 1 0
-1 1 1 1 4 0 0
-1 1 1 1 4 1 0
-0 0 0 0 5 0 0
-0 0 0 0 5 1 1
-0 0 0 1 5 0 0
-0 0 0 1 5 1 1
-0 0 1 0 5 0 0
-0 0 1 0 5 1 1
-0 0 1 1 5 0 0
-0 0 1 1 5 1 1
-0 1 0 0 5 0 0
-0 1 0 0 5 1 0
-0 1 0 1 5 0 0
-0 1 0 1 5 1 0
-0 1 1 0 5 0 0
-0 1 1 0 5 1 0
-0 1 1 1 5 0 0
-0 1 1 1 5 1 0
-1 0 0 0 5 0 0
-1 0 0 0 5 1 1
-1 0 0 1 5 0 0
-1 0 0 1 5 1 1
-1 0 1 0 5 0 0
-1 0 1 0 5 1 1
-1 0 1 1 5 0 0
-1 0 1 1 5 1 1
-1 1 0 0 5 0 0
-1 1 0 0 5 1 0
-1 1 0 1 5 0 0
-1 1 0 1 5 1 0
-1 1 1 0 5 0 0
-1 1 1 0 5 1 0
-1 1 1 1 5 0 0
-1 1 1 1 5 1 0
-0 0 0 0 6 0 0
-0 0 0 0 6 1 1
-0 0 0 1 6 0 0
-0 0 0 1 6 1 1
-0 0 1 0 6 0 0
-0 0 1 0 6 1 0
-0 0 1 1 6 0 0
-0 0 1 1 6 1 0
-0 1 0 0 6 0 0
-0 1 0 0 6 1 1
-0 1 0 1 6 0 0
-0 1 0 1 6 1 1
-0 1 1 0 6 0 0
-0 1 1 0 6 1 0
-0 1 1 1 6 0 0
-0 1 1 1 6 1 0
-1 0 0 0 6 0 0
-1 0 0 0 6 1 1
-1 0 0 1 6 0 0
-1 0 0 1 6 1 1
-1 0 1 0 6 0 0
-1 0 1 0 6 1 0
-1 0 1 1 6 0 0
-1 0 1 1 6 1 0
-1 1 0 0 6 0 0
-1 1 0 0 6 1 1
-1 1 0 1 6 0 0
-1 1 0 1 6 1 1
-1 1 1 0 6 0 0
-1 1 1 0 6 1 0
-1 1 1 1 6 0 0
-1 1 1 1 6 1 0
-0 0 0 0 7 0 0
-0 0 0 0 7 1 1
-0 0 0 1 7 0 0
-0 0 0 1 7 1 0
-0 0 1 0 7 0 0
-0 0 1 0 7 1 1
-0 0 1 1 7 0 0
-0 0 1 1 7 1 0
-0 1 0 0 7 0 0
-0 1 0 0 7 1 1
-0 1 0 1 7 0 0
-0 1 0 1 7 1 0
-0 1 1 0 7 0 0
-0 1 1 0 7 1 1
-0 1 1 1 7 0 0
-0 1 1 1 7 1 0
-1 0 0 0 7 0 0
-1 0 0 0 7 1 1
-1 0 0 1 7 0 0
-1 0 0 1 7 1 0
-1 0 1 0 7 0 0
-1 0 1 0 7 1 1
-1 0 1 1 7 0 0
-1 0 1 1 7 1 0
-1 1 0 0 7 0 0
-1 1 0 0 7 1 1
-1 1 0 1 7 0 0
-1 1 0 1 7 1 0
-1 1 1 0 7 0 0
-1 1 1 0 7 1 1
-1 1 1 1 7 0 0
-1 1 1 1 7 1 0
-</dataString>
-          </testData>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="-460"/>
+      <pos x="1640" y="-60"/>
     </visualElement>
     <visualElement>
       <elementName>Multiplexer</elementName>
       <elementAttributes>
         <entry>
           <string>Selector Bits</string>
-          <int>3</int>
+          <int>4</int>
         </entry>
       </elementAttributes>
-      <pos x="600" y="120"/>
+      <pos x="1600" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2099,30 +1493,10 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
         </entry>
         <entry>
           <string>NetName</string>
-          <string>COND</string>
+          <string>pc-cond</string>
         </entry>
       </elementAttributes>
-      <pos x="600" y="300"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="560" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="560" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="560" y="240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Not</elementName>
-      <elementAttributes/>
-      <pos x="560" y="260"/>
+      <pos x="1600" y="400"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2205,129 +1579,17 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
         </entry>
         <entry>
           <string>NetName</string>
-          <string>flag_z</string>
-        </entry>
-      </elementAttributes>
-      <pos x="600" y="120"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>flag_c</string>
-        </entry>
-      </elementAttributes>
-      <pos x="600" y="140"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>flag_n</string>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>flag_v</string>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="260"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>flag_z</string>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>flag_c</string>
-        </entry>
-      </elementAttributes>
-      <pos x="560" y="220"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>flag_n</string>
-        </entry>
-      </elementAttributes>
-      <pos x="600" y="160"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>flag_v</string>
-        </entry>
-      </elementAttributes>
-      <pos x="600" y="180"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
           <string>brch-en</string>
         </entry>
       </elementAttributes>
-      <pos x="560" y="40"/>
+      <pos x="1560" y="-40"/>
     </visualElement>
     <visualElement>
       <elementName>Rectangle</elementName>
       <elementAttributes>
         <entry>
           <string>RectHeight</string>
-          <int>19</int>
+          <int>39</int>
         </entry>
         <entry>
           <string>Label</string>
@@ -2338,7 +1600,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
           <int>16</int>
         </entry>
       </elementAttributes>
-      <pos x="460" y="-40"/>
+      <pos x="1460" y="-120"/>
     </visualElement>
     <visualElement>
       <elementName>Rectangle</elementName>
@@ -2353,7 +1615,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
         </entry>
         <entry>
           <string>RectWidth</string>
-          <int>20</int>
+          <int>22</int>
         </entry>
       </elementAttributes>
       <pos x="840" y="-560"/>
@@ -2417,212 +1679,6 @@ C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
         </entry>
       </elementAttributes>
       <pos x="-440" y="200"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>COND_RESULT</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-240" y="600"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>COND_RESULT</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-240" y="600"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>INT_EN</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-300" y="720"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>INT_EN</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-300" y="720"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>HALT</string>
-        </entry>
-      </elementAttributes>
-      <pos x="40" y="440"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>HALT</string>
-        </entry>
-      </elementAttributes>
-      <pos x="40" y="440"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>INT_GATE</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-220" y="820"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>INT_GATE</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-220" y="820"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Out</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Label</string>
-          <string>CLK_GATED</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-260" y="640"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>CLK_GATED</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-260" y="640"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Testcase</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>branch-pc</string>
-        </entry>
-        <entry>
-          <string>Testdata</string>
-          <testData>
-            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din FLAG_Z FLAG_C FLAG_N FLAG_V COND PC-OUT PC-SAVE
-
-# Branch PC integration — BEQ/BNE in EXEC (cycles=1), pc-src=1 relative
-
-# RESET hold
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-
-# Release RESET, first FETCH
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-
-# Enter EXEC (cycles=1)
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 1 2
-C 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 2 3
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 2 3
-
-# Absolute jump to PC=0x51 in EXEC
-0 1 1 0 0 0 0x51 0 0 0 0 0 0 0 x x
-C 1 1 0 0 0 0x51 0 0 0 0 0 0 0 0x51 0x52
-0 1 1 0 0 0 0x51 0 0 0 0 0 0 0 0x51 0x52
-
-# FETCH-&gt;EXEC (PC 0x51-&gt;0x52)
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x51 0x52
-C 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x52 0x53
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x52 0x53
-
-# BEQ taken (Z=1, COND=0): PC=0x52 + (-4) = 0x4E
-0 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 x x
-C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x4E 0x4F
-0 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x4E 0x4F
-
-# FETCH-&gt;EXEC after BEQ (jump only works in EXEC)
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x4E 0x4F
-C 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x4F 0x50
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x4F 0x50
-
-# Jump back to 0x52 in EXEC
-0 1 1 0 0 0 0x52 0 0 0 0 0 0 0 x x
-C 1 1 0 0 0 0x52 0 0 0 0 0 0 0 0x52 0x53
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x52 0x53
-C 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x53 0x54
-
-# BEQ not taken (Z=0): PC stays 0x53
-0 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 0 x x
-C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 0 0x53 0x54
-0 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 0 0x53 0x54
-
-# FETCH-&gt;EXEC after BEQ not taken
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x53 0x54
-C 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x54 0x55
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x54 0x55
-
-# Jump to 0x56 for BNE test (EXEC)
-0 1 1 0 0 0 0x56 0 0 0 0 0 0 0 x x
-C 1 1 0 0 0 0x56 0 0 0 0 0 0 0 0x56 0x57
-0 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x56 0x57
-C 1 0 0 0 0 0x3FFF 0 0 0 0 0 0 0 0x57 0x58
-
-# BNE taken (Z=0, COND=4 ~Z): PC=0x57 + (-4) = 0x53
-0 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 x x
-C 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
-0 1 0 1 0 1 0x3FFFFC 0 0 0 0 0 0 4 0x53 0x54
-
-# 12. Branch in FETCH (cycles=0): must increment only, not branch
-0 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 x x
-C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
-0 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
-</dataString>
-          </testData>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="-600"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2788,106 +1844,6 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
       <pos x="1080" y="1120"/>
     </visualElement>
     <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-      </elementAttributes>
-      <pos x="1020" y="920"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>CLK</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1020" y="920"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>~HALT</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1020" y="960"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>CLK_GATED</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1100" y="940"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>mirror</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Input Splitting</string>
-          <string>3,1,1,1,18</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>24</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1100" y="760"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>INT_VEC_0</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1100" y="780"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>INT_VEC_1</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1100" y="800"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>INT_VEC_2</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1100" y="820"/>
-    </visualElement>
-    <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
@@ -2895,7 +1851,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>INT_EN_IN</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="760"/>
+      <pos x="-520" y="-380"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2905,7 +1861,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>INT_EN_IN</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="760"/>
+      <pos x="-520" y="-380"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -2915,7 +1871,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>HALT_IN</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="800"/>
+      <pos x="-520" y="-340"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2925,7 +1881,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>HALT_IN</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="800"/>
+      <pos x="-520" y="-340"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -2935,17 +1891,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>INT_REQ</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="840"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>INT_REQ</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1380" y="840"/>
+      <pos x="-520" y="-300"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -2955,7 +1901,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>INT_VEC_0</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="880"/>
+      <pos x="-520" y="-260"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2965,7 +1911,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>INT_VEC_0</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="880"/>
+      <pos x="-520" y="-260"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -2975,7 +1921,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>INT_VEC_1</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="920"/>
+      <pos x="-520" y="-220"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2985,7 +1931,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>INT_VEC_1</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="920"/>
+      <pos x="-520" y="-220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -2995,7 +1941,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>INT_VEC_2</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="960"/>
+      <pos x="-520" y="-180"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -3005,316 +1951,7 @@ C 0 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x54 0x55
           <string>INT_VEC_2</string>
         </entry>
       </elementAttributes>
-      <pos x="1380" y="960"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Testcase</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>sc-control-flags-tests</string>
-        </entry>
-        <entry>
-          <string>Testdata</string>
-          <testData>
-            <dataString>clk INT_EN_IN HALT_IN INT_REQ INT_VEC_0 INT_VEC_1 INT_VEC_2 INT_EN HALT INT_GATE CLK_GATED
-
-# Interrupt enable + halt + INT_GATE + CLK_GATED + INT_VEC inputs
-# C = rising clock edge on 7474; exhaustive sections use CLK=1 to verify FFs
-
-
-# 1. Plan milestone — latch INT_EN
-
-0 1 0 0 0 0 0 x x 0 0
-C 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-
-# 2. INT_GATE = INT_REQ AND INT_EN
-
-0 1 0 1 0 0 0 1 0 1 0
-0 1 0 0 0 0 0 1 0 0 0
-C 0 0 1 0 0 0 0 0 0 0
-0 0 0 1 0 0 0 0 0 0 0
-0 0 0 1 0 0 0 0 0 0 0
-
-# 3. Halt — HALT=1, CLK_GATED=0 when CLK=1
-
-C 1 1 0 0 0 0 1 1 0 0
-0 1 1 0 0 0 0 1 1 0 0
-1 1 1 0 0 0 0 1 1 0 0
-
-# 4. Release halt — two clocks to clear HALT, then CLK_GATED=1
-
-C 1 0 0 0 0 0 1 1 0 0
-0 1 0 0 0 0 0 1 1 0 0
-C 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-1 1 0 0 0 0 0 1 0 0 1
-
-# 5. INT_VEC inputs encoding (bits 3–5 = vec × 8)
-
-0 1 0 0 1 1 0 1 0 0 0
-0 1 0 0 1 1 1 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 1 0 0 1 0 0 0
-0 1 0 0 0 1 0 1 0 0 0
-0 1 0 0 0 0 1 1 0 0 0
-
-# 6. INT_EN clears on clock when INT_EN_IN=0
-
-C 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0
-
-# 7. HALT_IN sequence — set then clear HALT
-
-C 1 1 0 0 0 0 1 1 0 0
-0 1 1 0 0 0 0 1 1 0 0
-C 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-
-# 8. Re-latch INT_EN=1 for INT_GATE checks
-
-C 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-0 1 0 1 0 0 0 1 0 1 0
-
-# 9. All 8 INT_VEC inputs combinations (steady-state)
-
-0 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 1 0 0 1 0 0 0
-0 1 0 0 0 1 0 1 0 0 0
-0 1 0 0 1 1 0 1 0 0 0
-0 1 0 0 0 0 1 1 0 0 0
-0 1 0 0 1 0 1 1 0 0 0
-0 1 0 0 0 1 1 1 0 0 0
-0 1 0 0 1 1 1 1 0 0 0
-
-# 10. CLK_GATED low when CLK=0 (halt released)
-
-C 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-1 1 0 0 0 0 0 1 0 0 1
-
-# 11. Halt blocks gated clock even if CLK held high
-
-C 1 1 0 0 0 0 1 x 0 0
-0 1 1 0 0 0 0 1 x 0 0
-1 1 1 0 0 0 0 1 1 0 0
-
-# 12. HALT=1, INT_GATE and vector while halted
-
-C 1 1 0 0 0 0 1 x 0 0
-0 1 1 0 0 0 0 1 x 0 0
-1 1 1 1 1 1 1 1 1 1 0
-
-# 13. Release halt then hold INT_EN across extra clocks
-
-C 1 0 0 0 0 0 1 1 0 0
-0 1 0 0 0 0 0 1 1 0 0
-C 1 0 0 0 0 0 1 x 0 0
-0 1 0 0 0 0 0 1 x 0 0
-C 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-C 1 0 0 0 0 0 1 0 0 0
-0 1 0 0 0 0 0 1 0 0 0
-1 1 0 0 0 0 0 1 0 0 1
-
-# 14. Vector stable while toggling unrelated inputs
-
-0 1 0 1 1 0 1 1 0 1 0
-0 0 1 0 1 0 1 1 0 0 0
-
-# 15. Exhaustive — all 4 latch input combinations (C pulse + CLK=1 verify)
-
-C 0 0 0 0 0 0 x x 0 0
-1 0 0 0 0 0 0 0 0 0 1
-C 0 1 0 0 0 0 x x 0 0
-1 0 1 0 0 0 0 0 1 0 0
-C 1 0 0 0 0 0 x x 0 0
-1 1 0 0 0 0 0 1 0 0 1
-C 1 1 0 0 0 0 x x 0 0
-1 1 1 0 0 0 0 1 1 0 0
-
-# 16. Exhaustive — INT_GATE truth table at CLK=0
-
-C 0 0 0 0 0 0 x x 0 0
-1 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 0 x x 0 0
-0 0 0 1 0 0 0 x x 0 0
-C 1 0 0 0 0 0 x x 0 0
-1 1 0 0 0 0 0 1 0 0 1
-0 1 0 0 0 0 0 x x 0 0
-0 1 0 1 0 0 0 x x 1 0
-
-# 17. Exhaustive — CLK_GATED truth table (CLK × HALT)
-
-C 1 0 0 0 0 0 x x 0 0
-1 1 0 0 0 0 0 1 0 0 1
-0 1 0 0 0 0 0 x x 0 0
-1 1 0 0 0 0 0 x x 0 1
-C 1 1 0 0 0 0 x x 0 0
-1 1 1 0 0 0 0 1 1 0 0
-0 1 1 0 0 0 0 x x 0 0
-1 1 1 0 0 0 0 x x 0 0
-
-# 18. Exhaustive — INT_VEC inputs all 8 encodings at CLK=0
-
-C 1 0 0 0 0 0 x x 0 0
-1 1 0 0 0 0 0 1 0 0 1
-0 1 0 0 0 0 0 x x 0 0
-0 1 0 0 1 0 0 x x 0 0
-0 1 0 0 0 1 0 x x 0 0
-0 1 0 0 1 1 0 x x 0 0
-0 1 0 0 0 0 1 x x 0 0
-0 1 0 0 1 0 1 x x 0 0
-0 1 0 0 0 1 1 x x 0 0
-0 1 0 0 1 1 1 x x 0 0
-
-# 19. Exhaustive — combinational grid per latched (INT_EN, HALT) state
-
-C 0 0 0 0 0 0 x x 0 0
-1 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 0 x x 0 0
-0 0 0 0 1 0 0 x x 0 0
-0 0 0 0 0 1 0 x x 0 0
-0 0 0 0 1 1 0 x x 0 0
-0 0 0 0 0 0 1 x x 0 0
-0 0 0 0 1 0 1 x x 0 0
-0 0 0 0 0 1 1 x x 0 0
-0 0 0 0 1 1 1 x x 0 0
-0 0 0 1 0 0 0 x x 0 0
-0 0 0 1 1 0 0 x x 0 0
-0 0 0 1 0 1 0 x x 0 0
-0 0 0 1 1 1 0 x x 0 0
-0 0 0 1 0 0 1 x x 0 0
-0 0 0 1 1 0 1 x x 0 0
-0 0 0 1 0 1 1 x x 0 0
-0 0 0 1 1 1 1 x x 0 0
-0 0 0 0 0 0 0 x x 0 0
-1 0 0 0 0 0 0 0 0 0 1
-C 0 1 0 0 0 0 x x 0 0
-1 0 1 0 0 0 0 0 1 0 0
-0 0 1 0 0 0 0 x x 0 0
-0 0 1 0 1 0 0 x x 0 0
-0 0 1 0 0 1 0 x x 0 0
-0 0 1 0 1 1 0 x x 0 0
-0 0 1 0 0 0 1 x x 0 0
-0 0 1 0 1 0 1 x x 0 0
-0 0 1 0 0 1 1 x x 0 0
-0 0 1 0 1 1 1 x x 0 0
-0 0 1 1 0 0 0 x x 0 0
-0 0 1 1 1 0 0 x x 0 0
-0 0 1 1 0 1 0 x x 0 0
-0 0 1 1 1 1 0 x x 0 0
-0 0 1 1 0 0 1 x x 0 0
-0 0 1 1 1 0 1 x x 0 0
-0 0 1 1 0 1 1 x x 0 0
-0 0 1 1 1 1 1 x x 0 0
-0 0 1 0 0 0 0 x x 0 0
-1 0 1 0 0 0 0 0 1 0 0
-C 1 0 0 0 0 0 x x 0 0
-1 1 0 0 0 0 0 1 0 0 1
-0 1 0 0 0 0 0 x x 0 0
-0 1 0 0 1 0 0 x x 0 0
-0 1 0 0 0 1 0 x x 0 0
-0 1 0 0 1 1 0 x x 0 0
-0 1 0 0 0 0 1 x x 0 0
-0 1 0 0 1 0 1 x x 0 0
-0 1 0 0 0 1 1 x x 0 0
-0 1 0 0 1 1 1 x x 0 0
-0 1 0 1 0 0 0 x x 1 0
-0 1 0 1 1 0 0 x x 1 0
-0 1 0 1 0 1 0 x x 1 0
-0 1 0 1 1 1 0 x x 1 0
-0 1 0 1 0 0 1 x x 1 0
-0 1 0 1 1 0 1 x x 1 0
-0 1 0 1 0 1 1 x x 1 0
-0 1 0 1 1 1 1 x x 1 0
-0 1 0 0 0 0 0 x x 0 0
-1 1 0 0 0 0 0 1 0 0 1
-C 1 1 0 0 0 0 x x 0 0
-1 1 1 0 0 0 0 1 1 0 0
-0 1 1 0 0 0 0 x x 0 0
-0 1 1 0 1 0 0 x x 0 0
-0 1 1 0 0 1 0 x x 0 0
-0 1 1 0 1 1 0 x x 0 0
-0 1 1 0 0 0 1 x x 0 0
-0 1 1 0 1 0 1 x x 0 0
-0 1 1 0 0 1 1 x x 0 0
-0 1 1 0 1 1 1 x x 0 0
-0 1 1 1 0 0 0 x x 1 0
-0 1 1 1 1 0 0 x x 1 0
-0 1 1 1 0 1 0 x x 1 0
-0 1 1 1 1 1 0 x x 1 0
-0 1 1 1 0 0 1 x x 1 0
-0 1 1 1 1 0 1 x x 1 0
-0 1 1 1 0 1 1 x x 1 0
-0 1 1 1 1 1 1 x x 1 0
-0 1 1 0 0 0 0 x x 0 0
-1 1 1 0 0 0 0 1 1 0 0
-
-# 20. Exhaustive — INT_REQ × INT_EN latched (interrupt gating)
-
-C 0 0 0 0 0 0 x x 0 0
-1 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 1 1 1 x x 0 0
-0 0 0 1 1 1 1 x x 0 0
-C 1 0 0 0 0 0 x x 0 0
-1 1 0 0 0 0 0 1 0 0 1
-0 1 0 0 1 1 1 x x 0 0
-0 1 0 1 1 1 1 x x 1 0
-
-# 21. Exhaustive — halt blocks gate; INT_GATE still combinational when halted
-
-C 1 1 0 0 0 0 x x 0 0
-1 1 1 0 0 0 0 1 1 0 0
-1 1 1 0 0 0 0 1 1 0 0
-1 1 1 1 0 0 0 1 1 1 0
-</dataString>
-          </testData>
-        </entry>
-      </elementAttributes>
-      <pos x="480" y="-740"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Value</string>
-          <long>0</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>3</int>
-        </entry>
-      </elementAttributes>
-      <pos x="1100" y="760"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>Value</string>
-          <long>0</long>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>18</int>
-        </entry>
-      </elementAttributes>
-      <pos x="1100" y="840"/>
+      <pos x="-520" y="-180"/>
     </visualElement>
     <visualElement>
       <elementName>D_FF</elementName>
@@ -3402,20 +2039,6 @@ C 1 1 0 0 0 0 x x 0 0
         </entry>
       </elementAttributes>
       <pos x="520" y="980"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>int-vec</string>
-        </entry>
-      </elementAttributes>
-      <pos x="1040" y="760"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -3583,20 +2206,6 @@ C 1 1 0 0 0 0 x x 0 0
       <pos x="-220" y="-320"/>
     </visualElement>
     <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>RESET</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-220" y="-340"/>
-    </visualElement>
-    <visualElement>
       <elementName>Const</elementName>
       <elementAttributes>
         <entry>
@@ -3629,7 +2238,7 @@ C 1 1 0 0 0 0 x x 0 0
         </entry>
         <entry>
           <string>NetName</string>
-          <string>CLK_GATED</string>
+          <string>CLK</string>
         </entry>
       </elementAttributes>
       <pos x="-140" y="-240"/>
@@ -3659,34 +2268,6 @@ C 1 1 0 0 0 0 x x 0 0
       <pos x="-80" y="-240"/>
     </visualElement>
     <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
-          <string>Inputs</string>
-          <int>3</int>
-        </entry>
-      </elementAttributes>
-      <pos x="120" y="1240"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>EXECUTE</string>
-        </entry>
-      </elementAttributes>
-      <pos x="120" y="1240"/>
-    </visualElement>
-    <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
@@ -3698,7 +2279,7 @@ C 1 1 0 0 0 0 x x 0 0
           <string>link-in</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="1260"/>
+      <pos x="-1140" y="100"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -3708,7 +2289,7 @@ C 1 1 0 0 0 0 x x 0 0
           <string>link-in</string>
         </entry>
       </elementAttributes>
-      <pos x="-660" y="1240"/>
+      <pos x="-520" y="-140"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -3718,7 +2299,7 @@ C 1 1 0 0 0 0 x x 0 0
           <string>link-in</string>
         </entry>
       </elementAttributes>
-      <pos x="-660" y="1240"/>
+      <pos x="-520" y="-140"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -3733,16 +2314,6 @@ C 1 1 0 0 0 0 x x 0 0
         </entry>
       </elementAttributes>
       <pos x="-220" y="-320"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Or</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-      </elementAttributes>
-      <pos x="200" y="1260"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -3760,7 +2331,7 @@ C 1 1 0 0 0 0 x x 0 0
           <int>24</int>
         </entry>
       </elementAttributes>
-      <pos x="-80" y="-140"/>
+      <pos x="-800" y="-220"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -3772,7 +2343,7 @@ C 1 1 0 0 0 0 x x 0 0
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles link-in jump-type RESET pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK
+            <dataString>clk cycles link-in jump-type RESET pc-src OFFSET alu-in mem-din PC-OUT PC-SAVE PC-LINK
 
 # Latch PC-SAVE into pc_link on EXEC when link-in=1 (RESET=1 hold / RESET=0 run)
 
@@ -3813,7 +2384,7 @@ C 1 1 0 0 0 0 0 0 2 3 3
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles link-in jump-type RESET pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK
+            <dataString>clk cycles link-in jump-type RESET pc-src OFFSET alu-in mem-din PC-OUT PC-SAVE PC-LINK
 
 # RET via mux in_2 (pc-src=2)
 
@@ -3870,7 +2441,7 @@ C 1 0 1 0 2 0 0 0 3 4 3
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles link-in jump-type RESET pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK
+            <dataString>clk cycles link-in jump-type RESET pc-src OFFSET alu-in mem-din PC-OUT PC-SAVE PC-LINK
 
 # RESET clears pc_link flop
 
@@ -3910,7 +2481,7 @@ C 1 1 0 1 0 0 0 0 0 1 0
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles link-in jump-type RESET pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK
+            <dataString>clk cycles link-in jump-type RESET pc-src OFFSET alu-in mem-din PC-OUT PC-SAVE PC-LINK
 
 # Negative enable gating for link-in
 
@@ -3951,44 +2522,44 @@ C 1 1 0 0 0 0 0 0 3 4 4
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din FLAG_Z FLAG_C FLAG_N FLAG_V COND PC-OUT PC-SAVE
+            <dataString>clk cycles jump-type branch-en RESET pc-src OFFSET alu-in mem-din csr_flags pc-cond PC-OUT PC-SAVE
 
 # FETCH forces mux sel=7 (PC+1); jump-type/pc-src ignored in FETCH
 
 # RESET hold
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 1
 
 # Release RESET, first FETCH
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 1 2
 
-# FETCH: pc-src=0 IR_ABS=max jump-type=1 ignored (increment only)
-0 0 1 0 0 0 0xFFFFFF 0 0 0 0 0 0 0 x x
-C 0 1 0 0 0 0xFFFFFF 0 0 0 0 0 0 0 2 3
-0 0 1 0 0 0 0xFFFFFF 0 0 0 0 0 0 0 2 3
+# FETCH: pc-src=0 OFFSET=max jump-type=1 ignored (increment only)
+0 0 1 0 0 0 0xFFFFFF 0 0 0 0 x x
+C 0 1 0 0 0 0xFFFFFF 0 0 0 0 2 3
+0 0 1 0 0 0 0xFFFFFF 0 0 0 0 2 3
 
 # FETCH: pc-src=1 negative offset (bit21=1) increment only
-0 0 1 0 0 1 0x200000 0 0 0 0 0 0 0 x x
-C 0 1 0 0 1 0x200000 0 0 0 0 0 0 0 3 4
-0 0 1 0 0 1 0x200000 0 0 0 0 0 0 0 3 4
+0 0 1 0 0 1 0x200000 0 0 0 0 x x
+C 0 1 0 0 1 0x200000 0 0 0 0 3 4
+0 0 1 0 0 1 0x200000 0 0 0 0 3 4
 
 # EXEC settle
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 1 0 0 0 0 0 0 0 0 0 0 0 0 4 5
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 4 5
+0 1 0 0 0 0 0 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 0 0 4 5
+0 1 0 0 0 0 0 0 0 0 0 4 5
 
 # EXEC: same pc-src=1 offset -4 - rel jump PC=0
-0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 x x
-C 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0 1
-0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0 1
+0 1 1 0 0 1 0x3FFFFC 0 0 0 0 x x
+C 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 1
+0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 1
 
 # FETCH after jump: increment from 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 1 2
 </dataString>
           </testData>
         </entry>
@@ -4005,59 +2576,59 @@ C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din FLAG_Z FLAG_C FLAG_N FLAG_V COND INT_VEC_0 INT_VEC_1 INT_VEC_2 PC-OUT PC-SAVE PC-LINK
+            <dataString>clk cycles jump-type branch-en RESET pc-src OFFSET alu-in mem-din csr_flags pc-cond INT_VEC_0 INT_VEC_1 INT_VEC_2 PC-OUT PC-SAVE PC-LINK
 
 # Untested mux sources: pc-src 5 (mem), 6 (glue/0), 3 (int-vec), 2 (RET miss)
 
 # RESET hold
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x x
-C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0
 
 # Release RESET, FETCH
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
 
 # EXEC settle
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
-C 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 3 0
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 3 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3 0
 
 # 1. mem jump (pc-src=5): mem-din lower 24b = 0xBBCCDD
-0 1 1 0 0 5 0 0 0xBBCCDD 0 0 0 0 0 0 0 0 x x x
-C 1 1 0 0 5 0 0 0xBBCCDD 0 0 0 0 0 0 0 0 0xBBCCDD 0xBBCCDE 0
-0 1 1 0 0 5 0 0 0xBBCCDD 0 0 0 0 0 0 0 0 0xBBCCDD 0xBBCCDE 0
+0 1 1 0 0 5 0 0 0xBBCCDD 0 0 0 0 0 x x x
+C 1 1 0 0 5 0 0 0xBBCCDD 0 0 0 0 0 0xBBCCDD 0xBBCCDE 0
+0 1 1 0 0 5 0 0 0xBBCCDD 0 0 0 0 0 0xBBCCDD 0xBBCCDE 0
 
 # FETCH-&gt;EXEC setup
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
-C 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0xBBCCDE 0xBBCCDF 0
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0xBBCCDE 0xBBCCDF 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 0xBBCCDE 0xBBCCDF 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0xBBCCDE 0xBBCCDF 0
 
 # 2. glue jump (pc-src=6): loads 0
-0 1 1 0 0 6 0 0 0 0 0 0 0 0 0 0 0 x x x
-C 1 1 0 0 6 0 0 0 0 0 0 0 0 0 0 0 0 1 0
-0 1 1 0 0 6 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+0 1 1 0 0 6 0 0 0 0 0 0 0 0 x x x
+C 1 1 0 0 6 0 0 0 0 0 0 0 0 0 1 0
+0 1 1 0 0 6 0 0 0 0 0 0 0 0 0 1 0
 
 # FETCH-&gt;EXEC setup
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
-C 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
 
 # 3. int-vec jump (pc-src=3): vector 0x28 (VEC_0=1 VEC_1=0 VEC_2=1)
-0 1 1 0 0 3 0 0 0 0 0 0 0 0 1 0 1 x x x
-C 1 1 0 0 3 0 0 0 0 0 0 0 0 1 0 1 0x28 0x29 0
-0 1 1 0 0 3 0 0 0 0 0 0 0 0 1 0 1 0x28 0x29 0
+0 1 1 0 0 3 0 0 0 0 0 1 0 1 x x x
+C 1 1 0 0 3 0 0 0 0 0 1 0 1 0x28 0x29 0
+0 1 1 0 0 3 0 0 0 0 0 1 0 1 0x28 0x29 0
 
 # FETCH-&gt;EXEC setup
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
-C 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x29 0x2A 0
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x29 0x2A 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 0 0 0 0 0 0x29 0x2A 0
+0 1 0 0 0 0 0 0 0 0 0 0 0 0 0x29 0x2A 0
 
 # 4. RET miss (pc-src=2, PC-LINK=0)
-0 1 1 0 0 2 0 0 0 0 0 0 0 0 0 0 0 x x x
-C 1 1 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 1 0
-0 1 1 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 1 0
+0 1 1 0 0 2 0 0 0 0 0 0 0 0 x x x
+C 1 1 0 0 2 0 0 0 0 0 0 0 0 0 1 0
+0 1 1 0 0 2 0 0 0 0 0 0 0 0 0 1 0
 </dataString>
           </testData>
         </entry>
@@ -4074,63 +2645,63 @@ C 1 1 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 1 0
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din FLAG_Z FLAG_C FLAG_N FLAG_V COND PC-OUT PC-SAVE
+            <dataString>clk cycles jump-type branch-en RESET pc-src OFFSET alu-in mem-din csr_flags pc-cond PC-OUT PC-SAVE
 
 # 24-bit wrap and sign-ext relative adder edge cases
 
 # RESET hold
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 1
 
 # Release RESET, FETCH
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 1 2
 
 # EXEC settle
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
+0 1 0 0 0 0 0 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 0 0 2 3
+0 1 0 0 0 0 0 0 0 0 0 2 3
 
 # Abs jump to 0x3FFFFE (22-bit ir-abs max-1)
-0 1 1 0 0 0 0x3FFFFE 0 0 0 0 0 0 0 x x
-C 1 1 0 0 0 0x3FFFFE 0 0 0 0 0 0 0 0x3FFFFE 0x3FFFFF
-0 1 1 0 0 0 0x3FFFFE 0 0 0 0 0 0 0 0x3FFFFE 0x3FFFFF
+0 1 1 0 0 0 0x3FFFFE 0 0 0 0 x x
+C 1 1 0 0 0 0x3FFFFE 0 0 0 0 0x3FFFFE 0x3FFFFF
+0 1 1 0 0 0 0x3FFFFE 0 0 0 0 0x3FFFFE 0x3FFFFF
 
 # FETCH increment at 22-bit boundary
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 0x3FFFFF 0x400000
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x3FFFFF 0x400000
+0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0x3FFFFF 0x400000
+0 0 0 0 0 0 0 0 0 0 0 0x3FFFFF 0x400000
 
 # FETCH increment past 22-bit max
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 0x400000 0x400001
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x400000 0x400001
+0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 0x400000 0x400001
+0 0 0 0 0 0 0 0 0 0 0 0x400000 0x400001
 
 # RESET then abs jump to 0x10 for sign-ext rel test
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
-0 1 1 0 0 0 0x10 0 0 0 0 0 0 0 x x
-C 1 1 0 0 0 0x10 0 0 0 0 0 0 0 0x10 0x11
-0 1 1 0 0 0 0x10 0 0 0 0 0 0 0 0x10 0x11
+0 0 0 0 1 0 0 0 0 0 0 x x
+C 0 0 0 1 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 1
+0 0 0 0 0 0 0 0 0 0 0 x x
+C 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 1 2
+0 1 0 0 0 0 0 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 0 0 2 3
+0 1 0 0 0 0 0 0 0 0 0 2 3
+0 1 1 0 0 0 0x10 0 0 0 0 x x
+C 1 1 0 0 0 0x10 0 0 0 0 0x10 0x11
+0 1 1 0 0 0 0x10 0 0 0 0 0x10 0x11
 
 # EXEC settle
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 1 0 0 0 0 0 0 0 0 0 0 0 0 0x11 0x12
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 0x11 0x12
+0 1 0 0 0 0 0 0 0 0 0 x x
+C 1 0 0 0 0 0 0 0 0 0 0x11 0x12
+0 1 0 0 0 0 0 0 0 0 0 0x11 0x12
 
 # Sign-ext rel jump with negative offset
-0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 x x
-C 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0xD 0xE
-0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0xD 0xE
+0 1 1 0 0 1 0x3FFFFC 0 0 0 0 x x
+C 1 1 0 0 1 0x3FFFFC 0 0 0 0 0xD 0xE
+0 1 1 0 0 1 0x3FFFFC 0 0 0 0 0xD 0xE
 
 </dataString>
           </testData>
@@ -4148,52 +2719,58 @@ C 1 1 0 0 1 0x3FFFFC 0 0 0 0 0 0 0 0xD 0xE
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din INT_EN_IN INT_REQ INT_VEC_0 INT_VEC_1 INT_VEC_2 PC-OUT PC-SAVE
+            <dataString>clk cycles jump-type branch-en RESET pc-src OFFSET alu-in mem-din INT_EN_IN INT_REQ INT_VEC_0 INT_VEC_1 INT_VEC_2 PC-OUT PC-SAVE PC-LINK
 
 # INT_GATE forces irq vector mux and pc-reg-en on FETCH
+# PC-LINK must latch PC+1 (0x3) on first IRQ FETCH edge — irq_entry uses ~INT_GATE_prev
 
 # RESET hold
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0
 
 # Release RESET, first FETCH
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
 
 # Latch interrupt enable
-0 0 0 0 0 0 0 0 0 1 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 1 0 0 0 0 2 3
-0 0 0 0 0 0 0 0 0 1 0 0 0 0 2 3
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 1 0 0 0 0 2 3 0
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 2 3 0
 
-# IRQ on FETCH with encoded vector
-0 0 0 0 0 0 0 0 0 1 1 1 0 1 x x
-C 0 0 0 0 0 0 0 0 1 1 1 0 1 0x28 0x29
-0 0 0 0 0 0 0 0 0 1 1 1 0 1 0x28 0x29
+# IRQ on FETCH with encoded vector — save return 0x3, jump 0x28
+0 0 0 0 0 0 0 0 0 1 1 1 0 1 x x x
+C 0 0 0 0 0 0 0 0 1 1 1 0 1 0x28 0x29 0x3
+0 0 0 0 0 0 0 0 0 1 1 1 0 1 0x28 0x29 0x3
 
-# FETCH with pc-src=0 IR_ABS=max - IRQ override still loads vector
-0 0 1 0 0 0 0xFFFFFF 0 0 1 1 1 0 1 x x
-C 0 1 0 0 0 0xFFFFFF 0 0 1 1 1 0 1 0x28 0x29
-0 0 1 0 0 0 0xFFFFFF 0 0 1 1 1 0 1 0x28 0x29
+# INT_REQ still high: PC-LINK must NOT overwrite to 0x29
+0 0 0 0 0 0 0 0 0 1 1 1 0 1 x x x
+C 0 0 0 0 0 0 0 0 1 1 1 0 1 0x28 0x29 0x3
+0 0 0 0 0 0 0 0 0 1 1 1 0 1 0x28 0x29 0x3
+
+# FETCH with pc-src=0 OFFSET=max - IRQ override still loads vector
+0 0 1 0 0 0 0xFFFFFF 0 0 1 1 1 0 1 x x x
+C 0 1 0 0 0 0xFFFFFF 0 0 1 1 1 0 1 0x28 0x29 0x3
+0 0 1 0 0 0 0xFFFFFF 0 0 1 1 1 0 1 0x28 0x29 0x3
 
 # EXEC settle
-0 1 0 0 0 0 0 0 0 1 0 0 0 0 x x
-C 1 0 0 0 0 0 0 0 1 0 0 0 0 0x29 0x2A
-0 1 0 0 0 0 0 0 0 1 0 0 0 0 0x29 0x2A
+0 1 0 0 0 0 0 0 0 1 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 1 0 0 0 0 0x29 0x2A 0x3
+0 1 0 0 0 0 0 0 0 1 0 0 0 0 0x29 0x2A 0x3
 
 # Abs jump to target address
-0 1 1 0 0 0 0x50 0 0 1 0 0 0 0 x x
-C 1 1 0 0 0 0x50 0 0 1 0 0 0 0 0x50 0x51
-0 1 1 0 0 0 0x50 0 0 1 0 0 0 0 0x50 0x51
+0 1 1 0 0 0 0x50 0 0 1 0 0 0 0 x x x
+C 1 1 0 0 0 0x50 0 0 1 0 0 0 0 0x50 0x51 0x3
+0 1 1 0 0 0 0x50 0 0 1 0 0 0 0 0x50 0x51 0x3
 
 # Clear INT_EN then INT_REQ ignored on FETCH
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 0x51 0x52
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x51 0x52
-0 0 0 0 0 0 0 0 0 0 1 1 0 1 x x
-C 0 0 0 0 0 0 0 0 0 1 1 0 1 0x52 0x53
-0 0 0 0 0 0 0 0 0 0 1 1 0 1 0x52 0x53
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 0x51 0x52 0x3
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x51 0x52 0x3
+0 0 0 0 0 0 0 0 0 0 1 1 0 1 x x x
+C 0 0 0 0 0 0 0 0 0 1 1 0 1 0x52 0x53 0x3
+0 0 0 0 0 0 0 0 0 0 1 1 0 1 0x52 0x53 0x3
 </dataString>
           </testData>
         </entry>
@@ -4205,12 +2782,71 @@ C 0 0 0 0 0 0 0 0 0 1 1 0 1 0x52 0x53
       <elementAttributes>
         <entry>
           <string>Label</string>
+          <string>pc-irq-ret</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles jump-type branch-en RESET pc-src OFFSET alu-in mem-din INT_EN_IN INT_REQ INT_VEC_0 INT_VEC_1 INT_VEC_2 PC-OUT PC-SAVE PC-LINK
+
+# Full keyboard IRQ: vector entry saves PC+1, IRET (pc-src=2) resumes
+
+# RESET hold
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0
+0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0
+
+# FETCH to PC=1
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2 0
+
+# SEI — INT_EN latched
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 1 0 0 0 0 2 3 0
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 2 3 0
+
+# IRQ entry @ PC=2: PC-LINK=3, PC=0x28
+0 0 0 0 0 0 0 0 0 1 1 1 0 1 x x x
+C 0 0 0 0 0 0 0 0 1 1 1 0 1 0x28 0x29 0x3
+0 0 0 0 0 0 0 0 0 1 1 1 0 1 0x28 0x29 0x3
+
+# Clear INT_REQ (handler running)
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 1 0 0 0 0 0x29 0x2A 0x3
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 0x29 0x2A 0x3
+
+# EXEC settle in handler
+0 1 0 0 0 0 0 0 0 1 0 0 0 0 x x x
+C 1 0 0 0 0 0 0 0 1 0 0 0 0 0x2A 0x2B 0x3
+0 1 0 0 0 0 0 0 0 1 0 0 0 0 0x2A 0x2B 0x3
+
+# IRET: pc-src=2 jump-type=1 restores PC-LINK (resume @ 0x3)
+0 1 1 0 0 2 0 0 0 1 0 0 0 0 x x x
+C 1 1 0 0 2 0 0 0 1 0 0 0 0 0x3 0x4 0x3
+0 1 1 0 0 2 0 0 0 1 0 0 0 0 0x3 0x4 0x3
+
+# Resume: FETCH increments from return point
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 x x x
+C 0 0 0 0 0 0 0 0 1 0 0 0 0 0x4 0x5 0x3
+0 0 0 0 0 0 0 0 0 1 0 0 0 0 0x4 0x5 0x3
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-1040"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
           <string>pc-halt-frozen</string>
         </entry>
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles HALT_IN jump-type RESET pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK link-in
+            <dataString>clk cycles HALT_IN jump-type RESET pc-src OFFSET alu-in mem-din PC-OUT PC-SAVE PC-LINK link-in
 
 # HALT freezes PC and link via CLK_GATED=0
 
@@ -4282,7 +2918,7 @@ C 1 0 1 0 0 0x40 0 0 0x40 0x41 0 0
         <entry>
           <string>Testdata</string>
           <testData>
-            <dataString>clk cycles link-in jump-type RESET HALT_IN pc-src IR_ABS alu-in mem-din PC-OUT PC-SAVE PC-LINK
+            <dataString>clk cycles link-in jump-type RESET HALT_IN pc-src OFFSET alu-in mem-din PC-OUT PC-SAVE PC-LINK
 
 # Link register edge cases: overwrite, RESET priority, halt block, post-RET latch
 
@@ -4333,67 +2969,6 @@ C 1 1 0 1 0 0 0 0 0 0 1 0
       <pos x="480" y="-1040"/>
     </visualElement>
     <visualElement>
-      <elementName>Testcase</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>pc-sequencer-jump</string>
-        </entry>
-        <entry>
-          <string>Testdata</string>
-          <testData>
-            <dataString>clk cycles jump-type branch-en RESET pc-src IR_ABS alu-in mem-din FLAG_Z FLAG_C FLAG_N FLAG_V COND PC-OUT PC-SAVE
-
-# Jumps only in EXEC; MEM-WAIT negative
-
-# RESET hold
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1
-
-# Release RESET, FETCH
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 2
-
-# EXEC settle, abs jump to 0x60
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 2 3
-0 1 1 0 0 0 0x60 0 0 0 0 0 0 0 x x
-C 1 1 0 0 0 0x60 0 0 0 0 0 0 0 0x60 0x61
-0 1 1 0 0 0 0x60 0 0 0 0 0 0 0 0x60 0x61
-
-# FETCH increment to 0x61, switch to cycles=2
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 0 0 0 0 0 0 0 0 0 0 0 0 0 0x61 0x62
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0x61 0x62
-0 2 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 2 0 0 0 0 0 0 0 0 0 0 0 0 0x62 0x63
-0 2 0 0 0 0 0 0 0 0 0 0 0 0 0x62 0x63
-0 2 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 2 0 0 0 0 0 0 0 0 0 0 0 0 0x62 0x63
-0 2 0 0 0 0 0 0 0 0 0 0 0 0 0x62 0x63
-
-# jump-type=1 in MEM-WAIT (cycles=2): must not load
-0 2 1 0 0 0 0x70 0 0 0 0 0 0 0 x x
-C 2 1 0 0 0 0x70 0 0 0 0 0 0 0 0x62 0x63
-0 2 1 0 0 0 0x70 0 0 0 0 0 0 0 0x62 0x63
-
-# Branch taken in EXEC only (cycles=1)
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 x x
-C 1 0 0 0 0 0 0 0 0 0 0 0 0 0x63 0x64
-0 1 0 0 0 0 0 0 0 0 0 0 0 0 0x63 0x64
-0 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 x x
-C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
-0 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
-</dataString>
-          </testData>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="-1200"/>
-    </visualElement>
-    <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
@@ -4401,7 +2976,7 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
           <string>pc-link</string>
         </entry>
       </elementAttributes>
-      <pos x="-80" y="-140"/>
+      <pos x="-800" y="-220"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -4411,7 +2986,21 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
           <string>link-reg-en</string>
         </entry>
       </elementAttributes>
-      <pos x="280" y="1280"/>
+      <pos x="-780" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>13</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>1,1,1,1,1,1,1,1,1,1,1,1,1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1580" y="40"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -4422,10 +3011,431 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
         </entry>
         <entry>
           <string>NetName</string>
-          <string>~RESET</string>
+          <string>csr_flags</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="1280"/>
+      <pos x="1560" y="40"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="1600" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="1600" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="1600" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Add</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>pc-out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Add</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>pc-out</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>pc-save</string>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="-260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>pc-rel</string>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="-360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ir-abs-x</string>
+        </entry>
+      </elementAttributes>
+      <pos x="160" y="-360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>mirror</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>3,1,1,1,18</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>24</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1520" y="1080"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_VEC_0</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1520" y="1100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_VEC_1</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1520" y="1120"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_VEC_2</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1520" y="1140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1520" y="1080"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>Value</string>
+          <long>0</long>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>18</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1520" y="1160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>int-vec</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1460" y="1080"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>FETCH</string>
+        </entry>
+      </elementAttributes>
+      <pos x="60" y="900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_REQ</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-520" y="-300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="-1140" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>EXECUTE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1140" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Inputs</string>
+          <int>3</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-1140" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>INT_GATE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1140" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>INT_GATE_prev</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1140" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>INT_GATE_prev</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1060" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>D_FF</elementName>
+      <elementAttributes/>
+      <pos x="-1120" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>INT_GATE</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1120" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>CLK</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-1120" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="-1020" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>~HALT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="380" y="440"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="460" y="420"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -4439,7 +3449,3058 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
           <string>RESET</string>
         </entry>
       </elementAttributes>
-      <pos x="120" y="1300"/>
+      <pos x="460" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>RESET</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="-360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="-940" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>~HALT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-940" y="80"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="-860" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>RESET</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-860" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry>
+          <string>wideShape</string>
+          <boolean>true</boolean>
+        </entry>
+      </elementAttributes>
+      <pos x="1100" y="-340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>seq_en</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1180" y="-320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>seq_en</string>
+        </entry>
+      </elementAttributes>
+      <pos x="940" y="-380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>~HALT</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1100" y="-300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Testcase</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Exhaustive ISA Datapath Test</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>clk cycles jump-type branch-en RESET pc-src OFFSET alu-in mem-din csr_flags pc-cond PC-OUT
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 1 0 0 5 128 64 3 0 x
+C 1 0 1 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 1 0 0 5 128 64 3 4 x
+C 1 0 1 0 0 5 128 64 3 4 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 1 0 0 5 128 64 3 2 x
+C 1 0 1 0 0 5 128 64 3 2 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 1 0 0 5 128 64 3 6 x
+C 1 0 1 0 0 5 128 64 3 6 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 1 0 0 5 128 64 3 5 x
+C 1 0 1 0 0 5 128 64 3 5 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 1 0 0 5 128 64 3 1 x
+C 1 0 1 0 0 5 128 64 3 1 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 1 0 0 5 128 64 3 6 x
+C 1 0 1 0 0 5 128 64 3 6 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 1 0 0 5 128 64 3 7 x
+C 1 0 1 0 0 5 128 64 3 7 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 1 0 0 0 5 128 64 3 0 x
+C 1 1 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 1 0 0 0 5 128 64 3 0 x
+C 1 1 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 1 0 0 0 5 128 64 3 0 x
+C 1 1 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 1 0 0 2 5 128 64 3 0 x
+C 1 1 0 0 2 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 1 0 0 2 5 128 64 3 0 x
+C 1 1 0 0 2 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 1 0 0 0 5 128 64 3 0 x
+C 1 1 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 1 0 0 0 5 128 64 3 0 x
+C 1 1 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 1 0 0 0 5 128 64 3 0 x
+C 1 1 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 1 0 0 0 5 128 64 3 0 x
+C 1 1 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 1 0 0 0 5 128 64 3 0 x
+C 1 1 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 1 5 128 64 3 0 x
+C 1 0 0 0 1 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+0 0 0 0 1 0 0 0 0 3 0 x
+C 0 0 0 1 0 0 0 0 3 0 x
+0 0 0 0 0 0 0 0 0 3 0 x
+C 0 0 0 0 0 0 0 0 3 0 x
+0 1 0 0 0 0 5 128 64 3 0 x
+C 1 0 0 0 0 5 128 64 3 0 0x2
+</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
+      <pos x="0" y="-600"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>clk</string>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="1" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="-660" y="1080"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -4488,6 +6549,10 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
       <p2 x="1100" y="140"/>
     </wire>
     <wire>
+      <p1 x="-1040" y="140"/>
+      <p2 x="-1020" y="140"/>
+    </wire>
+    <wire>
       <p1 x="120" y="-80"/>
       <p2 x="140" y="-80"/>
     </wire>
@@ -4500,6 +6565,14 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
       <p2 x="660" y="1040"/>
     </wire>
     <wire>
+      <p1 x="1600" y="400"/>
+      <p2 x="1620" y="400"/>
+    </wire>
+    <wire>
+      <p1 x="-1060" y="80"/>
+      <p2 x="-1040" y="80"/>
+    </wire>
+    <wire>
       <p1 x="-160" y="-20"/>
       <p2 x="-120" y="-20"/>
     </wire>
@@ -4510,10 +6583,6 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
     <wire>
       <p1 x="-360" y="-20"/>
       <p2 x="-180" y="-20"/>
-    </wire>
-    <wire>
-      <p1 x="-220" y="-340"/>
-      <p2 x="-200" y="-340"/>
     </wire>
     <wire>
       <p1 x="-220" y="20"/>
@@ -4530,10 +6599,6 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
     <wire>
       <p1 x="-600" y="980"/>
       <p2 x="-580" y="980"/>
-    </wire>
-    <wire>
-      <p1 x="120" y="1300"/>
-      <p2 x="200" y="1300"/>
     </wire>
     <wire>
       <p1 x="960" y="-280"/>
@@ -4556,12 +6621,24 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
       <p2 x="1060" y="-480"/>
     </wire>
     <wire>
+      <p1 x="-1060" y="160"/>
+      <p2 x="-1040" y="160"/>
+    </wire>
+    <wire>
       <p1 x="-160" y="100"/>
       <p2 x="-120" y="100"/>
     </wire>
     <wire>
       <p1 x="-360" y="100"/>
       <p2 x="-180" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="-1040" y="100"/>
+      <p2 x="-1020" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="-220" y="-360"/>
+      <p2 x="-200" y="-360"/>
     </wire>
     <wire>
       <p1 x="180" y="680"/>
@@ -4572,12 +6649,12 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
       <p2 x="-580" y="1000"/>
     </wire>
     <wire>
-      <p1 x="-180" y="-300"/>
-      <p2 x="-160" y="-300"/>
+      <p1 x="1560" y="40"/>
+      <p2 x="1580" y="40"/>
     </wire>
     <wire>
-      <p1 x="600" y="300"/>
-      <p2 x="620" y="300"/>
+      <p1 x="-180" y="-300"/>
+      <p2 x="-160" y="-300"/>
     </wire>
     <wire>
       <p1 x="1080" y="180"/>
@@ -4600,8 +6677,8 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
       <p2 x="1080" y="120"/>
     </wire>
     <wire>
-      <p1 x="1040" y="760"/>
-      <p2 x="1080" y="760"/>
+      <p1 x="1460" y="1080"/>
+      <p2 x="1500" y="1080"/>
     </wire>
     <wire>
       <p1 x="140" y="-60"/>
@@ -4620,6 +6697,10 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
       <p2 x="100" y="-100"/>
     </wire>
     <wire>
+      <p1 x="1620" y="360"/>
+      <p2 x="1620" y="400"/>
+    </wire>
+    <wire>
       <p1 x="-360" y="-20"/>
       <p2 x="-360" y="0"/>
     </wire>
@@ -4628,7 +6709,7 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
       <p2 x="-360" y="100"/>
     </wire>
     <wire>
-      <p1 x="-200" y="-340"/>
+      <p1 x="-200" y="-360"/>
       <p2 x="-200" y="-320"/>
     </wire>
     <wire>
@@ -4644,16 +6725,20 @@ C 1 0 1 0 1 0x3FFFFC 0 0 1 0 0 0 0 0x5F 0x60
       <p2 x="200" y="280"/>
     </wire>
     <wire>
-      <p1 x="620" y="280"/>
-      <p2 x="620" y="300"/>
-    </wire>
-    <wire>
       <p1 x="140" y="-80"/>
       <p2 x="140" y="-60"/>
     </wire>
     <wire>
       <p1 x="-160" y="-300"/>
       <p2 x="-160" y="-260"/>
+    </wire>
+    <wire>
+      <p1 x="-1040" y="80"/>
+      <p2 x="-1040" y="100"/>
+    </wire>
+    <wire>
+      <p1 x="-1040" y="140"/>
+      <p2 x="-1040" y="160"/>
     </wire>
   </wires>
   <measurementOrdering/>
