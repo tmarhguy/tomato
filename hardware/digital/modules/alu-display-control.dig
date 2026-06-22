@@ -5572,7 +5572,7 @@
       <elementAttributes>
         <entry>
           <string>Bits</string>
-          <int>8</int>
+          <int>5</int>
         </entry>
         <entry>
           <string>intFormat</string>
@@ -5586,7 +5586,11 @@
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>1,1,1,1,1,1,1,1</string>
+          <string>1,1,1,1,1</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>5</string>
         </entry>
       </elementAttributes>
       <pos x="120" y="1380"/>
@@ -5695,36 +5699,6 @@
         </entry>
       </elementAttributes>
       <pos x="-120" y="1840"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>q5</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-120" y="1880"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>q6</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-120" y="1920"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>q7</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-120" y="1960"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -5856,48 +5830,6 @@
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>q5</string>
-        </entry>
-      </elementAttributes>
-      <pos x="120" y="1480"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>q6</string>
-        </entry>
-      </elementAttributes>
-      <pos x="120" y="1500"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
-        </entry>
-        <entry>
-          <string>NetName</string>
-          <string>q7</string>
-        </entry>
-      </elementAttributes>
-      <pos x="120" y="1520"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
           <string>NetName</string>
           <string>tc0</string>
         </entry>
@@ -5927,20 +5859,6 @@
         </entry>
       </elementAttributes>
       <pos x="200" y="1280"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Input Splitting</string>
-          <string>8</string>
-        </entry>
-        <entry>
-          <string>Output Splitting</string>
-          <string>5</string>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="1280"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -6871,7 +6789,7 @@
       <p2 x="-1260" y="640"/>
     </wire>
     <wire>
-      <p1 x="180" y="1280"/>
+      <p1 x="160" y="1280"/>
       <p2 x="200" y="1280"/>
     </wire>
     <wire>
