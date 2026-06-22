@@ -1,0 +1,1653 @@
+{
+  "schema_version": 1,
+  "alu_module": "alu-32b-final.dig",
+  "encoding": {
+    "control": "4-bit: asel, ainv, bsel, binv",
+    "csel": {
+      "0": "cin=0",
+      "1": "cin=1",
+      "2": "cin=flag_c",
+      "3": "logic C-bus"
+    }
+  },
+  "primitives": [
+    {
+      "index": 1,
+      "id": "ALU_001",
+      "mnemonic": "ADD",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 5,
+      "csel": 2,
+      "expression": "A+B+flag_c",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2810423206,
+          "B": 1303429882,
+          "C": 1155486274
+        }
+      }
+    },
+    {
+      "index": 2,
+      "id": "ALU_002",
+      "mnemonic": "ADC",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 5,
+      "csel": 1,
+      "expression": "A+B+1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 968449258,
+          "B": 892204337,
+          "C": 4172168009
+        }
+      }
+    },
+    {
+      "index": 3,
+      "id": "ALU_003",
+      "mnemonic": "INC A",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 1,
+      "csel": 1,
+      "expression": "A+1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2765799804,
+          "B": 3835634447,
+          "C": 4294967295
+        }
+      }
+    },
+    {
+      "index": 4,
+      "id": "ALU_004",
+      "mnemonic": "INC B",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 4,
+      "csel": 1,
+      "expression": "B+1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3381127225,
+          "B": 1197530277,
+          "C": 4280729913
+        }
+      }
+    },
+    {
+      "index": 5,
+      "id": "ALU_005",
+      "mnemonic": "DEC A",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 9,
+      "csel": 0,
+      "expression": "A-1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2581342165,
+          "B": 2317624249,
+          "C": 1455767167
+        }
+      }
+    },
+    {
+      "index": 6,
+      "id": "ALU_006",
+      "mnemonic": "DEC B",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 6,
+      "csel": 0,
+      "expression": "B-1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1392424186,
+          "B": 2986174141,
+          "C": 4294967295
+        }
+      }
+    },
+    {
+      "index": 7,
+      "id": "ALU_007",
+      "mnemonic": "NEG A",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 3,
+      "csel": 1,
+      "expression": "-A",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2058451802,
+          "B": 99712536,
+          "C": 1912038317
+        }
+      }
+    },
+    {
+      "index": 8,
+      "id": "ALU_008",
+      "mnemonic": "NEG B",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 12,
+      "csel": 1,
+      "expression": "-B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1164895372,
+          "B": 142470103,
+          "C": 3158185818
+        }
+      }
+    },
+    {
+      "index": 9,
+      "id": "ALU_009",
+      "mnemonic": "NOT A",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 3,
+      "csel": 0,
+      "expression": "~A",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1911304674,
+          "B": 4072352655,
+          "C": 4294967295
+        }
+      }
+    },
+    {
+      "index": 10,
+      "id": "ALU_010",
+      "mnemonic": "NOT B",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 12,
+      "csel": 0,
+      "expression": "~B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2792616920,
+          "B": 4159747870,
+          "C": 2234274669
+        }
+      }
+    },
+    {
+      "index": 11,
+      "id": "ALU_011",
+      "mnemonic": "MOV A",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 1,
+      "csel": 0,
+      "expression": "A",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3675401585,
+          "B": 657606531,
+          "C": 1956045602
+        }
+      }
+    },
+    {
+      "index": 12,
+      "id": "ALU_012",
+      "mnemonic": "MOV B",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 4,
+      "csel": 0,
+      "expression": "B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3876677212,
+          "B": 3800338291,
+          "C": 4294967295
+        }
+      }
+    },
+    {
+      "index": 13,
+      "id": "ALU_013",
+      "mnemonic": "ZERO",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 0,
+      "csel": 0,
+      "expression": "0",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2208491657,
+          "B": 3360668925,
+          "C": 869044718
+        }
+      }
+    },
+    {
+      "index": 14,
+      "id": "ALU_014",
+      "mnemonic": "ONE",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 0,
+      "csel": 1,
+      "expression": "+1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 885353362,
+          "B": 425170344,
+          "C": 3640671507
+        }
+      }
+    },
+    {
+      "index": 15,
+      "id": "ALU_015",
+      "mnemonic": "ALL ONES",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 10,
+      "csel": 1,
+      "expression": "-1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2030756509,
+          "B": 48772397,
+          "C": 4294967295
+        }
+      }
+    },
+    {
+      "index": 16,
+      "id": "ALU_016",
+      "mnemonic": "MINUS TWO",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 10,
+      "csel": 0,
+      "expression": "-2",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1007641133,
+          "B": 2188934450,
+          "C": 1175491589
+        }
+      }
+    },
+    {
+      "index": 17,
+      "id": "ALU_017",
+      "mnemonic": "CMN",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 5,
+      "csel": 0,
+      "expression": "A+B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2511557800,
+          "B": 3655071812,
+          "C": 2162191938
+        }
+      }
+    },
+    {
+      "index": 18,
+      "id": "ALU_018",
+      "mnemonic": "RSC",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 7,
+      "csel": 0,
+      "expression": "B-A-1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3990455129,
+          "B": 2604140138,
+          "C": 4294967295
+        }
+      }
+    },
+    {
+      "index": 19,
+      "id": "ALU_019",
+      "mnemonic": "RSB",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 7,
+      "csel": 1,
+      "expression": "B-A",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 926954236,
+          "B": 789653748,
+          "C": 296921476
+        }
+      }
+    },
+    {
+      "index": 20,
+      "id": "ALU_020",
+      "mnemonic": "SBB",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 13,
+      "csel": 0,
+      "expression": "A-B-1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2508686655,
+          "B": 2728663549,
+          "C": 2930351736
+        }
+      }
+    },
+    {
+      "index": 21,
+      "id": "ALU_021",
+      "mnemonic": "SUB",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 13,
+      "csel": 1,
+      "expression": "A-B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2600031674,
+          "B": 320633818,
+          "C": 4294967295
+        }
+      }
+    },
+    {
+      "index": 22,
+      "id": "ALU_022",
+      "mnemonic": "CMP",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 13,
+      "csel": 1,
+      "expression": "A-B (flags)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 306813162,
+          "B": 3522688265,
+          "C": 590092144
+        }
+      }
+    },
+    {
+      "index": 23,
+      "id": "ALU_023",
+      "mnemonic": "ANOM",
+      "mode": "arithmetic",
+      "opcode": 105,
+      "control": 4,
+      "csel": 0,
+      "expression": "-B-1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3516979644,
+          "B": 3010436461,
+          "C": 2273500598
+        }
+      }
+    },
+    {
+      "index": 24,
+      "id": "ALU_024",
+      "mnemonic": "ANOM",
+      "mode": "arithmetic",
+      "opcode": 105,
+      "control": 4,
+      "csel": 1,
+      "expression": "-B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 908980159,
+          "B": 3614771053,
+          "C": 4294967295
+        }
+      }
+    },
+    {
+      "index": 25,
+      "id": "ALU_025",
+      "mnemonic": "ANOM",
+      "mode": "arithmetic",
+      "opcode": 105,
+      "control": 5,
+      "csel": 0,
+      "expression": "-A-B-1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3931794877,
+          "B": 4026311250,
+          "C": 3702643391
+        }
+      }
+    },
+    {
+      "index": 26,
+      "id": "ALU_026",
+      "mnemonic": "ANOM",
+      "mode": "arithmetic",
+      "opcode": 105,
+      "control": 5,
+      "csel": 1,
+      "expression": "-A-B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2730686434,
+          "B": 2043624822,
+          "C": 1740231857
+        }
+      }
+    },
+    {
+      "index": 27,
+      "id": "ALU_027",
+      "mnemonic": "ANOM",
+      "mode": "arithmetic",
+      "opcode": 105,
+      "control": 12,
+      "csel": 0,
+      "expression": "B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2775993886,
+          "B": 1351452504,
+          "C": 4294967295
+        }
+      }
+    },
+    {
+      "index": 28,
+      "id": "ALU_028",
+      "mnemonic": "ANOM",
+      "mode": "arithmetic",
+      "opcode": 105,
+      "control": 12,
+      "csel": 1,
+      "expression": "B+1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 6280915,
+          "B": 1054767226,
+          "C": 3622017799
+        }
+      }
+    },
+    {
+      "index": 29,
+      "id": "ALU_029",
+      "mnemonic": "ANOM",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 15,
+      "csel": 1,
+      "expression": "~(A+B)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3967786766,
+          "B": 1426695186,
+          "C": 364729074
+        }
+      }
+    },
+    {
+      "index": 30,
+      "id": "ALU_030",
+      "mnemonic": "ANOM",
+      "mode": "arithmetic",
+      "opcode": 150,
+      "control": 15,
+      "csel": 0,
+      "expression": "-A-B-2",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1977829359,
+          "B": 3761399169,
+          "C": 4294967295
+        }
+      }
+    },
+    {
+      "index": 31,
+      "id": "ALU_031",
+      "mnemonic": "ZERO",
+      "mode": "logic",
+      "opcode": 0,
+      "control": 5,
+      "csel": 3,
+      "expression": "0",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3203797790,
+          "B": 2917457439,
+          "C": 3044727651
+        }
+      }
+    },
+    {
+      "index": 32,
+      "id": "ALU_032",
+      "mnemonic": "ONES",
+      "mode": "logic",
+      "opcode": 255,
+      "control": 5,
+      "csel": 3,
+      "expression": "1",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 946761742,
+          "B": 953948699,
+          "C": 2528693333
+        }
+      }
+    },
+    {
+      "index": 33,
+      "id": "ALU_033",
+      "mnemonic": "MOV A",
+      "mode": "logic",
+      "opcode": 170,
+      "control": 5,
+      "csel": 3,
+      "expression": "A",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 184715600,
+          "B": 2144215661,
+          "C": 2569156896
+        }
+      }
+    },
+    {
+      "index": 34,
+      "id": "ALU_034",
+      "mnemonic": "NOT A",
+      "mode": "logic",
+      "opcode": 85,
+      "control": 5,
+      "csel": 3,
+      "expression": "~A",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1941274091,
+          "B": 999224634,
+          "C": 1430500016
+        }
+      }
+    },
+    {
+      "index": 35,
+      "id": "ALU_035",
+      "mnemonic": "MOV B",
+      "mode": "logic",
+      "opcode": 204,
+      "control": 5,
+      "csel": 3,
+      "expression": "B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2435811297,
+          "B": 2935454120,
+          "C": 561386351
+        }
+      }
+    },
+    {
+      "index": 36,
+      "id": "ALU_036",
+      "mnemonic": "NOT B",
+      "mode": "logic",
+      "opcode": 51,
+      "control": 5,
+      "csel": 3,
+      "expression": "~B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3743141218,
+          "B": 2623697383,
+          "C": 643094652
+        }
+      }
+    },
+    {
+      "index": 37,
+      "id": "ALU_037",
+      "mnemonic": "MOV C",
+      "mode": "logic",
+      "opcode": 240,
+      "control": 5,
+      "csel": 3,
+      "expression": "C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1598595704,
+          "B": 919564908,
+          "C": 1224324278
+        }
+      }
+    },
+    {
+      "index": 38,
+      "id": "ALU_038",
+      "mnemonic": "NOT C",
+      "mode": "logic",
+      "opcode": 15,
+      "control": 5,
+      "csel": 3,
+      "expression": "~C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2866351676,
+          "B": 870100683,
+          "C": 1373000904
+        }
+      }
+    },
+    {
+      "index": 39,
+      "id": "ALU_039",
+      "mnemonic": "AND A,B",
+      "mode": "logic",
+      "opcode": 136,
+      "control": 5,
+      "csel": 3,
+      "expression": "A & B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1279094016,
+          "B": 3612097459,
+          "C": 398663716
+        }
+      }
+    },
+    {
+      "index": 40,
+      "id": "ALU_040",
+      "mnemonic": "OR A,B",
+      "mode": "logic",
+      "opcode": 238,
+      "control": 5,
+      "csel": 3,
+      "expression": "A | B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2329073564,
+          "B": 2398680073,
+          "C": 2355821434
+        }
+      }
+    },
+    {
+      "index": 41,
+      "id": "ALU_041",
+      "mnemonic": "NAND A,B",
+      "mode": "logic",
+      "opcode": 119,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A & B)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3323778689,
+          "B": 25651606,
+          "C": 4214229750
+        }
+      }
+    },
+    {
+      "index": 42,
+      "id": "ALU_042",
+      "mnemonic": "NOR A,B",
+      "mode": "logic",
+      "opcode": 17,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A | B)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1185534449,
+          "B": 181001887,
+          "C": 2090610076
+        }
+      }
+    },
+    {
+      "index": 43,
+      "id": "ALU_043",
+      "mnemonic": "XOR A,B",
+      "mode": "logic",
+      "opcode": 102,
+      "control": 5,
+      "csel": 3,
+      "expression": "A ^ B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 395275443,
+          "B": 35615426,
+          "C": 626488689
+        }
+      }
+    },
+    {
+      "index": 44,
+      "id": "ALU_044",
+      "mnemonic": "XNOR A,B",
+      "mode": "logic",
+      "opcode": 153,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A ^ B)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1644021475,
+          "B": 1222923003,
+          "C": 2341325038
+        }
+      }
+    },
+    {
+      "index": 45,
+      "id": "ALU_045",
+      "mnemonic": "AND A,C",
+      "mode": "logic",
+      "opcode": 160,
+      "control": 5,
+      "csel": 3,
+      "expression": "A & C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3141171132,
+          "B": 870083215,
+          "C": 2993318263
+        }
+      }
+    },
+    {
+      "index": 46,
+      "id": "ALU_046",
+      "mnemonic": "OR A,C",
+      "mode": "logic",
+      "opcode": 250,
+      "control": 5,
+      "csel": 3,
+      "expression": "A | C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2766474055,
+          "B": 523111054,
+          "C": 3925022786
+        }
+      }
+    },
+    {
+      "index": 47,
+      "id": "ALU_047",
+      "mnemonic": "NAND A,C",
+      "mode": "logic",
+      "opcode": 95,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A & C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 4120645509,
+          "B": 2550300157,
+          "C": 2646448961
+        }
+      }
+    },
+    {
+      "index": 48,
+      "id": "ALU_048",
+      "mnemonic": "NOR A,C",
+      "mode": "logic",
+      "opcode": 5,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A | C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 4287575472,
+          "B": 69681842,
+          "C": 1972538748
+        }
+      }
+    },
+    {
+      "index": 49,
+      "id": "ALU_049",
+      "mnemonic": "XOR A,C",
+      "mode": "logic",
+      "opcode": 90,
+      "control": 5,
+      "csel": 3,
+      "expression": "A ^ C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 4201263170,
+          "B": 404446807,
+          "C": 1464260325
+        }
+      }
+    },
+    {
+      "index": 50,
+      "id": "ALU_050",
+      "mnemonic": "XNOR A,C",
+      "mode": "logic",
+      "opcode": 165,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A ^ C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3546631575,
+          "B": 1998297627,
+          "C": 2942281425
+        }
+      }
+    },
+    {
+      "index": 51,
+      "id": "ALU_051",
+      "mnemonic": "AND B,C",
+      "mode": "logic",
+      "opcode": 192,
+      "control": 5,
+      "csel": 3,
+      "expression": "B & C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 889662583,
+          "B": 2816124768,
+          "C": 560094975
+        }
+      }
+    },
+    {
+      "index": 52,
+      "id": "ALU_052",
+      "mnemonic": "OR B,C",
+      "mode": "logic",
+      "opcode": 252,
+      "control": 5,
+      "csel": 3,
+      "expression": "B | C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 667031782,
+          "B": 3521851545,
+          "C": 466693090
+        }
+      }
+    },
+    {
+      "index": 53,
+      "id": "ALU_053",
+      "mnemonic": "NAND B,C",
+      "mode": "logic",
+      "opcode": 63,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(B & C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 4166938081,
+          "B": 2211008244,
+          "C": 2352761778
+        }
+      }
+    },
+    {
+      "index": 54,
+      "id": "ALU_054",
+      "mnemonic": "NOR B,C",
+      "mode": "logic",
+      "opcode": 3,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(B | C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 6391286,
+          "B": 751669600,
+          "C": 1216935454
+        }
+      }
+    },
+    {
+      "index": 55,
+      "id": "ALU_055",
+      "mnemonic": "XOR B,C",
+      "mode": "logic",
+      "opcode": 60,
+      "control": 5,
+      "csel": 3,
+      "expression": "B ^ C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 817039501,
+          "B": 3932837675,
+          "C": 1224721219
+        }
+      }
+    },
+    {
+      "index": 56,
+      "id": "ALU_056",
+      "mnemonic": "XNOR B,C",
+      "mode": "logic",
+      "opcode": 195,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(B ^ C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3105591590,
+          "B": 3135989643,
+          "C": 4006510188
+        }
+      }
+    },
+    {
+      "index": 57,
+      "id": "ALU_057",
+      "mnemonic": "BIC A,B",
+      "mode": "logic",
+      "opcode": 34,
+      "control": 5,
+      "csel": 3,
+      "expression": "A & ~B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 380862232,
+          "B": 3499189372,
+          "C": 1572207141
+        }
+      }
+    },
+    {
+      "index": 58,
+      "id": "ALU_058",
+      "mnemonic": "BIC B,A",
+      "mode": "logic",
+      "opcode": 68,
+      "control": 5,
+      "csel": 3,
+      "expression": "~A & B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2550336984,
+          "B": 2391028608,
+          "C": 2805181860
+        }
+      }
+    },
+    {
+      "index": 59,
+      "id": "ALU_059",
+      "mnemonic": "ORN A,B",
+      "mode": "logic",
+      "opcode": 187,
+      "control": 5,
+      "csel": 3,
+      "expression": "A | ~B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 727507358,
+          "B": 4073242935,
+          "C": 1325954783
+        }
+      }
+    },
+    {
+      "index": 60,
+      "id": "ALU_060",
+      "mnemonic": "IMP A->B",
+      "mode": "logic",
+      "opcode": 221,
+      "control": 5,
+      "csel": 3,
+      "expression": "~A | B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3932242999,
+          "B": 3961196204,
+          "C": 1571599311
+        }
+      }
+    },
+    {
+      "index": 61,
+      "id": "ALU_061",
+      "mnemonic": "BIC A,C",
+      "mode": "logic",
+      "opcode": 10,
+      "control": 5,
+      "csel": 3,
+      "expression": "A & ~C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3947313623,
+          "B": 2065233930,
+          "C": 4160609874
+        }
+      }
+    },
+    {
+      "index": 62,
+      "id": "ALU_062",
+      "mnemonic": "BIC C,A",
+      "mode": "logic",
+      "opcode": 80,
+      "control": 5,
+      "csel": 3,
+      "expression": "~A & C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3204641869,
+          "B": 3193501273,
+          "C": 524805264
+        }
+      }
+    },
+    {
+      "index": 63,
+      "id": "ALU_063",
+      "mnemonic": "ORN A,C",
+      "mode": "logic",
+      "opcode": 175,
+      "control": 5,
+      "csel": 3,
+      "expression": "A | ~C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 4169688272,
+          "B": 2784218132,
+          "C": 272432272
+        }
+      }
+    },
+    {
+      "index": 64,
+      "id": "ALU_064",
+      "mnemonic": "IMP A->C",
+      "mode": "logic",
+      "opcode": 245,
+      "control": 5,
+      "csel": 3,
+      "expression": "~A | C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 4176690888,
+          "B": 4004540939,
+          "C": 2597773810
+        }
+      }
+    },
+    {
+      "index": 65,
+      "id": "ALU_065",
+      "mnemonic": "BIC B,C",
+      "mode": "logic",
+      "opcode": 12,
+      "control": 5,
+      "csel": 3,
+      "expression": "B & ~C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3453821553,
+          "B": 1471282179,
+          "C": 3216074125
+        }
+      }
+    },
+    {
+      "index": 66,
+      "id": "ALU_066",
+      "mnemonic": "BIC C,B",
+      "mode": "logic",
+      "opcode": 48,
+      "control": 5,
+      "csel": 3,
+      "expression": "~B & C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1767327431,
+          "B": 3688595852,
+          "C": 2722079165
+        }
+      }
+    },
+    {
+      "index": 67,
+      "id": "ALU_067",
+      "mnemonic": "ORN B,C",
+      "mode": "logic",
+      "opcode": 207,
+      "control": 5,
+      "csel": 3,
+      "expression": "B | ~C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 173720675,
+          "B": 2451607305,
+          "C": 3422467321
+        }
+      }
+    },
+    {
+      "index": 68,
+      "id": "ALU_068",
+      "mnemonic": "IMP B->C",
+      "mode": "logic",
+      "opcode": 243,
+      "control": 5,
+      "csel": 3,
+      "expression": "~B | C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3507757254,
+          "B": 1353582607,
+          "C": 863029272
+        }
+      }
+    },
+    {
+      "index": 69,
+      "id": "ALU_069",
+      "mnemonic": "AND3",
+      "mode": "logic",
+      "opcode": 128,
+      "control": 5,
+      "csel": 3,
+      "expression": "A & B & C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 4267063181,
+          "B": 1750602810,
+          "C": 775734565
+        }
+      }
+    },
+    {
+      "index": 70,
+      "id": "ALU_070",
+      "mnemonic": "OR3",
+      "mode": "logic",
+      "opcode": 254,
+      "control": 5,
+      "csel": 3,
+      "expression": "A | B | C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 552718005,
+          "B": 3846871002,
+          "C": 2774685197
+        }
+      }
+    },
+    {
+      "index": 71,
+      "id": "ALU_071",
+      "mnemonic": "NAND3",
+      "mode": "logic",
+      "opcode": 127,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A & B & C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 579263388,
+          "B": 1342263771,
+          "C": 2530545957
+        }
+      }
+    },
+    {
+      "index": 72,
+      "id": "ALU_072",
+      "mnemonic": "NOR3",
+      "mode": "logic",
+      "opcode": 1,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A | B | C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3322091578,
+          "B": 3533242828,
+          "C": 746560561
+        }
+      }
+    },
+    {
+      "index": 73,
+      "id": "ALU_073",
+      "mnemonic": "XOR3",
+      "mode": "logic",
+      "opcode": 150,
+      "control": 5,
+      "csel": 3,
+      "expression": "A ^ B ^ C",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 4067593034,
+          "B": 4151237348,
+          "C": 1958763805
+        }
+      }
+    },
+    {
+      "index": 74,
+      "id": "ALU_074",
+      "mnemonic": "XNOR3",
+      "mode": "logic",
+      "opcode": 105,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A ^ B ^ C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1778615301,
+          "B": 2151827188,
+          "C": 2581093701
+        }
+      }
+    },
+    {
+      "index": 75,
+      "id": "ALU_075",
+      "mnemonic": "MAJ",
+      "mode": "logic",
+      "opcode": 232,
+      "control": 5,
+      "csel": 3,
+      "expression": "AB | BC | AC",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3689845718,
+          "B": 2516104413,
+          "C": 1134944902
+        }
+      }
+    },
+    {
+      "index": 76,
+      "id": "ALU_076",
+      "mnemonic": "MIN",
+      "mode": "logic",
+      "opcode": 23,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(AB | BC | AC)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1519995400,
+          "B": 4023195288,
+          "C": 2078332879
+        }
+      }
+    },
+    {
+      "index": 77,
+      "id": "ALU_077",
+      "mnemonic": "MUX C?B:A",
+      "mode": "logic",
+      "opcode": 202,
+      "control": 5,
+      "csel": 3,
+      "expression": "C ? B : A",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1302151640,
+          "B": 995709330,
+          "C": 3180806310
+        }
+      }
+    },
+    {
+      "index": 78,
+      "id": "ALU_078",
+      "mnemonic": "MUX B?C:A",
+      "mode": "logic",
+      "opcode": 226,
+      "control": 5,
+      "csel": 3,
+      "expression": "B ? C : A",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2333258584,
+          "B": 528648677,
+          "C": 3921220381
+        }
+      }
+    },
+    {
+      "index": 79,
+      "id": "ALU_079",
+      "mnemonic": "MUX A?C:B",
+      "mode": "logic",
+      "opcode": 228,
+      "control": 5,
+      "csel": 3,
+      "expression": "A ? C : B",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1977106766,
+          "B": 1931563337,
+          "C": 210563139
+        }
+      }
+    },
+    {
+      "index": 80,
+      "id": "ALU_080",
+      "mnemonic": "AO21",
+      "mode": "logic",
+      "opcode": 234,
+      "control": 5,
+      "csel": 3,
+      "expression": "A | (B & C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2858157304,
+          "B": 3509226750,
+          "C": 3486869373
+        }
+      }
+    },
+    {
+      "index": 81,
+      "id": "ALU_081",
+      "mnemonic": "AO21",
+      "mode": "logic",
+      "opcode": 236,
+      "control": 5,
+      "csel": 3,
+      "expression": "B | (A & C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2470457289,
+          "B": 3757797663,
+          "C": 414040902
+        }
+      }
+    },
+    {
+      "index": 82,
+      "id": "ALU_082",
+      "mnemonic": "AO21",
+      "mode": "logic",
+      "opcode": 248,
+      "control": 5,
+      "csel": 3,
+      "expression": "C | (A & B)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3874730123,
+          "B": 1843013692,
+          "C": 3212430877
+        }
+      }
+    },
+    {
+      "index": 83,
+      "id": "ALU_083",
+      "mnemonic": "OA21",
+      "mode": "logic",
+      "opcode": 168,
+      "control": 5,
+      "csel": 3,
+      "expression": "A & (B | C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3767028418,
+          "B": 3920328357,
+          "C": 719926891
+        }
+      }
+    },
+    {
+      "index": 84,
+      "id": "ALU_084",
+      "mnemonic": "OA21",
+      "mode": "logic",
+      "opcode": 200,
+      "control": 5,
+      "csel": 3,
+      "expression": "B & (A | C)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 4121361470,
+          "B": 3709907830,
+          "C": 877440904
+        }
+      }
+    },
+    {
+      "index": 85,
+      "id": "ALU_085",
+      "mnemonic": "OA21",
+      "mode": "logic",
+      "opcode": 224,
+      "control": 5,
+      "csel": 3,
+      "expression": "C & (A | B)",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2054721676,
+          "B": 1775363130,
+          "C": 1388935062
+        }
+      }
+    },
+    {
+      "index": 86,
+      "id": "ALU_086",
+      "mnemonic": "AOI21",
+      "mode": "logic",
+      "opcode": 21,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A | (B & C))",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2264571755,
+          "B": 765043780,
+          "C": 3517055810
+        }
+      }
+    },
+    {
+      "index": 87,
+      "id": "ALU_087",
+      "mnemonic": "AOI21",
+      "mode": "logic",
+      "opcode": 19,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(B | (A & C))",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 292786777,
+          "B": 1724642745,
+          "C": 1458030342
+        }
+      }
+    },
+    {
+      "index": 88,
+      "id": "ALU_088",
+      "mnemonic": "AOI21",
+      "mode": "logic",
+      "opcode": 7,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(C | (A & B))",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 708476545,
+          "B": 598664172,
+          "C": 3669715687
+        }
+      }
+    },
+    {
+      "index": 89,
+      "id": "ALU_089",
+      "mnemonic": "OAI21",
+      "mode": "logic",
+      "opcode": 87,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(A & (B | C))",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 2492472585,
+          "B": 993756599,
+          "C": 2482203707
+        }
+      }
+    },
+    {
+      "index": 90,
+      "id": "ALU_090",
+      "mnemonic": "OAI21",
+      "mode": "logic",
+      "opcode": 55,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(B & (A | C))",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 1052266449,
+          "B": 884054639,
+          "C": 2113909631
+        }
+      }
+    },
+    {
+      "index": 91,
+      "id": "ALU_091",
+      "mnemonic": "OAI21",
+      "mode": "logic",
+      "opcode": 31,
+      "control": 5,
+      "csel": 3,
+      "expression": "~(C & (A | B))",
+      "digital_verified": true,
+      "test_vectors": {
+        "smoke": {
+          "A": 3148235304,
+          "B": 2069423641,
+          "C": 918449553
+        }
+      }
+    }
+  ]
+}
