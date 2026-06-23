@@ -8988,6 +8988,10 @@
 		(uuid "3c9781a6-595b-45d8-aa34-043e3bfc0c23")
 	)
 	(no_connect
+		(at 273.05 495.3)
+		(uuid "4482fb02-f689-4648-8526-b51c486a2f0e")
+	)
+	(no_connect
 		(at 35.56 251.46)
 		(uuid "4e113051-4644-4439-ac55-14e08e7fa09e")
 	)
@@ -22368,6 +22372,30 @@
 			)
 		)
 	)
+	(global_label "~flagC"
+		(shape input)
+		(at 218.44 346.71 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2a4de0f9-ce23-41b3-ae51-d7744da13141")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 227.2912 346.71 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
 	(global_label "B13"
 		(shape input)
 		(at 233.68 436.88 0)
@@ -24504,6 +24532,30 @@
 			)
 		)
 	)
+	(global_label "~flagV"
+		(shape input)
+		(at 218.44 349.25 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "55b9b399-ba5e-4e43-8514-ee570dee781e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 227.1098 349.25 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
 	(global_label "A12"
 		(shape output)
 		(at 299.72 312.42 180)
@@ -25461,6 +25513,30 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+	)
+	(global_label "~flagN"
+		(shape input)
+		(at 218.44 344.17 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "683f3629-c2f8-47b7-9f0f-2f86579f5a1c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 227.3517 344.17 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 	)
@@ -28560,6 +28636,30 @@
 			)
 		)
 	)
+	(global_label "flagLTE"
+		(shape input)
+		(at 218.44 351.79 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a012b6c2-d4e9-45e0-ab9b-6b277f9504b0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 228.2588 351.79 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+	)
 	(global_label "A4"
 		(shape input)
 		(at 172.72 414.02 0)
@@ -28605,6 +28705,30 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+	)
+	(global_label "flagGTE"
+		(shape input)
+		(at 218.44 354.33 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a13e2502-6e48-4973-891e-f053c1970149")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 228.5007 354.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 	)
@@ -29661,6 +29785,30 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+	)
+	(global_label "~flagZ"
+		(shape input)
+		(at 218.44 341.63 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b68abf06-7cbb-4e67-a584-c16d4f55acae")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 227.2307 341.63 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 	)
@@ -41523,85 +41671,6 @@
 			(project "alu-32b"
 				(path "/ddad1417-0afc-402d-a021-92fc87ddd78a"
 					(reference "#PWR06")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:VCC")
-		(at 273.05 495.3 270)
-		(mirror x)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "696c1f88-226a-46a4-a12d-340b093be972")
-		(property "Reference" "#PWR077"
-			(at 269.24 495.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "VCC"
-			(at 276.86 495.2999 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 273.05 495.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 273.05 495.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 273.05 495.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "005a3038-fc32-436c-bbe6-6b604361d198")
-		)
-		(instances
-			(project "alu-32b"
-				(path "/ddad1417-0afc-402d-a021-92fc87ddd78a"
-					(reference "#PWR077")
 					(unit 1)
 				)
 			)
