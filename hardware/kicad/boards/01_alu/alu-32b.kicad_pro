@@ -607,7 +607,22 @@
       "sort_asc": true,
       "sort_field": "Reference"
     },
-    "bus_aliases": {},
+    "bus_aliases": {
+      "8b-din": [
+        "a_slice[7..0]",
+        "b_slice[7..0]",
+        "c_slice[7..0]"
+      ],
+      "8b-dout": [
+        "p_slice[7..0]",
+        "g_slice[7..0]",
+        "out_slice[7..0]"
+      ],
+      "A": [
+        "ain[7..0]",
+        "ain[8..15]"
+      ]
+    },
     "connection_grid_size": 50.0,
     "drawing": {
       "dashed_lines_dash_length_ratio": 12.0,
@@ -657,64 +672,12 @@
       "Root"
     ],
     [
-      "b911fe30-c448-4dca-b600-42c7e5323d09",
-      "alu-8b-0"
-    ],
-    [
-      "4cc18606-f8a5-40fb-ab6d-f56edf8e4af4",
+      "49c5ab01-1b19-491a-904f-92d6758241ba",
       "alu-8b-1"
     ],
     [
       "310f0a09-fb4e-45a9-a710-a75c5faa1ac8",
       "alu-1b-1"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "310f0a09-fb4e-45a9-a710-a75c5faa1ac8",
-      "alu-1b-1"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "310f0a09-fb4e-45a9-a710-a75c5faa1ac8",
-      "alu-1b-1"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "310f0a09-fb4e-45a9-a710-a75c5faa1ac8",
-      "alu-1b-1"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "3d97bc42-de95-47e7-8993-ffa984a5ac42",
-      "alu-1b-2"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "3d97bc42-de95-47e7-8993-ffa984a5ac42",
-      "alu-1b-2"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "3d97bc42-de95-47e7-8993-ffa984a5ac42",
-      "alu-1b-2"
     ],
     [
       "767aef3e-36e1-4599-8268-867e22ccca70",
@@ -729,127 +692,7 @@
       "driver1_8to1"
     ],
     [
-      "55a77bf8-70d2-4222-a399-a822fb2e71c6",
-      "alu-8b-2"
-    ],
-    [
-      "3d97bc42-de95-47e7-8993-ffa984a5ac42",
-      "alu-1b-2"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "93d66d8c-2423-4bbc-ae3c-344bb803a9ee",
-      "alu-1b-3"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "93d66d8c-2423-4bbc-ae3c-344bb803a9ee",
-      "alu-1b-3"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "93d66d8c-2423-4bbc-ae3c-344bb803a9ee",
-      "alu-1b-3"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "93d66d8c-2423-4bbc-ae3c-344bb803a9ee",
-      "alu-1b-3"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "3612e714-d1d7-4516-b783-20212fb17f9c",
-      "alu-1b-4"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "3612e714-d1d7-4516-b783-20212fb17f9c",
-      "alu-1b-4"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "3612e714-d1d7-4516-b783-20212fb17f9c",
-      "alu-1b-4"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "dc3ea37c-4de3-476f-8203-ac2d0e3f72ec",
-      "alu-8b-3"
-    ],
-    [
-      "3612e714-d1d7-4516-b783-20212fb17f9c",
-      "alu-1b-4"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "c2e3eddc-278e-4635-bd96-93bef27dde0e",
-      "alu-1b-5"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "c2e3eddc-278e-4635-bd96-93bef27dde0e",
-      "alu-1b-5"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "c2e3eddc-278e-4635-bd96-93bef27dde0e",
-      "alu-1b-5"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "c2e3eddc-278e-4635-bd96-93bef27dde0e",
-      "alu-1b-5"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
       "94ce3353-47fc-4ecc-8eba-02f449cc7ee3",
-      "alu-1b-6"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "9a3cadde-547c-4aea-bd5b-d6233d00d722",
       "alu-1b-7"
     ],
     [
@@ -857,12 +700,184 @@
       "driver1_8to1"
     ],
     [
-      "94ce3353-47fc-4ecc-8eba-02f449cc7ee3",
+      "3612e714-d1d7-4516-b783-20212fb17f9c",
       "alu-1b-6"
     ],
     [
       "767aef3e-36e1-4599-8268-867e22ccca70",
       "driver1_8to1"
+    ],
+    [
+      "3d97bc42-de95-47e7-8993-ffa984a5ac42",
+      "alu-1b-5"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "93d66d8c-2423-4bbc-ae3c-344bb803a9ee",
+      "alu-1b-2"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "9a3cadde-547c-4aea-bd5b-d6233d00d722",
+      "alu-1b-4"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "c2e3eddc-278e-4635-bd96-93bef27dde0e",
+      "alu-1b-3"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "fd3e851e-1cd5-40ed-93ad-bfaf5867a448",
+      "alu-8b-2"
+    ],
+    [
+      "310f0a09-fb4e-45a9-a710-a75c5faa1ac8",
+      "alu-1b-1"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "3f4c53ca-cfbf-42b6-9c91-70a801293751",
+      "alu-1b-0"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "94ce3353-47fc-4ecc-8eba-02f449cc7ee3",
+      "alu-1b-7"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "3612e714-d1d7-4516-b783-20212fb17f9c",
+      "alu-1b-6"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "3d97bc42-de95-47e7-8993-ffa984a5ac42",
+      "alu-1b-5"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "93d66d8c-2423-4bbc-ae3c-344bb803a9ee",
+      "alu-1b-2"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "9a3cadde-547c-4aea-bd5b-d6233d00d722",
+      "alu-1b-4"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "c2e3eddc-278e-4635-bd96-93bef27dde0e",
+      "alu-1b-3"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "69112852-9cf2-486b-aa71-10c625fe4948",
+      "alu-8b-3"
+    ],
+    [
+      "310f0a09-fb4e-45a9-a710-a75c5faa1ac8",
+      "alu-1b-1"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "3f4c53ca-cfbf-42b6-9c91-70a801293751",
+      "alu-1b-0"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "94ce3353-47fc-4ecc-8eba-02f449cc7ee3",
+      "alu-1b-7"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "3612e714-d1d7-4516-b783-20212fb17f9c",
+      "alu-1b-6"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "3d97bc42-de95-47e7-8993-ffa984a5ac42",
+      "alu-1b-5"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "93d66d8c-2423-4bbc-ae3c-344bb803a9ee",
+      "alu-1b-2"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "9a3cadde-547c-4aea-bd5b-d6233d00d722",
+      "alu-1b-4"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "c2e3eddc-278e-4635-bd96-93bef27dde0e",
+      "alu-1b-3"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "b92dff33-cda1-47ad-a0a3-9000d08123ea",
+      "drive_inv32"
     ],
     [
       "debb55b2-e83b-4da4-bee0-8e5db8b77a4f",
@@ -889,15 +904,59 @@
       "display"
     ],
     [
-      "9a3cadde-547c-4aea-bd5b-d6233d00d722",
-      "alu-1b-7"
+      "13002510-6863-4567-964c-247fc98813fb",
+      "alu-8b-0"
+    ],
+    [
+      "3f4c53ca-cfbf-42b6-9c91-70a801293751",
+      "alu-1b-0"
     ],
     [
       "767aef3e-36e1-4599-8268-867e22ccca70",
       "driver1_8to1"
     ],
     [
-      "94ce3353-47fc-4ecc-8eba-02f449cc7ee3",
+      "310f0a09-fb4e-45a9-a710-a75c5faa1ac8",
+      "alu-1b-1"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "93d66d8c-2423-4bbc-ae3c-344bb803a9ee",
+      "alu-1b-2"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "c2e3eddc-278e-4635-bd96-93bef27dde0e",
+      "alu-1b-3"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "9a3cadde-547c-4aea-bd5b-d6233d00d722",
+      "alu-1b-4"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "3d97bc42-de95-47e7-8993-ffa984a5ac42",
+      "alu-1b-5"
+    ],
+    [
+      "767aef3e-36e1-4599-8268-867e22ccca70",
+      "driver1_8to1"
+    ],
+    [
+      "3612e714-d1d7-4516-b783-20212fb17f9c",
       "alu-1b-6"
     ],
     [
@@ -905,23 +964,7 @@
       "driver1_8to1"
     ],
     [
-      "9a3cadde-547c-4aea-bd5b-d6233d00d722",
-      "alu-1b-7"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
       "94ce3353-47fc-4ecc-8eba-02f449cc7ee3",
-      "alu-1b-6"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "9a3cadde-547c-4aea-bd5b-d6233d00d722",
       "alu-1b-7"
     ],
     [
@@ -931,30 +974,6 @@
     [
       "259ce3bc-a28b-4687-b086-c0ff5aa711b4",
       "display-clock"
-    ],
-    [
-      "3f4c53ca-cfbf-42b6-9c91-70a801293751",
-      "alu-1b-0"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "3f4c53ca-cfbf-42b6-9c91-70a801293751",
-      "alu-1b-0"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
-    ],
-    [
-      "3f4c53ca-cfbf-42b6-9c91-70a801293751",
-      "alu-1b-0"
-    ],
-    [
-      "767aef3e-36e1-4599-8268-867e22ccca70",
-      "driver1_8to1"
     ],
     [
       "32934b0a-eac9-4f0a-a604-8ef1931a7867",
