@@ -435,12 +435,12 @@
       <elementName>Multiplexer</elementName>
       <elementAttributes>
         <entry>
-          <string>flipSelPos</string>
-          <boolean>true</boolean>
-        </entry>
-        <entry>
           <string>Bits</string>
           <int>32</int>
+        </entry>
+        <entry>
+          <string>flipSelPos</string>
+          <boolean>true</boolean>
         </entry>
       </elementAttributes>
       <pos x="640" y="380"/>
@@ -819,6 +819,25 @@
       </elementAttributes>
       <pos x="820" y="540"/>
     </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes/>
+      <pos x="-160" y="-100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="3"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>vcc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-160" y="-80"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -948,6 +967,10 @@
     <wire>
       <p1 x="460" y="720"/>
       <p2 x="460" y="740"/>
+    </wire>
+    <wire>
+      <p1 x="-160" y="-100"/>
+      <p2 x="-160" y="-80"/>
     </wire>
   </wires>
   <measurementOrdering/>
