@@ -1,3 +1,0 @@
-In generating the propagate and generate signals for the 74182 chip, I used the naive option to not(and(a,b)), not(xor(a,b)), and then the carry-look ahead handled the rest. But that clearly was bloated and inefficient, so I have swapped the and for nand to save several 74541 (inverters) chips from the board. Additionally, I kept the XOR, and rather used the last nand gate as an inverter: (nand(a,a) == ~a). Reason is XNOR is open drain which isn't a headache I want to deal with: talking of resistors among others.
-
-This cleanly makes routing extremely easy and reduces the footprints by about 8 inverting drivers!
