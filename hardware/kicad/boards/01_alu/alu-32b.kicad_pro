@@ -521,23 +521,23 @@
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "tuning_profile": "",
-        "via_diameter": 0.6,
-        "via_drill": 0.3,
+        "via_diameter": 0.8,
+        "via_drill": 0.4,
         "wire_width": 6
       },
       {
-        "clearance": 0.5,
+        "clearance": 0.25,
         "name": "Bus",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.25,
         "tuning_profile": "",
-        "via_diameter": 0.6,
-        "via_drill": 0.3
+        "via_diameter": 0.8,
+        "via_drill": 0.4
       },
       {
-        "clearance": 0.5,
+        "clearance": 0.25,
         "diff_pair_gap": 0.25,
         "diff_pair_width": 0.2,
         "microvia_diameter": 0.3,
@@ -573,6 +573,14 @@
       {
         "netclass": "Bus",
         "pattern": "A16|A17|A18|A19|A20|A21|A22|A23|A24|A25|A26|A27|A28|A29|A30|A31|B16|B17|B18|B19|B20|B21|B22|B23|B24|B25|B26|B27|B28|B29|B30|B31|C16|C17|C18|C19|C20|C21|C22|C23|C24|C25|C26|C27|C28|C29|C31"
+      },
+      {
+        "netclass": "Bus",
+        "pattern": "OUT"
+      },
+      {
+        "netclass": "Bus",
+        "pattern": "OUT(0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15)"
       }
     ]
   },
@@ -719,7 +727,7 @@
         "uuid": "ddad1417-0afc-402d-a021-92fc87ddd78a"
       }
     ],
-    "used_designators": "#FLG1-2,R1-270,J1-9,#PWR1-946,D1-14,C1-213,U1-213,SW1-21,RN1-12",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [
