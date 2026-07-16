@@ -1,0 +1,7 @@
+After observing, time is but a monotonic quantity and universal. In current FPGA designs, we program and use, and for another use case, we repeat, In future tomato designs, I am considering a real time programming an use. Assume the case where all cells are already programmed, but the next instruction requires that cell4568 change from current xnor into nand(a, xor (b, c)).
+
+It makes every sense to me to have that update happen timed just before it is used. This if built on the old tomato idea of decode programmability, then we can achieve a pipelined design where there exists two control units. The first system control unit, and a finite state machine designed to only update specific cells via decode as required.
+
+This flexibility by my current understanding offers fpga flexibility but perhaps in an exciting way. The cells are majority, xnor, xor in one cycle, xnor, and, and in about 7 additional cycles, and or, nor, xor(not(a), nor(b, c)) + nor( and(b, c ), a) in the next operational sequence.
+
+From the thought experiment, if all cells need to be changed, then you wait. I take that from a comment my father who worked on wind generators in Germany quoted from his lead engineer: for the wind generators we are building, what if the winds stop? He answered, "Then we die!" Flexibility must and should remain within the limits of physics. Future thoughts and designs may improve and revaluate. An 8bit ALU that I started with is no longer recognizable for what it is now!
