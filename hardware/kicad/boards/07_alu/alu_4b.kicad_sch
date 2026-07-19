@@ -818,7 +818,7 @@
 		(at 123.19 77.978)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "ecc1ff40-c42a-46af-9a5b-e6dd4e8e7ff9")
+		(uuid "df27de2b-02d1-4996-9a20-a5160c8b6577")
 	)
 	(bus_entry
 		(at 59.69 87.63)
@@ -1114,7 +1114,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 74.168) (xy 123.19 77.978)
+			(xy 123.19 76.2) (xy 123.19 77.978)
 		)
 		(stroke
 			(width 0)
@@ -1752,16 +1752,6 @@
 		)
 		(uuid "bf15bd58-2e98-46a6-9a7a-31288df7db77")
 	)
-	(label "out-4b3"
-		(at 226.568 63.754 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "bf6ef504-e138-4c72-8992-c2f603bd01d9")
-	)
 	(label "out-4b0"
 		(at 135.89 88.138 0)
 		(effects
@@ -1978,17 +1968,6 @@
 		)
 		(uuid "779f189f-d4a4-4613-a8fa-d7d53bd07e13")
 	)
-	(hierarchical_label "sum3"
-		(shape output)
-		(at 226.568 63.754 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "8fed9a5f-0660-46e6-bc0c-ba86d2a91360")
-	)
 	(hierarchical_label "c-in[3..0]"
 		(shape input)
 		(at 59.69 26.67 180)
@@ -2161,14 +2140,6 @@
 		)
 		(instances
 			(project "07_alu"
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(reference "U8")
-					(unit 1)
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(reference "U7")
-					(unit 1)
-				)
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(reference "U5")
 					(unit 1)
@@ -2182,7 +2153,7 @@
 	)
 	(symbol
 		(lib_id "power:VCC")
-		(at 123.19 74.168 0)
+		(at 123.19 76.2 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2193,7 +2164,7 @@
 		(fields_autoplaced yes)
 		(uuid "7f8ee110-9966-49c4-a6db-7a53cde45c97")
 		(property "Reference" "#PWR012"
-			(at 123.19 77.978 0)
+			(at 123.19 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2204,7 +2175,7 @@
 			)
 		)
 		(property "Value" "VCC"
-			(at 123.19 69.088 0)
+			(at 123.19 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2214,7 +2185,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 123.19 74.168 0)
+			(at 123.19 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2225,7 +2196,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 123.19 74.168 0)
+			(at 123.19 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2236,7 +2207,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 123.19 74.168 0)
+			(at 123.19 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2251,14 +2222,6 @@
 		)
 		(instances
 			(project "07_alu"
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(reference "#PWR021")
-					(unit 1)
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(reference "#PWR018")
-					(unit 1)
-				)
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(reference "#PWR015")
 					(unit 1)
@@ -2341,14 +2304,6 @@
 		)
 		(instances
 			(project "07_alu"
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(reference "#PWR022")
-					(unit 1)
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(reference "#PWR019")
-					(unit 1)
-				)
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(reference "#PWR016")
 					(unit 1)
@@ -2432,14 +2387,6 @@
 		)
 		(instances
 			(project "07_alu"
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(reference "C6")
-					(unit 1)
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(reference "C5")
-					(unit 1)
-				)
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(reference "C4")
 					(unit 1)
@@ -2523,14 +2470,6 @@
 		)
 		(instances
 			(project "07_alu"
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(reference "#PWR020")
-					(unit 1)
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(reference "#PWR017")
-					(unit 1)
-				)
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(reference "#PWR014")
 					(unit 1)
@@ -2626,12 +2565,6 @@
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(page "5")
 				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(page "14")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(page "23")
-				)
 			)
 		)
 	)
@@ -2718,12 +2651,6 @@
 			(project "07_alu"
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(page "7")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(page "16")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(page "25")
 				)
 			)
 		)
@@ -2812,12 +2739,6 @@
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(page "11")
 				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(page "20")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(page "29")
-				)
 			)
 		)
 	)
@@ -2904,12 +2825,6 @@
 			(project "07_alu"
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(page "4")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(page "13")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(page "22")
 				)
 			)
 		)
@@ -2998,12 +2913,6 @@
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(page "10")
 				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(page "19")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(page "28")
-				)
 			)
 		)
 	)
@@ -3090,12 +2999,6 @@
 			(project "07_alu"
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(page "9")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(page "18")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(page "27")
 				)
 			)
 		)
@@ -3184,12 +3087,6 @@
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(page "8")
 				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(page "17")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(page "26")
-				)
 			)
 		)
 	)
@@ -3276,12 +3173,6 @@
 			(project "07_alu"
 				(path "/bf03590f-4078-420b-ac5f-55731d384371/e403b414-62b1-4f5c-9e67-04653a2813f4"
 					(page "6")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/81d21ac7-f952-4f69-8db2-8103aa3e827d"
-					(page "15")
-				)
-				(path "/bf03590f-4078-420b-ac5f-55731d384371/37660c86-5797-4efb-8a81-fa8883212b3f"
-					(page "24")
 				)
 			)
 		)

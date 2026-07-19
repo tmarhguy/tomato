@@ -495,7 +495,7 @@
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.2,
+        "clearance": 0.25,
         "diff_pair_gap": 0.25,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.2,
@@ -506,11 +506,22 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2,
+        "track_width": 0.25,
         "tuning_profile": "",
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
+      },
+      {
+        "clearance": 0.25,
+        "name": "Power",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.5,
+        "tuning_profile": "",
+        "via_diameter": 0.6,
+        "via_drill": 0.3
       }
     ],
     "meta": {
@@ -518,7 +529,16 @@
     },
     "net_colors": null,
     "netclass_assignments": null,
-    "netclass_patterns": []
+    "netclass_patterns": [
+      {
+        "netclass": "Power",
+        "pattern": "VCC"
+      },
+      {
+        "netclass": "Power",
+        "pattern": "GND"
+      }
+    ]
   },
   "pcbnew": {
     "last_paths": {
@@ -648,6 +668,14 @@
     "meta": {
       "version": 1
     },
+    "ngspice": {
+      "fix_include_paths": true,
+      "meta": {
+        "version": 0
+      },
+      "model_mode": 4,
+      "workbook_filename": ""
+    },
     "page_layout_descr_file": "",
     "plot_directory": "",
     "reuse_designators": true,
@@ -660,7 +688,7 @@
         "uuid": "bf03590f-4078-420b-ac5f-55731d384371"
       }
     ],
-    "used_designators": "U4-8,U16,U49-72,#PWR14-22,#PWR58-60,#PWR96-98,#PWR131-132,#PWR136-143,#PWR158-166,#PWR199-322,D17-32,C4-6,C16,C49-74,R16-31,J1-13",
+    "used_designators": "SW1,RN1-8,#FLG1-4,U1-2,U4-12,U16,U49-72,#PWR1-10,#PWR14-37,#PWR58-60,#PWR96-98,#PWR131-132,#PWR134-143,#PWR147-150,#PWR158-166,#PWR199-322,D1,D5-7,D17-67,C4-6,C16,C49-74,R1,R5-8,R16-66,J1-17",
     "variants": []
   },
   "sheets": [
@@ -675,78 +703,6 @@
     [
       "e403b414-62b1-4f5c-9e67-04653a2813f4",
       "alu_4b_1"
-    ],
-    [
-      "4f89d294-e207-490b-bfb2-fb2911563c00",
-      "alu_1b_X3"
-    ],
-    [
-      "17efe19f-8fdf-43e4-a98b-b218e26c621b",
-      "alu_1b_Y1"
-    ],
-    [
-      "f4db09f5-e053-4065-8f06-fd6f075d6a8d",
-      "alu_1b_Y0"
-    ],
-    [
-      "21f7bf79-685e-427e-a916-c402bf256d5a",
-      "alu_1b_X1"
-    ],
-    [
-      "c8aa0f43-4342-4329-a839-aa963677ab8b",
-      "alu_1b_X0"
-    ],
-    [
-      "6bed2b69-1188-499e-86f4-236e2c682e53",
-      "alu_1b_X2"
-    ],
-    [
-      "5a619dec-6b48-48a4-ad55-27882144d24a",
-      "alu_1b_Y3"
-    ],
-    [
-      "2cda1a03-3cb7-4b50-9090-2277dc7a01a2",
-      "alu_1b_Y2"
-    ],
-    [
-      "81d21ac7-f952-4f69-8db2-8103aa3e827d",
-      "alu_4b_2"
-    ],
-    [
-      "4f89d294-e207-490b-bfb2-fb2911563c00",
-      "alu_1b_X3"
-    ],
-    [
-      "17efe19f-8fdf-43e4-a98b-b218e26c621b",
-      "alu_1b_Y1"
-    ],
-    [
-      "f4db09f5-e053-4065-8f06-fd6f075d6a8d",
-      "alu_1b_Y0"
-    ],
-    [
-      "21f7bf79-685e-427e-a916-c402bf256d5a",
-      "alu_1b_X1"
-    ],
-    [
-      "c8aa0f43-4342-4329-a839-aa963677ab8b",
-      "alu_1b_X0"
-    ],
-    [
-      "6bed2b69-1188-499e-86f4-236e2c682e53",
-      "alu_1b_X2"
-    ],
-    [
-      "5a619dec-6b48-48a4-ad55-27882144d24a",
-      "alu_1b_Y3"
-    ],
-    [
-      "2cda1a03-3cb7-4b50-9090-2277dc7a01a2",
-      "alu_1b_Y2"
-    ],
-    [
-      "37660c86-5797-4efb-8a81-fa8883212b3f",
-      "alu_4b_3"
     ],
     [
       "4f89d294-e207-490b-bfb2-fb2911563c00",
