@@ -1,0 +1,224 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\definecolor{arithcolor}{RGB}{20, 100, 50}
+\definecolor{logiccolor}{RGB}{20, 50, 120}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  frame=single,
+  breaklines=true,
+  columns=fullflexible
+}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE \textbf{MOSAIC32 --- 32-Bit ALU Architecture}} \\[0.4em]
+  {\large \texttt{alu-32b-final.dig} / \texttt{alu\_32b\_final}} \\[0.3em]
+  {\small Dual-LUT ripple adder: $\mathrm{OUT} = f(A,B,C) + g(A,B,C) + C_{in}$ per bit, chained in 74283 slices}
+\end{center}
+
+\section{Purpose}
+
+The 32-bit ALU evaluates a \textbf{pair of independent 3-input LUTs} on each bit slice, sums their outputs with a ripple carry, and chains four 8-bit slices into a 32-bit datapath. Control is supplied as two raw 8-bit truth tables (\texttt{lutA}, \texttt{lutB}) plus a 3-bit carry select (\texttt{csel}). Operand routing ($A$, $B$, $\sim A$, GND, etc.) is \emph{not} inside the ALU macro; the microcode ROM encodes it by choosing the correct \texttt{lutA}/\texttt{lutB} pair.
+
+This differs from the legacy single-LUT model documented in \texttt{alu-1b/alu\_control\_map.tex}, where one \texttt{LUT[7:0]} plus \texttt{ctrl[3:0]} fed a ripple XOR/SUM network. The dual-LUT macro is the canonical implementation in \texttt{alu-32b-final.dig}.
+
+\section{Hierarchy}
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Level} & \textbf{Structure} & \textbf{Carry between} \\
+\midrule
+32-bit & $4 \times$ \texttt{alu-8b-final} & \texttt{cout}$_n \rightarrow$ \texttt{csel}$_{n+1}$[0] \\
+8-bit  & $2 \times$ \texttt{alu-4b-final} (74283) & \texttt{cout}$_{\mathrm{lo}} \rightarrow$ \texttt{cin}$_{\mathrm{hi}}$ \\
+4-bit  & $2 \times$ dual \texttt{alu-1b-final} + 74283 & \texttt{cout}$_{\mathrm{lo}} \rightarrow$ \texttt{cin}$_{\mathrm{hi}}$ \\
+1-bit  & LUT$_f$ + LUT$_g$ + full-adder bit & ripple $C_{out}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Each \texttt{alu-8b-final} instance receives the same \texttt{lutA}/\texttt{lutB}/\texttt{csel} broadcast. Byte~0 uses the external \texttt{csel}; bytes 1--3 use a 3-bit carry injection word whose LSB is the previous byte's \texttt{cout}:
+\[
+  \texttt{cin1} = \{0,0,\texttt{cout0}\},\quad
+  \texttt{cin2} = \{0,0,\texttt{cout1}\},\quad
+  \texttt{cin3} = \{0,0,\texttt{cout2}\}
+\]
+
+\section{One-Bit Slice}
+
+For bit index $i$ with operands $a_i$, $b_i$, $c_i$:
+
+\begin{align*}
+  f_i &= \texttt{lutA}[\,c_i b_i a_i\,] \\
+  g_i &= \texttt{lutB}[\,c_i b_i a_i\,] \\
+  s_i &= f_i + g_i + C_i \pmod 2 \\
+  C_{i+1} &= \lfloor (f_i + g_i + C_i) / 2 \rfloor
+\end{align*}
+
+\subsection{LUT index encoding}
+
+The \texttt{alu-1b-final} mux select is $\{C,B,A\}$ (C MSB, A LSB). Equivalently:
+\[
+  \texttt{index} = 4c + 2b + a \quad (a,b,c \in \{0,1\})
+\]
+
+\begin{center}
+\scriptsize
+\begin{tabular}{@{}cccccl@{}}
+\toprule
+\textbf{$abc$} & \textbf{idx} & \textbf{$a$} & \textbf{$b$} & \textbf{$c$} & \textbf{bit in opcode} \\
+\midrule
+000 & 0 & 0 & 0 & 0 & \texttt{opcode[0]} \\
+001 & 1 & 1 & 0 & 0 & \texttt{opcode[1]} \\
+010 & 2 & 0 & 1 & 0 & \texttt{opcode[2]} \\
+011 & 3 & 1 & 1 & 0 & \texttt{opcode[3]} \\
+100 & 4 & 0 & 0 & 1 & \texttt{opcode[4]} \\
+101 & 5 & 1 & 0 & 1 & \texttt{opcode[5]} \\
+110 & 6 & 0 & 1 & 1 & \texttt{opcode[6]} \\
+111 & 7 & 1 & 1 & 1 & \texttt{opcode[7]} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+There are exactly $256 \times 256 \times 8 = 524{,}288$ distinct $(\texttt{lutA},\texttt{lutB},abc)$ minterm combinations; Digital tests cover all of them on the bit-0 slice.
+
+\subsection{Canonical 3-input primitives}
+
+\begin{center}
+\scriptsize
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Name} & \textbf{Opcode} & \textbf{Function} & \textbf{Use as} \\
+\midrule
+ZERO   & \texttt{0x00} & $0$ & disable $g$ path \\
+PASS\_A & \texttt{0xAA} & $a$ & $f = A$ \\
+PASS\_B & \texttt{0xCC} & $b$ & $g = B$ \\
+PASS\_C & \texttt{0xF0} & $c$ & route $C$ bus \\
+AND3   & \texttt{0x80} & $a \wedge b \wedge c$ & 3-input AND \\
+OR3    & \texttt{0xFE} & $a \vee b \vee c$ & 3-input OR \\
+XOR3   & \texttt{0x96} & $a \oplus b \oplus c$ & parity / legacy SUM \\
+XNOR3  & \texttt{0x69} & $\sim(a \oplus b \oplus c)$ & \\
+NAND3  & \texttt{0x7F} & $\sim(a \wedge b \wedge c)$ & \\
+NOR3   & \texttt{0x01} & $\sim(a \vee b \vee c)$ & \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+2-input primitives (e.g.\ \texttt{AND A,B} = \texttt{0x88}) are special cases where $c$ is a don't-care on the minterms that differ only in $c$.
+
+\section{Four-Bit and Eight-Bit Slices}
+
+Each \texttt{alu-4b-final} builds two 4-bit ripple words in parallel:
+\begin{itemize}
+  \item \textbf{Lower nibble} (bits 0,1): \texttt{lutB} on $(a_0,b_0,c_0)$ and $(a_2,b_2,c_2)$; \texttt{lutA} likewise.
+  \item \textbf{Upper nibble} (bits 2,3): same LUTs on $(a_1,b_1,c_1)$ and $(a_3,b_3,c_3)$.
+  \item A 74283 adds the two 4-bit LUT sums plus \texttt{cin}.
+\end{itemize}
+
+The 8-bit slice concatenates two 4-bit slices with inter-nibble carry. Flags (\texttt{csr\_flg}) are latched on \texttt{CLK} when \texttt{FLAG\_WE}=1; \texttt{OUT} is combinational.
+
+\section{Carry-In Multiplexer (\texttt{csel})}
+
+The byte-0 carry into the lowest 74283 is selected by a 74151 (8:1 mux) driven by \texttt{csel[2:0]}:
+
+\begin{center}
+\scriptsize
+\begin{tabular}{@{}cll@{}}
+\toprule
+\textbf{\texttt{csel}} & \textbf{Source} & \textbf{Typical use} \\
+\midrule
+\texttt{3'b000} & 0 (GND) & $A+B$, logic with $C_{in}=0$ \\
+\texttt{3'b001} & 1 (VCC) & $A+B+1$, ADC \\
+\texttt{3'b010} & \texttt{flag\_n} & borrow / sign paths \\
+\texttt{3'b011} & \texttt{flag\_z} & zero-conditioned carry \\
+\texttt{3'b100} & \texttt{flag\_c} & chained arithmetic (ADD with flags) \\
+\texttt{3'b101} & \texttt{flag\_gt} & compare-driven carry \\
+\texttt{3'b110} & \texttt{flag\_lt} & compare-driven carry \\
+\texttt{3'b111} & \texttt{flag\_v} & overflow-conditioned carry \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Bits \texttt{csel[2:1]} are only meaningful when the mux selects a flag source; inter-byte chaining reuses the 3-bit port with $\texttt{csel}=\{0,0,\texttt{cout}\}$.
+
+\section{Dual-LUT Arithmetic Examples}
+
+\begin{center}
+\scriptsize
+\begin{tabular}{@{}lllll@{}}
+\toprule
+\textbf{Operation} & \textbf{\texttt{lutA}} & \textbf{\texttt{lutB}} & \textbf{\texttt{csel}} & \textbf{Result} \\
+\midrule
+$A + B$       & \texttt{0xAA} (PASS\_A) & \texttt{0xCC} (PASS\_B) & \texttt{0} & $A+B$ \\
+$A + B + 1$   & \texttt{0xAA} & \texttt{0xCC} & \texttt{1} & $A+B+1$ \\
+$\mathrm{MOV}\;A$ & \texttt{0xAA} & \texttt{0x00} & \texttt{0} & $A$ \\
+$\mathrm{MOV}\;B$ & \texttt{0x00} & \texttt{0xCC} & \texttt{0} & $B$ \\
+$A - B$       & \texttt{0xAA} & \texttt{0x33} ($\sim B$) & \texttt{1} & $A + \sim B + 1$ \\
+$\mathrm{AND3}$ & \texttt{0x80} & \texttt{0x00} & \texttt{0} & $A \wedge B \wedge C$ \\
+$\mathrm{AND3}+\mathrm{XOR3}$ & \texttt{0x80} & \texttt{0x96} & \texttt{0} & $(A \wedge B \wedge C) + (A \oplus B \oplus C)$ per bit \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Relation to single-LUT control map}
+
+The legacy map uses one \texttt{LUT=0x96} (XOR3) with \texttt{ctrl} routing $A_{\mathrm{eff}}$, $B_{\mathrm{eff}}$ and carry as the third LUT input. The dual-LUT macro \textbf{decomposes} the same operations:
+
+\begin{itemize}
+  \item \textbf{ADD}: instead of XOR3 with carry as $c_{in}$, use PASS\_A + PASS\_B and let the 74283 propagate carry.
+  \item \textbf{Logic ops}: use one non-zero LUT and \texttt{lutB=0x00}, or split across $f+g$ when a sum is useful (e.g.\ building full adder from AND + XOR).
+  \item \textbf{SUB / CMP}: \texttt{lutB = NOT B} (\texttt{0x33}) with \texttt{csel=1}.
+\end{itemize}
+
+Microcode ROMs (\texttt{alu-control.dig}) should emit \texttt{lutA}/\texttt{lutB}/\texttt{csel} triples rather than the legacy \texttt{LUT+ctrl} pair.
+
+\section{Ports (\texttt{alu\_32b\_final})}
+
+\begin{center}
+\scriptsize
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Port} & \textbf{Width} & \textbf{Role} \\
+\midrule
+\texttt{lutA}, \texttt{lutB} & 8 & Truth tables for $f$ and $g$ \\
+\texttt{A}, \texttt{B}, \texttt{C} & 32 & Operand buses \\
+\texttt{csel} & 3 & Carry-in mux select (byte 0) \\
+\texttt{FLAG\_WE} & 1 & Latch flags into \texttt{csr} \\
+\texttt{CLK} & 1 & Flag register clock \\
+\texttt{OUT} & 32 & Combinational result \\
+\texttt{csr} & 8 & Latched Z/N/C/V/LT/GT/GTE flags \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Verification}
+
+Digital headless tests in \texttt{alu-32b-final.dig}:
+
+\begin{itemize}
+  \item \textbf{Smoke}: encoding, $A+B$, $A+B+1$, AND3+XOR3 sums.
+  \item \textbf{\texttt{alu-add-passAB-exhaustive8}}: all $256 \times 256$ low-byte additions for PASS\_A + PASS\_B.
+  \item \textbf{\texttt{alu-lut-exhaustive-abc}$xxx$} (8 blocks): all $256 \times 256$ \texttt{lutA}/\texttt{lutB} pairs $\times$ each $(a,b,c)$ minterm on bit~0 ($524{,}288$ vectors total).
+\end{itemize}
+
+Regenerate and run:
+\begin{lstlisting}
+python hardware/digital/tools/patch_alu32_tests.py
+java -cp Digital.jar CLI test -circ hardware/digital/modules/alu-32b-final.dig
+\end{lstlisting}
+
+Golden model: \texttt{hardware/digital/tools/gen\_alu32\_tests.py} (\texttt{predict\_32b}).
+
+\end{document}

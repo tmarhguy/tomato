@@ -1361,7 +1361,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 1
         </entry>
         <entry>
           <string>Bits</string>
-          <int>15</int>
+          <int>8</int>
         </entry>
       </elementAttributes>
       <pos x="-660" y="480"/>
@@ -1385,7 +1385,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 1
         </entry>
         <entry>
           <string>Bits</string>
-          <int>4</int>
+          <int>3</int>
         </entry>
       </elementAttributes>
       <pos x="-660" y="740"/>
@@ -1438,7 +1438,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 1
           <string>MUX_Y</string>
         </entry>
       </elementAttributes>
-      <pos x="1640" y="200"/>
+      <pos x="1640" y="120"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -1479,7 +1479,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 1
       <elementAttributes>
         <entry>
           <string>Selector Bits</string>
-          <int>4</int>
+          <int>3</int>
         </entry>
       </elementAttributes>
       <pos x="1600" y="40"/>
@@ -1496,7 +1496,7 @@ C 0 0 0 1 0 0 0 0 0 0 0 1
           <string>pc-cond</string>
         </entry>
       </elementAttributes>
-      <pos x="1600" y="400"/>
+      <pos x="1600" y="220"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -2993,11 +2993,11 @@ C 1 1 0 1 0 0 0 0 0 0 1 0
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>15</string>
+          <string>8</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</string>
+          <string>1,1,1,1,1,1,1,1</string>
         </entry>
       </elementAttributes>
       <pos x="1580" y="40"/>
@@ -3015,16 +3015,6 @@ C 1 1 0 1 0 0 0 0 0 0 1 0
         </entry>
       </elementAttributes>
       <pos x="1560" y="40"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Const</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Value</string>
-          <long>0</long>
-        </entry>
-      </elementAttributes>
-      <pos x="1600" y="340"/>
     </visualElement>
     <visualElement>
       <elementName>Add</elementName>
@@ -6545,10 +6535,6 @@ C 1 0 0 0 0 5 128 64 3 0 0x2
       <p2 x="660" y="1040"/>
     </wire>
     <wire>
-      <p1 x="1600" y="400"/>
-      <p2 x="1620" y="400"/>
-    </wire>
-    <wire>
       <p1 x="-1060" y="80"/>
       <p2 x="-1040" y="80"/>
     </wire>
@@ -6591,6 +6577,10 @@ C 1 0 0 0 0 5 128 64 3 0 0x2
     <wire>
       <p1 x="180" y="280"/>
       <p2 x="200" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1600" y="220"/>
+      <p2 x="1620" y="220"/>
     </wire>
     <wire>
       <p1 x="980" y="-480"/>
@@ -6677,8 +6667,8 @@ C 1 0 0 0 0 5 128 64 3 0 0x2
       <p2 x="100" y="-100"/>
     </wire>
     <wire>
-      <p1 x="1620" y="360"/>
-      <p2 x="1620" y="400"/>
+      <p1 x="1620" y="200"/>
+      <p2 x="1620" y="220"/>
     </wire>
     <wire>
       <p1 x="-360" y="-20"/>
