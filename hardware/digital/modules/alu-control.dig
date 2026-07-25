@@ -50,7 +50,7 @@
           <rotation rotation="1"/>
         </entry>
       </elementAttributes>
-      <pos x="-460" y="-900"/>
+      <pos x="-460" y="-760"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -64,14 +64,14 @@
           <string>ir_opcode</string>
         </entry>
       </elementAttributes>
-      <pos x="-440" y="-940"/>
+      <pos x="-440" y="-800"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>alu-op</string>
+          <string>lutA</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -109,14 +109,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>alu-pre</string>
+          <string>csel</string>
         </entry>
         <entry>
           <string>Bits</string>
-          <int>5</int>
+          <int>3</int>
         </entry>
       </elementAttributes>
-      <pos x="-220" y="-920"/>
+      <pos x="-220" y="-780"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -126,7 +126,7 @@
           <string>flag-we</string>
         </entry>
       </elementAttributes>
-      <pos x="-220" y="-880"/>
+      <pos x="-220" y="-740"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -141,10 +141,10 @@
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>5,1</string>
+          <string>3,1,2,1,1</string>
         </entry>
       </elementAttributes>
-      <pos x="-300" y="-920"/>
+      <pos x="-300" y="-780"/>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
@@ -170,7 +170,7 @@
           <file>C:\Users\Tyrone\OneDrive\Documents\GitHub\32b-cpu\microcode\alu_control_2.hex</file>
         </entry>
       </elementAttributes>
-      <pos x="-400" y="-940"/>
+      <pos x="-400" y="-800"/>
     </visualElement>
     <visualElement>
       <elementName>ROM</elementName>
@@ -198,39 +198,161 @@
       </elementAttributes>
       <pos x="-400" y="-1080"/>
     </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>lutB</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="-920"/>
+    </visualElement>
+    <visualElement>
+      <elementName>VDD</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="1"/>
+        </entry>
+      </elementAttributes>
+      <pos x="-460" y="-900"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ir_opcode</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-440" y="-940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>ROM</elementName>
+      <elementAttributes>
+        <entry>
+          <string>bigEndian</string>
+          <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>AddrBits</string>
+          <int>10</int>
+        </entry>
+        <entry>
+          <string>Label</string>
+          <string>alu-control</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>lastDataFile</string>
+          <file>C:\Users\Tyrone\OneDrive\Documents\GitHub\32b-cpu\microcode\alu_control_1.hex</file>
+        </entry>
+      </elementAttributes>
+      <pos x="-400" y="-940"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>shift_op</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>2</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="-700"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mul_div_en</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="-660"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>pc_enc</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-220" y="-620"/>
+    </visualElement>
   </visualElements>
   <wires>
-    <wire>
-      <p1 x="-460" y="-900"/>
-      <p2 x="-400" y="-900"/>
-    </wire>
     <wire>
       <p1 x="-340" y="-1060"/>
       <p2 x="-220" y="-1060"/>
     </wire>
     <wire>
-      <p1 x="-280" y="-920"/>
-      <p2 x="-220" y="-920"/>
+      <p1 x="-460" y="-900"/>
+      <p2 x="-400" y="-900"/>
     </wire>
     <wire>
-      <p1 x="-340" y="-920"/>
-      <p2 x="-300" y="-920"/>
-    </wire>
-    <wire>
-      <p1 x="-440" y="-1080"/>
-      <p2 x="-400" y="-1080"/>
+      <p1 x="-280" y="-740"/>
+      <p2 x="-220" y="-740"/>
     </wire>
     <wire>
       <p1 x="-440" y="-940"/>
       <p2 x="-400" y="-940"/>
     </wire>
     <wire>
+      <p1 x="-280" y="-780"/>
+      <p2 x="-220" y="-780"/>
+    </wire>
+    <wire>
+      <p1 x="-340" y="-780"/>
+      <p2 x="-300" y="-780"/>
+    </wire>
+    <wire>
+      <p1 x="-280" y="-620"/>
+      <p2 x="-220" y="-620"/>
+    </wire>
+    <wire>
       <p1 x="-460" y="-1040"/>
       <p2 x="-400" y="-1040"/>
     </wire>
     <wire>
-      <p1 x="-280" y="-880"/>
-      <p2 x="-220" y="-880"/>
+      <p1 x="-280" y="-660"/>
+      <p2 x="-220" y="-660"/>
+    </wire>
+    <wire>
+      <p1 x="-440" y="-1080"/>
+      <p2 x="-400" y="-1080"/>
+    </wire>
+    <wire>
+      <p1 x="-340" y="-920"/>
+      <p2 x="-220" y="-920"/>
+    </wire>
+    <wire>
+      <p1 x="-460" y="-760"/>
+      <p2 x="-400" y="-760"/>
+    </wire>
+    <wire>
+      <p1 x="-280" y="-700"/>
+      <p2 x="-220" y="-700"/>
+    </wire>
+    <wire>
+      <p1 x="-440" y="-800"/>
+      <p2 x="-400" y="-800"/>
     </wire>
   </wires>
   <measurementOrdering/>
