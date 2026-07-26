@@ -3,7 +3,7 @@
 	(generator "eeschema")
 	(generator_version "10.0")
 	(uuid "bf03590f-4078-420b-ac5f-55731d384371")
-	(paper "A4")
+	(paper "A5")
 	(lib_symbols
 		(symbol "power:GND"
 			(power global)
@@ -803,7 +803,7 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 220.98 35.56 180)
+		(at 125.73 76.2 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -812,9 +812,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "73554c6b-36a4-42b7-942d-f86b1059b385")
-		(property "Reference" "#FLG02"
-			(at 220.98 37.465 0)
+		(uuid "1286d1d3-e7cc-4bac-a40e-51474655ec96")
+		(property "Reference" "#FLG01"
+			(at 125.73 74.295 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -825,7 +825,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 220.98 40.64 0)
+			(at 125.73 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -835,7 +835,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 220.98 35.56 0)
+			(at 125.73 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -846,7 +846,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 220.98 35.56 0)
+			(at 125.73 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -857,7 +857,7 @@
 			)
 		)
 		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 220.98 35.56 0)
+			(at 125.73 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -868,7 +868,85 @@
 			)
 		)
 		(pin "1"
-			(uuid "d2b64438-4c3f-42ed-847b-012e1034abbb")
+			(uuid "4ca5e761-642e-41e6-8dc8-36611a146209")
+		)
+		(instances
+			(project "07_alu"
+				(path "/bf03590f-4078-420b-ac5f-55731d384371"
+					(reference "#FLG01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 113.03 76.2 180)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "28473548-04e5-406d-af14-8567ebba43f2")
+		(property "Reference" "#FLG02"
+			(at 113.03 78.105 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 113.03 81.28 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 113.03 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 113.03 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 113.03 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7d018d91-96a7-4219-8b96-3440277a61fc")
 		)
 		(instances
 			(project "07_alu"
@@ -881,7 +959,7 @@
 	)
 	(symbol
 		(lib_id "power:VCC")
-		(at 220.98 35.56 0)
+		(at 113.03 76.2 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -890,9 +968,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "882e8eb9-3228-47ec-95b2-907f06d2e974")
+		(uuid "b34298a4-6c94-4335-9f54-e3de0bf5973c")
 		(property "Reference" "#PWR01"
-			(at 220.98 39.37 0)
+			(at 113.03 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -903,7 +981,7 @@
 			)
 		)
 		(property "Value" "VCC"
-			(at 220.98 30.48 0)
+			(at 113.03 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -913,7 +991,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 220.98 35.56 0)
+			(at 113.03 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -924,7 +1002,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 220.98 35.56 0)
+			(at 113.03 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -935,7 +1013,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 220.98 35.56 0)
+			(at 113.03 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -946,7 +1024,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "5bf9a817-4544-4d95-9e8c-5c35d6c4da5c")
+			(uuid "12508dda-ad54-426c-b6b5-a79e3f4c1ebb")
 		)
 		(instances
 			(project "07_alu"
@@ -959,7 +1037,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 241.3 35.56 0)
+		(at 125.73 76.2 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -968,9 +1046,9 @@
 		(in_pos_files yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "8b5566c7-4eac-472f-a1f9-8b9e2dbd4315")
+		(uuid "df626878-027e-49b1-92cc-c5fec0ab674a")
 		(property "Reference" "#PWR02"
-			(at 241.3 41.91 0)
+			(at 125.73 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -981,7 +1059,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 241.3 40.64 0)
+			(at 125.73 81.28 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -991,7 +1069,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 241.3 35.56 0)
+			(at 125.73 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1002,7 +1080,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 241.3 35.56 0)
+			(at 125.73 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1013,7 +1091,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 241.3 35.56 0)
+			(at 125.73 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1024,7 +1102,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "ca9fd83d-83e4-4ca7-8d2f-b1da8ada0cc5")
+			(uuid "9cefa425-7d8f-4383-82c8-ef5db2b77e3e")
 		)
 		(instances
 			(project "07_alu"
@@ -1035,86 +1113,8 @@
 			)
 		)
 	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 241.3 35.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ec3a6860-92cc-43d0-99c2-56b91f4b1a5f")
-		(property "Reference" "#FLG01"
-			(at 241.3 33.655 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 241.3 30.48 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 241.3 35.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 241.3 35.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 241.3 35.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "94165891-bf93-4d6a-bda4-76636c013a3c")
-		)
-		(instances
-			(project "07_alu"
-				(path "/bf03590f-4078-420b-ac5f-55731d384371"
-					(reference "#FLG01")
-					(unit 1)
-				)
-			)
-		)
-	)
 	(sheet
-		(at 35.814 76.454)
+		(at 23.114 70.104)
 		(size 18.796 12.192)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1130,7 +1130,7 @@
 		)
 		(uuid "589819b7-9965-4373-8e96-a0531c61f09b")
 		(property "Sheetname" "led_control"
-			(at 35.814 75.7424 0)
+			(at 23.114 69.3924 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1141,7 +1141,7 @@
 			)
 		)
 		(property "Sheetfile" "led_unit.kicad_sch"
-			(at 35.814 89.2306 0)
+			(at 23.114 82.8806 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1161,7 +1161,7 @@
 		)
 	)
 	(sheet
-		(at 64.516 76.454)
+		(at 51.816 70.104)
 		(size 18.542 12.192)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1177,7 +1177,7 @@
 		)
 		(uuid "737d1e19-3076-44eb-89f4-25278746efa1")
 		(property "Sheetname" "flags_logic"
-			(at 64.516 75.7424 0)
+			(at 51.816 69.3924 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1188,7 +1188,7 @@
 			)
 		)
 		(property "Sheetfile" "flags_logic.kicad_sch"
-			(at 64.516 89.2306 0)
+			(at 51.816 82.8806 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1208,7 +1208,7 @@
 		)
 	)
 	(sheet
-		(at 95.25 76.2)
+		(at 82.55 69.85)
 		(size 17.018 12.7)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1224,7 +1224,7 @@
 		)
 		(uuid "be9ea9a7-31e1-4cb7-9045-9f93a04213ce")
 		(property "Sheetname" "io pins"
-			(at 95.25 75.4884 0)
+			(at 82.55 69.1384 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1235,7 +1235,7 @@
 			)
 		)
 		(property "Sheetfile" "iopins.kicad_sch"
-			(at 95.25 89.4846 0)
+			(at 82.55 83.1346 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
