@@ -15,34 +15,6 @@
   </attributes>
   <visualElements>
     <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>op</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>10</int>
-        </entry>
-        <entry>
-          <string>InDefault</string>
-          <value v="48" z="false"/>
-        </entry>
-      </elementAttributes>
-      <pos x="400" y="80"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Tunnel</elementName>
-      <elementAttributes>
-        <entry>
-          <string>NetName</string>
-          <string>ir_opcode</string>
-        </entry>
-      </elementAttributes>
-      <pos x="400" y="80"/>
-    </visualElement>
-    <visualElement>
       <elementName>VDD</elementName>
       <elementAttributes>
         <entry>
@@ -131,7 +103,7 @@
         </entry>
         <entry>
           <string>AddrBits</string>
-          <int>10</int>
+          <int>9</int>
         </entry>
         <entry>
           <string>Label</string>
@@ -143,6 +115,34 @@
         </entry>
       </elementAttributes>
       <pos x="380" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>op</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>9</int>
+        </entry>
+        <entry>
+          <string>InDefault</string>
+          <value v="48" z="false"/>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>ir_opcode</string>
+        </entry>
+      </elementAttributes>
+      <pos x="400" y="100"/>
     </visualElement>
   </visualElements>
   <wires>
