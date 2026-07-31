@@ -10,7 +10,7 @@
     </entry>
     <entry>
       <string>Width</string>
-      <int>9</int>
+      <int>8</int>
     </entry>
   </attributes>
   <visualElements>
@@ -61,6 +61,20 @@
       <pos x="260" y="-20"/>
     </visualElement>
     <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>mem_din</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+      </elementAttributes>
+      <pos x="-280" y="-160"/>
+    </visualElement>
+    <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
@@ -79,14 +93,14 @@
       <elementAttributes>
         <entry>
           <string>Input Splitting</string>
-          <string>40</string>
+          <string>32</string>
         </entry>
         <entry>
           <string>Output Splitting</string>
-          <string>8,16,16</string>
+          <string>16,16</string>
         </entry>
       </elementAttributes>
-      <pos x="-220" y="-180"/>
+      <pos x="-220" y="-160"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -185,7 +199,7 @@
           <string>vga_en</string>
         </entry>
       </elementAttributes>
-      <pos x="240" y="340"/>
+      <pos x="60" y="320"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -212,7 +226,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>disp-rd-addr</string>
+          <string>disp-read-addr</string>
         </entry>
         <entry>
           <string>Bits</string>
@@ -368,14 +382,14 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>dout</string>
+          <string>disp-data-out</string>
         </entry>
         <entry>
           <string>Bits</string>
           <int>32</int>
         </entry>
       </elementAttributes>
-      <pos x="440" y="-160"/>
+      <pos x="480" y="-160"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -428,7 +442,7 @@
           </testData>
         </entry>
       </elementAttributes>
-      <pos x="-560" y="280"/>
+      <pos x="-540" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -463,40 +477,6 @@
       </elementAttributes>
       <pos x="-60" y="260"/>
     </visualElement>
-    <visualElement>
-      <elementName>And</elementName>
-      <elementAttributes>
-        <entry>
-          <string>wideShape</string>
-          <boolean>true</boolean>
-        </entry>
-      </elementAttributes>
-      <pos x="160" y="320"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>mem_wr</string>
-        </entry>
-      </elementAttributes>
-      <pos x="80" y="400"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes>
-        <entry>
-          <string>Label</string>
-          <string>mem_din</string>
-        </entry>
-        <entry>
-          <string>Bits</string>
-          <int>40</int>
-        </entry>
-      </elementAttributes>
-      <pos x="-260" y="-180"/>
-    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -506,18 +486,6 @@
     <wire>
       <p1 x="-120" y="320"/>
       <p2 x="-20" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="60" y="320"/>
-      <p2 x="160" y="320"/>
-    </wire>
-    <wire>
-      <p1 x="80" y="400"/>
-      <p2 x="100" y="400"/>
-    </wire>
-    <wire>
-      <p1 x="-260" y="-180"/>
-      <p2 x="-220" y="-180"/>
     </wire>
     <wire>
       <p1 x="-180" y="260"/>
@@ -530,10 +498,6 @@
     <wire>
       <p1 x="-120" y="340"/>
       <p2 x="-20" y="340"/>
-    </wire>
-    <wire>
-      <p1 x="100" y="360"/>
-      <p2 x="160" y="360"/>
     </wire>
     <wire>
       <p1 x="-200" y="-140"/>
@@ -552,16 +516,16 @@
       <p2 x="-160" y="-160"/>
     </wire>
     <wire>
+      <p1 x="-280" y="-160"/>
+      <p2 x="-220" y="-160"/>
+    </wire>
+    <wire>
       <p1 x="320" y="-160"/>
       <p2 x="380" y="-160"/>
     </wire>
     <wire>
       <p1 x="400" y="-160"/>
-      <p2 x="440" y="-160"/>
-    </wire>
-    <wire>
-      <p1 x="100" y="360"/>
-      <p2 x="100" y="400"/>
+      <p2 x="480" y="-160"/>
     </wire>
   </wires>
   <measurementOrdering/>

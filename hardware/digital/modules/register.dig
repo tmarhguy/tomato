@@ -22,7 +22,7 @@
           <string>WE</string>
         </entry>
       </elementAttributes>
-      <pos x="-320" y="-2400"/>
+      <pos x="-560" y="-2220"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -32,7 +32,7 @@
           <string>WE</string>
         </entry>
       </elementAttributes>
-      <pos x="-320" y="-2400"/>
+      <pos x="-560" y="-2220"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -132,7 +132,7 @@
           <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="-820" y="-1740"/>
+      <pos x="-820" y="-1780"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -276,7 +276,7 @@
           <string>ADDR_W_6</string>
         </entry>
       </elementAttributes>
-      <pos x="-720" y="-1740"/>
+      <pos x="-720" y="-1780"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -556,7 +556,7 @@
           <string>EXEC</string>
         </entry>
       </elementAttributes>
-      <pos x="-320" y="-2340"/>
+      <pos x="-560" y="-2160"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -566,7 +566,7 @@
           <string>exec</string>
         </entry>
       </elementAttributes>
-      <pos x="-320" y="-2340"/>
+      <pos x="-560" y="-2160"/>
     </visualElement>
     <visualElement>
       <elementName>And</elementName>
@@ -911,20 +911,6 @@ C 1 1 0xCCCC0002 0 0 6 0 0 x x x
       <pos x="-820" y="-1920"/>
     </visualElement>
     <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>splitterSpreading</string>
-          <int>2</int>
-        </entry>
-        <entry>
-          <string>Input Splitting</string>
-          <string>5,3</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-780" y="-1960"/>
-    </visualElement>
-    <visualElement>
       <elementName>Tunnel</elementName>
       <elementAttributes>
         <entry>
@@ -936,21 +922,7 @@ C 1 1 0xCCCC0002 0 0 6 0 0 x x x
           <string>bank</string>
         </entry>
       </elementAttributes>
-      <pos x="-820" y="-1700"/>
-    </visualElement>
-    <visualElement>
-      <elementName>Splitter</elementName>
-      <elementAttributes>
-        <entry>
-          <string>splitterSpreading</string>
-          <int>2</int>
-        </entry>
-        <entry>
-          <string>Input Splitting</string>
-          <string>5,3</string>
-        </entry>
-      </elementAttributes>
-      <pos x="-780" y="-1740"/>
+      <pos x="-820" y="-1740"/>
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
@@ -960,7 +932,7 @@ C 1 1 0xCCCC0002 0 0 6 0 0 x x x
           <string>Bank_en</string>
         </entry>
       </elementAttributes>
-      <pos x="-320" y="-2280"/>
+      <pos x="-560" y="-2100"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -970,7 +942,7 @@ C 1 1 0xCCCC0002 0 0 6 0 0 x x x
           <string>Bank_en</string>
         </entry>
       </elementAttributes>
-      <pos x="-320" y="-2280"/>
+      <pos x="-560" y="-2100"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -985,6 +957,20 @@ C 1 1 0xCCCC0002 0 0 6 0 0 x x x
         </entry>
       </elementAttributes>
       <pos x="-780" y="-2380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>ADDR_W_6</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-360" y="-1100"/>
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
@@ -3925,7 +3911,7 @@ C 0 1 0xe4429ebc 1 1 1 0 0 x x x
           <int>5</int>
         </entry>
       </elementAttributes>
-      <pos x="-820" y="-1860"/>
+      <pos x="-820" y="-1880"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -3935,7 +3921,7 @@ C 0 1 0xe4429ebc 1 1 1 0 0 x x x
           <string>ADDR_C_6</string>
         </entry>
       </elementAttributes>
-      <pos x="-720" y="-1860"/>
+      <pos x="-720" y="-1880"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -3949,7 +3935,7 @@ C 0 1 0xe4429ebc 1 1 1 0 0 x x x
           <string>bank</string>
         </entry>
       </elementAttributes>
-      <pos x="-820" y="-1820"/>
+      <pos x="-820" y="-1840"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -3963,39 +3949,49 @@ C 0 1 0xe4429ebc 1 1 1 0 0 x x x
           <string>5,3</string>
         </entry>
       </elementAttributes>
-      <pos x="-780" y="-1860"/>
+      <pos x="-780" y="-1960"/>
     </visualElement>
     <visualElement>
-      <elementName>Tunnel</elementName>
+      <elementName>Splitter</elementName>
       <elementAttributes>
         <entry>
-          <string>rotation</string>
-          <rotation rotation="2"/>
+          <string>splitterSpreading</string>
+          <int>2</int>
         </entry>
         <entry>
-          <string>NetName</string>
-          <string>ADDR_C_6</string>
+          <string>Input Splitting</string>
+          <string>5,3</string>
         </entry>
       </elementAttributes>
-      <pos x="-360" y="-1100"/>
+      <pos x="-780" y="-1880"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>splitterSpreading</string>
+          <int>2</int>
+        </entry>
+        <entry>
+          <string>Input Splitting</string>
+          <string>5,3</string>
+        </entry>
+      </elementAttributes>
+      <pos x="-780" y="-1780"/>
     </visualElement>
   </visualElements>
   <wires>
     <wire>
+      <p1 x="-820" y="-1780"/>
+      <p2 x="-780" y="-1780"/>
+    </wire>
+    <wire>
+      <p1 x="-760" y="-1780"/>
+      <p2 x="-720" y="-1780"/>
+    </wire>
+    <wire>
       <p1 x="-820" y="-2020"/>
       <p2 x="-780" y="-2020"/>
-    </wire>
-    <wire>
-      <p1 x="-820" y="-1700"/>
-      <p2 x="-780" y="-1700"/>
-    </wire>
-    <wire>
-      <p1 x="-820" y="-1860"/>
-      <p2 x="-780" y="-1860"/>
-    </wire>
-    <wire>
-      <p1 x="-760" y="-1860"/>
-      <p2 x="-720" y="-1860"/>
     </wire>
     <wire>
       <p1 x="-820" y="-1960"/>
@@ -4006,12 +4002,12 @@ C 0 1 0xe4429ebc 1 1 1 0 0 x x x
       <p2 x="-720" y="-1960"/>
     </wire>
     <wire>
-      <p1 x="-820" y="-1740"/>
-      <p2 x="-780" y="-1740"/>
+      <p1 x="-820" y="-1880"/>
+      <p2 x="-780" y="-1880"/>
     </wire>
     <wire>
-      <p1 x="-760" y="-1740"/>
-      <p2 x="-720" y="-1740"/>
+      <p1 x="-760" y="-1880"/>
+      <p2 x="-720" y="-1880"/>
     </wire>
     <wire>
       <p1 x="-820" y="-2060"/>
@@ -4022,12 +4018,16 @@ C 0 1 0xe4429ebc 1 1 1 0 0 x x x
       <p2 x="-720" y="-2060"/>
     </wire>
     <wire>
-      <p1 x="-820" y="-1820"/>
-      <p2 x="-780" y="-1820"/>
+      <p1 x="-820" y="-1740"/>
+      <p2 x="-780" y="-1740"/>
     </wire>
     <wire>
       <p1 x="-820" y="-1920"/>
       <p2 x="-780" y="-1920"/>
+    </wire>
+    <wire>
+      <p1 x="-820" y="-1840"/>
+      <p2 x="-780" y="-1840"/>
     </wire>
   </wires>
   <measurementOrdering/>
