@@ -1,0 +1,102 @@
+# Tomato 8b ALU — 98 practical LUT3 opcodes (fixed A/B/C pin order)
+# idx = 4C+2B+A (C=MSB, A=LSB) | 80 unique shapes → 98 routing encodings
+# Full 256 LUT3 truth tables: luts.csv | dual-LUT programs: alu.csv
+lut_hex,lut,category,name,expression,purpose,truth_abc,canon_hex,curated
+0x00,0,wire,ZERO,0,Hard ground / zeroing registers,00000000,0x00,yes
+0x01,1,bool3,NOR3,~(A|B|C),True zero flag,10000000,0x01,yes
+0x02,2,masked,A_AND_NOT_B_NOT_C,A&~B&~C,Strict decode match,01000000,0x02,
+0x03,3,bool2,NOR_BC,~(B|C),"NOR on B,C",11000000,0x03,yes
+0x04,4,bool3,MIN2,~A&B&~C,"3-input logic on A,B,C",00100000,0x02,
+0x05,5,bool2,NOR_AC,~(A|C),"NOR on A,C",10100000,0x03,yes
+0x07,7,bool3,FN_07,(~A&~B&~C)|(~A&~B&C)|(~A&B&~C),"3-input logic on A,B,C",11100000,0x07,
+0x08,8,bool3,MIN3,~A&B&C,"3-input logic on A,B,C",00010000,0x08,
+0x09,9,bool3,FN_09,(~A&~B&~C)|(~A&B&C),"3-input logic on A,B,C",10010000,0x09,
+0x0A,10,masked,A_AND_NOT_C,A&~C,A & ~C — mask with C active-low,01010000,0x0A,yes
+0x0C,12,masked,B_AND_NOT_C,B&~C,B & ~C,00110000,0x0A,yes
+0x0F,15,wire,NOT_C,~C,Invert C,11110000,0x0F,yes
+0x10,16,bool3,MIN4,A&~B&~C,"3-input logic on A,B,C",00001000,0x02,
+0x11,17,bool2,NOR_AB,~(A|B),"NOR on A,B — zero-flag helper",10001000,0x03,yes
+0x13,19,bool3,FN_13,(~A&~B&~C)|(~A&~B&C)|(A&~B&~C),"3-input logic on A,B,C",11001000,0x07,
+0x15,21,bool3,FN_15,(~A&~B&~C)|(~A&B&~C)|(A&~B&~C),"3-input logic on A,B,C",10101000,0x07,
+0x17,23,bool3,NMAJ,~((A&B)|(B&C)|(A&C)),Inverted carry-out / minority,11101000,0x17,yes
+0x1B,27,mux,NMUX_A_CB,(~A&~B&~C)|(~A&~B&C)|(~A&B&C)|(A&~B&~C),Inverted MUX on A (C/B),11011000,0x1B,yes
+0x1D,29,mux,NMUX_B_CA,(~A&~B&~C)|(~A&B&~C)|(~A&B&C)|(A&~B&~C),Inverted MUX on B (C/A),10111000,0x1B,yes
+0x1F,31,bool3,FN_1F,(~A|B|~C)&(~A|~B|C)&(~A|~B|~C),"3-input logic on A,B,C",11111000,0x1F,
+0x20,32,bool3,MIN5,A&~B&C,"3-input logic on A,B,C",00000100,0x08,
+0x21,33,bool3,FN_21,(~A&~B&~C)|(A&~B&C),"3-input logic on A,B,C",10000100,0x09,
+0x22,34,masked,A_AND_NOT_B,A&~B,A & ~B — implication / masking,01000100,0x0A,yes
+0x27,39,mux,NMUX_A_BC,(~A&~B&~C)|(~A&~B&C)|(~A&B&~C)|(A&~B&C),Inverted MUX on A (B/C),11100100,0x1B,yes
+0x28,40,compound,A_XOR_BC,A&(B^C),A & (B ^ C),00010100,0x28,yes
+0x2B,43,bool3,FN_2B,(~A&~B&~C)|(~A&~B&C)|(~A&B&C)|(A&~B&C),"3-input logic on A,B,C",11010100,0x2B,
+0x30,48,masked,NOT_B_AND_C,~B&C,~B & C,00001100,0x0A,yes
+0x33,51,wire,NOT_B,~B,Invert B,11001100,0x0F,yes
+0x35,53,mux,NMUX_C_BA,~(C?B:A),Inverted MUX on C (B/A),10101100,0x1B,yes
+0x37,55,bool3,FN_37,(A|~B|~C)&(~A|~B|C)&(~A|~B|~C),"3-input logic on A,B,C",11101100,0x1F,
+0x3C,60,bool2,XOR_BC,B^C,"XOR on B,C",00111100,0x3C,yes
+0x3F,63,bool2,NAND_BC,~(B&C),"NAND on B,C",11111100,0x3F,yes
+0x40,64,masked,NOT_A_NOT_B_AND_C,~A&~B&C,Strict decode match,00000010,0x08,
+0x41,65,bool3,FN_41,(~A&~B&~C)|(A&B&~C),"3-input logic on A,B,C",10000010,0x09,
+0x44,68,masked,NOT_A_AND_B,~A&B,~A & B — implication / masking,00100010,0x0A,yes
+0x47,71,mux,NMUX_B_AC,(~A&~B&~C)|(~A&~B&C)|(~A&B&~C)|(A&B&~C),Inverted MUX on B (A/C),11100010,0x1B,yes
+0x48,72,compound,B_XOR_AC,(~A&B&C)|(A&B&~C),B & (A ^ C),00010010,0x28,yes
+0x50,80,masked,NOT_A_AND_C,~A&C,~A & C — condition check,00001010,0x0A,yes
+0x53,83,mux,NMUX_C_AB,(~A&~B&~C)|(~A&~B&C)|(A&~B&~C)|(A&B&~C),Inverted MUX on C (A/B),11001010,0x1B,yes
+0x55,85,wire,NOT_A,~A,Invert A,10101010,0x0F,yes
+0x57,87,bool3,FN_57,(A|~B|~C)&(~A|B|~C)&(~A|~B|~C),"3-input logic on A,B,C",11101010,0x1F,
+0x5A,90,bool2,XOR_AC,A^C,"XOR on A,C",01011010,0x3C,yes
+0x5F,95,bool2,NAND_AC,~(A&C),"NAND on A,C",11111010,0x3F,yes
+0x60,96,bool3,FN_60,(A&~B&C)|(A&B&~C),"3-input logic on A,B,C",00000110,0x28,
+0x66,102,bool2,XOR_AB,A^B,"XOR on A,B — half-adder sum",01100110,0x3C,yes
+0x69,105,bool3,XNOR3,~(A^B^C),Even parity,10010110,0x69,yes
+0x77,119,bool2,NAND_AB,~(A&B),"NAND on A,B",11101110,0x3F,yes
+0x7F,127,bool3,NAND3,~(A&B&C),Inhibited match,11111110,0x7F,yes
+0x80,128,bool3,AND3,A&B&C,Strict match (all 1),00000001,0x80,yes
+0x88,136,bool2,AND_AB,A&B,"AND on A,B (ignores C)",00010001,0x88,yes
+0x8E,142,bool3,FN_8E,(~A&~B&C)|(~A&B&~C)|(~A&B&C)|(A&B&C),"3-input logic on A,B,C",01110001,0x8E,
+0x96,150,bool3,XOR3,A^B^C,Full-adder sum / odd parity,01101001,0x96,yes
+0x99,153,bool2,XNOR_AB,~(A^B),"XNOR on A,B — equality",10011001,0x99,yes
+0x9F,159,bool3,FN_9F,(~A|B|~C)&(~A|~B|C),"3-input logic on A,B,C",11111001,0x9F,
+0xA0,160,bool2,AND_AC,A&C,"AND on A,C (ignores B)",00000101,0x88,yes
+0xA5,165,bool2,XNOR_AC,~(A^C),"XNOR on A,C",10100101,0x99,yes
+0xA8,168,compound,BC_AND_A,(B|C)&A,(B | C) & A,00010101,0xA8,yes
+0xAA,170,wire,PASS_A,A,"Pass-through A (ignores B, C)",01010101,0xAA,yes
+0xAC,172,mux,MUX_C_AB,(~A&B&~C)|(~A&B&C)|(A&~B&C)|(A&B&C),If C then A else B,00110101,0xAC,yes
+0xAF,175,masked,A_OR_NOT_C,~A|C,A | ~C,11110101,0xAF,yes
+0xB2,178,bool3,FN_B2,(~A&~B&C)|(A&~B&~C)|(A&~B&C)|(A&B&C),"3-input logic on A,B,C",01001101,0x8E,
+0xB7,183,bool3,FN_B7,(A|~B|~C)&(~A|~B|C),"3-input logic on A,B,C",11101101,0x9F,
+0xB8,184,mux,MUX_B_AC,(~A&B&C)|(A&~B&~C)|(A&~B&C)|(A&B&C),If B then A else C,00011101,0xAC,yes
+0xBB,187,masked,A_OR_NOT_B,A|~B,A | ~B,11011101,0xAF,yes
+0xBE,190,compound,A_OR_XOR_BC,A|(B^C),A | (B ^ C),01111101,0xBE,yes
+0xBF,191,bool3,FN_BF,~(A&B&~C),"3-input logic on A,B,C",11111101,0xBF,
+0xC0,192,bool2,AND_BC,B&C,"AND on B,C (ignores A)",00000011,0x88,yes
+0xC3,195,bool2,XNOR_BC,~(B^C),"XNOR on B,C",11000011,0x99,yes
+0xC8,200,compound,AC_AND_B,(A|C)&B,(A | C) & B,00010011,0xA8,yes
+0xCA,202,mux,MUX_C_BA,C?B:A,If C then B else A,01010011,0xAC,yes
+0xCC,204,wire,PASS_B,B,"Pass-through B (ignores A, C)",00110011,0xAA,yes
+0xCF,207,masked,B_OR_NOT_C,~B|C,B | ~C,11110011,0xAF,yes
+0xD4,212,bool3,BORROW,(~A&(B|C))|(B&C),Full-subtractor borrow-out (A minuend),00101011,0x8E,
+0xD7,215,bool3,FN_D7,(A|~B|~C)&(~A|B|~C),"3-input logic on A,B,C",11101011,0x9F,
+0xD8,216,mux,MUX_A_BC,(~A&B&C)|(A&~B&~C)|(A&B&~C)|(A&B&C),If A then B else C,00011011,0xAC,yes
+0xDD,221,masked,NOT_A_OR_B,~A|B,~A | B,10111011,0xAF,yes
+0xDE,222,compound,B_OR_XOR_AC,(A|B|C)&(~A|B|~C),B | (A ^ C),01111011,0xBE,yes
+0xDF,223,bool3,FN_DF,~(A&~B&C),"3-input logic on A,B,C",11111011,0xBF,
+0xE0,224,compound,AB_AND_C,(A|B)&C,(A | B) & C,00000111,0xA8,yes
+0xE2,226,mux,MUX_B_CA,B?C:A,If B then C else A,01000111,0xAC,yes
+0xE4,228,mux,MUX_A_CB,A?C:B,If A then C else B,00100111,0xAC,yes
+0xE8,232,bool3,MAJ,(A&B)|(B&C)|(A&C),Full-adder carry-out / majority,00010111,0xE8,yes
+0xEA,234,compound,BC_OR_A,(B&C)|A,(B & C) | A,01010111,0xEA,yes
+0xEC,236,compound,AC_OR_B,(A&C)|B,(A & C) | B,00110111,0xEA,yes
+0xEE,238,bool2,OR_AB,A|B,"OR on A,B",01110111,0xEE,yes
+0xEF,239,bool3,FN_EF,~(A&~B&~C),"3-input logic on A,B,C",11110111,0xEF,
+0xF0,240,wire,PASS_C,C,"Pass-through C (ignores A, B)",00001111,0xAA,yes
+0xF3,243,masked,NOT_B_OR_C,B|~C,~B | C,11001111,0xAF,yes
+0xF5,245,masked,NOT_A_OR_C,A|~C,~A | C,10101111,0xAF,yes
+0xF6,246,bool3,FN_F6,(A|B|C)&(A|~B|~C),"3-input logic on A,B,C",01101111,0xBE,
+0xF7,247,bool3,FN_F7,~(~A&B&C),"3-input logic on A,B,C",11101111,0xBF,
+0xF8,248,compound,AB_OR_C,(A&B)|C,(A & B) | C,00011111,0xEA,yes
+0xFA,250,bool2,OR_AC,A|C,"OR on A,C",01011111,0xEE,yes
+0xFB,251,bool3,FN_FB,~(~A&B&~C),"3-input logic on A,B,C",11011111,0xEF,
+0xFC,252,bool2,OR_BC,B|C,"OR on B,C",00111111,0xEE,yes
+0xFD,253,bool3,FN_FD,~(~A&~B&C),"3-input logic on A,B,C",10111111,0xEF,
+0xFE,254,bool3,OR3,A|B|C,Any match (not zero),01111111,0xFE,yes
+0xFF,255,wire,ONE,1,Tie-high / VCC,11111111,0xFF,yes
