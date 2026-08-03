@@ -1,0 +1,11 @@
+# Yosys synthesis — SkyWater 130nm HD (run from verification/synthesis/)
+read_verilog rtl/alu-32b-final.v
+hierarchy -top \alu-32b-final
+synth -top \alu-32b-final
+dfflibmap -liberty pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean
+stat -liberty pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+ltp
+flatten
+write_verilog -noattr reports/synth_mapped.v
