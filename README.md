@@ -10,7 +10,7 @@
 ![microcode](https://img.shields.io/badge/microcode-modular-2563EB?style=for-the-badge)
 ![ISA](https://img.shields.io/badge/ISA-512_opcodes-0D9488?style=for-the-badge)
 ![KiCad](https://img.shields.io/badge/KiCad-PCB-F59E0B?style=for-the-badge)
-![Digital](https://img.shields.io/badge/Digital-simulation-0891B2?style=for-the-badge)
+![license](https://img.shields.io/badge/license-SHL--2.1-blue?style=for-the-badge)
 
 A homebrew **32-bit** CPU built from 74xx logic — not a soft core, not an FPGA toy first. Tomato started at the transistor and kept climbing: gates, slices, boards, a CPU that can *speak* dozens of foreign ISAs while remaining one physical machine underneath.
 
@@ -52,6 +52,7 @@ Tomato is intentionally a **build log machine**. Every odd choice is documented 
 - [Project status](#project-status)
 - [Documentation index](#documentation-index)
 - [Conventions](#conventions)
+- [License](#license)
 - [Author](#author)
 
 ---
@@ -246,6 +247,7 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 | Register file | 32 GPR × 8 banks | 256 addressable registers |
 | `main.dig` + control boards | In progress | Modular decode on bench |
 | ALU verification | Passing on 32b export | [verification/](verification/) |
+| ALU ASIC characterization | Sky130 HD mapped | [6531 µm², 512 cells, ~210 MHz est.](verification/synthesis/README.md) |
 | Peripheral PCBs | In design | Register, memory, PC, data bus |
 | Firmware / software | Not started | README stubs only |
 
@@ -298,6 +300,25 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 | Microcode fields | Edit `docs/isa/opcodes.csv`, extract per-board ROM images |
 | Logic / timing | Edit Digital `.dig` → export Verilog → `make signoff` |
 | Physical board | KiCad in `hardware/kicad/boards/` |
+
+---
+
+## License
+
+Tomato is licensed under **[Solderpad Hardware License 2.1](LICENSE)** (SHL-2.1,
+`Apache-2.0 WITH SHL-2.1`) — open hardware + RTL + scripts + docs. You may
+study, build, fork, and commercialize **with attribution**; do not strip
+copyright or present the dual-LUT architecture as unrelated work.
+
+| Document | Content |
+|----------|---------|
+| [LICENSE](LICENSE) | SHL-2.1 terms |
+| [LICENSE-APACHE](LICENSE-APACHE) | Apache 2.0 (incorporated under SHL-2.1) |
+| [NOTICE](NOTICE) | Copyright and attribution |
+| [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | PDK and tool licenses |
+
+**Architecture credit:** Tomato dual-LUT bit-slice datapath — Tyrone Marhguy /
+Tomato project.
 
 ---
 
