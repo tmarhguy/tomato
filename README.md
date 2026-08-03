@@ -17,8 +17,11 @@ A homebrew **32-bit** CPU built from 74xx logic — not a soft core, not an FPGA
 The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **512-row opcode ROM** fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
 
 <p align="center">
-  <img src="media/kicad/07_alu/pcb/alu_8b_board.png" alt="Tomato ALU PCB — 3D layout" width="500" />
+  <img src="media/kicad/07_alu/pcb/alu_8b_board.png" alt="Tomato ALU PCB — 3D layout" width="42%" />
+  <img src="media/kicad/07_alu/pcb/alu_8b_pcb.png" alt="Tomato ALU PCB — top-layer layout" width="50%" />
 </p>
+
+<p align="center"><em>Left: 3D board · Right: routed top copper (<code>07_alu</code>)</em></p>
 
 The dual-LUT slice is **routed and fab-ready** on KiCad board `07_alu` — see the [07 ALU board doc](hardware/kicad/boards/07_alu/README.md) for schematics, layout figures, and connector pinout.
 
@@ -188,10 +191,6 @@ tomato/
 | [alu-display-control.dig](hardware/digital/modules/alu-display-control.dig) | 32-digit hex display for bring-up |
 
 ALU verification ladder: `alu-1b-final` → 2x `alu-4b` → 4x `alu-8b` → `alu-32b-final`.
-
-<p align="center">
-  <img src="media/kicad/07_alu/pcb/alu_8b_pcb.png" alt="8-bit ALU PCB layout" width="500" />
-</p>
 
 <p align="center"><em>KiCad <code>07_alu</code> — two 4-bit cells, flag logic, opcode/operand LED bring-up (<a href="hardware/kicad/boards/07_alu/README.md">full ALU board doc</a>).</em></p>
 
