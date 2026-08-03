@@ -6,8 +6,11 @@
 .cursor/
 .env
 
+# Python
+*.pyc
+**/__pycache__/
+
 # Python tooling
-/tools/__pycache__
 /tools
 
 # KiCad
@@ -30,4 +33,12 @@ verification/results/
 verification/formal/alu_*_verify/
 verification/formal/alu_*_prove/
 verification/directed/run_extracted_tb.v
+
+# Verification synthesis — generated reports and fetched PDK liberty
+verification/synthesis/reports/
+verification/synthesis/pdk/*.lib
+
+# Test benchmark — generated reports
+test/reports/
+
 *.zip
