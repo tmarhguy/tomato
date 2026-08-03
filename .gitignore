@@ -17,6 +17,33 @@
 *.kicad_prl
 *.dsn
 *~*.lck
+*-backups/
+
+# Xilinx Vivado — generated outputs (keep *.xpr and *.srcs/constrs)
+hardware/fpga/*/*.cache/
+hardware/fpga/*/*.runs/
+hardware/fpga/*/*.hw/
+hardware/fpga/**/.Xil/
+hardware/fpga/**/.jobs/
+hardware/fpga/**/*.jou
+hardware/fpga/**/*.pb
+hardware/fpga/**/*.rpt
+hardware/fpga/**/*.rpx
+hardware/fpga/**/*.dcp
+hardware/fpga/**/*.bit
+hardware/fpga/**/*.vdi
+hardware/fpga/**/*.wdf
+hardware/fpga/**/*.wpc
+hardware/fpga/**/ISEWrap.js
+hardware/fpga/**/ISEWrap.sh
+hardware/fpga/**/rundef.js
+hardware/fpga/**/runme.bat
+hardware/fpga/**/runme.sh
+hardware/fpga/**/runme.log
+hardware/fpga/**/gen_run.xml
+hardware/fpga/**/.vivado*.rst
+hardware/fpga/**/.Vivado*.rst
+hardware/fpga/**/utils_1/
 
 # Digital Verilog exports (copy locally for sim/formal; not source-of-truth in git)
 *.txt
