@@ -1,0 +1,11 @@
+# Yosys synthesis — Kogge-Stone 32 (run from test/)
+read_verilog rtl/kogge_stone_32.v
+hierarchy -top kogge_stone_32
+synth -top kogge_stone_32
+dfflibmap -liberty ../verification/synthesis/pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty ../verification/synthesis/pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+opt_clean
+stat -liberty ../verification/synthesis/pdk/sky130_fd_sc_hd__tt_025C_1v80.lib
+flatten
+ltp
+write_verilog -noattr reports/synth_mapped.v
