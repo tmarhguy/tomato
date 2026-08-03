@@ -1,4 +1,4 @@
-// Behavioral reference model for MOSAIC32 ALU (matches formal bind properties)
+// Behavioral reference model for Tomato 32-bit ALU (matches formal bind properties)
 package alu_ref_model_pkg;
   import alu_types_pkg::*;
   import alu_op_table_pkg::*;
