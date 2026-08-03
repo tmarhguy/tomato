@@ -1,10 +1,17 @@
-# Mosaic32 ALU — Verification Harness
+# Tomato — ALU verification
 
-**How the ALU is verified here:** layered proof from the 1-bit programmable-LUT cell up through the exported 32-bit netlist — SymbiYosys formal (1b → 8b → 32b comb + sequential flag cover), Icarus directed replay of Digital test vectors, and full UVM dynamic simulation with a shared reference model.
+![status](https://img.shields.io/badge/status-signoff_passing-2ea043?style=for-the-badge)
+![architecture](https://img.shields.io/badge/architecture-32_bit-2563EB?style=for-the-badge)
+![formal](https://img.shields.io/badge/formal-SymbiYosys-7C3AED?style=for-the-badge)
+![UVM](https://img.shields.io/badge/UVM-Questa-0891B2?style=for-the-badge)
 
-**Harness root:** `verification/` · **RTL policy:** Digital exports in `rtl/` are read-only.
+Layered sign-off for the **Tomato dual-LUT 32-bit ALU**: independent 3-input LUT planes per bit, ripple carry across byte slices, flag latches on the top 8b slice — `out = f(a,b,c) + g(a,b,c) + cin`. Proof runs from the 1-bit programmable-LUT cell up through the exported 32-bit netlist.
 
-**Related (historical):** [Verification.md](../Verification.md) documents the earlier mosaic32 Verilator fuzz harness (40B 1b + 130B 32b). This tree is the current sign-off path for the repo.
+**Tools:** SymbiYosys formal (1b → 8b → 32b comb + sequential flag cover), Icarus directed replay of Digital test vectors, Questa UVM with a shared reference model.
+
+**Harness root:** `verification/` · **RTL policy:** Digital exports in `rtl/` are read-only copies — regenerate from [alu-32b-final.dig](../../hardware/digital/modules/alu-32b-final.dig), then re-run sign-off.
+
+**Project map:** [Root README](../README.md) · **ASIC metrics:** [synthesis/README.md](synthesis/README.md) · **Carry benchmark:** [test/README.md](../test/README.md)
 
 ---
 
@@ -41,6 +48,8 @@ make signoff        # fast CI (~35 s): spot formal + directed + lint
 make signoff_full   # adds formal_32b_equiv end-to-end comb proof
 ```
 
+From repo root: `make test` runs `make -C verification signoff`.
+
 ---
 
 ## What each layer proves
@@ -64,23 +73,28 @@ make signoff_full   # adds formal_32b_equiv end-to-end comb proof
 ```bash
 cd verification
 
-# No simulator license required
+# No commercial simulator license required
 make signoff              # fast CI (~35 s)
 make signoff_full         # + 32b equiv prove (~3 min)
 make formal_32b_equiv     # full comb proof (~74 s)
 make directed             # 476 vectors (Icarus)
-make generate             # regenerate op table + vectors
+make generate             # regenerate op table + vectors (when scripts/generate.py present)
 
 # Questa required (vlog/vsim on PATH)
 make uvm_1b_exhaustive
 make uvm_8b_full
 make uvm_32b_regression   # directed + ops91 + edge + flag + 10k random
 make uvm_regression       # 1b exhaustive + 8b full + 32b regression
+
+# Sky130 synthesis characterization
+make synth                # see synthesis/README.md
 ```
 
 **Dependencies (local sign-off):** `python3`, `yosys`, `symbiyosys` (`sby`), `z3`, `iverilog`, `verilator`.
 
 **UVM:** [Questa Intel FPGA Starter](https://www.intel.com/content/www/us/en/software-kit/750666/intel-quartus-prime-lite-edition-design-software-version-23-1-for-windows.html) or equivalent with `vlog`/`vsim`.
+
+**Before first run:** copy Digital-export netlists (`alu-1b-final.v`, `alu-8b-final.v`, `alu-32b-final.v`) into `rtl/` — see [rtl/README.md](rtl/README.md). The synthesis tree also holds a current `alu-32b-final.v` copy under `synthesis/rtl/`.
 
 ---
 
@@ -89,19 +103,20 @@ make uvm_regression       # 1b exhaustive + 8b full + 32b regression
 ```
 verification/
 ├── README.md           ← you are here
-├── Makefile            ← all targets
-├── rtl/                → [rtl/README.md](rtl/README.md)
+├── Makefile            ← all targets (signoff, formal, UVM, synth)
+├── rtl/                → [rtl/README.md](rtl/README.md) — Digital-export DUT netlists
 ├── formal/             → [formal/README.md](formal/README.md)
 ├── directed/           → [directed/README.md](directed/README.md)
+├── synthesis/          → [synthesis/README.md](synthesis/README.md) — Yosys → Sky130 HD
 ├── uvm/                → [uvm/README.md](uvm/README.md)
-│   ├── common/         → [uvm/common/README.md](uvm/common/README.md)
+│   ├── common/         → ref model, op table, directed vectors (generated pkgs committed)
 │   ├── alu_1b/         → [uvm/alu_1b/README.md](uvm/alu_1b/README.md)
 │   ├── alu_8b/         → [uvm/alu_8b/README.md](uvm/alu_8b/README.md)
 │   └── alu_32b/        → [uvm/alu_32b/README.md](uvm/alu_32b/README.md)
-└── scripts/            → [scripts/README.md](scripts/README.md)
+└── scripts/            → generate.py (vector + op table codegen, when present)
 ```
 
-Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, `formal/alu_*_verify/`, `directed/run_extracted_tb.v`. RTL netlists in `rtl/*.v` are local Digital copies (`*.v` ignored globally).
+Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, `formal/alu_*_verify/`, `directed/run_extracted_tb.v`, `synthesis/reports/`, `test/reports/`.
 
 ---
 
@@ -129,7 +144,7 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 | `csel==2'b10` carry-fed logic | **Closed** — unified ripple-LUT golden; `Flag_C` primary input in formal |
 | All 91 ops / 476 vectors | **Closed** — directed + UVM scoreboard (no skips) |
 | Sequential `CSR_FLAG` prove | **Cover + UVM** — SMT latch prove not feasible; use `alu_32b_flag_test` |
-| UVM in CI | Questa not in GitHub Actions |
+| UVM in CI | Questa not wired in GitHub Actions yet |
 
 ---
 
@@ -137,7 +152,9 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 
 | Doc | Link |
 |-----|------|
-| Historical Verilator report | [Verification.md](../Verification.md) |
+| Tomato architecture | [Root README](../README.md) |
+| Synthesis (Sky130 metrics) | [synthesis/README.md](synthesis/README.md) |
+| Kogge-Stone benchmark | [test/README.md](../test/README.md) |
 | 91-op control map (authority) | [docs/alu/alu-1b/alu_control_map.tex](../docs/alu/alu-1b/alu_control_map.tex) |
-| CI workflow | [.github/workflows/alu-verification.yml](../.github/workflows/alu-verification.yml) |
-| Root test shortcut | `make test` → `make -C verification signoff` |
+| Digital source schematic | [alu-32b-final.dig](../hardware/digital/modules/alu-32b-final.dig) |
+| Root shortcut | `make test` → `make -C verification signoff` |
