@@ -157,3 +157,4 @@ synth:
 
 synth_clean:
 	rm -rf $(SYNTH)/reports/*
+
