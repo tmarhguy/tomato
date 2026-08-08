@@ -1,27 +1,25 @@
 # Tomato
 
-![status](https://img.shields.io/badge/status-active_development-2ea043?style=for-the-badge)
-![architecture](https://img.shields.io/badge/architecture-32_bit-2563EB?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active%20Development-2ea043?style=for-the-badge)
+![Architecture](https://img.shields.io/badge/Architecture-32--bit-011F5B?style=for-the-badge)
+![License](https://img.shields.io/badge/License-SHL--2.1-990000?style=for-the-badge)
 
-![homebrew CPU](https://img.shields.io/badge/homebrew-CPU-1D4ED8?style=for-the-badge)
-![discrete logic](https://img.shields.io/badge/discrete-logic-7C3AED?style=for-the-badge)
-![74xx](https://img.shields.io/badge/logic-74xx-EAB308?style=for-the-badge)
-![ALU](https://img.shields.io/badge/ALU-dual_LUT-DC2626?style=for-the-badge)
-![microcode](https://img.shields.io/badge/microcode-modular-2563EB?style=for-the-badge)
-![ISA](https://img.shields.io/badge/ISA-512_opcodes-0D9488?style=for-the-badge)
-![KiCad](https://img.shields.io/badge/KiCad-PCB-F59E0B?style=for-the-badge)
-![license](https://img.shields.io/badge/license-SHL--2.1-blue?style=for-the-badge)
+![Logic](https://img.shields.io/badge/Logic-74xx%20Discrete-EAB308?style=for-the-badge)
+![ALU](https://img.shields.io/badge/ALU-Dual--LUT%2074ACT-DC2626?style=for-the-badge)
+![ISA](https://img.shields.io/badge/ISA-512%20Opcodes-2563EB?style=for-the-badge)
+![Microcode](https://img.shields.io/badge/Microcode-Modular%20Decode-7C3AED?style=for-the-badge)
+![PCB](https://img.shields.io/badge/PCB-KiCad%2010-F59E0B?style=for-the-badge&logo=kicad&logoColor=white)
 
 A homebrew **32-bit** CPU built from 74xx logic — not a soft core, not an FPGA toy first. Tomato started at the transistor and kept climbing: gates, slices, boards, a CPU that can *speak* dozens of foreign ISAs while remaining one physical machine underneath.
 
 The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **512-row opcode ROM** fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
 
 <p align="center">
-  <img src="media/kicad/07_alu/pcb/alu_8b_board.png" alt="Tomato ALU PCB — 3D layout" width="42%" />
+  <img src="media/kicad/07_alu/pcb/alu_8b_board.png" alt="Tomato ALU PCB — board render" width="47%" />
   <img src="media/kicad/07_alu/pcb/alu_8b_pcb.png" alt="Tomato ALU PCB — top-layer layout" width="50%" />
 </p>
 
-<p align="center"><em>Left: 3D board · Right: routed top copper (<code>07_alu</code>)</em></p>
+<p align="center"><em>Left: board render · Right: routed top copper (<code>07_alu</code>)</em></p>
 
 The dual-LUT slice is **routed and fab-ready** on KiCad board `07_alu` — see the [07 ALU board doc](hardware/kicad/boards/07_alu/README.md) for schematics, layout figures, and connector pinout.
 
@@ -335,12 +333,7 @@ Tomato is a solo hardware architecture project: discrete-logic CPU design, KiCad
 | Substack | [@tmarhguy](https://substack.com/@tmarhguy) |
 | GitHub | [@tmarhguy](https://github.com/tmarhguy) |
 
-![UPenn](https://img.shields.io/badge/UPenn-CE_2028-011F5B?style=for-the-badge)
-![Computer Engineering](https://img.shields.io/badge/Computer_Engineering-hardware-990000?style=for-the-badge)
-![homebrew hardware](https://img.shields.io/badge/homebrew-hardware-2ea043?style=for-the-badge)
-![CPU architecture](https://img.shields.io/badge/CPU-architecture-2563EB?style=for-the-badge)
-![PCB design](https://img.shields.io/badge/PCB_design-KiCad-F59E0B?style=for-the-badge)
-![build in public](https://img.shields.io/badge/build_in_public-design_log-7C3AED?style=for-the-badge)
-![74xx logic](https://img.shields.io/badge/discrete_logic-74xx-EAB308?style=for-the-badge)
-![verification](https://img.shields.io/badge/formal_%2B_UVM-verification-0891B2?style=for-the-badge)
+![University of Pennsylvania](https://img.shields.io/badge/University%20of%20Pennsylvania-Computer%20Engineering-011F5B?style=for-the-badge)
+![Class of 2028](https://img.shields.io/badge/Class%20of-2028-990000?style=for-the-badge)
+![Verification](https://img.shields.io/badge/Verification-Formal%20%2B%20UVM-0891B2?style=for-the-badge)
 
