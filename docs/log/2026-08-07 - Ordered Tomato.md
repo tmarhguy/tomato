@@ -16,8 +16,12 @@ After months of schematic churn, opcode tables, and the occasional 40b detour, T
 
 The dual-LUT ALU is no longer a KiCad fantasy. Copper is being etched. Chips are in a warehouse in Minnesota. I am genuinely excited.
 
-![Tomato ALU — 3D board render](../../media/kicad/07_alu/pcb/alu_8b_3d.gif)
-*Figure 1 — What we are actually building: `07_alu`, routed and fab-ready.*
+<p align="center">
+  <img src="../../media/kicad/07_alu/pcb/alu_8b_board.png" alt="Tomato ALU — board render" width="46%" />
+  <img src="../../media/kicad/07_alu/pcb/alu_8b_pcb.png" alt="Tomato ALU — top copper" width="50%" />
+</p>
+
+<p align="center"><em>Figure 1 — What we are actually building: <code>07_alu</code> — board render (left), routed top copper (right). DRC clean, 0 unrouted nets.</em></p>
 
 ---
 
