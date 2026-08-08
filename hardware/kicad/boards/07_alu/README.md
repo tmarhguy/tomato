@@ -1,11 +1,11 @@
 # 07 — Dual-LUT ALU PCB
 
-![status](https://img.shields.io/badge/status-routed_fab_ready-2ea043?style=for-the-badge)
-![width](https://img.shields.io/badge/datapath-32_bit-2563EB?style=for-the-badge)
-![slice](https://img.shields.io/badge/slice-dual_LUT_74ACT-DC2626?style=for-the-badge)
-![KiCad](https://img.shields.io/badge/KiCad-10.0.4-F59E0B?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Routed%20%26%20Ordered-2ea043?style=for-the-badge)
+![Datapath](https://img.shields.io/badge/Datapath-8--bit%20Slice-011F5B?style=for-the-badge)
+![Topology](https://img.shields.io/badge/Topology-Dual--LUT%2074ACT-DC2626?style=for-the-badge)
+![KiCad](https://img.shields.io/badge/KiCad-10.0.4-F59E0B?style=for-the-badge&logo=kicad&logoColor=white)
 
-The physical **32-bit ALU** for Tomato — two independent 3-input LUT planes per bit, summed through **74ACT283** nibble adders, with on-board flag logic, carry select, and a bring-up LED wall. Digital source of truth: [alu-32b-final.dig](../../../digital/modules/alu-32b-final.dig). KiCad project: [07_alu.kicad_pro](07_alu.kicad_pro).
+The physical **32-bit ALU** for Tomato — two independent 3-input LUT planes per bit, summed through **74ACT283** nibble adders, with on-board flag logic, carry select, and a bring-up LED wall. One PCB is an **8-bit slice**; stack two for 16-bit bench bring-up. Digital source of truth: [alu-32b-final.dig](../../../digital/modules/alu-32b-final.dig). KiCad project: [07_alu.kicad_pro](07_alu.kicad_pro).
 
 ---
 
@@ -15,6 +15,7 @@ The physical **32-bit ALU** for Tomato — two independent 3-input LUT planes pe
 - [Hierarchy](#hierarchy)
 - [Schematics](#schematics)
 - [PCB layout](#pcb-layout)
+- [Bill of materials](#bill-of-materials)
 - [I/O and bring-up](#io-and-bring-up)
 - [Project files](#project-files)
 - [Related docs](#related-docs)
@@ -31,12 +32,15 @@ alu_out[n] = ( lutA(a,b,c) + lutB(a,b,c) + cin ) & 1   per bit, ripple across ni
 |------|--------|
 | Board | `07_alu` — modular 74xx ALU (not the legacy 270mm transistor `01_alu`) |
 | Topology | `alu_1b_X` + `alu_1b_Y` → `alu_4b` × 2 (ripple carry) → 8b slice on PCB |
-| Key ICs | **74ACT151** (LUT3 mux), **74ACT283** (4b adder), **74HC688** (zero detect), **74LS377** (flag reg) |
+| Key ICs | **74ACT151** (LUT3 mux), **74ACT283** (4b adder), **74HCT688** (zero detect), **74ACT377** (flag reg), **74ACT541** (buffer) |
 | Layout | Routed — **0 unrouted** nets (see status below) |
 | Silk | Tomato ALU branding, UPenn / author contact on copper |
 
+![Board render](../../../../media/kicad/07_alu/pcb/alu_8b_board.png)
+*Figure 1 — `07_alu` board render — `CELL 0` / `CELL 1`, flag logic, opcode/operand LED wall, I/O headers.*
+
 ![PCB layout overview](../../../../media/kicad/07_alu/pcb/alu_8b_pcb.png)
-*Figure 1 — 8-bit ALU PCB layout (`CELL 0` / `CELL 1`, flag logic, I/O headers).*
+*Figure 2 — Top copper — routed cells, flag block, silkscreen.*
 
 ---
 
@@ -62,32 +66,32 @@ Full CPU width is four 8-bit slices (or eight 4-bit cells) in the larger Tomato 
 ### Top sheet — two 4-bit ALU cells
 
 ![Top schematic](../../../../media/kicad/07_alu/schematics/07_alu-images-0.jpg)
-*Figure 2 — `alu_4b_0` and `alu_4b_1` chained; `flags_logic`, `led_control`, and `iopins` sheets.*
+*Figure 3 — `alu_4b_0` and `alu_4b_1` chained; `flags_logic`, `led_control`, and `iopins` sheets.*
 
 ### 4-bit slice — dual LUT into adder
 
 ![4-bit ALU slice](../../../../media/kicad/07_alu/schematics/07_alu-images-1.jpg)
-*Figure 3 — `alu_1b_X0–X3` and `alu_1b_Y0–Y3` feed **U3 (74ACT283)**; `cinD` / `cout` nibble carry.*
+*Figure 4 — `alu_1b_X0–X3` and `alu_1b_Y0–Y3` feed **U3 (74ACT283)**; `cinD` / `cout` nibble carry.*
 
 ### 1-bit LUT3 (`alu_1b_Y` example)
 
 ![1-bit LUT slice](../../../../media/kicad/07_alu/schematics/07_alu-images-2.jpg)
-*Figure 4 — **74ACT151** as 3-input LUT: `a,b,c` select among `ALU_OPCODE_Y0–Y7`.*
+*Figure 5 — **74ACT151** as 3-input LUT: `a,b,c` select among `ALU_OPCODE_Y0–Y7`.*
 
 ### Flag logic
 
 ![Flags logic](../../../../media/kicad/07_alu/schematics/07_alu-images-4.jpg)
-*Figure 5 — Zero compare (**74HC688**), flag register (**74LS377**), **74ACT151** `CIN-MAIN` mux from `CSEL` + latched flags.*
+*Figure 6 — Zero compare (**74HCT688**), flag register (**74ACT377**), **74ACT151** `CIN-MAIN` mux from `CSEL` + latched flags.*
 
 ### LED bring-up panel
 
 ![LED unit](../../../../media/kicad/07_alu/schematics/07_alu-images-3.jpg)
-*Figure 6 — Visualize `ALU_OPCODE_X/Y`, flags, and A/B/C/OUT buses on the bench.*
+*Figure 7 — Visualize `ALU_OPCODE_X/Y`, flags, and A/B/C/OUT buses on the bench.*
 
 ### I/O connectors
 
 ![I/O pins](../../../../media/kicad/07_alu/schematics/07_alu-images-5.jpg)
-*Figure 7 — Headers for A/B/C/OUT, opcode buses, `CSEL`, `FLAG_WE`, `SYS-CLK`, power.*
+*Figure 8 — Headers for A/B/C/OUT, opcode buses, `CSEL`, `FLAG_WE`, `SYS-CLK`, power.*
 
 ---
 
@@ -95,12 +99,60 @@ Full CPU width is four 8-bit slices (or eight 4-bit cells) in the larger Tomato 
 
 | Asset | Description |
 |-------|-------------|
-| [alu_8b_pcb.png](../../../../media/kicad/07_alu/pcb/alu_8b_pcb.png) | 2D layout — cells, flag block, silkscreen |
-| [alu_8b_3d.gif](../../../../media/kicad/07_alu/pcb/alu_8b_3d.gif) | 3D board view |
-| [status_bar.png](../../../../media/kicad/07_alu/pcb/status_bar.png) | DRC/route status — **760 pads**, **388 vias**, **2345** segments, **183 nets**, **0 unrouted** |
+| [alu_8b_board.png](../../../../media/kicad/07_alu/pcb/alu_8b_board.png) | Board render — assembled view, silk, LED wall |
+| [alu_8b_pcb.png](../../../../media/kicad/07_alu/pcb/alu_8b_pcb.png) | 2D layout — top copper, cells, flag block |
+| [status_bar.png](../../../../media/kicad/07_alu/pcb/status_bar.png) | Route status — **717 pads**, **358 vias**, **2405** segments, **185 nets**, **0 unrouted** |
+| [drc.png](../../../../media/kicad/07_alu/tests/drc.png) | Design Rules Check — **0 violations**, **0 unconnected** |
 
-![3D view](../../../../media/kicad/07_alu/pcb/alu_8b_3d.gif)
-*Figure 8 — 3D render of the assembled 8-bit ALU board.*
+![Route status](../../../../media/kicad/07_alu/pcb/status_bar.png)
+*Figure 9 — KiCad status bar — fully routed, fab-ready.*
+
+![DRC clean](../../../../media/kicad/07_alu/tests/drc.png)
+*Figure 10 — DRC pass — no violations, no unconnected items.*
+
+---
+
+## Bill of materials
+
+Each board is **131 placements** — mostly SOIC logic, a wall of 0805 LEDs, and a handful of through-hole resistor networks and headers. The tables below list **one board**; double quantities for a two-board 16-bit build.
+
+### Integrated circuits
+
+| Qty | Value | MPN (ordered) | Digi-Key | Role |
+|-----|-------|---------------|----------|------|
+| 17 | 74ACT151 | CD74ACT151M96 | [296-12766-1-ND](https://www.digikey.com/en/products/detail/texas-instruments/CD74ACT151M96/12766) | 8:1 mux — LUT3 planes in both cells + flag `CSEL` |
+| 2 | 74ACT283 | CD74ACT283M | [296-32996-5-ND](https://www.digikey.com/en/products/detail/texas-instruments/CD74ACT283M/32996) | 4-bit ripple adder — one per nibble cell |
+| 2 | 74ACT00 | SN74ACT00DR | [296-14690-1-ND](https://www.digikey.com/en/products/detail/texas-instruments/SN74ACT00DR/14690) | Quad NAND — glue in flag logic |
+| 1 | 74ACT86 | SN74ACT86DR | [296-9757-1-ND](https://www.digikey.com/en/products/detail/texas-instruments/SN74ACT86DR/9757) | Quad XOR — flag compare |
+| 1 | 74ACT377 | MC74ACT377DWR2G | [MC74ACT377DWR2GOSCT-ND](https://www.digikey.com/en/products/detail/onsemi/MC74ACT377DWR2G/377) | Octal D-FF — flag latch (U40) |
+| 1 | 74ACT541 | CD74ACT541M96 | [296-14501-1-ND](https://www.digikey.com/en/products/detail/texas-instruments/CD74ACT541M96/14501) | Octal bus buffer (U1) |
+| 1 | 74HC688 | CD74HCT688M96 | [296-24357-1-ND](https://www.digikey.com/en/products/detail/texas-instruments/CD74HCT688M96/24357) | 8-bit identity comparator — zero detect (U4); **HCT** for 5V ACT inputs |
+
+### Passives and indicators
+
+| Qty | Value | MPN (ordered) | Digi-Key | Footprint | Refs |
+|-----|-------|---------------|----------|-----------|------|
+| 25 | 100nF | CC0603KRX7R9BB104 | [311-1344-1-ND](https://www.digikey.com/en/products/detail/yageo/CC0603KRX7R9BB104/311) | 0603 | C3, C4, C16, C36–C59 |
+| 63 | Red LED | LTST-C170KRKT | [160-1415-1-ND](https://www.digikey.com/en/products/detail/lite-on-inc/LTST-C170KRKT/160) | 0805 | D4–D71 |
+| 7 | 470Ω bussed | 4610X-101-471LF | [4610X-1-471LF-ND](https://www.digikey.com/en/products/detail/bourns-inc/4610X-101-471LF/4610) | SIP-9 | RN1–RN7 |
+| 2 | 470Ω bussed | 4604X-101-471LF | — | SIP-4 | RN9, RN10 |
+
+The SIP-4 networks are **3-resistor bussed 470Ω** parts on [led_unit.kicad_sch](led_unit.kicad_sch). DigiKey often lists `4604X-101-471LF` on backorder with a high minimum — source from lab stock, or use **6× discrete 470Ω** per board (one end common, three to LED nets).
+
+### Connectors
+
+| Qty | Value | MPN | Refs |
+|-----|-------|-----|------|
+| 2 | 1×4 header | PRPC004SAAN-RC | J10, J11 |
+| 7 | 1×8 header | PRPC008SAAN-RC | J5–J7, J12, J15–J17 |
+
+Headers are standard 2.54 mm pin strips — any equivalent works.
+
+### Ordering notes
+
+- **DigiKey BOM (2 boards):** [`07_alu_digikey_bom.csv`](../../fabrication/07_alu/07_alu_digikey_bom.csv) — upload-ready CSV; order **`100884560`** placed Aug 2026 (~**$61** all-in for two boards).
+- **Fabrication exports:** Gerbers, pick-and-place, and order receipt in [`hardware/kicad/fabrication/07_alu/`](../../fabrication/07_alu/).
+- **PCBs:** JLCPCB bare boards — see [Ordered Tomato](../../../../docs/log/2026-08-07%20-%20Ordered%20Tomato.md).
 
 ---
 
@@ -132,6 +184,7 @@ Suggested flow: program opcode buses for a known LUT pair (e.g. add = `0x96` on 
 | [alu_4b.kicad_sch](alu_4b.kicad_sch) | Nibble cell |
 | [flags_logic.kicad_sch](flags_logic.kicad_sch), [led_unit.kicad_sch](led_unit.kicad_sch) | Status + debug |
 | [iopins.kicad_sch](iopins.kicad_sch) | Connector map |
+| [07_alu_digikey_bom.csv](../../fabrication/07_alu/07_alu_digikey_bom.csv) | DigiKey BOM — 2-board order |
 
 Media exports (figures above): [media/kicad/07_alu/](../../../../media/kicad/07_alu/).
 
@@ -145,6 +198,7 @@ Media exports (figures above): [media/kicad/07_alu/](../../../../media/kicad/07_
 | [74251 carry mux log](../../../../docs/log/2026-06-26%20-%20ALU%20-%20Redesign%20with%2074251.md) | Why **74251/ACT151** over **74151** + tri-state |
 | [Mode mux elimination](../../../../docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md) | LUT3 feeds adder directly |
 | [ALU segment display](../../../../docs/log/2026-06-19%20-%20ALU%20segment%20display%20design.md) | Display strategy on full CPU |
+| [Ordered Tomato](../../../../docs/log/2026-08-07%20-%20Ordered%20Tomato.md) | PCB + parts order log |
 | [verification/README.md](../../../../verification/README.md) | Formal + UVM sign-off on Digital export |
 
 **Author:** Tyrone Marhguy — see [Author](../../../../README.md#author) in root README.
