@@ -13,6 +13,9 @@
  * mulen=0: shift (mode = LSL/LSR/ASR/ROR).
  * mulen=1: mul/div; mode[0]=1 → unsigned (MULHU/DIVU/REMU).
  * result = lo/shift/quot; resulthi = hi/rem. Div0: lo=all1, hi=a.
+ *
+ * FPGA v1: mul/div use synthesizable * / % (DSP/LUT inferred).
+ * Discrete Tomato keeps the priority-encoder loop on KiCad — not this RTL.
  */
 module muldiv (
     input  [31:0] a,
