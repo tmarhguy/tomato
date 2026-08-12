@@ -9,14 +9,16 @@ VVP      ?= vvp
 SIM      ?= sim
 RTL      := $(wildcard rtl/*.v)
 ROOT     := $(abspath ../../..)
+ASM      := python3 $(ROOT)/software/assembler.py
 GENMC    := python3 $(ROOT)/tools/gen_microcode_v1.py
 GENBURN  := python3 $(ROOT)/tools/gen_fpga_burn.py
 BOOT     ?= tomato_os
+ASM_SRC  := $(ROOT)/software/asm
 
 TBS := shift lane wb bus sp regs ir pc vga muldiv alu control hex vgatiming main counter fidelity \
 	burn_boot
 
-.PHONY: all test clean microcode pack-isa lean-isa burn burn-check $(TBS)
+.PHONY: all test clean asm microcode pack-isa lean-isa burn burn-check $(TBS)
 
 all: test
 
@@ -37,6 +39,11 @@ burn: microcode
 
 burn-check: microcode
 	$(GENMC) --check
+
+asm: tb/mem/counter.mem
+
+tb/mem/counter.mem: $(ASM_SRC)/counter.s
+	$(ASM) $< -o $@
 
 $(SIM)/shift_tb.vvp: rtl/shift.v tb/shift_tb.v | $(SIM)
 	$(IVERILOG) -o $@ rtl/shift.v tb/shift_tb.v
