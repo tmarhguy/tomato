@@ -12,8 +12,6 @@
 
 A homebrew **32-bit** CPU built from 74xx logic — not a soft core, not an FPGA toy first. Tomato started at the transistor and kept climbing: gates, slices, boards, a CPU that can *speak* dozens of foreign ISAs while remaining one physical machine underneath.
 
-**Site:** [tmarhguy.github.io/tomato](https://tmarhguy.github.io/tomato/) · source in [`website/`](website/)
-
 The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **512-row opcode ROM** fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
 
 <p align="center">
