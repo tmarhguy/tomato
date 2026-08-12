@@ -17,3 +17,8 @@ cd hardware/fpga/tomato && make burn           # embed into rtl/burn/
 ```
 
 **Policy:** solidified burn ops stay. Add new burns in `burn_core_rows()` when you need them. Do not invent hundreds of growth phantoms. Empty ROM rows are `status=nop`.
+
+## Locked decisions
+
+- **Not a ~20-opcode lean map.** v1 is ~51 `status=burn` ops; unused ROM rows are `status=nop` (no growth phantoms).
+- **No tile VPU.** Display is CPU-painted tile RAM + independent VGA scanout (`software/os/DISPLAY.md`). Games stay software; a future rect blitter is optional — not a sprite VPU.
