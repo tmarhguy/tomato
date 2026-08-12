@@ -32,3 +32,11 @@ ISA: [`docs/isa/tomato.v1.csv`](../docs/isa/tomato.v1.csv).
 | Program | Check |
 |---------|--------|
 | `asm/counter.s` | r1 = disp = 10 |
+| `asm/fib.s` | fib(8) → r1 = r6 = 21 |
+| `asm/collatz.s` | n=27 → 111 steps in r1/disp |
+| `asm/call.s` | JAL/RET → r1=99 r2=42 |
+| `asm/bytes.s` | SB/LB signed byte |
+| `asm/ecall.s` | trap + RET → r1=42 |
+| `asm/softops.s` | ROR/LBU → r1=r6=129 |
+| `asm/io.s` | IN/OUT keyboard echo |
+| `asm/kb_mmio.s` | LW MMIO kb data/status |
