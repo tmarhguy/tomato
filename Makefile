@@ -1,4 +1,6 @@
-# Thin wrapper → verification
+# Thin wrappers — verification (default) + Tomato FPGA core tests
+
+FPGA := hardware/fpga/tomato
 
 all:
 	@$(MAKE) -C verification help
@@ -6,4 +8,7 @@ all:
 test:
 	@$(MAKE) -C verification signoff
 
-.PHONY: all test
+fpga-test:
+	@$(MAKE) -C $(FPGA) test
+
+.PHONY: all test fpga-test

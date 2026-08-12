@@ -1944,7 +1944,51 @@
     </visualElement>
     <visualElement>
       <elementName>Testcase</elementName>
-      <elementAttributes/>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>tomato-v1-burn</string>
+        </entry>
+        <entry>
+          <string>Testdata</string>
+          <testData>
+            <dataString>reset pc_out
+# tomato.v1 microcode burned into nested control boards
+# ascertain hex via: *-control.dig tomato-v1-burn tests
+# burn count: 28 opcodes from docs/isa/tomato.v1.csv
+# 0x00 NOP system
+# 0x01 ADD alu-reg
+# 0x02 SUB alu-reg
+# 0x03 AND alu-reg
+# 0x04 OR alu-reg
+# 0x05 XOR alu-reg
+# 0x06 MOV alu-reg
+# 0x07 CMP alu-reg
+# 0x20 ADDI alu-imm
+# 0x21 ANDI alu-imm
+# 0x22 ORI alu-imm
+# 0x23 XORI alu-imm
+# 0x24 LUI alu-imm
+# 0x40 LSL shift
+# 0x41 LSR shift
+# 0x42 ASR shift
+# 0x60 LW mem
+# 0x61 LB mem
+# 0x68 SW mem
+# 0x69 SB mem
+# 0x80 BEQ branch
+# 0x81 BNE branch
+# 0x82 BLT branch
+# 0xA0 JMP jump
+# 0xA1 JAL jump
+# 0xA2 RET jump
+# 0xA3 JR jump
+# 0xFF HALT system
+1 x
+0 x</dataString>
+          </testData>
+        </entry>
+      </elementAttributes>
       <pos x="1260" y="-420"/>
     </visualElement>
     <visualElement>

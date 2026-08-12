@@ -6,18 +6,28 @@
 .cursor/
 .env
 
+# Website
+website/node_modules/
+website/dist/
+website/.vite/
+
+.venv-vga/
+
 # Python
 *.pyc
 **/__pycache__/
-
-# Python tooling
-/tools
 
 # KiCad
 *.kicad_prl
 *.dsn
 *~*.lck
 *-backups/
+
+# FPGA Tomato Icarus sim artifacts
+hardware/fpga/tomato/sim/
+
+# Keep burn boot marker tracked despite *.txt
+!hardware/fpga/tomato/rtl/burn/BOOT.txt
 
 # Xilinx Vivado — generated outputs (keep *.xpr and *.srcs/constrs)
 hardware/fpga/*/*.cache/

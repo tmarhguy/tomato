@@ -1,0 +1,528 @@
+# Tomato ISA v1 — SINGLE AUTHORITY (512 ROM rows).
+# status=burn: solidified datapath-backed opcodes (add here as you need more)
+# status=nop: unused ROM slot (empty — not a fake mnemonic)
+# Pack ROM: python3 tools/gen_microcode_v1.py --pack-rom
+# Optional growth fill (legacy): python3 tools/gen_microcode_v1.py --rebuild
+#
+# ENCODING:
+#   R-type:  {op[8:0], rd[4:0], rA[4:0], rB[4:0], rC[4:0], bank[2:0]}
+#   I-type:  {op, rd, rA, imm13}              — ADDI / LW (imm=IR[12:0])
+#   Store:   {op, 0, rA_data, rB_base, imm8}  — SW/SB (ALU.A=rB via mem_sel)
+#   Branch:  {op, 0, off[21:0]}               — PC-relative (pc_src=1)
+#
+# BURN surface: ALU/logic/imm/shift/mem/branch/jump/stack/IO/system
+# (see burn_core_rows in tools/gen_microcode_v1.py — do not silently drop)
+#
+rom_addr,region,mnemonic,group,seq_cycles,status,operation,why,ir_imm_sel,alu_op,alu_pre,cin_sel,shift_op,wb_sel,reg_we,bank_en,flags_we,mem_rd,mem_wr,byte_sel,mem_sel,branch_en,jump_type,sp_op,pc_src,pc_link_we,pc_cond,cycles,ctrl_bussel,mul_en,div_en,lut3_index,encoding,semantic_op,notes
+0x00,system,NOP,system,1,burn,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,
+0x01,alu-reg,ADD,alu-reg,1,burn,ADD,arith,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ADD,
+0x02,alu-reg,SUB,alu-reg,1,burn,SUB,arith,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,SUB,
+0x03,alu-reg,AND,alu-reg,1,burn,AND,logic,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,AND,
+0x04,alu-reg,OR,alu-reg,1,burn,OR,logic,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,OR,
+0x05,alu-reg,XOR,alu-reg,1,burn,XOR,logic,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XOR,
+0x06,alu-reg,MOV,alu-reg,1,burn,MOV,copy,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,MOV,
+0x07,alu-reg,CMP,alu-reg,1,burn,flags = rA - rB,branches,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,CMP,
+0x08,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x09,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x0A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x0B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x0C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x0D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x0E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x0F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x10,alu-reg,MUL,muldiv,1,burn,rd = low(rA*rB),,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,,reg_reg,MUL,
+0x11,alu-reg,MULH,muldiv,1,burn,rd = high(rA*rB),,1,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,,reg_reg,MULH,
+0x12,alu-reg,DIV,muldiv,1,burn,rd = rA / rB,,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,,reg_reg,DIV,
+0x13,alu-reg,REM,muldiv,1,burn,rd = rA % rB,,1,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,,reg_reg,REM,
+0x14,alu-reg,MULHU,muldiv,1,burn,rd = high unsigned,,1,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,,reg_reg,MULHU,
+0x15,alu-reg,DIVU,muldiv,1,burn,rd = rA / rB unsigned,,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,,reg_reg,DIVU,
+0x16,alu-reg,REMU,muldiv,1,burn,rd = rA % rB unsigned,,1,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,,reg_reg,REMU,
+0x17,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x18,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x19,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x20,alu-imm,ADDI,alu-imm,1,burn,rd = rA + imm13,constants,3,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,off13s,ADDI,
+0x21,alu-imm,ANDI,alu-imm,1,burn,rd = rA & imm,,7,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,imm16z,ANDI,
+0x22,alu-imm,ORI,alu-imm,1,burn,rd = rA | imm,,7,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,imm16z,ORI,
+0x23,alu-imm,XORI,alu-imm,1,burn,rd = rA ^ imm,,7,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,imm16z,XORI,
+0x24,alu-imm,LUI,alu-imm,1,burn,rd = imm20 << 12,VGA/MMIO base,11,0,0,0,0,5,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,imm20,LUI,
+0x25,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x26,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x27,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x28,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x29,alu-imm,RORI,alu-imm,1,burn,rd = rA ror imm,,0,0,0,0,3,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,RORI,
+0x2A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x2B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x2C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x2D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x2E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x2F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x30,alu-imm,ZERO,alu-imm,1,burn,rd = 0,,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ZERO,
+0x31,alu-imm,ONE,alu-imm,1,burn,rd = 1,,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ONE,
+0x32,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x33,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x34,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x35,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x36,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x37,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x38,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x39,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x3A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x3B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x3C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x3D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x3E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x3F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x40,shift,LSL,shift,1,burn,LSL,,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,LSL,
+0x41,shift,LSR,shift,1,burn,LSR,,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,LSR,
+0x42,shift,ASR,shift,1,burn,ASR,,1,0,0,0,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ASR,
+0x43,shift,ROR,shift,1,burn,ROR,,1,0,0,0,3,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ROR,
+0x44,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x45,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x46,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x47,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x48,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x49,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x4A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x4B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x4C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x4D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x4E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x4F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x50,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x51,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x52,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x53,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x54,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x55,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x56,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x57,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x58,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x59,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x5A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x5B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x5C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x5D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x5E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x5F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x60,mem,LW,mem,1,burn,LW,,3,0,0,0,0,3,1,0,0,1,0,0,0,0,0,0,0,0,0,2,1,0,0,,reg_reg,LW,
+0x61,mem,LB,mem,1,burn,LB,,3,0,0,0,0,3,1,0,0,1,0,4,0,0,0,0,0,0,0,2,1,0,0,,reg_reg,LB,
+0x62,mem,LH,mem,1,burn,LH,,3,0,0,0,0,3,1,0,0,1,0,12,0,0,0,0,0,0,0,2,1,0,0,,reg_reg,LH,
+0x63,mem,LBU,mem,1,burn,LBU,,3,0,0,0,0,3,1,0,0,1,0,8,0,0,0,0,0,0,0,2,1,0,0,,reg_reg,LBU,
+0x64,mem,LHU,mem,1,burn,LHU,,3,0,0,0,0,3,1,0,0,1,0,14,0,0,0,0,0,0,0,2,1,0,0,,reg_reg,LHU,
+0x65,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x66,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x67,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x68,mem,SW,mem,1,burn,SW,,0,0,0,0,0,4,0,0,0,0,1,0,1,0,0,0,0,0,0,2,1,0,0,,reg_reg,SW,
+0x69,mem,SB,mem,1,burn,SB,,0,0,0,0,0,4,0,0,0,0,1,4,1,0,0,0,0,0,0,2,1,0,0,,reg_reg,SB,
+0x6A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x6B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x6C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x6D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x6E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x6F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x70,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x71,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x72,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x73,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x74,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x75,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x76,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x77,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x78,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x79,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x7A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x7B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x7C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x7D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x7E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x7F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x80,branch,BEQ,branch,1,burn,BEQ,,12,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,,reg_reg,BEQ,
+0x81,branch,BNE,branch,1,burn,BNE,,12,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,1,0,0,0,,reg_reg,BNE,
+0x82,branch,BLT,branch,1,burn,BLT,,12,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,5,1,0,0,0,,reg_reg,BLT,
+0x83,branch,BGE,branch,1,burn,BGE,,12,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,7,1,0,0,0,,reg_reg,BGE,
+0x84,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x85,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x86,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x87,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x88,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x89,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x8A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x8B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x8C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x8D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x8E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x8F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x90,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x91,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x92,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x93,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x94,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x95,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x96,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x97,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x98,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x99,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x9A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x9B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x9C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x9D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x9E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x9F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xA0,jump,JMP,jump,1,burn,PC = abs,,13,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,,reg_reg,JMP,
+0xA1,jump,JAL,jump,1,burn,link; PC=abs,,13,0,0,0,0,2,1,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,,reg_reg,JAL,
+0xA2,jump,RET,jump,1,burn,PC = link,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,1,0,0,0,,reg_reg,RET,
+0xA3,jump,JR,jump,1,burn,PC = rB,,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,4,0,0,1,0,0,0,,reg_reg,JR,
+0xA4,jump,JALR,jump,1,burn,rd=PC+1; PC=alu,,3,0,0,0,0,2,1,0,0,0,0,0,0,0,1,0,4,1,0,1,0,0,0,,reg_reg,JALR,
+0xA5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xA6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xA7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xA8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xA9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xAA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xAB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xAC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xAD,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xAE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xAF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xB0,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xB1,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xB2,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xB3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xB4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xB5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xB6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xB7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xB8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xB9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xBA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xBB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xBC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xBD,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xBE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xBF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xC0,stack-io,PUSH,stack,1,burn,SP-=; mem[SP]=rA,,0,0,0,0,0,4,0,0,0,0,1,0,0,0,0,2,0,0,0,2,7,0,0,,reg_reg,PUSH,
+0xC1,stack-io,POP,stack,1,burn,rd=mem[SP]; SP+=,,0,0,0,0,0,3,1,0,0,1,0,0,0,0,0,1,0,0,0,2,7,0,0,,reg_reg,POP,
+0xC2,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xC3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xC4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xC5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xC6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xC7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xC8,stack-io,IN,stack,1,burn,rd = kb_data,,0,0,0,0,0,3,1,0,0,0,0,2,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,IN,
+0xC9,stack-io,OUT,stack,1,burn,io_out = rA[7:0],,1,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,OUT,
+0xCA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xCB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xCC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xCD,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xCE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xCF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xD0,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xD1,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xD2,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xD3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xD4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xD5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xD6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xD7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xD8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xD9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xDA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xDB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xDC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xDD,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xDE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xDF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xE0,reserved,FENCE,system,1,burn,ordering nop,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,FENCE,
+0xE1,reserved,ECALL,system,1,burn,trap 0x100,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ECALL,
+0xE2,reserved,EBREAK,system,1,burn,halt (debug),,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,EBREAK,
+0xE3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xE4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xE5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xE6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xE7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xE8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xE9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xEA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xEB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xEC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xED,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xEE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xEF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xF0,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xF1,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xF2,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xF3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xF4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xF5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xF6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xF7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xF8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xF9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xFA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xFB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xFC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xFD,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xFE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0xFF,system,HALT,system,1,burn,halt,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,HALT,
+0x100,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x101,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x102,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x103,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x104,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x105,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x106,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x107,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x108,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x109,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x10A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x10B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x10C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x10D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x10E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x10F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x110,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x111,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x112,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x113,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x114,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x115,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x116,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x117,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x118,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x119,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x11A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x11B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x11C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x11D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x11E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x11F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x120,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x121,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x122,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x123,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x124,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x125,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x126,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x127,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x128,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x129,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x12A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x12B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x12C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x12D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x12E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x12F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x130,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x131,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x132,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x133,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x134,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x135,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x136,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x137,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x138,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x139,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x13A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x13B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x13C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x13D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x13E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x13F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x140,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x141,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x142,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x143,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x144,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x145,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x146,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x147,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x148,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x149,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x14A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x14B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x14C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x14D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x14E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x14F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x150,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x151,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x152,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x153,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x154,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x155,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x156,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x157,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x158,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x159,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x15A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x15B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x15C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x15D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x15E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x15F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x160,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x161,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x162,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x163,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x164,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x165,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x166,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x167,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x168,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x169,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x16A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x16B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x16C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x16D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x16E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x16F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x170,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x171,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x172,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x173,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x174,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x175,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x176,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x177,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x178,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x179,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x17A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x17B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x17C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x17D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x17E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x17F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x180,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x181,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x182,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x183,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x184,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x185,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x186,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x187,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x188,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x189,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x18A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x18B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x18C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x18D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x18E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x18F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x190,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x191,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x192,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x193,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x194,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x195,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x196,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x197,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x198,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x199,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x19A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x19B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x19C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x19D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x19E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x19F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A0,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A1,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A2,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1A9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1AA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1AB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1AC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1AD,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1AE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1AF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B0,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B1,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B2,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1B9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1BA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1BB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1BC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1BD,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1BE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1BF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C0,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C1,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C2,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1C9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1CA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1CB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1CC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1CD,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1CE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1CF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D0,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D1,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D2,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1D9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1DA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1DB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1DC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1DD,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1DE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1DF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E0,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E1,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E2,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1E9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1EA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1EB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1EC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1ED,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1EE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1EF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F0,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F1,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F2,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F3,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F4,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F5,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F6,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F7,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F8,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1F9,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1FA,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1FB,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1FC,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1FD,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1FE,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x1FF,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
