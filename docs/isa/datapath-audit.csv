@@ -1,0 +1,259 @@
+# Datapath audit vs hardware/fpga/tomato (Artix-7).
+# Authority: docs/isa/tomato.v1.csv (status=burn). This file is a checklist — edit v1 first.
+mnemonic,rom_addr,group,seq_cycles,status,datapath,hw_unit,datapath_note,locked
+NOP,0x00,system,1,burn,yes,alu,dual-LUT ALU,yes
+ADD,0x01,alu-reg,1,burn,yes,alu,dual-LUT ALU,yes
+SUB,0x02,alu-reg,1,burn,yes,alu,dual-LUT ALU,yes
+AND,0x03,alu-reg,1,burn,yes,alu,dual-LUT ALU,yes
+OR,0x04,alu-reg,1,burn,yes,alu,dual-LUT ALU,yes
+XOR,0x05,alu-reg,1,burn,yes,alu,dual-LUT ALU,yes
+MOV,0x06,alu-reg,1,burn,yes,alu,dual-LUT ALU,yes
+CMP,0x07,alu-reg,1,burn,yes,alu,dual-LUT ALU,yes
+MOVA,0x08,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+NOT,0x09,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+NEG,0x0A,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+INC,0x0B,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+NAND,0x0C,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+NOR,0x0D,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+XNOR,0x0E,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+DEC,0x0F,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+MUL,0x10,muldiv,1,burn,yes,muldiv,combinational muldiv.v (signed; unsigned when mode[0]),yes
+MULH,0x11,muldiv,1,burn,yes,muldiv,combinational muldiv.v (signed; unsigned when mode[0]),yes
+DIV,0x12,muldiv,1,burn,yes,muldiv,combinational muldiv.v (signed; unsigned when mode[0]),yes
+REM,0x13,muldiv,1,burn,yes,muldiv,combinational muldiv.v (signed; unsigned when mode[0]),yes
+MULHU,0x14,muldiv,1,burn,yes,muldiv,combinational muldiv.v (signed; unsigned when mode[0]),yes
+DIVU,0x15,muldiv,1,burn,yes,muldiv,combinational muldiv.v (signed; unsigned when mode[0]),yes
+REMU,0x16,muldiv,1,burn,yes,muldiv,combinational muldiv.v (signed; unsigned when mode[0]),yes
+ADC,0x17,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+SBC,0x18,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+RSB,0x19,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+ANDN,0x1A,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+ORN,0x1B,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+MVN,0x1C,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+TST,0x1D,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+TEQ,0x1E,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+CMN,0x1F,alu-reg,1,growth,partial,alu,dual-LUT ALU,no
+ADDI,0x20,alu-imm,1,burn,yes,alu,dual-LUT ALU,yes
+ANDI,0x21,alu-imm,1,burn,yes,alu,dual-LUT ALU,yes
+ORI,0x22,alu-imm,1,burn,yes,alu,dual-LUT ALU,yes
+XORI,0x23,alu-imm,1,burn,yes,alu,dual-LUT ALU,yes
+LUI,0x24,alu-imm,1,burn,yes,alu,dual-LUT ALU,yes
+CMPI,0x25,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+LSLI,0x26,alu-imm,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+LSRI,0x27,alu-imm,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+ASRI,0x28,alu-imm,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+RORI,0x29,alu-imm,1,burn,yes,shift,barrel shift.v,yes
+ADDI16,0x2A,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+SUBI,0x2B,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+CMPI16,0x2C,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+MOVI,0x2D,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+MOVIL,0x2E,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+SEXTI,0x2F,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+ZERO,0x30,alu-imm,1,burn,yes,alu,dual-LUT ALU,yes
+ONE,0x31,alu-imm,1,burn,yes,alu,dual-LUT ALU,yes
+ALLONES,0x32,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+ANDNI,0x33,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+ORNI,0x34,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+NANDI,0x35,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+NORI,0x36,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+XNORI,0x37,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+ADCI,0x38,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+SBCI,0x39,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+INCI,0x3A,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+DECI,0x3B,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+NOTI,0x3C,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+NEGI,0x3D,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+MOVAI,0x3E,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+TSTI,0x3F,alu-imm,1,growth,partial,alu,dual-LUT ALU,no
+LSL,0x40,shift,1,burn,yes,shift,barrel shift.v,yes
+LSR,0x41,shift,1,burn,yes,shift,barrel shift.v,yes
+ASR,0x42,shift,1,burn,yes,shift,barrel shift.v,yes
+ROR,0x43,shift,1,burn,yes,shift,barrel shift.v,yes
+ROL,0x44,shift,1,growth,compose,shift,shift.mode is LSL/LSR/ASR/ROR; ROL = ROR(32-n),no
+LSLR,0x45,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+LSRR,0x46,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+ASRR,0x47,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+RORR,0x48,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SHLI,0x49,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SHRI,0x4A,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SARI,0x4B,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+RORI8,0x4C,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH4D,0x4D,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH4E,0x4E,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH4F,0x4F,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH50,0x50,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH51,0x51,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH52,0x52,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH53,0x53,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH54,0x54,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH55,0x55,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH56,0x56,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH57,0x57,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH58,0x58,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH59,0x59,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH5A,0x5A,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH5B,0x5B,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH5C,0x5C,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH5D,0x5D,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH5E,0x5E,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+SH5F,0x5F,shift,1,growth,partial,shift,barrel shift.v; growth — not burned,no
+LW,0x60,mem,2,burn,yes,mem,dmem + lane + bus; VGA [21:19]==110,yes
+LB,0x61,mem,2,burn,yes,mem,dmem + lane + bus; VGA [21:19]==110,yes
+LH,0x62,mem,2,burn,yes,mem,dmem + lane + bus; VGA [21:19]==110,yes
+LBU,0x63,mem,2,burn,yes,mem,dmem + lane + bus; VGA [21:19]==110,yes
+LHU,0x64,mem,2,burn,yes,mem,dmem + lane + bus; VGA [21:19]==110,yes
+LB1,0x65,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+LB2,0x66,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+LB3,0x67,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+SW,0x68,mem,2,burn,yes,mem,dmem + lane + bus; VGA [21:19]==110,yes
+SB,0x69,mem,2,burn,yes,mem,dmem + lane + bus; VGA [21:19]==110,yes
+SH,0x6A,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+SB1,0x6B,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+SB2,0x6C,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+SB3,0x6D,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+LWABS,0x6E,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+SWABS,0x6F,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+LWPC,0x70,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+LWRB,0x71,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+SWRB,0x72,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+LWALU,0x73,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+SWALU,0x74,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+LBU75,0x75,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+LBU76,0x76,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+LBU77,0x77,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+ME78,0x78,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+ME79,0x79,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+ME7A,0x7A,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+ME7B,0x7B,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+ME7C,0x7C,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+ME7D,0x7D,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+ME7E,0x7E,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+ME7F,0x7F,mem,1,growth,partial,mem,dmem + lane + bus; VGA [21:19]==110; growth — not burned,no
+BEQ,0x80,branch,1,burn,yes,branch,pc_cond + flags,yes
+BNE,0x81,branch,1,burn,yes,branch,pc_cond + flags,yes
+BLT,0x82,branch,1,burn,yes,branch,pc_cond + flags,yes
+BGE,0x83,branch,1,burn,yes,branch,pc_cond + flags,yes
+BLTU,0x84,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BGEU,0x85,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BMI,0x86,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BCS,0x87,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BVS,0x88,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BLT_U,0x89,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BGT,0x8A,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BGE_S,0x8B,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BLE,0x8C,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BGTU,0x8D,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BLEU,0x8E,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BZ,0x8F,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+BNZ,0x90,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B91,0x91,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B92,0x92,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B93,0x93,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B94,0x94,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B95,0x95,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B96,0x96,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B97,0x97,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B98,0x98,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B99,0x99,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B9A,0x9A,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B9B,0x9B,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B9C,0x9C,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B9D,0x9D,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B9E,0x9E,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+B9F,0x9F,branch,1,growth,partial,branch,pc_cond + flags; growth — not burned,no
+JMP,0xA0,jump,1,burn,yes,pc/sp,pc_src / SP path,yes
+JAL,0xA1,jump,1,burn,yes,pc/sp,pc_src / SP path,yes
+RET,0xA2,jump,1,burn,yes,pc/sp,pc_src / SP path,yes
+JR,0xA3,jump,1,burn,yes,pc/sp,pc_src / SP path,yes
+JALR,0xA4,jump,1,burn,yes,pc/sp,pc_src / SP path,yes
+JMPABS,0xA5,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JMPREL,0xA6,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JALABS,0xA7,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JALREL,0xA8,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JRAL,0xA9,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JMPI,0xAA,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+RETL,0xAB,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JAC,0xAC,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JAD,0xAD,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JAE,0xAE,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JAF,0xAF,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JB0,0xB0,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JB1,0xB1,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JB2,0xB2,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JB3,0xB3,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JB4,0xB4,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JB5,0xB5,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JB6,0xB6,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JB7,0xB7,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JB8,0xB8,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JB9,0xB9,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JBA,0xBA,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JBB,0xBB,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JBC,0xBC,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JBD,0xBD,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JBE,0xBE,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+JBF,0xBF,jump,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+PUSH,0xC0,stack,1,burn,yes,pc/sp,pc_src / SP path,yes
+POP,0xC1,stack,1,burn,yes,pc/sp,pc_src / SP path,yes
+PUSHLR,0xC2,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+POPLR,0xC3,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+MOVSP,0xC4,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+ADDSP,0xC5,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+SUBSP,0xC6,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+BANK,0xC7,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IN,0xC8,stack,1,burn,yes,lane,lane sel=2 ← kb_data; also MMIO [21:19]==111,yes
+OUT,0xC9,stack,1,burn,yes,board,main.v latches ra[7:0] → io_out,yes
+IOCA,0xCA,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOCB,0xCB,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOCC,0xCC,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOCD,0xCD,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOCE,0xCE,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOCF,0xCF,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOD0,0xD0,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOD1,0xD1,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOD2,0xD2,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOD3,0xD3,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOD4,0xD4,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOD5,0xD5,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOD6,0xD6,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOD7,0xD7,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOD8,0xD8,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IOD9,0xD9,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IODA,0xDA,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IODB,0xDB,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IODC,0xDC,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IODD,0xDD,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IODE,0xDE,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+IODF,0xDF,stack,1,growth,partial,pc/sp,pc_src / SP path; growth — not burned,no
+FENCE,0xE0,system,1,burn,yes,system,nop barrier on Tomato bus,yes
+ECALL,0xE1,system,1,burn,yes,pc,pc.v trap @ 0x100; link=fallthrough; firmware RET,yes
+EBREAK,0xE2,system,1,burn,yes,pc,sticky halt until reset,yes
+YIELD,0xE3,system,1,growth,partial,alu,dual-LUT ALU,no
+WFI,0xE4,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSE5,0xE5,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSE6,0xE6,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSE7,0xE7,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSE8,0xE8,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSE9,0xE9,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSEA,0xEA,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSEB,0xEB,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSEC,0xEC,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSED,0xED,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSEE,0xEE,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSEF,0xEF,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSF0,0xF0,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSF1,0xF1,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSF2,0xF2,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSF3,0xF3,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSF4,0xF4,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSF5,0xF5,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSF6,0xF6,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSF7,0xF7,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSF8,0xF8,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSF9,0xF9,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSFA,0xFA,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSFB,0xFB,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSFC,0xFC,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSFD,0xFD,system,1,growth,partial,alu,dual-LUT ALU,no
+SYSFE,0xFE,system,1,growth,partial,alu,dual-LUT ALU,no
+HALT,0xFF,system,1,burn,yes,pc,sticky halt until reset,yes
