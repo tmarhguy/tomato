@@ -55,9 +55,8 @@ Packs `microcode/*.hex` + `tb/mem/*.mem` (control ROMs). Edit the CSV; re-run to
 ## Assembly → hex
 
 ```bash
-make asm                 # counter.mem fib.mem collatz.mem
-make progs               # run assembled programs only
-python3 ../../../tools/tomato_asm.py ../../../software/asm/counter.s -o tb/mem/counter.mem --list
+make asm                 # counter.mem
+python3 ../../../software/assembler.py ../../../software/asm/counter.s -o tb/mem/counter.mem --list
 ```
 
 See [software/README.md](../../../software/README.md).
