@@ -11,7 +11,7 @@ if ! command -v iverilog >/dev/null 2>&1; then
 fi
 
 ROOT="$(cd ../../.. && pwd)"
-ASM="python3 ${ROOT}/tools/tomato_asm.py"
+ASM="python3 ${ROOT}/software/assembler.py"
 GEN="python3 ${ROOT}/tools/gen_microcode_v1.py"
 
 $GEN >/dev/null
