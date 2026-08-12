@@ -52,6 +52,10 @@ python3 tools/gen_microcode_v1.py --check  # verify burn matches CSV
 
 Packs `microcode/*.hex` + `tb/mem/*.mem` (control ROMs). Edit the CSV; re-run to burn.
 
+## Mul / div (FPGA vs discrete)
+
+FPGA `rtl/muldiv.v` uses operator `*` / `/` / `%` (synth to DSP/LUTs). The discrete priority-encoder multiply loop stays a KiCad story — not ported into this RTL.
+
 ## Assembly → hex
 
 ```bash
