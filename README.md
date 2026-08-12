@@ -12,6 +12,8 @@
 
 A homebrew **32-bit** CPU built from 74xx logic — not a soft core, not an FPGA toy first. Tomato started at the transistor and kept climbing: gates, slices, boards, a CPU that can *speak* dozens of foreign ISAs while remaining one physical machine underneath.
 
+**Site:** [tmarhguy.github.io/tomato](https://tmarhguy.github.io/tomato/) · source in [`website/`](website/)
+
 The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **512-row opcode ROM** fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
 
 <p align="center">
@@ -134,7 +136,7 @@ Control is split into small boards (each with a local EEPROM) that decode the sa
 alu_out = adder( f(a, b, c), g(a, b, c), carry_in )
 ```
 
-Per bit-slice there are **524,288** theoretical `(lutA, lutB, csel)` combinations; the **512-row** opcode ROM exposes what programs need today. The LUT3 feeds the adder directly — [no mode mux at the end of the slice](docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md) — logic rides the arithmetic path instead of racing it. Carry select uses **74251** muxes where **74151** cost routing and drive strength ([74251 note](docs/log/2026-06-26%20-%20ALU%20-%20Redesign%20with%2074251.md)). Catalog: [docs/isa/alu8.csv](docs/isa/alu8.csv).
+Per bit-slice there are **524,288** theoretical `(lutA, lutB, csel)` combinations; the **512-row** opcode ROM exposes what programs need today. The LUT3 feeds the adder directly — [no mode mux at the end of the slice](docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md) — logic rides the arithmetic path instead of racing it. Carry select uses **74251** muxes where **74151** cost routing and drive strength ([74251 note](docs/log/2026-06-26%20-%20ALU%20-%20Redesign%20with%2074251.md)). Authority: [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv).
 
 ---
 
@@ -144,8 +146,8 @@ Per bit-slice there are **524,288** theoretical `(lutA, lutB, csel)` combination
 |-------|-----------|-----------|
 | Logic / timing | [hardware/digital/modules/*.dig](hardware/digital/modules/) | KiCad bring-up, Verilog export |
 | Opcode mnemonics | [docs/opcode-map.csv](docs/opcode-map.csv) | Assembly reference, ROM programming |
-| Microcode fields | [docs/isa/opcodes.csv](docs/isa/opcodes.csv) | Per-board ROM extraction |
-| LUT programs | [docs/isa/alu8.csv](docs/isa/alu8.csv) | ALU primitive catalog |
+| Microcode fields | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv) | Single ISA / ROM authority |
+| LUT programs | [docs/isa/lut.csv](docs/isa/lut.csv) | ALU primitive catalog |
 | Control ROM images | [microcode/*.hex](microcode/) | Digital control boards |
 | Physical PCB | [hardware/kicad/boards/](hardware/kicad/boards/) | Fab / assembly |
 | ALU sign-off | [verification/](verification/) | Digital export → `rtl/*.v` → formal + directed + UVM |
@@ -214,8 +216,8 @@ ALU verification ladder: `alu-1b-final` → 2x `alu-4b` → 4x `alu-8b` → `alu
 | Resource | Path | Role |
 |----------|------|------|
 | Mnemonic cheat sheet | [docs/opcode-map.csv](docs/opcode-map.csv) | 32-bit encoding, syntax, groups |
-| Microcode catalog | [docs/isa/opcodes.csv](docs/isa/opcodes.csv) | Control fields per ROM address |
-| ALU programs | [docs/isa/alu8.csv](docs/isa/alu8.csv) | Practical 8-bit LUT programs |
+| Microcode catalog | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv) | Burn opcodes + ROM map |
+| ALU programs | [docs/isa/lut.csv](docs/isa/lut.csv) | LUT primitive catalog |
 | ISA profiles | [docs/isa/profiles.csv](docs/isa/profiles.csv) | 60+ external ISAs mapped at assembly level |
 
 Profiles (RV32, MIPS, x86, …) are assembly-level mappings onto native opcodes — not separate hardware ISAs.
@@ -294,7 +296,7 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 |-------------|----------|
 | Architecture / tradeoff | New entry in `docs/log/` — the default way decisions get made |
 | Opcode / mnemonic | Update `opcode-map.csv` and microcode hex |
-| Microcode fields | Edit `docs/isa/opcodes.csv`, extract per-board ROM images |
+| Microcode fields | Edit `docs/isa/tomato.v1.csv`, then `python3 tools/gen_microcode_v1.py --pack-rom` |
 | Logic / timing | Edit Digital `.dig` → export Verilog → `make signoff` |
 | Physical board | KiCad in `hardware/kicad/boards/` |
 

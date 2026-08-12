@@ -4,28 +4,28 @@
 
 Every opcode indexes a **48-bit word** in the microcode ROM (`DIG_ROM_256X48_microcodeeeprom`). The fields, confirmed from `main.v:2087–2106`:
 
-| Bits | Field | Notes |
-|------|-------|-------|
-| [7:0] | `alu-op` | 8-bit truth-table opcode for the ALU |
-| [12:8] | `alu-pre` | 5-bit operand-source & inversion control (see §3) |
-| [13] | `cin-sel` | Carry-in select (0=FLAG_C, 1=constant 1) |
-| [15:14] | `shift-op` | LSL/LSR/ASR/ROR |
-| [19:16] | `ir-imm-sel` | Selects one of 16 immediate encodings from IR |
-| [20] | `addr-csel` | Selects C-port register address source |
-| **[23:21]** | **`wb-sel`** | **Writeback source: 0=ALU, 1=Shift, 2=PC+1, 3=mem_din, 4=I/O, 5=RegA, 6=IR-imm, 7=MUL** |
-| **[24]** | **`reg-we`** | **Register file write enable** |
-| [25] | `flags-we` | ALU flags write enable |
-| **[26]** | **`mem-rd`** | **Memory read enable** |
-| **[27]** | **`mem-wr`** | **Memory write enable** |
-| **[29:28]** | **`mem-sel`** | **Byte-lane mode: 0=word, 1=byte_signed, 2=byte_unsigned, 3=half** |
-| [30] | `branch-en` | Enable conditional branch |
-| [31] | `jump-type` | Unconditional jump |
-| [33:32] | `sp-op` | SP delta: 0=hold, 1=+1(pop), 2=−1(push), 3=load |
-| [34] | `pc-rel` | PC-relative mode select |
-| **[36:35]** | **`cycles`** | **Counter reset target: 1=FETCH+EXEC (2-phase), 2=FETCH+EXEC+MEM_WAIT (3-phase)** |
-| **[39:37]** | **`ctrl-bussel`** | **Address bus source: 0=IR_ADDR, 1=ALU_out, 2=Reg_B, 3=PC, 7=SP** |
-| [40] | `mul-en` | Multiply enable |
-| [41] | `div-en` | Divide enable |
+| Bits        | Field             | Notes                                                                                   |
+| ----------- | ----------------- | --------------------------------------------------------------------------------------- |
+| [7:0]       | `alu-op`          | 8-bit truth-table opcode for the ALU                                                    |
+| [12:8]      | `alu-pre`         | 5-bit operand-source & inversion control (see §3)                                       |
+| [13]        | `cin-sel`         | Carry-in select (0=FLAG_C, 1=constant 1)                                                |
+| [15:14]     | `shift-op`        | LSL/LSR/ASR/ROR                                                                         |
+| [19:16]     | `ir-imm-sel`      | Selects one of 16 immediate encodings from IR                                           |
+| [20]        | `addr-csel`       | Selects C-port register address source                                                  |
+| **[23:21]** | **`wb-sel`**      | **Writeback source: 0=ALU, 1=Shift, 2=PC+1, 3=mem_din, 4=I/O, 5=RegA, 6=IR-imm, 7=MUL** |
+| **[24]**    | **`reg-we`**      | **Register file write enable**                                                          |
+| [25]        | `flags-we`        | ALU flags write enable                                                                  |
+| **[26]**    | **`mem-rd`**      | **Memory read enable**                                                                  |
+| **[27]**    | **`mem-wr`**      | **Memory write enable**                                                                 |
+| **[29:28]** | **`mem-sel`**     | **Byte-lane mode: 0=word, 1=byte_signed, 2=byte_unsigned, 3=half**                      |
+| [30]        | `branch-en`       | Enable conditional branch                                                               |
+| [31]        | `jump-type`       | Unconditional jump                                                                      |
+| [33:32]     | `sp-op`           | SP delta: 0=hold, 1=+1(pop), 2=−1(push), 3=load                                         |
+| [34]        | `pc-rel`          | PC-relative mode select                                                                 |
+| **[36:35]** | **`cycles`**      | **Counter reset target: 1=FETCH+EXEC (2-phase), 2=FETCH+EXEC+MEM_WAIT (3-phase)**       |
+| **[39:37]** | **`ctrl-bussel`** | **Address bus source: 0=IR_ADDR, 1=ALU_out, 2=Reg_B, 3=PC, 7=SP**                       |
+| [40]        | `mul-en`          | Multiply enable                                                                         |
+| [41]        | `div-en`          | Divide enable                                                                           |
 
 ---
 
