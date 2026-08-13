@@ -7,10 +7,13 @@
  * SW[3:0] reserved (boot image is burned at synth via gen_fpga_burn.py --boot).
  * Buttons → ASCII for Tomato OS menu: L=1 C=0 U=2 R=3 D=unused
  * LEDs ← last OUT byte
+ *
+ * Digilent CPU_RESETN (pin C12): HIGH at rest, LOW when pressed.
+ * Invert once here → active-high rst for the core.
  */
 module nexys_top (
     input        clk,
-    input        reset,          // CPU_RESET (active high when pressed)
+    input        cpu_resetn,     // Digilent CPU_RESETN (active-low press)
     input        btnc,
     input        btnu,
     input        btnl,
@@ -27,6 +30,9 @@ module nexys_top (
     output [3:0] vga_g,
     output [3:0] vga_b
 );
+    // Active-high core reset: pressed button or power-on until released
+    wire reset = ~cpu_resetn;
+
     // Simple button → keycode (no debounce — OK for first bring-up)
     reg  [7:0] kb_data;
     reg        kb_ready;
