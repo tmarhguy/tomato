@@ -6,9 +6,9 @@ Artix-7 bitstream of Tomato32. Same ISA / datapath as discrete; board I/O below.
 
 | Pins | Role |
 |------|------|
-| `seg` / `an` / `dp` | 8-digit hex of **last register writeback** |
+| `seg` / `an` / `dp` | 8-digit hex of **last WB mux value** (latched on exec) |
 | `vga_hs` / `vga_vs` / `vga_r/g/b` | 640×480@60 from tile RAM scanout |
-| `clk` / `reset` | 100 MHz, CPU_RESET |
+| `clk` / `cpu_resetn` | 100 MHz; Digilent CPU_RESETN (active-low press) |
 
 No top-level `WB_MUX`, `DISP`, or `disp_read` — the FPGA polls tile RAM itself.
 

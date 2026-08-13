@@ -10,7 +10,7 @@
  * Copyright (c) 2025-2026 Tyrone Marhguy
  * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
- * Board: 7-seg = last register writeback; VGA = tile RAM scanout.
+ * Board: 7-seg = last WB mux value during execute; VGA = tile RAM scanout.
  * Peripherals: IN/OUT via lane sel=2 + io_out latch; MMIO [21:19]==111.
  *
  * FPGA burn: without -DTOMATO_SIM, dmem is initialized from rtl/burn/dmem_init.vh
@@ -143,11 +143,11 @@ module main (
         .vga_b  (vga_b)
     );
 
-    // 7-seg shows last register writeback (stable across HALT / other ops)
+    // 7-seg = last WB mux value during execute (stable between exec cycles / HALT)
     reg [31:0] disp;
     always @(posedge clk) begin
-        if (reset)              disp <= 32'h0;
-        else if (exec & cregwe) disp <= wbdata;
+        if (reset)     disp <= 32'h0;
+        else if (exec) disp <= wbdata;
     end
 
     hex hex0 (
