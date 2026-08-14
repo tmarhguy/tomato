@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Journal — The Tomato</title>
+  <meta name="description" content="The Tomato design journal: what was tried, what broke routing, what was too slow on the bench." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="index.html">The Tomato</a>
+        <nav class="mast-nav" aria-label="Primary">
+          <a href="index.html">Front</a>
+          <a href="architecture.html">Architecture</a>
+          <a href="isa.html">ISA</a>
+          <a href="journal.html" aria-current="page">Journal</a>
+          <a href="board.html">Board</a>
+          <a href="source.html">GitHub</a>
+          <a href="about.html">About</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="assets/mark.svg" alt="" />
+          <a href="index.html"><h1>The Tomato</h1></a>
+          <img src="assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom">
+          <span>Inside</span>
+          <span>The journal · docs/log</span>
+          <span>Vol. 32</span>
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section section--hero">
+        <div class="wrap lead-grid">
+          <article>
+            <p class="kicker">The vault</p>
+            <h2 class="headline">The arguments live here. The README is the map.</h2>
+            <p class="deck">Every odd choice is written down: what was tried, what broke routing, what was too slow on the bench, what got deleted to recover copper.</p>
+            <p class="byline">Continued inside · twenty dispatches from the log</p>
+            <div class="cols">
+              <p class="drop">Tomato is a build-log machine. If you love computers because you like how they are built, this is the entry point. Architecture and tradeoff still start with a new entry — not a silent edit.</p>
+              <p>The latest dispatch is from August: the paper is printed in Ashtown Valley, on the Bay Perimeter, and two 8-bit slices are inbound. Start there, or start at the origin and read forward.</p>
+            </div>
+          </article>
+          <figure class="plate plate--ink">
+            <img src="assets/plates/microcode.jpg" alt="Digital schematic of modular microcode control." />
+            <figcaption class="plate-cap">
+              <span>Fig. — Modular decode</span>
+              <span>Each board carries a local EEPROM</span>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <p class="exhibit-label">Dispatches · every entry in the vault</p>
+          <div class="log-list">
+            <a class="log-item" href="journal/ashtown-valley.html">
+              <span class="log-date">13 Aug 2026</span>
+              <span>
+                <span class="log-title">Front-page news in Ashtown Valley</span>
+                <span class="log-blurb">The paper is a 90s broadsheet. Ashtown Valley, the Bay Perimeter. GitHub in the same type.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/ordered.html">
+              <span class="log-date">07 Aug 2026</span>
+              <span>
+                <span class="log-title">Ordered Tomato</span>
+                <span class="log-blurb">Boards on JLCPCB. Parts on DigiKey. The dual-LUT ALU left the screen.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/more-boards.html">
+              <span class="log-date">02 Aug 2026</span>
+              <span>
+                <span class="log-title">Designing additional boards</span>
+                <span class="log-blurb">The ALU was the hard part. The rest is 32-bit plumbing while fab runs.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/falling-back.html">
+              <span class="log-date">31 Jul 2026</span>
+              <span>
+                <span class="log-title">Falling back to 32b</span>
+                <span class="log-blurb">A 40-bit word doubled the explanation without doubling silicon on the bench.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/lingering.html">
+              <span class="log-date">31 Jul 2026</span>
+              <span>
+                <span class="log-title">The lingering catch</span>
+                <span class="log-blurb">A throwaway FSM that becomes Tomato anyway — or build the rest of the machine.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/forty-bit.html">
+              <span class="log-date">30 Jul 2026</span>
+              <span>
+                <span class="log-title">Redesign into 40b</span>
+                <span class="log-blurb">The bottleneck was the instruction word, not the ALU. The next day takes it back.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/truth-latch.html">
+              <span class="log-date">13 Jul 2026</span>
+              <span>
+                <span class="log-title">Truth table latch</span>
+                <span class="log-blurb">If the next op is still ADD, pass operands. Keep the opcode latched.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/pipelined.html">
+              <span class="log-date">13 Jul 2026</span>
+              <span>
+                <span class="log-title">Pipelined FPGA — what if</span>
+                <span class="log-blurb">If the winds stop, then we die. Flexibility has a physics.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/downgrade.html">
+              <span class="log-date">13 Jul 2026</span>
+              <span>
+                <span class="log-title">Downgrade for an upgrade</span>
+                <span class="log-blurb">Do not fab one 240 mm monster. Cascade 16-bit cells.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/demo-ideas.html">
+              <span class="log-date">13 Jul 2026</span>
+              <span>
+                <span class="log-title">Demo ideas</span>
+                <span class="log-blurb">Fibonacci is too small. A self-programming FSM on a 4-bit slice.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/arch-upgrade.html">
+              <span class="log-date">13 Jul 2026</span>
+              <span>
+                <span class="log-title">Architecture upgrade</span>
+                <span class="log-blurb">If LUT2 costs four chips, build the second LUT3.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/mode-mux.html">
+              <span class="log-date">27 Jun 2026</span>
+              <span>
+                <span class="log-title">Elimination of mode multiplexers</span>
+                <span class="log-blurb">LUT3 feeds the adder. Logic rides the arithmetic path instead of racing it.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/alu-refine.html">
+              <span class="log-date">26 Jun 2026</span>
+              <span>
+                <span class="log-title">ALU refinement</span>
+                <span class="log-blurb">NAND the generate. Spare gates as inverters. 74283 per nibble.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/act151.html">
+              <span class="log-date">26 Jun 2026</span>
+              <span>
+                <span class="log-title">Redesign with 74251</span>
+                <span class="log-blurb">Three chips for a cell was the wrong optimization. Same logic, no contention.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/display.html">
+              <span class="log-date">19 Jun 2026</span>
+              <span>
+                <span class="log-title">ALU segment display</span>
+                <span class="log-blurb">Thirty-two digits. One ROM. Latches so they stay bright.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/microcode.html">
+              <span class="log-date">16 Jun 2026</span>
+              <span>
+                <span class="log-title">Microcode control modularization</span>
+                <span class="log-blurb">Split decode onto small boards with local EEPROMs so ribbons stay short.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/mul-div.html">
+              <span class="log-date">15 Jun 2026</span>
+              <span>
+                <span class="log-title">Multiplication and division</span>
+                <span class="log-blurb">Naïve shift-add is slow. A Wallace tree eats the board. Priority-encoder loop.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/load-store.html">
+              <span class="log-date">11 Jun 2026</span>
+              <span>
+                <span class="log-title">Load/store pipeline</span>
+                <span class="log-blurb">Every opcode indexes a 48-bit microcode word. Two phases, or three if memory waits.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/mul-engine.html">
+              <span class="log-date">10 Jun 2026</span>
+              <span>
+                <span class="log-title">Implementing the mul-div engine</span>
+                <span class="log-blurb">Multiply in four cycles. Divide is the trick. 74xx284/85 sequenced.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/welcome.html">
+              <span class="log-date">Origin</span>
+              <span>
+                <span class="log-title">Welcome to Tomato 32</span>
+                <span class="log-blurb">The first page of the vault. From simple gates to a machine with enormous ISA coverage.</span>
+              </span>
+            </a>
+          </div>
+          <nav class="jump">
+            <a href="journal/ashtown-valley.html">Start with the latest →</a>
+            <a href="journal/welcome.html">Start at the origin →</a>
+            <a href="source.html">GitHub →</a>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-band">
+        <div class="footer-art">
+          <img src="assets/mark.svg" alt="" />
+          <p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
