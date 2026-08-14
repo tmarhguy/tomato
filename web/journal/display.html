@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ALU segment display — The Tomato</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="../index.html">The Tomato</a>
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../board.html">Board</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" />
+          <a href="../index.html"><h1>The Tomato</h1></a>
+          <img src="../assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>19 June 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Dispatch</p>
+          <h1 class="headline">Thirty-two digits. One ROM. Latches so they stay bright.</h1>
+          <p class="deck">Four 32-bit values on screen at once: A, B, C, and writeback. The textbook BCD decoder blanks A–F. K-maps were correct and physically absurd. Scan plus latches won.</p>
+          <p class="byline">19 June 2026 · display · from the log</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">Four 32-bit values on screen at once — the three LUT3 operand buses plus the ALU writeback. Each row is eight hex digits; thirty-two seven-segment displays total, live as the datapath moves. The display is not a gadget bolted on. alu-display-control.dig mirrors the slice.</p>
+          <p>Attempt one: 74HC4511. Textbook BCD. It only decodes 0–9. Inputs above nine blank. Useless for hex. Attempt two: 74HC4543. Same story. Attempt three: Boolean minimization from Karnaugh maps. Correct, and a forest of gates. Rejected for copper.</p>
+          <p>The answer is a shared font ROM and a scan. A 5-bit counter walks thirty-two nibbles. One AT28C16 holds the hex font. 74HC373 latches hold the last pattern so the digits stay at full brightness even though the ROM only writes one digit per cycle. Without the latches each digit is on 1/32 of the time — dim and visibly multiplexed.</p>
+          <p>Sixty-nine ICs for the wall. Five bits covers exactly thirty-two digits. No 74HC00 reset hack at count 24. That was leftover from an earlier three-row sketch. Brightness does not depend on scan rate. Operand changes show up on the next pass for that digit — within one frame.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="microcode.html"><span class="dir">Previous</span><span class="to">Microcode modularization</span></a>
+            <a class="next" href="act151.html"><span class="dir">Next</span><span class="to">Redesign with 74251</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+</body>
+</html>
