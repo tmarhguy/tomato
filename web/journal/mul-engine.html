@@ -19,7 +19,9 @@
           <a href="../index.html">Front</a>
           <a href="../architecture.html">Architecture</a>
           <a href="../isa.html">ISA</a>
+          <a href="../playground.html">Playground</a>
           <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Boards</a>
           <a href="../board.html">Board</a>
           <a href="../source.html">GitHub</a>
           <a href="../about.html">About</a>
@@ -43,6 +45,9 @@
           <p class="byline">10 June 2026 · mul-div · from the log</p>
         </div>
       </section>
+      <div class="wrap arch-layout">
+        <aside data-arch-map data-root="../"></aside>
+        <div class="arch-content">
       <section class="section">
         <div class="wrap story">
           <p class="drop">Today's goal is integrating the multiply-divide engine. 74xx284/85 can compute the lower and upper products, so I will use them and sequence to compute 32b by 32b into 64b in four cycles at most. That cleanly resolves multiply. The immediate decoder means the multiply has access to the immediate variants most ISAs expect.</p>
@@ -57,8 +62,11 @@
           </nav>
         </div>
       </section>
+        </div>
+      </div>
     </main>
     <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
   </div>
+  <script type="module" src="../js/arch-map.js"></script>
 </body>
 </html>

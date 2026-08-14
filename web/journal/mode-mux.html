@@ -19,7 +19,9 @@
           <a href="../index.html">Front</a>
           <a href="../architecture.html">Architecture</a>
           <a href="../isa.html">ISA</a>
+          <a href="../playground.html">Playground</a>
           <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Boards</a>
           <a href="../board.html">Board</a>
           <a href="../source.html">GitHub</a>
           <a href="../about.html">About</a>
@@ -43,6 +45,9 @@
           <p class="byline">27 June 2026 · from the log</p>
         </div>
       </section>
+      <div class="wrap arch-layout">
+        <aside data-arch-map data-root="../"></aside>
+        <div class="arch-content">
       <section class="section">
         <div class="wrap story">
           <p class="drop">The old ALU split the incoming signal: one path raced through masking into the 74283 for arithmetic, another through the LUT3 for logic. Both collided at the end of the slice in eight 74257 mode multiplexers. The branch created routing congestion, footprint bloat — eight dedicated ICs and thirty-two A-masking gates — and added a final delay to the critical math path.</p>
@@ -65,8 +70,11 @@
           </nav>
         </div>
       </section>
+        </div>
+      </div>
     </main>
     <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
   </div>
+  <script type="module" src="../js/arch-map.js"></script>
 </body>
 </html>

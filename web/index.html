@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>The Tomato — A 32-bit CPU from 74xx Logic</title>
-  <meta name="description" content="A homebrew 32-bit CPU built from discrete 74xx logic. Dual-LUT ALU, 512-row opcode ROM, modular microcode. Not a soft core." />
+  <title>The Tomato — A Homebrew 32-bit CPU from Discrete Logic</title>
+  <meta name="description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 65k operational Dual-LUT architecture in 74xx copper. 789 hours from scratch." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,7 +28,9 @@
           <a href="index.html" aria-current="page">Front</a>
           <a href="architecture.html">Architecture</a>
           <a href="isa.html">ISA</a>
+          <a href="playground.html">Playground</a>
           <a href="journal.html">Journal</a>
+          <a href="boards.html">Boards</a>
           <a href="board.html">Board</a>
           <a href="source.html">GitHub</a>
           <a href="about.html">About</a>
@@ -37,8 +39,8 @@
       <div class="flag">
         <p class="flag-top">
           <span>Vol. 32 · No. 1</span>
-          <span>Ashtown Valley, the Bay Perimeter · Thursday, August 13, 2026</span>
-          <span>One copper</span>
+          <span>Ashtown Valley, the Bay Perimeter</span>
+          <span>August 2026</span>
         </p>
         <div class="nameplate">
           <img src="assets/mark.svg" alt="" />
@@ -46,8 +48,8 @@
           <img src="assets/mark.svg" alt="" />
         </div>
         <p class="flag-bottom">
-          <span>Discrete logic</span>
-          <span>A homebrew 32-bit CPU</span>
+          <span>A Homebrew 32-bit CPU</span>
+          <span>built from Discrete Logic</span>
           <span>74xx · Dual-LUT · CERN-OHL-P</span>
         </p>
       </div>
@@ -56,15 +58,19 @@
     <main>
       <section class="section section--hero">
         <div class="wrap lead-grid">
-          <article>
-            <p class="kicker">From the bench</p>
-            <h2 class="headline"><a href="journal/ordered.html">Copper incoming: the ALU has left the screen</a></h2>
-            <p class="deck">Two 8-bit dual-LUT slices on order. The rest of the machine is still a catalog — and that is the point.</p>
+          <article class="lead-story">
+            <p class="kicker">The Predecessor</p>
+            <h2 class="headline">Before Tomato, there was the transistor board.</h2>
+            <p class="deck">Same story, same narrative—but this time, it had to be smarter.</p>
             <p class="byline">By Tyrone Marhguy · Computer Engineering ’28</p>
             <div class="cols">
-              <p class="drop">Tomato is a 32-bit CPU built from 74xx logic — not a soft core, not an FPGA toy first. It started at the <a href="https://alu.tmarhguy.com">transistor</a> — an 8-bit ALU from 3,488 MOSFETs — and kept climbing: gates, slices, boards, a machine that can speak dozens of foreign ISAs while remaining one physical computer underneath.</p>
-              <p>The ALU is two independent 3-input LUTs plus a ripple adder per nibble. A 512-row opcode ROM names a practical subset of what that plane can do. Dark silicon stays in the tables until a program needs it.</p>
-              <p>Copper is inbound. Two slices make sixteen bits on the bench. Decode sits next to the hardware it drives. The rest of the catalog is still a drawing — and that is why the first board was kept small enough to spin again.</p>
+              <p class="drop">Before Tomato, there was an <a href="https://alu.tmarhguy.com" target="_blank" rel="noopener noreferrer">8‑bit ALU</a> built from roughly <strong>3,488 discrete CMOS transistors</strong> across a massive <strong>270×270&nbsp;mm</strong> board. It was a beast in its own right: capable of <strong>19 operations</strong>, sporting <strong>5 flags</strong>, and power hungry.</p>
+              <p>But for a solo dorm-room project, the manufacturing costs ballooned exponentially, so I needed a pivot. Same story, same narrative—but this time, it had to be smarter. <strong>Welcome to Tomato!</strong></p>
+            </div>
+            <div class="lead-more">
+              <p class="kicker">The Revolution</p>
+              <p class="lead-more-title">Tomato grew as a revolution.</p>
+              <p>Tomato has grown into a <strong>65k operational space</strong> (that’s a <strong>~3,500× increase</strong>—the very reason Tomato wins). This leap comes from its <strong>dual‑LUT3</strong> capacity, fused into an adder architecture that’s optimized for <strong>extreme linear scalability</strong>.</p>
             </div>
           </article>
           <figure class="plate">
@@ -74,6 +80,22 @@
               <span>Board render · fab-ready</span>
             </figcaption>
           </figure>
+          <div class="lead-band">
+            <div class="fn-family-row">
+              <div class="fn-family" aria-label="Core engineering equation">
+                <span class="fn-family-label">Core equation</span>
+                <p class="fn-family-eq">out = adder(mux(An, Bn, Cn), mux(An, Bn, Cn), mux(carry / flags))</p>
+              </div>
+              <div class="fn-family" aria-label="Boolean operation family">
+                <span class="fn-family-label">Operation family</span>
+                <p class="fn-family-eq">f(a, b, c) + g(a, b, c) + h(c<sub>in</sub>)</p>
+              </div>
+            </div>
+            <div class="lead-follow">
+              <p>By design, Tomato can resolve any <strong>Boolean operation</strong> of the family <code>f(a, b, c) + g(a, b, c) + h(c<sub>in</sub>)</code> in a <strong>single clock cycle</strong>. This isn’t just a party trick—it melts down complex, cycle-heavy algorithms into native hardware steps.</p>
+              <p>It opens the door for single-cycle <strong>Fused Mask-and-Add</strong> operations like <code>A + (B AND C)</code> for instant framebuffer manipulation, or native cryptographic acceleration: computing <code>A + ((A AND B) XOR (NOT A AND C))</code>—the core <strong>SHA-256 Choose</strong> function—in exactly <strong>one cycle</strong>.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -81,27 +103,29 @@
         <div class="wrap">
           <div class="axioms">
             <article class="axiom">
-              <p class="axiom-n">I. The slice</p>
-              <h3>The ALU is the center</h3>
-              <p>Most CPUs hide a small arithmetic unit behind a conventional encoding. Tomato flipped it: the bit-slice is a programmable logic plane with an adder wired through it.</p>
+              <p class="axiom-n">II. The Hardware Compiler</p>
+              <h3>Think compiler in hardware</h3>
+              <p>In my most fancy test with a <strong>custom FSM</strong>, it is capable of sweeping to find the matching opcode—sweep counting till it matches an input A, B, C and expected value. So yes: it can compress <strong>(infinite) boolean</strong> local operations of its family to resolve a <strong>single opcode</strong> that solves it.</p>
+              <p>I took that FSM onto an <strong>Artix‑7</strong>. At the board’s set speed it crunched the space and found a match in <strong>1 min 14 s</strong>. Watching it land was inspiring. <a href="playground.html#compiler">Opcode compiler →</a></p>
             </article>
             <article class="axiom">
-              <p class="axiom-n">II. The word</p>
-              <h3>Building beats spreadsheets</h3>
-              <p>When a 40-bit word doubled the explanation without doubling silicon on the bench, the answer was to fall back to 32-bit and ship what already routes.</p>
+              <p class="axiom-n">III. The Build Philosophy</p>
+              <h3>74xx now. Transistors someday.</h3>
+              <p>For now, Tomato is built exclusively from <strong>74xx series logic chips</strong>—driven purely by manufacturability and brutal time constraints. (Someday, I will lay them out as <strong>raw transistors</strong>, just as I always intended.) But even in its current form, Tomato has outgrown its ALU roots. It has taken on multiple shapes: <strong>8‑bit</strong>, <strong>32‑bit</strong>, even <strong>40‑bit</strong> variants—the last to accommodate the quirky <strong>3‑Read‑1‑Write</strong> register system I designed for it and the very‑long‑word instruction (<strong>VLWI</strong>) architecture it somehow demands.</p>
             </article>
             <article class="axiom">
-              <p class="axiom-n">III. The dialects</p>
-              <h3>One machine, many names</h3>
-              <p>Sixty-six ISA profiles map RV32, MIPS, x86, Z80 and others onto native opcodes. The hardware stays Tomato. The mnemonics are costumes.</p>
+              <p class="axiom-n">IV. Verification &amp; Testing</p>
+              <h3>The 130-billion vector gauntlet</h3>
+              <p>Schematic eyeballing is not a tapeout. I exported the board into Verilog from <strong>Digital</strong>, then <strong>Verilator</strong> compiled it to C++ so brute-force benches were actually viable: <strong>10 billion</strong> directed and random vectors on the ALU core, then <strong>130 billion</strong> across the entire 32-bit slice. Simulation is still simulation. <strong>SymbiYosys</strong> k-induction proved the logic plane is an ALU—no untested edge. Last gauntlet: the architecture on <strong>FPGA</strong>, alive on the first toggle of the 4-bit sample. <a href="architecture.html#verification">ALU sign-off →</a></p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section section--room">
+      <section class="section section--room" id="stand">
         <div class="wrap">
-          <h2 class="statement">The schematic works. The copper is the machine.</h2>
+          <p class="exhibit-label">Where we stand</p>
+          <h2 class="statement">After more than <strong>639 hours</strong> poured into a custom computer from absolute scratch, this is where we stand.</h2>
           <div class="word" aria-label="32-bit instruction word">
             <span class="op">9b<strong>opcode</strong></span>
             <span>5b<strong>rd</strong></span>
@@ -111,117 +135,81 @@
             <span>3b<strong>bank</strong></span>
           </div>
           <p class="caption"><span>The 32-bit word</span><span>Low bits overlay as COND, jump mode, or immediate</span></p>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="wrap">
-          <div class="compare">
-            <article class="card card--outline">
-              <span class="tag">The usual path</span>
-              <p class="muted">A soft core. An FPGA toy first. One fashionable ISA. An ALU you never see. Decode as a blob in simulation.</p>
-            </article>
-            <article class="card card--solid">
-              <span class="tag tag--invert">This machine</span>
-              <p>74xx on a board you can probe. Dual-LUT slice per nibble. 512-row opcode ROM. Modular control sitting next to the hardware it drives.</p>
-            </article>
-          </div>
           <div class="center-col">
-            <p class="lead">Tomato started at the <a href="https://alu.tmarhguy.com">transistor</a> — 3,488 MOSFETs, eight bits — and kept climbing. The opcode ROM names a practical subset of what the LUT plane can do. Matching every LUT pair to its own instruction was never the goal.</p>
-            <p class="lead">Decode travels with the datapath. One central microcode blob is elegant in simulation and miserable on a breadboard. Ribbons stay short when each board carries its own EEPROM.</p>
+            <p class="lead">The first programs were <strong>hex I wrote by hand</strong>. Then an assembler cobbled together on the fly, <strong>FPGA tests</strong> on the Artix‑7, simulations that ran for days, and bugs hunted at <strong>3&nbsp;AM</strong>. Dual-LUT copper is inbound; the rest of the machine is still being laid.</p>
+            <p class="lead"><strong>Tomato</strong> is the little obsession, the evolved ALU, and the most rewarding migraine I’ve ever built.</p>
           </div>
+          <nav class="jump jump--loud" aria-label="Continue inside">
+            <a href="architecture.html">Open architecture →</a>
+            <a href="playground.html">Dual-LUT playground →</a>
+            <a href="boards.html">Board catalog →</a>
+          </nav>
         </div>
       </section>
 
-      <section class="section section--room">
-        <div class="wrap split">
-          <div>
-            <p class="kicker">On method</p>
-            <h2 class="narrow-title">The constraint is copper, not the catalog</h2>
-            <p class="lead">Tomato split decode onto small boards with local EEPROMs so each slice can be brought up alone. Clever only at the right scale: naïve shift-add multiply is slow; a Wallace tree eats the board. The answer was a priority-encoder loop that jumps over zero bits.</p>
-          </div>
-          <figure class="cutaway plate plate--ink">
-            <img src="assets/plates/digital-main.jpg" alt="Digital schematic of Tomato: ALU, register file, modular control boards, memory, PC." />
-            <figcaption class="plate-cap">
-              <span>Fig. 2 — main.dig</span>
-              <span>Control left, datapath center</span>
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section class="section section--room">
+      <section class="section section--double">
         <div class="wrap">
-          <div class="closing">
-            <div class="closing-copy">
-              <p class="kicker">The doctrine</p>
-              <p class="lead">Not a new computer. The old one, built by hand: 74xx, a ROM you can socket, and an ALU whose truth tables sit next to the adder.</p>
-              <h2 class="closing-title">That is the whole machine. Everything else is costume.</h2>
-            </div>
-            <img src="assets/slice.svg" width="520" height="280" alt="Diagram of the dual-LUT nibble: f(a,b,c) and g(a,b,c) into an adder with carry-in." />
+          <div class="ads-mast">
+            <p class="exhibit-label">Progress of Works · Lot 07</p>
+            <h2 class="shelf-title">This board has left the screen.</h2>
+            <p class="ads-rate">The transistor board set the foundation. Dual-LUT copper is inbound.</p>
           </div>
-        <div class="life life--page">
-          <p class="ad-colhead">The path · green is done · gold is now</p>
-          <ol class="life-rail" aria-label="From schematic to copper">
-            <li class="is-done">
-              <a href="architecture.html">
-                <span class="life-dot"></span>
-                <span class="life-name">Schematic</span>
-                <span class="life-when">Digital</span>
-              </a>
-            </li>
-            <li class="is-done">
-              <a href="journal/mode-mux.html">
-                <span class="life-dot"></span>
-                <span class="life-name">Dual-LUT</span>
-                <span class="life-when">27 Jun</span>
-              </a>
-            </li>
-            <li class="is-done">
-              <a href="architecture.html">
-                <span class="life-dot"></span>
-                <span class="life-name">KiCad</span>
-                <span class="life-when">07_alu</span>
-              </a>
-            </li>
-            <li class="is-done">
-              <a href="journal/ordered.html">
-                <span class="life-dot"></span>
-                <span class="life-name">Routed</span>
-                <span class="life-when">0 nets</span>
-              </a>
-            </li>
-            <li class="is-done">
-              <a href="journal/ordered.html">
-                <span class="life-dot"></span>
-                <span class="life-name">Ordered</span>
-                <span class="life-when">7 Aug</span>
-              </a>
-            </li>
-            <li class="is-now">
-              <a href="journal/ordered.html">
-                <span class="life-dot"></span>
-                <span class="life-name">Inbound</span>
-                <span class="life-when">Waiting</span>
-              </a>
-            </li>
-            <li>
-              <span class="life-stop">
-                <span class="life-dot"></span>
-                <span class="life-name">Bench</span>
-                <span class="life-when">Assemble</span>
-              </span>
-            </li>
-          </ol>
-        </div>
+          <div class="ads-sheet">
+            <p class="ads-bar"><span>Then and now</span><span>Authority of copper</span></p>
+            <a class="ad-face ad-face--then" href="boards/01-alu.html">
+              <p class="ad-face-kicker"><span>Then · lot 01</span><span>Predecessor</span></p>
+              <img src="assets/plates/alu-4b.jpg" alt="Discrete MOSFET hybrid ALU — the predecessor." />
+              <div class="ad-face-copy">
+                <p class="ad-no">01</p>
+                <h3>ALU</h3>
+                <p class="ad-stamp">3,488 CMOS hybrid</p>
+                <p class="ad-blurb"><strong>3,488</strong> discrete CMOS transistors · <strong>19 operations</strong> · <strong>5 flags</strong> · power hungry · <strong>270×270&nbsp;mm</strong>. Manufacturing costs forced the pivot—not the idea.</p>
+                <dl class="ad-facts">
+                  <div><dt>Outline</dt><dd>270 × 270 mm</dd></div>
+                  <div><dt>Ops / flags</dt><dd>19 · 5</dd></div>
+                  <div><dt>Authority</dt><dd>Paper · proven</dd></div>
+                </dl>
+                <p class="ad-cta">Open alu.tmarhguy.com →</p>
+              </div>
+            </a>
+            <a class="ad-face ad-face--now" href="boards/07-alu.html">
+              <p class="ad-face-kicker"><span>Now · lot 07</span><span>Routed &amp; ordered</span></p>
+              <img src="assets/pcb/alu_8b_board.jpg" alt="07_alu Dual-LUT 8-bit slice, routed and ordered." />
+              <div class="ad-face-copy">
+                <p class="ad-no">07</p>
+                <h3>ALU</h3>
+                <p class="ad-stamp">Dual-LUT · ordered</p>
+                <p class="ad-blurb">Two 8-bit slices inbound from JLCPCB. <strong>Zero unrouted nets.</strong> <strong>65k operational space</strong> on an 8-bit physical slice.</p>
+                <dl class="ad-facts">
+                  <div><dt>Footprint</dt><dd>99.95 × 99.80 mm</dd></div>
+                  <div><dt>Density</dt><dd>25 logic ICs / 8b</dd></div>
+                  <div><dt>Authority</dt><dd>Copper · August 2026</dd></div>
+                </dl>
+                <p class="ad-cta">See the order dispatch →</p>
+              </div>
+            </a>
+            <div class="works">
+              <p class="ad-colhead">The path forward · green is done · gold is now</p>
+              <ol class="works-track" aria-label="Board lots">
+                <li class="is-past"><a href="boards/01-alu.html"><span class="works-n">01</span><span class="works-name">ALU</span><span class="works-st">3488 CMOS</span></a></li>
+                <li class="is-now"><a href="boards/07-alu.html"><span class="works-n">07</span><span class="works-name">ALU</span><span class="works-st">Ordered</span></a></li>
+                <li><a href="boards/02-shift.html"><span class="works-n">02</span><span class="works-name">Shift</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/03-memory.html"><span class="works-n">03</span><span class="works-name">Memory</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/04-register.html"><span class="works-n">04</span><span class="works-name">Register</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/05-pc.html"><span class="works-n">05</span><span class="works-name">PC</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/06-bus.html"><span class="works-n">06</span><span class="works-name">Bus</span><span class="works-st">In design</span></a></li>
+              </ol>
+            </div>
+          </div>
+          <p class="shelf-meta">KiCad 10 · 07_alu ordered August 2026 · two 8-bit slices</p>
         </div>
       </section>
 
       <section class="section section--double">
         <div class="wrap">
           <p class="exhibit-label">Playground · 07_alu</p>
-          <h2 class="shelf-title">Turn the board. The parts are in the round.</h2>
-          <p class="ads-rate">Studio light · drag to turn · grab to hold</p>
+          <h2 class="shelf-title">Turn the board that left the screen.</h2>
+          <p class="ads-rate">Drag to orbit · pinch to zoom · Dual-LUT copper in the round</p>
           <div class="bench">
             <p class="ad-colhead">The slice in the round</p>
             <div class="bench-stage">
@@ -237,159 +225,9 @@
               <button type="button" data-bench="spin">Hold</button>
               <button type="button" data-bench="grid" class="is-on">Grid</button>
               <button type="button" data-bench="tour">Tour</button>
-              <span class="bench-hint">KiCad GLB · <a href="board.html">open the board</a></span>
+              <span class="bench-hint">KiCad GLB · <a href="board.html">open the board</a> · <a href="playground.html">run the slice</a></span>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section class="section section--double">
-        <div class="wrap">
-          <div class="ads-mast">
-            <p class="exhibit-label">Classified · boards 01–08</p>
-            <h2 class="shelf-title">It started as a 270 millimetre transistor board. It is now copper in the mail.</h2>
-            <p class="ads-rate">1 of 8 lots in copper · 1 set aside · 6 still on the screen</p>
-          </div>
-          <div class="ads-sheet">
-            <p class="ads-bar"><span>Then and now</span><span>Progress of works</span></p>
-            <a class="ad-face ad-face--then" href="architecture.html">
-              <p class="ad-face-kicker"><span>Then · lot 01</span><span>Set aside</span></p>
-              <img src="assets/plates/alu-4b.jpg" alt="Four-bit ALU slice on paper — the origin of the datapath." />
-              <div class="ad-face-copy">
-                <p class="ad-no">01</p>
-                <h3>ALU</h3>
-                <p class="ad-stamp">Historical</p>
-                <p class="ad-blurb">The first board: a 270 millimetre transistor-hybrid. Complete on paper. Superceded by the dual-LUT slice — not the copper that went to fab.</p>
-                <dl class="ad-facts">
-                  <div><dt>Outline</dt><dd>270 × 270 mm</dd></div>
-                  <div><dt>Device</dt><dd>3,488 hybrid</dd></div>
-                  <div><dt>Authority</dt><dd>Paper · complete</dd></div>
-                </dl>
-              </div>
-            </a>
-            <a class="ad-face ad-face--now" href="journal/ordered.html">
-              <p class="ad-face-kicker"><span>Now · lot 07</span><span>See dispatch</span></p>
-              <img src="assets/pcb/alu_8b_board.jpg" alt="07_alu 8-bit dual-LUT slice, routed and ordered." />
-              <div class="ad-face-copy">
-                <p class="ad-no">07</p>
-                <h3>ALU</h3>
-                <p class="ad-stamp">Routed · ordered</p>
-                <p class="ad-blurb">Dual-LUT 8-bit slice. Two boards on JLCPCB, parts on DigiKey. Zero unrouted nets. This one left the screen.</p>
-                <dl class="ad-facts">
-                  <div><dt>Outline</dt><dd>99.95 × 99.80 mm</dd></div>
-                  <div><dt>Device</dt><dd>25 logic ICs / 8b</dd></div>
-                  <div><dt>Authority</dt><dd>Copper · August 2026</dd></div>
-                </dl>
-                <p class="ad-cta">KiCad 10 · 131 placements · two slices →</p>
-              </div>
-            </a>
-            <div class="life">
-              <p class="ad-colhead">The path · green is done · gold is now</p>
-              <ol class="life-rail" aria-label="From schematic to copper">
-                <li class="is-done">
-                  <a href="architecture.html">
-                    <span class="life-dot"></span>
-                    <span class="life-name">Schematic</span>
-                    <span class="life-when">Digital</span>
-                  </a>
-                </li>
-                <li class="is-done">
-                  <a href="journal/mode-mux.html">
-                    <span class="life-dot"></span>
-                    <span class="life-name">Dual-LUT</span>
-                    <span class="life-when">27 Jun</span>
-                  </a>
-                </li>
-                <li class="is-done">
-                  <a href="architecture.html">
-                    <span class="life-dot"></span>
-                    <span class="life-name">KiCad</span>
-                    <span class="life-when">07_alu</span>
-                  </a>
-                </li>
-                <li class="is-done">
-                  <a href="journal/ordered.html">
-                    <span class="life-dot"></span>
-                    <span class="life-name">Routed</span>
-                    <span class="life-when">0 nets</span>
-                  </a>
-                </li>
-                <li class="is-done">
-                  <a href="journal/ordered.html">
-                    <span class="life-dot"></span>
-                    <span class="life-name">Ordered</span>
-                    <span class="life-when">7 Aug</span>
-                  </a>
-                </li>
-                <li class="is-now">
-                  <a href="journal/ordered.html">
-                    <span class="life-dot"></span>
-                    <span class="life-name">Inbound</span>
-                    <span class="life-when">Waiting</span>
-                  </a>
-                </li>
-                <li>
-                  <span class="life-stop">
-                    <span class="life-dot"></span>
-                    <span class="life-name">Bench</span>
-                    <span class="life-when">Assemble</span>
-                  </span>
-                </li>
-              </ol>
-            </div>
-            <div class="works">
-              <p class="ad-colhead">Eight lots in order · one has left</p>
-              <ol class="works-track">
-                <li class="is-past"><a href="architecture.html"><span class="works-n">01</span><span class="works-name">ALU</span><span class="works-st">Set aside</span></a></li>
-                <li><a href="architecture.html"><span class="works-n">02</span><span class="works-name">Shift</span><span class="works-st">In design</span></a></li>
-                <li><a href="architecture.html"><span class="works-n">03</span><span class="works-name">Memory</span><span class="works-st">In design</span></a></li>
-                <li><a href="architecture.html"><span class="works-n">04</span><span class="works-name">Register</span><span class="works-st">In design</span></a></li>
-                <li><a href="architecture.html"><span class="works-n">05</span><span class="works-name">PC</span><span class="works-st">In design</span></a></li>
-                <li><a href="architecture.html"><span class="works-n">06</span><span class="works-name">Bus</span><span class="works-st">In design</span></a></li>
-                <li class="is-now"><a href="journal/ordered.html"><span class="works-n">07</span><span class="works-name">ALU</span><span class="works-st">Ordered</span></a></li>
-                <li><a href="architecture.html"><span class="works-n">08</span><span class="works-name">Display</span><span class="works-st">In design</span></a></li>
-              </ol>
-              <div class="ad-queue">
-                <a class="ad-item" href="architecture.html">
-                  <span class="ad-item-no">02</span>
-                  <span class="ad-item-name">Shift</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>Barrel, rotate, the multiply loop. Still a schematic.</p>
-                </a>
-                <a class="ad-item" href="architecture.html">
-                  <span class="ad-item-no">03</span>
-                  <span class="ad-item-name">Memory</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>The bus to the outside. Ribbons not yet cut.</p>
-                </a>
-                <a class="ad-item" href="architecture.html">
-                  <span class="ad-item-no">04</span>
-                  <span class="ad-item-name">Register</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>Thirty-two names, eight banks. File lives in Digital.</p>
-                </a>
-                <a class="ad-item" href="architecture.html">
-                  <span class="ad-item-no">05</span>
-                  <span class="ad-item-name">PC</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>The counter that walks the ROM. Sequencing, not copper.</p>
-                </a>
-                <a class="ad-item" href="architecture.html">
-                  <span class="ad-item-no">06</span>
-                  <span class="ad-item-name">Bus</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>Backplane between slices. Decode stays local.</p>
-                </a>
-                <a class="ad-item" href="architecture.html">
-                  <span class="ad-item-no">08</span>
-                  <span class="ad-item-name">Display</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>The rest of the lamp wall. 07 already carries its own.</p>
-                </a>
-              </div>
-            </div>
-          </div>
-          <p class="shelf-meta">KiCad 10 · 07_alu ordered August 2026 · two 8-bit slices</p>
         </div>
       </section>
 
@@ -397,90 +235,37 @@
         <div class="wrap">
           <div class="rule"></div>
           <blockquote class="pull">
-            <p>If you love computers because you like how they are built, not just what they run, the journal is the real entry point.</p>
-            <cite><a href="journal/welcome.html">Welcome to Tomato 32 · the first page of the vault</a></cite>
+            <p>If you love computers because of how they are built, not just what they run, this journal is the entry point.</p>
+            <cite><a href="journal.html">The Vault &amp; Journal · docs/log on paper</a></cite>
           </blockquote>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="wrap">
-          <article class="author">
-            <div>
-              <img src="assets/plates/me.jpg" alt="Tyrone Marhguy, the correspondent." />
-            </div>
-            <div>
-              <p class="kicker">Correspondent</p>
-              <h2 class="author-name"><a href="about.html">Tyrone Marhguy</a></h2>
-              <p class="author-role">Builder · Computer Engineering ’28 · Penn</p>
-              <p class="author-bio">A solo hardware architecture project: discrete-logic CPU design, KiCad PCBs, Digital simulation, and a public build log. The dual-LUT ALU is routed and fab-ready. The rest of the machine is being brought up board by board — not as a throwaway FSM that becomes Tomato anyway. <a href="about.html">The correspondent</a>.</p>
-              <div class="socials">
-                <a href="mailto:tmarhguy@gmail.com"><span class="k">Email</span><span class="v">tmarhguy@gmail.com</span></a>
-                <a href="source.html"><span class="k">GitHub</span><span class="v">source of truth</span></a>
-                <a href="https://twitter.com/marhguy_tyrone"><span class="k">X / Twitter</span><span class="v">/marhguy_tyrone</span></a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section section--room">
-        <div class="wrap">
-          <p class="exhibit-label">From GitHub</p>
-          <div class="exhibits">
-            <article class="exhibit">
-              <p class="exhibit-num">512</p>
-              <p class="exhibit-kicker">Opcode ROM rows</p>
-              <hr />
-              <h3>The catalog is the machine</h3>
-              <p>Nine-bit opcode. Fifty-one burns. The rest are nops until a program needs them.</p>
-            </article>
-            <article class="exhibit">
-              <p class="exhibit-num">5 / 5</p>
-              <p class="exhibit-kicker">Formal jobs · ALU only</p>
-              <hr />
-              <h3>Then the directed suite</h3>
-              <p>SymbiYosys pass. Directed 476/476 against the unified ALU golden.</p>
-            </article>
-            <article class="exhibit">
-              <p class="exhibit-num">8 MHz</p>
-              <p class="exhibit-kicker">FPGA analysis · honest</p>
-              <hr />
-              <h3>Copper incoming</h3>
-              <p>Bitstream closed. Oscillator is 100. Constraint was 8.</p>
-            </article>
-          </div>
         </div>
       </section>
 
       <section class="section section--room">
         <div class="wrap forms">
-          <form class="form" action="mailto:tmarhguy@gmail.com" method="get" enctype="text/plain">
-            <div class="form-top">
-              <p class="form-kicker">Letters</p>
-            </div>
-            <div class="form-body">
-              <h2 class="form-title">If you like how it is built, write.</h2>
-              <div class="fields">
-                <input class="input" type="text" name="subject" placeholder="Subject" required />
-                <textarea class="input" name="body" placeholder="Why the slice looks like that, or what you are building." required></textarea>
-              </div>
-              <div class="form-foot">
-                <button class="btn" type="submit">Send a note</button>
-                <p class="form-note">Mail is optional.<br />The journal is not.</p>
-              </div>
-            </div>
-          </form>
           <div class="form">
             <div class="form-top">
-              <p class="form-kicker">Source of truth</p>
+              <p class="form-kicker">Source of Truth</p>
             </div>
             <div class="form-body">
-              <h2 class="form-title">Or open GitHub.</h2>
-              <p class="lead">Digital schematics, KiCad boards, opcode CSV, formal jobs, the vault. Authority lives in the repo — not a slide.</p>
+              <h2 class="form-title">Open GitHub.</h2>
+              <p class="lead">Digital schematics, KiCad boards, opcode CSVs, formal jobs, and the vault. Authority lives in the repository.</p>
               <div class="form-foot">
                 <a class="btn" href="source.html">Open GitHub</a>
-                <p class="form-note">CERN-OHL-P · Study, build, fork.</p>
+                <p class="form-note">Study, build, fork.<br />© 2026 Tyrone Marhguy · CERN-OHL-P</p>
+              </div>
+            </div>
+          </div>
+          <div class="form">
+            <div class="form-top">
+              <p class="form-kicker">Correspondent</p>
+            </div>
+            <div class="form-body">
+              <h2 class="form-title"><a href="about.html">Tyrone Marhguy</a></h2>
+              <p class="lead">Builder · Computer Engineering ’28 · Penn. Little obsession, evolved ALU, most rewarding migraine—789 hours and counting.</p>
+              <div class="form-foot">
+                <a class="btn" href="about.html">About</a>
+                <p class="form-note"><a href="mailto:tmarhguy@gmail.com">tmarhguy@gmail.com</a></p>
               </div>
             </div>
           </div>
