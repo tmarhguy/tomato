@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Board catalog — The Tomato</title>
+  <meta name="description" content="Eight modular lots for the Tomato CPU — ALU, shift, memory, register file, PC, bus, display. One in copper, six on the screen." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="index.html">The Tomato</a>
+        <nav class="mast-nav" aria-label="Primary">
+          <a href="index.html">Front</a>
+          <a href="architecture.html">Architecture</a>
+          <a href="isa.html">ISA</a>
+          <a href="playground.html">Playground</a>
+          <a href="journal.html">Journal</a>
+          <a href="boards.html" aria-current="page">Boards</a>
+          <a href="board.html">Board</a>
+          <a href="source.html">GitHub</a>
+          <a href="about.html">About</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="assets/mark.svg" alt="" />
+          <a href="index.html"><h1>The Tomato</h1></a>
+          <img src="assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom">
+          <span>Inside</span>
+          <span>Board catalog · lots 01–08</span>
+          <span>Vol. 32</span>
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Progress of Works</p>
+          <h1 class="headline">Eight lots. One has left the screen.</h1>
+          <p class="deck">Tomato is modular on purpose: each slice gets its own PCB, local EEPROM decode, and a dedicated page in this catalog. Pick a lot for the full story—outline, role in the datapath, and where it stands today.</p>
+          <p class="byline">KiCad 10 · Digital source of truth · August 2026</p>
+        </div>
+      </section>
+
+      <div class="wrap arch-layout">
+        <aside data-arch-map data-root=""></aside>
+        <div class="arch-content">
+      <section class="section section--double">
+        <div class="wrap">
+          <div class="ads-mast">
+            <p class="exhibit-label">Catalog · select a lot</p>
+            <h2 class="shelf-title">From transistor predecessor to dual-LUT copper.</h2>
+            <p class="ads-rate">Green is done · gold is now · grey is still on the screen</p>
+          </div>
+          <div class="ads-sheet">
+            <p class="ads-bar"><span>Eight lots in order</span><span>Authority of copper</span></p>
+            <div class="works">
+              <ol class="works-track" aria-label="Board lots">
+                <li class="is-past"><a href="boards/01-alu.html"><span class="works-n">01</span><span class="works-name">ALU</span><span class="works-st">Set aside</span></a></li>
+                <li><a href="boards/02-shift.html"><span class="works-n">02</span><span class="works-name">Shift</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/03-memory.html"><span class="works-n">03</span><span class="works-name">Memory</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/04-register.html"><span class="works-n">04</span><span class="works-name">Register</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/05-pc.html"><span class="works-n">05</span><span class="works-name">PC</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/06-bus.html"><span class="works-n">06</span><span class="works-name">Bus</span><span class="works-st">In design</span></a></li>
+                <li class="is-now"><a href="boards/07-alu.html"><span class="works-n">07</span><span class="works-name">ALU</span><span class="works-st">Ordered</span></a></li>
+                <li><a href="boards/08-display.html"><span class="works-n">08</span><span class="works-name">Display</span><span class="works-st">In design</span></a></li>
+              </ol>
+              <div class="ad-queue">
+                <a class="ad-item" href="boards/01-alu.html">
+                  <span class="ad-item-no">01</span>
+                  <span class="ad-item-name">ALU</span>
+                  <span class="ad-item-st">Set aside</span>
+                  <p>270&nbsp;mm transistor-hybrid predecessor. 3,488 MOSFETs. Complete on paper—not the copper that went to fab.</p>
+                </a>
+                <a class="ad-item" href="boards/02-shift.html">
+                  <span class="ad-item-no">02</span>
+                  <span class="ad-item-name">Shift</span>
+                  <span class="ad-item-st">In design</span>
+                  <p>32-bit barrel shifter and multiply loop. ~forty 74ACT157 muxes. Priority encoder skips zero chunks.</p>
+                </a>
+                <a class="ad-item" href="boards/03-memory.html">
+                  <span class="ad-item-no">03</span>
+                  <span class="ad-item-name">Memory</span>
+                  <span class="ad-item-st">In design</span>
+                  <p>Dual-port RAM, byte-lane decode, 60×80 tile framebuffer. The bus to the outside world.</p>
+                </a>
+                <a class="ad-item" href="boards/04-register.html">
+                  <span class="ad-item-no">04</span>
+                  <span class="ad-item-name">Register</span>
+                  <span class="ad-item-st">In design</span>
+                  <p>256 GPR · 3-read-1-write. Instruction register sheet. Eight banks on a 32-bit word.</p>
+                </a>
+                <a class="ad-item" href="boards/05-pc.html">
+                  <span class="ad-item-no">05</span>
+                  <span class="ad-item-name">PC</span>
+                  <span class="ad-item-st">In design</span>
+                  <p>Program counter, stack pointer, interrupt vectors. Keyboard tables and printer I/O hooks.</p>
+                </a>
+                <a class="ad-item" href="boards/06-bus.html">
+                  <span class="ad-item-no">06</span>
+                  <span class="ad-item-name">Bus</span>
+                  <span class="ad-item-st">In design</span>
+                  <p>Tri-state write-back highway. 74ACT541 + 74ACT138 → 9&nbsp;ns mux. Unblocks every other slice.</p>
+                </a>
+                <a class="ad-item" href="boards/07-alu.html">
+                  <span class="ad-item-no">07</span>
+                  <span class="ad-item-name">ALU</span>
+                  <span class="ad-item-st">Ordered</span>
+                  <p>Dual-LUT 8-bit slice. 99.95×99.80&nbsp;mm. 25 logic ICs per 8b. Zero unrouted nets. Copper inbound.</p>
+                </a>
+                <a class="ad-item" href="boards/08-display.html">
+                  <span class="ad-item-no">08</span>
+                  <span class="ad-item-name">Display</span>
+                  <span class="ad-item-st">In design</span>
+                  <p>The rest of the lamp wall and VGA timing. 07 already carries its own LED bring-up panel.</p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <p class="shelf-meta">Each lot · <a href="source.html">KiCad in GitHub</a> · decode stays local per board</p>
+          <nav class="jump">
+            <a href="board.html">Orbit 07_alu in 3D →</a>
+            <a href="architecture.html">Architecture overview →</a>
+            <a href="journal/ordered.html">Order dispatch →</a>
+          </nav>
+        </div>
+      </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-band">
+        <div class="footer-art">
+          <img src="assets/mark.svg" alt="" />
+          <p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script type="module" src="js/arch-map.js"></script>
+</body>
+</html>

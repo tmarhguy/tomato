@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Lot 08 — Display — The Tomato</title>
+  <meta name="description" content="08_display: lamp wall, VGA timing, and display scan for Tomato beyond 07's LED bring-up." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="../index.html">The Tomato</a>
+        <nav class="mast-nav" aria-label="Primary">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../playground.html">Playground</a>
+          <a href="../journal.html">Journal</a>
+          <a href="../boards.html" aria-current="page">Boards</a>
+          <a href="../board.html">Board</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" />
+          <a href="../index.html"><h1>The Tomato</h1></a>
+          <img src="../assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom"><span>Lot 08</span><span>Display · in design</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Lot 08 · Display · In design</p>
+          <h1 class="headline">The rest of the lamp wall — beyond 07’s bring-up LEDs.</h1>
+          <p class="deck"><a href="07-alu.html">07_alu</a> already carries opcode, flag, and operand LEDs for bench debug. This lot is the machine-scale display path: scan, timing, and the visual surface <strong>TomatoOS</strong> splashes on boot.</p>
+          <p class="byline">KiCad · <code>08_display</code> · complements <a href="03-memory.html">03_memory</a> VGA sheet</p>
+        </div>
+      </section>
+      <div class="wrap arch-layout">
+        <aside data-arch-map data-root="../"></aside>
+        <div class="arch-content">
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">Tomato has always been visual—segment displays on the transistor board, a 60×80 tile map in memory, a polling machine that turns framebuffer writes into light. Lot 08 is where that becomes a dedicated PCB: matched decode enables, one-hot scan like the bus arbitration story, and the “top screen” real estate TomatoOS uses for logo and menu before Sudoku, Snake, and Tetris.</p>
+          <h2>Relationship to other lots</h2>
+          <p><strong>03_memory</strong> owns the tile map and VGA timing schematic. <strong>08_display</strong> is the lamp wall and panel drivers that make human-scale output pleasant—not just logic-analyzer proof. Expect overlap in documentation until routing splits the sheets for manufacturability.</p>
+          <dl class="ad-facts" style="column-span: all; max-width: 28rem;">
+            <div><dt>Bring-up LEDs</dt><dd>On 07_alu · 63× red 0805</dd></div>
+            <div><dt>Framebuffer</dt><dd>60 × 80 tiles · via 03_memory</dd></div>
+            <div><dt>Status</dt><dd>In design · schematic started</dd></div>
+            <div><dt>Project</dt><dd><code>hardware/kicad/boards/08_display/</code></dd></div>
+          </dl>
+          <p>Related journal: <a href="../journal/display.html">Display dispatch</a> · <a href="../architecture.html#firmware">TomatoOS</a>.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="07-alu.html"><span class="dir">Previous lot</span><span class="to">07 · ALU</span></a>
+            <a class="next" href="01-alu.html"><span class="dir">Next lot</span><span class="to">01 · ALU</span></a>
+          </nav>
+        </div>
+      </section>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script type="module" src="../js/arch-map.js"></script>
+</body>
+</html>

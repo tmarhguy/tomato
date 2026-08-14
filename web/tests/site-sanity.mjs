@@ -22,9 +22,14 @@ const REQUIRED = [
   "css/magazine.css",
   "js/bench.js",
   "js/forge.js",
+  "js/arch-map.js",
+  "js/alu.js",
+  "js/playground.js",
+  "playground.html",
   "assets/favicon.svg",
   "assets/mark.svg",
   "assets/pcb/alu.glb",
+  "boards.html",
   "architecture.html",
   "isa.html",
   "journal.html",
@@ -37,7 +42,9 @@ const NAV = [
   "index.html",
   "architecture.html",
   "isa.html",
+  "playground.html",
   "journal.html",
+  "boards.html",
   "board.html",
   "source.html",
   "about.html",
@@ -183,8 +190,17 @@ test("source page loads forge.js", () => {
   assert.match(html, /id=["']forge["']/);
 });
 
+test("playground wires Dual-LUT emulator modules", () => {
+  const html = readFileSync(join(WEB, "playground.html"), "utf8");
+  assert.match(html, /type=["']module["'][^>]+js\/playground\.js/);
+  assert.match(html, /id=["']pg-main["']/);
+  assert.match(html, /id=["']pg-hero["']/);
+  assert.match(html, /id=["']pg-bench["']/);
+  assert.match(html, /id=["']pg-detail["']/);
+});
+
 test("JS modules parse (syntax)", async () => {
-  for (const file of ["js/bench.js", "js/forge.js"]) {
+  for (const file of ["js/bench.js", "js/forge.js", "js/arch-map.js", "js/alu.js", "js/playground.js"]) {
     const abs = join(WEB, file);
     await new Promise((resolveP, reject) => {
       const child = spawn(process.execPath, ["--check", abs], { stdio: ["ignore", "pipe", "pipe"] });
@@ -212,7 +228,8 @@ test("CSS has brand tokens", () => {
   const css = readFileSync(join(WEB, "css/magazine.css"), "utf8");
   assert.match(css, /--bg:/);
   assert.match(css, /--ink:/);
-  assert.match(css, /\.bench-stage/);
+  assert.match(css, /\.pg-schematic/);
+  assert.match(css, /\.pg-hero/);
   assert.match(css, /\.mast-nav/);
 });
 
