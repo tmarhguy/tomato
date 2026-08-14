@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Lot 07 — Dual-LUT ALU — The Tomato</title>
+  <meta name="description" content="07_alu: Dual-LUT 8-bit ALU slice. 99.95×99.80 mm, 25 logic ICs per 8b, routed and ordered August 2026." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="../index.html">The Tomato</a>
+        <nav class="mast-nav" aria-label="Primary">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../playground.html">Playground</a>
+          <a href="../journal.html">Journal</a>
+          <a href="../boards.html" aria-current="page">Boards</a>
+          <a href="../board.html">Board</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" />
+          <a href="../index.html"><h1>The Tomato</h1></a>
+          <img src="../assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom"><span>Lot 07</span><span>Dual-LUT ALU · ordered</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Lot 07 · ALU · In copper</p>
+          <h1 class="headline">Dual-LUT 8-bit slice — the board that left the screen.</h1>
+          <p class="deck">Two independent 3-input LUT planes per bit, summed through <strong>74ACT283</strong> nibble adders. One PCB is an 8-bit bring-up slice; stack two for 16-bit bench work.</p>
+          <p class="byline">99.95 × 99.80 mm · 131 placements · JLCPCB + DigiKey · August 2026</p>
+        </div>
+      </section>
+      <div class="wrap arch-layout">
+        <aside data-arch-map data-root="../"></aside>
+        <div class="arch-content">
+      <section class="section">
+        <div class="wrap story">
+          <div class="callout">
+            <span class="callout-label">Per-bit behaviour</span>
+            <code class="callout-formula">alu_out[n] = ( lutA(a,b,c) + lutB(a,b,c) + cin ) &amp; 1</code>
+          </div>
+          <p class="drop">This is the physical heart of Tomato’s 32-bit ALU—not the legacy 270&nbsp;mm transistor <a href="01-alu.html">01_alu</a>, but the <strong>74ACT dual-LUT</strong> slice that actually went to fab. Each bit cell is a pair of <strong>74ACT151</strong> muxes programmed by 8-bit opcode buses, feeding a ripple-carry nibble adder. The topology mirrors the Digital verification ladder: <code>alu_1b_X/Y</code> → <code>alu_4b</code> × 2 → 8b on PCB.</p>
+          <h2>At a glance</h2>
+          <dl class="ad-facts" style="column-span: all; max-width: 28rem;">
+            <div><dt>Outline</dt><dd>99.95 × 99.80 mm ≈ 9975 mm²</dd></div>
+            <div><dt>Logic ICs</dt><dd>25 per 8b (3.125 IC/bit)</dd></div>
+            <div><dt>Key parts</dt><dd>17×151 · 2×283 · 688 · 377 · 541</dd></div>
+            <div><dt>Route status</dt><dd>185 nets · 0 unrouted · DRC clean</dd></div>
+            <div><dt>Order</dt><dd>2 boards JLCPCB · parts DigiKey ~$61</dd></div>
+          </dl>
+          <h2>Hierarchy on the sheet</h2>
+          <p>The KiCad tree matches simulation. Top sheet chains two <strong>alu_4b</strong> cells on <code>CIN-MAIN</code> / <code>COUT-MAIN</code>. Each nibble holds four X-plane and four Y-plane bit slices into one <strong>74ACT283</strong>. A dedicated <strong>flags_logic</strong> sheet handles Z/N/C/V, LT/GT/GTE, and a <strong>74ACT151</strong> carry-select mux. <strong>led_unit</strong> is the opcode and operand lamp wall for bench debug; <strong>iopins</strong> maps headers for power, operands, opcodes, and control.</p>
+          <div class="two-up">
+            <figure class="plate">
+              <img src="../assets/pcb/alu_8b_board.jpg" alt="07_alu board render — two 4-bit cells, flag block, LED wall." />
+              <figcaption class="plate-cap"><span>Fig. 1 — Board render</span><span>CELL 0 / CELL 1</span></figcaption>
+            </figure>
+            <figure class="plate">
+              <img src="../assets/pcb/alu_8b_pcb.jpg" alt="Top copper of 07_alu — routed cells and flag block." />
+              <figcaption class="plate-cap"><span>Fig. 2 — Top copper</span><span>Fab-ready</span></figcaption>
+            </figure>
+          </div>
+          <h2>I/O and bring-up</h2>
+          <p>Operands <strong>A[7:0], B[7:0], C[7:0]</strong> and result <strong>OUT[7:0]</strong> on headers. LUT programs via <strong>ALU_OPCODE_X0–X7</strong> and <strong>ALU_OPCODE_Y0–Y7</strong> (8-bit truth table per plane). Carry select <strong>CSEL0–CSEL2</strong> feeds <code>CIN-MAIN</code>. Flags: <code>FLAG_WE</code>, latched Z/N/C/V and compare outputs. Suggested flow: program opcode buses for a known LUT pair (e.g. add = <code>0xAA</code> / <code>0xCC</code>), wiggle operands, read <strong>OUT</strong> on LEDs or scope—the same spirit as the full CPU in Digital. Until the parcel lands, <a href="../playground.html">run that slice in the playground</a>.</p>
+          <h2>Efficiency vs predecessor</h2>
+          <p>Legacy <a href="01-alu.html">01_alu</a>: 3,488 MOSFETs / 8b = <strong>436 T/bit</strong>, ~9112 mm²/bit. <strong>07_alu</strong>: <strong>≈1247 mm²/bit</strong> and native boolean flexibility the transistor board never had. Journal carry-bypass on the discrete path was ≈16.5&nbsp;MHz; this slice trades transistor romance for manufacturable copper.</p>
+        </div>
+        <div class="wrap">
+          <nav class="jump">
+            <a href="../board.html">Orbit in 3D →</a>
+            <a href="../journal/ordered.html">Order dispatch →</a>
+            <a href="../source.html">KiCad on GitHub →</a>
+          </nav>
+          <nav class="pager">
+            <a href="06-bus.html"><span class="dir">Previous lot</span><span class="to">06 · Bus</span></a>
+            <a class="next" href="08-display.html"><span class="dir">Next lot</span><span class="to">08 · Display</span></a>
+          </nav>
+        </div>
+      </section>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script type="module" src="../js/arch-map.js"></script>
+</body>
+</html>
