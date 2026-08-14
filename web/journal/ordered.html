@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ordered Tomato — The Tomato</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="../index.html">The Tomato</a>
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../board.html">Board</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" />
+          <a href="../index.html"><h1>The Tomato</h1></a>
+          <img src="../assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>7–8 August 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Dispatch</p>
+          <h1 class="headline">It is real. Tomato has left the screen.</h1>
+          <p class="deck">Yesterday: bare boards on JLCPCB. Tonight: every IC, cap, LED, and SIP network on DigiKey — enough for two 07_alu slices.</p>
+          <p class="byline">7 August 2026 · boards · 8 August · parts</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">After months of schematic churn, opcode tables, and the occasional 40-bit detour, the dual-LUT ALU is no longer a KiCad fantasy. Copper is being etched. Chips are in a warehouse in Minnesota. I am genuinely excited.</p>
+          <div class="two-up">
+            <figure class="plate">
+              <img src="../assets/pcb/alu_8b_board.jpg" alt="07_alu board render." />
+              <figcaption class="plate-cap"><span>Fig. 1</span><span>Board render</span></figcaption>
+            </figure>
+            <figure class="plate">
+              <img src="../assets/pcb/alu_8b_pcb.jpg" alt="Routed top copper of 07_alu." />
+              <figcaption class="plate-cap"><span>Fig. 1b</span><span>Top copper · DRC clean</span></figcaption>
+            </figure>
+          </div>
+          <h2>Fabrication</h2>
+          <p>The existential “one more routing pass” voice is quiet. It was not buying much anymore. Board 07_alu, an 8-bit dual-LUT slice, ordered for under six dollars — cheap enough to spin again if the fab errs. ETA about two weeks to Philadelphia. That was the point of keeping the board small.</p>
+          <figure class="figure">
+            <img src="../assets/plates/jlcpcb.jpg" alt="JLCPCB order confirmation." />
+          </figure>
+          <p class="caption"><span>Fig. 2 — JLCPCB</span><span>Copper incoming</span></p>
+          <h2>DigiKey — order 100884560</h2>
+          <p>Same night, different commitment: thirty-four 74ACT151 muxes do not lie. The cart is sized for two boards — a 16-bit datapath from day one. One board proves the slice; two boards is Tomato width on the bench. The marginal cost of the second slice was too good to skip.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Part</th><th>Qty</th><th>Role</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>CD74ACT151M96</td><td>34</td><td>8:1 LUT muxes — the dual-LUT plane</td></tr>
+                <tr><td>CD74ACT283M</td><td>4</td><td>4-bit ripple adders</td></tr>
+                <tr><td>SN74ACT00 / 86</td><td>4 + 2</td><td>NAND glue, XOR</td></tr>
+                <tr><td>MC74ACT377</td><td>2</td><td>Flag latch</td></tr>
+                <tr><td>CD74HCT688</td><td>2</td><td>Zero detect</td></tr>
+                <tr><td>LEDs, 100nF, SIP-9</td><td>—</td><td>Debug wall and decoupling</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Subtotal $48.93. Total with ship, tariff, and tax about $61. All lines immediate. Samsung 100nF caps were backordered; Yageo substituted. HCT688 over HC688 for cleaner 5V ACT margins.</p>
+          <figure class="figure">
+            <img src="../assets/plates/digikey.jpg" alt="DigiKey order confirmation." />
+          </figure>
+          <p class="caption"><span>Fig. 3 — DigiKey</span><span>Ten lines · two boards of silicon</span></p>
+          <h2>What happens next</h2>
+          <p>Wait. Grab the remaining SIP-4 networks and headers — DigiKey would not sell those without a two-thousand-piece reel. Assemble board one: 131 placements, 63 LEDs, the debug wall. Bring up 8-bit — opcode walk, carry chain, flag latch. Assemble board two, cascade to 16-bit, and finally see the dual-LUT datapath breathe.</p>
+          <p>If something is wrong, 130 red LEDs do not lie. This is the best part — where the schematic meets flux and patience. Tomato is ordered. Now we build.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="more-boards.html"><span class="dir">Previous</span><span class="to">Designing additional boards</span></a>
+            <a class="next" href="ashtown-valley.html"><span class="dir">Next</span><span class="to">Front-page news in Ashtown Valley</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+</body>
+</html>

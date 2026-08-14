@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Falling back to 32b — The Tomato</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="../index.html">The Tomato</a>
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../board.html">Board</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" />
+          <a href="../index.html"><h1>The Tomato</h1></a>
+          <img src="../assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>31 July 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Decision</p>
+          <h1 class="headline">Falling back to 32-bit</h1>
+          <p class="deck">Forty bits was intellectually clean. Building is the constraint, not the spreadsheet. The swing was useful. The answer is the machine we already know how to wire.</p>
+          <p class="byline">31 July 2026 · supersedes the 40b redesign</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">In a swing between implementations, the design falls back to 32-bit. The 40-bit redesign was clean — one word type, a fourth operand field, room for a larger instruction table. A day went into catalogs and widening math. Then the constraint reasserted itself.</p>
+          <h2>Why not 40</h2>
+          <p>Forty bits is weird, perhaps as weird a number as Tomato has always been. That narrative needs no regularly accompanying weirdness. Widening every field would open something like eight thousand GPR if you rebuilt every board. Treat that as a possibility, not a discipline. Tomato was already unconventional. Stacking an unconventional word on an unconventional ALU doubles the explanation without doubling the silicon on the bench.</p>
+          <h2>What stays</h2>
+          <p>Opcode space limited to 512 rows — a 9-bit ROM index. Four 5-bit operand fields plus a 3-bit bank: 32 GPR times 8 banks is 256 addressable registers. Tiny against eight thousand. Still real memory in conventional terms — banks you can name, spill to, and wire without a full datapath rebuild.</p>
+          <p>Dark silicon persists. The ALU still knows more functions than the instruction ROM exposes. That was always the plan. No fourth read port. No 40-bit RAM on bring-up. The ALU PCB stays as built.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Area</th><th>40b, set aside</th><th>32b, current</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Word</td><td>40 bits, unified</td><td>32 bits</td></tr>
+                <tr><td>Opcode ROM</td><td>4096-row table</td><td>512 rows</td></tr>
+                <tr><td>Register file</td><td>4 read ports, 6-bit addr</td><td>3R1W, 32 × 8</td></tr>
+                <tr><td>Digital</td><td>alu-40b-final</td><td>alu-32b-final, main.dig</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Ship 32-bit Tomato. Run Digital on main. Keep verification on the 32b ALU export. Put fab time toward peripherals and control boards — not another word-width pivot.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="lingering.html"><span class="dir">Previous</span><span class="to">The lingering catch</span></a>
+            <a class="next" href="more-boards.html"><span class="dir">Next</span><span class="to">Designing additional boards</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+</body>
+</html>

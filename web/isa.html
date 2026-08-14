@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ISA — The Tomato</title>
+  <meta name="description" content="512-row opcode ROM, 51 burns, 66 ISA profiles mapped onto native Tomato opcodes." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="index.html">The Tomato</a>
+        <nav class="mast-nav" aria-label="Primary">
+          <a href="index.html">Front</a>
+          <a href="architecture.html">Architecture</a>
+          <a href="isa.html" aria-current="page">ISA</a>
+          <a href="journal.html">Journal</a>
+          <a href="board.html">Board</a>
+          <a href="source.html">GitHub</a>
+          <a href="about.html">About</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="assets/mark.svg" alt="" />
+          <a href="index.html"><h1>The Tomato</h1></a>
+          <img src="assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom">
+          <span>Inside</span>
+          <span>ISA · the ROM and the costumes</span>
+          <span>Vol. 32</span>
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Instruction set</p>
+          <h1 class="headline">One machine. Many dialects. Fifty-one burns.</h1>
+          <p class="deck">The hardware stays Tomato. RV32, MIPS, x86, Z80 and the rest are assembly-level maps onto native opcodes — not separate ISAs in copper.</p>
+          <p class="byline">Authority · docs/isa/tomato.v1.csv</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">A 512-row opcode ROM is enough for native ALU ops, load and store, branches, shifts, and mul/div without empty decode fanout. v1 is not a twenty-opcode lean map. Unused rows are nops. They are not growth phantoms waiting to be invented in a spreadsheet.</p>
+          <p>Solidified burns stay. New burns are added when a program needs them. The LUT catalog still knows more functions than the instruction ROM exposes. That was always the plan.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>File</th><th>Role</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="mono">tomato.v1.csv</td><td>Source of truth — burn opcodes and unused NOP slots</td></tr>
+                <tr><td class="mono">opcode-map.csv</td><td>Mnemonic cheat sheet · 32-bit encoding</td></tr>
+                <tr><td class="mono">lut.csv</td><td>ALU primitive catalog · hardware reference</td></tr>
+                <tr><td class="mono">profiles.csv</td><td>External-ISA maps onto Tomato, at assembly level</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>What the word will not do</h2>
+          <p>No tile VPU. Display is CPU-painted tile RAM with independent VGA scanout. Games stay software. A future rect blitter is optional — not a sprite engine hiding in the opcode space.</p>
+          <p>Profiles are costumes. They do not add rows to the ROM. They rename native operations so a foreign assembly listing can sit on this datapath.</p>
+        </div>
+      </section>
+
+      <section class="section section--room">
+        <div class="wrap">
+          <div class="exhibits">
+            <article class="exhibit">
+              <p class="exhibit-num">512</p>
+              <p class="exhibit-kicker">ROM rows</p>
+              <hr />
+              <h3>9-bit index</h3>
+              <p>Bits [31:23]. The whole catalog fits in a socketed EEPROM.</p>
+            </article>
+            <article class="exhibit">
+              <p class="exhibit-num">51</p>
+              <p class="exhibit-kicker">status = burn</p>
+              <hr />
+              <h3>The rest are nop</h3>
+              <p>Do not invent hundreds of growth phantoms. Empty is honest.</p>
+            </article>
+            <article class="exhibit">
+              <p class="exhibit-num">66</p>
+              <p class="exhibit-kicker">ISA profiles</p>
+              <hr />
+              <h3>Costumes</h3>
+              <p>RV32, MIPS, x86, Z80, and others — maps, not machines.</p>
+            </article>
+          </div>
+          <nav class="jump">
+            <a href="architecture.html">← Architecture</a>
+            <a href="journal/falling-back.html">Why 32-bit →</a>
+            <a href="source.html">GitHub →</a>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-band">
+        <div class="footer-art">
+          <img src="assets/mark.svg" alt="" />
+          <p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
