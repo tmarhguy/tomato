@@ -20,7 +20,9 @@
           <a href="index.html">Front</a>
           <a href="architecture.html" aria-current="page">Architecture</a>
           <a href="isa.html">ISA</a>
+          <a href="playground.html">Playground</a>
           <a href="journal.html">Journal</a>
+          <a href="boards.html">Boards</a>
           <a href="board.html">Board</a>
           <a href="source.html">GitHub</a>
           <a href="about.html">About</a>
@@ -46,19 +48,45 @@
           <p class="kicker">Architecture</p>
           <h1 class="headline">The bit-slice is a logic plane. The adder is the wire through it.</h1>
           <p class="deck">Fetch, IR, ALU, and register operands are 32-bit. Per nibble: two independent 3-input LUTs plus a ripple adder. The opcode ROM names a practical subset. Dark silicon stays in the catalogs.</p>
-          <p class="byline">Continued from the front · Authority on GitHub</p>
+          <p class="byline">Deep dive · Authority on GitHub</p>
         </div>
       </section>
 
+      <div class="wrap arch-layout">
+        <aside data-arch-map data-root=""></aside>
+
+        <div class="arch-content">
       <section class="section">
-        <div class="wrap story">
-          <p class="drop">Tomato started at the <a href="https://alu.tmarhguy.com">transistor</a> — an 8-bit ALU from 3,488 MOSFETs — and kept climbing: gates, slices, boards, a CPU that can speak dozens of foreign ISAs while remaining one physical machine underneath. Most CPUs hide a small ALU behind a conventional encoding. This one flipped it.</p>
-          <p>The dual-LUT slice is the center. Matching every LUT pair to its own instruction was never the goal. The 512-row ROM burns what programs need today; the rest of the plane waits.</p>
+        <div class="story" id="overview">
+          <p class="drop">Tomato started at the <a href="https://alu.tmarhguy.com">transistor</a> — an 8-bit ALU from 3,488 MOSFETs on a 270×270&nbsp;mm hybrid — and kept climbing: gates, slices, boards, a CPU that can speak dozens of foreign ISAs while remaining one physical machine underneath. Most CPUs hide a small ALU behind a conventional encoding. This one flipped it: the bit-slice is a programmable logic plane with an adder wired through it.</p>
+          <p>Fetch, IR, ALU, and register operands are 32-bit end to end. When a 40-bit word doubled the explanation without doubling useful silicon on the bench, the project <a href="journal/falling-back.html">fell back to 32-bit</a> and shipped what already routes. Sixty-six ISA profiles map RV32, MIPS, x86, Z80 and others onto native opcodes—the hardware stays Tomato; the mnemonics are costumes.</p>
+          <p>The dual-LUT slice is the center. Matching every LUT pair to its own instruction was never the goal. The 512-row ROM burns what programs need today; the rest of the plane waits in the LUT catalog until a program asks.</p>
+
+          <h2 id="datapath">Fetch to write-back</h2>
+          <p>The datapath in <span class="mono">main.dig</span> is the reference every KiCad lot implements in pieces:</p>
+          <pre class="mono arch-flow" aria-label="Datapath flow">Program Counter ──► Memory ──► Instruction Register (32b)
+                                      │
+          ┌───────────────────────────┼───────────────────────────┐
+          │                           │                           │
+          ▼                           ▼                           ▼
+   Register File 3R1W            alu-control              mem-io / mem-bus
+          │                           │                           │
+          ▼                           ▼                           ▼
+   Dual-LUT ALU 32b ◄──────── (drives)                   Memory ◄── pc-control ──► PC
+          │
+          ▼
+   Writeback Mux ─────────────────► Register File</pre>
+          <p>The program counter fetches from memory into the IR. The register file presents three read ports and accepts one write. ALU control, memory I/O, memory bus, and PC each have their own decode EEPROM—small boards sitting next to the hardware they drive, all listening to the same opcode from the IR. The dual-LUT ALU result returns through the write-back mux on lot 06, not through a cascading 151 tree that would cost tens of nanoseconds per hop.</p>
+          <p>Digital schematics are the logic source of truth; KiCad is the copper. Authority order: <span class="mono">.dig</span>, then boards, then <span class="mono">tomato.v1.csv</span> for the opcode ROM. Exported Verilog is read-only sign-off, not the design entry point.</p>
+
+          <h2 id="slice">Dual-LUT slice</h2>
           <p class="formula">alu_out = adder( f(a, b, c), g(a, b, c), carry_in )</p>
           <figure class="figure">
             <img src="assets/slice.svg" width="520" height="280" alt="Dual-LUT nibble: f and g into an adder with carry-in." />
           </figure>
           <p class="caption"><span>Fig. — The nibble</span><span>LUT3 feeds the adder. No mode mux at the end of the slice.</span></p>
+          <p>Per nibble, two independent 3-input LUT planes—each a <strong>74ACT151</strong> programmed by an 8-bit opcode bus—sum through a ripple adder. The old topology raced arithmetic and logic into eight 74257 mode muxes at the end of the slice; that branch is gone (<a href="journal/mode-mux.html">why the muxes left</a>). LUT output feeds the adder directly. Carry select uses 74251 muxes; carry-bypass lives inside the 4-bit cell. Every chip gets a <strong>0.1&nbsp;µF</strong> decoupling cap beside it. <a href="playground.html">Toggle the slice in the playground</a> until copper lands on the bench.</p>
+          <p>Verification ladder: <span class="mono">alu-1b-final</span> → 2× <span class="mono">alu-4b</span> → 4× <span class="mono">alu-8b</span> → <span class="mono">alu-32b-final</span>. Lot <a href="boards/07-alu.html">07_alu</a> implements one 8-bit slice in copper—99.95×99.80&nbsp;mm, 25 logic ICs per 8b, routed and ordered August 2026. Lot <a href="boards/01-alu.html">01_alu</a> is the 3,488-transistor predecessor—complete on paper, set aside. Until that parcel lands, the <a href="playground.html">Dual-LUT playground</a> is the same slice: toggle A, B, C, both opcodes, and carry, then resolve a program from the output you want.</p>
           <div class="life life--page">
             <p class="ad-colhead">The path · green is done · gold is now</p>
             <ol class="life-rail" aria-label="From schematic to copper">
@@ -77,7 +105,7 @@
                 </a>
               </li>
               <li class="is-done">
-                <a href="#catalog">
+                <a href="boards/07-alu.html">
                   <span class="life-dot"></span>
                   <span class="life-name">KiCad</span>
                   <span class="life-when">07_alu</span>
@@ -113,7 +141,7 @@
               </li>
             </ol>
           </div>
-          <h2>The word</h2>
+          <h2 id="word">The word</h2>
           <p>Typical packing for ALU register ops. Low bits are often double-booked as immediate or branch overlay, depending on the mnemonic.</p>
           <div class="word" aria-label="32-bit instruction word">
             <span class="op">9b<strong>opcode</strong></span>
@@ -136,9 +164,18 @@
               </tbody>
             </table>
           </div>
-          <p>Native ALU syntax, conceptual: <span class="mono">opcode rd, rA, rB, rC</span> — destination is <span class="mono">f + g + cin</span>. Thirty-two GPR times eight banks is 256 addressable registers — enough to wire without widening the datapath.</p>
-          <h2>Decode travels with the board</h2>
-          <p>One central microcode blob is elegant in simulation and miserable on a breadboard. Tomato split decode into small boards with local EEPROMs. They all listen to the same opcode from the IR. Each sits next to the hardware it drives.</p>
+          <p>Native ALU syntax, conceptual: <span class="mono">opcode rd, rA, rB, rC</span> — destination is <span class="mono">f + g + cin</span>. Thirty-two GPR times eight banks is 256 addressable registers. Low bits double-book as branch condition, jump mode, or immediate overlay depending on the mnemonic—the same slices, different assembly spellings. Field layout authority: <span class="mono">opcode-map.csv</span>.</p>
+          <h2 id="decode">Modular decode</h2>
+          <p>One central microcode blob is elegant in simulation and miserable on a breadboard: twenty-something control wires crawling to the wrong places. Tomato split decode into small boards with local EEPROMs. They all listen to the same opcode from the IR; each sits next to the hardware it drives.</p>
+          <ul>
+            <li><strong>ALU control</strong> — opcode, operand prep, carry select. Lives on the ALU board.</li>
+            <li><strong>Shift / mul-div control</strong> — shift mode, multiply enable, priority-encoder mux.</li>
+            <li><strong>IR / register / writeback</strong> — immediate encoding, writeback source, register write.</li>
+            <li><strong>Memory I/O</strong> — bank, read/write, byte lane. Flag-write comes out here too.</li>
+            <li><strong>Memory bus</strong> — what is on the address bus, how store data is picked.</li>
+            <li><strong>PC / stack</strong> — branches, jumps, link, conditions. Two small ROMs where fields would not pack.</li>
+          </ul>
+          <p>HALT stays on main—opcode plus execute phase, one comparator, not worth its own board. Short ribbons; bring-up in pieces. The master catalog stays the source of truth; a script cuts per-board images. The cost is several EEPROMs instead of one, and opcode fanout to all of them. See the <a href="journal/microcode.html">modularization journal</a> for the wiring problem that forced the split.</p>
           <figure class="figure plate--ink">
             <img src="assets/plates/digital-main.jpg" alt="Digital schematic of Tomato main: control boards and datapath." />
           </figure>
@@ -146,8 +183,84 @@
         </div>
       </section>
 
-      <section class="section section--room">
+      <section class="section">
         <div class="wrap">
+          <p class="exhibit-label">Subsystems</p>
+          <h2 class="shelf-title">What lives under the solder mask.</h2>
+          <p class="deck">Seven areas—compute through firmware—each with its own board lot or journal entry where copper exists.</p>
+
+          <article class="chapter" id="register-file">
+            <header class="chapter-hed">
+              <span class="chapter-kicker">Datapath</span>
+              <h3 class="chapter-title">Registers, immediate decode, and write-back</h3>
+            </header>
+            <div class="chapter-body">
+              <div class="prose">
+                <p>Tomato is anchored by a <strong>3-read-1-write register file</strong> expanded to <strong>256 GPRs</strong>—32 names times eight banks. An immediate box and decode logic digest <strong>16 instruction shapes</strong>, including imm12 and extended imm7. Lot <a href="boards/04-register.html">04_register</a> owns the file and IR; lot <a href="boards/06-bus.html">06_data_bus</a> owns the tri-state write-back highway (<strong>9&nbsp;ns</strong> vs. <strong>52&nbsp;ns</strong> cascading 151 topology).</p>
+              </div>
+              <aside class="chapter-aside">
+                <div class="spec-grid">
+                  <div class="spec"><span class="spec-val">256</span><span class="spec-label">GPR · 3R1W</span></div>
+                  <div class="spec"><span class="spec-val">16</span><span class="spec-label">Instruction shapes</span></div>
+                  <div class="spec"><span class="spec-val">9<small>ns</small></span><span class="spec-label">Write-back</span></div>
+                </div>
+              </aside>
+            </div>
+          </article>
+
+          <article class="chapter" id="multiply">
+            <header class="chapter-hed">
+              <span class="chapter-kicker">Shift</span>
+              <h3 class="chapter-title">Barrel shifter and multiply loop</h3>
+            </header>
+            <div class="chapter-body prose">
+              <p>Priority-encoder multiply on lot <a href="boards/02-shift.html">02_shift_encoder</a>: ~<strong>4 cycles</strong> amortized (worst <strong>16</strong>, best <strong>zero</strong>) vs. ~<strong>32</strong> naive add-and-shift. Roughly forty <strong>74ACT157</strong> muxes in the barrel; control on <code>shift-mul-control</code>.</p>
+            </div>
+          </article>
+
+          <article class="chapter" id="memory">
+            <header class="chapter-hed">
+              <span class="chapter-kicker">Memory</span>
+              <h3 class="chapter-title">RAM, load/store, tile map</h3>
+            </header>
+            <div class="chapter-body prose">
+              <p>Lot <a href="boards/03-memory.html">03_memory</a>: <strong>dual-port RAM</strong>, byte-lane decode, <strong>60×80</strong> tile framebuffer. CPU writes tiles; scanout is a separate concern. Timing: <a href="journal/load-store.html">load/store pipeline</a>.</p>
+            </div>
+          </article>
+
+          <article class="chapter" id="sequencing">
+            <header class="chapter-hed">
+              <span class="chapter-kicker">Sequencing</span>
+              <h3 class="chapter-title">PC, stack, and I/O</h3>
+            </header>
+            <div class="chapter-body prose">
+              <p>Lot <a href="boards/05-pc.html">05_program_counter</a>: fetch, branch, jump overlays, interrupts, keyboard vectors, printer I/O. Not video; not TomatoOS.</p>
+            </div>
+          </article>
+
+          <article class="chapter" id="video">
+            <header class="chapter-hed">
+              <span class="chapter-kicker">Video</span>
+              <h3 class="chapter-title">Display, VGA, lamp wall</h3>
+            </header>
+            <div class="chapter-body prose">
+              <p>Tile RAM lives in 03; lot <a href="boards/08-display.html">08_display</a> is scan and panels beyond <a href="boards/07-alu.html">07</a>’s bring-up LEDs. FPGA path: polling VPU. <a href="journal/display.html">Display dispatch</a>.</p>
+            </div>
+          </article>
+
+          <article class="chapter" id="firmware">
+            <header class="chapter-hed">
+              <span class="chapter-kicker">Firmware</span>
+              <h3 class="chapter-title">TomatoOS</h3>
+            </header>
+            <div class="chapter-body prose">
+              <p>Boot, logo, menu—software on top of PC, memory, and display hardware. Target: <strong>Sudoku, Snake, Tetris</strong> natively. Last layer, not a substitute for copper.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--room">
           <p class="exhibit-label">Three facts that do not move</p>
           <div class="terrain">
             <article class="terrain-card">
@@ -166,17 +279,15 @@
               <p><span class="mono">.dig</span> for logic. KiCad for boards. <span class="mono">tomato.v1.csv</span> for the opcode. Exported Verilog is read-only.</p>
             </article>
           </div>
-        </div>
       </section>
 
-      <section class="section section--room">
-        <div class="wrap">
+      <section class="section section--room" id="boards">
           <p class="exhibit-label">Classified · boards 01–08</p>
           <h2 class="shelf-title">It started as a 270 millimetre transistor board. It is now copper in the mail.</h2>
           <p class="ads-rate">1 of 8 lots in copper · 1 set aside · 6 still on the screen</p>
           <div class="ads-sheet">
             <p class="ads-bar"><span>Then and now</span><span>Progress of works</span></p>
-            <a class="ad-face ad-face--then" href="#catalog">
+            <a class="ad-face ad-face--then" href="boards/01-alu.html">
               <p class="ad-face-kicker"><span>Then · lot 01</span><span>Set aside</span></p>
               <img src="assets/plates/alu-4b.jpg" alt="Four-bit ALU slice on paper — the origin of the datapath." />
               <div class="ad-face-copy">
@@ -191,7 +302,7 @@
                 </dl>
               </div>
             </a>
-            <a class="ad-face ad-face--now" href="journal/ordered.html">
+            <a class="ad-face ad-face--now" href="boards/07-alu.html">
               <p class="ad-face-kicker"><span>Now · lot 07</span><span>See dispatch</span></p>
               <img src="assets/pcb/alu_8b_board.jpg" alt="07_alu 8-bit dual-LUT slice, routed and ordered." />
               <div class="ad-face-copy">
@@ -225,7 +336,7 @@
                   </a>
                 </li>
                 <li class="is-done">
-                  <a href="#catalog">
+                  <a href="boards/07-alu.html">
                     <span class="life-dot"></span>
                     <span class="life-name">KiCad</span>
                     <span class="life-when">07_alu</span>
@@ -264,47 +375,47 @@
             <div class="works">
               <p class="ad-colhead">Eight lots in order · one has left</p>
               <ol class="works-track">
-                <li class="is-past"><a href="#catalog"><span class="works-n">01</span><span class="works-name">ALU</span><span class="works-st">Set aside</span></a></li>
-                <li><a href="#catalog"><span class="works-n">02</span><span class="works-name">Shift</span><span class="works-st">In design</span></a></li>
-                <li><a href="#catalog"><span class="works-n">03</span><span class="works-name">Memory</span><span class="works-st">In design</span></a></li>
-                <li><a href="#catalog"><span class="works-n">04</span><span class="works-name">Register</span><span class="works-st">In design</span></a></li>
-                <li><a href="#catalog"><span class="works-n">05</span><span class="works-name">PC</span><span class="works-st">In design</span></a></li>
-                <li><a href="#catalog"><span class="works-n">06</span><span class="works-name">Bus</span><span class="works-st">In design</span></a></li>
-                <li class="is-now"><a href="journal/ordered.html"><span class="works-n">07</span><span class="works-name">ALU</span><span class="works-st">Ordered</span></a></li>
-                <li><a href="#catalog"><span class="works-n">08</span><span class="works-name">Display</span><span class="works-st">In design</span></a></li>
+                <li class="is-past"><a href="boards/01-alu.html"><span class="works-n">01</span><span class="works-name">ALU</span><span class="works-st">Set aside</span></a></li>
+                <li><a href="boards/02-shift.html"><span class="works-n">02</span><span class="works-name">Shift</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/03-memory.html"><span class="works-n">03</span><span class="works-name">Memory</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/04-register.html"><span class="works-n">04</span><span class="works-name">Register</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/05-pc.html"><span class="works-n">05</span><span class="works-name">PC</span><span class="works-st">In design</span></a></li>
+                <li><a href="boards/06-bus.html"><span class="works-n">06</span><span class="works-name">Bus</span><span class="works-st">In design</span></a></li>
+                <li class="is-now"><a href="boards/07-alu.html"><span class="works-n">07</span><span class="works-name">ALU</span><span class="works-st">Ordered</span></a></li>
+                <li><a href="boards/08-display.html"><span class="works-n">08</span><span class="works-name">Display</span><span class="works-st">In design</span></a></li>
               </ol>
               <div class="ad-queue">
-                <a class="ad-item" href="#catalog">
+                <a class="ad-item" href="boards/02-shift.html">
                   <span class="ad-item-no">02</span>
                   <span class="ad-item-name">Shift</span>
                   <span class="ad-item-st">In design</span>
                   <p>Barrel, rotate, the multiply loop. Still a schematic.</p>
                 </a>
-                <a class="ad-item" href="#catalog">
+                <a class="ad-item" href="boards/03-memory.html">
                   <span class="ad-item-no">03</span>
                   <span class="ad-item-name">Memory</span>
                   <span class="ad-item-st">In design</span>
                   <p>The bus to the outside. Ribbons not yet cut.</p>
                 </a>
-                <a class="ad-item" href="#catalog">
+                <a class="ad-item" href="boards/04-register.html">
                   <span class="ad-item-no">04</span>
                   <span class="ad-item-name">Register</span>
                   <span class="ad-item-st">In design</span>
                   <p>Thirty-two names, eight banks. File lives in Digital.</p>
                 </a>
-                <a class="ad-item" href="#catalog">
+                <a class="ad-item" href="boards/05-pc.html">
                   <span class="ad-item-no">05</span>
                   <span class="ad-item-name">PC</span>
                   <span class="ad-item-st">In design</span>
                   <p>The counter that walks the ROM. Sequencing, not copper.</p>
                 </a>
-                <a class="ad-item" href="#catalog">
+                <a class="ad-item" href="boards/06-bus.html">
                   <span class="ad-item-no">06</span>
                   <span class="ad-item-name">Bus</span>
                   <span class="ad-item-st">In design</span>
                   <p>Backplane between slices. Decode stays local.</p>
                 </a>
-                <a class="ad-item" href="#catalog">
+                <a class="ad-item" href="boards/08-display.html">
                   <span class="ad-item-no">08</span>
                   <span class="ad-item-name">Display</span>
                   <span class="ad-item-st">In design</span>
@@ -323,11 +434,9 @@
               <figcaption class="plate-cap"><span>Fig. — Schematic</span><span>Copper authority</span></figcaption>
             </figure>
           </div>
-        </div>
       </section>
 
-      <section class="section section--room">
-        <div class="wrap">
+      <section class="section section--room" id="verification">
           <p class="exhibit-label">ALU sign-off · not the whole CPU</p>
           <div class="exhibits">
             <article class="exhibit">
@@ -353,12 +462,13 @@
             </article>
           </div>
           <nav class="jump">
+            <a href="boards.html">Board catalog →</a>
             <a href="isa.html">ISA and the ROM →</a>
             <a href="journal.html">The journal →</a>
-            <a href="journal/mode-mux.html">Why the muxes left →</a>
           </nav>
-        </div>
       </section>
+        </div>
+      </div>
     </main>
 
     <footer class="footer">
@@ -370,5 +480,6 @@
       </div>
     </footer>
   </div>
+  <script type="module" src="js/arch-map.js"></script>
 </body>
 </html>

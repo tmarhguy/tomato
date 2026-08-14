@@ -19,7 +19,9 @@
           <a href="../index.html">Front</a>
           <a href="../architecture.html">Architecture</a>
           <a href="../isa.html">ISA</a>
+          <a href="../playground.html">Playground</a>
           <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Boards</a>
           <a href="../board.html">Board</a>
           <a href="../source.html">GitHub</a>
           <a href="../about.html">About</a>
@@ -43,6 +45,9 @@
           <p class="byline">13 July 2026 · thought experiment · from the log</p>
         </div>
       </section>
+      <div class="wrap arch-layout">
+        <aside data-arch-map data-root="../"></aside>
+        <div class="arch-content">
       <section class="section">
         <div class="wrap story">
           <p class="drop">Time is a monotonic quantity and universal. In current FPGA designs we program and use, and for another use-case we repeat. In future Tomato designs I am considering real-time programming and use. Assume all cells are already programmed, but the next instruction requires that cell 4568 change from XNOR into NAND(a, XOR(b, c)).</p>
@@ -57,8 +62,11 @@
           </nav>
         </div>
       </section>
+        </div>
+      </div>
     </main>
     <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
   </div>
+  <script type="module" src="../js/arch-map.js"></script>
 </body>
 </html>
