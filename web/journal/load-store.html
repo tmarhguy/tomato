@@ -19,7 +19,9 @@
           <a href="../index.html">Front</a>
           <a href="../architecture.html">Architecture</a>
           <a href="../isa.html">ISA</a>
+          <a href="../playground.html">Playground</a>
           <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Boards</a>
           <a href="../board.html">Board</a>
           <a href="../source.html">GitHub</a>
           <a href="../about.html">About</a>
@@ -43,6 +45,9 @@
           <p class="byline">11 June 2026 · load/store · from the log</p>
         </div>
       </section>
+      <div class="wrap arch-layout">
+        <aside data-arch-map data-root="../"></aside>
+        <div class="arch-content">
       <section class="section">
         <div class="wrap story">
           <p class="drop">Every opcode indexes a 48-bit word in the microcode ROM. The fields are not a mystery: alu-op, operand prep, carry select, shift, immediate overlay, writeback source, register and flag write enables, memory read/write, byte-lane mode, branch, stack, and the cycle count that tells the sequencer when to reset.</p>
@@ -57,8 +62,11 @@
           </nav>
         </div>
       </section>
+        </div>
+      </div>
     </main>
     <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
   </div>
+  <script type="module" src="../js/arch-map.js"></script>
 </body>
 </html>

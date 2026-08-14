@@ -20,7 +20,9 @@
           <a href="index.html">Front</a>
           <a href="architecture.html">Architecture</a>
           <a href="isa.html" aria-current="page">ISA</a>
+          <a href="playground.html">Playground</a>
           <a href="journal.html">Journal</a>
+          <a href="boards.html">Boards</a>
           <a href="board.html">Board</a>
           <a href="source.html">GitHub</a>
           <a href="about.html">About</a>
@@ -50,10 +52,14 @@
         </div>
       </section>
 
+      <div class="wrap arch-layout">
+        <aside data-arch-map data-root=""></aside>
+        <div class="arch-content">
       <section class="section">
         <div class="wrap story">
           <p class="drop">A 512-row opcode ROM is enough for native ALU ops, load and store, branches, shifts, and mul/div without empty decode fanout. v1 is not a twenty-opcode lean map. Unused rows are nops. They are not growth phantoms waiting to be invented in a spreadsheet.</p>
-          <p>Solidified burns stay. New burns are added when a program needs them. The LUT catalog still knows more functions than the instruction ROM exposes. That was always the plan.</p>
+          <p>Solidified burns stay. New burns are added when a program needs them. The LUT catalog still knows more functions than the instruction ROM exposes—that was always the plan. Native syntax: <span class="mono">opcode rd, rA, rB, rC</span> where <span class="mono">rd = f(a,b,c) + g(a,b,c) + cin</span>.</p>
+          <p>Sixteen instruction shapes—including imm12 and extended imm7—are decoded natively on the register board’s EEPROMs, which is how foreign profiles attach without extra hardware ISAs. Profiles are assembly-level maps in <span class="mono">profiles.csv</span>; they do not add rows to the ROM.</p>
           <div class="table-wrap">
             <table>
               <thead>
@@ -73,7 +79,7 @@
         </div>
       </section>
 
-      <section class="section section--room">
+      <section class="section section--room" id="profiles">
         <div class="wrap">
           <div class="exhibits">
             <article class="exhibit">
@@ -105,6 +111,8 @@
           </nav>
         </div>
       </section>
+        </div>
+      </div>
     </main>
 
     <footer class="footer">
@@ -116,5 +124,6 @@
       </div>
     </footer>
   </div>
+  <script type="module" src="js/arch-map.js"></script>
 </body>
 </html>
