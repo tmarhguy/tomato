@@ -1,0 +1,29 @@
+name: web
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - "vercel.json"
+      - ".github/workflows/web.yml"
+      - ".github/workflows/pages.yml"
+  pull_request:
+    paths:
+      - "web/**"
+      - "vercel.json"
+      - ".github/workflows/web.yml"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+jobs:
+  sanity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Site sanity
+        working-directory: web
+        run: npm test
