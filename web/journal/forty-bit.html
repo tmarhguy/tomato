@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Redesign into 40b — The Tomato</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="../index.html">The Tomato</a>
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../board.html">Board</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" />
+          <a href="../index.html"><h1>The Tomato</h1></a>
+          <img src="../assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>30 July 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Dispatch</p>
+          <h1 class="headline">The bottleneck was the instruction word, not the ALU.</h1>
+          <p class="deck">Convention says a 32-bit machine gets a 32-bit instruction. That fit was always tight. No honest fourth register. Opcode and immediate fighting over the same bits. A 40-bit word was the proposed escape.</p>
+          <p class="byline">30 July 2026 · word · from the log</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">After roughly three months on Tomato32, the recurring bottleneck has been instruction width, not the ALU itself. Convention says a 32-bit machine gets a 32-bit instruction word. That fit was always tight: opcode, three register fields, and bank select fill 32 bits — with no room for a fourth operand, and the lower bits double-booked as immediate overlay.</p>
+          <p>The CPU was designed around a powerful ALU but forced to speak about it through a cramped encoding. alu_out = adder(f(a,b,c), g(a,b,c), carry_in). At the bit-slice that is hundreds of thousands of LUT programs. A 10-bit opcode indexes a thousand microcode rows. Matching every theoretical LUT pair to its own opcode was never the goal.</p>
+          <p>The real loss in the 32-bit design is narrower: no honest fourth register field — C was aliased to dest readback. Opcode space and immediate layout fighting over the same bits. Instruction word not equal to machine word.</p>
+          <p>This entry proposes the 40-bit escape. The next day's entry takes it back. Both belong in the vault. The argument is the point.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="truth-latch.html"><span class="dir">Previous</span><span class="to">Truth table latch</span></a>
+            <a class="next" href="lingering.html"><span class="dir">Next</span><span class="to">The lingering catch</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+</body>
+</html>

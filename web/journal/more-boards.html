@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Designing additional boards — The Tomato</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="../index.html">The Tomato</a>
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../board.html">Board</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" />
+          <a href="../index.html"><h1>The Tomato</h1></a>
+          <img src="../assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>2 August 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Dispatch</p>
+          <h1 class="headline">The ALU was the hard part. The rest is 32-bit plumbing.</h1>
+          <p class="deck">While fab runs, design slices that remain in the machine: writeback mux, bus arbitration, register file, memory, PC. Not a throwaway FSM.</p>
+          <p class="byline">2 August 2026 · boards · from the log</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">I am pushing to design the remaining boards. I had assumed the most complicated one was the ALU — which is done and routed. Next is everything else: register file, memory, PC/stack, data bus, shift/mul-div. The ALU was the deep combinational problem. What is left is mostly 32-bit plumbing.</p>
+          <p>That is the plan from last week: while the ALU fab runs, design slices that ship in the final machine instead of a throwaway FSM.</p>
+          <p>The first slice is the multiplexers on the data path — writeback mux, bus arbitration, the glue that ties ALU, memory, and register ports onto one 32-bit highway. A naïve 32-bit mux bank costs hundreds of millimetres. Bus drivers on each contributor. Matched decode enables, one-hot, the same idea as the display scan. Digital already has the behaviour. The board work is making the fanout physically tolerable.</p>
+          <p>Contention on a shared tri-state bus is not theoretical. At bring-up clocks the overlap window is small. One active driver per bus. Finish the mux and driver plan on 06_data_bus first — it unblocks every other board that needs to read or write the shared word.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="falling-back.html"><span class="dir">Previous</span><span class="to">Falling back to 32b</span></a>
+            <a class="next" href="ordered.html"><span class="dir">Next</span><span class="to">Ordered Tomato</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+</body>
+</html>
