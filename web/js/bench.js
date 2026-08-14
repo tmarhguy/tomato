@@ -112,17 +112,35 @@ async function studioEnv(renderer) {
   return pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 }
 
+function isCoarsePointer() {
+  return (
+    (typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches) ||
+    (typeof navigator !== "undefined" && navigator.maxTouchPoints > 0)
+  );
+}
+
 function injectHud(stage) {
   if (stage.querySelector(".bench-hud")) return;
+  const mobile = isCoarsePointer();
   const hud = document.createElement("div");
   hud.className = "bench-hud";
-  hud.innerHTML = `
+  hud.innerHTML = mobile
+    ? `
+    <button type="button" class="bench-hud-toggle" data-hud="legend" aria-expanded="false">Touch</button>
+    <div class="bench-legend" data-hud-panel hidden>
+      <p class="bench-legend-row"><span>Orbit</span><kbd>1 finger</kbd></p>
+      <p class="bench-legend-row"><span>Zoom</span><kbd>Pinch</kbd></p>
+      <p class="bench-legend-row"><span>Pan</span><kbd>2 fingers</kbd></p>
+      <p class="bench-legend-row"><span>Reset</span><kbd>Double-tap</kbd></p>
+    </div>
+  `
+    : `
     <button type="button" class="bench-hud-toggle" data-hud="legend" aria-expanded="true">Controls</button>
     <div class="bench-legend" data-hud-panel>
       <p class="bench-legend-row"><span>Turn</span><kbd>Drag</kbd></p>
-      <p class="bench-legend-row"><span>Slide</span><kbd>Two fingers</kbd></p>
-      <p class="bench-legend-row"><span>Zoom</span><kbd>Pinch / scroll</kbd></p>
-      <p class="bench-legend-row"><span>Hold</span><kbd>Click</kbd></p>
+      <p class="bench-legend-row"><span>Slide</span><kbd>Right-drag</kbd></p>
+      <p class="bench-legend-row"><span>Zoom</span><kbd>Scroll</kbd></p>
+      <p class="bench-legend-row"><span>Hold</span><kbd>Space</kbd></p>
       <p class="bench-legend-row"><span>Top / Iso / Side</span><kbd>1 2 3</kbd></p>
       <p class="bench-legend-row"><span>Reset / Tour / Grid</span><kbd>R I G</kbd></p>
     </div>
@@ -146,7 +164,8 @@ export async function mountBench(canvas, opts) {
     antialias: true,
     powerPreference: "high-performance",
   });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
+  const mobile = isCoarsePointer();
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1 : 1.25));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.NeutralToneMapping;
   renderer.toneMappingExposure = 1.05;
@@ -164,22 +183,32 @@ export async function mountBench(canvas, opts) {
 
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
-  controls.dampingFactor = 0.08;
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = 1.33;
-  controls.rotateSpeed = 0.9;
-  controls.zoomSpeed = 1.05;
-  controls.panSpeed = 0.85;
-  controls.zoomToCursor = true;
+  controls.dampingFactor = mobile ? 0.12 : 0.08;
+  controls.autoRotate = !mobile;
+  controls.autoRotateSpeed = mobile ? 0.7 : 1.33;
+  controls.rotateSpeed = mobile ? 0.65 : 0.9;
+  controls.zoomSpeed = mobile ? 0.85 : 1.05;
+  controls.panSpeed = mobile ? 0.55 : 0.85;
+  controls.zoomToCursor = !mobile;
+  controls.enablePan = true;
   controls.screenSpacePanning = true;
-  controls.minPolarAngle = 0;
-  controls.maxPolarAngle = Math.PI;
+  controls.minPolarAngle = 0.05;
+  controls.maxPolarAngle = Math.PI - 0.05;
   controls.mouseButtons.LEFT = THREE.MOUSE.ROTATE;
   controls.mouseButtons.MIDDLE = THREE.MOUSE.DOLLY;
   controls.mouseButtons.RIGHT = THREE.MOUSE.PAN;
   controls.touches.ONE = THREE.TOUCH.ROTATE;
   controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
+
+  if (stage) {
+    stage.style.touchAction = "none";
+    stage.style.userSelect = "none";
+    stage.style.webkitUserSelect = "none";
+  }
   canvas.style.touchAction = "none";
+  canvas.style.userSelect = "none";
+  canvas.style.webkitUserSelect = "none";
+  canvas.style.webkitTouchCallout = "none";
 
   let maxDim = 10;
   const look = new THREE.Vector3();
@@ -437,19 +466,52 @@ export async function mountBench(canvas, opts) {
     syncSpin();
   }
 
+  let lastTap = 0;
+  let tapX = 0;
+  let tapY = 0;
+  const blockScroll = (e) => {
+    if (e.target.closest(".bench-hud, .bench-tools, button, a")) return;
+    if (e.cancelable) e.preventDefault();
+  };
+
+  if (stage) {
+    stage.addEventListener("touchstart", blockScroll, { passive: false });
+    stage.addEventListener("touchmove", blockScroll, { passive: false });
+  }
+
   canvas.addEventListener("pointerenter", () => {
     hovered = true;
-    canvas.focus({ preventScroll: true });
+    if (!mobile) canvas.focus({ preventScroll: true });
   });
   canvas.addEventListener("pointerleave", () => {
     hovered = false;
   });
   controls.addEventListener("start", haltSpin);
-  canvas.addEventListener("pointerdown", haltSpin);
-  canvas.addEventListener("dblclick", (e) => {
-    e.preventDefault();
-    go("reset");
+  canvas.addEventListener("pointerdown", (e) => {
+    haltSpin();
+    if (mobile) canvas.focus({ preventScroll: true });
+    if (e.pointerType === "touch") {
+      const now = performance.now();
+      const dt = now - lastTap;
+      const dx = e.clientX - tapX;
+      const dy = e.clientY - tapY;
+      if (dt < 320 && dx * dx + dy * dy < 900) {
+        e.preventDefault();
+        go("reset");
+        lastTap = 0;
+      } else {
+        lastTap = now;
+        tapX = e.clientX;
+        tapY = e.clientY;
+      }
+    }
   });
+  if (!mobile) {
+    canvas.addEventListener("dblclick", (e) => {
+      e.preventDefault();
+      go("reset");
+    });
+  }
 
   function act(name) {
     if (name === "reset") go("reset");
@@ -542,6 +604,10 @@ export async function mountBench(canvas, opts) {
       io.disconnect();
       document.removeEventListener("visibilitychange", onVis);
       window.removeEventListener("keydown", onKey);
+      if (stage) {
+        stage.removeEventListener("touchstart", blockScroll);
+        stage.removeEventListener("touchmove", blockScroll);
+      }
       controls.dispose();
       renderer.dispose();
     },
