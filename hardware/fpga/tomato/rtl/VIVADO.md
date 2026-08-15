@@ -11,15 +11,22 @@
 # [x] Bitstream config (CFGBVS, CONFIG_VOLTAGE, COMPRESS)
 # [x] Solidified ISA: make pack-isa  (~51 burn ops; unused ROM = NOP; no growth phantoms)
 # [x] Icarus proof: make burn-boot
+# [x] Vivado project: hardware/fpga/core/core.xpr (authority)
+# [x] Timing that closed: 125 ns / 8 MHz analysis (see core/.../nexys.xdc)
 #
 # Before Vivado:
 #   make pack-isa          # tomato.v1.csv + microcode + rtl/burn
 #   make burn-boot         # prove burned OS boots
 #
-# Vivado:
+# Vivado (preferred):
+#   Open hardware/fpga/core/core.xpr
+#   Part xc7a100tcsg324-1 · top nexys_top · constrs = core.srcs/constrs_1/nexys.xdc
+#   Bitstream → program_bit.tcl
+#
+# Ad-hoc (not preferred):
 #   1. Part xc7a100tcsg324-1
 #   2. Add rtl/*.v ; include dir = rtl/
-#   3. Constraints: constr/nexys.xdc
+#   3. Constraints: prefer core/.../nexys.xdc (8 MHz closed); tomato/constr is aspirational 100 MHz
 #   4. Top: nexys_top
 #   5. Bitstream → program
 #
