@@ -21,7 +21,7 @@ PROG_MEM := tb/mem/counter.mem tb/mem/fib.mem tb/mem/collatz.mem tb/mem/call.mem
 TBS := shift lane wb bus sp regs ir pc vga muldiv alu control hex vgatiming main counter fidelity \
 	kb_io burn_boot
 
-.PHONY: all test clean asm microcode pack-isa lean-isa burn burn-check progs $(TBS)
+.PHONY: all test clean asm microcode pack-isa lean-isa burn burn-check progs cpi $(TBS)
 
 all: test
 
@@ -198,6 +198,31 @@ progs: $(SIM)/prog_tb.vvp
 	$(VVP) $< +PROG=softops +EXPECT_R1=129 +EXPECT_R6=129 +EXPECT_DISP=129
 	$(VVP) $< +PROG=io +EXPECT_R1=65 +KB=65 +EXPECT_DISP=65
 	$(VVP) $< +PROG=kb_mmio +EXPECT_R1=126 +EXPECT_R2=1 +KB=126 +EXPECT_DISP=1
+
+# CPI → ../core/reports/CPI.md (sim metrics; not Vivado Fmax)
+cpi: $(SIM)/prog_tb.vvp
+	@mkdir -p ../core/reports
+	@echo '# Tomato FPGA CPI (Icarus `prog_tb`)' > ../core/reports/CPI.md
+	@echo >> ../core/reports/CPI.md
+	@echo 'Sim-only: cycle + fetch-retire from reset release to halt. Not a board MHz claim.' >> ../core/reports/CPI.md
+	@echo >> ../core/reports/CPI.md
+	@echo '| Program | Cycles | Instr retired | CPI |' >> ../core/reports/CPI.md
+	@echo '|---------|--------|---------------|-----|' >> ../core/reports/CPI.md
+	@set -e; \
+	run_cpi() { \
+	  out=$$($(VVP) $(SIM)/prog_tb.vvp $$1); \
+	  echo "$$out" | grep -q '^PASS:'; \
+	  echo "$$out" | sed -n 's/^CPI: prog=\([^ ]*\) cycles=\([0-9]*\) instr=\([0-9]*\) cpi=\([0-9.]*\)/| \1 | \2 | \3 | **\4** |/p' >> ../core/reports/CPI.md; \
+	}; \
+	run_cpi '+PROG=counter +EXPECT_R1=10'; \
+	run_cpi '+PROG=fib +EXPECT_R1=21 +EXPECT_R6=21'; \
+	run_cpi '+PROG=collatz +EXPECT_R1=111'; \
+	run_cpi '+PROG=call +EXPECT_R1=99 +EXPECT_R2=42'; \
+	run_cpi '+PROG=bytes +EXPECT_R1=90 +EXPECT_R2=-128'; \
+	run_cpi '+PROG=softops +EXPECT_R1=129 +EXPECT_R6=129'
+	@echo >> ../core/reports/CPI.md
+	@echo 'Reproduce: `make -C hardware/fpga/tomato cpi`' >> ../core/reports/CPI.md
+	@cat ../core/reports/CPI.md
 
 $(TBS): %: $(SIM)/%_tb.vvp
 	$(VVP) $<
