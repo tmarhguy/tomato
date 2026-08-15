@@ -34,6 +34,7 @@
           <a href="board.html" aria-current="page">Board</a>
           <a href="source.html">GitHub</a>
           <a href="about.html">About</a>
+          <a class="is-tour" href="viewer.html">Tour the board</a>
         </nav>
       </div>
       <div class="flag flag--inside">
@@ -55,7 +56,7 @@
         <div class="wrap hed">
           <p class="kicker">Playground</p>
           <h1 class="headline">Turn the slice. The parts are on the board.</h1>
-          <p class="deck">KiCad GLB of 07_alu. Studio light on the real mask colour. Drag to turn the board; it holds when you grab it. Pinch or scroll to zoom. 1 / 2 / 3 for top, iso, side. I for the tour.</p>
+          <p class="deck">KiCad GLB of 07_alu. Studio light on the real mask colour. Drag to turn the board; it holds when you grab it. Pinch or scroll to zoom. 1 / 2 / 3 for top, iso, side. Tour opens the 360° viewer.</p>
           <p class="byline">07_alu · 99.95 × 99.80 mm · two 8-bit slices ordered</p>
         </div>
       </section>
@@ -65,6 +66,10 @@
             <p class="ad-colhead">07_alu · studio · drag to turn</p>
             <div class="bench-stage">
               <canvas id="bench" aria-label="Interactive 3D view of Tomato 07_alu."></canvas>
+              <a class="bench-tour" href="viewer.html">
+                <i></i>
+                <span>Tour the board</span>
+              </a>
             </div>
             <div class="bench-tools">
               <button type="button" data-bench="top">Top</button>
@@ -75,7 +80,7 @@
               <button type="button" data-bench="reset">Reset</button>
               <button type="button" data-bench="spin">Hold</button>
               <button type="button" data-bench="grid" class="is-on">Grid</button>
-              <button type="button" data-bench="tour">Tour</button>
+              <a class="is-tour" href="viewer.html">Tour the board</a>
               <span class="bench-hint">KiCad GLB · 07_alu</span>
             </div>
           </div>
@@ -100,5 +105,6 @@
     </footer>
   </div>
   <script type="module" src="js/bench.js"></script>
+  <script src="js/mast.js" defer></script>
 </body>
 </html>
