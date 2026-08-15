@@ -37,9 +37,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Confirm payload is web/ (not the repo root README)
+        run: |
+          test -f web/index.html
+          test -f web/CNAME
+          test -f web/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: web
+          path: web/
+          include-hidden-files: true
       - id: deployment
         uses: actions/deploy-pages@v4
