@@ -2,6 +2,8 @@
 
 Artix-7 bitstream of Tomato32. Same ISA / datapath as discrete; board I/O below.
 
+**Vivado authority:** [`../core/`](../core/) (`core.xpr`) — closed at **8 MHz** analysis (125 ns); board OSC still 100 MHz. Evidence log: [`../core/reports/METRICS.md`](../core/reports/METRICS.md).
+
 ## Board I/O
 
 | Pins | Role |
@@ -30,6 +32,7 @@ Requires [Icarus Verilog](http://iverilog.icarus.com/) (`iverilog` + `vvp`). Fro
 ```bash
 cd hardware/fpga/tomato
 make test          # all unit + main TBs
+make cpi           # refresh ../core/reports/CPI.md
 make shift         # one TB: shift lane wb bus sp regs ir pc vga
 make main          #         muldiv alu control hex vgatiming main
 make clean
@@ -73,16 +76,24 @@ See [software/os/DISPLAY.md](../../../software/os/DISPLAY.md).
 
 ## Vivado (Nexys A7 bitstream)
 
-Self-contained RTL burn — see [rtl/VIVADO.md](rtl/VIVADO.md).
+**Use the `core/` project**, not an ad-hoc add-sources flow:
+
+| Item | Path |
+|------|------|
+| Project | [`../core/core.xpr`](../core/core.xpr) |
+| Constraints (closed @ **125 ns / 8 MHz**) | [`../core/core.srcs/constrs_1/nexys.xdc`](../core/core.srcs/constrs_1/nexys.xdc) |
+| Docs | [`../core/README.md`](../core/README.md) · [`rtl/VIVADO.md`](rtl/VIVADO.md) |
 
 ```bash
 make burn              # opcodes + Tomato OS → rtl/burn/*.vh
 make burn-boot         # Icarus proof: OS boots from burned dmem (no TB load)
-# Vivado: add rtl/, top=nexys_top, constr/nexys.xdc, include dir=rtl/
+# Open hardware/fpga/core/core.xpr in Vivado → synth/impl/bitstream
 make burn BOOT=snake   # re-burn a game image instead of OS (re-synth)
 ```
 
 Microcode and the selected boot program are **literal Verilog** (`initial` + `.vh`), not external `$readmemh` paths Vivado can miss.
+
+`constr/nexys.xdc` in this directory keeps ports aligned (`cpu_resetn`) but still lists a **100 MHz aspirational** period — do not confuse that with what closed in `core/`.
 
 ## Games (VGA)
 

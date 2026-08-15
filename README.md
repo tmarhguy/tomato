@@ -1,4 +1,5 @@
-# Tomato
+<h1 align="center">Tomato - 32b Computer</h1>
+<p align="center"><strong>32-bit Computer.</strong> The oddest machine built in a dorm.</p>
 
 ![Status](https://img.shields.io/badge/Status-Active%20Development-2ea043?style=for-the-badge)
 ![Architecture](https://img.shields.io/badge/Architecture-32--bit-011F5B?style=for-the-badge)
@@ -10,18 +11,25 @@
 ![Microcode](https://img.shields.io/badge/Microcode-Modular%20Decode-7C3AED?style=for-the-badge)
 ![PCB](https://img.shields.io/badge/PCB-KiCad%2010-F59E0B?style=for-the-badge&logo=kicad&logoColor=white)
 
-A homebrew **32-bit** CPU built from 74xx logic — not a soft core, not an FPGA toy first. Tomato started at the transistor and kept climbing: gates, slices, boards, a CPU that can *speak* dozens of foreign ISAs while remaining one physical machine underneath.
+**Before Tomato, there was the transistor board.**  
+Same story, same narrative—but this time, it had to be smarter.
 
-The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **512-row opcode ROM** fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
+<p align="center"><em>By Tyrone Marhguy · Computer Engineering ’28</em></p>
+
+Before Tomato, there was an [8-bit ALU](https://alu.tmarhguy.com) built from roughly <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">3,488 discrete CMOS transistors</mark> across a massive <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">270×270 mm</mark> board. It was a beast in its own right: capable of <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">19 operations</mark>, sporting <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">5 flags</mark>, and power hungry.
+
+But for a solo dorm-room project, the manufacturing costs ballooned exponentially, so I needed a pivot. Same story, same narrative—but this time, it had to be smarter. **Welcome to Tomato!**
+
+The paper: **[tomato.tmarhguy.com](https://tomato.tmarhguy.com/)** · the site: **[web/README](web/README.md)** · the vault: **[docs/log/](docs/log/)**.
 
 <p align="center">
-  <img src="media/kicad/07_alu/pcb/alu_8b_board.png" alt="Tomato ALU PCB — board render" width="47%" />
-  <img src="media/kicad/07_alu/pcb/alu_8b_pcb.png" alt="Tomato ALU PCB — top-layer layout" width="50%" />
+  <img src="media/kicad/07_alu/pcb/immersion_black.gif" alt="Tomato 07_alu — Dual-LUT slice in the round" width="300"/>
 </p>
+<p align="center"><em>Lot 07 in the round · Dual-LUT slice · <a href="https://tomato.tmarhguy.com/playground.html">playground</a></em></p>
 
-<p align="center"><em>Left: board render · Right: routed top copper (<code>07_alu</code>)</em></p>
+Tomato grew as a revolution: a <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">65k operational space</mark> (<mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">~3,500×</mark> the transistor board) from a **[dual-LUT3](docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md)** fused into an adder, built for linear scale. The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">[512-row opcode ROM](docs/isa/tomato.v1.csv)</mark> fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
 
-The dual-LUT slice is **routed and fab-ready** on KiCad board `07_alu` — see the [07 ALU board doc](hardware/kicad/boards/07_alu/README.md) for schematics, layout figures, and connector pinout.
+The dual-LUT slice is **routed and fab-ready** on KiCad board [`07_alu`](hardware/kicad/boards/07_alu/README.md) — schematics, layout figures, and connector pinout.
 
 ---
 
@@ -37,7 +45,7 @@ Tomato is intentionally a **build log machine**. Every odd choice is documented 
 
 **Clever, but only at the right scale.** Naïve `shift → add` multiply is easy and takes forever — “slower than I am when half-asleep.” A Wallace tree is fast and eats the board. The answer was a [priority-encoder loop](docs/log/2026-06-15%20-%20Multiplication%20and%20Division.md) that jumps over zero bits. Same story for the display: K-map gates were *correct* and physically absurd; one shared ROM plus latches made sharing invisible ([segment display log](docs/log/2026-06-19%20-%20ALU%20segment%20display%20design.md)).
 
-**One machine, many dialects.** [60+ ISA profiles](docs/isa/profiles.csv) map RV32, MIPS, x86, Z80, and others onto native opcodes at assembly level. The hardware stays Tomato; the mnemonics are costumes.
+**ISA as a wire.** Tomato is a [parametric datapath](docs/log/2026-08-15%20-%20ISA%20as%20a%20Wire.md): the overlay word, immediate box, and dual-LUT absorb a foreign encoding as a map onto muxes — not an emulator. A casual family count sits around <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">~37</mark> ([profiles.csv](docs/isa/profiles.csv) has more rows because variants are listed separately). The integer is not a ceiling; it moves as the datapath does.
 
 ---
 
@@ -55,6 +63,8 @@ Tomato is intentionally a **build log machine**. Every odd choice is documented 
 - [Conventions](#conventions)
 - [License](#license)
 - [Author](#author)
+
+The paper is **[tomato.tmarhguy.com](https://tomato.tmarhguy.com/)**. Site notes: **[web/README](web/README.md)**.
 
 ---
 
@@ -105,7 +115,7 @@ See [opcode-map.csv](docs/opcode-map.csv) for mnemonic layout and [Load Store Pi
 
 ### Register file
 
-**32 GPR × 8 banks = 256** addressable registers. Not the full theoretical address space the LUT catalog could name — enough for real programs and modular board bring-up without widening the datapath.
+<mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">32 GPR × 8 banks = 256</mark> addressable registers. Not the full theoretical address space the LUT catalog could name — enough for real programs and modular board bring-up without widening the datapath.
 
 ### Datapath and control
 
@@ -134,7 +144,7 @@ Control is split into small boards (each with a local EEPROM) that decode the sa
 alu_out = adder( f(a, b, c), g(a, b, c), carry_in )
 ```
 
-Per bit-slice there are **524,288** theoretical `(lutA, lutB, csel)` combinations; the **512-row** opcode ROM exposes what programs need today. The LUT3 feeds the adder directly — [no mode mux at the end of the slice](docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md) — logic rides the arithmetic path instead of racing it. Carry select uses **74251** muxes where **74151** cost routing and drive strength ([74251 note](docs/log/2026-06-26%20-%20ALU%20-%20Redesign%20with%2074251.md)). Authority: [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv).
+Per bit-slice there are <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">524,288</mark> theoretical `(lutA, lutB, csel)` combinations; the <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">512-row</mark> opcode ROM exposes what programs need today. The LUT3 feeds the adder directly — [no mode mux at the end of the slice](docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md) — logic rides the arithmetic path instead of racing it. Carry select uses **74251** muxes where **74151** cost routing and drive strength ([74251 note](docs/log/2026-06-26%20-%20ALU%20-%20Redesign%20with%2074251.md)). Authority: [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv).
 
 ---
 
@@ -171,6 +181,7 @@ tomato/
 ├── verification/         # ALU harness: formal, directed, UVM
 ├── firmware/             # Stub — not started
 ├── software/             # Stub — not started
+├── web/                  # Broadsheet — tomato.tmarhguy.com
 └── media/                # Screenshots, PCB photos, schematic exports
 ```
 
@@ -190,8 +201,6 @@ tomato/
 
 ALU verification ladder: `alu-1b-final` → 2x `alu-4b` → 4x `alu-8b` → `alu-32b-final`.
 
-<p align="center"><em>KiCad <code>07_alu</code> — two 4-bit cells, flag logic, opcode/operand LED bring-up (<a href="hardware/kicad/boards/07_alu/README.md">full ALU board doc</a>).</em></p>
-
 ### KiCad boards
 
 | Board | Path | Role | Status |
@@ -205,20 +214,26 @@ ALU verification ladder: `alu-1b-final` → 2x `alu-4b` → 4x `alu-8b` → `alu
 | 07 | [07_alu/](hardware/kicad/boards/07_alu/) | Dual-LUT ALU PCB — **[board doc + figures](hardware/kicad/boards/07_alu/README.md)** | Routed, fab-ready |
 | 08 | [08_alu_fsm/](hardware/kicad/boards/08_alu_fsm/), [08_display/](hardware/kicad/boards/08_display/) | FSM bring-up, display | In design |
 
+<p align="center">
+  <img src="media/kicad/07_alu/pcb/alu_8b_board.png" alt="Tomato ALU PCB — board render" width="47%" />
+  <img src="media/kicad/07_alu/pcb/alu_8b_pcb.png" alt="Tomato ALU PCB — top-layer layout" width="50%" />
+</p>
+<p align="center"><em>Lot 07 · left: board render · right: routed top copper · two 4-bit cells, flag logic, opcode/operand LED bring-up (<a href="hardware/kicad/boards/07_alu/README.md">full ALU board doc</a>)</em></p>
+
 ---
 
 ## ISA and opcodes
 
-**512-row opcode ROM** — enough for native ALU ops, load/store, branches, shifts, and mul/div without empty decode fanout.
+**512-row opcode ROM** — enough for native ALU ops, load/store, branches, shifts, and mul/div without empty decode fanout. See **[ISA as a Wire](docs/log/2026-08-15%20-%20ISA%20as%20a%20Wire.md)**.
 
 | Resource | Path | Role |
 |----------|------|------|
 | Mnemonic cheat sheet | [docs/opcode-map.csv](docs/opcode-map.csv) | 32-bit encoding, syntax, groups |
-| Microcode catalog | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv) | Burn opcodes + ROM map |
+| Microcode catalog | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv) | **Source of truth** — burn opcodes + ROM map |
 | ALU programs | [docs/isa/lut.csv](docs/isa/lut.csv) | LUT primitive catalog |
-| ISA profiles | [docs/isa/profiles.csv](docs/isa/profiles.csv) | 60+ external ISAs mapped at assembly level |
+| ISA maps | [docs/isa/profiles.csv](docs/isa/profiles.csv) | Parametric maps onto native opcodes. <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">~37 families</mark>; CSV rows are the sweep database |
 
-Profiles (RV32, MIPS, x86, …) are assembly-level mappings onto native opcodes — not separate hardware ISAs.
+An ISA is a mapping from an external encoding onto the overlay word, immediate box, and dual-LUT — not a separate hardware ISA, and not an interpreter.
 
 ---
 
@@ -258,6 +273,7 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 
 | Log | Topic |
 |-----|-------|
+| [ISA as a Wire](docs/log/2026-08-15%20-%20ISA%20as%20a%20Wire.md) | Parametric datapath — ISA is a first-class input |
 | [Falling back to 32b](docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md) | Revert to 32-bit — current direction |
 | [The lingering catch](docs/log/2026-07-31%20-%20The%20lingering%20thoughts.md) | FSM vs full control unit bring-up |
 | [Microcode Control Modularization](docs/log/2026-06-16%20-%20Microcode%20Control%20Modularization.md) | Split decode boards |
@@ -284,7 +300,7 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 
 ### Full design journal
 
-[docs/log/](docs/log/) — build log from discrete gates through multi-ISA coverage. Origin: [Welcome to Tomato 32](docs/log/Welcome%20to%20Tomato%2032.md).
+[docs/log/](docs/log/) — build log from discrete gates through the parametric datapath. Origin: [Welcome to Tomato 32](docs/log/Welcome%20to%20Tomato%2032.md). The paper: [web/README](web/README.md).
 
 ---
 
@@ -331,6 +347,7 @@ Tomato is a solo hardware architecture project: discrete-logic CPU design, KiCad
 | Twitter | [@marhguy_tyrone](https://twitter.com/marhguy_tyrone) |
 | Instagram | [@tmarhguy](https://instagram.com/tmarhguy) |
 | Substack | [@tmarhguy](https://substack.com/@tmarhguy) |
+| Paper | [tomato.tmarhguy.com](https://tomato.tmarhguy.com/) |
 | GitHub | [@tmarhguy](https://github.com/tmarhguy) |
 
 ![University of Pennsylvania](https://img.shields.io/badge/University%20of%20Pennsylvania-Computer%20Engineering-011F5B?style=for-the-badge)

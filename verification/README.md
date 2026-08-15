@@ -122,6 +122,8 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 
 ## Sign-off criteria
 
+**Scope reminder:** this harness signs off the **ALU export**, not the full Tomato CPU, ISA decode, memory system, or FPGA top.
+
 | Metric | Target | Command |
 |--------|--------|---------|
 | Formal 1b LUT + G/P | PASS (prove) | `make formal_1b` |
@@ -129,9 +131,10 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 | Formal 32b equiv | PASS (all inputs) | `make formal_32b_equiv` |
 | Formal 32b spot | PASS (fast) | `make formal_32b` |
 | Formal 32b flags | PASS (cover) | `make formal_32b_flags` |
-| Directed vectors | 476/476 pass | `make directed` |
+| Formal inventory | **5/5 jobs**; **19 assert + 20 cover** (40+48 elaborated) | `make formal_inventory` → [formal/PROPERTY_INVENTORY.md](formal/PROPERTY_INVENTORY.md) |
+| Directed vectors | 476/476 pass vs ALU golden | `make directed` |
 | Lint | 0 errors | `make lint` |
-| UVM 91-op coverage | 100% `op91_cp` bins | `make uvm_32b_ops91` |
+| UVM `op91_cp` | Covergroup over **91 ALU control-table rows** (not 512 CPU opcodes, not toggle/branch %) | `make uvm_32b_ops91` (Questa) |
 | UVM directed replay | 476 vectors | `make uvm_32b_directed` |
 | UVM full regression | 0 scoreboard errors | `make uvm_32b_regression` |
 
@@ -141,8 +144,11 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 
 | Limit | Status |
 |-------|--------|
+| Scope = **ALU only** | Full CPU / FPGA / ISA ROM are **not** covered by this harness |
+| `op91_cp` | 91 **ALU** `(lut,ctrl,csel)` table rows — **not** 512 ROM opcodes, not code coverage |
+| Toggle / branch / line coverage | **Not measured** here |
 | `csel==2'b10` carry-fed logic | **Closed** — unified ripple-LUT golden; `Flag_C` primary input in formal |
-| All 91 ops / 476 vectors | **Closed** — directed + UVM scoreboard (no skips) |
+| Directed 476 vectors | PASS vs golden; many vectors exercise modes beyond the 91 named rows |
 | Sequential `CSR_FLAG` prove | **Cover + UVM** — SMT latch prove not feasible; use `alu_32b_flag_test` |
 | UVM in CI | Questa not wired in GitHub Actions yet |
 

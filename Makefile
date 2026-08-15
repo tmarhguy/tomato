@@ -1,4 +1,4 @@
-# Thin wrappers — verification (default) + Tomato FPGA core tests
+# Thin wrappers — verification (default) + Tomato FPGA core tests + web sanity
 
 FPGA := hardware/fpga/tomato
 
@@ -11,4 +11,7 @@ test:
 fpga-test:
 	@$(MAKE) -C $(FPGA) test
 
-.PHONY: all test fpga-test
+web-test:
+	@cd web && npm test
+
+.PHONY: all test fpga-test web-test

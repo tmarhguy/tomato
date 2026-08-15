@@ -4,6 +4,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { dressPcbMaterials, lightPcbScene } from "./pcb-look.js";
 
 function thinnestAxis(size) {
   if (size.x <= size.y && size.x <= size.z) return new THREE.Vector3(1, 0, 0);
@@ -15,7 +16,7 @@ function easeInOutCubic(u) {
   return u < 0.5 ? 4 * u * u * u : 1 - (-2 * u + 2) ** 3 / 2;
 }
 
-const STAGE = 0x3a3a3a;
+const STAGE = 0x050505;
 
 function bakeGeo(mesh) {
   const src = mesh.geometry.clone();
@@ -81,32 +82,6 @@ function mergeByMaterial(root) {
   return group;
 }
 
-function dressMaterials(root) {
-  root.traverse((child) => {
-    if (!child.isMesh) return;
-    const list = Array.isArray(child.material) ? child.material : [child.material];
-    const next = list.map((material) => {
-      if (!material?.isMeshStandardMaterial) return material;
-      const m = material.clone();
-      const h = { h: 0, s: 0, l: 0 };
-      m.color.getHSL(h);
-      const seeThrough = m.opacity < 0.99;
-      m.transparent = seeThrough;
-      m.depthWrite = !seeThrough;
-      if (seeThrough) child.renderOrder = 1;
-      if (h.l > 0.85 && h.s < 0.15) {
-        m.polygonOffset = true;
-        m.polygonOffsetFactor = -1;
-        child.renderOrder = 2;
-      }
-      m.envMapIntensity = m.metalness > 0.5 ? 1.1 : 0.7;
-      m.needsUpdate = true;
-      return m;
-    });
-    child.material = next.length === 1 ? next[0] : next;
-  });
-}
-
 async function studioEnv(renderer) {
   const pmrem = new THREE.PMREMGenerator(renderer);
   return pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
@@ -167,25 +142,19 @@ export async function mountBench(canvas, opts) {
   const mobile = isCoarsePointer();
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1 : 1.25));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.NeutralToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.92;
 
   scene.environment = await studioEnv(renderer);
-  scene.environmentIntensity = 0.8;
+  scene.environmentIntensity = 0.4;
 
-  scene.add(new THREE.HemisphereLight(0xf4f4f0, 0x6a655c, 0.75));
-  const key = new THREE.DirectionalLight(0xffffff, 1.35);
-  key.position.set(10, 18, 8);
-  scene.add(key);
-  const fill = new THREE.DirectionalLight(0xffffff, 0.45);
-  fill.position.set(-8, 10, -6);
-  scene.add(fill);
+  lightPcbScene(scene, { hemiIntensity: 0.12 });
 
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = mobile ? 0.12 : 0.08;
   controls.autoRotate = !mobile;
-  controls.autoRotateSpeed = mobile ? 0.7 : 1.33;
+  controls.autoRotateSpeed = mobile ? -0.7 : -1.33;
   controls.rotateSpeed = mobile ? 0.65 : 0.9;
   controls.zoomSpeed = mobile ? 0.85 : 1.05;
   controls.panSpeed = mobile ? 0.55 : 0.85;
@@ -213,24 +182,25 @@ export async function mountBench(canvas, opts) {
   let maxDim = 10;
   const look = new THREE.Vector3();
   let anim = null;
-  let tour = null;
   let hovered = false;
-  let onScreen = true;
+  let onScreen = false;
   let pageVisible = true;
   let lastInput = performance.now();
   const isLive = () => onScreen && pageVisible;
 
   const views = {
     reset() {
+      const d = maxDim;
       return {
-        pos: new THREE.Vector3(maxDim * 1.0, maxDim * 1.5, maxDim * 1.0),
+        pos: new THREE.Vector3(look.x + d, look.y + d * 1.45, look.z + d),
         tgt: look.clone(),
         fov: 45,
       };
     },
     iso() {
+      const d = maxDim;
       return {
-        pos: new THREE.Vector3(maxDim * 1.6, maxDim * 1.6, maxDim * 1.6),
+        pos: new THREE.Vector3(look.x + d * 1.45, look.y + d * 1.45, look.z + d * 1.45),
         tgt: look.clone(),
         fov: 45,
       };
@@ -266,10 +236,6 @@ export async function mountBench(canvas, opts) {
   };
 
   function go(name, ms = 800) {
-    if (tour) {
-      tour = null;
-      syncTour();
-    }
     controls.autoRotate = false;
     syncSpin();
     const v = views[name]?.();
@@ -286,34 +252,9 @@ export async function mountBench(canvas, opts) {
     };
   }
 
-  function stopTour() {
-    if (!tour) return;
-    tour = null;
-    syncSpin();
-  }
-
-  function startTour() {
-    controls.autoRotate = false;
-    syncSpin();
-    const y = look.y;
-    const d = maxDim;
-    const curve = new THREE.CatmullRomCurve3(
-      [
-        new THREE.Vector3(d * 1.05, y + d * 1.7, d * 1.05),
-        new THREE.Vector3(d * 0.28, y + d * 0.22, d * 0.28),
-        new THREE.Vector3(d * 1.35, y + d * 0.18, 0),
-        new THREE.Vector3(0, y + d * 0.12, -d * 1.25),
-        new THREE.Vector3(-d * 1.15, y + d * 0.35, 0),
-        new THREE.Vector3(0, y + d * 0.08, d * 1.2),
-        new THREE.Vector3(d * 0.7, y + d * 1.05, d * 0.7),
-        new THREE.Vector3(d * 1.05, y + d * 1.7, d * 1.05),
-      ],
-      false,
-      "centripetal",
-      0.5
-    );
-    tour = { curve, t0: performance.now(), ms: 32000, look: look.clone() };
-    anim = null;
+  function openTour() {
+    const href = canvas.dataset.tour || "viewer.html";
+    window.location.href = new URL(href, document.baseURI).href;
   }
 
   function resize() {
@@ -332,7 +273,7 @@ export async function mountBench(canvas, opts) {
 
   const gltf = await new GLTFLoader().loadAsync(opts.glb);
   const model = mergeByMaterial(gltf.scene);
-  dressMaterials(model);
+  dressPcbMaterials(model);
   model.updateMatrixWorld(true);
 
   const box = new THREE.Box3().setFromObject(model);
@@ -369,16 +310,19 @@ export async function mountBench(canvas, opts) {
 
   controls.minDistance = maxDim * 0.08;
   controls.maxDistance = maxDim * 6;
-  camera.near = maxDim * 0.01;
+  camera.near = maxDim * 0.003;
   camera.far = maxDim * 40;
   camera.updateProjectionMatrix();
 
   const home = views.reset();
+  camera.up.set(0, 1, 0);
   camera.position.copy(home.pos);
   controls.target.copy(home.tgt);
   camera.fov = home.fov;
   camera.updateProjectionMatrix();
+  camera.lookAt(home.tgt);
   controls.update();
+  renderer.render(scene, camera);
 
   stage?.classList.add("is-ready");
 
@@ -392,14 +336,6 @@ export async function mountBench(canvas, opts) {
     if (btn) btn.classList.toggle("is-on", grid.visible);
   }
 
-  function syncTour() {
-    const btn = canvas.closest(".bench")?.querySelector('[data-bench="tour"]');
-    if (btn) {
-      btn.classList.toggle("is-on", Boolean(tour));
-      btn.textContent = tour ? "Stop" : "Tour";
-    }
-  }
-
   let raf = 0;
   controls.addEventListener("change", () => {
     lastInput = performance.now();
@@ -410,7 +346,7 @@ export async function mountBench(canvas, opts) {
     if (!isLive()) return;
 
     const now = performance.now();
-    const busy = controls.autoRotate || tour || anim || now - lastInput < 900;
+    const busy = controls.autoRotate || anim || now - lastInput < 900;
     if (!busy) return;
     if (anim) {
       const u = Math.min(1, (now - anim.t0) / anim.ms);
@@ -420,20 +356,6 @@ export async function mountBench(canvas, opts) {
       camera.fov = THREE.MathUtils.lerp(anim.fromF, anim.toF, e);
       camera.updateProjectionMatrix();
       if (u >= 1) anim = null;
-    }
-
-    if (tour) {
-      const u = Math.min(1, (now - tour.t0) / tour.ms);
-      const p = tour.curve.getPoint(u);
-      camera.position.copy(p);
-      controls.target.copy(tour.look);
-      camera.fov = THREE.MathUtils.lerp(50, 32, Math.sin(u * Math.PI));
-      camera.updateProjectionMatrix();
-      if (u >= 1) {
-        stopTour();
-        go("reset", 900);
-        syncTour();
-      }
     }
 
     controls.update();
@@ -457,10 +379,6 @@ export async function mountBench(canvas, opts) {
 
   function haltSpin() {
     lastInput = performance.now();
-    if (tour) {
-      stopTour();
-      syncTour();
-    }
     if (!controls.autoRotate) return;
     controls.autoRotate = false;
     syncSpin();
@@ -521,20 +439,14 @@ export async function mountBench(canvas, opts) {
     if (name === "iso") go("iso");
     if (name === "side") go("side");
     if (name === "spin") {
-      stopTour();
       controls.autoRotate = !controls.autoRotate;
       syncSpin();
-      syncTour();
     }
     if (name === "grid") {
       grid.visible = !grid.visible;
       syncGrid();
     }
-    if (name === "tour") {
-      if (tour) stopTour();
-      else startTour();
-      syncTour();
-    }
+    if (name === "tour") openTour();
   }
 
   root.querySelectorAll("[data-bench]").forEach((btn) => {
@@ -560,7 +472,7 @@ export async function mountBench(canvas, opts) {
     if (k === "2") act("iso");
     if (k === "3") act("side");
     if (k === "r") act("reset");
-    if (k === "i") act("tour");
+    if (k === "i") openTour();
     if (k === "g") act("grid");
     if (k === "arrowleft") {
       e.preventDefault();
@@ -588,7 +500,6 @@ export async function mountBench(canvas, opts) {
   canvas.tabIndex = 0;
   syncSpin();
   syncGrid();
-  syncTour();
 
   return {
     reset: () => act("reset"),

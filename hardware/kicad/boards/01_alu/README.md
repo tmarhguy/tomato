@@ -8,11 +8,12 @@
 
 | Parameter | Value |
 |-----------|-------|
-| **Board Size** | 270mm × 270mm (10.6" × 10.6") |
-| **Transistor Count** | 3,488 (Hybrid: Discrete + equivalent ICs) |
+| **Board Size** | 270mm × 270mm (10.6" × 10.6") = **72900 mm²** |
+| **Transistor Count** | 3,488 (Hybrid: Discrete + equivalent ICs) → **436 T/bit** |
+| **Board mm² / bit** | **≈9112** (72900 / 8) |
 | **Architecture** | Pure combinational (no clock) |
 | **Layers** | 2 (top signal/power, bottom ground) |
-| **Power** | 5V @ 0.5-1A |
+| **Power** | 5V @ 0.5-1A (idle bring-up **&lt;200 mA**) |
 | **Propagation Delay** | ~445ns (worst case) |
 
 ---

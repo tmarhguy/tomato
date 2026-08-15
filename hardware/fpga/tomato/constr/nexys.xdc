@@ -7,8 +7,11 @@
 #   Set top: nexys_top
 #
 # Port ↔ pin completeness vs rtl/nexys_top.v:
-#   clk reset btn{c,u,l,r,d} sw[3:0] led[7:0]
+#   clk cpu_resetn btn{c,u,l,r,d} sw[3:0] led[7:0]
 #   seg[6:0] an[7:0] dp  vga_{r,g,b}[3:0] vga_hs vga_vs
+#
+# Bitstream authority: hardware/fpga/core/ (core.xpr + core.srcs/.../nexys.xdc).
+# That XDC closes at 125 ns (8 MHz) analysis; board OSC is still 100 MHz.
 
 ## -------------------------------------------------------------------------
 ## Device / bitstream (Artix-7)
@@ -20,15 +23,15 @@ set_property BITSTREAM.CONFIG.CONFIGRATE 33 [current_design]
 set_property BITSTREAM.CONFIG.SPI_BUSWIDTH 4 [current_design]
 
 ## -------------------------------------------------------------------------
-## Clock — 100 MHz
+## Clock — 100 MHz aspirational analysis (core/ closed at 125 ns / 8 MHz)
 ## -------------------------------------------------------------------------
 set_property -dict { PACKAGE_PIN E3 IOSTANDARD LVCMOS33 } [get_ports clk]
 create_clock -period 10.000 -name sys_clk -waveform {0.000 5.000} [get_ports clk]
 
 ## -------------------------------------------------------------------------
-## Reset — CPU_RESET (active high when pressed)
+## Reset — Digilent CPU_RESETN (HIGH at rest, LOW when pressed)
 ## -------------------------------------------------------------------------
-set_property -dict { PACKAGE_PIN C12 IOSTANDARD LVCMOS33 } [get_ports reset]
+set_property -dict { PACKAGE_PIN C12 IOSTANDARD LVCMOS33 } [get_ports cpu_resetn]
 
 ## -------------------------------------------------------------------------
 ## Pushbuttons → Tomato IN keycodes (OS menu)

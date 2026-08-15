@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
+ * SPDX-License-Identifier: CERN-OHL-P-2.0
  *
  * Counts r1 from 0 → 10, HALT. Display latches last reg WB (=10).
  * Checks digit0 7-seg font for nibble 0xA.

@@ -1,6 +1,8 @@
-# Formal — SymbiYosys proofs
+# Formal — SymbiYosys proofs (**ALU only**)
 
-Five SymbiYosys jobs on the Digital-exported netlists. Engine: **`smtbmc z3`** for all jobs.
+Five SymbiYosys jobs on the Digital-exported **ALU** netlists. Engine: **`smtbmc z3`**.
+
+**Inventory:** [PROPERTY_INVENTORY.md](PROPERTY_INVENTORY.md) — **5/5 jobs**, **19 assert + 20 cover** source (**40 + 48** elaborated). This is **not** full-CPU formal.
 
 ## Jobs
 

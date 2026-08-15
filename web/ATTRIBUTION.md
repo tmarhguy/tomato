@@ -5,6 +5,8 @@ Figures are Tomato’s own work, ornaments drawn for the paper, or a public-doma
 | File | Source |
 |------|--------|
 | `assets/pcb/alu_8b_board.jpg` | KiCad render, board `07_alu` |
+| `assets/pcb/immersion_black.gif` | KiCad 3D orbit of `07_alu` — dark immersion |
+| `assets/pcb/immersion_white.gif` | KiCad 3D orbit of `07_alu` — front-page plate, links to the tour |
 | `assets/pcb/alu_8b_pcb.jpg` | Routed top copper, `07_alu` |
 | `assets/plates/digital-main.jpg` | Digital `main.dig`, 27 Jun 2026 |
 | `assets/plates/alu-4b.jpg` | Digital `alu-4b-final` |
