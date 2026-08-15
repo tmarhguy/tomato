@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>ISA as a Wire — The Tomato</title>
+  <meta name="description" content="Tomato is a parametric datapath, not an emulator. The instruction word configures the muxes. About 37 ISA families mapped so far — and counting." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <a class="mast-mark" href="../index.html">The Tomato</a>
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../playground.html">Playground</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Boards</a>
+          <a href="../board.html">Board</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+          <a class="is-tour" href="../viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" />
+          <a href="../index.html"><h1>The Tomato</h1></a>
+          <img src="../assets/mark.svg" alt="" />
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>15 August 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">The word</p>
+          <h1 class="headline">ISA as a Wire</h1>
+          <p class="deck">Tomato is a parametric datapath, not an emulator. The instruction word is the configuration. About thirty-seven family maps so far — and the count moves as the copper does.</p>
+          <p class="byline">15 August 2026 · from the log</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">“We support sixty-six ISAs” sounds like an emulator checklist. That was the wrong headline. Tomato does not run foreign machines. An ISA is a <mark>first-class input</mark>: a mapping from someone else’s bits onto the muxes already sitting in copper.</p>
+          <p>The number was always a footnote. The mechanism is the story.</p>
+
+          <h2>No interpreter. The opcode hits the muxes.</h2>
+          <p>A conventional CPU that “supports a foreign ISA” translates it. Micro-ops in ROM. A software layer that pretends the datapath is someone else. Tomato does not do that. The <mark>9-bit</mark> opcode indexes a control word that <em>is</em> the mux select — ALU planes, immediate shape, write-back source, byte lane, PC overlay. <mark>One cycle.</mark> The EEPROMs on the boards are that table sitting next to the copper they drive. Decode. Not an interpreter, and not a second ISA hiding in firmware.</p>
+          <p>A foreign binary does not get rewritten into Tomato micro-ops. It gets a map: these external bits overlay here, this literal encoding lands in the immediate box, this ALU op loads this LUT pair. Supporting a new ISA is a data-entry problem, not a microarchitecture redesign.</p>
+
+          <h2>The overlay word</h2>
+          <p>The 32-bit instruction is tight on purpose. Low bits are not wasted on a fourth register they cannot hold. They overlay, depending on the mnemonic, as <span class="mono">COND</span>, jump mode, or an immediate fragment. Same slices of copper. Different assembly spellings. That is how a branch condition, a jump flavor, and a short literal can share a field without a pre-decode shifter sitting in front of the IR.</p>
+          <div class="word" aria-label="32-bit instruction word">
+            <span class="op">9b<strong>opcode</strong></span>
+            <span>5b<strong>rd</strong></span>
+            <span>5b<strong>rA</strong></span>
+            <span>5b<strong>rB</strong></span>
+            <span>5b<strong>rC</strong></span>
+            <span>3b<strong>overlay</strong></span>
+          </div>
+          <p class="caption"><span>The 32-bit word</span><span>Low bits overlay as COND, jump mode, or immediate</span></p>
+
+          <h2>The immediate box</h2>
+          <p>Sixteen encodings, decoded on the register board: <span class="mono">imm8</span>, <span class="mono">imm12</span>, <span class="mono">imm13</span>, <span class="mono">imm16</span>, LUI, and the rest of the family. RISC-V I-type, MIPS immediate, ARM rotated literals, x86 displacement widths — the common literal styles fit the box without a cycle of packing logic in front of execute. If an encoding lands in those widths, it is native. If it does not, it is not a map we claim.</p>
+
+          <h2>The dual-LUT</h2>
+          <p>The ALU resolves <span class="mono">f(a,b,c) + g(a,b,c) + cin</span> in a <strong>single cycle</strong>. Any operation from any ISA that lives in that three-input boolean family executes natively: the opcode loads the LUTs with the truth table. ADD, ANDN, the SHA Choose, a fused mask-and-add for a framebuffer — same adder, different programs. That is why “x86 mode” is the wrong picture. x86’s integer op, if it fits the family, is a LUT load. Not a mode bit.</p>
+
+          <blockquote class="pull">
+            <p>An ISA is no longer a rigid contract. It is a parametric mapping from an external binary onto the physical copper.</p>
+          </blockquote>
+
+          <h2>About thirty-seven, casually</h2>
+          <p>The spreadsheet has more rows than that. RISC-V extensions, ARM cores, SuperH revisions, PIC variants, Z80 and Z180 — each got a CSV because the opcode compiler’s sweep database lists them separately. Count the files and you get sixty-something. Count the families a person would name at a bench — RV32, MIPS, ARM, x86, 6502, Z80, SPARC, PowerPC, AVR, and kin — and you land around <mark>thirty-seven</mark>.</p>
+          <p>That integer is not a ceiling. It is how many maps are defined today. The hardware accepts the family. The limit is how many mappings we care to write, and how much of each encoding the datapath already absorbs. More burns, tighter overlay packing, another LUT program that eats a literal style Tomato currently traps — the casual count moves. Optimization on Tomato changes it for the better. The space is continuous; the CSV is just the current sweep.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>What it is not</th><th>What it is</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Tomato runs 66 ISAs</td><td>The datapath is parameterized by the instruction word</td></tr>
+                <tr><td>It has an x86 mode</td><td>x86 immediates that fit the box land without a shift</td></tr>
+                <tr><td>Emulation through microcode</td><td>The opcode hits the muxes in one cycle</td></tr>
+                <tr><td>66 is the limit</td><td>~37 families mapped; the hardware accepts the family</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>The honest edge</h2>
+          <p>This applies to the <strong>compute, shift, and register-access</strong> layers. Tomato does not claim x86 segmentation, ARM TrustZone, or the rest of the system-level furniture that is not a mux on this datapath. For the work that is ALU, shifter, and load/store — the bulk of integer code — the execution is native. Mapped, not interpreted.</p>
+          <p>Authority for the maps: <span class="mono">docs/isa/profiles.csv</span>. Authority for the copper: the overlay word, the immediate box, the dual-LUT. The ISA page is the sheet. This page is why the number stopped being the headline.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="ashtown-valley.html"><span class="dir">Previous</span><span class="to">Front-page news in Ashtown Valley</span></a>
+            <a class="next" href="../journal.html"><span class="dir">Next</span><span class="to">The journal</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script src="../js/mast.js" defer></script>
+</body>
+</html>

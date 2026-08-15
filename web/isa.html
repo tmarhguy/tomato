@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>ISA — The Tomato</title>
-  <meta name="description" content="512-row opcode ROM, 51 burns, 66 ISA profiles mapped onto native Tomato opcodes." />
+  <title>ISA as a Wire — The Tomato</title>
+  <meta name="description" content="Parametric datapath: the instruction word configures the muxes. About 37 ISA families mapped onto native Tomato opcodes — not emulated." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,6 +26,7 @@
           <a href="board.html">Board</a>
           <a href="source.html">GitHub</a>
           <a href="about.html">About</a>
+          <a class="is-tour" href="viewer.html">Tour the board</a>
         </nav>
       </div>
       <div class="flag flag--inside">
@@ -36,7 +37,7 @@
         </div>
         <p class="flag-bottom">
           <span>Inside</span>
-          <span>ISA · the ROM and the costumes</span>
+          <span>ISA · parametric datapath</span>
           <span>Vol. 32</span>
         </p>
       </div>
@@ -46,9 +47,9 @@
       <section class="section">
         <div class="wrap hed">
           <p class="kicker">Instruction set</p>
-          <h1 class="headline">One machine. Many dialects. Fifty-one burns.</h1>
-          <p class="deck">The hardware stays Tomato. RV32, MIPS, x86, Z80 and the rest are assembly-level maps onto native opcodes — not separate ISAs in copper.</p>
-          <p class="byline">Authority · docs/isa/tomato.v1.csv</p>
+          <h1 class="headline">ISA as a Wire</h1>
+          <p class="deck">Tomato is a parametric datapath, not an emulator. The instruction word is the configuration. About <strong>thirty-seven</strong> family maps so far — and counting.</p>
+          <p class="byline">Authority · <span class="mono">docs/isa/tomato.v1.csv</span> · <a href="journal/isa-as-a-wire.html">the argument in the vault</a></p>
         </div>
       </section>
 
@@ -57,9 +58,14 @@
         <div class="arch-content">
       <section class="section">
         <div class="wrap story">
-          <p class="drop">A 512-row opcode ROM is enough for native ALU ops, load and store, branches, shifts, and mul/div without empty decode fanout. v1 is not a twenty-opcode lean map. Unused rows are nops. They are not growth phantoms waiting to be invented in a spreadsheet.</p>
+          <p class="drop">A 512-row opcode ROM is enough for native ALU ops, load and store, branches, shifts, and mul/div without empty decode fanout. The 9-bit opcode does not trigger a microcode interpreter. It loads a control word that <em>is</em> the mux select. One cycle. Foreign binaries are maps onto that word — not a second machine in copper.</p>
           <p>Solidified burns stay. New burns are added when a program needs them. The LUT catalog still knows more functions than the instruction ROM exposes—that was always the plan. Native syntax: <span class="mono">opcode rd, rA, rB, rC</span> where <span class="mono">rd = f(a,b,c) + g(a,b,c) + cin</span>.</p>
-          <p>Sixteen instruction shapes—including imm12 and extended imm7—are decoded natively on the register board’s EEPROMs, which is how foreign profiles attach without extra hardware ISAs. Profiles are assembly-level maps in <span class="mono">profiles.csv</span>; they do not add rows to the ROM.</p>
+
+          <h2>How a foreign encoding lands</h2>
+          <p>Three pieces of copper absorb the common integer ISAs without a pre-decode shift or a software layer in ROM.</p>
+          <p><strong>Overlay word.</strong> Low bits of the 32-bit instruction dynamically overlay as <span class="mono">COND</span>, jump mode, or an immediate fragment. Same slices. Different assembly spellings.</p>
+          <p><strong>Immediate box.</strong> Sixteen encodings on the register board — <span class="mono">imm8</span>, <span class="mono">imm12</span>, <span class="mono">imm13</span>, <span class="mono">imm16</span>, LUI — natively parse the literal styles of RISC-V, MIPS, ARM, and x86 without a cycle of packing logic in front of execute.</p>
+          <p><strong>Dual-LUT ALU.</strong> Any operation that fits <span class="mono">f(a,b,c) + g(a,b,c) + cin</span> executes in one cycle: the opcode loads the LUTs with the truth table. An ISA is a parametric mapping from an external binary onto that family. Supporting a new one is a data-entry problem, not a microarchitecture redesign.</p>
           <div class="table-wrap">
             <table>
               <thead>
@@ -69,13 +75,17 @@
                 <tr><td class="mono">tomato.v1.csv</td><td>Source of truth — burn opcodes and unused NOP slots</td></tr>
                 <tr><td class="mono">opcode-map.csv</td><td>Mnemonic cheat sheet · 32-bit encoding</td></tr>
                 <tr><td class="mono">lut.csv</td><td>ALU primitive catalog · hardware reference</td></tr>
-                <tr><td class="mono">profiles.csv</td><td>External-ISA maps onto Tomato, at assembly level</td></tr>
+                <tr><td class="mono">profiles.csv</td><td>Parametric maps onto Tomato. CSV rows are the sweep database, not a trophy count</td></tr>
               </tbody>
             </table>
           </div>
+
+          <h2>About thirty-seven, casually</h2>
+          <p>Count every CSV in <span class="mono">profiles/</span> and you get sixty-something — RISC-V extensions, ARM cores, SuperH revisions, PIC variants listed separately because the opcode compiler’s sweep database is a spreadsheet. Count the families a person would name at a bench and you land around <mark>thirty-seven</mark>. That integer is not a ceiling. The hardware accepts the family. More burns and tighter overlay packing move the casual count; optimization on Tomato changes it for the better. <a href="journal/isa-as-a-wire.html">Why the number stopped being the headline →</a></p>
+
           <h2>What the word will not do</h2>
           <p>No tile VPU. Display is CPU-painted tile RAM with independent VGA scanout. Games stay software. A future rect blitter is optional — not a sprite engine hiding in the opcode space.</p>
-          <p>Profiles are costumes. They do not add rows to the ROM. They rename native operations so a foreign assembly listing can sit on this datapath.</p>
+          <p>The maps cover the <strong>compute, shift, and register-access</strong> layers. Tomato does not claim x86 segmentation or ARM TrustZone — those are system-level constructs, not muxes on this datapath. For the bulk of integer code that is ALU, shifter, and load/store, execution is native. Mapped, not interpreted.</p>
         </div>
       </section>
 
@@ -97,16 +107,16 @@
               <p>Do not invent hundreds of growth phantoms. Empty is honest.</p>
             </article>
             <article class="exhibit">
-              <p class="exhibit-num">66</p>
-              <p class="exhibit-kicker">ISA profiles</p>
+              <p class="exhibit-num">~37</p>
+              <p class="exhibit-kicker">ISA families</p>
               <hr />
-              <h3>Costumes</h3>
-              <p>RV32, MIPS, x86, Z80, and others — maps, not machines.</p>
+              <h3>And counting</h3>
+              <p>Casual family count. The CSV has more rows. The space is continuous.</p>
             </article>
           </div>
           <nav class="jump">
             <a href="architecture.html">← Architecture</a>
-            <a href="journal/falling-back.html">Why 32-bit →</a>
+            <a href="journal/isa-as-a-wire.html">ISA as a Wire →</a>
             <a href="source.html">GitHub →</a>
           </nav>
         </div>
@@ -125,5 +135,6 @@
     </footer>
   </div>
   <script type="module" src="js/arch-map.js"></script>
+  <script src="js/mast.js" defer></script>
 </body>
 </html>

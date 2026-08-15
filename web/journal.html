@@ -26,6 +26,7 @@
           <a href="board.html">Board</a>
           <a href="source.html">GitHub</a>
           <a href="about.html">About</a>
+          <a class="is-tour" href="viewer.html">Tour the board</a>
         </nav>
       </div>
       <div class="flag flag--inside">
@@ -47,12 +48,12 @@
         <div class="wrap lead-grid">
           <article>
             <p class="kicker">The vault</p>
-            <h2 class="headline">The arguments live here. The README is the map.</h2>
+            <h2 class="headline">The decisions live here.</h2>
             <p class="deck">Every odd choice is written down: what was tried, what broke routing, what was too slow on the bench, what got deleted to recover copper.</p>
-            <p class="byline">Continued inside · twenty dispatches from the log</p>
+            <p class="byline">Continued inside · <strong>twenty-one dispatches</strong> from the log</p>
             <div class="cols">
-              <p class="drop">Tomato is a build-log machine. If you love computers because you like how they are built, this is the entry point. Architecture and tradeoff still start with a new entry — not a silent edit.</p>
-              <p>The latest dispatch is from August: the paper is printed in Ashtown Valley, on the Bay Perimeter, and two 8-bit slices are inbound. Start there, or start at the origin and read forward.</p>
+              <p class="drop">Tomato is a <strong>build-log machine</strong>. If you love computers because you like how they are built, this is the entry point. Architecture and tradeoff still start with a new entry.</p>
+              <p>Tomato for me has always been about the journey. I valued the learning experience, for who builds a “chip” with “<strong>KiCad</strong>” in <strong>2026</strong> from the very scratch?</p>
             </div>
           </article>
           <figure class="plate plate--ink">
@@ -69,6 +70,13 @@
         <div class="wrap">
           <p class="exhibit-label">Dispatches · every entry in the vault</p>
           <div class="log-list">
+            <a class="log-item" href="journal/isa-as-a-wire.html">
+              <span class="log-date">15 Aug 2026</span>
+              <span>
+                <span class="log-title">ISA as a Wire</span>
+                <span class="log-blurb">Parametric datapath, not an emulator. About 37 family maps — the number moves as the copper does.</span>
+              </span>
+            </a>
             <a class="log-item" href="journal/ashtown-valley.html">
               <span class="log-date">13 Aug 2026</span>
               <span>
@@ -206,12 +214,12 @@
               <span class="log-date">Origin</span>
               <span>
                 <span class="log-title">Welcome to Tomato 32</span>
-                <span class="log-blurb">The first page of the vault. From simple gates to a machine with enormous ISA coverage.</span>
+                <span class="log-blurb">The first page of the vault. From simple gates to a parametric datapath.</span>
               </span>
             </a>
           </div>
           <nav class="jump">
-            <a href="journal/ashtown-valley.html">Start with the latest →</a>
+            <a href="journal/isa-as-a-wire.html">Start with the latest →</a>
             <a href="journal/welcome.html">Start at the origin →</a>
             <a href="source.html">GitHub →</a>
           </nav>
@@ -228,5 +236,6 @@
       </div>
     </footer>
   </div>
+  <script src="js/mast.js" defer></script>
 </body>
 </html>
