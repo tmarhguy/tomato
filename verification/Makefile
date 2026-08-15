@@ -39,7 +39,7 @@ UVM_32B_SRCS := $(COMMON_SV) \
   $(UVM_DIR)/alu_32b/tb/tb_alu_32b.sv
 
 .PHONY: all help signoff signoff_full generate formal_all formal_1b formal_8b \
-        formal_32b formal_32b_equiv formal_32b_flags \
+        formal_32b formal_32b_equiv formal_32b_flags formal_inventory \
         directed lint clean synth synth_clean \
         uvm_1b_smoke uvm_1b_exhaustive uvm_8b_smoke uvm_8b_full \
         uvm_32b_smoke uvm_32b_directed uvm_32b_ops91 uvm_32b_random uvm_32b_edge uvm_32b_flag \
@@ -52,6 +52,7 @@ help:
 	@echo "  make signoff           fast CI: spot formal + lint + directed (~35 s)"
 	@echo "  make signoff_full      full: + 32b equiv prove (~3 min)"
 	@echo "  make formal_32b_equiv  end-to-end comb Out golden (~74 s)"
+	@echo "  make formal_inventory  recount ALU assert/cover statements"
 	@echo "  make generate          regenerate op table + directed vectors"
 	@echo "  make uvm_regression    1b + 8b + 32b UVM (Questa)"
 	@echo "  make synth             Yosys → sky130 area/timing (see synthesis/README.md)"
@@ -79,6 +80,9 @@ formal_32b_flags:
 formal_all: formal_1b formal_8b formal_32b formal_32b_flags
 
 formal_full: formal_1b formal_8b formal_32b formal_32b_equiv formal_32b_flags
+
+formal_inventory:
+	python3 $(ROOT)/scripts/inventory_formal.py
 
 # --- Directed (Icarus) ---
 $(WORK):
