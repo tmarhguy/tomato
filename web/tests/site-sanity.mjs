@@ -18,6 +18,7 @@ const WEB = resolve(__dirname, "..");
 const REQUIRED = [
   "index.html",
   "404.html",
+  "CNAME",
   ".nojekyll",
   "css/magazine.css",
   "css/viewer.css",
@@ -104,6 +105,11 @@ test("required deploy files exist", () => {
   for (const f of REQUIRED) {
     assert.ok(existsSync(join(WEB, f)), `missing ${f}`);
   }
+});
+
+test("Pages CNAME is tomato.tmarhguy.com", () => {
+  const cname = readFileSync(join(WEB, "CNAME"), "utf8").trim();
+  assert.equal(cname, "tomato.tmarhguy.com");
 });
 
 test("HTML documents have basics", () => {
