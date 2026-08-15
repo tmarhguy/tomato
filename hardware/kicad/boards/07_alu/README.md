@@ -12,6 +12,7 @@ The physical **32-bit ALU** for Tomato — two independent 3-input LUT planes pe
 ## Table of Contents
 
 - [At a glance](#at-a-glance)
+- [Efficiency metrics](#efficiency-metrics)
 - [Hierarchy](#hierarchy)
 - [Schematics](#schematics)
 - [PCB layout](#pcb-layout)
@@ -33,6 +34,8 @@ alu_out[n] = ( lutA(a,b,c) + lutB(a,b,c) + cin ) & 1   per bit, ripple across ni
 | Board | `07_alu` — modular 74xx ALU (not the legacy 270mm transistor `01_alu`) |
 | Topology | `alu_1b_X` + `alu_1b_Y` → `alu_4b` × 2 (ripple carry) → 8b slice on PCB |
 | Key ICs | **74ACT151** (LUT3 mux), **74ACT283** (4b adder), **74HCT688** (zero detect), **74ACT377** (flag reg), **74ACT541** (buffer) |
+| Outline | **99.95 × 99.80 mm** ≈ **9975 mm²** (Edge.Cuts) |
+| Density | **25 logic ICs / 8b** → **3.125 IC/bit**, **≈1247 mm²/bit** |
 | Layout | Routed — **0 unrouted** nets (see status below) |
 | Silk | Tomato ALU branding, UPenn / author contact on copper |
 
@@ -41,6 +44,19 @@ alu_out[n] = ( lutA(a,b,c) + lutB(a,b,c) + cin ) & 1   per bit, ripple across ni
 
 ![PCB layout overview](../../../../media/kicad/07_alu/pcb/alu_8b_pcb.png)
 *Figure 2 — Top copper — routed cells, flag block, silkscreen.*
+
+---
+
+## Efficiency metrics
+
+| Metric | Value | Notes |
+|--------|-------|-------|
+| Board area | **99.95 × 99.80 mm** ≈ **9975 mm²** | Edge.Cuts bbox |
+| Logic ICs (8b) | **25** | 17×151 + 2×283 + 2×00 + 1×86 + 1×377 + 1×541 + 1×688 |
+| IC / bit | **3.125** | 25 / 8 |
+| Board mm² / bit | **≈1247** | 9975 / 8 |
+
+Legacy hybrid ([01_alu](../01_alu/README.md)): **3488 MOSFETs / 8b = 436 T/bit**. Journal carry-bypass ≈**16.5 MHz** on discrete path.
 
 ---
 

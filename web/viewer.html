@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>3D Viewer — The Tomato 07_alu</title>
+  <meta name="description" content="Light 3D viewer and 360° tour of Tomato 07_alu." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/viewer.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="full-screen-viewer">
+    <a class="back" href="index.html">← Back</a>
+    <canvas id="viewer-canvas" aria-label="Interactive 3D view of Tomato 07_alu."></canvas>
+    <div class="hud">
+      <button type="button" class="chip" id="legend-btn" aria-expanded="false">Controls</button>
+      <label class="light-slider">
+        <span>Sky</span>
+        <input type="range" id="hemi" min="0" max="4" step="0.05" value="0.12" />
+        <output id="hemi-val" for="hemi">0.12</output>
+      </label>
+      <div class="legend" id="legend" hidden>
+        <p><span>Orbit</span><kbd>Drag</kbd></p>
+        <p><span>Zoom</span><kbd>Scroll</kbd></p>
+        <p><span>Pan</span><kbd>Right-drag</kbd></p>
+        <p><span>Spin</span><kbd>Space</kbd></p>
+        <p><span>Top Iso Side</span><kbd>1 2 3</kbd></p>
+        <p><span>Reset Tour</span><kbd>R I</kbd></p>
+        <p><span>Sky light</span><kbd>[ ]</kbd></p>
+      </div>
+    </div>
+    <button type="button" class="immerse" id="immerse" aria-label="Start the 360° tour">
+      <i></i>
+      <span>Tour the board</span>
+    </button>
+    <p class="badge"><i></i> REAL PCB MODEL</p>
+    <div class="boot" id="boot">
+      <div class="spin" aria-hidden="true"></div>
+      <p id="boot-text">Brewing ALU…</p>
+    </div>
+  </div>
+  <script type="module" src="js/viewer.js"></script>
+</body>
+</html>

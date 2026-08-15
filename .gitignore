@@ -74,6 +74,11 @@ verification/synthesis/pdk/*.lib
 # Test benchmark — generated reports
 test/reports/
 
+# Keep FPGA metric summaries tracked (raw Vivado .rpt stay ignored above)
+!hardware/fpga/core/reports/
+!hardware/fpga/core/reports/**
+!verification/formal/PROPERTY_INVENTORY.md
+
 *.zip
 /hardware/kicad/boards/07_alu/.history
 *.jou

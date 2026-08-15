@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
+ * SPDX-License-Identifier: CERN-OHL-P-2.0
  *
  * 100 MHz → 25 MHz pixel. 80x60 tiles of 8x8. Color from tile[3:0].
  */

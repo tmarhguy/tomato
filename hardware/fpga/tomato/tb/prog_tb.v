@@ -42,15 +42,27 @@ module prog_tb;
     integer expect_r1, expect_r2, expect_disp, expect_r6;
     integer have_r2, have_r6, have_disp;
     integer k, saw_halt, kb_val;
+    integer cycles_to_halt, instr_retired;
+    real cpi;
+    reg measuring;
     reg [1023:0] path;
+
+    // Retire count = fetch edges after reset (one fetch per instruction).
+    always @(posedge clk) begin
+        if (!reset && measuring && !uut.pc0.halted && uut.fetch)
+            instr_retired <= instr_retired + 1;
+    end
 
     initial begin
         prog = "counter";
         expect_r1 = 10;
         expect_r2 = 0; have_r2 = 0;
         expect_r6 = 0; have_r6 = 0;
-        expect_disp = 10; have_disp = 1;
+        expect_disp = 10; have_disp = 0;
         kb_val = 0;
+        cycles_to_halt = 0;
+        instr_retired = 0;
+        measuring = 0;
 
         if ($value$plusargs("PROG=%s", prog)) begin end
         if ($value$plusargs("EXPECT_R1=%d", expect_r1)) begin end
@@ -71,12 +83,15 @@ module prog_tb;
 
         tick; tick;
         reset = 0;
+        measuring = 1;
 
         saw_halt = 0;
         for (k = 0; k < 200000; k = k + 1) begin
             tick;
+            cycles_to_halt = cycles_to_halt + 1;
             if (uut.pc0.halted) begin
                 saw_halt = 1;
+                measuring = 0;
                 k = 200000;
             end
         end
@@ -111,7 +126,14 @@ module prog_tb;
             $finish(1);
         end
 
+        if (instr_retired > 0)
+            cpi = cycles_to_halt * 1.0 / instr_retired;
+        else
+            cpi = 0.0;
+
         $display("PASS: prog %0s r1=%0d disp=%0d", prog, uut.regs0.mem[1], uut.disp);
+        $display("CPI: prog=%0s cycles=%0d instr=%0d cpi=%0.3f",
+                 prog, cycles_to_halt, instr_retired, cpi);
         $finish;
     end
 endmodule

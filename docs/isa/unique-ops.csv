@@ -1,0 +1,417 @@
+# Tomato32 unique ops catalog — grow toward 512; not padded.,,,,,,
+# seq_cycles = value programmed into microcode cycles[1:0] (see main.v program_counter):,,,,,,
+#   1 = FETCH+EXECUTE;  2 = FETCH+EXECUTE+MEM_WAIT.,,,,,,
+# That 2-bit sequencer is the only instruction-length control in main.v.,,,,,,
+# mul_div is a separate priority-encoder+shift unit (mul-nxt_enc feedback); it is NOT,,,,,,
+"# ""16 sequencer cycles"". Multi-step mul/div completion is outside that 2-bit counter.",,,,,,
+# Count: 408; ROM headroom: 104.,,,,,,
+idx,pass,source,mnemonic,group,seq_cycles,operation
+1,1,rv32i,LUI,alu-imm,1,rd = imm20 << 12
+2,1,rv32i,AUIPC,alu-imm,1,rd = PC + (imm20 << 12)
+3,1,rv32i,JAL,jump,1,rd = PC+1; PC = target
+4,1,rv32i,JALR,jump,1,rd = PC+1; PC = rB+off
+5,1,rv32i,BEQ,branch,1,branch if equal
+6,1,rv32i,BNE,branch,1,branch if not equal
+7,1,rv32i,BLT,branch,1,branch if less (signed)
+8,1,rv32i,BGE,branch,1,branch if greater/equal (signed)
+9,1,rv32i,BLTU,branch,1,branch if less (unsigned)
+10,1,rv32i,BGEU,branch,1,branch if greater/equal (unsigned)
+11,1,rv32i,LB,mem,2,rd = sign-extend byte load
+12,1,rv32i,LH,mem,2,rd = sign-extend half load
+13,1,rv32i,LW,mem,2,rd = mem[rB+off]
+14,1,rv32i,LBU,mem,2,rd = zero-extend byte load
+15,1,rv32i,LHU,mem,2,rd = zero-extend half load
+16,1,rv32i,SB,mem,2,store byte
+17,1,rv32i,SH,mem,2,store half
+18,1,rv32i,SW,mem,2,mem[rB+off] = rA
+19,1,rv32i,ADDI,alu-imm,1,rd = rA + imm
+20,1,rv32i,SLTI,alu-imm,1,rd = (rA < imm)
+21,1,rv32i,SLTIU,alu-imm,1,rd = (rA <u imm)
+22,1,rv32i,XORI,alu-imm,1,rd = rA ^ imm
+23,1,rv32i,ORI,alu-imm,1,rd = rA | imm
+24,1,rv32i,ANDI,alu-imm,1,rd = rA & imm
+25,1,rv32i,LSLI,shift,1,rd = rA << shamt
+26,1,rv32i,LSRI,shift,1,rd = rA >> shamt
+27,1,rv32i,ASRI,shift,1,rd = rA >>> shamt
+28,1,rv32i,ADD,alu-reg,1,rd = rA + rB
+29,1,rv32i,SUB,alu-reg,1,rd = rA - rB
+30,1,rv32i,LSL,shift,1,rd = rA << rB
+31,1,rv32i,SLT,alu-reg,1,rd = (rA < rB)
+32,1,rv32i,SLTU,alu-reg,1,rd = (rA <u rB)
+33,1,rv32i,XOR,alu-reg,1,rd = rA ^ rB
+34,1,rv32i,LSR,shift,1,rd = rA >> rB
+35,1,rv32i,ASR,shift,1,rd = rA >>> rB
+36,1,rv32i,OR,alu-reg,1,rd = rA | rB
+37,1,rv32i,AND,alu-reg,1,rd = rA & rB
+38,1,rv32i,FENCE,system,1,memory fence
+39,1,rv32i,ECALL,system,1,environment call
+40,1,rv32i,EBREAK,system,1,breakpoint
+41,2,rv32m,MUL,muldiv,1,rd = low(rA*rB)
+42,2,rv32m,MULH,muldiv,1,rd = high signed product
+43,2,rv32m,MULHSU,muldiv,1,rd = high mixed product
+44,2,rv32m,MULHU,muldiv,1,rd = high unsigned product
+45,2,rv32m,DIV,muldiv,1,rd = rA / rB signed
+46,2,rv32m,DIVU,muldiv,1,rd = rA / rB unsigned
+47,2,rv32m,REM,muldiv,1,rd = rA % rB signed
+48,2,rv32m,REMU,muldiv,1,rd = rA % rB unsigned
+49,3,rv_bit,SH1ADD,bit,1,rd = (rA<<1)+rB
+50,3,rv_bit,SH2ADD,bit,1,rd = (rA<<2)+rB
+51,3,rv_bit,SH3ADD,bit,1,rd = (rA<<3)+rB
+52,3,rv_bit,ANDN,alu-reg,1,rd = rA & ~rB
+53,3,rv_bit,ORN,alu-reg,1,rd = rA | ~rB
+54,3,rv_bit,XNOR,alu-reg,1,rd = ~(rA ^ rB)
+55,3,rv_bit,CLZ,bit,1,count leading zeros
+56,3,rv_bit,CTZ,bit,1,count trailing zeros
+57,3,rv_bit,POPCNT,bit,1,population count
+58,3,rv_bit,MAX,cond,1,"rd = max(rA,rB)"
+59,3,rv_bit,MIN,cond,1,"rd = min(rA,rB)"
+60,3,rv_bit,MAXU,cond,1,"rd = maxu(rA,rB)"
+61,3,rv_bit,MINU,cond,1,"rd = minu(rA,rB)"
+62,3,rv_bit,SEXTB,bit,1,sign-extend byte
+63,3,rv_bit,SEXTH,bit,1,sign-extend half
+64,3,rv_bit,ZEXTH,bit,1,zero-extend half
+65,3,rv_bit,ROL,shift,1,rotate left
+66,3,rv_bit,ROR,shift,1,rotate right
+67,3,rv_bit,RORI,shift,1,rotate right imm
+68,3,rv_bit,REV,bit,1,byte reverse
+69,3,rv_bit,ORCB,bit,1,or-combine bytes
+70,3,rv_bit,BCLR,bit,1,clear bit
+71,3,rv_bit,BEXT,bit,1,extract bit
+72,3,rv_bit,BINV,bit,1,invert bit
+73,3,rv_bit,BSET,bit,1,set bit
+74,3,rv_bit,BCLRI,bit,1,clear bit imm
+75,3,rv_bit,BEXTI,bit,1,extract bit imm
+76,3,rv_bit,BINVI,bit,1,invert bit imm
+77,3,rv_bit,BSETI,bit,1,set bit imm
+78,3,rv_bit,CLMUL,muldiv,1,carry-less mul lo
+79,3,rv_bit,CLMULH,muldiv,1,carry-less mul hi
+80,3,rv_bit,CLMULR,muldiv,1,carry-less mul rev
+81,4,arm,MOV,alu-reg,1,rd = rB
+82,4,arm,MVN,alu-reg,1,
+83,4,arm,CMP,alu-reg,1,flags = rA - rB
+84,4,arm,CMN,alu-reg,1,
+85,4,arm,TST,alu-reg,1,
+86,4,arm,TEQ,alu-reg,1,
+87,4,arm,ADC,alu-reg,1,rd = rA + rB + C
+88,4,arm,SBC,alu-reg,1,rd = rA - rB - borrow
+89,4,arm,RSB,alu-reg,1,rd = rB - rA
+90,4,arm,RSC,alu-reg,1,rd = rB - rA - borrow
+91,4,arm,MLA,muldiv,1,rd = rA*rB + rC
+92,4,arm,MLS,muldiv,1,rd = rC - rA*rB
+93,4,arm,UMULL,muldiv,1,
+94,4,arm,SMULL,muldiv,1,
+95,4,arm,UMLAL,muldiv,1,
+96,4,arm,SMLAL,muldiv,1,
+97,4,arm,JR,jump,1,PC = rB
+98,4,arm,CALL,jump,1,push PC; jump
+99,4,arm,RET,jump,1,return
+100,4,arm,MOVT,alu-imm,1,
+101,4,arm,MOVI16,alu-imm,1,
+102,4,arm,CSEL,cond,1,rd = cond ? rA : rB
+103,4,arm,CSET,cond,1,rd = cond ? 1 : 0
+104,4,arm,CINC,cond,1,
+105,4,arm,CINV,cond,1,
+106,4,arm,CNEG,cond,1,
+107,4,arm,ZEXTB,bit,1,zero-extend byte
+108,4,arm,REV16,bit,1,
+109,4,arm,REVSH,bit,1,
+110,4,arm,RBIT,bit,1,
+111,4,arm,BFC,alu-reg,1,
+112,4,arm,BFI,alu-reg,1,
+113,4,arm,UBFX,alu-reg,1,
+114,4,arm,SBFX,alu-reg,1,
+115,4,arm,SSAT,alu-reg,1,
+116,4,arm,USAT,alu-reg,1,
+117,4,arm,QADD,alu-reg,1,
+118,4,arm,QSUB,alu-reg,1,
+119,4,arm,RRX,shift,1,
+120,4,arm,PUSH,stack,2,push register
+121,4,arm,POP,stack,2,pop register
+122,4,arm,BGT,branch,1,
+123,4,arm,BLE,branch,1,
+124,4,arm,BMI,branch,1,
+125,4,arm,BPL,branch,1,
+126,4,arm,BCS,branch,1,
+127,4,arm,BCC,branch,1,
+128,4,arm,BVS,branch,1,
+129,4,arm,BVC,branch,1,
+130,4,arm,BHI,branch,1,
+131,4,arm,BLS,branch,1,
+132,4,arm,CSRR,system,1,
+133,4,arm,CSRW,system,1,
+134,5,mips,NOR,alu-reg,1,rd = ~(rA | rB)
+135,5,mips,MFHI,muldiv,1,
+136,5,mips,MFLO,muldiv,1,
+137,5,mips,MTHI,muldiv,1,
+138,5,mips,MTLO,muldiv,1,
+139,5,mips,BEQZ,branch,1,
+140,5,mips,BNEZ,branch,1,
+141,5,mips,BGTZ,branch,1,
+142,5,mips,BLEZ,branch,1,
+143,5,mips,BGEZ,branch,1,
+144,5,mips,BLTZ,branch,1,
+145,5,mips,BGEZAL,branch,1,
+146,5,mips,BLTZAL,branch,1,
+147,5,mips,MULI,muldiv,1,
+148,5,mips,INS,alu-reg,1,
+149,5,mips,EXT,alu-reg,1,
+150,5,mips,MOVN,cond,1,
+151,5,mips,MOVZ,cond,1,
+152,5,mips,JMP,jump,1,unconditional jump
+153,6,x86,XCHG,alu-reg,1,swap registers
+154,6,x86,LEA,alu-reg,1,rd = effective address
+155,6,x86,IN,system,1,port input
+156,6,x86,OUT,system,1,port output
+157,6,x86,ENTER,stack,2,
+158,6,x86,LEAVE,stack,2,
+159,6,x86,SHLD,shift,1,
+160,6,x86,SHRD,shift,1,
+161,6,x86,BSF,bit,1,
+162,6,x86,BSR,bit,1,
+163,6,x86,BSWAP,bit,1,
+164,6,x86,SETE,cond,1,
+165,6,x86,SETNE,cond,1,
+166,6,x86,SETL,cond,1,
+167,6,x86,SETGE,cond,1,
+168,6,x86,SETB,cond,1,
+169,6,x86,SETAE,cond,1,
+170,6,x86,SETS,cond,1,
+171,6,x86,SETNS,cond,1,
+172,6,x86,SETO,cond,1,
+173,6,x86,SETNO,cond,1,
+174,6,x86,SETA,cond,1,
+175,6,x86,SETBE,cond,1,
+176,6,x86,LOOP,branch,1,
+177,6,x86,LOOPE,branch,1,
+178,6,x86,LOOPNE,branch,1,
+179,6,x86,CMC,system,1,
+180,6,x86,STC,system,1,
+181,6,x86,CLC,system,1,
+182,6,x86,CLD,system,1,
+183,6,x86,STD,system,1,
+184,6,x86,LAHF,alu-reg,1,
+185,6,x86,SAHF,alu-reg,1,
+186,6,x86,CBW,alu-reg,1,
+187,6,x86,CWDE,alu-reg,1,
+188,6,x86,CDQ,alu-reg,1,
+189,6,x86,PUSHA,stack,2,
+190,6,x86,POPA,stack,2,
+191,6,x86,PUSHF,stack,2,
+192,6,x86,POPF,stack,2,
+193,6,x86,INC,alu-reg,1,rd = rA + 1
+194,6,x86,DEC,alu-reg,1,rd = rA - 1
+195,6,x86,NOT,alu-reg,1,rd = ~rA
+196,6,x86,NEG,alu-reg,1,rd = -rA
+197,6,x86,HALT,system,1,stop CPU
+198,6,x86,CLI,system,1,clear interrupt
+199,6,x86,SEI,system,1,set interrupt
+200,7,6502_z80,BIT,alu-reg,1,
+201,7,6502_z80,PHP,stack,2,
+202,7,6502_z80,PLP,stack,2,
+203,7,6502_z80,RTI,jump,1,
+204,7,6502_z80,SEC,system,1,
+205,7,6502_z80,SED,system,1,
+206,7,6502_z80,CLV,system,1,
+207,7,6502_z80,DAA,alu-reg,1,
+208,7,6502_z80,CCF,alu-reg,1,
+209,7,6502_z80,DJNZ,branch,1,
+210,7,6502_z80,EX,alu-reg,1,
+211,7,6502_z80,EXX,alu-reg,1,
+212,7,6502_z80,RLCA,shift,1,
+213,7,6502_z80,RRCA,shift,1,
+214,7,6502_z80,RLA,shift,1,
+215,7,6502_z80,RRA,shift,1,
+216,8,m68k,ADDX,alu-reg,1,
+217,8,m68k,SUBX,alu-reg,1,
+218,8,m68k,NEGX,alu-reg,1,
+219,8,m68k,SWAP,alu-reg,1,
+220,8,m68k,EXTW,alu-reg,1,sign-extend 16->32 (68k EXT)
+221,8,m68k,EXTB,alu-reg,1,
+222,8,m68k,TAS,alu-reg,1,
+223,8,m68k,CHK,alu-reg,1,
+224,8,m68k,MOVEM,stack,2,
+225,8,m68k,ROXL,shift,1,
+226,8,m68k,ROXR,shift,1,
+227,8,m68k,PEA,stack,2,
+228,8,m68k,LINK,stack,2,
+229,8,m68k,UNLK,stack,2,
+230,8,m68k,DBRA,branch,1,
+231,9,ppc,ADDE,alu-reg,1,
+232,9,ppc,SUBFE,alu-reg,1,
+233,9,ppc,ADDZE,alu-reg,1,
+234,9,ppc,ADDME,alu-reg,1,
+235,9,ppc,ADDIS,alu-imm,1,
+236,9,ppc,ORIS,alu-imm,1,
+237,9,ppc,XORIS,alu-imm,1,
+238,9,ppc,ANDIS,alu-imm,1,
+239,9,ppc,RLWINM,alu-reg,1,
+240,9,ppc,RLWIMI,alu-reg,1,
+241,10,alpha,EON,alu-reg,1,
+242,10,alpha,ZAP,alu-reg,1,
+243,10,alpha,ZAPNOT,alu-reg,1,
+244,10,alpha,CMOVEQ,cond,1,
+245,10,alpha,CMOVNE,cond,1,
+246,10,alpha,CMOVLT,cond,1,
+247,10,alpha,CMOVGE,cond,1,
+248,10,alpha,CMOVLE,cond,1,
+249,10,alpha,CMOVGT,cond,1,
+250,11,sparc,SAVE,jump,1,
+251,11,sparc,RESTORE,jump,1,
+252,11,sparc,ADDCC,alu-reg,1,
+253,11,sparc,SUBCC,alu-reg,1,
+254,11,sparc,ANDCC,alu-reg,1,
+255,11,sparc,ORCC,alu-reg,1,
+256,11,sparc,XORCC,alu-reg,1,
+257,11,sparc,RETT,jump,1,
+258,12,avr,ADIW,alu-reg,1,
+259,12,avr,SBIW,alu-reg,1,
+260,12,avr,CPSE,branch,1,
+261,12,avr,SBRC,branch,1,
+262,12,avr,SBRS,branch,1,
+263,12,avr,BST,alu-reg,1,
+264,12,avr,BLD,alu-reg,1,
+265,12,avr,NIBSWAP,alu-reg,1,
+266,12,avr,LPM,mem,2,
+267,12,avr,WDR,system,1,
+268,13,pdp11,SOB,branch,1,
+269,13,pdp11,ASHC,shift,1,
+270,13,pdp11,SXT,alu-reg,1,
+271,13,pdp11,CCC,system,1,
+272,13,pdp11,SCC,system,1,
+273,14,wasm,EQZ,cond,1,
+274,14,wasm,DROP,alu-reg,1,
+275,15,crypto,AESENC,crypto,1,
+276,15,crypto,AESDEC,crypto,1,
+277,15,crypto,AESK,crypto,1,
+278,15,crypto,SHA256,crypto,1,
+279,15,crypto,SHA512,crypto,1,
+280,15,crypto,SM4,crypto,1,
+281,16,machine,NOP,system,1,no operation
+282,16,machine,WAIT,system,1,wait
+283,16,machine,RESET,system,1,reset
+284,16,machine,BANK,system,1,select register bank
+285,16,machine,INW,system,1,
+286,16,machine,OUTW,system,1,
+287,16,machine,LW0,mem,2,load word [rB]
+288,16,machine,SW0,mem,2,store word [rB]
+289,16,machine,LH0,mem,2,load half [rB]
+290,16,machine,LB0,mem,2,load byte [rB]
+291,16,machine,LWPC,mem,2,PC-relative load
+292,16,machine,SWPC,mem,2,PC-relative store
+293,16,machine,CAS,alu-reg,2,compare-and-swap
+294,16,machine,LL,alu-reg,2,load linked
+295,16,machine,SC,alu-reg,2,store conditional
+296,16,machine,TAIL,jump,1,tail call
+297,16,machine,CALLR,jump,1,call register
+298,16,machine,UNIMP,system,1,unimplemented
+299,16,machine,ILL,system,1,illegal
+300,16,machine,MOVI8,alu-imm,1,rd = imm8
+301,16,machine,SUBI,alu-imm,1,rd = rA - imm
+302,16,machine,CMPI,alu-imm,1,flags = rA - imm
+303,17,lut3,ONE,lut3,1,rd = all-ones
+304,17,lut3,PASS_C,lut3,1,rd = rC
+305,17,lut3,NOT_B,lut3,1,rd = ~rB
+306,17,lut3,NOT_C,lut3,1,rd = ~rC
+307,17,lut3,AND_AC,lut3,1,
+308,17,lut3,AND_BC,lut3,1,
+309,17,lut3,OR_AC,lut3,1,
+310,17,lut3,OR_BC,lut3,1,
+311,17,lut3,XOR_AC,lut3,1,
+312,17,lut3,XOR_BC,lut3,1,
+313,17,lut3,NAND_AC,lut3,1,
+314,17,lut3,NAND_BC,lut3,1,
+315,17,lut3,NOR_AC,lut3,1,
+316,17,lut3,NOR_BC,lut3,1,
+317,17,lut3,XNOR_AC,lut3,1,
+318,17,lut3,XNOR_BC,lut3,1,
+319,17,lut3,ANDN_AC,lut3,1,
+320,17,lut3,ANDN_BC,lut3,1,
+321,17,lut3,ORN_AC,lut3,1,
+322,17,lut3,ORN_BC,lut3,1,
+323,17,lut3,AND3,lut3,1,rd = rA & rB & rC
+324,17,lut3,OR3,lut3,1,rd = rA | rB | rC
+325,17,lut3,XOR3,lut3,1,rd = rA ^ rB ^ rC
+326,17,lut3,XNOR3,lut3,1,
+327,17,lut3,NAND3,lut3,1,
+328,17,lut3,NOR3,lut3,1,
+329,17,lut3,MAJ,lut3,1,"rd = majority(rA,rB,rC)"
+330,17,lut3,NMAJ,lut3,1,
+331,17,lut3,BORROW,lut3,1,
+332,17,lut3,MUX_C_AB,lut3,1,rd = rC ? rA : rB
+333,17,lut3,MUX_C_BA,lut3,1,
+334,17,lut3,MUX_B_AC,lut3,1,
+335,17,lut3,MUX_B_CA,lut3,1,
+336,17,lut3,MUX_A_BC,lut3,1,
+337,17,lut3,MUX_A_CB,lut3,1,
+338,17,lut3,NMUX_C_AB,lut3,1,
+339,17,lut3,NMUX_C_BA,lut3,1,
+340,17,lut3,NMUX_B_AC,lut3,1,
+341,17,lut3,NMUX_B_CA,lut3,1,
+342,17,lut3,NMUX_A_BC,lut3,1,
+343,17,lut3,NMUX_A_CB,lut3,1,
+344,17,lut3,A_XOR_BC,lut3,1,
+345,17,lut3,B_XOR_AC,lut3,1,
+346,17,lut3,BC_AND_A,lut3,1,
+347,17,lut3,AC_AND_B,lut3,1,
+348,17,lut3,AB_AND_C,lut3,1,
+349,17,lut3,A_OR_XOR_BC,lut3,1,
+350,17,lut3,B_OR_XOR_AC,lut3,1,
+351,17,lut3,BC_OR_A,lut3,1,
+352,17,lut3,AC_OR_B,lut3,1,
+353,17,lut3,AB_OR_C,lut3,1,
+354,17,lut3,A_AND_NC,lut3,1,
+355,17,lut3,B_AND_NC,lut3,1,
+356,17,lut3,NB_AND_C,lut3,1,
+357,17,lut3,NA_AND_C,lut3,1,
+358,17,lut3,A_OR_NC,lut3,1,
+359,17,lut3,B_OR_NC,lut3,1,
+360,17,lut3,A_OR_NB,lut3,1,
+361,18,dual_lut,ADD3,dual-lut,1,rd = rA + rB + rC[0]
+362,18,dual_lut,ADC3,dual-lut,1,
+363,18,dual_lut,SUB3,dual-lut,1,
+364,18,dual_lut,SBC3,dual-lut,1,
+365,18,dual_lut,RSUB,dual-lut,1,
+366,18,dual_lut,RSBC,dual-lut,1,
+367,18,dual_lut,A_PLUS_NOTB,dual-lut,1,
+368,18,dual_lut,NOTA_PLUS_B,dual-lut,1,
+369,18,dual_lut,ADD_P1,dual-lut,1,
+370,18,dual_lut,ADD_M1,dual-lut,1,
+371,18,dual_lut,SUB_P1,dual-lut,1,
+372,18,dual_lut,SUB_M1,dual-lut,1,
+373,18,dual_lut,NEG3,dual-lut,1,
+374,18,dual_lut,ABS3,dual-lut,1,
+375,18,dual_lut,SUMABC,dual-lut,1,
+376,18,dual_lut,INC3,dual-lut,1,
+377,18,dual_lut,ANDADD,dual-lut,1,rd = (rA & rB) + rC
+378,18,dual_lut,ORADD,dual-lut,1,
+379,18,dual_lut,XORADD,dual-lut,1,
+380,18,dual_lut,ADDAND,dual-lut,1,
+381,18,dual_lut,ADDOR,dual-lut,1,
+382,18,dual_lut,ADDXOR,dual-lut,1,
+383,18,dual_lut,SUBAND,dual-lut,1,
+384,18,dual_lut,SUBOR,dual-lut,1,
+385,18,dual_lut,SUBXOR,dual-lut,1,
+386,18,dual_lut,ADCAND,dual-lut,1,
+387,18,dual_lut,ADCOR,dual-lut,1,
+388,18,dual_lut,ADCXOR,dual-lut,1,
+389,18,dual_lut,MAJADD,dual-lut,1,
+390,18,dual_lut,XOR3ADD,dual-lut,1,
+391,18,dual_lut,AND3ADD,dual-lut,1,
+392,18,dual_lut,OR3ADD,dual-lut,1,
+393,18,dual_lut,SATADD,dual-lut,1,
+394,18,dual_lut,SATSUB,dual-lut,1,
+395,18,dual_lut,ADDCYC,dual-lut,1,
+396,18,dual_lut,SUBCYC,dual-lut,1,
+397,19,profile_gap,CLR,alu-reg,1,rd = 0
+398,19,profile_gap,NAND,alu-reg,1,rd = ~(rA & rB)
+399,19,profile_gap,NEGC,alu-reg,1,rd = -rA - C
+400,19,profile_gap,SELA,cond,1,rd = cond ? rA : rC
+401,19,profile_gap,SELB,cond,1,rd = cond ? rB : rA
+402,19,profile_gap,SEQ,cond,1,rd = (rA == rB)
+403,19,profile_gap,SNE,cond,1,rd = (rA != rB)
+404,19,profile_gap,SGE,cond,1,rd = (rA >= rB)
+405,19,profile_gap,SGT,cond,1,rd = (rA > rB)
+406,19,profile_gap,IRET,jump,1,return from interrupt
+407,19,profile_gap,MADD,muldiv,1,rd = rA * rB + rC
+408,19,profile_gap,MOVF,system,1,move from flags/special
+,,,,,,

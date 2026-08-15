@@ -26,6 +26,7 @@
           <a href="board.html">Board</a>
           <a href="source.html">GitHub</a>
           <a href="about.html">About</a>
+          <a class="is-tour" href="viewer.html">Tour the board</a>
         </nav>
       </div>
       <div class="flag flag--inside">
@@ -46,9 +47,45 @@
       <section class="section">
         <div class="wrap hed">
           <p class="kicker">Architecture</p>
-          <h1 class="headline">The bit-slice is a logic plane. The adder is the wire through it.</h1>
+          <h1 class="headline">Why treat arithmetic and logic as distinct quantities: ditch the output mux</h1>
           <p class="deck">Fetch, IR, ALU, and register operands are 32-bit. Per nibble: two independent 3-input LUTs plus a ripple adder. The opcode ROM names a practical subset. Dark silicon stays in the catalogs.</p>
           <p class="byline">Deep dive · Authority on GitHub</p>
+          <div class="quirks quirks--split" id="quirks">
+            <p class="exhibit-label">Quirks of Tomato</p>
+            <div class="quirks-sheet">
+              <table>
+                <thead>
+                  <tr><th>Quirk</th><th>The machine</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>3-variable ALU</td><td>Operands A, B, C. <span class="mono">out = f(a,b,c) + g(a,b,c) + cin</span></td></tr>
+                  <tr><td><a href="architecture.html#slice">Dual-LUT ALU</a></td><td>Two independent LUT3 planes per bit</td></tr>
+                  <tr><td>No output mux</td><td>LUT feeds the adder. Logic rides arithmetic</td></tr>
+                  <tr><td>65,536-op ALU</td><td>Dual 8-bit LUT programs. <strong>524,288</strong> with carry-select</td></tr>
+                  <tr><td>3R-1W register file</td><td>Three reads, one write on execute</td></tr>
+                  <tr><td>256 GPR</td><td><strong>32</strong> names × <strong>8</strong> banks. <span class="mono">r0</span> hardwired 0</td></tr>
+                  <tr><td><a href="architecture.html#register-file">Immediate box</a></td><td><strong>16 encodings</strong>: imm8, imm12, imm13, imm16, LUI</td></tr>
+                  <tr><td>Priority-encoder MUL</td><td>Worst <strong>16</strong> cycles, best <strong>0</strong>. ~<strong>4</strong> amortized</td></tr>
+                  <tr><td><a href="architecture.html#decode">Modular control</a></td><td>Local EEPROMs, global <strong>9-bit</strong> opcode, <strong>512-row</strong> ROM</td></tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr><th>Quirk</th><th>The machine</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><a href="architecture.html#word">Overlay word</a></td><td>Low bits: COND, jump mode, or immediate</td></tr>
+                  <tr><td>8 flags</td><td>Z, ~Z, N, C, V, LT, GT, GTE. cin from any</td></tr>
+                  <tr><td>Barrel shifter</td><td>LSL / LSR / ASR / ROR. Amount = B[4:0]</td></tr>
+                  <tr><td><a href="isa.html">Parametric ISA</a></td><td>Opcode configures muxes. <strong>~37</strong> family maps, and counting</td></tr>
+                  <tr><td>Multi-cycle Von Neumann</td><td>Fetch + exec; three phases if memory waits</td></tr>
+                  <tr><td>Dark silicon</td><td><strong>512</strong> burned rows. The plane knows more</td></tr>
+                  <tr><td>Write-back mux</td><td><strong>9 ns</strong> tri-state vs <strong>52 ns</strong> cascading 151</td></tr>
+                  <tr><td>Byte-lane memory</td><td>Word / half / byte, signed or unsigned</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -58,9 +95,9 @@
         <div class="arch-content">
       <section class="section">
         <div class="story" id="overview">
-          <p class="drop">Tomato started at the <a href="https://alu.tmarhguy.com">transistor</a> — an 8-bit ALU from 3,488 MOSFETs on a 270×270&nbsp;mm hybrid — and kept climbing: gates, slices, boards, a CPU that can speak dozens of foreign ISAs while remaining one physical machine underneath. Most CPUs hide a small ALU behind a conventional encoding. This one flipped it: the bit-slice is a programmable logic plane with an adder wired through it.</p>
-          <p>Fetch, IR, ALU, and register operands are 32-bit end to end. When a 40-bit word doubled the explanation without doubling useful silicon on the bench, the project <a href="journal/falling-back.html">fell back to 32-bit</a> and shipped what already routes. Sixty-six ISA profiles map RV32, MIPS, x86, Z80 and others onto native opcodes—the hardware stays Tomato; the mnemonics are costumes.</p>
-          <p>The dual-LUT slice is the center. Matching every LUT pair to its own instruction was never the goal. The 512-row ROM burns what programs need today; the rest of the plane waits in the LUT catalog until a program asks.</p>
+          <p class="drop">Tomato started at the <a href="https://alu.tmarhguy.com">transistor</a> — an 8-bit ALU from <mark>3,488 MOSFETs</mark> on a <mark>270×270&nbsp;mm</mark> hybrid — and kept climbing: gates, slices, boards, a parametric datapath whose instruction word configures the muxes. Most CPUs hide a small ALU behind a conventional encoding. This one flipped it: the bit-slice is a programmable logic plane with an adder wired through it. An ISA is a first-class input, not a second machine in copper.</p>
+          <p>Fetch, IR, ALU, and register operands are <strong>32-bit</strong> end to end. When a 40-bit word doubled the explanation without doubling useful silicon on the bench, the project <a href="journal/falling-back.html">fell back to 32-bit</a> and shipped what already routes. An ISA is a first-class input: the <a href="#word">overlay word</a>, <a href="#register-file">immediate box</a>, and <a href="#slice">dual-LUT</a> absorb a foreign encoding as a map onto muxes — not an emulator, and not a second machine in copper. About <a href="journal/isa-as-a-wire.html"><strong>thirty-seven families</strong></a> are mapped today; the count moves as the datapath does.</p>
+          <p>The dual-LUT slice is the center. Matching every LUT pair to its own instruction was never the goal. The <mark>512-row ROM</mark> burns what programs need today; the rest of the plane waits in the LUT catalog until a program asks.</p>
 
           <h2 id="datapath">Fetch to write-back</h2>
           <p>The datapath in <span class="mono">main.dig</span> is the reference every KiCad lot implements in pieces:</p>
@@ -76,8 +113,8 @@
           │
           ▼
    Writeback Mux ─────────────────► Register File</pre>
-          <p>The program counter fetches from memory into the IR. The register file presents three read ports and accepts one write. ALU control, memory I/O, memory bus, and PC each have their own decode EEPROM—small boards sitting next to the hardware they drive, all listening to the same opcode from the IR. The dual-LUT ALU result returns through the write-back mux on lot 06, not through a cascading 151 tree that would cost tens of nanoseconds per hop.</p>
-          <p>Digital schematics are the logic source of truth; KiCad is the copper. Authority order: <span class="mono">.dig</span>, then boards, then <span class="mono">tomato.v1.csv</span> for the opcode ROM. Exported Verilog is read-only sign-off, not the design entry point.</p>
+          <p>The program counter fetches from memory into the IR. The register file presents <strong>three read ports</strong> and accepts <strong>one write</strong>. ALU control, memory I/O, memory bus, and PC each have their own decode EEPROM—small boards sitting next to the hardware they drive, all listening to the same opcode from the IR. The dual-LUT ALU result returns through the write-back mux on lot <a href="boards/06-bus.html">06</a>, not through a cascading 151 tree that would cost tens of nanoseconds per hop.</p>
+          <p>Digital schematics are the logic source of truth; KiCad is the copper. Authority order: <span class="mono">.dig</span>, then boards, then <span class="mono">tomato.v1.csv</span> for the opcode ROM. Exported Verilog is <strong>read-only</strong> sign-off, not the design entry point.</p>
 
           <h2 id="slice">Dual-LUT slice</h2>
           <p class="formula">alu_out = adder( f(a, b, c), g(a, b, c), carry_in )</p>
@@ -164,7 +201,7 @@
               </tbody>
             </table>
           </div>
-          <p>Native ALU syntax, conceptual: <span class="mono">opcode rd, rA, rB, rC</span> — destination is <span class="mono">f + g + cin</span>. Thirty-two GPR times eight banks is 256 addressable registers. Low bits double-book as branch condition, jump mode, or immediate overlay depending on the mnemonic—the same slices, different assembly spellings. Field layout authority: <span class="mono">opcode-map.csv</span>.</p>
+          <p>Native ALU syntax, conceptual: <span class="mono">opcode rd, rA, rB, rC</span> — destination is <span class="mono">f + g + cin</span>. <strong>Thirty-two GPR</strong> times <strong>eight banks</strong> is <strong>256</strong> addressable registers. Low bits double-book as branch condition, jump mode, or immediate overlay depending on the mnemonic—the same slices, different assembly spellings. Field layout authority: <span class="mono">opcode-map.csv</span>.</p>
           <h2 id="decode">Modular decode</h2>
           <p>One central microcode blob is elegant in simulation and miserable on a breadboard: twenty-something control wires crawling to the wrong places. Tomato split decode into small boards with local EEPROMs. They all listen to the same opcode from the IR; each sits next to the hardware it drives.</p>
           <ul>
@@ -196,7 +233,7 @@
             </header>
             <div class="chapter-body">
               <div class="prose">
-                <p>Tomato is anchored by a <strong>3-read-1-write register file</strong> expanded to <strong>256 GPRs</strong>—32 names times eight banks. An immediate box and decode logic digest <strong>16 instruction shapes</strong>, including imm12 and extended imm7. Lot <a href="boards/04-register.html">04_register</a> owns the file and IR; lot <a href="boards/06-bus.html">06_data_bus</a> owns the tri-state write-back highway (<strong>9&nbsp;ns</strong> vs. <strong>52&nbsp;ns</strong> cascading 151 topology).</p>
+                <p>Tomato is anchored by a <strong>3-read-1-write register file</strong> expanded to <strong>256 GPRs</strong>—32 names times eight banks. An immediate box and decode logic digest <strong>16 encodings</strong>: native imm8, unsigned imm12, signed imm13 (I-type), imm16, LUI. Lot <a href="boards/04-register.html">04_register</a> owns the file and IR; lot <a href="boards/06-bus.html">06_data_bus</a> owns the tri-state write-back highway (<mark>9&nbsp;ns</mark> vs. <mark>52&nbsp;ns</mark> cascading 151 topology).</p>
               </div>
               <aside class="chapter-aside">
                 <div class="spec-grid">
@@ -214,7 +251,7 @@
               <h3 class="chapter-title">Barrel shifter and multiply loop</h3>
             </header>
             <div class="chapter-body prose">
-              <p>Priority-encoder multiply on lot <a href="boards/02-shift.html">02_shift_encoder</a>: ~<strong>4 cycles</strong> amortized (worst <strong>16</strong>, best <strong>zero</strong>) vs. ~<strong>32</strong> naive add-and-shift. Roughly forty <strong>74ACT157</strong> muxes in the barrel; control on <code>shift-mul-control</code>.</p>
+              <p>Priority-encoder multiply on lot <a href="boards/02-shift.html">02_shift_encoder</a>: ~4 cycles amortized (worst 16, best zero) vs. ~<strong>32</strong> naive add-and-shift. Roughly forty <strong>74ACT157</strong> muxes in the barrel; control on <code>shift-mul-control</code>.</p>
             </div>
           </article>
 
@@ -289,7 +326,9 @@
             <p class="ads-bar"><span>Then and now</span><span>Progress of works</span></p>
             <a class="ad-face ad-face--then" href="boards/01-alu.html">
               <p class="ad-face-kicker"><span>Then · lot 01</span><span>Set aside</span></p>
-              <img src="assets/plates/alu-4b.jpg" alt="Four-bit ALU slice on paper — the origin of the datapath." />
+              <span class="ad-face-shot">
+                <img src="assets/plates/alu-4b.jpg" alt="Four-bit ALU slice on paper — the origin of the datapath." />
+              </span>
               <div class="ad-face-copy">
                 <p class="ad-no">01</p>
                 <h3>ALU</h3>
@@ -304,7 +343,9 @@
             </a>
             <a class="ad-face ad-face--now" href="boards/07-alu.html">
               <p class="ad-face-kicker"><span>Now · lot 07</span><span>See dispatch</span></p>
-              <img src="assets/pcb/alu_8b_board.jpg" alt="07_alu 8-bit dual-LUT slice, routed and ordered." />
+              <span class="ad-face-shot">
+                <img src="assets/pcb/alu_8b_board.jpg" alt="07_alu 8-bit dual-LUT slice, routed and ordered." />
+              </span>
               <div class="ad-face-copy">
                 <p class="ad-no">07</p>
                 <h3>ALU</h3>
@@ -481,5 +522,6 @@
     </footer>
   </div>
   <script type="module" src="js/arch-map.js"></script>
+  <script src="js/mast.js" defer></script>
 </body>
 </html>

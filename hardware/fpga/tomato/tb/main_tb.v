@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
+ * SPDX-License-Identifier: CERN-OHL-P-2.0
  *
  * Computes fib(8)=21 in r1 using ADDI/CMP/BEQ/ADD/MOV/ADDI/JMP/HALT,
  * then SW/LW round-trip of the result.

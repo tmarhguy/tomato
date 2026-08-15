@@ -20,7 +20,12 @@ const REQUIRED = [
   "404.html",
   ".nojekyll",
   "css/magazine.css",
+  "css/viewer.css",
+  "js/mast.js",
   "js/bench.js",
+  "js/viewer.js",
+  "js/pcb-look.js",
+  "viewer.html",
   "js/forge.js",
   "js/arch-map.js",
   "js/alu.js",
@@ -29,6 +34,8 @@ const REQUIRED = [
   "assets/favicon.svg",
   "assets/mark.svg",
   "assets/pcb/alu.glb",
+  "assets/pcb/immersion_black.gif",
+  "assets/pcb/immersion_white.gif",
   "boards.html",
   "architecture.html",
   "isa.html",
@@ -103,17 +110,18 @@ test("HTML documents have basics", () => {
   for (const file of htmlFiles()) {
     const html = readFileSync(file, "utf8");
     const label = relWeb(file);
+    const viewer = label === "viewer.html";
     assert.match(html, /<!DOCTYPE html>/i, `${label}: doctype`);
     assert.match(html, /<html\b[^>]*\blang=/i, `${label}: lang`);
     assert.match(html, /charset=["']utf-8["']/i, `${label}: charset`);
     assert.match(html, /name=["']viewport["']/i, `${label}: viewport`);
     assert.match(html, /<title>[^<]+<\/title>/i, `${label}: title`);
-    assert.match(html, /magazine\.css/, `${label}: stylesheet`);
+    assert.match(html, viewer ? /viewer\.css/ : /magazine\.css/, `${label}: stylesheet`);
     assert.match(html, /favicon\.svg/, `${label}: favicon`);
   }
 });
 
-test("no root-absolute asset or page paths (breaks /tomato/ on GitHub Pages)", () => {
+test("no root-absolute asset or page paths (breaks nested pages and local preview)", () => {
   const bad = [];
   for (const file of htmlFiles()) {
     const html = readFileSync(file, "utf8");
@@ -153,8 +161,14 @@ test("primary nav present on every page", () => {
   for (const file of htmlFiles()) {
     const html = readFileSync(file, "utf8");
     const label = relWeb(file);
+    if (label === "viewer.html") {
+      assert.match(html, /class=["']back["']/, `${label}: back link`);
+      assert.match(html, /index\.html/, `${label}: home`);
+      continue;
+    }
     assert.match(html, /mast-nav/, `${label}: mast-nav`);
-    for (const page of NAV) {
+    assert.match(html, /js\/mast\.js/, `${label}: hamburger script`);
+    for (const page of [...NAV, "viewer.html"]) {
       const leaf = page.replace(/\.html$/, "");
       assert.ok(
         html.includes(page) || html.includes(`../${page}`),
@@ -199,8 +213,31 @@ test("playground wires Dual-LUT emulator modules", () => {
   assert.match(html, /id=["']pg-detail["']/);
 });
 
+test("3D viewer page is the light 07_alu tour", () => {
+  const html = readFileSync(join(WEB, "viewer.html"), "utf8");
+  assert.match(html, /type=["']importmap["']/);
+  assert.match(html, /three@0\.169\.0/);
+  assert.doesNotMatch(html, /camera-controls/);
+  assert.match(html, /type=["']module["'][^>]+js\/viewer\.js/);
+  assert.match(html, /id=["']viewer-canvas["']/);
+  assert.match(html, /id=["']immerse["']/);
+  const css = readFileSync(join(WEB, "css/viewer.css"), "utf8");
+  assert.match(css, /#050505/);
+  assert.match(css, /#8b1e1e|#c23a3a/);
+  const js = readFileSync(join(WEB, "js/viewer.js"), "utf8");
+  assert.match(js, /assets\/pcb\/alu\.glb/);
+  assert.match(js, /mergeByMaterial/);
+  assert.match(js, /OrbitControls/);
+  assert.match(js, /RoomEnvironment/);
+  for (const page of ["index.html", "board.html"]) {
+    const src = readFileSync(join(WEB, page), "utf8");
+    assert.match(src, /viewer\.html/, `${page}: Tour opens viewer`);
+    assert.match(src, /class=["']bench-tour["']/, `${page}: Tour CTA on the board`);
+  }
+});
+
 test("JS modules parse (syntax)", async () => {
-  for (const file of ["js/bench.js", "js/forge.js", "js/arch-map.js", "js/alu.js", "js/playground.js"]) {
+  for (const file of ["js/mast.js", "js/bench.js", "js/forge.js", "js/arch-map.js", "js/alu.js", "js/playground.js", "js/viewer.js", "js/pcb-look.js"]) {
     const abs = join(WEB, file);
     await new Promise((resolveP, reject) => {
       const child = spawn(process.execPath, ["--check", abs], { stdio: ["ignore", "pipe", "pipe"] });
@@ -243,7 +280,7 @@ test("HTTP smoke: every HTML page returns 200 from static server", async () => {
     const mime = {
       ".html": "text/html", ".css": "text/css", ".js": "text/javascript",
       ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
-      ".png": "image/png", ".glb": "model/gltf-binary", ".webp": "image/webp"
+      ".png": "image/png", ".gif": "image/gif", ".glb": "model/gltf-binary", ".webp": "image/webp"
     };
     http.createServer((req, res) => {
       let url = decodeURIComponent((req.url || "/").split("?")[0]);
