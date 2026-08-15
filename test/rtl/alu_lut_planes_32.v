@@ -1,5 +1,5 @@
 // Copyright (c) 2025-2026 Tyrone Marhguy
-// SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
+// SPDX-License-Identifier: CERN-OHL-P-2.0
 // 32-bit dual LUT planes: f = lutB(A,B,C), g = lutA(A,B,C) per bit.
 
 `default_nettype none

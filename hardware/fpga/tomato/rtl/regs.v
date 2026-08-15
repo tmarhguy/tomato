@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
+ * SPDX-License-Identifier: CERN-OHL-P-2.0
  *
  * 8×32×32 GPRs. Addr = {bank, idx[4:0]}. 3R1W on exec.
  * r0 is hardwired to 0 (writes ignored) — keeps ADDI/JAL-link patterns sound.
