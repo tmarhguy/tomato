@@ -1,6 +1,6 @@
 /**
  * Static-site sanity for The Tomato paper.
- * Pure Node — no install. Catches what breaks on GitHub Pages / Vercel:
+ * Pure Node — no install. Catches what breaks on Vercel / local preview:
  * missing assets, dead relative links, root-absolute paths, broken JS syntax,
  * missing deploy markers, and a local HTTP smoke of every HTML page.
  */
