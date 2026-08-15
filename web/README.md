@@ -104,7 +104,6 @@ web/
 ├── js/                     # Engine: bench, viewer, alu emulator, forge
 ├── assets/pcb/alu.glb      # KiCad 07_alu export (~31 MB)
 ├── tests/                  # Custom sanity + emulator test suite
-├── CNAME                   # tomato.tmarhguy.com
 └── ATTRIBUTION.md
 ```
 
@@ -132,22 +131,18 @@ cd web && npm test
 ## Deployment
 
 - **Live origin:** [tomato.tmarhguy.com](https://tomato.tmarhguy.com/)
-- **GitHub Pages (authority):** `.github/workflows/pages.yml` publishes `web/` on push to `main`. `CNAME` is `tomato.tmarhguy.com`. `.nojekyll` keeps underscored directories from being ignored.
-- **Vercel:** Optional mirror. The root `vercel.json` serves `web/` and runs `npm test` as the build. Do **not** point `tomato.tmarhguy.com` at Vercel — that hostname is the Pages custom domain (`alu.tmarhguy.com` is the Vercel site).
+- **Vercel:** The root `vercel.json` serves `web/` and runs `npm test` as the build. No framework, no install.
+- **CI:** `.github/workflows/web.yml` runs the same sanity suite on PRs and pushes to `main`. There is no GitHub Pages workflow.
 
 ### Custom domain DNS (Namecheap)
 
-`tmarhguy.com` is on Namecheap BasicDNS (`pdns1.registrar-servers.com`). GitHub Pages 301s `tmarhguy.github.io/tomato/` to `tomato.tmarhguy.com`. If this CNAME is missing, **both** URLs look dead (`InvalidDNSError` in Pages settings).
-
-In Namecheap → Domain List → `tmarhguy.com` → Advanced DNS, add:
+Same pattern as `alu.tmarhguy.com`. In Namecheap → Domain List → `tmarhguy.com` → Advanced DNS:
 
 | Type | Host | Value | TTL |
 |------|------|-------|-----|
-| CNAME | `tomato` | `tmarhguy.github.io.` | Automatic |
+| CNAME | `tomato` | `cname.vercel-dns.com.` | Automatic |
 
-No A record on `tomato`. Do not CNAME it to `cname.vercel-dns.com`.
-
-Then in the repo: **Settings → Pages**. Wait until the DNS check is green, then enable **Enforce HTTPS**. GitHub already has a cert for this hostname.
+Add `tomato.tmarhguy.com` as a domain on the Vercel project. Clear any custom domain under the repo **Settings → Pages** so GitHub stops 301ing `github.io/tomato` at a dead hostname.
 
 ---
 

@@ -1,6 +1,6 @@
 /**
  * Static-site sanity for The Tomato paper.
- * Pure Node — no install. Catches what breaks on GitHub Pages / Vercel:
+ * Pure Node — no install. Catches what breaks on Vercel / local preview:
  * missing assets, dead relative links, root-absolute paths, broken JS syntax,
  * missing deploy markers, and a local HTTP smoke of every HTML page.
  */
@@ -18,7 +18,6 @@ const WEB = resolve(__dirname, "..");
 const REQUIRED = [
   "index.html",
   "404.html",
-  "CNAME",
   ".nojekyll",
   "css/magazine.css",
   "css/viewer.css",
@@ -105,11 +104,6 @@ test("required deploy files exist", () => {
   for (const f of REQUIRED) {
     assert.ok(existsSync(join(WEB, f)), `missing ${f}`);
   }
-});
-
-test("Pages CNAME is tomato.tmarhguy.com", () => {
-  const cname = readFileSync(join(WEB, "CNAME"), "utf8").trim();
-  assert.equal(cname, "tomato.tmarhguy.com");
 });
 
 test("HTML documents have basics", () => {
