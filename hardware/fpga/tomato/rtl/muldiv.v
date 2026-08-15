@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
+ * SPDX-License-Identifier: CERN-OHL-P-2.0
  *
  * mulen=0: shift (mode = LSL/LSR/ASR/ROR).
  * mulen=1: mul/div; mode[0]=1 → unsigned (MULHU/DIVU/REMU).

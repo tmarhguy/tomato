@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
+ * SPDX-License-Identifier: CERN-OHL-P-2.0
  *
  * Board: 7-seg = last WB mux value during execute; VGA = tile RAM scanout.
  * Peripherals: IN/OUT via lane sel=2 + io_out latch; MMIO [21:19]==111.
