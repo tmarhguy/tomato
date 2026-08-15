@@ -7,7 +7,7 @@
 | `tomato.v1.csv` | **Source of truth** — burn opcodes + unused NOP slots |
 | `datapath-audit.csv` | Derived checklist vs FPGA RTL (keep in sync with v1) |
 | `lut.csv` | ALU LUT primitive catalog (hardware reference) |
-| `profiles/` + `profiles.csv` | External-ISA *mnemonic maps* onto Tomato (not more opcodes) |
+| `profiles/` + `profiles.csv` | Parametric maps onto Tomato (not more opcodes; CSV rows are the sweep database, not a trophy count) |
 
 Pack microcode / FPGA burn:
 
@@ -22,3 +22,4 @@ cd hardware/fpga/tomato && make burn           # embed into rtl/burn/
 
 - **Not a ~20-opcode lean map.** v1 is ~51 `status=burn` ops; unused ROM rows are `status=nop` (no growth phantoms).
 - **No tile VPU.** Display is CPU-painted tile RAM + independent VGA scanout (`software/os/DISPLAY.md`). Games stay software; a future rect blitter is optional — not a sprite VPU.
+- **ISA is a first-class input.** Overlay word + immediate box + dual-LUT absorb foreign encodings as maps onto muxes — not an emulator. Casual family count ~37 (CSV has more rows). See [ISA as a Wire](../log/2026-08-15%20-%20ISA%20as%20a%20Wire.md). Maps cover compute, shift, and register-access; not x86 segmentation or ARM TrustZone.
