@@ -104,7 +104,6 @@ web/
 ├── js/                     # Engine: bench, viewer, alu emulator, forge
 ├── assets/pcb/alu.glb      # KiCad 07_alu export (~31 MB)
 ├── tests/                  # Custom sanity + emulator test suite
-├── CNAME                   # tomato.tmarhguy.com
 └── ATTRIBUTION.md
 ```
 
@@ -132,8 +131,18 @@ cd web && npm test
 ## Deployment
 
 - **Live origin:** [tomato.tmarhguy.com](https://tomato.tmarhguy.com/)
-- **GitHub Pages:** Publishes `web/` with `CNAME` set to `tomato.tmarhguy.com`. `.nojekyll` keeps underscored directories from being ignored.
-- **Vercel:** The root `vercel.json` serves `web/` directly and runs `npm test` as the build command. Zero framework installation required.
+- **Vercel:** The root `vercel.json` serves `web/` and runs `npm test` as the build. No framework, no install.
+- **CI:** `.github/workflows/web.yml` runs the same sanity suite on PRs and pushes to `main`. There is no GitHub Pages workflow.
+
+### Custom domain DNS (Namecheap)
+
+Same pattern as `alu.tmarhguy.com`. In Namecheap → Domain List → `tmarhguy.com` → Advanced DNS:
+
+| Type | Host | Value | TTL |
+|------|------|-------|-----|
+| CNAME | `tomato` | `cname.vercel-dns.com.` | Automatic |
+
+Add `tomato.tmarhguy.com` as a domain on the Vercel project. Clear any custom domain under the repo **Settings → Pages** so GitHub stops 301ing `github.io/tomato` at a dead hostname.
 
 ---
 
