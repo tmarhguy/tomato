@@ -19,6 +19,7 @@
     {
       title: "Essay",
       items: [
+        { path: "architecture.html", hash: "quirks", label: "Quirks of Tomato" },
         { path: "architecture.html", hash: "overview", label: "Machine overview" },
         { path: "architecture.html", hash: "datapath", label: "Fetch to write-back" },
         { path: "architecture.html", hash: "slice", label: "Dual-LUT slice" },
@@ -84,7 +85,8 @@
       title: "Opcode & ISA",
       items: [
         { path: "isa.html", label: "512-row ROM" },
-        { path: "isa.html", hash: "profiles", label: "66 foreign profiles" },
+        { path: "isa.html", hash: "profiles", label: "Parametric ISA maps" },
+        { path: "journal/isa-as-a-wire.html", label: "ISA as a Wire" },
       ],
     },
     {

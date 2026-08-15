@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Welcome to Tomato 32 — The Tomato</title>
-  <meta name="description" content="The first page of the Tomato vault: from simple gates to a machine with enormous ISA coverage." />
+  <meta name="description" content="The first page of the Tomato vault: from simple gates to a parametric datapath." />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,6 +26,7 @@
           <a href="../board.html">Board</a>
           <a href="../source.html">GitHub</a>
           <a href="../about.html">About</a>
+          <a class="is-tour" href="../viewer.html">Tour the board</a>
         </nav>
       </div>
       <div class="flag flag--inside">
@@ -46,13 +47,13 @@
         <div class="wrap hed">
           <p class="kicker">The first page</p>
           <h1 class="headline">Welcome to Tomato 32</h1>
-          <p class="deck">A build log for the questions that come up and the answers settled for — from simple gates to a computer with enormous multi-ISA coverage.</p>
+          <p class="deck">A build log for the questions that come up and the answers settled for — from simple gates to a parametric datapath.</p>
           <p class="byline">Tyrone Marhguy · the vault opens</p>
         </div>
       </section>
       <section class="section">
         <div class="wrap story">
-          <p class="drop">This is a build log for Tomato 32. It keeps track of the questions that come up and the answers settled for. It is focused on constraints explored and the journey from building simple logic gates to a functional computer that has enormous coverage of foreign ISAs.</p>
+          <p class="drop">This is a build log for Tomato 32. It keeps track of the questions that come up and the answers settled for. It is focused on constraints explored and the journey from building simple logic gates to a parametric datapath — a machine where an ISA is a map onto muxes, not a second computer in copper.</p>
           <p>If you are reading this, you probably love building computers and enjoy the architecture like I do. Enjoy.</p>
           <p>Everything after this page is an argument written down: word width, decode fanout, the ALU that ate the muxes, the multiply that would not wait thirty-two cycles, the day the boards were ordered. The README is the map. These pages are the trail.</p>
         </div>
@@ -66,5 +67,6 @@
     </main>
     <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
   </div>
+  <script src="../js/mast.js" defer></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>The Tomato — A Homebrew 32-bit CPU from Discrete Logic</title>
-  <meta name="description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 65k operational Dual-LUT architecture in 74xx copper. 789 hours from scratch." />
+  <meta name="description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 65k operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,13 +34,14 @@
           <a href="board.html">Board</a>
           <a href="source.html">GitHub</a>
           <a href="about.html">About</a>
+          <a class="is-tour" href="viewer.html">Tour the board</a>
         </nav>
       </div>
       <div class="flag">
         <p class="flag-top">
           <span>Vol. 32 · No. 1</span>
           <span>Ashtown Valley, the Bay Perimeter</span>
-          <span>August 2026</span>
+          <span>May 2026 - August 2026</span>
         </p>
         <div class="nameplate">
           <img src="assets/mark.svg" alt="" />
@@ -69,17 +70,13 @@
             </div>
             <div class="lead-more">
               <p class="kicker">The Revolution</p>
-              <p class="lead-more-title">Tomato grew as a revolution.</p>
-              <p>Tomato has grown into a <strong>65k operational space</strong> (that’s a <strong>~3,500× increase</strong>—the very reason Tomato wins). This leap comes from its <strong>dual‑LUT3</strong> capacity, fused into an adder architecture that’s optimized for <strong>extreme linear scalability</strong>.</p>
+              <p class="lead-more-title">Tomato grew as an odd machine.</p>
+              <p>Tomato has grown into a <mark>65k operational space</mark> (that’s a <mark>~3,500× increase</mark>—the very reason Tomato wins). This leap comes from its <strong>dual‑LUT3</strong> capacity, fused into an adder architecture that’s optimized for <strong>extreme linear scalability</strong>.</p>
             </div>
           </article>
-          <figure class="plate">
-            <img src="assets/pcb/alu_8b_board.jpg" alt="KiCad render of Tomato 07_alu, two 4-bit dual-LUT cells." />
-            <figcaption class="plate-cap">
-              <span>Fig. 1 — 07_alu</span>
-              <span>Board render · fab-ready</span>
-            </figcaption>
-          </figure>
+          <a class="lead-gif" href="viewer.html">
+            <img src="assets/pcb/immersion_white.gif" alt="Tomato 07_alu spinning in the round. Open the 3D tour." />
+          </a>
           <div class="lead-band">
             <div class="fn-family-row">
               <div class="fn-family" aria-label="Core engineering equation">
@@ -99,24 +96,66 @@
         </div>
       </section>
 
+      <section class="section" id="what">
+        <div class="wrap">
+          <div class="quirks quirks--split quirks--front">
+            <p class="exhibit-label">What is Tomato</p>
+            <div class="quirks-sheet">
+              <table>
+                <thead>
+                  <tr><th>Quirk</th><th>The machine</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>3-variable ALU</td><td>Operands A, B, C. <span class="mono">out = f(a,b,c) + g(a,b,c) + cin</span></td></tr>
+                  <tr><td><a href="architecture.html#slice">Dual-LUT ALU</a></td><td>Two independent LUT3 planes per bit</td></tr>
+                  <tr><td>No output mux</td><td>LUT feeds the adder. Logic rides arithmetic</td></tr>
+                  <tr><td>65,536-op ALU</td><td>Dual 8-bit LUT programs. <strong>524,288</strong> with carry-select</td></tr>
+                  <tr><td>3R-1W register file</td><td>Three reads, one write on execute</td></tr>
+                  <tr><td>256 GPR</td><td>32 General Purpose Registers × 8 banks.</td></tr>
+                  <tr><td><a href="architecture.html#register-file">Immediate box</a></td><td>16 encodings: imm8, imm12, imm13, imm16, LUI</td></tr>
+                  <tr><td>Priority-encoder MUL</td><td>Multiply in <strong>16</strong> cycles worst, best <strong>0</strong>. ~<strong>4</strong> amortized</td></tr>
+                  <tr><td><a href="architecture.html#decode">Modular control</a></td><td>Local EEPROMs, global <strong>9-bit</strong> opcode, <strong>512-row</strong> ROM</td></tr>
+                </tbody>
+              </table>
+              <table>
+                <thead>
+                  <tr><th>Quirk</th><th>The machine</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><a href="architecture.html#word">Overlay word</a></td><td>Low bits: COND, jump mode, or immediate</td></tr>
+                  <tr><td>8 flags</td><td>Z, ~Z, N, C, V, LT, GT, GTE. cin from any</td></tr>
+                  <tr><td>Barrel shifter</td><td>LSL / LSR / ASR / ROR. Amount = B[4:0]</td></tr>
+                  <tr><td><a href="isa.html">Parametric ISA</a></td><td>Opcode configures muxes. <strong>~37+</strong> family maps</td></tr>
+                  <tr><td>Multi-cycle Von Neumann</td><td>Fetch + exec; three phases if memory waits</td></tr>
+                  <tr><td>Dark silicon</td><td><strong>512</strong> burned rows. The plane knows more</td></tr>
+                  <tr><td>Write-back mux</td><td><strong>9 ns</strong> tri-state vs <strong>52 ns</strong> cascading 151</td></tr>
+                  <tr><td>Byte-lane memory</td><td>Word / half / byte, signed or unsigned</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p class="caption"><span>The facts that do not move</span><span><a href="architecture.html#quirks">The argument →</a></span></p>
+        </div>
+      </section>
+
       <section class="section">
         <div class="wrap">
           <div class="axioms">
             <article class="axiom">
               <p class="axiom-n">II. The Hardware Compiler</p>
               <h3>Think compiler in hardware</h3>
-              <p>In my most fancy test with a <strong>custom FSM</strong>, it is capable of sweeping to find the matching opcode—sweep counting till it matches an input A, B, C and expected value. So yes: it can compress <strong>(infinite) boolean</strong> local operations of its family to resolve a <strong>single opcode</strong> that solves it.</p>
-              <p>I took that FSM onto an <strong>Artix‑7</strong>. At the board’s set speed it crunched the space and found a match in <strong>1 min 14 s</strong>. Watching it land was inspiring. <a href="playground.html#compiler">Opcode compiler →</a></p>
+              <p>In my most fancy test with a <strong>custom FSM</strong>, it is capable of sweeping to find the matching opcode—sweep counting till it matches an input A, B, C and expected value. So yes: <mark>it can compress <strong>(infinite) boolean</strong> local operations of its family to resolve a <strong>single opcode</strong> that solves it at the hardware level.</mark></p>
+              <p>I took that FSM onto an <strong>Artix‑7</strong>. At the board’s set speed it crunched the space and found a match in <mark>1 min 14 s</mark>. Watching it land was inspiring. <a href="playground.html#compiler">Opcode compiler →</a></p>
             </article>
             <article class="axiom">
               <p class="axiom-n">III. The Build Philosophy</p>
               <h3>74xx now. Transistors someday.</h3>
-              <p>For now, Tomato is built exclusively from <strong>74xx series logic chips</strong>—driven purely by manufacturability and brutal time constraints. (Someday, I will lay them out as <strong>raw transistors</strong>, just as I always intended.) But even in its current form, Tomato has outgrown its ALU roots. It has taken on multiple shapes: <strong>8‑bit</strong>, <strong>32‑bit</strong>, even <strong>40‑bit</strong> variants—the last to accommodate the quirky <strong>3‑Read‑1‑Write</strong> register system I designed for it and the very‑long‑word instruction (<strong>VLWI</strong>) architecture it somehow demands.</p>
+              <p>For now, Tomato is built exclusively from <strong>74xx series logic chips</strong>—driven purely by manufacturability and brutal time constraints.(Someday, <mark>I will lay them out as <strong>raw transistors</strong>, just as I always intended.</mark> ) But even in its current form, Tomato has outgrown its ALU roots. It has taken on multiple shapes: <strong>8‑bit</strong>, <strong>32‑bit</strong>, even <strong>40‑bit</strong> variants—it accommodates a <mark>quirky <strong>3‑Read‑1‑Write</strong> 256 General Purpose Registers register file</mark> I designed for it and the very‑long‑word instruction (<strong>VLWI</strong>) architecture it somehow demands.</p>
             </article>
             <article class="axiom">
               <p class="axiom-n">IV. Verification &amp; Testing</p>
               <h3>The 130-billion vector gauntlet</h3>
-              <p>Schematic eyeballing is not a tapeout. I exported the board into Verilog from <strong>Digital</strong>, then <strong>Verilator</strong> compiled it to C++ so brute-force benches were actually viable: <strong>10 billion</strong> directed and random vectors on the ALU core, then <strong>130 billion</strong> across the entire 32-bit slice. Simulation is still simulation. <strong>SymbiYosys</strong> k-induction proved the logic plane is an ALU—no untested edge. Last gauntlet: the architecture on <strong>FPGA</strong>, alive on the first toggle of the 4-bit sample. <a href="architecture.html#verification">ALU sign-off →</a></p>
+              <p>Schematic eyeballing is not a tapeout. I exported the board into Verilog from <strong>Digital</strong>, then <strong>Verilator</strong> compiled it to C++ so brute-force benches were actually viable: <mark>10 billion</mark> directed and random vectors on the ALU core, then <mark>130 billion</mark> across the entire 32-bit slice. Simulation is still simulation. <mark><strong>SymbiYosys</strong> k-induction</mark> proved the logic plane is an ALU—no untested edge. Last gauntlet: the architecture on <strong>FPGA</strong>, alive on the first toggle of the 4-bit sample. <a href="architecture.html#verification">ALU sign-off →</a></p>
             </article>
           </div>
         </div>
@@ -136,7 +175,7 @@
           </div>
           <p class="caption"><span>The 32-bit word</span><span>Low bits overlay as COND, jump mode, or immediate</span></p>
           <div class="center-col">
-            <p class="lead">The first programs were <strong>hex I wrote by hand</strong>. Then an assembler cobbled together on the fly, <strong>FPGA tests</strong> on the Artix‑7, simulations that ran for days, and bugs hunted at <strong>3&nbsp;AM</strong>. Dual-LUT copper is inbound; the rest of the machine is still being laid.</p>
+            <p class="lead">The first programs were <strong class="red">hex I wrote by hand</strong>. Then an assembler cobbled together on the fly, <strong>FPGA tests</strong> on the Artix‑7, simulations that ran for days, and bugs hunted at <strong>3&nbsp;AM</strong>. Dual-LUT copper is inbound; the rest of the machine is still being laid.</p>
             <p class="lead"><strong>Tomato</strong> is the little obsession, the evolved ALU, and the most rewarding migraine I’ve ever built.</p>
           </div>
           <nav class="jump jump--loud" aria-label="Continue inside">
@@ -158,7 +197,9 @@
             <p class="ads-bar"><span>Then and now</span><span>Authority of copper</span></p>
             <a class="ad-face ad-face--then" href="boards/01-alu.html">
               <p class="ad-face-kicker"><span>Then · lot 01</span><span>Predecessor</span></p>
-              <img src="assets/plates/alu-4b.jpg" alt="Discrete MOSFET hybrid ALU — the predecessor." />
+              <span class="ad-face-shot">
+                <img src="assets/plates/legacy-alu_full_3d.png" alt="Discrete MOSFET hybrid ALU — the predecessor." />
+              </span>
               <div class="ad-face-copy">
                 <p class="ad-no">01</p>
                 <h3>ALU</h3>
@@ -174,7 +215,9 @@
             </a>
             <a class="ad-face ad-face--now" href="boards/07-alu.html">
               <p class="ad-face-kicker"><span>Now · lot 07</span><span>Routed &amp; ordered</span></p>
-              <img src="assets/pcb/alu_8b_board.jpg" alt="07_alu Dual-LUT 8-bit slice, routed and ordered." />
+              <span class="ad-face-shot">
+                <img src="assets/pcb/alu_8b_board.jpg" alt="07_alu Dual-LUT 8-bit slice, routed and ordered." />
+              </span>
               <div class="ad-face-copy">
                 <p class="ad-no">07</p>
                 <h3>ALU</h3>
@@ -214,6 +257,10 @@
             <p class="ad-colhead">The slice in the round</p>
             <div class="bench-stage">
               <canvas id="bench" aria-label="Interactive 3D view of Tomato 07_alu."></canvas>
+              <a class="bench-tour" href="viewer.html">
+                <i></i>
+                <span>Tour the board</span>
+              </a>
             </div>
             <div class="bench-tools">
               <button type="button" data-bench="top">Top</button>
@@ -224,7 +271,7 @@
               <button type="button" data-bench="reset">Reset</button>
               <button type="button" data-bench="spin">Hold</button>
               <button type="button" data-bench="grid" class="is-on">Grid</button>
-              <button type="button" data-bench="tour">Tour</button>
+              <a class="is-tour" href="viewer.html">Tour the board</a>
               <span class="bench-hint">KiCad GLB · <a href="board.html">open the board</a> · <a href="playground.html">run the slice</a></span>
             </div>
           </div>
@@ -262,7 +309,7 @@
             </div>
             <div class="form-body">
               <h2 class="form-title"><a href="about.html">Tyrone Marhguy</a></h2>
-              <p class="lead">Builder · Computer Engineering ’28 · Penn. Little obsession, evolved ALU, most rewarding migraine—789 hours and counting.</p>
+              <p class="lead">Builder · Computer Engineering ’28 · Penn. Little obsession, evolved ALU, most rewarding migraine—<mark>639 hours</mark> and counting.</p>
               <div class="form-foot">
                 <a class="btn" href="about.html">About</a>
                 <p class="form-note"><a href="mailto:tmarhguy@gmail.com">tmarhguy@gmail.com</a></p>
@@ -276,12 +323,12 @@
     <footer class="footer">
       <div class="footer-band">
         <div class="footer-art">
-          <img src="assets/mark.svg" alt="" />
           <p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
         </div>
       </div>
     </footer>
   </div>
   <script type="module" src="js/bench.js"></script>
+  <script src="js/mast.js" defer></script>
 </body>
 </html>
