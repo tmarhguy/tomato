@@ -132,8 +132,22 @@ cd web && npm test
 ## Deployment
 
 - **Live origin:** [tomato.tmarhguy.com](https://tomato.tmarhguy.com/)
-- **GitHub Pages:** Publishes `web/` with `CNAME` set to `tomato.tmarhguy.com`. `.nojekyll` keeps underscored directories from being ignored.
-- **Vercel:** The root `vercel.json` serves `web/` directly and runs `npm test` as the build command. Zero framework installation required.
+- **GitHub Pages (authority):** `.github/workflows/pages.yml` publishes `web/` on push to `main`. `CNAME` is `tomato.tmarhguy.com`. `.nojekyll` keeps underscored directories from being ignored.
+- **Vercel:** Optional mirror. The root `vercel.json` serves `web/` and runs `npm test` as the build. Do **not** point `tomato.tmarhguy.com` at Vercel — that hostname is the Pages custom domain (`alu.tmarhguy.com` is the Vercel site).
+
+### Custom domain DNS (Namecheap)
+
+`tmarhguy.com` is on Namecheap BasicDNS (`pdns1.registrar-servers.com`). GitHub Pages 301s `tmarhguy.github.io/tomato/` to `tomato.tmarhguy.com`. If this CNAME is missing, **both** URLs look dead (`InvalidDNSError` in Pages settings).
+
+In Namecheap → Domain List → `tmarhguy.com` → Advanced DNS, add:
+
+| Type | Host | Value | TTL |
+|------|------|-------|-----|
+| CNAME | `tomato` | `tmarhguy.github.io.` | Automatic |
+
+No A record on `tomato`. Do not CNAME it to `cname.vercel-dns.com`.
+
+Then in the repo: **Settings → Pages**. Wait until the DNS check is green, then enable **Enforce HTTPS**. GitHub already has a cert for this hostname.
 
 ---
 
