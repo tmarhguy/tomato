@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <title>3D Viewer — The Tomato 07_alu</title>
-  <meta name="description" content="Light 3D viewer and 360° tour of Tomato 07_alu." />
-  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Immersive 3D tour of Tomato 07_alu — skim the copper, peel the mask, take over the board." />
+  <meta name="theme-color" content="#050505" />
+  <style>html,body{background:#050505;margin:0}</style>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="css/viewer.css" />
   <script type="importmap">
   {
@@ -16,38 +18,71 @@
     }
   }
   </script>
+
+  <meta property="og:title" content="3D Viewer — The Tomato 07_alu" />
+  <meta property="og:description" content="Immersive 3D tour of Tomato 07_alu — skim the copper, peel the mask, take over the board." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/viewer.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="3D Viewer — The Tomato 07_alu" />
+  <meta name="twitter:description" content="Immersive 3D tour of Tomato 07_alu — skim the copper, peel the mask, take over the board." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta name="author" content="Tyrone Marhguy" />
 </head>
 <body>
-  <div id="full-screen-viewer">
+  <main id="full-screen-viewer">
+    <h1 class="vh">Tomato 07_alu — 3D viewer</h1>
     <a class="back" href="index.html">← Back</a>
     <canvas id="viewer-canvas" aria-label="Interactive 3D view of Tomato 07_alu."></canvas>
     <div class="hud">
       <button type="button" class="chip" id="legend-btn" aria-expanded="false">Controls</button>
-      <label class="light-slider">
-        <span>Sky</span>
-        <input type="range" id="hemi" min="0" max="4" step="0.05" value="0.12" />
-        <output id="hemi-val" for="hemi">0.12</output>
-      </label>
-      <div class="legend" id="legend" hidden>
+
+      <div class="legend legend--desk" id="legend" hidden>
         <p><span>Orbit</span><kbd>Drag</kbd></p>
         <p><span>Zoom</span><kbd>Scroll</kbd></p>
         <p><span>Pan</span><kbd>Right-drag</kbd></p>
         <p><span>Spin</span><kbd>Space</kbd></p>
         <p><span>Top Iso Side</span><kbd>1 2 3</kbd></p>
-        <p><span>Reset Tour</span><kbd>R I</kbd></p>
-        <p><span>Sky light</span><kbd>[ ]</kbd></p>
+        <p><span>Reset</span><kbd>R</kbd></p>
+        <p><span>Tour</span><kbd>I</kbd></p>
+      </div>
+      <div class="legend legend--hand" id="legend-hand" hidden>
+        <p><span>Orbit</span><kbd>1 finger</kbd></p>
+        <p><span>Zoom</span><kbd>Pinch</kbd></p>
+        <p><span>Pan</span><kbd>2 fingers</kbd></p>
+        <p><span>Spin</span><kbd>Tap</kbd></p>
+        <p><span>Reset</span><kbd>Double-tap</kbd></p>
+        <p><span>Zoom in</span><kbd>Triple-tap</kbd></p>
+      </div>
+      <div class="view-bar" id="view-bar">
+        <button type="button" data-view="spin">Spin</button>
+        <button type="button" data-view="top">Top</button>
+        <button type="button" data-view="iso">Iso</button>
+        <button type="button" data-view="bottom">Bottom</button>
+        <button type="button" data-view="reset">Reset</button>
       </div>
     </div>
-    <button type="button" class="immerse" id="immerse" aria-label="Start the 360° tour">
+    <button type="button" class="immerse" id="immerse" aria-label="Start the board tour">
       <i></i>
-      <span>Tour the board</span>
+      <span>Tour&nbsp;<span class="tour-text">the board</span></span>
     </button>
     <p class="badge"><i></i> REAL PCB MODEL</p>
+    <p class="tour-line" id="tour-line" hidden aria-live="polite">
+      <span class="tour-kicker" id="tour-kicker"></span>
+      <span class="tour-caption" id="tour-caption"></span>
+    </p>
+    <p class="tour-hint" id="tour-hint" hidden>Drag or scroll to take over</p>
+    <div class="tour-rail" id="tour-rail" hidden>
+      <i id="tour-rail-fill"></i>
+    </div>
     <div class="boot" id="boot">
       <div class="spin" aria-hidden="true"></div>
-      <p id="boot-text">Brewing ALU…</p>
+      <p id="boot-text">Loading…</p>
     </div>
-  </div>
+  </main>
   <script type="module" src="js/viewer.js"></script>
 </body>
 </html>
