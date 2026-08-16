@@ -33,7 +33,7 @@ const REQUIRED = [
   "playground.html",
   "assets/favicon.svg",
   "assets/mark.svg",
-  "assets/pcb/alu.glb",
+  "assets/pcb/alu-optimized.glb",
   "assets/pcb/immersion_black.gif",
   "assets/pcb/immersion_white.gif",
   "boards.html",
@@ -252,7 +252,7 @@ test("JS modules parse (syntax)", async () => {
 });
 
 test("GLB is a glTF binary with materials", () => {
-  const buf = readFileSync(join(WEB, "assets/pcb/alu.glb"));
+  const buf = readFileSync(join(WEB, "assets/pcb/alu-optimized.glb"));
   assert.equal(buf.subarray(0, 4).toString("ascii"), "glTF");
   assert.ok(buf.length > 1_000_000, "GLB unexpectedly tiny");
   const jsonLen = buf.readUInt32LE(12);
@@ -315,7 +315,7 @@ test("HTTP smoke: every HTML page returns 200 from static server", async () => {
       "/js/bench.js",
       "/js/forge.js",
       "/assets/favicon.svg",
-      "/assets/pcb/alu.glb",
+      "/assets/pcb/alu-optimized.glb",
     ];
     for (const path of [...pages, ...assets]) {
       const { status, body } = await get(`http://127.0.0.1:${port}${path}`);
