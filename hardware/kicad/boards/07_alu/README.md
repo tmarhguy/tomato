@@ -1,11 +1,14 @@
 # 07 — Dual-LUT ALU PCB
 
-![Status](https://img.shields.io/badge/Status-Routed%20%26%20Ordered-2ea043?style=for-the-badge)
-![Datapath](https://img.shields.io/badge/Datapath-8--bit%20Slice-011F5B?style=for-the-badge)
-![Topology](https://img.shields.io/badge/Topology-Dual--LUT%2074ACT-DC2626?style=for-the-badge)
-![KiCad](https://img.shields.io/badge/KiCad-10.0.4-F59E0B?style=for-the-badge&logo=kicad&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Routed%20%26%20Ordered-2ea043) ![Datapath](https://img.shields.io/badge/Datapath-8--bit%20Slice-011F5B) ![Topology](https://img.shields.io/badge/Topology-Dual--LUT%2074ACT-DC2626) ![KiCad](https://img.shields.io/badge/KiCad-10.0.4-F59E0B?logo=kicad&logoColor=white)
 
 The physical **32-bit ALU** for Tomato — two independent 3-input LUT planes per bit, summed through **74ACT283** nibble adders, with on-board flag logic, carry select, and a bring-up LED wall. One PCB is an **8-bit slice**; stack two for 16-bit bench bring-up. Digital source of truth: [alu-32b-final.dig](../../../digital/modules/alu-32b-final.dig). KiCad project: [07_alu.kicad_pro](07_alu.kicad_pro).
+
+<p align="center">
+  <img src="../../../../media/kicad/07_alu/pcb/immersion_black.gif" alt="Tomato 07_alu — Dual-LUT slice in the round" width="48%" />
+  <img src="../../../../web/assets/pcb/pcb-arrive.webp" alt="Tomato 07_alu — Physical PCB Arrived" width="48%" />
+</p>
+<p align="center"><em>Lot 07 in the round &amp; Physical PCB · Dual-LUT slice</em></p>
 
 ---
 
