@@ -44,11 +44,11 @@ That aesthetic choice forced strict technical constraints: **no frameworks**, **
 
 Every choice on this site mirrors the architectural constraints of the CPU itself: cut the bloat, ensure it routes cleanly, and make it functional on the bench.
 
-- **Static HTML over SPA:** Tomato’s KiCad GLB is <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">~31 MB</mark> with <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">~41k primitives</mark>. A heavy JS framework wouldn't survive a magazine column format. `web/` deploys as a raw folder. Vercel install command: `echo "no-install"`.
+- **Static HTML over SPA:** The shipped `07_alu` GLB is **1.26 MB** Draco (**9** meshes). The raw KiCad export behind it is still ~**31 MB** / ~**41k** primitives — that file does not go in the tab. `web/` deploys as a raw folder. Vercel install command: `echo "no-install"`.
 - **Relative Links Only:** Nested pages (`journal/…`, `boards/…`), local `python3 -m http.server`, and Vercel all break if assets are rooted at `/css/…`. Everything is strictly relative so the paper works on [tomato.tmarhguy.com](https://tomato.tmarhguy.com/), a local preview, or a subdirectory checkout.
 - **Single-File CSS:** Playfair, Source Serif, Libre Franklin, cream stock, and a red tomato over a DIP. No design systems. One stylesheet (`css/magazine.css`) powers the entire site, with the 3D viewer being the sole opt-out.
 - **KiCad’s Native Copper:** No artificial gold restyling. The export matches the physical board: **FR4 core black**, silk white, copper untouched. Fig. 1 and the interactive GLB use the exact same material palette.
-- **Demand-Rendered 3D:** <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">41k draw calls</mark> will melt a browser if left spinning in the background. The board merges materials at load and only renders when the camera moves or the user is actively on-screen.
+- **Demand-Rendered 3D:** The optimized GLB is nine draws. A raw KiCad dump is still **~41k**. The loader skips client merge when mesh count is under 32, and the canvas only renders when the camera moves or the board is on-screen.
 - **The Forge in the Paper:** [`source.html`](https://tomato.tmarhguy.com/source.html) pulls the live GitHub repo directly into the broadsheet layout so you never have to break the vintage immersion to view the code.
 
 <p align="center">
@@ -79,7 +79,7 @@ The [`playground.html`](https://tomato.tmarhguy.com/playground.html) interface i
 
 ### 3. The Journal & Boards
 
-The journal takes [`docs/log/`](../docs/log/) and typesets it. It contains <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">21 dispatches</mark>, tracking the build from the first gate to the final copper route. The **[boards catalog](https://tomato.tmarhguy.com/boards.html)** tracks all <mark style="background:#d6e8ff;color:#1e4a7a;padding:0.05em 0.28em;border-radius:2px">8 lots</mark>. Lot **07** is **routed and ordered**. The remaining lots (Shift, Memory, Register File, PC) are currently being plumbed while the fab runs.
+The journal takes [`docs/log/`](../docs/log/) and typesets it. It contains **24 dispatches**, tracking the build from the first gate to the copper on the desk. The **[boards catalog](https://tomato.tmarhguy.com/boards.html)** tracks all **8 lots**. Lot **07** is **arrived; soldering**. The remaining lots (Shift, Memory, Register File, PC) are currently being plumbed.
 
 ---
 
@@ -102,7 +102,7 @@ web/
 ├── css/magazine.css        # The core broadsheet stylesheet
 ├── css/viewer.css          # Black studio lighting
 ├── js/                     # Engine: bench, viewer, alu emulator, forge
-├── assets/pcb/alu.glb      # KiCad 07_alu export (~31 MB)
+├── assets/pcb/alu.glb      # Draco 07_alu (1.26 MB, 9 meshes)
 ├── tests/                  # Custom sanity + emulator test suite
 └── ATTRIBUTION.md
 ```
