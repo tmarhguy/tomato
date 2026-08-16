@@ -1,1 +1,67 @@
 This is a build log for Tomato 32. It will keep track of the questions that come up and the answers I settled for. It focussed on build log, the constraints explored and the journey from building simple logic gates to a parametric datapath — a machine where an ISA is a map onto muxes, not a second computer in copper. If you're reading this. You probably love building computers and enjoy the architecture like I do. Enjoy!
+
+Every dispatch in [`docs/log/`](.) is listed below: the file itself, and a shield into the typeset page on [tomato.tmarhguy.com](https://tomato.tmarhguy.com/journal.html).
+
+## The vault
+
+| Date | Log | Link |
+|------|-----|-------|
+| 15 Aug 2026 | [PCBs Arrive!](./2026-08-15%20-%20PCBs%20Arrive%21.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/pcbs-arrive.html) |
+| 15 Aug 2026 | [ISA as a Wire](./2026-08-15%20-%20ISA%20as%20a%20Wire.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/isa-as-a-wire.html) |
+| 13 Aug 2026 | [Solder Station Arrives](./2026-08-13%20-%20Solder%20Station%20Arrives.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/solder-station.html) |
+| 13 Aug 2026 | [Front-Page News in Ashtown Valley](./2026-08-13%20-%20Front-Page%20News%20in%20Ashtown%20Valley.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/ashtown-valley.html) |
+| 07 Aug 2026 | [Ordered Tomato](./2026-08-07%20-%20Ordered%20Tomato.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/ordered.html) |
+| 02 Aug 2026 | [Designing Additional Boards](./2026-08-02%20-%20Designing%20Additional%20Boards.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/more-boards.html) |
+| 31 Jul 2026 | [The lingering thoughts](./2026-07-31%20-%20The%20lingering%20thoughts.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/lingering.html) |
+| 31 Jul 2026 | [Falling back to 32b](./2026-07-31%20-%20Falling%20back%20to%2032b.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/falling-back.html) |
+| 30 Jul 2026 | [Redesign into 40b (Old design = 32b)](./2026-07-30%20-%20Redesign%20into%2040b%20%28Old%20design%20=%2032b%29.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/forty-bit.html) |
+| 13 Jul 2026 | [Truth Table Latch](./2026-07-13%20-%20Truth%20Table%20Latch.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/truth-latch.html) |
+| 13 Jul 2026 | [Pipelined FPGA — What if…](./2026-07-13%20-%20Pipelined%20FPGA%20-%20What%20if....md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/pipelined.html) |
+| 13 Jul 2026 | [Downgrade for an upgrade — 32b to 16b × 4](./2026-07-13%20-%20Downgrade%20for%20an%20upgrade%20-%2032b%20to%2016b%20x%204.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/downgrade.html) |
+| 13 Jul 2026 | [Demo Ideas](./2026-07-13%20-%20Demo%20Ideas.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/demo-ideas.html) |
+| 13 Jul 2026 | [Architecture Upgrade](./2026-07-13%20-%20Architecture%20Upgrade.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/arch-upgrade.html) |
+| 27 Jun 2026 | [Elimination of Mode Multiplexers](./2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/mode-mux.html) |
+| 26 Jun 2026 | [ALU — Redesign with 74251](./2026-06-26%20-%20ALU%20-%20Redesign%20with%2074251.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/act151.html) |
+| 26 Jun 2026 | [ALU Architecture Refinement & Logic Optimization](./2026-06-26%20-%20ALU%20Architecture%20Refinement%20%26%20Logic%20Optimization.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/alu-refine.html) |
+| 19 Jun 2026 | [ALU segment display design](./2026-06-19%20-%20ALU%20segment%20display%20design.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/display.html) |
+| 16 Jun 2026 | [Microcode Control Modularization](./2026-06-16%20-%20Microcode%20Control%20Modularization.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/microcode.html) |
+| 15 Jun 2026 | [Multiplication and Division](./2026-06-15%20-%20Multiplication%20and%20Division.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/mul-div.html) |
+| 11 Jun 2026 | [Load Store Pipeline Analysis](./2026-06-11%20-%20Load%20Store%20Pipeline%20Analysis.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/load-store.html) |
+| 10 Jun 2026 | [Implementing Mul-Div Engine](./2026-06-10%20-%20Implementing%20Mul-Div%20Engine.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal/mul-engine.html) |
+
+## The map
+
+The READMEs are the map of the tree. The log above is the trail.
+
+| README | Link |
+|--------|-------|
+| [`README.md`](https://github.com/tmarhguy/tomato/blob/main/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/) |
+| [`web/README.md`](https://github.com/tmarhguy/tomato/blob/main/web/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/) |
+| [`docs/README.md`](https://github.com/tmarhguy/tomato/blob/main/docs/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/journal.html) |
+| [`docs/isa/README.md`](https://github.com/tmarhguy/tomato/blob/main/docs/isa/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/isa.html) |
+| [`hardware/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/architecture.html) |
+| [`hardware/digital/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/digital/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/hardware/digital/README.md) |
+| [`hardware/verilog/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/verilog/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/hardware/verilog/README.md) |
+| [`hardware/kicad/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/boards.html) |
+| [`hardware/kicad/modules/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/modules/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/hardware/kicad/modules/README.md) |
+| [`hardware/kicad/boards/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/boards/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/boards.html) |
+| [`hardware/kicad/boards/01_alu/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/boards/01_alu/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/boards/01-alu.html) |
+| [`hardware/kicad/boards/02_shift_encoder/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/boards/02_shift_encoder/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/boards/02-shift.html) |
+| [`hardware/kicad/boards/07_alu/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/boards/07_alu/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/boards/07-alu.html) |
+| [`hardware/fpga/core/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/fpga/core/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/architecture.html) |
+| [`hardware/fpga/tomato/README.md`](https://github.com/tmarhguy/tomato/blob/main/hardware/fpga/tomato/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/architecture.html) |
+| [`verification/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/architecture.html) |
+| [`verification/formal/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/formal/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/verification/formal/README.md) |
+| [`verification/rtl/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/rtl/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/verification/rtl/README.md) |
+| [`verification/scripts/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/scripts/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/verification/scripts/README.md) |
+| [`verification/directed/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/directed/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/verification/directed/README.md) |
+| [`verification/synthesis/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/synthesis/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/verification/synthesis/README.md) |
+| [`verification/uvm/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/uvm/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/verification/uvm/README.md) |
+| [`verification/uvm/common/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/uvm/common/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/verification/uvm/common/README.md) |
+| [`verification/uvm/alu_1b/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/uvm/alu_1b/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/verification/uvm/alu_1b/README.md) |
+| [`verification/uvm/alu_8b/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/uvm/alu_8b/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/verification/uvm/alu_8b/README.md) |
+| [`verification/uvm/alu_32b/README.md`](https://github.com/tmarhguy/tomato/blob/main/verification/uvm/alu_32b/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/verification/uvm/alu_32b/README.md) |
+| [`microcode/README.md`](https://github.com/tmarhguy/tomato/blob/main/microcode/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/isa.html) |
+| [`software/README.md`](https://github.com/tmarhguy/tomato/blob/main/software/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/software/README.md) |
+| [`firmware/README.md`](https://github.com/tmarhguy/tomato/blob/main/firmware/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/firmware/README.md) |
+| [`test/README.md`](https://github.com/tmarhguy/tomato/blob/main/test/README.md) | [![link](https://img.shields.io/badge/link-2563EB?style=for-the-badge)](https://tomato.tmarhguy.com/source.html#/blob/main/test/README.md) |
