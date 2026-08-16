@@ -147,7 +147,12 @@
     mount.className = "arch-map";
     mount.setAttribute("aria-label", "Architecture map");
 
-    let html = '<p class="arch-map__title">Architecture map</p>';
+    const isMobile = window.innerWidth <= 860;
+    const openAttr = isMobile ? "" : " open";
+
+    let html = `<details class="arch-map__details"${openAttr}>`;
+    html += `<summary class="arch-map__title">Architecture map <span class="arch-map__burger"><span></span><span></span><span></span></span></summary>`;
+    html += `<div class="arch-map__body">`;
 
     for (const section of SECTIONS) {
       html += `<p class="arch-map__heading">${section.title}</p>`;
@@ -156,6 +161,7 @@
       html += "</ul>";
     }
 
+    html += `</div></details>`;
     mount.innerHTML = html;
   }
 
