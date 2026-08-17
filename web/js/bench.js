@@ -87,7 +87,7 @@ export async function mountBench(canvas, opts) {
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = mobile ? 0.12 : 0.08;
-  controls.autoRotate = !mobile;
+  controls.autoRotate = true;
   controls.autoRotateSpeed = mobile ? -1.4 : -2.66;
   controls.rotateSpeed = mobile ? 0.65 : 0.9;
   controls.zoomSpeed = mobile ? 0.85 : 1.05;
