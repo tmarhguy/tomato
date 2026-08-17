@@ -68,7 +68,7 @@ const keyBase = lights.key.intensity;
 
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = false;
-controls.autoRotate = !coarse;
+controls.autoRotate = true;
 controls.autoRotateSpeed = -1.8;
 controls.rotateSpeed = 1;
 controls.zoomSpeed = 1;
@@ -207,7 +207,7 @@ function unlockRig(spin) {
   camera.up.copy(_up);
   controls.enabled = true;
   controls.enableDamping = false;
-  controls.autoRotate = spin ?? !coarse;
+  controls.autoRotate = spin ?? true;
   controls.update();
 }
 
