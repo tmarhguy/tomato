@@ -33,9 +33,18 @@ const REQUIRED = [
   "playground.html",
   "assets/favicon.svg",
   "assets/mark.svg",
-  "assets/pcb/alu-optimized.glb",
-  "assets/pcb/immersion_black.gif",
+  "assets/mark-dark.svg",
+  "assets/pcb/alu.glb",
+  "assets/pcb/immersion_black.mp4",
+  "assets/pcb/immersion_black.webp",
   "assets/pcb/immersion_white.gif",
+  "assets/pcb/immersion_white_poster.webp",
+  "assets/pcb/hero.mp4",
+  "assets/pcb/hero.webp",
+  "assets/compiler/opcode-sweep-sim.mp4",
+  "assets/compiler/opcode-sweep-fpga.mp4",
+  "assets/compiler/opcode-sweep-sim.webp",
+  "assets/compiler/opcode-sweep-fpga.webp",
   "boards.html",
   "architecture.html",
   "isa.html",
@@ -193,7 +202,7 @@ test("board playground wires Three.js import map + bench module", () => {
     const html = readFileSync(join(WEB, page), "utf8");
     assert.match(html, /type=["']importmap["']/, `${page}: importmap`);
     assert.match(html, /three@0\.169\.0/, `${page}: three CDN pin`);
-    assert.match(html, /type=["']module["'][^>]+js\/bench\.js/, `${page}: bench module`);
+    assert.match(html, /js\/bench\.js/, `${page}: bench module`);
     assert.match(html, /id=["']bench["']/, `${page}: #bench canvas`);
   }
 });
@@ -219,16 +228,26 @@ test("3D viewer page is the light 07_alu tour", () => {
   assert.match(html, /three@0\.169\.0/);
   assert.doesNotMatch(html, /camera-controls/);
   assert.match(html, /type=["']module["'][^>]+js\/viewer\.js/);
+  assert.match(html, /<main[^>]*id=["']full-screen-viewer["']/);
+  assert.match(html, /<h1/);
   assert.match(html, /id=["']viewer-canvas["']/);
   assert.match(html, /id=["']immerse["']/);
+  assert.match(html, /id=["']tour-line["']/);
+  assert.match(html, /id=["']tour-caption["']/);
+  assert.match(html, /cdn\.jsdelivr\.net/);
   const css = readFileSync(join(WEB, "css/viewer.css"), "utf8");
   assert.match(css, /#050505/);
   assert.match(css, /#8b1e1e|#c23a3a/);
+  assert.match(css, /\.tour-caption/);
   const js = readFileSync(join(WEB, "js/viewer.js"), "utf8");
+  const look = readFileSync(join(WEB, "js/pcb-look.js"), "utf8");
   assert.match(js, /assets\/pcb\/alu\.glb/);
-  assert.match(js, /mergeByMaterial/);
   assert.match(js, /OrbitControls/);
-  assert.match(js, /RoomEnvironment/);
+  assert.match(look, /RoomEnvironment/);
+  assert.match(js, /buildTourCurve/);
+  assert.match(js, /sampleTour/);
+  assert.match(js, /PATH_S/);
+  assert.match(js, /applyMaskPeel/);
   for (const page of ["index.html", "board.html"]) {
     const src = readFileSync(join(WEB, page), "utf8");
     assert.match(src, /viewer\.html/, `${page}: Tour opens viewer`);
@@ -252,12 +271,16 @@ test("JS modules parse (syntax)", async () => {
 });
 
 test("GLB is a glTF binary with materials", () => {
-  const buf = readFileSync(join(WEB, "assets/pcb/alu-optimized.glb"));
+  const buf = readFileSync(join(WEB, "assets/pcb/alu.glb"));
   assert.equal(buf.subarray(0, 4).toString("ascii"), "glTF");
   assert.ok(buf.length > 1_000_000, "GLB unexpectedly tiny");
   const jsonLen = buf.readUInt32LE(12);
   const json = JSON.parse(buf.subarray(20, 20 + jsonLen).toString("utf8"));
   assert.ok(Array.isArray(json.materials) && json.materials.length > 0);
+  assert.ok(json.extensionsUsed?.includes("KHR_draco_mesh_compression"));
+  const names = (json.meshes || []).map((m) => m.name || "");
+  assert.ok(names.some((n) => /copper/i.test(n)), "copper mesh missing — palette() may have flattened traces");
+  assert.ok(names.some((n) => /soldermask/i.test(n)), "soldermask mesh missing");
   assert.ok(json.asset?.extras?.generator?.includes?.("KiCad") || json.asset?.generator);
 });
 
@@ -265,9 +288,38 @@ test("CSS has brand tokens", () => {
   const css = readFileSync(join(WEB, "css/magazine.css"), "utf8");
   assert.match(css, /--bg:/);
   assert.match(css, /--ink:/);
+  assert.match(css, /--rule:/);
+  assert.match(css, /data-theme=dark/);
+  assert.match(css, /prefers-color-scheme:dark/);
+  assert.match(css, /\.theme-switch/);
   assert.match(css, /\.pg-schematic/);
   assert.match(css, /\.pg-hero/);
   assert.match(css, /\.mast-nav/);
+});
+
+test("front page hardware compiler links to the sweep clips", () => {
+  const html = readFileSync(join(WEB, "index.html"), "utf8");
+  assert.match(html, /href="#opcode-compiler"/);
+  assert.match(html, /opcode-sweep-sim\.mp4/);
+  assert.match(html, /opcode-sweep-fpga\.mp4/);
+  const js = readFileSync(join(WEB, "js/playground.js"), "utf8");
+  assert.match(js, /opcode-sweep-fpga\.mp4/);
+});
+
+test("front page swaps the black orbit MP4 in dark stock", () => {
+  const html = readFileSync(join(WEB, "index.html"), "utf8");
+  assert.match(html, /hero\.mp4/);
+  assert.match(html, /immersion_black\.mp4/);
+  assert.match(html, /lead-clip--night/);
+  assert.match(html, /tomato\.theme/);
+  assert.match(html, /immersion_black\.webp/);
+  assert.match(html, /active\.preload = "auto"/);
+  const js = readFileSync(join(WEB, "js/mast.js"), "utf8");
+  assert.match(js, /data-theme-set/);
+  assert.match(js, /lead-night/);
+  assert.match(js, /canplay/);
+  assert.match(js, /prefers-color-scheme: dark/);
+  assert.match(js, /removeAttribute\("data-theme"\)/);
 });
 
 test("HTTP smoke: every HTML page returns 200 from static server", async () => {
@@ -280,7 +332,7 @@ test("HTTP smoke: every HTML page returns 200 from static server", async () => {
     const mime = {
       ".html": "text/html", ".css": "text/css", ".js": "text/javascript",
       ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
-      ".png": "image/png", ".gif": "image/gif", ".glb": "model/gltf-binary", ".webp": "image/webp"
+      ".png": "image/png", ".gif": "image/gif", ".glb": "model/gltf-binary", ".webp": "image/webp", ".mp4": "video/mp4"
     };
     http.createServer((req, res) => {
       let url = decodeURIComponent((req.url || "/").split("?")[0]);
@@ -315,7 +367,7 @@ test("HTTP smoke: every HTML page returns 200 from static server", async () => {
       "/js/bench.js",
       "/js/forge.js",
       "/assets/favicon.svg",
-      "/assets/pcb/alu-optimized.glb",
+      "/assets/pcb/alu.glb",
     ];
     for (const path of [...pages, ...assets]) {
       const { status, body } = await get(`http://127.0.0.1:${port}${path}`);
