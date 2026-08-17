@@ -3,19 +3,46 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
   <title>Lot 07 — Dual-LUT ALU — The Tomato</title>
   <meta name="description" content="07_alu: Dual-LUT 8-bit ALU slice. 99.95×99.80 mm, 25 logic ICs per 8b, routed and ordered August 2026." />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/magazine.css" />
+
+  <meta property="og:title" content="Lot 07 — Dual-LUT ALU — The Tomato" />
+  <meta property="og:description" content="07_alu: Dual-LUT 8-bit ALU slice. 99.95×99.80 mm, 25 logic ICs per 8b, routed and ordered August 2026." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/boards/07-alu.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="Lot 07 — Dual-LUT ALU — The Tomato" />
+  <meta name="twitter:description" content="07_alu: Dual-LUT 8-bit ALU slice. 99.95×99.80 mm, 25 logic ICs per 8b, routed and ordered August 2026." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta name="author" content="Tyrone Marhguy" />
 </head>
 <body>
   <div class="page">
     <header class="wrap">
       <div class="mast">
-        <a class="mast-mark" href="../index.html">The Tomato</a>
         <nav class="mast-nav" aria-label="Primary">
           <a href="../index.html">Front</a>
           <a href="../architecture.html">Architecture</a>
@@ -31,9 +58,8 @@
       </div>
       <div class="flag flag--inside">
         <div class="nameplate">
-          <img src="../assets/mark.svg" alt="" />
-          <a href="../index.html"><h1>The Tomato</h1></a>
-          <img src="../assets/mark.svg" alt="" />
+          <img src="../assets/mark.svg" alt="" width="52" height="61" />
+          <a href="../index.html"><h1>Tomato</h1></a>
         </div>
         <p class="flag-bottom"><span>Lot 07</span><span>Dual-LUT ALU · ordered</span><span>Vol. 32</span></p>
       </div>
@@ -44,7 +70,10 @@
           <p class="kicker">Lot 07 · ALU · In copper</p>
           <h1 class="headline">Dual-LUT 8-bit slice — the board that left the screen.</h1>
           <p class="deck">Two independent 3-input LUT planes per bit, summed through <strong>74ACT283</strong> nibble adders. One PCB is an 8-bit bring-up slice; stack two for 16-bit bench work.</p>
-          <p class="byline">99.95 × 99.80 mm · 131 placements · JLCPCB + DigiKey · August 2026</p>
+          <figure class="figure" style="margin: 1.25rem 0;">
+            <img src="../assets/pcb/pcb-arrive.webp" alt="07_alu Dual-LUT 8-bit slice arrived on the bench" />
+          </figure>
+          <p class="byline">99.95 × 99.80 mm · 131 placements · 308 vias · 2404 segments · August 2026</p>
         </div>
       </section>
       <div class="wrap arch-layout">
@@ -63,13 +92,13 @@
             <div><dt>Logic ICs</dt><dd>25 per 8b (3.125 IC/bit)</dd></div>
             <div><dt>Key parts</dt><dd>17×151 · 2×283 · 688 · 377 · 541</dd></div>
             <div><dt>Route status</dt><dd>185 nets · 0 unrouted · DRC clean</dd></div>
-            <div><dt>Order</dt><dd>2 boards JLCPCB · parts DigiKey ~$61</dd></div>
+            <div><dt>Copper</dt><dd>2 boards · 308 vias · 2404 segments</dd></div>
           </dl>
           <h2>Hierarchy on the sheet</h2>
           <p>The KiCad tree matches simulation. Top sheet chains two <strong>alu_4b</strong> cells on <code>CIN-MAIN</code> / <code>COUT-MAIN</code>. Each nibble holds four X-plane and four Y-plane bit slices into one <strong>74ACT283</strong>. A dedicated <strong>flags_logic</strong> sheet handles Z/N/C/V, LT/GT/GTE, and a <strong>74ACT151</strong> carry-select mux. <strong>led_unit</strong> is the opcode and operand lamp wall for bench debug; <strong>iopins</strong> maps headers for power, operands, opcodes, and control.</p>
           <div class="two-up">
             <figure class="plate">
-              <img src="../assets/pcb/alu_8b_board.jpg" alt="07_alu board render — two 4-bit cells, flag block, LED wall." />
+              <img src="../assets/pcb/alu_8b_board.webp" alt="07_alu board render — two 4-bit cells, flag block, LED wall." />
               <figcaption class="plate-cap"><span>Fig. 1 — Board render</span><span>CELL 0 / CELL 1</span></figcaption>
             </figure>
             <figure class="plate">
@@ -97,7 +126,7 @@
         </div>
       </div>
     </main>
-    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" width="52" height="61" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
   </div>
   <script type="module" src="../js/arch-map.js"></script>
   <script src="../js/mast.js" defer></script>

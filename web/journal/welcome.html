@@ -3,19 +3,46 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
   <title>Welcome to Tomato 32 — The Tomato</title>
   <meta name="description" content="The first page of the Tomato vault: from simple gates to a parametric datapath." />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/magazine.css" />
+
+  <meta property="og:title" content="Welcome to Tomato 32 — The Tomato" />
+  <meta property="og:description" content="The first page of the Tomato vault: from simple gates to a parametric datapath." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/welcome.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="Welcome to Tomato 32 — The Tomato" />
+  <meta name="twitter:description" content="The first page of the Tomato vault: from simple gates to a parametric datapath." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta name="author" content="Tyrone Marhguy" />
 </head>
 <body>
   <div class="page">
     <header class="wrap">
       <div class="mast">
-        <a class="mast-mark" href="../index.html">The Tomato</a>
         <nav class="mast-nav" aria-label="Primary">
           <a href="../index.html">Front</a>
           <a href="../architecture.html">Architecture</a>
@@ -31,9 +58,8 @@
       </div>
       <div class="flag flag--inside">
         <div class="nameplate">
-          <img src="../assets/mark.svg" alt="" />
-          <a href="../index.html"><h1>The Tomato</h1></a>
-          <img src="../assets/mark.svg" alt="" />
+          <img src="../assets/mark.svg" alt="" width="52" height="61" />
+          <a href="../index.html"><h1>Tomato</h1></a>
         </div>
         <p class="flag-bottom">
           <span>Journal</span>
@@ -55,7 +81,80 @@
         <div class="wrap story">
           <p class="drop">This is a build log for Tomato 32. It keeps track of the questions that come up and the answers settled for. It is focused on constraints explored and the journey from building simple logic gates to a parametric datapath — a machine where an ISA is a map onto muxes, not a second computer in copper.</p>
           <p>If you are reading this, you probably love building computers and enjoy the architecture like I do. Enjoy.</p>
-          <p>Everything after this page is an argument written down: word width, decode fanout, the ALU that ate the muxes, the multiply that would not wait thirty-two cycles, the day the boards were ordered. The README is the map. These pages are the trail.</p>
+          <p>Everything after this page is an argument written down: word width, decode fanout, the ALU that ate the muxes, the multiply that would not wait thirty-two cycles, the day the boards were ordered. Each file below is the dispatch in <span class="mono">docs/log/</span>; the shield opens the typeset page on <a href="https://tomato.tmarhguy.com/journal.html">tomato.tmarhguy.com</a>.</p>
+          <h2>The vault</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Date</th><th>Log</th><th>Link</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>15 Aug 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-08-15%20-%20PCBs%20Arrive!.md">PCBs Arrive!</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/pcbs-arrive.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>15 Aug 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-08-15%20-%20ISA%20as%20a%20Wire.md">ISA as a Wire</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/isa-as-a-wire.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>13 Aug 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-08-13%20-%20Solder%20Station%20Arrives.md">Solder Station Arrives</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/solder-station.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>13 Aug 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-08-13%20-%20Front-Page%20News%20in%20Ashtown%20Valley.md">Front-Page News in Ashtown Valley</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/ashtown-valley.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>07 Aug 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-08-07%20-%20Ordered%20Tomato.md">Ordered Tomato</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/ordered.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>02 Aug 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-08-02%20-%20Designing%20Additional%20Boards.md">Designing Additional Boards</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/more-boards.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>31 Jul 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-07-31%20-%20The%20lingering%20thoughts.md">The lingering thoughts</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/lingering.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>31 Jul 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md">Falling back to 32b</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/falling-back.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>30 Jul 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-07-30%20-%20Redesign%20into%2040b%20(Old%20design%20=%2032b).md">Redesign into 40b (Old design = 32b)</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/forty-bit.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>13 Jul 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-07-13%20-%20Truth%20Table%20Latch.md">Truth Table Latch</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/truth-latch.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>13 Jul 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-07-13%20-%20Pipelined%20FPGA%20-%20What%20if....md">Pipelined FPGA — What if…</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/pipelined.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>13 Jul 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-07-13%20-%20Downgrade%20for%20an%20upgrade%20-%2032b%20to%2016b%20x%204.md">Downgrade for an upgrade — 32b to 16b × 4</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/downgrade.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>13 Jul 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-07-13%20-%20Demo%20Ideas.md">Demo Ideas</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/demo-ideas.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>13 Jul 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-07-13%20-%20Architecture%20Upgrade.md">Architecture Upgrade</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/arch-upgrade.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>27 Jun 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md">Elimination of Mode Multiplexers</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/mode-mux.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>26 Jun 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-06-26%20-%20ALU%20-%20Redesign%20with%2074251.md">ALU — Redesign with 74251</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/act151.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>26 Jun 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-06-26%20-%20ALU%20Architecture%20Refinement%20%26%20Logic%20Optimization.md">ALU Architecture Refinement &amp; Logic Optimization</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/alu-refine.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>19 Jun 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-06-19%20-%20ALU%20segment%20display%20design.md">ALU segment display design</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/display.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>16 Jun 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-06-16%20-%20Microcode%20Control%20Modularization.md">Microcode Control Modularization</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/microcode.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>15 Jun 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-06-15%20-%20Multiplication%20and%20Division.md">Multiplication and Division</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/mul-div.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>11 Jun 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-06-11%20-%20Load%20Store%20Pipeline%20Analysis.md">Load Store Pipeline Analysis</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/load-store.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td>10 Jun 2026</td><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/log/2026-06-10%20-%20Implementing%20Mul-Div%20Engine.md">Implementing Mul-Div Engine</a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal/mul-engine.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h2>The map</h2>
+          <p>The READMEs are the map of the tree. The log above is the trail.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>README</th><th>Link</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/README.md"><code>README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/web/README.md"><code>web/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/README.md"><code>docs/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/journal.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/docs/isa/README.md"><code>docs/isa/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/isa.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/README.md"><code>hardware/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/architecture.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/digital/README.md"><code>hardware/digital/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/hardware/digital/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/verilog/README.md"><code>hardware/verilog/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/hardware/verilog/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/README.md"><code>hardware/kicad/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/boards.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/modules/README.md"><code>hardware/kicad/modules/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/hardware/kicad/modules/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/boards/README.md"><code>hardware/kicad/boards/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/boards.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/boards/01_alu/README.md"><code>hardware/kicad/boards/01_alu/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/boards/01-alu.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/boards/02_shift_encoder/README.md"><code>hardware/kicad/boards/02_shift_encoder/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/boards/02-shift.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/boards/07_alu/README.md"><code>hardware/kicad/boards/07_alu/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/boards/07-alu.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/fpga/core/README.md"><code>hardware/fpga/core/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/architecture.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/fpga/tomato/README.md"><code>hardware/fpga/tomato/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/architecture.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/README.md"><code>verification/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/architecture.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/formal/README.md"><code>verification/formal/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/formal/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/rtl/README.md"><code>verification/rtl/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/rtl/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/scripts/README.md"><code>verification/scripts/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/scripts/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/directed/README.md"><code>verification/directed/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/directed/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/synthesis/README.md"><code>verification/synthesis/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/synthesis/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/uvm/README.md"><code>verification/uvm/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/uvm/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/uvm/common/README.md"><code>verification/uvm/common/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/uvm/common/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/uvm/alu_1b/README.md"><code>verification/uvm/alu_1b/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/uvm/alu_1b/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/uvm/alu_8b/README.md"><code>verification/uvm/alu_8b/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/uvm/alu_8b/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/uvm/alu_32b/README.md"><code>verification/uvm/alu_32b/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/uvm/alu_32b/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/microcode/README.md"><code>microcode/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/isa.html"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/software/README.md"><code>software/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/software/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/firmware/README.md"><code>firmware/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/firmware/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+                <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/test/README.md"><code>test/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/test/README.md"><img src="https://img.shields.io/badge/link-2563EB?style=for-the-badge" alt="link" /></a></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div class="wrap">
           <nav class="pager">
@@ -65,7 +164,7 @@
         </div>
       </section>
     </main>
-    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" width="52" height="61" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
   </div>
   <script src="../js/mast.js" defer></script>
 </body>
