@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>Gallery — The Tomato</title>
+  <meta name="description" content="High-res photos and bench clips of the Tomato 07_alu slice — board arrivals, copper, continuity checks, and opcode sweeps." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" as="image" href="assets/gallery/pcb/pcb-arrive-640w.webp" fetchpriority="high" type="image/webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" /></noscript>
+  <link rel="stylesheet" href="css/magazine.css" />
+
+  <meta property="og:title" content="Gallery — The Tomato" />
+  <meta property="og:description" content="High-res photos and bench clips of the Tomato 07_alu slice — board arrivals, copper, continuity checks, and opcode sweeps." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/gallery.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="Gallery — The Tomato" />
+  <meta name="twitter:description" content="High-res photos and bench clips of the Tomato 07_alu slice — board arrivals, copper, continuity checks, and opcode sweeps." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta name="author" content="Tyrone Marhguy" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <nav class="mast-nav" aria-label="Primary">
+          <a href="index.html">Front</a>
+          <a href="architecture.html">Architecture</a>
+          <a href="isa.html">ISA</a>
+          <a href="playground.html">Playground</a>
+          <a href="journal.html">Journal</a>
+          <a href="boards.html">Catalog</a>
+          <a href="board.html">Orbit</a>
+          <a href="gallery.html" aria-current="page">Gallery</a>
+          <a href="source.html">GitHub</a>
+          <a href="about.html">About</a>
+          <a class="is-tour" href="viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="assets/mark.svg" alt="" width="52" height="61" />
+          <a href="index.html"><h1>Tomato</h1></a>
+        </div>
+        <p class="flag-bottom"><span>Photo desk</span><span>07_alu · swipe the bench</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section section--room">
+        <div class="wrap">
+          <div class="hed hed--gallery">
+            <p class="kicker">Lot 07 · ALU · In copper</p>
+            <h1 class="headline">The build, frame by frame.</h1>
+            <p class="deck">Swipe or use the arrows. Tap the active frame to expand.</p>
+            <p class="byline">August 2026 · 15 frames · 99.95 × 99.80 mm</p>
+          </div>
+          <div class="gallery-carousel" aria-roledescription="carousel" aria-label="07_alu photo gallery">
+            <div class="gallery-stage">
+              <button type="button" class="gallery-arrow gallery-arrow--prev hud-desk" aria-label="Previous frame">‹</button>
+              <div class="gallery-viewport" tabindex="0" aria-label="Gallery frames. Swipe or use arrow keys.">
+                <div class="gallery-track"></div>
+              </div>
+              <button type="button" class="gallery-arrow gallery-arrow--next hud-desk" aria-label="Next frame">›</button>
+            </div>
+            <p class="gallery-swipe-hint">Swipe to browse · tap frame to expand</p>
+            <p class="gallery-counter"><span class="gallery-counter__cur">1</span> / <span class="gallery-counter__total">15</span></p>
+            <div class="gallery-detail" aria-live="polite">
+              <div class="gallery-detail__head">
+                <p class="gallery-detail__chapter"></p>
+                <p class="gallery-detail__date"></p>
+                <h2 class="gallery-detail__title"></h2>
+                <p class="gallery-detail__meta"></p>
+              </div>
+              <dl class="gallery-detail__facts"></dl>
+              <div class="gallery-detail__body-slot">
+                <div class="gallery-detail__body"></div>
+              </div>
+            </div>
+            <div class="gallery-filmstrip-wrap">
+              <p class="gallery-filmstrip-label">All frames</p>
+              <div class="gallery-filmstrip" role="tablist" aria-label="Gallery thumbnails"></div>
+            </div>
+          </div>
+
+          <!-- Slide source — parsed by gallery.js -->
+          <div class="gallery-slides" hidden>
+            <article class="gallery-slide"
+              data-src="assets/pcb/pcb-arrive.webp" data-type="image" data-thumb="assets/pcb/pcb-arrive.webp"
+              data-date="15 Aug 2026" data-title="Five boards on the bench" data-meta="07_alu · 99.95 × 99.80 mm · as received"
+              data-chapter="Arrival" data-fig="Cover">
+              <dl class="gallery-slide__facts">
+                <div><dt>Outline</dt><dd>99.95 × 99.80 mm</dd></div>
+                <div><dt>Qty</dt><dd>5 boards · JLCPCB</dd></div>
+                <div><dt>Status</dt><dd>Power continuity clean</dd></div>
+              </dl>
+              <div class="gallery-slide__body">
+                <p class="drop">The PCBs all just arrived — five of them. I tested power with a continuity meter and logged no islands. It is beautiful watching a board of such sophisticated nature, realizing I remember placing every single trace.</p>
+                <p>Now the soldering begins. <a href="journal/pcbs-arrive.html">Read the dispatch →</a></p>
+              </div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/pcb/pcb-arrive.jpeg" data-type="image" data-thumb="assets/pcb/pcb-arrive.jpeg"
+              data-date="15 Aug 2026" data-title="Desk arrival — five slices" data-meta="Lot 07 · Tomato ALU 8 bit"
+              data-chapter="Arrival" data-fig="Fig. 1">
+              <dl class="gallery-slide__facts"><div><dt>Lot</dt><dd>07_alu</dd></div><div><dt>Fab</dt><dd>July 2026</dd></div></dl>
+              <div class="gallery-slide__body"><p>As received on the desk — silk reads <strong>Tomato ALU 8 bit</strong>, July 2026. Five identical slices from the same panel run.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/pcb/pcb-arrive.mp4" data-type="video" data-thumb="assets/pcb/pcb-arrive.webp" data-poster="assets/pcb/pcb-arrive.webp"
+              data-date="15 Aug 2026" data-title="Boards in the round" data-meta="Five 07_alu · continuity clean"
+              data-chapter="Arrival" data-fig="Fig. 2">
+              <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>Boards</dt><dd>5 × 07_alu</dd></div></dl>
+              <div class="gallery-slide__body"><p>A slow pass over the stack — mask colour, edge plating, and the LED wall footprint visible before population.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/pcb/continuity-test.jpeg" data-type="image" data-thumb="assets/pcb/continuity-test.jpeg"
+              data-date="15 Aug 2026" data-title="Continuity on power" data-meta="Multimeter · no islands"
+              data-chapter="Arrival" data-fig="Fig. 3">
+              <dl class="gallery-slide__facts"><div><dt>Test</dt><dd>Multimeter · power rails</dd></div><div><dt>Result</dt><dd>No islands</dd></div></dl>
+              <div class="gallery-slide__body"><p>First bring-up step: continuity on VCC and GND across every board. Clean on all five — no open pours, no shorted islands from fab.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/pcb/alu_8b_board.webp" data-type="image" data-thumb="assets/pcb/alu_8b_board.webp"
+              data-date="Aug 2026" data-title="Board render — two 4-bit cells" data-meta="CELL 0 / CELL 1 · flag block · LED wall"
+              data-chapter="Design &amp; copper" data-fig="Fig. 1">
+              <dl class="gallery-slide__facts"><div><dt>Cells</dt><dd>CELL 0 / CELL 1</dd></div><div><dt>Blocks</dt><dd>flags · LED wall</dd></div></dl>
+              <div class="gallery-slide__body"><p>KiCad 3D before fab — two <code>alu_4b</code> nibble cells chained on <code>CIN-MAIN</code>, with the flag block and opcode lamp wall for bench debug.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/pcb/alu_8b_pcb.jpg" data-type="image" data-thumb="assets/pcb/alu_8b_pcb.jpg"
+              data-date="Aug 2026" data-title="Top copper — routed" data-meta="185 nets · 0 unrouted · DRC clean"
+              data-chapter="Design &amp; copper" data-fig="Fig. 2">
+              <dl class="gallery-slide__facts"><div><dt>Nets</dt><dd>185 · 0 unrouted</dd></div><div><dt>DRC</dt><dd>Clean</dd></div></dl>
+              <div class="gallery-slide__body"><p>Fab-ready top layer — 308 vias, 2404 segments, every net closed before the order went out.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/plates/legacy-alu_full_3d.webp" data-type="image" data-thumb="assets/plates/legacy-alu_full_3d.webp"
+              data-date="2025" data-title="Legacy 01_alu — 3,488 transistors" data-meta="270 mm board · 436 T/bit"
+              data-chapter="Design &amp; copper" data-fig="Fig. 3">
+              <dl class="gallery-slide__facts"><div><dt>Outline</dt><dd>270 × 270 mm</dd></div><div><dt>Density</dt><dd>436 T/bit</dd></div></dl>
+              <div class="gallery-slide__body"><p>The predecessor on <a href="https://alu.tmarhguy.com" target="_blank" rel="noopener noreferrer">alu.tmarhguy.com</a> — discrete MOSFETs where 07_alu now packs dual-LUT logic into 74xx copper.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/plates/kicad-sch.jpg" data-type="image" data-thumb="assets/plates/kicad-sch.jpg"
+              data-date="Aug 2026" data-title="KiCad hierarchy — 07_alu" data-meta="alu_4b × 2 · flags_logic · led_unit"
+              data-chapter="Design &amp; copper" data-fig="Fig. 4">
+              <dl class="gallery-slide__facts"><div><dt>Sheets</dt><dd>alu_4b × 2</dd></div><div><dt>Support</dt><dd>flags · iopins · LEDs</dd></div></dl>
+              <div class="gallery-slide__body"><p>Schematic tree mirrors Digital simulation — the hierarchy on the sheet matches the verification ladder from 1b through 8b.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/pcb/hero.mp4" data-type="video" data-thumb="assets/pcb/hero.webp" data-poster="assets/pcb/hero.webp"
+              data-date="Aug 2026" data-title="Orbit — studio light" data-meta="07_alu GLB · KiCad colours"
+              data-chapter="Bench &amp; motion" data-fig="Fig. 1">
+              <dl class="gallery-slide__facts"><div><dt>Source</dt><dd>KiCad GLB</dd></div><div><dt>Light</dt><dd>Studio · mask &amp; copper</dd></div></dl>
+              <div class="gallery-slide__body"><p>The front-page orbit — paper-stock lighting on the real mask colour. Same model as the interactive bench on <a href="board.html">Orbit</a>.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/pcb/immersion_black.mp4" data-type="video" data-thumb="assets/pcb/immersion_black.webp" data-poster="assets/pcb/immersion_black.webp"
+              data-date="Aug 2026" data-title="Immersion — black studio" data-meta="Dark-mode orbit"
+              data-chapter="Bench &amp; motion" data-fig="Fig. 2">
+              <dl class="gallery-slide__facts"><div><dt>Theme</dt><dd>Black stock</dd></div><div><dt>Use</dt><dd>Dark-mode hero</dd></div></dl>
+              <div class="gallery-slide__body"><p>Swapped in when the paper runs Black — the same slice under low studio light, copper catching the key.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/compiler/opcode-sweep-sim.mp4" data-type="video" data-thumb="assets/compiler/opcode-sweep-sim.webp" data-poster="assets/compiler/opcode-sweep-sim.webp"
+              data-date="Aug 2026" data-title="Opcode sweep — simulation" data-meta="Digital · AND3 · 0x80"
+              data-chapter="Bench &amp; motion" data-fig="Fig. 3">
+              <dl class="gallery-slide__facts"><div><dt>Hit</dt><dd>AND3 · 0x80</dd></div><div><dt>Plane</dt><dd>Digital</dd></div></dl>
+              <div class="gallery-slide__body"><p>Brute-force sweep in Digital — the AND3 family surfaces at opcode <code>0x80</code> before the same vector is replayed on silicon.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/compiler/opcode-sweep-fpga.mp4" data-type="video" data-thumb="assets/compiler/opcode-sweep-fpga.webp" data-poster="assets/compiler/opcode-sweep-fpga.webp"
+              data-date="Aug 2026" data-title="Opcode sweep — FPGA" data-meta="Artix-7 · hardware sweep"
+              data-chapter="Bench &amp; motion" data-fig="Fig. 4">
+              <dl class="gallery-slide__facts"><div><dt>Hit</dt><dd>AND3 · 0x80</dd></div><div><dt>Plane</dt><dd>Artix-7</dd></div></dl>
+              <div class="gallery-slide__body"><p>Same sweep on hardware — the FPGA clip confirms the sim hit before copper is populated.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/plates/solder-station.jpeg" data-type="image" data-thumb="assets/plates/solder-station.jpeg"
+              data-date="Jul 2026" data-title="Solder station arrives" data-meta="Iron on the desk"
+              data-chapter="Shop floor" data-fig="Fig. 1">
+              <dl class="gallery-slide__facts"><div><dt>Status</dt><dd>Ready to populate</dd></div></dl>
+              <div class="gallery-slide__body"><p>The iron is on the desk. Boards and DigiKey parts inbound. <a href="journal/solder-station.html">Dispatch →</a></p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/plates/jlcpcb.jpg" data-type="image" data-thumb="assets/plates/jlcpcb.jpg"
+              data-date="Aug 2026" data-title="JLCPCB — fab partner" data-meta="2-layer · ENIG · 5 boards"
+              data-chapter="Shop floor" data-fig="Fig. 2">
+              <dl class="gallery-slide__facts"><div><dt>Stack</dt><dd>2-layer · ENIG</dd></div><div><dt>Qty</dt><dd>5 boards</dd></div></dl>
+              <div class="gallery-slide__body"><p>Five boards under six dollars — cheap enough to spin again if the fab errs.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/plates/digikey.jpg" data-type="image" data-thumb="assets/plates/digikey.jpg"
+              data-date="Aug 2026" data-title="DigiKey — parts inbound" data-meta="74ACT151 · 283 · 688"
+              data-chapter="Shop floor" data-fig="Fig. 3">
+              <dl class="gallery-slide__facts"><div><dt>Key ICs</dt><dd>151 · 283 · 688 · 377 · 541</dd></div></dl>
+              <div class="gallery-slide__body"><p>25 logic ICs per 8-bit slice — the 74ACT family that replaces discrete transistors on 07_alu.</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><div class="footer-band"><div class="footer-art">
+<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script src="js/mast.js" defer></script>
+  <script src="js/gallery.js" defer></script>
+</body>
+</html>
