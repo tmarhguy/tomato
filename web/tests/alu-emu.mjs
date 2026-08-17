@@ -54,6 +54,19 @@ test("AND / XOR3 / AND3 bitwise", () => {
   assert.equal(and3.out, 1);
 });
 
+test("FPGA hit: dual AND3 on the Artix-7 vector", () => {
+  const A = 0x2e653abb;
+  const B = 0x7d0145cd;
+  const C = 0x1455f659;
+  const and3 = (A & B & C) >>> 0;
+  assert.equal(and3, 0x04010009);
+  const r = aluEval({ width: 32, lutA: 0x80, lutB: 0x80, A, B, C, cin: 0 });
+  assert.equal(r.out >>> 0, 0x08020012);
+  assert.equal(r.cout, 0);
+  assert.equal(pairTitle(0x80, 0x80, 0, null), "AND3 + AND3");
+  assert.equal(lutInfo(0x80).name, "AND3");
+});
+
 test("flags: Z N C V packing", () => {
   const z = aluEval({ width: 8, lutA: 0xaa, lutB: 0xcc, A: 0, B: 0, C: 0, cin: 0 });
   assert.equal(z.flags & 1, 1);

@@ -34,6 +34,8 @@ const REQUIRED = [
   "assets/favicon.svg",
   "assets/mark.svg",
   "assets/mark-dark.svg",
+  "assets/dip-dark.svg",
+  "assets/slice-dark.svg",
   "assets/pcb/alu.glb",
   "assets/pcb/immersion_black.mp4",
   "assets/pcb/immersion_black.webp",
@@ -104,6 +106,23 @@ function attrs(html, names) {
   return found;
 }
 
+function magic(path, start, label) {
+  const buf = readFileSync(path);
+  const got = buf.subarray(0, start.length).toString("latin1");
+  assert.equal(got, start, `${label}: expected ${JSON.stringify(start)} got ${JSON.stringify(got)}`);
+  return buf.length;
+}
+
+function hasFtyp(path, label) {
+  const buf = readFileSync(join(WEB, path)).subarray(0, 12);
+  const tag = buf.subarray(4, 8).toString("latin1");
+  assert.equal(tag, "ftyp", `${label}: not an MP4 (missing ftyp)`);
+  const size = statSync(join(WEB, path)).size;
+  assert.ok(size > 80_000, `${label}: ${size} B is too small to be a clip`);
+  assert.ok(size < 20_000_000, `${label}: ${size} B is too fat for the tab`);
+  return size;
+}
+
 function isUnderWeb(abs) {
   const root = WEB.endsWith(sep) ? WEB : WEB + sep;
   return abs === WEB || abs.startsWith(root);
@@ -134,7 +153,7 @@ test("no root-absolute asset or page paths (breaks nested pages and local previe
   const bad = [];
   for (const file of htmlFiles()) {
     const html = readFileSync(file, "utf8");
-    for (const { name, value } of attrs(html, ["href", "src"])) {
+    for (const { name, value } of attrs(html, ["href", "src", "poster"])) {
       if (value.startsWith("/") && !value.startsWith("//")) {
         bad.push(`${relWeb(file)} ${name}="${value}"`);
       }
@@ -151,7 +170,7 @@ test("relative href/src resolve on disk", () => {
   const missing = [];
   for (const file of htmlFiles()) {
     const html = readFileSync(file, "utf8");
-    for (const { value } of attrs(html, ["href", "src"])) {
+    for (const { value } of attrs(html, ["href", "src", "poster"])) {
       const target = resolveHref(file, value);
       if (!target) continue;
       if (!isUnderWeb(target)) {
@@ -256,7 +275,12 @@ test("3D viewer page is the light 07_alu tour", () => {
 });
 
 test("JS modules parse (syntax)", async () => {
-  for (const file of ["js/mast.js", "js/bench.js", "js/forge.js", "js/arch-map.js", "js/alu.js", "js/playground.js", "js/viewer.js", "js/pcb-look.js"]) {
+  const files = walk(WEB)
+    .map(relWeb)
+    .filter((r) => (r.startsWith("js/") && r.endsWith(".js")) || (r.startsWith("scripts/") && r.endsWith(".mjs")));
+  assert.ok(files.includes("js/mast.js"));
+  assert.ok(files.includes("scripts/optimize-pcb.mjs"));
+  for (const file of files) {
     const abs = join(WEB, file);
     await new Promise((resolveP, reject) => {
       const child = spawn(process.execPath, ["--check", abs], { stdio: ["ignore", "pipe", "pipe"] });
@@ -281,6 +305,8 @@ test("GLB is a glTF binary with materials", () => {
   const names = (json.meshes || []).map((m) => m.name || "");
   assert.ok(names.some((n) => /copper/i.test(n)), "copper mesh missing — palette() may have flattened traces");
   assert.ok(names.some((n) => /soldermask/i.test(n)), "soldermask mesh missing");
+  assert.ok((json.meshes || []).length <= 16, `too many meshes (${json.meshes.length}) — ship the Draco join, not the KiCad dump`);
+  assert.ok(buf.length < 8_000_000, `GLB ${buf.length} B is too fat — 31 MB KiCad export leaked into the tab`);
   assert.ok(json.asset?.extras?.generator?.includes?.("KiCad") || json.asset?.generator);
 });
 
@@ -364,10 +390,21 @@ test("HTTP smoke: every HTML page returns 200 from static server", async () => {
     const pages = htmlFiles().map((f) => "/" + relWeb(f));
     const assets = [
       "/css/magazine.css",
+      "/css/viewer.css",
       "/js/bench.js",
       "/js/forge.js",
+      "/js/mast.js",
+      "/js/viewer.js",
+      "/js/playground.js",
       "/assets/favicon.svg",
+      "/assets/mark.svg",
+      "/assets/mark-dark.svg",
       "/assets/pcb/alu.glb",
+      "/assets/pcb/hero.mp4",
+      "/assets/pcb/hero.webp",
+      "/assets/pcb/immersion_black.mp4",
+      "/assets/compiler/opcode-sweep-sim.mp4",
+      "/assets/compiler/opcode-sweep-fpga.mp4",
     ];
     for (const path of [...pages, ...assets]) {
       const { status, body } = await get(`http://127.0.0.1:${port}${path}`);
@@ -379,13 +416,116 @@ test("HTTP smoke: every HTML page returns 200 from static server", async () => {
   }
 });
 
+test("shipped clips are real MP4s with posters, not leftover GIFs", () => {
+  const gone = [
+    "assets/pcb/alu-optimized.glb",
+    "assets/pcb/immersion_black.gif",
+  ];
+  for (const f of gone) {
+    assert.equal(existsSync(join(WEB, f)), false, `stale ${f} still in web/`);
+  }
+  hasFtyp("assets/pcb/hero.mp4", "hero.mp4");
+  hasFtyp("assets/pcb/immersion_black.mp4", "immersion_black.mp4");
+  hasFtyp("assets/compiler/opcode-sweep-sim.mp4", "opcode-sweep-sim.mp4");
+  hasFtyp("assets/compiler/opcode-sweep-fpga.mp4", "opcode-sweep-fpga.mp4");
+  const posters = [
+    ["assets/pcb/hero.webp", "RIFF"],
+    ["assets/pcb/immersion_black.webp", "RIFF"],
+    ["assets/pcb/immersion_white_poster.webp", "RIFF"],
+    ["assets/compiler/opcode-sweep-sim.webp", "RIFF"],
+    ["assets/compiler/opcode-sweep-fpga.webp", "RIFF"],
+  ];
+  for (const [f, head] of posters) {
+    const n = magic(join(WEB, f), head, f);
+    const buf = readFileSync(join(WEB, f));
+    assert.equal(buf.subarray(8, 12).toString("latin1"), "WEBP", `${f}: not a WebP`);
+    assert.ok(n > 1_000, `${f}: empty poster`);
+    assert.ok(n < 2_000_000, `${f}: poster too fat`);
+  }
+  magic(join(WEB, "assets/mark.svg"), "<svg", "mark.svg");
+  magic(join(WEB, "assets/mark-dark.svg"), "<svg", "mark-dark.svg");
+  magic(join(WEB, "assets/dip-dark.svg"), "<svg", "dip-dark.svg");
+  magic(join(WEB, "assets/slice-dark.svg"), "<svg", "slice-dark.svg");
+});
+
+test("every magazine page bootstraps Paper/Black before paint", () => {
+  for (const file of htmlFiles()) {
+    const html = readFileSync(file, "utf8");
+    const label = relWeb(file);
+    if (label === "viewer.html") continue;
+    assert.match(html, /tomato\.theme/, `${label}: FOUC theme script`);
+    assert.match(html, /name=["']theme-color["']/, `${label}: theme-color`);
+    assert.match(html, /property=["']og:image["']/, `${label}: og:image`);
+    assert.match(html, /<h1[^>]*>Tomato<\/h1>/, `${label}: nameplate is Tomato`);
+    assert.doesNotMatch(html, /1 min(?:ute)?(?: and)? 14/, `${label}: stale sweep timing`);
+  }
+  const mast = readFileSync(join(WEB, "js/mast.js"), "utf8");
+  assert.match(mast, /mark-dark\.svg/);
+  assert.match(mast, /dip-dark\.svg/);
+  assert.match(mast, /slice-dark\.svg/);
+  assert.match(mast, /lead-spin/);
+  assert.match(mast, /lead-night/);
+  assert.match(mast, /removeAttribute\("data-theme"\)/);
+});
+
+test("AND3 FPGA hit is boxed on the paper, playground, and demo log", () => {
+  const needles = [
+    "compiler-hit",
+    "0x80",
+    "AND3",
+    "0x2e653abb",
+    "0x7d0145cd",
+    "0x1455f659",
+    "0x08020012",
+    "opcode-sweep-sim.mp4",
+    "opcode-sweep-fpga.mp4",
+  ];
+  const pages = {
+    "index.html": readFileSync(join(WEB, "index.html"), "utf8"),
+    "js/playground.js": readFileSync(join(WEB, "js/playground.js"), "utf8"),
+    "journal/demo-ideas.html": readFileSync(join(WEB, "journal/demo-ideas.html"), "utf8"),
+  };
+  for (const [label, src] of Object.entries(pages)) {
+    for (const n of needles) {
+      assert.ok(src.includes(n), `${label} missing ${n}`);
+    }
+  }
+  const css = readFileSync(join(WEB, "css/magazine.css"), "utf8");
+  assert.match(css, /\.compiler-hit\{/);
+  assert.match(css, /\.two-up--sweeps\{/);
+  assert.match(css, /#opcode-compiler\{/);
+  assert.match(css, /html\[data-theme=dark\]/);
+  assert.match(css, /prefers-color-scheme:dark/);
+  const opt = readFileSync(join(WEB, "scripts/optimize-pcb.mjs"), "utf8");
+  assert.match(opt, /document\.transform\(/);
+  assert.doesNotMatch(opt, /document\.transform\([\s\S]*\bpalette\s*\(/);
+});
+
+test("Vercel build is the web test suite on the web/ folder", () => {
+  const vercel = JSON.parse(readFileSync(join(WEB, "../vercel.json"), "utf8"));
+  assert.equal(vercel.outputDirectory, "web");
+  assert.match(String(vercel.buildCommand), /tests\/\*\.mjs/);
+  assert.ok(Array.isArray(vercel.headers) && vercel.headers.length >= 1);
+  const boards = readdirSync(join(WEB, "boards")).filter((n) => n.endsWith(".html")).sort();
+  assert.deepEqual(boards, [
+    "01-alu.html",
+    "02-shift.html",
+    "03-memory.html",
+    "04-register.html",
+    "05-pc.html",
+    "06-bus.html",
+    "07-alu.html",
+    "08-display.html",
+  ]);
+});
+
 test("subdir deploy simulation: journal page assets resolve via ../", () => {
   const sample = join(WEB, "journal/welcome.html");
   const html = readFileSync(sample, "utf8");
   assert.match(html, /\.\.\/css\/magazine\.css/);
   assert.match(html, /\.\.\/assets\/favicon\.svg/);
   assert.match(html, /\.\.\/index\.html/);
-  for (const { value } of attrs(html, ["href", "src"])) {
+  for (const { value } of attrs(html, ["href", "src", "poster"])) {
     const target = resolveHref(sample, value);
     if (!target) continue;
     assert.ok(existsSync(target), `journal relative miss: ${value}`);
