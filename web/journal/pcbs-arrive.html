@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>PCBs arrive — The Tomato</title>
+  <meta name="description" content="Five 07_alu boards on the desk. Continuity on power is clean. No islands." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+
+  <meta property="og:title" content="PCBs arrive — The Tomato" />
+  <meta property="og:description" content="Five 07_alu boards on the desk. Continuity on power is clean. No islands." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/pcbs-arrive.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="PCBs arrive — The Tomato" />
+  <meta name="twitter:description" content="Five 07_alu boards on the desk. Continuity on power is clean. No islands." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta name="author" content="Tyrone Marhguy" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../playground.html">Playground</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Boards</a>
+          <a href="../board.html">Board</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+          <a class="is-tour" href="../viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" width="52" height="61" />
+          <a href="../index.html"><h1>Tomato</h1></a>
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>15 August 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Dispatch</p>
+          <h1 class="headline">PCBs arrive</h1>
+          <p class="deck">Five boards. Continuity on power is clean. No islands. Every trace is one I remember placing.</p>
+          <p class="byline">15 August 2026 · from the log</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">The PCBs all just arrived! I ordered 5 of them, and I tested them with a continuity meter, particularly for the power connections, and I am happy to log that there are no islands! It is beautiful watching the board of such sophisticated nature, realizing that I remember placing every single trace!</p>
+          <figure class="figure">
+            <img src="../assets/pcb/pcb-arrive.jpeg" alt="Five 07_alu boards on the desk — Tomato ALU 8 bit, July 2026." />
+          </figure>
+          <p class="caption"><span>Fig. — Lot 07</span><span>Five boards · as received</span></p>
+          <figure class="figure">
+            <img src="../assets/pcb/continuity-test.jpeg" alt="Continuity meter on the 07_alu power rails — no islands." />
+          </figure>
+          <p class="caption"><span>Fig. — Power</span><span>Continuity · no islands</span></p>
+          <figure class="figure">
+            <video src="../assets/pcb/pcb-arrive.mp4" controls playsinline></video>
+          </figure>
+          <p class="caption"><span>Fig. — In the round</span><span>The boards as they landed</span></p>
+          <p>I had to admit to my roommate: isn't it hilarious that all this I have been working on, I did it all by myself? Buying a multimeter, an FPGA, using KiCad, down to this project. It has been a long and interesting journey!</p>
+          <p>The boards look stunning! Now, the soldering begins.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="isa-as-a-wire.html"><span class="dir">Previous</span><span class="to">ISA as a Wire</span></a>
+            <a class="next" href="web-optimization.html"><span class="dir">Next</span><span class="to">Web optimization</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="../assets/mark.svg" alt="" width="52" height="61" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script src="../js/mast.js" defer></script>
+</body>
+</html>

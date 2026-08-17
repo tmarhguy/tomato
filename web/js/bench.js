@@ -1,90 +1,23 @@
 /* 07_alu playground — lighting and materials match the 8-bit ALU site. */
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
-import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { dressPcbMaterials, lightPcbScene } from "./pcb-look.js";
-
-function thinnestAxis(size) {
-  if (size.x <= size.y && size.x <= size.z) return new THREE.Vector3(1, 0, 0);
-  if (size.y <= size.x && size.y <= size.z) return new THREE.Vector3(0, 1, 0);
-  return new THREE.Vector3(0, 0, 1);
-}
+import { lightPcbScene, loadFittedPcb, studioEnv } from "./pcb-look.js";
 
 function easeInOutCubic(u) {
   return u < 0.5 ? 4 * u * u * u : 1 - (-2 * u + 2) ** 3 / 2;
 }
 
+function easeOutCubic(u) {
+  return 1 - (1 - u) ** 3;
+}
+
 const STAGE = 0x050505;
 
-function bakeGeo(mesh) {
-  const src = mesh.geometry.clone();
-  src.applyMatrix4(mesh.matrixWorld);
-  for (const name of Object.keys(src.attributes)) {
-    if (name !== "position" && name !== "normal") src.deleteAttribute(name);
-  }
-  src.morphAttributes = {};
-  if (!src.getAttribute("position")?.count) {
-    src.dispose();
-    return null;
-  }
-  if (!src.attributes.normal) src.computeVertexNormals();
-  return src;
-}
-
-function mergeByMaterial(root) {
-  root.updateMatrixWorld(true);
-  const buckets = new Map();
-  const old = [];
-  root.traverse((child) => {
-    if (!child.isMesh) return;
-    old.push(child);
-    const mat = Array.isArray(child.material) ? child.material[0] : child.material;
-    if (!mat) return;
-    const geo = bakeGeo(child);
-    if (!geo) return;
-    const key = mat.uuid;
-    if (!buckets.has(key)) buckets.set(key, { material: mat, geos: [] });
-    buckets.get(key).geos.push(geo);
-  });
-
-  const group = new THREE.Group();
-  for (const { material, geos } of buckets.values()) {
-    if (!geos.length) continue;
-    const mixed = geos.some((g) => g.index) && geos.some((g) => !g.index);
-    const list = mixed
-      ? geos.map((g) => {
-          if (!g.index) return g;
-          const n = g.toNonIndexed();
-          g.dispose();
-          return n;
-        })
-      : geos;
-    let acc = list[0];
-    const chunk = 256;
-    for (let i = 1; i < list.length; i += chunk) {
-      const slice = list.slice(i, i + chunk);
-      const next = mergeGeometries([acc, ...slice], false);
-      acc.dispose();
-      slice.forEach((g) => g.dispose());
-      acc = next;
-      if (!acc) break;
-    }
-    if (!acc) continue;
-    acc.computeBoundingSphere();
-    group.add(new THREE.Mesh(acc, material));
-  }
-  old.forEach((mesh) => {
-    mesh.geometry.dispose();
-    mesh.removeFromParent();
-  });
-  return group;
-}
-
-async function studioEnv(renderer) {
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  return pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+function isHand() {
+  return (
+    (typeof matchMedia === "function" && matchMedia("(max-width: 860px)").matches) ||
+    (typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches)
+  );
 }
 
 function isCoarsePointer() {
@@ -96,28 +29,29 @@ function isCoarsePointer() {
 
 function injectHud(stage) {
   if (stage.querySelector(".bench-hud")) return;
-  const mobile = isCoarsePointer();
   const hud = document.createElement("div");
   hud.className = "bench-hud";
-  hud.innerHTML = mobile
-    ? `
-    <button type="button" class="bench-hud-toggle" data-hud="legend" aria-expanded="false">Touch</button>
-    <div class="bench-legend" data-hud-panel hidden>
-      <p class="bench-legend-row"><span>Orbit</span><kbd>1 finger</kbd></p>
-      <p class="bench-legend-row"><span>Zoom</span><kbd>Pinch</kbd></p>
-      <p class="bench-legend-row"><span>Pan</span><kbd>2 fingers</kbd></p>
-      <p class="bench-legend-row"><span>Reset</span><kbd>Double-tap</kbd></p>
-    </div>
-  `
-    : `
-    <button type="button" class="bench-hud-toggle" data-hud="legend" aria-expanded="true">Controls</button>
-    <div class="bench-legend" data-hud-panel>
-      <p class="bench-legend-row"><span>Turn</span><kbd>Drag</kbd></p>
-      <p class="bench-legend-row"><span>Slide</span><kbd>Right-drag</kbd></p>
-      <p class="bench-legend-row"><span>Zoom</span><kbd>Scroll</kbd></p>
-      <p class="bench-legend-row"><span>Hold</span><kbd>Space</kbd></p>
-      <p class="bench-legend-row"><span>Top / Iso / Side</span><kbd>1 2 3</kbd></p>
-      <p class="bench-legend-row"><span>Reset / Tour / Grid</span><kbd>R I G</kbd></p>
+  hud.innerHTML = `
+    <button type="button" class="bench-hud-toggle" data-hud="legend" aria-expanded="${isHand() ? "false" : "true"}">
+      <span class="hud-desk">Controls</span><span class="hud-hand">Controls</span>
+    </button>
+    <div class="bench-legend-wrap"${isHand() ? " hidden" : ""}>
+      <div class="bench-legend bench-legend--desk">
+        <p class="bench-legend-row"><span>Turn</span><kbd>Drag</kbd></p>
+        <p class="bench-legend-row"><span>Slide</span><kbd>Right-drag</kbd></p>
+        <p class="bench-legend-row"><span>Zoom</span><kbd>Scroll</kbd></p>
+        <p class="bench-legend-row"><span>Hold</span><kbd>Space</kbd></p>
+        <p class="bench-legend-row"><span>Top / Iso / Side</span><kbd>1 2 3</kbd></p>
+        <p class="bench-legend-row"><span>Reset / Tour / Grid</span><kbd>R I G</kbd></p>
+      </div>
+      <div class="bench-legend bench-legend--hand">
+        <p class="bench-legend-row"><span>Orbit</span><kbd>1 finger</kbd></p>
+        <p class="bench-legend-row"><span>Zoom</span><kbd>Pinch</kbd></p>
+        <p class="bench-legend-row"><span>Pan</span><kbd>2 fingers</kbd></p>
+        <p class="bench-legend-row"><span>Spin</span><kbd>Tap</kbd></p>
+        <p class="bench-legend-row"><span>Reset</span><kbd>Double-tap</kbd></p>
+        <p class="bench-legend-row"><span>Zoom in</span><kbd>Triple-tap</kbd></p>
+      </div>
     </div>
   `;
   const mark = document.createElement("p");
@@ -140,21 +74,21 @@ export async function mountBench(canvas, opts) {
     powerPreference: "high-performance",
   });
   const mobile = isCoarsePointer();
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1 : 1.25));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 0.92;
 
-  scene.environment = await studioEnv(renderer);
+  scene.environment = studioEnv(renderer);
   scene.environmentIntensity = 0.4;
 
-  lightPcbScene(scene, { hemiIntensity: 0.12 });
+  lightPcbScene(scene, { hemiIntensity: 0.6 });
 
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = mobile ? 0.12 : 0.08;
   controls.autoRotate = !mobile;
-  controls.autoRotateSpeed = mobile ? -0.7 : -1.33;
+  controls.autoRotateSpeed = mobile ? -1.4 : -2.66;
   controls.rotateSpeed = mobile ? 0.65 : 0.9;
   controls.zoomSpeed = mobile ? 0.85 : 1.05;
   controls.panSpeed = mobile ? 0.55 : 0.85;
@@ -188,9 +122,12 @@ export async function mountBench(canvas, opts) {
   let lastInput = performance.now();
   const isLive = () => onScreen && pageVisible;
 
+  const compact = isHand();
+  const pull = compact ? 1.32 : 1;
+
   const views = {
     reset() {
-      const d = maxDim;
+      const d = maxDim * pull;
       return {
         pos: new THREE.Vector3(look.x + d, look.y + d * 1.45, look.z + d),
         tgt: look.clone(),
@@ -198,7 +135,7 @@ export async function mountBench(canvas, opts) {
       };
     },
     iso() {
-      const d = maxDim;
+      const d = maxDim * pull;
       return {
         pos: new THREE.Vector3(look.x + d * 1.45, look.y + d * 1.45, look.z + d * 1.45),
         tgt: look.clone(),
@@ -206,29 +143,33 @@ export async function mountBench(canvas, opts) {
       };
     },
     top() {
+      const d = maxDim * pull;
       return {
-        pos: new THREE.Vector3(look.x, look.y + maxDim * 2.4, look.z + maxDim * 0.02),
+        pos: new THREE.Vector3(look.x, look.y + d * 2.4, look.z + d * 0.02),
         tgt: look.clone(),
         fov: 45,
       };
     },
     side() {
+      const d = maxDim * pull;
       return {
-        pos: new THREE.Vector3(look.x + maxDim * 2.4, look.y + maxDim * 0.08, look.z),
+        pos: new THREE.Vector3(look.x + d * 2.4, look.y + d * 0.08, look.z),
         tgt: look.clone(),
         fov: 45,
       };
     },
     front() {
+      const d = maxDim * pull;
       return {
-        pos: new THREE.Vector3(look.x, look.y + maxDim * 1.9, look.z),
+        pos: new THREE.Vector3(look.x, look.y + d * 1.9, look.z),
         tgt: look.clone(),
         fov: 38,
       };
     },
     copper() {
+      const d = maxDim * pull;
       return {
-        pos: new THREE.Vector3(look.x, look.y - maxDim * 1.55, look.z + maxDim * 0.35),
+        pos: new THREE.Vector3(look.x, look.y - d * 1.55, look.z + d * 0.35),
         tgt: look.clone(),
         fov: 38,
       };
@@ -240,6 +181,8 @@ export async function mountBench(canvas, opts) {
     syncSpin();
     const v = views[name]?.();
     if (!v) return;
+    currentView = name;
+    syncViewBtns();
     anim = {
       fromP: camera.position.clone(),
       fromT: controls.target.clone(),
@@ -257,10 +200,14 @@ export async function mountBench(canvas, opts) {
     window.location.href = new URL(href, document.baseURI).href;
   }
 
+  let viewW = 0;
+  let viewH = 0;
   function resize() {
-    const w = canvas.clientWidth;
-    const h = canvas.clientHeight;
-    if (!w || !h) return;
+    const w = canvas.clientWidth | 0;
+    const h = canvas.clientHeight | 0;
+    if (!w || !h || (w === viewW && h === viewH)) return;
+    viewW = w;
+    viewH = h;
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h, false);
@@ -271,41 +218,14 @@ export async function mountBench(canvas, opts) {
   ro.observe(canvas);
   resize();
 
-  const gltf = await new GLTFLoader().loadAsync(opts.glb);
-  const model = mergeByMaterial(gltf.scene);
-  dressPcbMaterials(model);
-  model.updateMatrixWorld(true);
-
-  const box = new THREE.Box3().setFromObject(model);
-  const size = box.getSize(new THREE.Vector3());
-  const center = box.getCenter(new THREE.Vector3());
-  model.position.sub(center);
-
-  maxDim = Math.max(size.x, size.y, size.z) || 1;
-  model.scale.setScalar(10 / maxDim);
-  model.updateMatrixWorld(true);
-
-  const fitted = new THREE.Box3().setFromObject(model);
-  const fittedSize = fitted.getSize(new THREE.Vector3());
-  const n = thinnestAxis(fittedSize);
-  model.quaternion.premultiply(
-    new THREE.Quaternion().setFromUnitVectors(n, new THREE.Vector3(0, 1, 0))
-  );
-  model.updateMatrixWorld(true);
-
-  const seated = new THREE.Box3().setFromObject(model);
-  model.position.y -= seated.min.y;
-  model.updateMatrixWorld(true);
-
-  const world = new THREE.Box3().setFromObject(model);
-  const worldSize = world.getSize(new THREE.Vector3());
-  maxDim = Math.max(worldSize.x, worldSize.z, worldSize.y) || 10;
-  look.copy(world.getCenter(new THREE.Vector3()));
-
+  const fitted = await loadFittedPcb(opts.glb, renderer);
+  const model = fitted.model;
+  maxDim = fitted.maxDim;
+  look.copy(fitted.look);
   scene.add(model);
 
   const grid = new THREE.GridHelper(maxDim * 5, 50, 0x1a1a1a, 0x111111);
-  grid.position.y = 0;
+  grid.position.set(look.x, 0, look.z);
   scene.add(grid);
 
   controls.minDistance = maxDim * 0.08;
@@ -326,9 +246,46 @@ export async function mountBench(canvas, opts) {
 
   stage?.classList.add("is-ready");
 
+  let currentView = "reset";
+
   function syncSpin() {
     const btn = canvas.closest(".bench")?.querySelector('[data-bench="spin"]');
-    if (btn) btn.textContent = controls.autoRotate ? "Hold" : "Turn";
+    if (btn) {
+      btn.textContent = controls.autoRotate ? "Hold" : "Turn";
+      btn.classList.toggle("is-on", controls.autoRotate);
+    }
+  }
+
+  function syncViewBtns() {
+    root.querySelectorAll("[data-bench]").forEach((btn) => {
+      const name = btn.getAttribute("data-bench");
+      if (name === "spin" || name === "grid") return;
+      btn.classList.toggle("is-on", name === currentView && name !== "reset");
+    });
+  }
+
+  function dollyIn(ms = 700) {
+    controls.autoRotate = false;
+    syncSpin();
+    const dir = new THREE.Vector3().subVectors(camera.position, controls.target);
+    const dist = dir.length();
+    const next = Math.max(controls.minDistance, dist * 0.62);
+    if (Math.abs(next - dist) < 1e-4) return;
+    dir.setLength(next);
+    currentView = "";
+    syncViewBtns();
+    anim = {
+      fromP: camera.position.clone(),
+      fromT: controls.target.clone(),
+      fromF: camera.fov,
+      toP: controls.target.clone().add(dir),
+      toT: controls.target.clone(),
+      toF: camera.fov,
+      t0: performance.now(),
+      ms,
+      ease: easeOutCubic,
+    };
+    lastInput = performance.now();
   }
 
   function syncGrid() {
@@ -350,7 +307,7 @@ export async function mountBench(canvas, opts) {
     if (!busy) return;
     if (anim) {
       const u = Math.min(1, (now - anim.t0) / anim.ms);
-      const e = easeInOutCubic(u);
+      const e = (anim.ease || easeInOutCubic)(u);
       camera.position.lerpVectors(anim.fromP, anim.toP, e);
       controls.target.lerpVectors(anim.fromT, anim.toT, e);
       camera.fov = THREE.MathUtils.lerp(anim.fromF, anim.toF, e);
@@ -379,14 +336,13 @@ export async function mountBench(canvas, opts) {
 
   function haltSpin() {
     lastInput = performance.now();
+    currentView = "";
+    syncViewBtns();
     if (!controls.autoRotate) return;
     controls.autoRotate = false;
     syncSpin();
   }
 
-  let lastTap = 0;
-  let tapX = 0;
-  let tapY = 0;
   const blockScroll = (e) => {
     if (e.target.closest(".bench-hud, .bench-tools, button, a")) return;
     if (e.cancelable) e.preventDefault();
@@ -405,29 +361,75 @@ export async function mountBench(canvas, opts) {
     hovered = false;
   });
   controls.addEventListener("start", haltSpin);
+  let ptrDownX = 0, ptrDownY = 0, ptrDownTime = 0;
+  let wasSpinning = false;
+  let tapTimer = 0;
+  let taps = 0;
+  let tapReset = false;
+
   canvas.addEventListener("pointerdown", (e) => {
+    wasSpinning = controls.autoRotate;
     haltSpin();
+    ptrDownX = e.clientX;
+    ptrDownY = e.clientY;
+    ptrDownTime = performance.now();
     if (mobile) canvas.focus({ preventScroll: true });
-    if (e.pointerType === "touch") {
-      const now = performance.now();
-      const dt = now - lastTap;
-      const dx = e.clientX - tapX;
-      const dy = e.clientY - tapY;
-      if (dt < 320 && dx * dx + dy * dy < 900) {
-        e.preventDefault();
-        go("reset");
-        lastTap = 0;
-      } else {
-        lastTap = now;
-        tapX = e.clientX;
-        tapY = e.clientY;
-      }
+  }, { capture: true });
+
+  canvas.addEventListener("pointerup", (e) => {
+    const dt = performance.now() - ptrDownTime;
+    const dx = e.clientX - ptrDownX;
+    const dy = e.clientY - ptrDownY;
+    if (dt <= 0 || dt >= 400 || dx * dx + dy * dy >= 100) {
+      taps = 0;
+      tapReset = false;
+      return;
     }
+    if (!isHand()) {
+      controls.autoRotate = !wasSpinning;
+      syncSpin();
+      return;
+    }
+    taps += 1;
+    clearTimeout(tapTimer);
+    if (taps >= 3) {
+      if (tapReset && anim?.fromP) {
+        camera.position.copy(anim.fromP);
+        controls.target.copy(anim.fromT);
+        camera.fov = anim.fromF;
+        camera.updateProjectionMatrix();
+        anim = null;
+      }
+      tapReset = false;
+      dollyIn();
+      taps = 0;
+      return;
+    }
+    if (taps === 2) {
+      tapReset = true;
+      go("reset");
+      tapTimer = setTimeout(() => {
+        taps = 0;
+        tapReset = false;
+      }, 280);
+      return;
+    }
+    tapTimer = setTimeout(() => {
+      if (taps === 1) {
+        controls.autoRotate = !wasSpinning;
+        syncSpin();
+      }
+      taps = 0;
+    }, 280);
   });
   if (!mobile) {
-    canvas.addEventListener("dblclick", (e) => {
-      e.preventDefault();
-      go("reset");
+    canvas.addEventListener("click", (e) => {
+      if (e.detail === 2 || e.detail === 3) {
+        e.preventDefault();
+        const dir = new THREE.Vector3().subVectors(camera.position, controls.target);
+        if (e.detail === 2) camera.position.addScaledVector(dir, -0.35);
+        if (e.detail === 3) camera.position.addScaledVector(dir, 0.55);
+      }
     });
   }
 
@@ -454,10 +456,12 @@ export async function mountBench(canvas, opts) {
   });
 
   stage?.querySelector("[data-hud=legend]")?.addEventListener("click", (e) => {
-    const panel = stage.querySelector("[data-hud-panel]");
-    const open = panel.hasAttribute("hidden");
-    panel.toggleAttribute("hidden", !open);
+    const wrap = stage.querySelector(".bench-legend-wrap");
+    if (!wrap) return;
+    const open = wrap.hasAttribute("hidden");
+    wrap.toggleAttribute("hidden", !open);
     e.currentTarget.setAttribute("aria-expanded", String(open));
+    e.currentTarget.classList.toggle("is-on", open);
   });
 
   function onKey(e) {
@@ -500,6 +504,7 @@ export async function mountBench(canvas, opts) {
   canvas.tabIndex = 0;
   syncSpin();
   syncGrid();
+  syncViewBtns();
 
   return {
     reset: () => act("reset"),

@@ -589,6 +589,39 @@ function renderCompilerShell() {
   return `<div class="pg-tabpanel" id="compiler" role="tabpanel">
     <h2 class="pg-h">Find an opcode</h2>
     <p class="pg-lede">Sweep the opcode space until a program matches — the same job the bench compiler does in hardware.</p>
+    <div class="two-up two-up--sweeps pg-sweeps">
+      <figure class="figure">
+        <video controls playsinline muted preload="metadata" poster="assets/compiler/opcode-sweep-sim.webp" width="1680" height="1080">
+          <source src="assets/compiler/opcode-sweep-sim.mp4" type="video/mp4" />
+        </video>
+        <p class="caption"><span>Fig. — Simulation</span><span>Opcode space sweep</span></p>
+      </figure>
+      <figure class="figure">
+        <video controls playsinline muted preload="metadata" poster="assets/compiler/opcode-sweep-fpga.webp" width="480" height="544">
+          <source src="assets/compiler/opcode-sweep-fpga.mp4" type="video/mp4" />
+        </video>
+        <p class="caption"><span>Fig. — Artix‑7</span><span>AND3 · 0x80</span></p>
+      </figure>
+    </div>
+    <aside class="compiler-hit" aria-label="FPGA sweep vector">
+      <span class="compiler-hit-label">FPGA hit</span>
+      <div class="compiler-hit-grid">
+        <div class="compiler-hit-id">
+          <p class="compiler-hit-op">0x80</p>
+          <p class="compiler-hit-fn">AND3</p>
+          <span class="compiler-hit-expected">Expected</span>
+          <p class="compiler-hit-eq">out = f(a, b, c) + g(a, b, c) + h(c<sub>in</sub>)</p>
+          <p class="compiler-hit-hold">Reset zeros the result. Hold, then change the inputs: they take the function that was found — <span class="mono">out = AND3 + AND3</span>.</p>
+        </div>
+        <dl class="compiler-hit-vec">
+          <div><dt>A</dt><dd>0x2e653abb</dd></div>
+          <div><dt>B</dt><dd>0x7d0145cd</dd></div>
+          <div><dt>C</dt><dd>0x1455f659</dd></div>
+          <div><dt>c<sub>in</sub></dt><dd>0</dd></div>
+          <div class="is-out"><dt>out</dt><dd>0x08020012</dd></div>
+        </dl>
+      </div>
+    </aside>
     <div class="pg-resolve-grid">
       <div>
         <p class="kicker">Vector sweep</p>

@@ -1,21 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
   <title>The correspondent — The Tomato</title>
-  <meta name="description" content="Tyrone Marhguy: Ghana, Penn, Achimota, Tomato. Discrete transistors to tapeout. The correspondent of this paper." />
+  <meta name="description"
+    content="Tyrone Marhguy: Ghana, Penn, Achimota, Tomato. Discrete transistors to tapeout. The correspondent of this paper." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="css/magazine.css" />
+
+  <meta property="og:title" content="The correspondent — The Tomato" />
+  <meta property="og:description" content="Tyrone Marhguy: Ghana, Penn, Achimota, Tomato. Discrete transistors to tapeout. The correspondent of this paper." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/about.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="The correspondent — The Tomato" />
+  <meta name="twitter:description" content="Tyrone Marhguy: Ghana, Penn, Achimota, Tomato. Discrete transistors to tapeout. The correspondent of this paper." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta name="author" content="Tyrone Marhguy" />
 </head>
+
 <body>
   <div class="page">
     <header class="wrap">
       <div class="mast">
-        <a class="mast-mark" href="index.html">The Tomato</a>
         <nav class="mast-nav" aria-label="Primary">
           <a href="index.html">Front</a>
           <a href="architecture.html">Architecture</a>
@@ -31,9 +63,10 @@
       </div>
       <div class="flag flag--inside">
         <div class="nameplate">
-          <img src="assets/mark.svg" alt="" />
-          <a href="index.html"><h1>The Tomato</h1></a>
-          <img src="assets/mark.svg" alt="" />
+          <img src="assets/mark.svg" alt="" width="52" height="61" />
+          <a href="index.html">
+            <h1>Tomato</h1>
+          </a>
         </div>
         <p class="flag-bottom"><span>Masthead</span><span>The correspondent</span><span>Vol. 32</span></p>
       </div>
@@ -42,9 +75,10 @@
       <section class="section">
         <div class="wrap hed">
           <p class="kicker">The correspondent</p>
-          <h1 class="headline"><a href="https://en.wikipedia.org/wiki/Tyrone_Marhguy">Tyrone Marhguy</a></h1>
-          <p class="deck">Ghanaian. Computer Engineering ’28 at Penn, on a <strong>full scholarship</strong>. I build computers from discrete transistors to tapeout — and I set this paper.</p>
-          <p class="byline">Ashtown Valley · Philadelphia</p>
+          <h1 class="headline"><a href="https://tmarhguy.com">Tyrone Marhguy</a></h1>
+          <p class="deck">Ghanaian. Computer Engineering ’28 at Penn, on a <strong>full scholarship</strong>. I build
+            computers from discrete transistors to tapeout — and I set this paper.</p>
+          <p class="byline">Ashtown Valley, Bay Perimeter</p>
         </div>
       </section>
       <section class="section">
@@ -52,54 +86,94 @@
           <article class="author">
             <figure class="plate">
               <img src="assets/plates/me.jpg" alt="Tyrone Marhguy, the correspondent." />
-              <figcaption class="plate-cap"><span>Fig. — Correspondent</span><span>Tyrone Iras Marhguy</span></figcaption>
+              <figcaption class="plate-cap"><span>Fig. — Correspondent</span><span>Tyrone Iras Marhguy</span>
+              </figcaption>
             </figure>
             <div>
               <p class="author-role">Builder · Quaker · Class of 2028</p>
-              <p class="author-bio">Look at the bottom left of <code>07_alu</code>. Penn Engineering, because I am a Quaker, and ENIAC sat in the Moore School a few buildings over. The Achimota mark, because that is the public school the board is allowed to remember. The Ghana flag, because the paper is printed in Ashtown Valley even when the copper lands in Philadelphia.</p>
+              <p class="author-bio">Look at the bottom left of <code>07_alu</code>. Penn Engineering, because I am a
+                Quaker, and ENIAC sat in the Moore School a few buildings over. The Achimota mark, because that is the
+                public school the board is allowed to remember. The Ghana flag, because the paper is printed in Ashtown
+                Valley even when the copper lands in Philadelphia.</p>
             </div>
           </article>
         </div>
       </section>
       <section class="section">
         <div class="wrap story">
-          <p class="drop">I am <a href="https://en.wikipedia.org/wiki/Tyrone_Marhguy">Tyrone Iras Marhguy</a>. Tomato is the machine in front of you: a <strong>32-bit CPU</strong> from <strong>74xx</strong> logic, boards you can probe, a journal for the arguments. The rest of this column is how I got here. Not a résumé with a CPU attached. The cool stories also live on Wikipedia, if you want the long version.</p>
-          <h2>Early life</h2>
-          <p>Born in Ghana, 24 November 2003. I am a triplet — Nikita and Amrita. We grew up between Kumasi and Accra, and for several years the family lived primarily on a parked bus. At thirteen I charged phones with a car battery and nails heated in a coal pot. Not because I was curious. Because we needed to survive. That instinct is still the method: understand the physics, verify the design, ship something that works on real silicon.</p>
-          <p>Before Achimota I studied in Kumasi and at Rising Academy in Ablekuma.</p>
-          <h2>Achimota</h2>
-          <p>In March 2021, <a href="https://achimotashs.com/">Achimota School</a> denied me admission because I wear dreadlocks. My father, Tereo Marhguy, took it to Ghana’s High Court, alongside the family of Oheneba Kwaku Nkrabea, who faced the same refusal. On 31 May 2021 the Human Rights Division ruled in our favor: denying education over hair violated the rights to education, dignity, and religious expression. I enrolled. I finished. The ruling has been cited since. Can’t afford to <a href="https://en.wikipedia.org/wiki/Tyrone_Marhguy">go to court again</a> and have law students study the case for exams; iykyk.</p>
-          <h2>The marks</h2>
-          <p><strong>2023 WASSCE:</strong> <strong>8 A1s</strong>. American Mathematics Olympiad: national top scorer, gold, among 150,000. Vanda Science: silver. SAT: <strong>99th percentile</strong>. 2024: a <strong>full scholarship to Penn</strong> for Computer Engineering, with other offers from Duke, Williams, and Franklin &amp; Marshall. Now a B.S.E. at Penn, expected 2028, with concurrent master’s coursework in electrical engineering.</p>
-          <h2>This fall</h2>
-          <p>This paper is Tomato. Discrete logic through PCB tapeout. The dual-LUT ALU is inbound. The rest of the catalog is still on the screen. I am also joining Pennovation to research FPGA utilization, and I contribute where the tools actually run: <a href="https://github.com/librelane/librelane/pull/1015">LibreLane</a>, <a href="https://github.com/verilator/verilator/pull/8070">Verilator</a>, <a href="https://github.com/lnis-uofu/OpenFPGA">OpenFPGA</a>. The first board, before this one, was an <a href="https://alu.tmarhguy.com">8-bit ALU from 3,488 MOSFETs</a>. Professionally: <a href="https://veroelectric.com/">Vero Electric</a> on battery management, <a href="https://www.aragorn.ai/">Aragorn AI</a> on production backends. I have taught through Fife-Penn and, this summer, AR/VR with Howard STEM Achievers.</p>
+          <p class="drop">I am <a href="https://tmarhguy.com">Tyrone Iras Marhguy</a>. Tomato is the machine in front of
+            you: a <strong>32-bit CPU</strong> from <strong>74xx</strong> logic, boards you can probe, a journal for the
+            arguments. For the personal backstory—from growing up in Ghana, to the Achimota court case, and the journey
+            to Penn Engineering—you can <a href="https://en.wikipedia.org/wiki/Tyrone_Marhguy">read more on
+              Wikipedia</a>. For my full portfolio, résumé, and other projects, visit <a
+              href="https://tmarhguy.com">tmarhguy.com</a>.</p>
+          <h2>The work</h2>
+          <p>This paper is Tomato. Discrete logic through PCB tapeout. The dual-LUT ALU is inbound. The rest of the
+            catalog is still on the screen. I am also joining Pennovation to research FPGA utilization, and I contribute
+            where the tools actually run: <a href="https://github.com/librelane/librelane/pull/1015">LibreLane</a>, <a
+              href="https://github.com/verilator/verilator/pull/8070">Verilator</a>, <a
+              href="https://github.com/lnis-uofu/OpenFPGA">OpenFPGA</a>. The first board, before this one, was an <a
+              href="https://alu.tmarhguy.com">8-bit ALU from 3,488 MOSFETs</a>. Professionally: <a
+              href="https://veroelectric.com/">Vero Electric</a> on battery management, <a
+              href="https://www.aragorn.ai/">Aragorn AI</a> on production backends. I have taught through Fife-Penn and,
+            this summer, AR/VR with Howard STEM Achievers.</p>
           <div class="table-wrap">
             <table>
               <thead>
-                <tr><th>On the bench</th><th>What it is</th></tr>
+                <tr>
+                  <th>On the bench</th>
+                  <th>What it is</th>
+                </tr>
               </thead>
               <tbody>
-                <tr><td><a href="index.html">Tomato</a></td><td>32-bit CPU · 74xx · this paper</td></tr>
-                <tr><td><a href="https://alu.tmarhguy.com">8-bit transistor ALU</a></td><td>3,488 MOSFETs · 1.24M vectors · the origin board</td></tr>
-                <tr><td><a href="https://github.com/tmarhguy/mac">16-bit MAC, Sky130</a></td><td>BFloat16 · OpenLane · TinyTapeout</td></tr>
-                <tr><td><a href="https://github.com/tmarhguy/64b-sram">16×4 SRAM</a></td><td>6T macro · 22 nm · StrongARM sense amp</td></tr>
-                <tr><td><a href="https://github.com/tmarhguy/itch-hw">NASDAQ ITCH parser</a></td><td>Market data on Artix-7</td></tr>
-                <tr><td><a href="https://github.com/tmarhguy/udp-stack">UDP/IP stack</a></td><td>100 Mbps · sub-200 ns loopback</td></tr>
+                <tr>
+                  <td><a href="index.html">Tomato</a></td>
+                  <td>32-bit CPU · 74xx · this paper</td>
+                </tr>
+                <tr>
+                  <td><a href="https://alu.tmarhguy.com">8-bit transistor ALU</a></td>
+                  <td>3,488 MOSFETs · 1.24M vectors · the origin board</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/tmarhguy/mac">16-bit MAC, Sky130</a></td>
+                  <td>BFloat16 · OpenLane · TinyTapeout</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/tmarhguy/64b-sram">16×4 SRAM</a></td>
+                  <td>6T macro · 22 nm · StrongARM sense amp</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/tmarhguy/itch-hw">NASDAQ ITCH parser</a></td>
+                  <td>Market data on Artix-7</td>
+                </tr>
+                <tr>
+                  <td><a href="https://github.com/tmarhguy/udp-stack">UDP/IP stack</a></td>
+                  <td>100 Mbps · sub-200 ns loopback</td>
+                </tr>
               </tbody>
             </table>
           </div>
-          <p>Off the bench: beach, dogs, sudoku, biking. The other paper — portfolio, résumé, the rest of the tree — is <a href="https://tmarhguy.com">tmarhguy.com</a>.</p>
+          <p>Off the bench: beach, dogs, sudoku, biking. The other paper — portfolio, résumé, the rest of the tree — is
+            <a href="https://tmarhguy.com">tmarhguy.com</a>.</p>
         </div>
         <div class="wrap">
           <div class="socials">
-            <a href="mailto:tmarhguy@engineering.upenn.edu"><span class="k">Email</span><span class="v">tmarhguy@engineering.upenn.edu</span></a>
-            <a href="https://en.wikipedia.org/wiki/Tyrone_Marhguy"><span class="k">Wikipedia</span><span class="v">the cool stories</span></a>
+            <a href="mailto:tmarhguy@engineering.upenn.edu"><span class="k">Email</span><span
+                class="v">tmarhguy@engineering.upenn.edu</span></a>
+            <a href="https://en.wikipedia.org/wiki/Tyrone_Marhguy"><span class="k">Wikipedia</span><span class="v">the
+                cool stories</span></a>
             <a href="https://tmarhguy.com"><span class="k">Portfolio</span><span class="v">tmarhguy.com</span></a>
             <a href="source.html"><span class="k">GitHub</span><span class="v">tmarhguy / tomato</span></a>
-            <a href="https://www.linkedin.com/in/tmarhguy"><span class="k">LinkedIn</span><span class="v">/in/tmarhguy</span></a>
-            <a href="https://twitter.com/marhguy_tyrone"><span class="k">X / Twitter</span><span class="v">/marhguy_tyrone</span></a>
+            <a href="https://www.linkedin.com/in/tmarhguy"><span class="k">LinkedIn</span><span
+                class="v">/in/tmarhguy</span></a>
+            <a href="https://twitter.com/marhguy_tyrone"><span class="k">X / Twitter</span><span
+                class="v">/marhguy_tyrone</span></a>
           </div>
-          <p class="caption"><span>Press</span><span><a href="https://apnews.com/article/africa-religion-education-ghana-186c67bd473f892c054e5d1f9368b555">AP</a> · <a href="https://www.voanews.com/a/rastafarian-teen-fights-to-keep-dreadlocks/6276979.html">VOA</a> · <a href="https://www.dw.com/en/ghana-rastafarians-start-school-after-court-victory/video-57864466">DW</a> · <a href="https://www.bbc.com/pidgin/world-57306291">BBC</a></span></p>
+          <p class="caption"><span>Press</span><span><a
+                href="https://apnews.com/article/africa-religion-education-ghana-186c67bd473f892c054e5d1f9368b555">AP</a>
+              · <a href="https://www.voanews.com/a/rastafarian-teen-fights-to-keep-dreadlocks/6276979.html">VOA</a> · <a
+                href="https://www.dw.com/en/ghana-rastafarians-start-school-after-court-victory/video-57864466">DW</a> ·
+              <a href="https://www.bbc.com/pidgin/world-57306291">BBC</a></span></p>
           <nav class="pager">
             <a href="journal.html"><span class="dir">The vault</span><span class="to">The journal</span></a>
             <a class="next" href="source.html"><span class="dir">The tree</span><span class="to">GitHub</span></a>
@@ -107,8 +181,15 @@
         </div>
       </section>
     </main>
-    <footer class="footer"><div class="footer-band"><div class="footer-art"><img src="assets/mark.svg" alt="" /><p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+    <footer class="footer">
+      <div class="footer-band">
+        <div class="footer-art"><img src="assets/mark.svg" alt="" width="52" height="61" />
+          <p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
+        </div>
+      </div>
+    </footer>
   </div>
   <script src="js/mast.js" defer></script>
 </body>
+
 </html>

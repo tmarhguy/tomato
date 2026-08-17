@@ -5,7 +5,14 @@
   "description": "Static broadsheet for The Tomato — live at tomato.tmarhguy.com",
   "scripts": {
     "test": "node --test tests/*.mjs",
-    "serve": "python3 -m http.server 8080"
+    "serve": "python3 -m http.server 8080",
+    "optimize-pcb": "node scripts/optimize-pcb.mjs"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.2.1",
+    "@gltf-transform/extensions": "^4.2.1",
+    "@gltf-transform/functions": "^4.2.1",
+    "draco3dgltf": "^1.5.7"
   },
   "engines": {
     "node": ">=18"
