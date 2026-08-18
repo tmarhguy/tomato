@@ -52,8 +52,11 @@ const REQUIRED = [
   "isa.html",
   "journal.html",
   "board.html",
+  "gallery.html",
   "source.html",
   "about.html",
+  "js/gallery.js",
+  "js/compiler-reels.js",
 ];
 
 const NAV = [
@@ -64,6 +67,7 @@ const NAV = [
   "journal.html",
   "boards.html",
   "board.html",
+  "gallery.html",
   "source.html",
   "about.html",
 ];
@@ -280,6 +284,7 @@ test("JS modules parse (syntax)", async () => {
     .filter((r) => (r.startsWith("js/") && r.endsWith(".js")) || (r.startsWith("scripts/") && r.endsWith(".mjs")));
   assert.ok(files.includes("js/mast.js"));
   assert.ok(files.includes("scripts/optimize-pcb.mjs"));
+  assert.ok(files.includes("scripts/optimize-gallery.mjs"));
   for (const file of files) {
     const abs = join(WEB, file);
     await new Promise((resolveP, reject) => {
@@ -323,11 +328,27 @@ test("CSS has brand tokens", () => {
   assert.match(css, /\.mast-nav/);
 });
 
+test("gallery ships responsive WebP variants and LCP preload", () => {
+  const html = readFileSync(join(WEB, "gallery.html"), "utf8");
+  assert.match(html, /assets\/gallery\/pcb\/pcb-arrive-640w\.webp/);
+  assert.match(html, /fetchpriority="high"/);
+  assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-640w.webp")));
+  assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-128w.webp")));
+  const js = readFileSync(join(WEB, "js/gallery.js"), "utf8");
+  assert.match(js, /galleryVariant/);
+  assert.match(js, /fetchPriority/);
+  assert.match(js, /deferSrc/);
+});
+
 test("front page hardware compiler links to the sweep clips", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
   assert.match(html, /href="#opcode-compiler"/);
   assert.match(html, /opcode-sweep-sim\.mp4/);
   assert.match(html, /opcode-sweep-fpga\.mp4/);
+  assert.match(html, /compiler-reels/);
+  assert.match(html, /compiler-reels\.js/);
+  assert.match(html, /two-up--sweeps/);
+  assert.match(html, /data-src="assets\/compiler\/opcode-sweep-sim\.mp4"/);
   const js = readFileSync(join(WEB, "js/playground.js"), "utf8");
   assert.match(js, /opcode-sweep-fpga\.mp4/);
 });

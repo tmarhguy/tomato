@@ -64,8 +64,9 @@
           <a href="isa.html">ISA</a>
           <a href="playground.html">Playground</a>
           <a href="journal.html">Journal</a>
-          <a href="boards.html">Boards</a>
-          <a href="board.html">Board</a>
+          <a href="boards.html">Catalog</a>
+          <a href="board.html">Orbit</a>
+          <a href="gallery.html">Gallery</a>
           <a href="source.html">GitHub</a>
           <a href="about.html">About</a>
           <a class="is-tour" href="viewer.html">Tour&nbsp;<span class="tour-text">the board</span></a>
@@ -224,14 +225,14 @@
             </article>
           </div>
           <div class="two-up two-up--sweeps compiler-reels" id="opcode-compiler">
-            <figure class="figure">
-              <video controls playsinline muted preload="metadata" poster="assets/compiler/opcode-sweep-sim.webp" width="1680" height="1080">
+            <figure class="figure" data-src="assets/compiler/opcode-sweep-sim.mp4" data-poster="assets/compiler/opcode-sweep-sim.webp">
+              <video muted loop playsinline webkit-playsinline preload="none" poster="assets/compiler/opcode-sweep-sim.webp" width="1680" height="1080">
                 <source src="assets/compiler/opcode-sweep-sim.mp4" type="video/mp4" />
               </video>
               <p class="caption"><span>Fig. — Simulation</span><span>Opcode space sweep</span></p>
             </figure>
-            <figure class="figure">
-              <video id="opcode-compiler-fpga" controls playsinline muted preload="metadata" poster="assets/compiler/opcode-sweep-fpga.webp" width="480" height="544">
+            <figure class="figure" data-src="assets/compiler/opcode-sweep-fpga.mp4" data-poster="assets/compiler/opcode-sweep-fpga.webp">
+              <video id="opcode-compiler-fpga" muted loop playsinline webkit-playsinline preload="none" poster="assets/compiler/opcode-sweep-fpga.webp" width="480" height="544">
                 <source src="assets/compiler/opcode-sweep-fpga.mp4" type="video/mp4" />
               </video>
               <p class="caption"><span>Fig. — Artix‑7</span><span>AND3 · 0x80</span></p>
@@ -369,7 +370,7 @@
               <button type="button" data-bench="front">Front</button>
               <button type="button" data-bench="copper"><span class="hide-hand">Copper</span><span class="show-hand">Bottom</span></button>
               <button type="button" data-bench="reset">Reset</button>
-              <button type="button" data-bench="spin">Hold</button>
+              <button type="button" data-bench="spin" class="is-on">Hold</button>
               <button type="button" data-bench="grid" class="is-on">Grid</button>
               <a class="is-tour" href="viewer.html">Tour&nbsp;<span class="tour-text">the board</span></a>
             </div>
@@ -439,5 +440,6 @@
     }
   </script>
   <script src="js/mast.js" defer></script>
+  <script src="js/compiler-reels.js" defer></script>
 </body>
 </html>

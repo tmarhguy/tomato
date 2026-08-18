@@ -6,9 +6,11 @@
   "scripts": {
     "test": "node --test tests/*.mjs",
     "serve": "python3 -m http.server 8080",
-    "optimize-pcb": "node scripts/optimize-pcb.mjs"
+    "optimize-pcb": "node scripts/optimize-pcb.mjs",
+    "optimize-gallery": "node scripts/optimize-gallery.mjs"
   },
   "devDependencies": {
+    "sharp": "^0.35.3",
     "@gltf-transform/core": "^4.2.1",
     "@gltf-transform/extensions": "^4.2.1",
     "@gltf-transform/functions": "^4.2.1",
