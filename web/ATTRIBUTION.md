@@ -12,7 +12,14 @@ Figures are Tomato’s own work, ornaments drawn for the paper, or a public-doma
 | `assets/compiler/opcode-sweep-sim.mp4` | Opcode-space sweep in simulation — H.264 from `opcode_sweep_sim.mp4` |
 | `assets/compiler/opcode-sweep-fpga.mp4` | Same FSM on Artix‑7 — H.264 from `fpga_opcode_sweep.mp4` |
 | `assets/compiler/opcode-sweep-sim.webp` | Poster still for the simulation sweep |
-| `assets/compiler/opcode-sweep-fpga.webp` | Poster still for the FPGA sweep |
+| `assets/assembly/digikey-box.webp` | DigiKey parts box, 17 Aug 2026 — cropped to the branded face |
+| `assets/assembly/work-setup.webp` | Assembly bench: iron, flux, tweezers, meter |
+| `assets/assembly/half-soldered.webp` | Half-soldered 07_alu held next to Digital |
+| `assets/assembly/half-soldered-plate.webp` | Square plate of the half-soldered shot |
+| `assets/assembly/placing-and-soldering.mp4` | Placing 74ACT logic on 07_alu |
+| `assets/assembly/placing-and-soldering.webp` | Poster still for the placement clip |
+| `assets/assembly/soldering-led.mp4` | Soldering 0805 indicator LEDs |
+| `assets/assembly/soldering-led.webp` | Poster still for the LED clip |
 | `assets/pcb/immersion_white.gif` | KiCad 3D orbit of `07_alu` |
 | `assets/pcb/alu_8b_pcb.jpg` | Routed top copper, `07_alu` |
 | `assets/plates/digital-main.jpg` | Digital `main.dig`, 27 Jun 2026 |
