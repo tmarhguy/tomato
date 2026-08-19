@@ -45,13 +45,13 @@
   <meta property="og:description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 65k operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" />
   <meta name="twitter:description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 65k operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
 <body>
@@ -159,6 +159,34 @@
               <p>It opens the door for single-cycle <strong>Fused Mask-and-Add</strong> operations like <code>A + (B AND C)</code> for instant framebuffer manipulation, or native cryptographic acceleration: computing <code>A + ((A AND B) XOR (NOT A AND C))</code>—the core <strong>SHA-256 Choose</strong> function—in exactly <strong>one cycle</strong>.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section class="section" id="dispatch">
+        <div class="wrap lead-grid">
+          <article>
+            <p class="kicker">Latest dispatch · 18 August 2026</p>
+            <h2 class="headline">First phase of assembly.</h2>
+            <p class="deck">The DigiKey box landed. Every <strong>74ACT151</strong> is down on one board, and so are the adders. Seven LEDs. Copper next to the sim.</p>
+            <p class="byline">From the log · Lot 07 · <a href="boards/07-alu.html">07_alu</a></p>
+            <div class="cols">
+              <p class="drop">After weeks of staring at schematics and KiCad renders, the silicon is on the desk. One board has every mux placed, each <strong>74ACT283</strong> soldered, and the first lamps of the debug wall sitting on their pads.</p>
+              <p>The half-soldered slice held next to Digital is the whole argument of this paper in one frame: the truth table on the glass, the gates on the copper, the same machine.</p>
+            </div>
+            <nav class="jump">
+              <a href="journal/first-assembly.html">Read the dispatch →</a>
+              <a href="gallery.html">Assembly frames →</a>
+            </nav>
+          </article>
+          <figure class="plate plate--ink plate--square">
+            <a href="journal/first-assembly.html">
+              <img src="assets/assembly/half-soldered-plate.webp" alt="Half-soldered Tomato ALU 8-bit board held next to its Digital simulation." width="1120" height="1120" />
+            </a>
+            <figcaption class="plate-cap">
+              <span>Fig. — On the bench</span>
+              <span>Half-soldered 07_alu · Digital</span>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -291,7 +319,7 @@
           <div class="ads-mast">
             <p class="exhibit-label">Progress of Works · Lot 07</p>
             <h2 class="shelf-title">This board has left the screen.</h2>
-            <p class="ads-rate">The transistor board set the foundation. Dual-LUT copper has arrived, and soldering begins.</p>
+            <p class="ads-rate">The transistor board set the foundation. Dual-LUT copper is on the iron — muxes and adders down.</p>
           </div>
           <div class="ads-sheet">
             <p class="ads-bar"><span>Then and now</span><span>Authority of copper</span></p>
@@ -313,29 +341,29 @@
                 <p class="ad-cta">Open alu.tmarhguy.com →</p>
               </div>
             </a>
-            <a class="ad-face ad-face--now" href="boards/07-alu.html">
-              <p class="ad-face-kicker"><span>Now · lot 07</span><span>Arrived &amp; soldering</span></p>
+            <a class="ad-face ad-face--now" href="journal/first-assembly.html">
+              <p class="ad-face-kicker"><span>Now · lot 07</span><span>Populating</span></p>
               <span class="ad-face-shot">
-                <img src="assets/pcb/pcb-arrive.webp" alt="07_alu Dual-LUT 8-bit slice, arrived on the bench." width="1120" height="1120" loading="lazy" decoding="async" />
+                <img src="assets/assembly/half-soldered-plate.webp" alt="Half-soldered 07_alu Dual-LUT slice next to its Digital simulation." width="1120" height="1120" loading="lazy" decoding="async" />
               </span>
               <div class="ad-face-copy">
                 <p class="ad-no">07</p>
                 <h3>ALU</h3>
-                <p class="ad-stamp">Dual-LUT · arrived</p>
-                <p class="ad-blurb">Two 8-bit slices have arrived in copper. Continuity testing is clean on the power rails, and <strong>soldering begins</strong>.</p>
+                <p class="ad-stamp">Dual-LUT · populating</p>
+                <p class="ad-blurb">Every <strong>74ACT151</strong> is down on one board, the <strong>74ACT283</strong> adders with them, and seven LEDs of the debug wall. The slice sits next to the sim.</p>
                 <dl class="ad-facts">
                   <div><dt>Footprint</dt><dd>99.95 × 99.80 mm</dd></div>
                   <div><dt>Density</dt><dd>25 logic ICs / 8b</dd></div>
-                  <div><dt>Authority</dt><dd>Copper · August 2026</dd></div>
+                  <div><dt>Authority</dt><dd>Iron · August 2026</dd></div>
                 </dl>
-                <p class="ad-cta">See the order dispatch →</p>
+                <p class="ad-cta">Read the assembly dispatch →</p>
               </div>
             </a>
             <div class="works">
               <p class="ad-colhead">The path forward · green is done · gold is now</p>
               <ol class="works-track" aria-label="Board lots">
                 <li class="is-past"><a href="boards/01-alu.html"><span class="works-n">01</span><span class="works-name">ALU</span><span class="works-st">3488 CMOS</span></a></li>
-                <li class="is-now"><a href="boards/07-alu.html"><span class="works-n">07</span><span class="works-name">ALU</span><span class="works-st">Soldering</span></a></li>
+                <li class="is-now"><a href="boards/07-alu.html"><span class="works-n">07</span><span class="works-name">ALU</span><span class="works-st">Populating</span></a></li>
                 <li><a href="boards/02-shift.html"><span class="works-n">02</span><span class="works-name">Shift</span><span class="works-st">In design</span></a></li>
                 <li><a href="boards/03-memory.html"><span class="works-n">03</span><span class="works-name">Memory</span><span class="works-st">In design</span></a></li>
                 <li><a href="boards/04-register.html"><span class="works-n">04</span><span class="works-name">Register</span><span class="works-st">In design</span></a></li>
@@ -344,7 +372,7 @@
               </ol>
             </div>
           </div>
-          <p class="shelf-meta">KiCad 10 · 07_alu ordered August 2026 · two 8-bit slices</p>
+          <p class="shelf-meta">KiCad 10 · 07_alu populating August 2026 · two 8-bit slices</p>
         </div>
       </section>
 
