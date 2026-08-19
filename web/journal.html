@@ -19,7 +19,7 @@
     })();
   </script>
   <title>Journal — The Tomato</title>
-  <meta name="description" content="The Tomato design journal: what was tried, what broke routing, what was too slow on the bench." />
+  <meta name="description" content="Latest: first phase of assembly on 07_alu. The Tomato design journal — what was tried, what broke routing, what was too slow on the bench." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,16 +27,16 @@
   <link rel="stylesheet" href="css/magazine.css" />
 
   <meta property="og:title" content="Journal — The Tomato" />
-  <meta property="og:description" content="The Tomato design journal: what was tried, what broke routing, what was too slow on the bench." />
+  <meta property="og:description" content="Latest: first phase of assembly on 07_alu. DigiKey on the desk. Muxes and adders down." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="Journal — The Tomato" />
-  <meta name="twitter:description" content="The Tomato design journal: what was tried, what broke routing, what was too slow on the bench." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta name="twitter:description" content="Latest: first phase of assembly on 07_alu. DigiKey on the desk. Muxes and adders down." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
 <body>
@@ -74,20 +74,26 @@
       <section class="section section--hero">
         <div class="wrap lead-grid">
           <article>
-            <p class="kicker">The vault</p>
-            <h2 class="headline">The decisions live here.</h2>
-            <p class="deck">Every odd choice is written down: what was tried, what broke routing, what was too slow on the bench, what got deleted to recover copper.</p>
-            <p class="byline">Continued inside · <strong>twenty-four dispatches</strong> from the log</p>
+            <p class="kicker">Latest · 18 August 2026</p>
+            <h2 class="headline"><a href="journal/first-assembly.html">First phase of assembly.</a></h2>
+            <p class="deck">The DigiKey box landed. Every <strong>74ACT151</strong> is down on one board, and so are the adders. Seven LEDs. Copper next to the sim.</p>
+            <p class="byline">Dispatch · Lot 07 · <a href="journal/first-assembly.html">open the full entry</a></p>
             <div class="cols">
-              <p class="drop">Tomato is a <strong>build-log machine</strong>. If you love computers because you like how they are built, this is the entry point. Architecture and tradeoff still start with a new entry.</p>
-              <p>Tomato for me has always been about the journey. I valued the learning experience, for who builds a “chip” with “<strong>KiCad</strong>” in <strong>2026</strong> from the very scratch?</p>
+              <p class="drop">After weeks of schematics and KiCad renders, the silicon is on the desk. One board has every mux placed, each <strong>74ACT283</strong> soldered, and the first lamps of the debug wall sitting on their pads.</p>
+              <p>The vault still holds every earlier choice — routing that broke, muxes that left, the fall back to 32-bit. <strong>Twenty-five dispatches</strong>. This is the one at the top.</p>
             </div>
+            <nav class="jump">
+              <a href="journal/first-assembly.html">Read the dispatch →</a>
+              <a href="gallery.html">Assembly frames →</a>
+            </nav>
           </article>
-          <figure class="plate plate--ink">
-            <img src="assets/plates/microcode.jpg" alt="Digital schematic of modular microcode control." />
+          <figure class="plate plate--ink plate--square">
+            <a href="journal/first-assembly.html">
+              <img src="assets/assembly/half-soldered-plate.webp" alt="Half-soldered Tomato ALU 8-bit board held next to its Digital simulation." width="1120" height="1120" />
+            </a>
             <figcaption class="plate-cap">
-              <span>Fig. — Modular decode</span>
-              <span>Each board carries a local EEPROM</span>
+              <span>Fig. — On the bench</span>
+              <span>Half-soldered 07_alu · Digital</span>
             </figcaption>
           </figure>
         </div>
@@ -95,8 +101,15 @@
 
       <section class="section">
         <div class="wrap">
-          <p class="exhibit-label">Dispatches · every entry in the vault</p>
+          <p class="exhibit-label">Dispatches · twenty-five entries in the vault</p>
           <div class="log-list">
+            <a class="log-item" href="journal/first-assembly.html">
+              <span class="log-date">18 Aug 2026</span>
+              <span>
+                <span class="log-title">First phase of assembly</span>
+                <span class="log-blurb">DigiKey on the desk. Every 74ACT151 down. The board next to the sim.</span>
+              </span>
+            </a>
             <a class="log-item" href="journal/web-optimization.html">
               <span class="log-date">16 Aug 2026</span>
               <span>
@@ -267,7 +280,7 @@
             </a>
           </div>
           <nav class="jump">
-            <a href="journal/pcbs-arrive.html">Start with the latest →</a>
+            <a href="journal/first-assembly.html">Start with the latest →</a>
             <a href="journal/welcome.html">Start at the origin →</a>
             <a href="source.html">GitHub →</a>
           </nav>
