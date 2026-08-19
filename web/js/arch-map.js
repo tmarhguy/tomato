@@ -33,7 +33,8 @@
       title: "Compute",
       items: [
         { path: "architecture.html", hash: "slice", label: "Dual-LUT ALU" },
-        { path: "boards/07-alu.html", label: "Lot 07 — copper", flag: "ordered" },
+        { path: "boards/07-alu.html", label: "Lot 07 — copper", flag: "soldering" },
+        { path: "journal/first-assembly.html", label: "First phase of assembly" },
         { path: "boards/01-alu.html", label: "Lot 01 — predecessor" },
         { path: "journal/mode-mux.html", label: "Muxes removed" },
       ],
@@ -98,7 +99,11 @@
     },
     {
       title: "Journal",
-      items: [{ path: "journal/microcode.html", label: "Decode modularization" }],
+      items: [
+        { path: "journal/first-assembly.html", label: "First phase of assembly", flag: "now" },
+        { path: "journal/pcbs-arrive.html", label: "PCBs arrive" },
+        { path: "journal/microcode.html", label: "Decode modularization" },
+      ],
     },
   ];
 
