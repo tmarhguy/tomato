@@ -1,14 +1,14 @@
 # 07 — Dual-LUT ALU PCB
 
-![Status](https://img.shields.io/badge/Status-Routed%20%26%20Ordered-2ea043) ![Datapath](https://img.shields.io/badge/Datapath-8--bit%20Slice-011F5B) ![Topology](https://img.shields.io/badge/Topology-Dual--LUT%2074ACT-DC2626) ![KiCad](https://img.shields.io/badge/KiCad-10.0.4-F59E0B?logo=kicad&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Populating-2ea043) ![Datapath](https://img.shields.io/badge/Datapath-8--bit%20Slice-011F5B) ![Topology](https://img.shields.io/badge/Topology-Dual--LUT%2074ACT-DC2626) ![KiCad](https://img.shields.io/badge/KiCad-10.0.4-F59E0B?logo=kicad&logoColor=white)
 
 The physical **32-bit ALU** for Tomato — two independent 3-input LUT planes per bit, summed through **74ACT283** nibble adders, with on-board flag logic, carry select, and a bring-up LED wall. One PCB is an **8-bit slice**; stack two for 16-bit bench bring-up. Digital source of truth: [alu-32b-final.dig](../../../digital/modules/alu-32b-final.dig). KiCad project: [07_alu.kicad_pro](07_alu.kicad_pro).
 
 <p align="center">
   <img src="../../../../media/kicad/07_alu/pcb/immersion_black.gif" alt="Tomato 07_alu — Dual-LUT slice in the round" width="48%" />
-  <img src="../../../../web/assets/pcb/pcb-arrive.webp" alt="Tomato 07_alu — Physical PCB Arrived" width="48%" />
+  <img src="../../../../web/assets/assembly/half-soldered-plate.webp" alt="Tomato 07_alu — first population, next to Digital" width="48%" />
 </p>
-<p align="center"><em>Lot 07 in the round &amp; Physical PCB · Dual-LUT slice</em></p>
+<p align="center"><em>Lot 07 in the round &amp; on the iron · Dual-LUT slice</em></p>
 
 ---
 
@@ -218,6 +218,7 @@ Media exports (figures above): [media/kicad/07_alu/](../../../../media/kicad/07_
 | [Mode mux elimination](../../../../docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md) | LUT3 feeds adder directly |
 | [ALU segment display](../../../../docs/log/2026-06-19%20-%20ALU%20segment%20display%20design.md) | Display strategy on full CPU |
 | [Ordered Tomato](../../../../docs/log/2026-08-07%20-%20Ordered%20Tomato.md) | PCB + parts order log |
+| [First Phase of Assembly](../../../../docs/log/2026-08-18%20-%20First%20Phase%20of%20Assembly.md) | Muxes, adders, first lamps |
 | [verification/README.md](../../../../verification/README.md) | Formal + UVM sign-off on Digital export |
 
 **Author:** Tyrone Marhguy — see [Author](../../../../README.md#author) in root README.
