@@ -19,9 +19,9 @@
     })();
   </script>
   <title>Gallery — The Tomato</title>
-  <meta name="description" content="High-res photos and bench clips of the Tomato 07_alu slice — board arrivals, copper, continuity checks, and opcode sweeps." />
+  <meta name="description" content="High-res photos and bench clips of the Tomato 07_alu slice — first assembly, board arrivals, copper, and opcode sweeps." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" as="image" href="assets/gallery/pcb/pcb-arrive-640w.webp" fetchpriority="high" type="image/webp" />
+  <link rel="preload" as="image" href="assets/gallery/assembly/half-soldered-plate-640w.webp" fetchpriority="high" type="image/webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" media="print" onload="this.media='all'" />
@@ -29,16 +29,16 @@
   <link rel="stylesheet" href="css/magazine.css" />
 
   <meta property="og:title" content="Gallery — The Tomato" />
-  <meta property="og:description" content="High-res photos and bench clips of the Tomato 07_alu slice — board arrivals, copper, continuity checks, and opcode sweeps." />
+  <meta property="og:description" content="High-res photos and bench clips of the Tomato 07_alu slice — first assembly, board arrivals, copper, and opcode sweeps." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/gallery.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="Gallery — The Tomato" />
-  <meta name="twitter:description" content="High-res photos and bench clips of the Tomato 07_alu slice — board arrivals, copper, continuity checks, and opcode sweeps." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta name="twitter:description" content="High-res photos and bench clips of the Tomato 07_alu slice — first assembly, board arrivals, copper, and opcode sweeps." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
 <body>
@@ -72,10 +72,10 @@
       <section class="section section--room">
         <div class="wrap">
           <div class="hed hed--gallery">
-            <p class="kicker">Lot 07 · ALU · In copper</p>
+            <p class="kicker">Lot 07 · ALU · On the iron</p>
             <h1 class="headline">The build, frame by frame.</h1>
             <p class="deck">Swipe or use the arrows. Tap the active frame to expand.</p>
-            <p class="byline">August 2026 · 15 frames · 99.95 × 99.80 mm</p>
+            <p class="byline">August 2026 · 20 frames · 99.95 × 99.80 mm</p>
           </div>
           <div class="gallery-carousel" aria-roledescription="carousel" aria-label="07_alu photo gallery">
             <div class="gallery-stage">
@@ -86,7 +86,7 @@
               <button type="button" class="gallery-arrow gallery-arrow--next hud-desk" aria-label="Next frame">›</button>
             </div>
             <p class="gallery-swipe-hint">Swipe to browse · tap frame to expand</p>
-            <p class="gallery-counter"><span class="gallery-counter__cur">1</span> / <span class="gallery-counter__total">15</span></p>
+            <p class="gallery-counter"><span class="gallery-counter__cur">1</span> / <span class="gallery-counter__total">20</span></p>
             <div class="gallery-detail" aria-live="polite">
               <div class="gallery-detail__head">
                 <p class="gallery-detail__chapter"></p>
@@ -107,6 +107,53 @@
 
           <!-- Slide source — parsed by gallery.js -->
           <div class="gallery-slides" hidden>
+            <article class="gallery-slide"
+              data-src="assets/assembly/half-soldered-plate.webp" data-type="image" data-thumb="assets/assembly/half-soldered-plate.webp"
+              data-date="18 Aug 2026" data-title="Half-soldered, next to Digital" data-meta="07_alu · first population · CELL 0 / CELL 1"
+              data-chapter="Assembly" data-fig="Cover">
+              <dl class="gallery-slide__facts">
+                <div><dt>On the iron</dt><dd>74ACT151 · 74ACT283</dd></div>
+                <div><dt>Lamps</dt><dd>7 LEDs down</dd></div>
+                <div><dt>Status</dt><dd>One board populating</dd></div>
+              </dl>
+              <div class="gallery-slide__body">
+                <p class="drop">The silicon is on the copper. Every mux on one board, both adders, the first lamps of the debug wall. Held next to the sim, the slice finally looks like the machine that was designed.</p>
+                <p><a href="journal/first-assembly.html">Read the dispatch →</a></p>
+              </div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/assembly/digikey-box.webp" data-type="image" data-thumb="assets/assembly/digikey-box.webp"
+              data-date="17 Aug 2026" data-title="The DigiKey box" data-meta="74ACT parts · two boards worth"
+              data-chapter="Assembly" data-fig="Fig. 1">
+              <dl class="gallery-slide__facts"><div><dt>Source</dt><dd>DigiKey</dd></div><div><dt>Ship</dt><dd>17 Aug 2026</dd></div></dl>
+              <div class="gallery-slide__body"><p>The delayed order, replaced on the phone, then on the cobbles. After weeks of schematics, the chips are a box you can hold.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/assembly/work-setup.webp" data-type="image" data-thumb="assets/assembly/work-setup.webp"
+              data-date="18 Aug 2026" data-title="The bench, ready" data-meta="Iron · flux · tweezers · layout on the glass"
+              data-chapter="Assembly" data-fig="Fig. 2">
+              <dl class="gallery-slide__facts"><div><dt>Station</dt><dd>WEP 926LED V3</dd></div><div><dt>Board</dt><dd>07_alu on screen</dd></div></dl>
+              <div class="gallery-slide__body"><p>Desk cleared. Flux, tweezers, iron, meter. An SMD footprint is a different object in the hand than on a grid.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/assembly/placing-and-soldering.mp4" data-type="video" data-thumb="assets/assembly/placing-and-soldering.webp" data-poster="assets/assembly/placing-and-soldering.webp"
+              data-date="18 Aug 2026" data-title="Placing the 74ACT logic" data-meta="74ACT151 muxes · 74ACT283 adders"
+              data-chapter="Assembly" data-fig="Fig. 3">
+              <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>On the board</dt><dd>Every 151 · each 283</dd></div></dl>
+              <div class="gallery-slide__body"><p>Tweezers, iron, one SOIC at a time. The dual-LUT plane is no longer a schematic symbol.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/assembly/soldering-led.mp4" data-type="video" data-thumb="assets/assembly/soldering-led.webp" data-poster="assets/assembly/soldering-led.webp"
+              data-date="18 Aug 2026" data-title="The first lamps" data-meta="0805 LEDs · debug wall"
+              data-chapter="Assembly" data-fig="Fig. 4">
+              <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>Count</dt><dd>7 down · 126 to go</dd></div></dl>
+              <div class="gallery-slide__body"><p>The indicators are tiny. Align, don’t bridge, repeat. Seven on the wall so far.</p></div>
+            </article>
+
             <article class="gallery-slide"
               data-src="assets/pcb/pcb-arrive.webp" data-type="image" data-thumb="assets/pcb/pcb-arrive.webp"
               data-date="15 Aug 2026" data-title="Five boards on the bench" data-meta="07_alu · 99.95 × 99.80 mm · as received"
