@@ -20,15 +20,15 @@ The paper: **[tomato.tmarhguy.com](https://tomato.tmarhguy.com/)** · the site: 
 
 <p align="center">
   <img src="media/kicad/07_alu/pcb/immersion_black.gif" alt="Tomato 07_alu — Dual-LUT slice in the round" width="48%" />
-  <img src="web/assets/pcb/pcb-arrive.webp" alt="Tomato 07_alu — Physical PCB Arrived" width="48%" />
+  <img src="web/assets/assembly/half-soldered-plate.webp" alt="Tomato 07_alu — first population, next to Digital" width="48%" />
 </p>
-<p align="center"><em>Lot 07 in the round &amp; Physical PCB · Dual-LUT slice · <a href="https://tomato.tmarhguy.com/playground.html">playground</a></em></p>
+<p align="center"><em>Lot 07 in the round &amp; on the iron · Dual-LUT slice · <a href="https://tomato.tmarhguy.com/playground.html">playground</a></em></p>
 
 Tomato grew as a revolution: a **65k operational space** (**~3,500×** operation increase than the earlier 8bit board for less area) from a **[dual-LUT3](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>)** fused into an adder, built for linear scale. The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **[512-row opcode ROM](docs/isa/tomato.v1.csv)** fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
 
-The dual-LUT slice has **[arrived and soldering has begun](<docs/log/2026-08-15 - PCBs Arrive!.md>)** on KiCad board [`07_alu`](hardware/kicad/boards/07_alu/README.md) — schematics, layout figures, and connector pinout.
+The dual-LUT slice is **[on the iron](<docs/log/2026-08-18 - First Phase of Assembly.md>)** — muxes and adders down on one [`07_alu`](hardware/kicad/boards/07_alu/README.md) board.
 
-*See log: [PCBs Arrive!](<docs/log/2026-08-15 - PCBs Arrive!.md>)*
+*See log: [First Phase of Assembly](<docs/log/2026-08-18 - First Phase of Assembly.md>)*
 
 | Metric | Transistor Board (Previous) | Tomato ALU (Current) | Optimization Achieved |
 |--------|-----------------------------|----------------------|-----------------------|
@@ -218,7 +218,7 @@ ALU verification ladder: `alu-1b-final` → 2x `alu-4b` → 4x `alu-8b` → `alu
 | 04    | [04_register/](hardware/kicad/boards/04_register/)                                                | Register file, IR                                                                         | In design         |
 | 05    | [05_program_counter/](hardware/kicad/boards/05_program_counter/)                                  | PC, stack pointer                                                                         | In design         |
 | 06    | [06_data_bus/](hardware/kicad/boards/06_data_bus/)                                                | Data bus, wb_mux, bus arbitration                                                         | In design         |
-| 07    | [07_alu/](hardware/kicad/boards/07_alu/)                                                          | Dual-LUT ALU PCB —**[board doc + figures](hardware/kicad/boards/07_alu/README.md)** | Arrived, soldering |
+| 07    | [07_alu/](hardware/kicad/boards/07_alu/)                                                          | Dual-LUT ALU PCB —**[board doc + figures](hardware/kicad/boards/07_alu/README.md)** | Populating        |
 | 08    | [08_alu_fsm/](hardware/kicad/boards/08_alu_fsm/), [08_display/](hardware/kicad/boards/08_display/) | FSM bring-up, display                                                                     | In design         |
 
 <p align="center">
@@ -261,7 +261,7 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 | Area                          | Status                | Notes                                                                             |
 | ----------------------------- | --------------------- | --------------------------------------------------------------------------------- |
 | Architecture                  | **32-bit**      | See[Falling back to 32b](<docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md>) |
-| ALU PCB (`07_alu`)          | Arrived, soldering    | [Board doc + media](hardware/kicad/boards/07_alu/README.md)                        |
+| ALU PCB (`07_alu`)          | Populating            | [First phase of assembly](<docs/log/2026-08-18 - First Phase of Assembly.md>)      |
 | Opcode ROM                    | 512 rows (planned)    | Down from 1024-row budget                                                         |
 | Register file                 | 32 GPR × 8 banks     | 256 addressable registers                                                         |
 | `main.dig` + control boards | In progress           | Modular decode on bench                                                           |
