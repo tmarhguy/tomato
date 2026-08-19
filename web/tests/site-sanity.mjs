@@ -47,6 +47,14 @@ const REQUIRED = [
   "assets/compiler/opcode-sweep-fpga.mp4",
   "assets/compiler/opcode-sweep-sim.webp",
   "assets/compiler/opcode-sweep-fpga.webp",
+  "assets/assembly/digikey-box.webp",
+  "assets/assembly/work-setup.webp",
+  "assets/assembly/half-soldered.webp",
+  "assets/assembly/half-soldered-plate.webp",
+  "assets/assembly/placing-and-soldering.mp4",
+  "assets/assembly/placing-and-soldering.webp",
+  "assets/assembly/soldering-led.mp4",
+  "assets/assembly/soldering-led.webp",
   "boards.html",
   "architecture.html",
   "isa.html",
@@ -285,6 +293,7 @@ test("JS modules parse (syntax)", async () => {
   assert.ok(files.includes("js/mast.js"));
   assert.ok(files.includes("scripts/optimize-pcb.mjs"));
   assert.ok(files.includes("scripts/optimize-gallery.mjs"));
+  assert.ok(files.includes("scripts/optimize-assembly.mjs"));
   for (const file of files) {
     const abs = join(WEB, file);
     await new Promise((resolveP, reject) => {
@@ -321,23 +330,37 @@ test("CSS has brand tokens", () => {
   assert.match(css, /--ink:/);
   assert.match(css, /--rule:/);
   assert.match(css, /data-theme=dark/);
-  assert.match(css, /prefers-color-scheme:dark/);
+  assert.match(css, /prefers-color-scheme:\s*dark/);
   assert.match(css, /\.theme-switch/);
   assert.match(css, /\.pg-schematic/);
   assert.match(css, /\.pg-hero/);
   assert.match(css, /\.mast-nav/);
+  assert.match(css, /\.plate--square/);
+  assert.match(css, /\.figure--inset/);
+  assert.match(css, /\.story \.figure \+ \.caption/);
 });
 
 test("gallery ships responsive WebP variants and LCP preload", () => {
   const html = readFileSync(join(WEB, "gallery.html"), "utf8");
-  assert.match(html, /assets\/gallery\/pcb\/pcb-arrive-640w\.webp/);
+  assert.match(html, /assets\/gallery\/assembly\/half-soldered-plate-640w\.webp/);
   assert.match(html, /fetchpriority="high"/);
+  assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-640w.webp")));
+  assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-128w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-640w.webp")));
-  assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-128w.webp")));
   const js = readFileSync(join(WEB, "js/gallery.js"), "utf8");
   assert.match(js, /galleryVariant/);
   assert.match(js, /fetchPriority/);
   assert.match(js, /deferSrc/);
+});
+
+test("front page latest dispatch is the assembly log", () => {
+  const html = readFileSync(join(WEB, "index.html"), "utf8");
+  assert.match(html, /id=["']dispatch["']/);
+  assert.match(html, /journal\/first-assembly\.html/);
+  assert.match(html, /assets\/assembly\/half-soldered/);
+  const journal = readFileSync(join(WEB, "journal.html"), "utf8");
+  assert.match(journal, /journal\/first-assembly\.html/);
+  assert.match(journal, /twenty-five/i);
 });
 
 test("front page hardware compiler links to the sweep clips", () => {
@@ -449,12 +472,18 @@ test("shipped clips are real MP4s with posters, not leftover GIFs", () => {
   hasFtyp("assets/pcb/immersion_black.mp4", "immersion_black.mp4");
   hasFtyp("assets/compiler/opcode-sweep-sim.mp4", "opcode-sweep-sim.mp4");
   hasFtyp("assets/compiler/opcode-sweep-fpga.mp4", "opcode-sweep-fpga.mp4");
+  hasFtyp("assets/assembly/placing-and-soldering.mp4", "placing-and-soldering.mp4");
+  hasFtyp("assets/assembly/soldering-led.mp4", "soldering-led.mp4");
   const posters = [
     ["assets/pcb/hero.webp", "RIFF"],
     ["assets/pcb/immersion_black.webp", "RIFF"],
     ["assets/pcb/immersion_white_poster.webp", "RIFF"],
     ["assets/compiler/opcode-sweep-sim.webp", "RIFF"],
     ["assets/compiler/opcode-sweep-fpga.webp", "RIFF"],
+    ["assets/assembly/digikey-box.webp", "RIFF"],
+    ["assets/assembly/half-soldered-plate.webp", "RIFF"],
+    ["assets/assembly/placing-and-soldering.webp", "RIFF"],
+    ["assets/assembly/soldering-led.webp", "RIFF"],
   ];
   for (const [f, head] of posters) {
     const n = magic(join(WEB, f), head, f);
@@ -512,11 +541,11 @@ test("AND3 FPGA hit is boxed on the paper, playground, and demo log", () => {
     }
   }
   const css = readFileSync(join(WEB, "css/magazine.css"), "utf8");
-  assert.match(css, /\.compiler-hit\{/);
-  assert.match(css, /\.two-up--sweeps\{/);
-  assert.match(css, /#opcode-compiler\{/);
+  assert.match(css, /\.compiler-hit\s*\{/);
+  assert.match(css, /\.two-up--sweeps\s*\{/);
+  assert.match(css, /#opcode-compiler\s*\{/);
   assert.match(css, /html\[data-theme=dark\]/);
-  assert.match(css, /prefers-color-scheme:dark/);
+  assert.match(css, /prefers-color-scheme:\s*dark/);
   const opt = readFileSync(join(WEB, "scripts/optimize-pcb.mjs"), "utf8");
   assert.match(opt, /document\.transform\(/);
   assert.doesNotMatch(opt, /document\.transform\([\s\S]*\bpalette\s*\(/);
