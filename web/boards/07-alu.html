@@ -30,13 +30,13 @@
   <meta property="og:description" content="07_alu: Dual-LUT 8-bit ALU slice. 99.95×99.80 mm, 25 logic ICs per 8b, routed and ordered August 2026." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/boards/07-alu.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="Lot 07 — Dual-LUT ALU — The Tomato" />
   <meta name="twitter:description" content="07_alu: Dual-LUT 8-bit ALU slice. 99.95×99.80 mm, 25 logic ICs per 8b, routed and ordered August 2026." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
 <body>
@@ -62,19 +62,19 @@
           <img src="../assets/mark.svg" alt="" width="52" height="61" />
           <a href="../index.html"><h1>Tomato</h1></a>
         </div>
-        <p class="flag-bottom"><span>Lot 07</span><span>Dual-LUT ALU · ordered</span><span>Vol. 32</span></p>
+        <p class="flag-bottom"><span>Lot 07</span><span>Dual-LUT ALU · populating</span><span>Vol. 32</span></p>
       </div>
     </header>
     <main>
       <section class="section">
         <div class="wrap hed">
-          <p class="kicker">Lot 07 · ALU · In copper</p>
+          <p class="kicker">Lot 07 · ALU · On the iron</p>
           <h1 class="headline">Dual-LUT 8-bit slice — the board that left the screen.</h1>
-          <p class="deck">Two independent 3-input LUT planes per bit, summed through <strong>74ACT283</strong> nibble adders. One PCB is an 8-bit bring-up slice; stack two for 16-bit bench work.</p>
+          <p class="deck">Two independent 3-input LUT planes per bit, summed through <strong>74ACT283</strong> nibble adders. One PCB is an 8-bit bring-up slice; stack two for 16-bit bench work. Muxes and adders are down on the first board.</p>
           <figure class="figure" style="margin: 1.25rem 0;">
-            <img src="../assets/pcb/pcb-arrive.webp" alt="07_alu Dual-LUT 8-bit slice arrived on the bench" />
+            <img src="../assets/assembly/half-soldered-plate.webp" alt="Half-soldered 07_alu Dual-LUT 8-bit slice next to its Digital simulation." />
           </figure>
-          <p class="byline">99.95 × 99.80 mm · 131 placements · 308 vias · 2404 segments · August 2026</p>
+          <p class="byline">99.95 × 99.80 mm · 131 placements · populating August 2026</p>
         </div>
       </section>
       <div class="wrap arch-layout">
@@ -108,14 +108,14 @@
             </figure>
           </div>
           <h2>I/O and bring-up</h2>
-          <p>Operands <strong>A[7:0], B[7:0], C[7:0]</strong> and result <strong>OUT[7:0]</strong> on headers. LUT programs via <strong>ALU_OPCODE_X0–X7</strong> and <strong>ALU_OPCODE_Y0–Y7</strong> (8-bit truth table per plane). Carry select <strong>CSEL0–CSEL2</strong> feeds <code>CIN-MAIN</code>. Flags: <code>FLAG_WE</code>, latched Z/N/C/V and compare outputs. Suggested flow: program opcode buses for a known LUT pair (e.g. add = <code>0xAA</code> / <code>0xCC</code>), wiggle operands, read <strong>OUT</strong> on LEDs or scope—the same spirit as the full CPU in Digital. Until the parcel lands, <a href="../playground.html">run that slice in the playground</a>.</p>
+          <p>Operands <strong>A[7:0], B[7:0], C[7:0]</strong> and result <strong>OUT[7:0]</strong> on headers. LUT programs via <strong>ALU_OPCODE_X0–X7</strong> and <strong>ALU_OPCODE_Y0–Y7</strong> (8-bit truth table per plane). Carry select <strong>CSEL0–CSEL2</strong> feeds <code>CIN-MAIN</code>. Flags: <code>FLAG_WE</code>, latched Z/N/C/V and compare outputs. Suggested flow: program opcode buses for a known LUT pair (e.g. add = <code>0xAA</code> / <code>0xCC</code>), wiggle operands, read <strong>OUT</strong> on LEDs or scope—the same spirit as the full CPU in Digital. The first board is on the iron now; the <a href="../playground.html">Dual-LUT playground</a> is still the same slice, bit by bit, before the lamps light.</p>
           <h2>Efficiency vs predecessor</h2>
           <p>Legacy <a href="01-alu.html">01_alu</a>: 3,488 MOSFETs / 8b = <strong>436 T/bit</strong>, ~9112 mm²/bit. <strong>07_alu</strong>: <strong>≈1247 mm²/bit</strong> and native boolean flexibility the transistor board never had. Journal carry-bypass on the discrete path was ≈16.5&nbsp;MHz; this slice trades transistor romance for manufacturable copper.</p>
         </div>
         <div class="wrap">
           <nav class="jump">
             <a href="../board.html">Orbit in 3D →</a>
-            <a href="../journal/ordered.html">Order dispatch →</a>
+            <a href="../journal/first-assembly.html">Assembly dispatch →</a>
             <a href="../source.html">KiCad on GitHub →</a>
           </nav>
           <nav class="pager">
