@@ -342,8 +342,9 @@ test("CSS has brand tokens", () => {
 
 test("gallery ships responsive WebP variants and LCP preload", () => {
   const html = readFileSync(join(WEB, "gallery.html"), "utf8");
-  assert.match(html, /assets\/gallery\/assembly\/half-soldered-plate-640w\.webp/);
+  assert.match(html, /assets\/gallery\/story\/arch\/alu-32b-sheet-640w\.webp/);
   assert.match(html, /fetchpriority="high"/);
+  assert.ok(existsSync(join(WEB, "assets/gallery/story/arch/alu-32b-sheet-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-128w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-640w.webp")));
