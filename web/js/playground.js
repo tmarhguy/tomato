@@ -30,11 +30,14 @@ const elHero = document.getElementById("pg-hero");
 const elStatus = document.getElementById("pg-status");
 const elBench = document.getElementById("pg-bench");
 const elDetail = document.getElementById("pg-detail");
+const elPipe = document.getElementById("pg-pipe");
+const elMap = document.getElementById("pg-map");
 if (!main || !elControls || !elHero || !elStatus || !elBench || !elDetail) {
   throw new Error("playground shell missing");
 }
 
 const TAB_IDS = ["trace", "touch", "truth", "compiler"];
+const PAGE_IDS = ["overview", "bench", "map", "wire", "bom", ...TAB_IDS];
 
 const OPERAND_NAMES = { A: "Operand A", B: "Operand B", C: "Select C" };
 const PLANE_NAMES = { lutA: "X plane", lutB: "Y plane" };
@@ -407,6 +410,72 @@ function renderStatus(ctx) {
     </p>`;
 }
 
+function renderPipe(ctx) {
+  if (!elPipe) return;
+  const { r, xa, yb } = ctx;
+  elPipe.innerHTML = `<div class="pg-pipe-well">
+    <div class="pg-pipe-head">
+      <span>Combinational path · Dual-LUT into 283</span>
+      <span>Single cycle</span>
+    </div>
+    <div class="pg-pipe-grid">
+      <div class="pg-pipe-stage">
+        <p class="pg-pipe-k">X plane · 74ACT151</p>
+        <p class="pg-pipe-v">${hex(r.fa, state.width)}</p>
+        <p class="pg-pipe-d">${esc(lutShort(xa))}</p>
+      </div>
+      <div class="pg-pipe-stage">
+        <p class="pg-pipe-k">Y plane · 74ACT151</p>
+        <p class="pg-pipe-v">${hex(r.fb, state.width)}</p>
+        <p class="pg-pipe-d">${esc(lutShort(yb))}</p>
+      </div>
+      <div class="pg-pipe-stage pg-pipe-stage--out">
+        <p class="pg-pipe-k">283 adder</p>
+        <p class="pg-pipe-v">${hex(r.out, state.width)}</p>
+        <p class="pg-pipe-d">f + g + cin=${r.cin} · cout=${r.cout}</p>
+      </div>
+    </div>
+    <div class="pg-pipe-flags">
+      <span>OUT ${hex(r.out, state.width)} · ${r.out >>> 0}</span>
+      <span class="pg-pipe-pills">${flagPills(r.flags, ctx.hitFlags)}</span>
+    </div>
+  </div>`;
+}
+
+function renderMap() {
+  if (!elMap) return;
+  const hit = matchProgram(state.lutA, state.lutB, cinNow());
+  elMap.innerHTML = `<section class="pg-map" id="map">
+    <p class="kicker">Canonical maps</p>
+    <h2 class="pg-h">Named Dual-LUT programs</h2>
+    <p class="pg-lede">These are real opcodes on the two 151s. Click a row to load them. The retired mux ALU (mask B, then add) is not this machine.</p>
+    <div class="table-wrap"><table class="pg-map-table">
+      <thead><tr><th>Name</th><th>X</th><th>Y</th><th>Cin</th><th>What it does</th></tr></thead>
+      <tbody>${PROGRAMS.map((p) => {
+        const on = hit && hit.id === p.id;
+        return `<tr class="${on ? "is-hit" : ""}" data-act="prog" data-id="${esc(p.id)}">
+          <td><strong>${esc(p.name)}</strong></td>
+          <td class="mono">${hex(p.lutA, 8)}</td>
+          <td class="mono">${hex(p.lutB, 8)}</td>
+          <td class="mono">${p.cin}</td>
+          <td>${esc(p.blurb)}</td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table></div>
+  </section>`;
+}
+
+function operandSliders() {
+  if (state.width > 8) return "";
+  const max = mask(state.width);
+  const row = (field, val) => `<label class="pg-slide">
+      <span>${esc(OPERAND_NAMES[field])}</span>
+      <input type="range" data-act="slide" data-field="${field}" min="0" max="${max}" value="${val}" />
+      <span class="mono">${hex(val, state.width)}</span>
+    </label>`;
+  return `<div class="pg-slides">${row("A", state.A)}${row("B", state.B)}${row("C", state.C)}</div>`;
+}
+
 function renderHero(ctx) {
   const { r, prog, xa, yb, hitOut, hitFlags, focusRow } = ctx;
   const title = pairTitle(r.lutA, r.lutB, r.cin, prog);
@@ -499,6 +568,7 @@ function renderControls(ctx) {
             .join("")}
         </div>
       </div>
+      ${operandSliders()}
     </div>`;
 }
 
@@ -749,9 +819,15 @@ function renderPanel(ctx, tab) {
 }
 
 function syncNav() {
+  const hash = (location.hash || "").replace(/^#/, "").toLowerCase();
+  const current = TAB_IDS.includes(hash)
+    ? hash
+    : PAGE_IDS.includes(hash)
+      ? hash
+      : state.activeTab || "overview";
   document.querySelectorAll(".pg-nav__link").forEach((a) => {
     const id = (a.getAttribute("href") || "").replace(/^#/, "");
-    a.classList.toggle("pg-nav__link--current", id === (state.activeTab || "bench"));
+    a.classList.toggle("pg-nav__link--current", id === current);
   });
 }
 
@@ -780,8 +856,10 @@ function render() {
   const ctx = computeContext();
   renderControls(ctx);
   renderHero(ctx);
+  renderPipe(ctx);
   renderStatus(ctx);
   renderBench(ctx);
+  renderMap();
   renderDetail(ctx);
   writeQuery();
   restoreFocus();
@@ -812,6 +890,16 @@ function toggleBit(field, bit) {
 }
 
 main.addEventListener("click", (ev) => {
+  const row = ev.target.closest("tr[data-act='prog']");
+  if (row && main.contains(row) && !ev.target.closest("button")) {
+    const p = PROGRAMS.find((x) => x.id === row.dataset.id);
+    if (p) {
+      applyProgram(p, false);
+      state.lastFlip = null;
+      render();
+      return;
+    }
+  }
   const btn = ev.target.closest("[data-act]");
   if (!btn || !main.contains(btn)) return;
   const act = btn.dataset.act;
@@ -892,6 +980,20 @@ main.addEventListener("click", (ev) => {
   render();
 });
 
+main.addEventListener("input", (ev) => {
+  const t = ev.target;
+  if (!t || !main.contains(t)) return;
+  if (t.dataset?.act === "slide" && t.dataset.field) {
+    const field = t.dataset.field;
+    const v = Number(t.value) & mask(state.width);
+    if (field === "A" || field === "B" || field === "C") {
+      state[field] = v;
+      state.lastFlip = null;
+      render();
+    }
+  }
+});
+
 main.addEventListener("change", (ev) => {
   const t = ev.target;
   if (!t || !main.contains(t)) return;
@@ -940,15 +1042,21 @@ function commitHex(input) {
 document.querySelectorAll(".pg-nav__link").forEach((a) => {
   a.addEventListener("click", (ev) => {
     const id = (a.getAttribute("href") || "").replace(/^#/, "");
-    if (id === "bench") {
-      state.activeTab = null;
-      return;
-    }
     if (TAB_IDS.includes(id)) {
       ev.preventDefault();
       state.activeTab = id;
       location.hash = id;
       render();
+      requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }));
+      return;
+    }
+    if (PAGE_IDS.includes(id)) {
+      ev.preventDefault();
+      if (id === "bench" || id === "overview" || id === "map" || id === "wire" || id === "bom") {
+        state.activeTab = null;
+      }
+      location.hash = id;
+      syncNav();
       requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }));
     }
   });
@@ -956,10 +1064,23 @@ document.querySelectorAll(".pg-nav__link").forEach((a) => {
 
 window.addEventListener("hashchange", () => {
   const h = (location.hash || "").replace(/^#/, "").toLowerCase();
-  if (h === "bench") state.activeTab = null;
+  if (h === "bench" || h === "overview" || h === "map" || h === "wire" || h === "bom") state.activeTab = null;
   else if (TAB_IDS.includes(h)) state.activeTab = h;
   render();
 });
+
+const bomQ = document.getElementById("pg-bom-q");
+const bomBody = document.getElementById("pg-bom-body");
+if (bomQ && bomBody) {
+  const rows = [...bomBody.querySelectorAll("tr")].map((tr) => ({
+    tr,
+    text: tr.textContent.toLowerCase(),
+  }));
+  bomQ.addEventListener("input", () => {
+    const q = bomQ.value.trim().toLowerCase();
+    for (const row of rows) row.tr.hidden = q ? !row.text.includes(q) : false;
+  });
+}
 
 readQuery();
 render();

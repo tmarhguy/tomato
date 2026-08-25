@@ -19,9 +19,9 @@
     })();
   </script>
   <title>Gallery — The Tomato</title>
-  <meta name="description" content="High-res photos and bench clips of the Tomato 07_alu slice — first assembly, board arrivals, copper, and opcode sweeps." />
+  <meta name="description" content="Notebook, Digital, sand, the abandoned 32-bit ratsnest, then 07_alu on copper." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preload" as="image" href="assets/gallery/assembly/half-soldered-plate-640w.webp" fetchpriority="high" type="image/webp" />
+  <link rel="preload" as="image" href="assets/gallery/story/arch/alu-32b-sheet-640w.webp" fetchpriority="high" type="image/webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" media="print" onload="this.media='all'" />
@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="css/magazine.css" />
 
   <meta property="og:title" content="Gallery — The Tomato" />
-  <meta property="og:description" content="High-res photos and bench clips of the Tomato 07_alu slice — first assembly, board arrivals, copper, and opcode sweeps." />
+  <meta property="og:description" content="Notebook, Digital, sand, the abandoned 32-bit ratsnest, then 07_alu on copper." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/gallery.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
@@ -37,7 +37,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="Gallery — The Tomato" />
-  <meta name="twitter:description" content="High-res photos and bench clips of the Tomato 07_alu slice — first assembly, board arrivals, copper, and opcode sweeps." />
+  <meta name="twitter:description" content="Notebook, Digital, sand, the abandoned 32-bit ratsnest, then 07_alu on copper." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
@@ -72,12 +72,13 @@
       <section class="section section--room">
         <div class="wrap">
           <div class="hed hed--gallery">
-            <p class="kicker">Lot 07 · ALU · On the iron</p>
-            <h1 class="headline">The build, frame by frame.</h1>
-            <p class="deck">Swipe or use the arrows. Tap the active frame to expand.</p>
-            <p class="byline">August 2026 · 20 frames · 99.95 × 99.80 mm</p>
+            <h1 class="headline">From the notebook to 07_alu.</h1>
           </div>
-          <div class="gallery-carousel" aria-roledescription="carousel" aria-label="07_alu photo gallery">
+          <div class="gallery-toolbar">
+            <div class="gallery-tabs" role="tablist" aria-label="Gallery sections"></div>
+            <button type="button" class="gallery-slideshow" aria-pressed="false">Slideshow</button>
+          </div>
+          <div class="gallery-carousel" aria-roledescription="carousel" aria-label="Tomato photo gallery">
             <div class="gallery-stage">
               <button type="button" class="gallery-arrow gallery-arrow--prev hud-desk" aria-label="Previous frame">‹</button>
               <div class="gallery-viewport" tabindex="0" aria-label="Gallery frames. Swipe or use arrow keys.">
@@ -86,7 +87,7 @@
               <button type="button" class="gallery-arrow gallery-arrow--next hud-desk" aria-label="Next frame">›</button>
             </div>
             <p class="gallery-swipe-hint">Swipe to browse · tap frame to expand</p>
-            <p class="gallery-counter"><span class="gallery-counter__cur">1</span> / <span class="gallery-counter__total">20</span></p>
+            <p class="gallery-counter"><span class="gallery-counter__cur">1</span> / <span class="gallery-counter__total">43</span></p>
             <div class="gallery-detail" aria-live="polite">
               <div class="gallery-detail__head">
                 <p class="gallery-detail__chapter"></p>
@@ -99,192 +100,339 @@
                 <div class="gallery-detail__body"></div>
               </div>
             </div>
-            <div class="gallery-filmstrip-wrap">
-              <p class="gallery-filmstrip-label">All frames</p>
-              <div class="gallery-filmstrip" role="tablist" aria-label="Gallery thumbnails"></div>
-            </div>
           </div>
 
           <!-- Slide source — parsed by gallery.js -->
           <div class="gallery-slides" hidden>
             <article class="gallery-slide"
-              data-src="assets/assembly/half-soldered-plate.webp" data-type="image" data-thumb="assets/assembly/half-soldered-plate.webp"
-              data-date="18 Aug 2026" data-title="Half-soldered, next to Digital" data-meta="07_alu · first population · CELL 0 / CELL 1"
-              data-chapter="Assembly" data-fig="Cover">
-              <dl class="gallery-slide__facts">
-                <div><dt>On the iron</dt><dd>74ACT151 · 74ACT283</dd></div>
-                <div><dt>Lamps</dt><dd>7 LEDs down</dd></div>
-                <div><dt>Status</dt><dd>One board populating</dd></div>
-              </dl>
-              <div class="gallery-slide__body">
-                <p class="drop">The silicon is on the copper. Every mux on one board, both adders, the first lamps of the debug wall. Held next to the sim, the slice finally looks like the machine that was designed.</p>
-                <p><a href="journal/first-assembly.html">Read the dispatch →</a></p>
-              </div>
+              data-src="assets/story/notes/full-adder-derive.png" data-type="image" data-thumb="assets/story/notes/full-adder-derive.png"
+              data-date="Oct 2025" data-title="Before there was copper" data-meta="Grid paper · full adder"
+              data-chapter="Notes &amp; Paper" data-fig="Fig. 1" data-slug="origin">
+              <dl class="gallery-slide__facts"><div><dt>Sum</dt><dd>A ⊕ B ⊕ Cin</dd></div><div><dt>Cout</dt><dd>AB + Cin(A ⊕ B)</dd></div></dl>
+              <div class="gallery-slide__body"><p class="drop">October 2025. A full adder written out by hand. I found that efficiency is a sentence—the carry-out just reuses the XOR we already paid for in the sum. That ethic stuck.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/notes/hex-patterns.jpg" data-type="image" data-thumb="assets/story/notes/hex-patterns.jpg"
+              data-date="2025" data-title="Hex from scratch" data-meta="Seven-segment patterns by hand"
+              data-chapter="Notes &amp; Paper" data-fig="Fig. 2" data-slug="hex-scratch">
+              <dl class="gallery-slide__facts"><div><dt>Target</dt><dd>Segment decode</dd></div></dl>
+              <div class="gallery-slide__body"><p>Digits long before there was a ROM. I drew each nibble out as lamps by hand, just so a lookup table would actually have something to remember later.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/notes/hex-to-rom.jpg" data-type="image" data-thumb="assets/story/notes/hex-to-rom.jpg"
+              data-date="2025" data-title="Hex into ROM" data-meta="Hand table → programmed memory"
+              data-chapter="Notes &amp; Paper" data-fig="Fig. 3" data-slug="hex-rom">
+              <dl class="gallery-slide__facts"><div><dt>Path</dt><dd>Paper → EEPROM</dd></div></dl>
+              <div class="gallery-slide__body"><p>Those same patterns, packed up for a chip. Once you have the glyphs, the display just turns into a memory problem.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/arch/alu-32b-sheet.jpg" data-type="image" data-thumb="assets/story/arch/alu-32b-sheet.jpg"
+              data-date="25 Jun 2024" data-title="Tomato ALU — 32-bit sheet" data-meta="KiCad 6 · A2 · alu-32b.kicad_sch"
+              data-chapter="Notes &amp; Paper" data-fig="Fig. 4" data-slug="origin-paper">
+              <dl class="gallery-slide__facts"><div><dt>Rev</dt><dd>v1.0</dd></div><div><dt>Flags</dt><dd>Z · C · N · V</dd></div></dl>
+              <div class="gallery-slide__body"><p>The whole arithmetic unit laid out on one A2 sheet. Transceivers, SRAM, flag lamps, and all the connectors of the 32-bit machine I ended up walking away from.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/field/laptop-on-sand.jpg" data-type="image" data-thumb="assets/story/field/laptop-on-sand.jpg"
+              data-date="2026" data-title="Laptop on the sand" data-meta="Field office · overcast beach"
+              data-chapter="Notes &amp; Paper" data-fig="Fig. 5" data-slug="field">
+              <dl class="gallery-slide__facts"><div><dt>Desk</dt><dd>Sand</dd></div><div><dt>Sky</dt><dd>Grey</dd></div></dl>
+              <div class="gallery-slide__body"><p>Not every schematic was drawn under a lab light. Sometimes the keyboard sat on the beach, aimed at a grey horizon. The machine was portable way before it was ever a board.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/field/atlantic-city.jpg" data-type="image" data-thumb="assets/story/field/atlantic-city.jpg"
+              data-date="2026" data-title="Atlantic City" data-meta="Same office, different sand"
+              data-chapter="Notes &amp; Paper" data-fig="Fig. 6" data-slug="atlantic">
+              <dl class="gallery-slide__facts"><div><dt>Place</dt><dd>Atlantic City</dd></div></dl>
+              <div class="gallery-slide__body"><p>Atlantic City. Another day, same project, just a different desk and different sand. The build logs caught all the odd offices.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/hardware/nexys-a7.jpg" data-type="image" data-thumb="assets/story/hardware/nexys-a7.jpg"
+              data-date="2026" data-title="Nexys A7, lid off" data-meta="Artix-7 · AMD University Program"
+              data-chapter="Notes &amp; Paper" data-fig="Fig. 7" data-slug="nexys">
+              <dl class="gallery-slide__facts"><div><dt>FPGA</dt><dd>Artix-7 100T</dd></div></dl>
+              <div class="gallery-slide__body"><p>The Nexys A7. Silicon that can pretend to be whatever netlist I throw at it. It sat there next to a PCB still routing—two different futures on the exact same desk.</p></div>
             </article>
 
+            <article class="gallery-slide"
+              data-src="assets/story/alu/1b-cell-8to1.png" data-type="image" data-thumb="assets/story/alu/1b-cell-8to1.png"
+              data-date="2025" data-title="A 1-bit cell" data-meta="8-to-1 mux · opcode as select"
+              data-chapter="The Simulation" data-fig="Fig. 1" data-slug="cell-1b">
+              <dl class="gallery-slide__facts"><div><dt>Width</dt><dd>1 bit</dd></div><div><dt>Select</dt><dd>Opcode</dd></div></dl>
+              <div class="gallery-slide__body"><p class="drop">The primitive here is just a mux. You land the opcode on the select pins, and the ALU bit becomes whatever the mux is wired to emit. Slice that cell and you get a word. Digital is where I tested that claim before locking in any footprint.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/alu/lut2-cell.png" data-type="image" data-thumb="assets/story/alu/lut2-cell.png"
+              data-date="2025" data-title="4-bit hex as LUT2" data-meta="Control nibble → 4-to-1 muxes"
+              data-chapter="The Simulation" data-fig="Fig. 2" data-slug="lut2">
+              <dl class="gallery-slide__facts"><div><dt>Cell</dt><dd>LUT2 from muxes</dd></div></dl>
+              <div class="gallery-slide__body"><p>Feeding hex control into stacked 4-to-1s. This was the dual-LUT idea, still just a schematic and not yet 74ACT151 copper.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/alu/8b-mux-sim.png" data-type="image" data-thumb="assets/story/alu/8b-mux-sim.png"
+              data-date="2025" data-title="Eight bits on the mux ALU" data-meta="Digital · 4-to-1 datapath"
+              data-chapter="The Simulation" data-fig="Fig. 3" data-slug="mux-8b">
+              <dl class="gallery-slide__facts"><div><dt>Width</dt><dd>8-bit sim</dd></div></dl>
+              <div class="gallery-slide__body"><p>Take the cell, lay it out eight times. This is the direct ancestor to the two 4-bit cells that eventually became 07_alu.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/alu/cla-74182.png" data-type="image" data-thumb="assets/story/alu/cla-74182.png"
+              data-date="2025" data-title="Ten 74182s" data-meta="Carry lookahead, not ripple"
+              data-chapter="The Simulation" data-fig="Fig. 4" data-slug="cla-74182">
+              <dl class="gallery-slide__facts"><div><dt>Part</dt><dd>74182 CLA</dd></div></dl>
+              <div class="gallery-slide__body"><p>Ripple was honest, but lookahead was just faster. This wall of 74182s was the adder finally leaving the yellow pad.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/spice/555-clock.png" data-type="image" data-thumb="assets/story/spice/555-clock.png"
+              data-date="2025" data-title="555 as system clock" data-meta="LTspice · then Digital"
+              data-chapter="The Simulation" data-fig="Fig. 5" data-slug="clock-555">
+              <dl class="gallery-slide__facts"><div><dt>Part</dt><dd>NE555</dd></div></dl>
+              <div class="gallery-slide__body"><p>The heartbeat of the very early machine. I modeled the analog in Spice first, aiming for a square wave that the rest of the sim could actually trust.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/display/nibble-mux.png" data-type="image" data-thumb="assets/story/display/nibble-mux.png"
+              data-date="2025" data-title="One ROM, many digits" data-meta="Nibble multiplex · sim passing"
+              data-chapter="The Simulation" data-fig="Fig. 6" data-slug="nibble-mux">
+              <dl class="gallery-slide__facts"><div><dt>Proof</dt><dd>Digital · working mux</dd></div></dl>
+              <div class="gallery-slide__body"><p>The insight on the black card finally turned into a schematic that ran. The nibbles time-share a single ROM, and latches hold a digit each. Without doing this, every single hex lamp would have demanded its own decoder.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/alu/barrel-shift.png" data-type="image" data-thumb="assets/story/alu/barrel-shift.png"
+              data-date="2025" data-title="Forty 74157s" data-meta="Barrel shift · tunnels in Digital"
+              data-chapter="The Simulation" data-fig="Fig. 7" data-slug="barrel">
+              <dl class="gallery-slide__facts"><div><dt>Muxes</dt><dd>74157 × 40</dd></div></dl>
+              <div class="gallery-slide__body"><p>Shift implemented as a complete forest of 2-to-1s. This barrel shifter is exactly why the ALU does a lot more than just add.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/arch/64b-machine.png" data-type="image" data-thumb="assets/story/arch/64b-machine.png"
+              data-date="2025" data-title="The 64-bit drawing" data-meta="Ripple ALU · microcode · hex wall"
+              data-chapter="The Simulation" data-fig="Fig. 8" data-slug="story-machine">
+              <dl class="gallery-slide__facts"><div><dt>Width</dt><dd>8 × 8-bit slices</dd></div><div><dt>Clock</dt><dd>555</dd></div></dl>
+              <div class="gallery-slide__body"><p>Clock, counter, a couple EEPROMs, SRAM, a register file, eight 8-bit ALU blocks, and three hex walls. Microcode fans out the strobes, branch, halt, and the ALU function. 07_alu is really just one slice of this drawing, made small enough so I could actually fab it.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/control/datapath-32b.png" data-type="image" data-thumb="assets/story/control/datapath-32b.png"
+              data-date="2026" data-title="Datapath &amp; control" data-meta="draw.io · 32-bit ctrl unit"
+              data-chapter="The Simulation" data-fig="Fig. 9" data-slug="datapath">
+              <dl class="gallery-slide__facts"><div><dt>Width</dt><dd>32b on the sheet</dd></div></dl>
+              <div class="gallery-slide__body"><p>Boxes before any footprints. Source A, Source B, destination, memory, and flags. Later sheets would test this exact unit in Digital. If the arrows lied, the sim was always going to say so louder than any DRC.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/control/fsm-early.png" data-type="image" data-thumb="assets/story/control/fsm-early.png"
+              data-date="2025" data-title="Early FSM" data-meta="Fetch · execute · memory"
+              data-chapter="The Simulation" data-fig="Fig. 10" data-slug="fsm">
+              <dl class="gallery-slide__facts"><div><dt>Machine</dt><dd>States on a sheet</dd></div></dl>
+              <div class="gallery-slide__body"><p>A tiny state diagram that eventually grew into the full microcode.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/control/eeprom-fanout.png" data-type="image" data-thumb="assets/story/control/eeprom-fanout.png"
+              data-date="2026" data-title="EEPROM fanout" data-meta="Central ctrl · 40-bit command"
+              data-chapter="The Simulation" data-fig="Fig. 11" data-slug="eeprom-fanout">
+              <dl class="gallery-slide__facts"><div><dt>Word</dt><dd>40b control</dd></div></dl>
+              <div class="gallery-slide__body"><p>One memory, driving a lot of enables. Fanout is simply the tax you pay for having a centralized control unit.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/run/fibonacci-register.jpg" data-type="image" data-thumb="assets/story/run/fibonacci-register.jpg"
+              data-date="2026" data-title="It found Fibonacci" data-meta="Reg Q · 4151657813"
+              data-chapter="The Simulation" data-fig="Fig. 12" data-slug="fib">
+              <dl class="gallery-slide__facts"><div><dt>Out</dt><dd>p ← 4151657813</dd></div></dl>
+              <div class="gallery-slide__body"><p>The register is not empty. I ran a custom program that left a Fibonacci value sitting on Q and drove pin p. Seeing that number was the first time the paper machine actually behaved like a computer.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/run/custom-program.png" data-type="image" data-thumb="assets/story/run/custom-program.png"
+              data-date="2026" data-title="Custom program in Digital" data-meta="Main sheet running"
+              data-chapter="The Simulation" data-fig="Fig. 13" data-slug="custom-prog">
+              <dl class="gallery-slide__facts"><div><dt>Plane</dt><dd>Digital</dd></div></dl>
+              <div class="gallery-slide__body"><p>The big sheet, running live. Just a program counter walking through a ROM I wrote.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/run/html-emulator.jpg" data-type="image" data-thumb="assets/story/run/html-emulator.jpg"
+              data-date="2026" data-title="A CPU in the browser" data-meta="HTML emulator sample"
+              data-chapter="The Simulation" data-fig="Fig. 14" data-slug="emulator">
+              <dl class="gallery-slide__facts"><div><dt>Plane</dt><dd>Software twin</dd></div></dl>
+              <div class="gallery-slide__body"><p>The same ISA, but absolutely no gates. I built this page to step the machine, mostly so the Digital netlist would have a referee to argue with.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/bus/mmio-passed.png" data-type="image" data-thumb="assets/story/bus/mmio-passed.png"
+              data-date="2026" data-title="MMIO bus, passing" data-meta="After arbiter failures"
+              data-chapter="The Simulation" data-fig="Fig. 15" data-slug="mmio">
+              <dl class="gallery-slide__facts"><div><dt>Was</dt><dd>Arbiter red</dd></div><div><dt>Now</dt><dd>Bus green</dd></div></dl>
+              <div class="gallery-slide__body"><p>Memory-mapped I/O really only counts when the arbiter stops lying to you. It failed, then it passed, and then I captured this still.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/plates/legacy-alu_full_3d.webp" data-type="image" data-thumb="assets/plates/legacy-alu_full_3d.webp"
+              data-date="2025" data-title="Legacy 01_alu — 3,488 transistors" data-meta="270 mm board · 436 T/bit"
+              data-chapter="Legacy 32-bit" data-fig="Fig. 1">
+              <dl class="gallery-slide__facts"><div><dt>Outline</dt><dd>270 × 270 mm</dd></div><div><dt>Density</dt><dd>436 T/bit</dd></div></dl>
+              <div class="gallery-slide__body"><p class="drop">The massive predecessor over on alu.tmarhguy.com. I used discrete MOSFETs there, whereas 07_alu packs dual-LUT logic cleanly into 74xx copper.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/kicad/ratsnest-32b.png" data-type="image" data-thumb="assets/story/kicad/ratsnest-32b.png"
+              data-date="2026" data-title="The 32-bit we left" data-meta="876 footprints · airwires"
+              data-chapter="Legacy 32-bit" data-fig="Fig. 2" data-slug="abandon">
+              <dl class="gallery-slide__facts"><div><dt>Footprints</dt><dd>876</dd></div><div><dt>Layer</dt><dd>B.Cu</dd></div></dl>
+              <div class="gallery-slide__body"><p>A 32-bit slice in KiCad with a ratsnest that was never going to become copper. 876 footprints and an ocean of cyan airwires. Walking away was a design decision. 07_alu is the board that actually fit a panel and a budget.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/kicad/24cm-routing.png" data-type="image" data-thumb="assets/story/kicad/24cm-routing.png"
+              data-date="2026" data-title="24 × 24 cm" data-meta="Earlier 32b routing"
+              data-chapter="Legacy 32-bit" data-fig="Fig. 3" data-slug="route-24">
+              <dl class="gallery-slide__facts"><div><dt>Outline</dt><dd>240 mm square</dd></div></dl>
+              <div class="gallery-slide__body"><p>Way too much machine for a first fab run. The traces do exist, but the board would have been the size of a poster.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/kicad/24cm-3d.png" data-type="image" data-thumb="assets/story/kicad/24cm-3d.png"
+              data-date="2026" data-title="The 32b in the round" data-meta="3D view of the abandoned outline"
+              data-chapter="Legacy 32-bit" data-fig="Fig. 4" data-slug="route-3d">
+              <dl class="gallery-slide__facts"><div><dt>View</dt><dd>KiCad 3D</dd></div></dl>
+              <div class="gallery-slide__body"><p>It was pretty enough to keep the render. Just not small enough to order five of.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/plates/kicad-sch.jpg" data-type="image" data-thumb="assets/plates/kicad-sch.jpg"
+              data-date="Aug 2026" data-title="KiCad hierarchy — 07_alu" data-meta="alu_4b × 2 · flags_logic · led_unit"
+              data-chapter="07_alu Design" data-fig="Fig. 1">
+              <dl class="gallery-slide__facts"><div><dt>Sheets</dt><dd>alu_4b × 2</dd></div><div><dt>Support</dt><dd>flags · iopins · LEDs</dd></div></dl>
+              <div class="gallery-slide__body"><p class="drop">The schematic tree directly mirrors the Digital simulation. The hierarchy on the sheet matches the verification ladder exactly, right from 1b up through 8b.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/pcb/alu_8b_board.webp" data-type="image" data-thumb="assets/pcb/alu_8b_board.webp"
+              data-date="Aug 2026" data-title="Board render — two 4-bit cells" data-meta="CELL 0 / CELL 1 · flag block · LED wall"
+              data-chapter="07_alu Design" data-fig="Fig. 2">
+              <dl class="gallery-slide__facts"><div><dt>Cells</dt><dd>CELL 0 / CELL 1</dd></div><div><dt>Blocks</dt><dd>flags · LED wall</dd></div></dl>
+              <div class="gallery-slide__body"><p>The KiCad 3D render right before fab. Two alu_4b nibble cells chained on CIN-MAIN, complete with the flag block and an opcode lamp wall for bench debug.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/pcb/alu_8b_pcb.jpg" data-type="image" data-thumb="assets/pcb/alu_8b_pcb.jpg"
+              data-date="Aug 2026" data-title="Top copper — routed" data-meta="185 nets · 0 unrouted · DRC clean"
+              data-chapter="07_alu Design" data-fig="Fig. 3">
+              <dl class="gallery-slide__facts"><div><dt>Nets</dt><dd>185 · 0 unrouted</dd></div><div><dt>DRC</dt><dd>Clean</dd></div></dl>
+              <div class="gallery-slide__body"><p>The fab-ready top layer. 308 vias, 2404 segments, and I made sure every single net was closed before the order went out.</p></div>
+            </article>
+
+            <article class="gallery-slide"
+              data-src="assets/plates/solder-station.jpeg" data-type="image" data-thumb="assets/plates/solder-station.jpeg"
+              data-date="Jul 2026" data-title="Solder station arrives" data-meta="Iron on the desk"
+              data-chapter="Shop Floor" data-fig="Fig. 1">
+              <dl class="gallery-slide__facts"><div><dt>Status</dt><dd>Ready to populate</dd></div></dl>
+              <div class="gallery-slide__body"><p class="drop">The iron finally sat on the desk. With the boards and DigiKey parts inbound, it was just a waiting game.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/plates/jlcpcb.jpg" data-type="image" data-thumb="assets/plates/jlcpcb.jpg"
+              data-date="Aug 2026" data-title="JLCPCB — fab partner" data-meta="2-layer · ENIG · 5 boards"
+              data-chapter="Shop Floor" data-fig="Fig. 2">
+              <dl class="gallery-slide__facts"><div><dt>Stack</dt><dd>2-layer · ENIG</dd></div><div><dt>Qty</dt><dd>5 boards</dd></div></dl>
+              <div class="gallery-slide__body"><p>Five boards for under six dollars. That was cheap enough to spin again without thinking twice if the fab made a mistake.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/plates/digikey.jpg" data-type="image" data-thumb="assets/plates/digikey.jpg"
+              data-date="Aug 2026" data-title="DigiKey — parts inbound" data-meta="74ACT151 · 283 · 688"
+              data-chapter="Shop Floor" data-fig="Fig. 3">
+              <dl class="gallery-slide__facts"><div><dt>Key ICs</dt><dd>151 · 283 · 688 · 377 · 541</dd></div></dl>
+              <div class="gallery-slide__body"><p>25 logic ICs per 8-bit slice. I chose the 74ACT family to completely replace the discrete transistors on 07_alu.</p></div>
+            </article>
             <article class="gallery-slide"
               data-src="assets/assembly/digikey-box.webp" data-type="image" data-thumb="assets/assembly/digikey-box.webp"
               data-date="17 Aug 2026" data-title="The DigiKey box" data-meta="74ACT parts · two boards worth"
-              data-chapter="Assembly" data-fig="Fig. 1">
+              data-chapter="Shop Floor" data-fig="Fig. 4">
               <dl class="gallery-slide__facts"><div><dt>Source</dt><dd>DigiKey</dd></div><div><dt>Ship</dt><dd>17 Aug 2026</dd></div></dl>
-              <div class="gallery-slide__body"><p>The delayed order, replaced on the phone, then on the cobbles. After weeks of schematics, the chips are a box you can hold.</p></div>
-            </article>
-
-            <article class="gallery-slide"
-              data-src="assets/assembly/work-setup.webp" data-type="image" data-thumb="assets/assembly/work-setup.webp"
-              data-date="18 Aug 2026" data-title="The bench, ready" data-meta="Iron · flux · tweezers · layout on the glass"
-              data-chapter="Assembly" data-fig="Fig. 2">
-              <dl class="gallery-slide__facts"><div><dt>Station</dt><dd>WEP 926LED V3</dd></div><div><dt>Board</dt><dd>07_alu on screen</dd></div></dl>
-              <div class="gallery-slide__body"><p>Desk cleared. Flux, tweezers, iron, meter. An SMD footprint is a different object in the hand than on a grid.</p></div>
-            </article>
-
-            <article class="gallery-slide"
-              data-src="assets/assembly/placing-and-soldering.mp4" data-type="video" data-thumb="assets/assembly/placing-and-soldering.webp" data-poster="assets/assembly/placing-and-soldering.webp"
-              data-date="18 Aug 2026" data-title="Placing the 74ACT logic" data-meta="74ACT151 muxes · 74ACT283 adders"
-              data-chapter="Assembly" data-fig="Fig. 3">
-              <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>On the board</dt><dd>Every 151 · each 283</dd></div></dl>
-              <div class="gallery-slide__body"><p>Tweezers, iron, one SOIC at a time. The dual-LUT plane is no longer a schematic symbol.</p></div>
-            </article>
-
-            <article class="gallery-slide"
-              data-src="assets/assembly/soldering-led.mp4" data-type="video" data-thumb="assets/assembly/soldering-led.webp" data-poster="assets/assembly/soldering-led.webp"
-              data-date="18 Aug 2026" data-title="The first lamps" data-meta="0805 LEDs · debug wall"
-              data-chapter="Assembly" data-fig="Fig. 4">
-              <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>Count</dt><dd>7 down · 126 to go</dd></div></dl>
-              <div class="gallery-slide__body"><p>The indicators are tiny. Align, don’t bridge, repeat. Seven on the wall so far.</p></div>
+              <div class="gallery-slide__body"><p>The delayed order. I got it replaced on the phone, and it finally showed up. After weeks of staring at schematics, the chips were finally a box I could actually hold.</p></div>
             </article>
 
             <article class="gallery-slide"
               data-src="assets/pcb/pcb-arrive.webp" data-type="image" data-thumb="assets/pcb/pcb-arrive.webp"
               data-date="15 Aug 2026" data-title="Five boards on the bench" data-meta="07_alu · 99.95 × 99.80 mm · as received"
-              data-chapter="Arrival" data-fig="Cover">
+              data-chapter="Arrival &amp; Assembly" data-fig="Cover">
               <dl class="gallery-slide__facts">
                 <div><dt>Outline</dt><dd>99.95 × 99.80 mm</dd></div>
                 <div><dt>Qty</dt><dd>5 boards · JLCPCB</dd></div>
                 <div><dt>Status</dt><dd>Power continuity clean</dd></div>
               </dl>
               <div class="gallery-slide__body">
-                <p class="drop">The PCBs all just arrived — five of them. I tested power with a continuity meter and logged no islands. It is beautiful watching a board of such sophisticated nature, realizing I remember placing every single trace.</p>
-                <p>Now the soldering begins. <a href="journal/pcbs-arrive.html">Read the dispatch →</a></p>
+                <p class="drop">The PCBs all just arrived—five of them. I tested the power with a continuity meter and logged zero islands. It's kind of beautiful holding a board like this and realizing I remember placing every single trace.</p>
+                <p>And then the soldering began.</p>
               </div>
             </article>
-
-            <article class="gallery-slide"
-              data-src="assets/pcb/pcb-arrive.jpeg" data-type="image" data-thumb="assets/pcb/pcb-arrive.jpeg"
-              data-date="15 Aug 2026" data-title="Desk arrival — five slices" data-meta="Lot 07 · Tomato ALU 8 bit"
-              data-chapter="Arrival" data-fig="Fig. 1">
-              <dl class="gallery-slide__facts"><div><dt>Lot</dt><dd>07_alu</dd></div><div><dt>Fab</dt><dd>July 2026</dd></div></dl>
-              <div class="gallery-slide__body"><p>As received on the desk — silk reads <strong>Tomato ALU 8 bit</strong>, July 2026. Five identical slices from the same panel run.</p></div>
-            </article>
-
-            <article class="gallery-slide"
-              data-src="assets/pcb/pcb-arrive.mp4" data-type="video" data-thumb="assets/pcb/pcb-arrive.webp" data-poster="assets/pcb/pcb-arrive.webp"
-              data-date="15 Aug 2026" data-title="Boards in the round" data-meta="Five 07_alu · continuity clean"
-              data-chapter="Arrival" data-fig="Fig. 2">
-              <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>Boards</dt><dd>5 × 07_alu</dd></div></dl>
-              <div class="gallery-slide__body"><p>A slow pass over the stack — mask colour, edge plating, and the LED wall footprint visible before population.</p></div>
-            </article>
-
             <article class="gallery-slide"
               data-src="assets/pcb/continuity-test.jpeg" data-type="image" data-thumb="assets/pcb/continuity-test.jpeg"
               data-date="15 Aug 2026" data-title="Continuity on power" data-meta="Multimeter · no islands"
-              data-chapter="Arrival" data-fig="Fig. 3">
+              data-chapter="Arrival &amp; Assembly" data-fig="Fig. 2">
               <dl class="gallery-slide__facts"><div><dt>Test</dt><dd>Multimeter · power rails</dd></div><div><dt>Result</dt><dd>No islands</dd></div></dl>
-              <div class="gallery-slide__body"><p>First bring-up step: continuity on VCC and GND across every board. Clean on all five — no open pours, no shorted islands from fab.</p></div>
+              <div class="gallery-slide__body"><p>The very first bring-up step: checking continuity on VCC and GND across every board. They were perfectly clean on all five. No open pours, and definitely no shorted islands from the fab.</p></div>
             </article>
-
             <article class="gallery-slide"
-              data-src="assets/pcb/alu_8b_board.webp" data-type="image" data-thumb="assets/pcb/alu_8b_board.webp"
-              data-date="Aug 2026" data-title="Board render — two 4-bit cells" data-meta="CELL 0 / CELL 1 · flag block · LED wall"
-              data-chapter="Design &amp; copper" data-fig="Fig. 1">
-              <dl class="gallery-slide__facts"><div><dt>Cells</dt><dd>CELL 0 / CELL 1</dd></div><div><dt>Blocks</dt><dd>flags · LED wall</dd></div></dl>
-              <div class="gallery-slide__body"><p>KiCad 3D before fab — two <code>alu_4b</code> nibble cells chained on <code>CIN-MAIN</code>, with the flag block and opcode lamp wall for bench debug.</p></div>
+              data-src="assets/pcb/pcb-arrive.mp4" data-type="video" data-thumb="assets/pcb/pcb-arrive.webp" data-poster="assets/pcb/pcb-arrive.webp"
+              data-date="15 Aug 2026" data-title="Boards in the round" data-meta="Five 07_alu · continuity clean"
+              data-chapter="Arrival &amp; Assembly" data-fig="Fig. 3">
+              <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>Boards</dt><dd>5 × 07_alu</dd></div></dl>
+              <div class="gallery-slide__body"><p>A slow pass over the stack. You can really see the mask colour, the edge plating, and that massive LED wall footprint right before I started populating them.</p></div>
             </article>
-
             <article class="gallery-slide"
-              data-src="assets/pcb/alu_8b_pcb.jpg" data-type="image" data-thumb="assets/pcb/alu_8b_pcb.jpg"
-              data-date="Aug 2026" data-title="Top copper — routed" data-meta="185 nets · 0 unrouted · DRC clean"
-              data-chapter="Design &amp; copper" data-fig="Fig. 2">
-              <dl class="gallery-slide__facts"><div><dt>Nets</dt><dd>185 · 0 unrouted</dd></div><div><dt>DRC</dt><dd>Clean</dd></div></dl>
-              <div class="gallery-slide__body"><p>Fab-ready top layer — 308 vias, 2404 segments, every net closed before the order went out.</p></div>
+              data-src="assets/assembly/work-setup.webp" data-type="image" data-thumb="assets/assembly/work-setup.webp"
+              data-date="18 Aug 2026" data-title="The bench, ready" data-meta="Iron · flux · tweezers · layout on the glass"
+              data-chapter="Arrival &amp; Assembly" data-fig="Fig. 4">
+              <dl class="gallery-slide__facts"><div><dt>Station</dt><dd>WEP 926LED V3</dd></div><div><dt>Board</dt><dd>07_alu on screen</dd></div></dl>
+              <div class="gallery-slide__body"><p>Desk cleared and ready. Flux, tweezers, iron, and a meter. I quickly realized an SMD footprint is a very different object in your hand than it is on a grid.</p></div>
             </article>
-
             <article class="gallery-slide"
-              data-src="assets/plates/legacy-alu_full_3d.webp" data-type="image" data-thumb="assets/plates/legacy-alu_full_3d.webp"
-              data-date="2025" data-title="Legacy 01_alu — 3,488 transistors" data-meta="270 mm board · 436 T/bit"
-              data-chapter="Design &amp; copper" data-fig="Fig. 3">
-              <dl class="gallery-slide__facts"><div><dt>Outline</dt><dd>270 × 270 mm</dd></div><div><dt>Density</dt><dd>436 T/bit</dd></div></dl>
-              <div class="gallery-slide__body"><p>The predecessor on <a href="https://alu.tmarhguy.com" target="_blank" rel="noopener noreferrer">alu.tmarhguy.com</a> — discrete MOSFETs where 07_alu now packs dual-LUT logic into 74xx copper.</p></div>
+              data-src="assets/assembly/placing-and-soldering.mp4" data-type="video" data-thumb="assets/assembly/placing-and-soldering.webp" data-poster="assets/assembly/placing-and-soldering.webp"
+              data-date="18 Aug 2026" data-title="Placing the 74ACT logic" data-meta="74ACT151 muxes · 74ACT283 adders"
+              data-chapter="Arrival &amp; Assembly" data-fig="Fig. 5">
+              <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>On the board</dt><dd>Every 151 · each 283</dd></div></dl>
+              <div class="gallery-slide__body"><p>Tweezers, an iron, and just going one SOIC at a time. The dual-LUT plane was suddenly no longer just a schematic symbol.</p></div>
             </article>
-
             <article class="gallery-slide"
-              data-src="assets/plates/kicad-sch.jpg" data-type="image" data-thumb="assets/plates/kicad-sch.jpg"
-              data-date="Aug 2026" data-title="KiCad hierarchy — 07_alu" data-meta="alu_4b × 2 · flags_logic · led_unit"
-              data-chapter="Design &amp; copper" data-fig="Fig. 4">
-              <dl class="gallery-slide__facts"><div><dt>Sheets</dt><dd>alu_4b × 2</dd></div><div><dt>Support</dt><dd>flags · iopins · LEDs</dd></div></dl>
-              <div class="gallery-slide__body"><p>Schematic tree mirrors Digital simulation — the hierarchy on the sheet matches the verification ladder from 1b through 8b.</p></div>
+              data-src="assets/assembly/soldering-led.mp4" data-type="video" data-thumb="assets/assembly/soldering-led.webp" data-poster="assets/assembly/soldering-led.webp"
+              data-date="18 Aug 2026" data-title="The first lamps" data-meta="0805 LEDs · debug wall"
+              data-chapter="Arrival &amp; Assembly" data-fig="Fig. 6">
+              <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>Count</dt><dd>7 down · 126 to go</dd></div></dl>
+              <div class="gallery-slide__body"><p>These indicators are insanely tiny. Align, don’t bridge it, repeat. I only managed to get seven on the wall at this point.</p></div>
             </article>
-
             <article class="gallery-slide"
-              data-src="assets/pcb/hero.mp4" data-type="video" data-thumb="assets/pcb/hero.webp" data-poster="assets/pcb/hero.webp"
-              data-date="Aug 2026" data-title="Orbit — studio light" data-meta="07_alu GLB · KiCad colours"
-              data-chapter="Bench &amp; motion" data-fig="Fig. 1">
-              <dl class="gallery-slide__facts"><div><dt>Source</dt><dd>KiCad GLB</dd></div><div><dt>Light</dt><dd>Studio · mask &amp; copper</dd></div></dl>
-              <div class="gallery-slide__body"><p>The front-page orbit — paper-stock lighting on the real mask colour. Same model as the interactive bench on <a href="board.html">Orbit</a>.</p></div>
-            </article>
-
-            <article class="gallery-slide"
-              data-src="assets/pcb/immersion_black.mp4" data-type="video" data-thumb="assets/pcb/immersion_black.webp" data-poster="assets/pcb/immersion_black.webp"
-              data-date="Aug 2026" data-title="Immersion — black studio" data-meta="Dark-mode orbit"
-              data-chapter="Bench &amp; motion" data-fig="Fig. 2">
-              <dl class="gallery-slide__facts"><div><dt>Theme</dt><dd>Black stock</dd></div><div><dt>Use</dt><dd>Dark-mode hero</dd></div></dl>
-              <div class="gallery-slide__body"><p>Swapped in when the paper runs Black — the same slice under low studio light, copper catching the key.</p></div>
+              data-src="assets/assembly/half-soldered-plate.webp" data-type="image" data-thumb="assets/assembly/half-soldered-plate.webp"
+              data-date="18 Aug 2026" data-title="Half-soldered, next to Digital" data-meta="07_alu · first population · CELL 0 / CELL 1"
+              data-chapter="Arrival &amp; Assembly" data-fig="Fig. 7">
+              <dl class="gallery-slide__facts">
+                <div><dt>On the iron</dt><dd>74ACT151 · 74ACT283</dd></div>
+                <div><dt>Lamps</dt><dd>7 LEDs down</dd></div>
+                <div><dt>Status</dt><dd>One board populating</dd></div>
+              </dl>
+              <div class="gallery-slide__body">
+                <p>The silicon on the copper at last. I got every mux down on one board, both adders, and the first few lamps of the debug wall. Holding it right next to the sim, the slice finally started looking like the machine I designed.</p>
+              </div>
             </article>
 
             <article class="gallery-slide"
               data-src="assets/compiler/opcode-sweep-sim.mp4" data-type="video" data-thumb="assets/compiler/opcode-sweep-sim.webp" data-poster="assets/compiler/opcode-sweep-sim.webp"
               data-date="Aug 2026" data-title="Opcode sweep — simulation" data-meta="Digital · AND3 · 0x80"
-              data-chapter="Bench &amp; motion" data-fig="Fig. 3">
+              data-chapter="Bench &amp; Motion" data-fig="Fig. 1">
               <dl class="gallery-slide__facts"><div><dt>Hit</dt><dd>AND3 · 0x80</dd></div><div><dt>Plane</dt><dd>Digital</dd></div></dl>
-              <div class="gallery-slide__body"><p>Brute-force sweep in Digital — the AND3 family surfaces at opcode <code>0x80</code> before the same vector is replayed on silicon.</p></div>
+              <div class="gallery-slide__body"><p class="drop">A brute-force sweep running in Digital. The AND3 family surfaces right at opcode 0x80, just before I replayed that exact same vector on real silicon.</p></div>
             </article>
-
             <article class="gallery-slide"
               data-src="assets/compiler/opcode-sweep-fpga.mp4" data-type="video" data-thumb="assets/compiler/opcode-sweep-fpga.webp" data-poster="assets/compiler/opcode-sweep-fpga.webp"
               data-date="Aug 2026" data-title="Opcode sweep — FPGA" data-meta="Artix-7 · hardware sweep"
-              data-chapter="Bench &amp; motion" data-fig="Fig. 4">
+              data-chapter="Bench &amp; Motion" data-fig="Fig. 2">
               <dl class="gallery-slide__facts"><div><dt>Hit</dt><dd>AND3 · 0x80</dd></div><div><dt>Plane</dt><dd>Artix-7</dd></div></dl>
-              <div class="gallery-slide__body"><p>Same sweep on hardware — the FPGA clip confirms the sim hit before copper is populated.</p></div>
+              <div class="gallery-slide__body"><p>That same sweep, but running on hardware. This FPGA clip confirmed the sim hit way before any copper was populated.</p></div>
             </article>
-
             <article class="gallery-slide"
-              data-src="assets/plates/solder-station.jpeg" data-type="image" data-thumb="assets/plates/solder-station.jpeg"
-              data-date="Jul 2026" data-title="Solder station arrives" data-meta="Iron on the desk"
-              data-chapter="Shop floor" data-fig="Fig. 1">
-              <dl class="gallery-slide__facts"><div><dt>Status</dt><dd>Ready to populate</dd></div></dl>
-              <div class="gallery-slide__body"><p>The iron is on the desk. Boards and DigiKey parts inbound. <a href="journal/solder-station.html">Dispatch →</a></p></div>
+              data-src="assets/pcb/hero.mp4" data-type="video" data-thumb="assets/pcb/hero.webp" data-poster="assets/pcb/hero.webp"
+              data-date="Aug 2026" data-title="Orbit — studio light" data-meta="07_alu GLB · KiCad colours"
+              data-chapter="Bench &amp; Motion" data-fig="Fig. 3">
+              <dl class="gallery-slide__facts"><div><dt>Source</dt><dd>KiCad GLB</dd></div><div><dt>Light</dt><dd>Studio · mask &amp; copper</dd></div></dl>
+              <div class="gallery-slide__body"><p>The front-page orbit. I set up paper-stock lighting on the real mask colour. It's the exact same model you see on the interactive bench.</p></div>
             </article>
-
-            <article class="gallery-slide"
-              data-src="assets/plates/jlcpcb.jpg" data-type="image" data-thumb="assets/plates/jlcpcb.jpg"
-              data-date="Aug 2026" data-title="JLCPCB — fab partner" data-meta="2-layer · ENIG · 5 boards"
-              data-chapter="Shop floor" data-fig="Fig. 2">
-              <dl class="gallery-slide__facts"><div><dt>Stack</dt><dd>2-layer · ENIG</dd></div><div><dt>Qty</dt><dd>5 boards</dd></div></dl>
-              <div class="gallery-slide__body"><p>Five boards under six dollars — cheap enough to spin again if the fab errs.</p></div>
-            </article>
-
-            <article class="gallery-slide"
-              data-src="assets/plates/digikey.jpg" data-type="image" data-thumb="assets/plates/digikey.jpg"
-              data-date="Aug 2026" data-title="DigiKey — parts inbound" data-meta="74ACT151 · 283 · 688"
-              data-chapter="Shop floor" data-fig="Fig. 3">
-              <dl class="gallery-slide__facts"><div><dt>Key ICs</dt><dd>151 · 283 · 688 · 377 · 541</dd></div></dl>
-              <div class="gallery-slide__body"><p>25 logic ICs per 8-bit slice — the 74ACT family that replaces discrete transistors on 07_alu.</p></div>
-            </article>
-          </div>
+          </div>          </div>
         </div>
       </section>
     </main>
 
+    <div class="gallery-filmstrip-wrap gallery-filmstrip-wrap--dock">
+      <p class="gallery-filmstrip-label">All frames</p>
+      <div class="gallery-filmstrip" role="tablist" aria-label="Gallery thumbnails"></div>
+    </div>
     <footer class="footer"><div class="footer-band"><div class="footer-art">
 <p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
   </div>
