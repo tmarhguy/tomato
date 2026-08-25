@@ -157,7 +157,7 @@
 (function () {
   const mast = document.querySelector(".mast");
   const nav = document.querySelector(".mast-nav");
-  const nameplate = document.querySelector(".nameplate");
+  const nameplate = document.querySelector(".nameplate") || document.querySelector(".scroll-rail");
   if (!mast || !nav || !nameplate || nameplate.querySelector(".mast-burger")) return;
 
   if (!nav.id) nav.id = "mast-nav";

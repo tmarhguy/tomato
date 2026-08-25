@@ -162,6 +162,41 @@
         </div>
       </section>
 
+      <section class="section" id="datapath">
+        <div class="wrap">
+          <p class="kicker">Fused datapath · live Dual-LUT</p>
+          <h2 class="headline">The slice, on the paper.</h2>
+          <p class="deck">This is the emulator. Two <strong>151</strong> planes into one <strong>283</strong> — not a mode mux at the end. Drag A, B, C or pick an opcode. The full lamp wall lives on <a href="playground.html">Playground</a>.</p>
+          <div class="pg-metrics">
+            <article class="pg-metric">
+              <p class="pg-metric__k">Predecessor</p>
+              <p class="pg-metric__v">3,488</p>
+              <p class="pg-metric__d">MOSFETs on 01_alu — complete on paper</p>
+            </article>
+            <article class="pg-metric">
+              <p class="pg-metric__k">Opcode ROM</p>
+              <p class="pg-metric__v">512</p>
+              <p class="pg-metric__d">9-bit opcode indexes the muxes</p>
+            </article>
+            <article class="pg-metric">
+              <p class="pg-metric__k">This slice</p>
+              <p class="pg-metric__v">8-bit</p>
+              <p class="pg-metric__d">07_alu · 74ACT151 + 74ACT283</p>
+            </article>
+            <article class="pg-metric">
+              <p class="pg-metric__k">Equation</p>
+              <p class="pg-metric__v pg-metric__v--eq">f+g+cin</p>
+              <p class="pg-metric__d">Same machine as <code>alu.v</code></p>
+            </article>
+          </div>
+          <div id="pg-front">
+            <div id="pg-front-controls"></div>
+            <div id="pg-front-pipe" class="pg-pipe" aria-live="polite"></div>
+          </div>
+          <p class="caption"><span>Interactive 8-bit Dual-LUT</span><span><a href="playground.html">Bit lamps, truth table, opcode hunt →</a></span></p>
+        </div>
+      </section>
+
       <section class="section" id="dispatch">
         <div class="wrap lead-grid">
           <article>
@@ -467,6 +502,7 @@
       io.observe(bench);
     }
   </script>
+  <script type="module" src="js/front-datapath.js"></script>
   <script src="js/mast.js" defer></script>
   <script src="js/compiler-reels.js" defer></script>
 </body>
