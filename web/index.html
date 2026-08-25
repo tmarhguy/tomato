@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>The Tomato — A Homebrew 32-bit CPU from Discrete Logic</title>
-  <meta name="description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 65k operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
+  <meta name="description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 524,288 operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
   <meta name="theme-color" content="#f4f0e6" />
   <script>
     (function () {
@@ -42,7 +42,7 @@
   </script>
 
   <meta property="og:title" content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" />
-  <meta property="og:description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 65k operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
+  <meta property="og:description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 524,288 operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
@@ -50,7 +50,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" />
-  <meta name="twitter:description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 65k operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
+  <meta name="twitter:description" content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 524,288 operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
@@ -95,18 +95,22 @@
         <div class="wrap lead-grid">
           <article class="lead-story">
             <div class="lead-hed">
-            <h2 class="headline">Before Tomato, there was the <span style="color: var(--red);">3,488 MOSFET</span> ALU.</h2>
-            <p class="deck">Same story, same narrative—but this time, smarter.</p>
-            <p class="byline">By Tyrone Marhguy · Computer Engineering ’28</p>
+            <p class="kicker">The machine · from scratch</p>
+            <h2 class="headline">A discrete <span style="color: var(--red);">32-bit polymorphic</span> CPU.</h2>
+            <p class="deck">Dual-LUT architecture. <strong>524,288</strong> operations. <strong>130 billion</strong> vectors. FPGA on the first toggle. The first silicon slice is on the bench.</p>
+            <p class="byline">By Tyrone Marhguy · Computer Engineering ’28 · Penn · 639 hours</p>
             </div>
+            <ul class="pitch" aria-label="Tomato in six facts">
+              <li><strong>32-bit</strong><span>homebrew CPU</span></li>
+              <li><strong>74xx</strong><span>discrete copper</span></li>
+              <li><strong>524,288</strong><span>ALU operations</span></li>
+              <li><strong>130B</strong><span>vectors · proved</span></li>
+              <li><strong>Artix-7</strong><span>hardware verified</span></li>
+              <li><strong>07_alu</strong><span>populating now</span></li>
+            </ul>
             <div class="cols">
-              <p class="drop">Before Tomato, there was an <a href="https://alu.tmarhguy.com" target="_blank" rel="noopener noreferrer">8‑bit ALU</a> built from roughly <strong>3,488 discrete CMOS transistors</strong> across a massive <strong>270×270&nbsp;mm</strong> board. It was a beast in its own right: capable of <strong>19 operations</strong>, sporting <strong>5 flags</strong>, and power hungry.</p>
-              <p class="lead-solo">But for a solo dorm-room project, the manufacturing costs ballooned exponentially, so I needed a pivot. Same story, same narrative—but this time, it had to be smarter. <strong>Welcome to Tomato!</strong></p>
-            </div>
-            <div class="lead-more">
-              <p class="kicker">The Revolution</p>
-              <p class="lead-more-title">Tomato grew as an odd machine.</p>
-              <p>Tomato has grown into a <strong>65k operational space</strong> (that’s a <strong>~3,500× increase</strong>—the very reason Tomato wins). This leap comes from its <strong>dual‑LUT3</strong> capacity, fused into an adder architecture that’s optimized for <strong>extreme linear scalability</strong>.</p>
+              <p class="drop">Most 74xx homebrew CPUs wire together static ALUs constrained to a dozen basic functions. Tomato discards the fixed-function ALU entirely. Instead, it introduces a <strong>polymorphic Dual-LUT3 datapath</strong>—two independent reprogrammable logic planes feeding directly into a carry-lookahead adder.</p>
+              <p class="lead-solo">By configuring the LUTs on the fly, the architecture collapses complex software sequences into single hardware steps. It evaluates any of <strong>524,288</strong> possible operations per cycle. It’s not just a 32-bit machine built from discrete copper; it’s a hardware compiler executing dynamically synthesized Boolean logic.</p>
             </div>
           </article>
           <a class="lead-gif" href="viewer.html" aria-label="Tomato 07_alu — board tour and the Dual-LUT slice. Open the 3D viewer.">
@@ -143,6 +147,11 @@
               })();
             </script>
           </a>
+          <div class="lead-more">
+            <p class="kicker">Why it wins</p>
+            <p class="lead-more-title">No output mux. Logic rides arithmetic.</p>
+            <p>Two independent LUT3 planes per bit feed the adder. That is how <code>A + (B AND C)</code> or the SHA-256 Choose step becomes a <strong>native hardware step</strong>. We don't build software loops; we rewire the ALU's truth table every cycle to absorb the math.</p>
+          </div>
           <div class="lead-band">
             <div class="fn-family-row">
               <div class="fn-family" aria-label="Core engineering equation">
@@ -155,10 +164,16 @@
               </div>
             </div>
             <div class="lead-follow">
-              <p>By design, Tomato can resolve any <strong>Boolean operation</strong> of the family <code>f(a, b, c) + g(a, b, c) + h(c<sub>in</sub>)</code> in a <strong>single clock cycle</strong>. This isn’t just a party trick—it melts down complex, cycle-heavy algorithms into native hardware steps.</p>
-              <p>It opens the door for single-cycle <strong>Fused Mask-and-Add</strong> operations like <code>A + (B AND C)</code> for instant framebuffer manipulation, or native cryptographic acceleration: computing <code>A + ((A AND B) XOR (NOT A AND C))</code>—the core <strong>SHA-256 Choose</strong> function—in exactly <strong>one cycle</strong>.</p>
+              <p>By design, Tomato resolves any <strong>Boolean</strong> of the family <code>f(a, b, c) + g(a, b, c) + h(c<sub>in</sub>)</code> in a <strong>single clock cycle</strong>. Fused mask-and-add: <code>A + (B AND C)</code>. Cryptographic acceleration: <code>A + ((A AND B) XOR (NOT A AND C))</code>—SHA-256 Choose—in <strong>one cycle</strong>.</p>
+              <p>The rest of this paper is optional. The facts that do not move sit in the table below: 256 GPRs, parametric ISA, hardware opcode compiler, formal sign-off. The copper is lot 07.</p>
             </div>
           </div>
+          <nav class="jump jump--loud" aria-label="If you only click once">
+            <a href="architecture.html">Architecture →</a>
+            <a href="playground.html">Run the slice →</a>
+            <a href="source.html">GitHub →</a>
+            <a href="viewer.html">Tour the board →</a>
+          </nav>
         </div>
       </section>
 
