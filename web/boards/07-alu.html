@@ -68,7 +68,7 @@
     <main>
       <section class="section">
         <div class="wrap hed">
-          <p class="kicker">Lot 07 · ALU · On the iron</p>
+          <p class="kicker">Lot 07 · ALU · On the bench</p>
           <h1 class="headline">Dual-LUT 8-bit slice — the board that left the screen.</h1>
           <p class="deck">Two independent 3-input LUT planes per bit, summed through <strong>74ACT283</strong> nibble adders. One PCB is an 8-bit bring-up slice; stack two for 16-bit bench work. Muxes and adders are down on the first board.</p>
           <figure class="figure" style="margin: 1.25rem 0;">
@@ -108,7 +108,7 @@
             </figure>
           </div>
           <h2>I/O and bring-up</h2>
-          <p>Operands <strong>A[7:0], B[7:0], C[7:0]</strong> and result <strong>OUT[7:0]</strong> on headers. LUT programs via <strong>ALU_OPCODE_X0–X7</strong> and <strong>ALU_OPCODE_Y0–Y7</strong> (8-bit truth table per plane). Carry select <strong>CSEL0–CSEL2</strong> feeds <code>CIN-MAIN</code>. Flags: <code>FLAG_WE</code>, latched Z/N/C/V and compare outputs. Suggested flow: program opcode buses for a known LUT pair (e.g. add = <code>0xAA</code> / <code>0xCC</code>), wiggle operands, read <strong>OUT</strong> on LEDs or scope—the same spirit as the full CPU in Digital. The first board is on the iron now; the <a href="../playground.html">Dual-LUT playground</a> is still the same slice, bit by bit, before the lamps light.</p>
+          <p>Operands <strong>A[7:0], B[7:0], C[7:0]</strong> and result <strong>OUT[7:0]</strong> on headers. LUT programs via <strong>ALU_OPCODE_X0–X7</strong> and <strong>ALU_OPCODE_Y0–Y7</strong> (8-bit truth table per plane). Carry select <strong>CSEL0–CSEL2</strong> feeds <code>CIN-MAIN</code>. Flags: <code>FLAG_WE</code>, latched Z/N/C/V and compare outputs. Suggested flow: program opcode buses for a known LUT pair (e.g. add = <code>0xAA</code> / <code>0xCC</code>), wiggle operands, read <strong>OUT</strong> on LEDs or scope—the same spirit as the full CPU in Digital. The first board is on the bench now; the <a href="../playground.html">Dual-LUT playground</a> is still the same slice, bit by bit, before the lamps light.</p>
           <h2>Efficiency vs predecessor</h2>
           <p>Legacy <a href="01-alu.html">01_alu</a>: 3,488 MOSFETs / 8b = <strong>436 T/bit</strong>, ~9112 mm²/bit. <strong>07_alu</strong>: <strong>≈1247 mm²/bit</strong> and native boolean flexibility the transistor board never had. Journal carry-bypass on the discrete path was ≈16.5&nbsp;MHz; this slice trades transistor romance for manufacturable copper.</p>
         </div>
