@@ -82,6 +82,10 @@
           <p class="drop">Time is a monotonic quantity and universal. In current FPGA designs we program and use, and for another use-case we repeat. In future Tomato designs I am considering real-time programming and use. Assume all cells are already programmed, but the next instruction requires that cell 4568 change from XNOR into NAND(a, XOR(b, c)).</p>
           <p>It makes every sense to have that update happen timed just before it is used. Built on decode programmability, that is a pipelined design with two control units: the system control, and a finite state machine that only updates specific cells as required.</p>
           <p>The cells are majority, XNOR, XOR in one cycle; XNOR, AND, AND in about seven more; then some other combination in the next sequence. If all cells need to be changed, then you wait.</p>
+          <figure class="figure">
+            <img src="../assets/story/hardware/nexys-a7.jpg" alt="Nexys A7 Artix-7 FPGA board with the lid off on the desk." width="1600" height="1200" loading="lazy" />
+          </figure>
+          <p class="caption"><span>Fig. — Artix-7</span><span>Where the “what if” gets silicon before copper</span></p>
           <p>I take that from a comment my father, who worked on wind generators in Germany, quoted from his lead engineer: for the wind generators we are building, what if the winds stop? He answered: then we die. Flexibility must remain within the limits of physics. An 8-bit ALU that I started with is no longer recognizable for what it is now.</p>
         </div>
         <div class="wrap">

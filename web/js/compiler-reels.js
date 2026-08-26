@@ -65,19 +65,20 @@
 
   function init() {
     root = $(".compiler-reels");
-    if (!root) return;
-    figures = Array.prototype.slice.call(root.querySelectorAll(".figure"));
-    if (!figures.length) return;
-
-    figures.forEach(function (fig) {
-      fig.addEventListener("click", function (e) {
-        e.preventDefault();
-        openLightbox(fig);
+    if (root) {
+      figures = Array.prototype.slice.call(root.querySelectorAll(".figure"));
+      figures.forEach(function (fig) {
+        fig.addEventListener("click", function (e) {
+          e.preventDefault();
+          openLightbox(fig);
+        });
       });
-    });
+    }
 
     var reduce = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var clips = Array.prototype.slice.call(root.querySelectorAll("video"));
+    var clips = Array.prototype.slice.call(
+      document.querySelectorAll(".compiler-reels video, .assembly-bench video")
+    );
 
     function kick(el) {
       if (!el) return;

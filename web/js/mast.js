@@ -23,9 +23,23 @@
   function lead(dark) {
     const paper = document.getElementById("lead-spin");
     const night = document.getElementById("lead-night");
+    const lcp = document.getElementById("lead-lcp");
+    const shell = (paper || night) && (paper || night).closest(".lead-gif");
     if (!paper && !night) return;
     const reduce = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
     const gen = ++leadGen;
+
+    if (lcp) {
+      if (dark) {
+        lcp.src = "assets/gallery/pcb/immersion_black-640w.webp";
+        lcp.srcset =
+          "assets/gallery/pcb/immersion_black-640w.webp 640w, assets/gallery/pcb/immersion_black-1280w.webp 1280w, assets/pcb/immersion_black.webp 960w";
+      } else {
+        lcp.src = "assets/gallery/pcb/hero-640w.webp";
+        lcp.srcset =
+          "assets/gallery/pcb/hero-640w.webp 640w, assets/gallery/pcb/hero-1280w.webp 1280w, assets/pcb/hero.webp 960w";
+      }
+    }
 
     function stop(el) {
       if (!el || typeof el.pause !== "function") return;
@@ -43,12 +57,18 @@
       el.setAttribute("webkit-playsinline", "");
       el.preload = "auto";
       el.setAttribute("autoplay", "");
-      try { el.fetchPriority = "high"; } catch {}
+      try { el.fetchPriority = "low"; } catch {}
 
       const kick = () => {
         if (gen !== leadGen) return;
         const p = el.play();
-        if (p && typeof p.catch === "function") p.catch(() => {});
+        if (p && typeof p.then === "function") {
+          p.then(() => {
+            if (shell && gen === leadGen) shell.classList.add("is-live");
+          }).catch(() => {});
+        } else if (p && typeof p.catch === "function") {
+          p.catch(() => {});
+        }
       };
 
       el.addEventListener("canplay", kick, { once: true });
@@ -61,6 +81,8 @@
       setTimeout(kick, 280);
       setTimeout(kick, 1200);
     }
+
+    if (shell) shell.classList.remove("is-live");
 
     if (reduce) {
       stop(paper);

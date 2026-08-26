@@ -88,7 +88,7 @@
                   <tr><td>3-variable ALU</td><td>Operands A, B, C. <span class="mono">out = f(a,b,c) + g(a,b,c) + cin</span></td></tr>
                   <tr><td><a href="architecture.html#slice">Dual-LUT ALU</a></td><td>Two independent LUT3 planes per bit</td></tr>
                   <tr><td>No output mux</td><td>LUT feeds the adder. Logic rides arithmetic</td></tr>
-                  <tr><td>Polymorphic ALU</td><td>Dual 8-bit LUT programs. <strong>524,288</strong> ops with carry-select</td></tr>
+                  <tr><td>65,536-op ALU</td><td>Dual 8-bit LUT programs. <strong>524,288</strong> with carry-select</td></tr>
                   <tr><td>3R-1W register file</td><td>Three reads, one write on execute</td></tr>
                   <tr><td>256 GPR</td><td><strong>32</strong> names × <strong>8</strong> banks. <span class="mono">r0</span> hardwired 0</td></tr>
                   <tr><td><a href="architecture.html#register-file">Immediate box</a></td><td><strong>16 encodings</strong>: imm8, imm12, imm13, imm16, LUI</td></tr>
@@ -150,7 +150,7 @@
           </figure>
           <p class="caption"><span>Fig. — The nibble</span><span>LUT3 feeds the adder. No mode mux at the end of the slice.</span></p>
           <p>Per nibble, two independent 3-input LUT planes—each a <strong>74ACT151</strong> programmed by an 8-bit opcode bus—sum through a ripple adder. The old topology raced arithmetic and logic into eight 74257 mode muxes at the end of the slice; that branch is gone (<a href="journal/mode-mux.html">why the muxes left</a>). LUT output feeds the adder directly. Carry select uses 74251 muxes; carry-bypass lives inside the 4-bit cell. Every chip gets a <strong>0.1&nbsp;µF</strong> decoupling cap beside it. <a href="playground.html">Toggle the slice in the playground</a> while the first board fills.</p>
-          <p>Verification ladder: <span class="mono">alu-1b-final</span> → 2× <span class="mono">alu-4b</span> → 4× <span class="mono">alu-8b</span> → <span class="mono">alu-32b-final</span>. Lot <a href="boards/07-alu.html">07_alu</a> implements one 8-bit slice in copper—99.95×99.80&nbsp;mm, 25 logic ICs per 8b, now on the bench. Lot <a href="boards/01-alu.html">01_alu</a> is the 3,488-transistor predecessor—complete on paper, set aside. The <a href="playground.html">Dual-LUT playground</a> is still the same slice: toggle A, B, C, both opcodes, and carry, then resolve a program from the output you want. <a href="journal/first-assembly.html">Assembly dispatch →</a></p>
+          <p>Verification ladder: <span class="mono">alu-1b-final</span> → 2× <span class="mono">alu-4b</span> → 4× <span class="mono">alu-8b</span> → <span class="mono">alu-32b-final</span>. Lot <a href="boards/07-alu.html">07_alu</a> implements one 8-bit slice in copper—99.95×99.80&nbsp;mm, 25 logic ICs per 8b, undergoing assembly. Lot <a href="boards/01-alu.html">01_alu</a> is the 3,488-transistor predecessor—complete on paper, set aside. The <a href="playground.html">Dual-LUT playground</a> is still the same slice: toggle A, B, C, both opcodes, and carry, then resolve a program from the output you want. <a href="journal/first-assembly.html">Assembly dispatch →</a></p>
           <div class="life life--page">
             <p class="ad-colhead">The path · green is done · gold is now</p>
             <ol class="life-rail" aria-label="From schematic to copper">

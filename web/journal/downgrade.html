@@ -78,6 +78,16 @@
         <div class="wrap story">
           <p class="drop">This ALU has taken several routes since the first abstractions. In the most recent version I wanted to wire eight 4-bit cells into a 32-bit cell. The catch: PCB fabrication does not manufacture only one board.</p>
           <p>To keep manufacturing efficient and reusable, slice into 16-bit macro cells designed to cascade into 16b × n. Four cells is a 64-bit logic unit. Inner boards do not need flag registers or overflow generation. Eliminating those chips should not constrain Tomato.</p>
+          <div class="two-up two-up--match">
+            <figure class="plate">
+              <img src="../assets/story/kicad/24cm-routing.png" alt="KiCad routing of the abandoned ~240 mm square 32-bit board." width="1120" height="1120" loading="lazy" />
+              <figcaption class="plate-cap"><span>Fig. — Then</span><span>240 mm · poster copper</span></figcaption>
+            </figure>
+            <figure class="plate">
+              <img src="../assets/pcb/alu_8b_board.webp" alt="KiCad 3D render of the 07_alu 8-bit Dual-LUT slice that actually went to fab." width="1120" height="1120" loading="lazy" />
+              <figcaption class="plate-cap"><span>Fig. — Grandchild</span><span>07_alu · ~100 mm</span></figcaption>
+            </figure>
+          </div>
           <p>Zero propagates as Zero-in and Zero-out per cell. Carry-out is just the next sum bit. The additional consequence: board size drops from a squeezed 240 × 240 mm design toward half of that. I estimated 120 × 120 mm, with extreme reusability and no waste. The 07_alu that later went to fab is the grandchild of this thought — smaller still, one 8-bit slice, two ordered.</p>
         </div>
         <div class="wrap">

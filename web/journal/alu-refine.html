@@ -77,6 +77,10 @@
       <section class="section">
         <div class="wrap story">
           <p class="drop">In the initial architecture, generate and propagate for the 74182 look-ahead was bottlenecked by a naïve AND and XOR implementation. That required a massive array of 74541 inverting drivers, which created routing congestion and footprint bloat.</p>
+          <figure class="figure">
+            <img src="../assets/story/alu/cla-74182.png" alt="Digital schematic wall of 74182 carry-lookahead chips for the adder spine." width="1280" height="800" loading="lazy" />
+          </figure>
+          <p class="caption"><span>Fig. — Ten 74182s</span><span>Lookahead before the spine problem on a flat PCB</span></p>
           <p>Swap AND for NAND and the inverter bank leaves. Spare gates in existing NAND packages become single-input inverters — NAND(a, a) is not a. That bypasses XNOR open-drain headaches and pull-up resistor management. About eight inverting-driver chips off the board.</p>
           <p>The core arithmetic moves to 74283. The 32-bit ALU modularizes into eight discrete 4-bit slices, each paired to a dedicated 74283. Routing stays local to the slice. The layout in KiCad can finally match the logic.</p>
         </div>
