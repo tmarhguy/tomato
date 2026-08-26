@@ -80,9 +80,17 @@
       <section class="section">
         <div class="wrap story">
           <p class="drop">Every opcode indexes a 48-bit word in the microcode ROM. The fields are not a mystery: alu-op, operand prep, carry select, shift, immediate overlay, writeback source, register and flag write enables, memory read/write, byte-lane mode, branch, stack, and the cycle count that tells the sequencer when to reset.</p>
+          <figure class="figure">
+            <img src="../assets/story/control/datapath-32b.png" alt="Block diagram of the 32-bit datapath and control before footprints." width="1280" height="800" loading="lazy" />
+          </figure>
+          <p class="caption"><span>Fig. — Datapath &amp; control</span><span>Boxes before footprints · memory is plumbing</span></p>
           <p>Writeback is a seven-way mux in the encoding: ALU, shift, PC+1, memory, I/O, register A, IR immediate, multiply. Memory ops buy a third phase. Everything else is fetch and execute.</p>
           <div class="table-wrap"><table><thead><tr><th>cycles</th><th>Phases</th><th>Counter</th></tr></thead><tbody><tr><td>1</td><td>FETCH + EXECUTE</td><td>Q=00, Q=01</td></tr><tr><td>2</td><td>FETCH + EXECUTE + MEM_WAIT</td><td>Q=00, Q=01, Q=10</td></tr></tbody></table></div>
           <p>Address bus source is another small field: IR address, ALU out, register B, PC, or SP. The load/store path is plumbing. The ALU remains the combinational monster. This sheet is how the rest of the machine talks to memory without inventing a second computer.</p>
+          <figure class="figure">
+            <img src="../assets/story/bus/mmio-passed.png" alt="Digital simulation: memory-mapped I/O bus arbiter passing after a red failure." width="1280" height="800" loading="lazy" />
+          </figure>
+          <p class="caption"><span>Fig. — MMIO bus, passing</span><span>Arbiter green · memory is plumbing</span></p>
         </div>
         <div class="wrap">
           <nav class="pager">

@@ -13,7 +13,9 @@ Figures are Tomato’s own work, ornaments drawn for the paper, or a public-doma
 | `assets/compiler/opcode-sweep-fpga.mp4` | Same FSM on Artix‑7 — H.264 from `fpga_opcode_sweep.mp4` |
 | `assets/compiler/opcode-sweep-sim.webp` | Poster still for the simulation sweep |
 | `assets/assembly/digikey-box.webp` | DigiKey parts box, 17 Aug 2026 — cropped to the branded face |
-| `assets/assembly/work-setup.webp` | Assembly bench: iron, flux, tweezers, meter |
+| `assets/assembly/work-setup.mp4` | Soldering lights on the loop, interleaved with board-test stills (3s / 2s) |
+| `assets/assembly/work-setup.webp` | Poster — board-test cover of the interleaved clip |
+| `assets/assembly/board-test.webp` | On-board test still — 07_alu on the mat |
 | `assets/assembly/half-soldered.webp` | Half-soldered 07_alu held next to Digital |
 | `assets/assembly/half-soldered-plate.webp` | Square plate of the half-soldered shot |
 | `assets/assembly/placing-and-soldering.mp4` | Placing 74ACT logic on 07_alu |

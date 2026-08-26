@@ -79,6 +79,10 @@
           <p class="drop">Area and available hardware imply that designs which offer more for less are favourable — unlike conventional parasitic and wiring-budget metrics. The ALU moved from adder(mux(a,b,c), masked invert(b), carry-in) into adder(mux(a,b,c), mux(a,b,c), h(carry-in)).</p>
           <p>The earlier g(b) unit took two opcodes and produced four states, all useful. Forced 0 lets the adder do f + 0 — logic mode. The cost was two chips per 4-bit cell: a quad XOR as global inverter and a quad NAND. Why not replace the naïve masked invert with a single 74151?</p>
           <p>An 8:1 mux wants an 8-bit truth table. A dual 4:1 looked like a perfect substitute with no catch — except 74153 shares select lines, so it is not a true dual. Four chips for LUT2, and the second mux inside the package sits dark. If four chips are needed for LUT2, build a second LUT3. Two extra chips versus invert. Identical chip count versus LUT2. Astronomical operational space.</p>
+          <figure class="figure">
+            <img src="../assets/story/alu/lut2-cell.png" alt="Digital schematic: hex control into stacked 4-to-1 muxes — the dual-LUT idea before 74ACT151 copper." width="1280" height="800" loading="lazy" />
+          </figure>
+          <p class="caption"><span>Fig. — LUT2 from muxes</span><span>If four chips buy LUT2, buy a second LUT3</span></p>
           <p>I need to acknowledge redundancies in the maximum sample space. and(a,b,c) + xnor(a,b,c) is the same sum the other way around. Future progress will clarify the unique operational space and eliminate Boolean noise.</p>
         </div>
         <div class="wrap">

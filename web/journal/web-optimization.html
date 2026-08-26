@@ -121,6 +121,18 @@
           <p>Same run: FCP 0.9 s, Speed Index 1.2 s, CLS 0.046, TBT <strong>3,130 ms</strong>, LCP 10.8 s, TTI 10.8 s, max potential FID 3,530 ms. The 3.5-second freeze in the first draft of this log is that neighborhood — on a dirty profile, with the heavy spin still in the hero. It is not “TBT 0 ms, Performance 98.”</p>
           <p>A later pass, after a 960×960 still poster, lazy-loading the bench, and print-media fonts, read about <strong>97 / 100 / 92 / 100</strong> on the front and <strong>100 / 98 / 96 / 100</strong> on the viewer. That pass is not the JSON in <code>tests/</code>. Re-run incognito if you need a number you can cite.</p>
           <p>The front hero is now the <strong>hand photo</strong> (<code>pcb-arrive.webp</code>, 1120×1120, 280 KB). The KiCad orbit is still the designed board: source GIF 223 frames / 9.6 MB; a 45-frame 438 KB WebP is what made it horrid to watch; the encoded spin is 223 frames / 5.0 MB. Poster still 45 KB.</p>
+          <div class="two-up two-up--match">
+            <figure class="plate">
+              <img src="../assets/pcb/pcb-arrive.webp" alt="Hand holding a Tomato 07_alu PCB — the front-page still." width="1120" height="1120" loading="lazy" />
+              <figcaption class="plate-cap"><span>Fig. — Hero still</span><span>pcb-arrive.webp · LCP</span></figcaption>
+            </figure>
+            <figure class="plate">
+              <video muted loop playsinline webkit-playsinline preload="metadata" poster="../assets/pcb/hero.webp" width="960" height="960" aria-label="KiCad orbit of 07_alu.">
+                <source src="../assets/pcb/hero.mp4" type="video/mp4" />
+              </video>
+              <figcaption class="plate-cap"><span>Fig. — Orbit</span><span>hero.mp4 · designed board</span></figcaption>
+            </figure>
+          </div>
           <h2>What the viewer actually does</h2>
           <p>Full-screen <code>viewer.html</code> is still OrbitControls, 1:1 drag, a closed Catmull-Rom story rail, soldermask peel, demand <code>rAF</code>. Pointer down on the canvas aborts the tour. No extra camera library. Gestures first; the path is a tour, not a product film.</p>
           <p>Vanilla was the right constraint. The wrong constraint was writing a changelog that described a file we do not ship.</p>

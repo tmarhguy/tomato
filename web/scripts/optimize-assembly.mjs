@@ -27,8 +27,8 @@ const jobs = [
     dest: "digikey-box.webp",
   },
   {
-    src: "media/assembly/work_setup_solder.jpeg",
-    dest: "work-setup.webp",
+    src: "media/assembly/board_test_yay.JPG",
+    dest: "board-test.webp",
   },
   {
     src: "media/assembly/half_soldered_board_next_to_sim.jpeg",

@@ -83,6 +83,10 @@
           <p>The divide is tricky, generally. I am considering Newton-Raphson for approximation and refinement. Other options: find 1/b, then reuse the multiply block. A magic number computed at assembly defeats the purpose of live divide.</p>
           <p>If I use a lookup table, luckily the ALU plus micro-opcode is a powerful LUT I can take advantage of. I will explore the most efficient algorithm and reuse components as much as possible.</p>
           <p>There is a barrel shifter which could be used in a naïve subtract-and-conditional-shift. That will take an eternity from a CPU perspective. By end of day I will settle for one, tentatively.</p>
+          <figure class="figure">
+            <img src="../assets/story/alu/barrel-shift.png" alt="Digital schematic of the barrel shifter as a forest of 2-to-1 muxes." width="1280" height="800" loading="lazy" />
+          </figure>
+          <p class="caption"><span>Fig. — Forty 74157s</span><span>The shifter the naïve divide would abuse</span></p>
         </div>
         <div class="wrap">
           <nav class="pager">

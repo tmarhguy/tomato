@@ -546,13 +546,16 @@ function renderControls(ctx) {
   const groupOps = PROGRAMS.filter((p) => p.group === state.presetGroup);
   elControls.innerHTML = `
     <div class="pg-controls">
-      <div class="pg-seg" role="group" aria-label="Slice width">
-        ${[1, 8, 32]
-          .map(
-            (w) =>
-              `<button type="button" data-act="width" data-w="${w}" class="${state.width === w ? "is-on" : ""}">${w === 8 ? "8-bit slice" : w === 1 ? "One bit" : "32-bit CPU"}</button>`
-          )
-          .join("")}
+      <div class="pg-controls-lead">
+        <p class="pg-label">Slice</p>
+        <div class="pg-seg" role="group" aria-label="Slice width">
+          ${[1, 8, 32]
+            .map(
+              (w) =>
+                `<button type="button" data-act="width" data-w="${w}" class="${state.width === w ? "is-on" : ""}">${w === 8 ? "8-bit" : w === 1 ? "1-bit" : "32-bit"}</button>`
+            )
+            .join("")}
+        </div>
       </div>
       <div class="pg-preset-row">
         <label class="pg-label" for="pg-group">Operation</label>

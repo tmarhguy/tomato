@@ -77,6 +77,10 @@
       <section class="section">
         <div class="wrap story">
           <p class="drop">In routing the ALU I came across a realization: the 125 + 138 combination defeats the optimization I was looking for. I need three chips for a single ALU cell. The 74251 offers the same logical capacity without the physical chance of contention.</p>
+          <figure class="figure">
+            <img src="../assets/story/alu/1b-cell-8to1.png" alt="Digital 1-bit ALU cell: opcode on the select pins of an 8-to-1 mux." width="1280" height="800" loading="lazy" />
+          </figure>
+          <p class="caption"><span>Fig. — A 1-bit cell</span><span>Mux select = opcode · slice that cell for a word</span></p>
           <p>Over the 74151, the 74251 offers stronger drive — which was my initial worry when designing with 74151. Logical changes are none. Routing, area, and performance by bus length are better.</p>
           <p>This is the kind of entry the journal is for. The truth table did not move. The board did.</p>
         </div>

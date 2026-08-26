@@ -49,6 +49,8 @@ const REQUIRED = [
   "assets/compiler/opcode-sweep-fpga.webp",
   "assets/assembly/digikey-box.webp",
   "assets/assembly/work-setup.webp",
+  "assets/assembly/work-setup.mp4",
+  "assets/assembly/board-test.webp",
   "assets/assembly/half-soldered.webp",
   "assets/assembly/half-soldered-plate.webp",
   "assets/assembly/placing-and-soldering.mp4",
@@ -342,12 +344,17 @@ test("CSS has brand tokens", () => {
 
 test("gallery ships responsive WebP variants and LCP preload", () => {
   const html = readFileSync(join(WEB, "gallery.html"), "utf8");
-  assert.match(html, /assets\/gallery\/story\/arch\/alu-32b-sheet-640w\.webp/);
+  assert.match(html, /assets\/gallery\/assembly\/placing-and-soldering-640w\.webp/);
   assert.match(html, /fetchpriority="high"/);
-  assert.ok(existsSync(join(WEB, "assets/gallery/story/arch/alu-32b-sheet-640w.webp")));
+  assert.match(html, /placing-and-soldering\.mp4/);
+  assert.ok(existsSync(join(WEB, "assets/gallery/assembly/placing-and-soldering-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-128w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-640w.webp")));
+  // First slide is soldering — priority lead
+  const slides = html.slice(html.indexOf('class="gallery-slides"'));
+  const firstSrc = slides.match(/data-src="([^"]+)"/);
+  assert.equal(firstSrc && firstSrc[1], "assets/assembly/placing-and-soldering.mp4");
   const js = readFileSync(join(WEB, "js/gallery.js"), "utf8");
   assert.match(js, /galleryVariant/);
   assert.match(js, /fetchPriority/);
@@ -357,11 +364,18 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
 test("front page latest dispatch is the assembly log", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
   assert.match(html, /id=["']dispatch["']/);
-  assert.match(html, /journal\/first-assembly\.html/);
+  assert.match(html, /href=["']journal\.html["']/);
+  assert.match(html, /First phase of assembly/);
   assert.match(html, /assets\/assembly\/half-soldered/);
+  assert.match(html, /id=["']iron["']/);
+  assert.match(html, /placing-and-soldering\.mp4/);
+  assert.match(html, /assets\/assembly\/work-setup\.mp4/);
   const journal = readFileSync(join(WEB, "journal.html"), "utf8");
   assert.match(journal, /journal\/first-assembly\.html/);
   assert.match(journal, /twenty-five/i);
+  const assembly = readFileSync(join(WEB, "journal/first-assembly.html"), "utf8");
+  assert.match(assembly, /assets\/assembly\/board-test\.webp/);
+  assert.match(assembly, /assets\/assembly\/work-setup\.mp4/);
 });
 
 test("front page hardware compiler links to the sweep clips", () => {
@@ -383,11 +397,15 @@ test("front page swaps the black orbit MP4 in dark stock", () => {
   assert.match(html, /immersion_black\.mp4/);
   assert.match(html, /lead-clip--night/);
   assert.match(html, /tomato\.theme/);
-  assert.match(html, /immersion_black\.webp/);
+  assert.match(html, /immersion_black/);
+  assert.match(html, /lead-lcp/);
+  assert.match(html, /fetchpriority="high"/);
+  assert.match(html, /hero-640w\.webp/);
   assert.match(html, /active\.preload = "auto"/);
   const js = readFileSync(join(WEB, "js/mast.js"), "utf8");
   assert.match(js, /data-theme-set/);
   assert.match(js, /lead-night/);
+  assert.match(js, /lead-lcp/);
   assert.match(js, /canplay/);
   assert.match(js, /prefers-color-scheme: dark/);
   assert.match(js, /removeAttribute\("data-theme"\)/);
@@ -475,6 +493,7 @@ test("shipped clips are real MP4s with posters, not leftover GIFs", () => {
   hasFtyp("assets/compiler/opcode-sweep-fpga.mp4", "opcode-sweep-fpga.mp4");
   hasFtyp("assets/assembly/placing-and-soldering.mp4", "placing-and-soldering.mp4");
   hasFtyp("assets/assembly/soldering-led.mp4", "soldering-led.mp4");
+  hasFtyp("assets/assembly/work-setup.mp4", "work-setup.mp4");
   const posters = [
     ["assets/pcb/hero.webp", "RIFF"],
     ["assets/pcb/immersion_black.webp", "RIFF"],
@@ -485,6 +504,8 @@ test("shipped clips are real MP4s with posters, not leftover GIFs", () => {
     ["assets/assembly/half-soldered-plate.webp", "RIFF"],
     ["assets/assembly/placing-and-soldering.webp", "RIFF"],
     ["assets/assembly/soldering-led.webp", "RIFF"],
+    ["assets/assembly/work-setup.webp", "RIFF"],
+    ["assets/assembly/board-test.webp", "RIFF"],
   ];
   for (const [f, head] of posters) {
     const n = magic(join(WEB, f), head, f);
