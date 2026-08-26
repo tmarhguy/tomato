@@ -77,6 +77,10 @@
       <section class="section">
         <div class="wrap story">
           <p class="drop">I am pushing to design the remaining boards. I had assumed the most complicated one was the ALU — which is done and routed. Next is everything else: register file, memory, PC/stack, data bus, shift/mul-div. The ALU was the deep combinational problem. What is left is mostly 32-bit plumbing.</p>
+          <figure class="figure">
+            <img src="../assets/pcb/alu_8b_board.webp" alt="KiCad 3D render of Tomato 07_alu — the ALU slice already routed." width="1120" height="1120" loading="lazy" />
+          </figure>
+          <p class="caption"><span>Fig. — ALU, done</span><span>07_alu · the hard combinational slice</span></p>
           <p>That is the plan from last week: while the ALU fab runs, design slices that ship in the final machine instead of a throwaway FSM.</p>
           <p>The first slice is the multiplexers on the data path — writeback mux, bus arbitration, the glue that ties ALU, memory, and register ports onto one 32-bit highway. A naïve 32-bit mux bank costs hundreds of millimetres. Bus drivers on each contributor. Matched decode enables, one-hot, the same idea as the display scan. Digital already has the behaviour. The board work is making the fanout physically tolerable.</p>
           <p>Contention on a shared tri-state bus is not theoretical. At bring-up clocks the overlap window is small. One active driver per bus. Finish the mux and driver plan on 06_data_bus first — it unblocks every other board that needs to read or write the shared word.</p>
