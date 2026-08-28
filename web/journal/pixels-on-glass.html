@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>Pixels on the glass — The Tomato</title>
+  <meta name="description" content="The 12-bit DVI PMOD is soldered, flashed, and throwing color bars on HDMI. Abstract logic finally has a screen." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+
+  <meta property="og:title" content="Pixels on the glass — The Tomato" />
+  <meta property="og:description" content="The 12-bit DVI PMOD is soldered, flashed, and throwing color bars on HDMI. Abstract logic finally has a screen." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/pixels-on-glass.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/hdmi-test.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="Pixels on the glass — The Tomato" />
+  <meta name="twitter:description" content="The 12-bit DVI PMOD is soldered, flashed, and throwing color bars on HDMI. Abstract logic finally has a screen." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/hdmi-test.webp" />
+  <meta name="author" content="Tyrone Marhguy" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../playground.html">Playground</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Catalog</a>
+          <a href="../board.html">Orbit</a>
+          <a href="../gallery.html">Gallery</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+          <a class="is-circ" href="../viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" width="52" height="61" />
+          <a href="../index.html"><h1>Tomato</h1></a>
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>28 August 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Dispatch · FPGA</p>
+          <h1 class="headline">Pixels on the glass</h1>
+          <p class="deck">The 12-bit DVI PMOD is soldered, flashed, and throwing color bars on HDMI. Abstract logic finally has a screen.</p>
+          <p class="byline">28 August 2026 · from the log</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">The PMOD 12-bit DVI V1.1b module finally arrived, and I went straight to work soldering the pins. This interface is designed to make VGA and HDMI output straightforward directly from the FPGA — bypassing those passive adapters that were giving me trouble earlier.</p>
+          <p>After soldering, I flashed a quick test pattern. It immediately worked: pure red, green, blue, and gray bars right up on the screen via HDMI.</p>
+          <div class="two-up">
+            <figure class="plate">
+              <video muted loop playsinline webkit-playsinline preload="metadata"
+                poster="../assets/assembly/hdmi-test.webp" width="960" height="540"
+                aria-label="HDMI color bars from the Nexys A7 and 12-bit DVI PMOD.">
+                <source src="../assets/assembly/hdmi-test.mp4" type="video/mp4" />
+              </video>
+              <figcaption class="plate-cap"><span>Fig. 1 — First pixels</span><span>640×480 color bars · HDMI</span></figcaption>
+            </figure>
+            <figure class="plate">
+              <img src="../assets/assembly/fpga-board-pmod.webp" alt="Nexys A7 with iCEBreaker 12-bit DVI PMOD on JC and JD, HDMI connected, DONE lit." width="2560" height="1920" loading="lazy" />
+              <figcaption class="plate-cap"><span>Fig. 2 — On the bench</span><span>PMOD on JC + JD · DONE lit</span></figcaption>
+            </figure>
+          </div>
+          <p>With the video peripheral working properly, I can finally resume full HDMI testing. Next up is getting it to display TomatoOS and a few of the other graphical features already built into the architecture. Seeing actual pixels on the glass makes all the abstract logic suddenly feel very real.</p>
+          <figure class="figure figure--inset">
+            <video src="../assets/assembly/hdmi-test.mp4" poster="../assets/assembly/hdmi-test.webp" controls playsinline preload="metadata" width="960" height="540"></video>
+            <figcaption class="caption"><span>Fig. 3 — Color bars</span><span>hdmi_test · open-source bitstream</span></figcaption>
+          </figure>
+          <p>Earlier: <a href="pmod-pivot.html">the PMOD pivot</a> when VGA adapters failed. Toolchain next: <a href="https://github.com/tmarhguy/tomato/blob/main/hardware/fpga/README.md">open-source synthesis on the Mac</a>.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="pmod-pivot.html"><span class="dir">Previous</span><span class="to">The PMOD pivot</span></a>
+            <a class="next" href="../journal.html"><span class="dir">Next</span><span class="to">The journal</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art">
+<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script src="../js/mast.js" defer></script>
+</body>
+</html>

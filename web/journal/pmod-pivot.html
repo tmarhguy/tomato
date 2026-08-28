@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>The PMOD pivot — The Tomato</title>
+  <meta name="description" content="VGA through adapters would not light. A PMOD is in transit so the FPGA can drive pixels on other pins." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+
+  <meta property="og:title" content="The PMOD pivot — The Tomato" />
+  <meta property="og:description" content="VGA through adapters would not light. A PMOD is in transit so the FPGA can drive pixels on other pins." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/pmod-pivot.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/plates/mouser-pmod-1.jpg" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="The PMOD pivot — The Tomato" />
+  <meta name="twitter:description" content="VGA through adapters would not light. A PMOD is in transit so the FPGA can drive pixels on other pins." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/plates/mouser-pmod-1.jpg" />
+  <meta name="author" content="Tyrone Marhguy" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../playground.html">Playground</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Catalog</a>
+          <a href="../board.html">Orbit</a>
+          <a href="../gallery.html">Gallery</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+          <a class="is-circ" href="../viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" width="52" height="61" />
+          <a href="../index.html"><h1>Tomato</h1></a>
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>26 August 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Dispatch · FPGA</p>
+          <h1 class="headline">The PMOD pivot</h1>
+          <p class="deck">VGA through a pile of adapters would not light. Order a PMOD. Drive pixels on pins that are not the dedicated VGA bank.</p>
+          <p class="byline">26 August 2026 · from the log</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">I tried connecting VGA to a PC monitor. The chain of adapters between the FPGA and HDMI — a VGA‑to‑HDMI converter among them — seems passive. It would not work, no matter how many times I flashed a basic test pattern.</p>
+          <p>Time is short and the work needs to move. So: a <strong>PMOD</strong>, currently in transit. The FPGA can generate the VGA signal itself on pins other than the dedicated VGA ones.</p>
+          <div class="two-up">
+            <figure class="plate">
+              <img src="../assets/plates/mouser-pmod-1.jpg" alt="Mouser order confirmation for Digilent PMOD VGA." width="1200" height="900" loading="lazy" />
+              <figcaption class="plate-cap"><span>Fig. 1 — Order</span><span>Mouser · PMOD in transit</span></figcaption>
+            </figure>
+            <figure class="plate">
+              <img src="../assets/plates/mouser-pmod-2.jpg" alt="Mouser checkout summary for Digilent PMOD VGA." width="1200" height="900" loading="lazy" />
+              <figcaption class="plate-cap"><span>Fig. 2 — Checkout</span><span>Same order · second plate</span></figcaption>
+            </figure>
+          </div>
+          <p>I would love to chase the VGA issue properly. Strategically it can wait. A CPU without a display is a complex heater whose work stays abstract even to its builder.</p>
+          <p>When the PMOD arrives I will test the basic signals, then get the Tomato board running. I cannot wait to demonstrate basic programs on this custom architecture — a feat I have been looking forward to for a long time.</p>
+          <p>Related: <a href="display.html">display dispatch</a> · <a href="invisible-logic.html">driving the datapath</a> · lot <a href="../boards/08-display.html">08_display</a>.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="invisible-logic.html"><span class="dir">Previous</span><span class="to">The invisible logic</span></a>
+            <a class="next" href="pixels-on-glass.html"><span class="dir">Next</span><span class="to">Pixels on the glass</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art">
+<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script src="../js/mast.js" defer></script>
+</body>
+</html>

@@ -87,7 +87,7 @@
               <button type="button" class="gallery-arrow gallery-arrow--next hud-desk" aria-label="Next frame">›</button>
             </div>
             <p class="gallery-swipe-hint">Swipe to browse · tap frame to expand</p>
-            <p class="gallery-counter"><span class="gallery-counter__cur">1</span> / <span class="gallery-counter__total">43</span></p>
+            <p class="gallery-counter"><span class="gallery-counter__cur">1</span> / <span class="gallery-counter__total">74</span></p>
             <div class="gallery-detail" aria-live="polite">
               <div class="gallery-detail__head">
                 <p class="gallery-detail__chapter"></p>
@@ -218,6 +218,55 @@
               <dl class="gallery-slide__facts"><div><dt>Nets</dt><dd>185 · 0 unrouted</dd></div><div><dt>DRC</dt><dd>Clean</dd></div></dl>
               <div class="gallery-slide__body"><p>The fab-ready top layer. 308 vias, 2404 segments, and I made sure every single net was closed before the order went out.</p></div>
             </article>
+            <article class="gallery-slide"
+              data-src="assets/assembly/layout-tomato-alu-8bit.png" data-type="image" data-thumb="assets/assembly/layout-tomato-alu-8bit.png"
+              data-date="Jul 2026" data-title="Layout — tomato_alu 8-bit" data-meta="PCB editor · two nibble cells"
+              data-chapter="07_alu Design" data-fig="Fig. 4" data-slug="layout-8bit">
+              <dl class="gallery-slide__facts"><div><dt>Board</dt><dd>07_alu</dd></div><div><dt>View</dt><dd>Top copper</dd></div></dl>
+              <div class="gallery-slide__body"><p>The routed board before export. Two 4-bit cells, flag block, and the LED wall footprint all locked on one 100 mm square.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/assembly/early-ratsnest-nine-ics.png" data-type="image" data-thumb="assets/assembly/early-ratsnest-nine-ics.png"
+              data-date="Jul 2026" data-title="Early ratsnest — nine ICs" data-meta="Before the full population"
+              data-chapter="07_alu Design" data-fig="Fig. 5" data-slug="ratsnest-early">
+              <dl class="gallery-slide__facts"><div><dt>Stage</dt><dd>Placement only</dd></div><div><dt>Airwires</dt><dd>Still routing</dd></div></dl>
+              <div class="gallery-slide__body"><p>Nine footprints placed and a cloud of cyan airwires. This is the moment the schematic stops being abstract and starts demanding vias.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/pcb/drc.webp" data-type="image" data-thumb="assets/pcb/drc.webp"
+              data-date="Aug 2026" data-title="DRC clean" data-meta="0 errors · 0 warnings"
+              data-chapter="07_alu Design" data-fig="Fig. 6" data-slug="drc-clean">
+              <dl class="gallery-slide__facts"><div><dt>Errors</dt><dd>0</dd></div><div><dt>Warnings</dt><dd>0</dd></div></dl>
+              <div class="gallery-slide__body"><p>The green check before checkout. No clearance violations, no unrouted nets — the board was allowed to leave the editor.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/pcb/status-bar.webp" data-type="image" data-thumb="assets/pcb/status-bar.webp"
+              data-date="Aug 2026" data-title="185 nets, zero open" data-meta="KiCad status bar · fab-ready"
+              data-chapter="07_alu Design" data-fig="Fig. 7" data-slug="status-bar">
+              <dl class="gallery-slide__facts"><div><dt>Nets</dt><dd>185 routed</dd></div><div><dt>Unrouted</dt><dd>0</dd></div></dl>
+              <div class="gallery-slide__body"><p>The status bar at lock-in: every net closed, DRC passed, ready for Gerber export and JLCPCB.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/assembly/3d-green-cells-july.png" data-type="image" data-thumb="assets/assembly/3d-green-cells-july.png"
+              data-date="Jul 2026" data-title="3D — green mask, July" data-meta="KiCad render · CELL 0 / CELL 1"
+              data-chapter="07_alu Design" data-fig="Fig. 8" data-slug="3d-green-july">
+              <dl class="gallery-slide__facts"><div><dt>Mask</dt><dd>Green</dd></div><div><dt>Cells</dt><dd>Two nibble slices</dd></div></dl>
+              <div class="gallery-slide__body"><p>July render with the green solder mask. The dual-LUT plane reads clearly in 3D long before any SOIC landed on the desk.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/assembly/3d-olive-penn-branding.png" data-type="image" data-thumb="assets/assembly/3d-olive-penn-branding.png"
+              data-date="Aug 2026" data-title="Olive mask · Penn on silk" data-meta="07_alu · branding pass"
+              data-chapter="07_alu Design" data-fig="Fig. 9" data-slug="3d-olive-penn">
+              <dl class="gallery-slide__facts"><div><dt>Mask</dt><dd>Olive</dd></div><div><dt>Silk</dt><dd>Penn mark</dd></div></dl>
+              <div class="gallery-slide__body"><p>The olive finish with Penn on the silk. Same geometry as the fab order — just the branding pass I wanted on the first spin.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/assembly/alu_back.png" data-type="image" data-thumb="assets/assembly/alu_back.png"
+              data-date="Aug 2026" data-title="Back side — pours and vias" data-meta="B.Cu · ground flood"
+              data-chapter="07_alu Design" data-fig="Fig. 10" data-slug="alu-back">
+              <dl class="gallery-slide__facts"><div><dt>Layer</dt><dd>B.Cu</dd></div><div><dt>Pours</dt><dd>Ground flood</dd></div></dl>
+              <div class="gallery-slide__body"><p>The back side: ground pours, stitching vias, and the underside of the LED wall. Two-layer boards still have a face you rarely show off.</p></div>
+            </article>
 
             <article class="gallery-slide"
               data-src="assets/plates/kicad-sch.jpg" data-type="image" data-thumb="assets/plates/kicad-sch.jpg"
@@ -225,6 +274,48 @@
               data-chapter="07_alu Design" data-fig="Fig. 1">
               <dl class="gallery-slide__facts"><div><dt>Sheets</dt><dd>alu_4b × 2</dd></div><div><dt>Support</dt><dd>flags · iopins · LEDs</dd></div></dl>
               <div class="gallery-slide__body"><p class="drop">The schematic tree directly mirrors the Digital simulation. The hierarchy on the sheet matches the verification ladder exactly, right from 1b up through 8b.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/kicad/sch-0.webp" data-type="image" data-thumb="assets/story/kicad/sch-0.webp"
+              data-date="Aug 2026" data-title="Schematic sheet 0 — root" data-meta="07_alu hierarchy"
+              data-chapter="07_alu Design" data-fig="Fig. 1a" data-slug="sch-0">
+              <dl class="gallery-slide__facts"><div><dt>Sheet</dt><dd>Root</dd></div></dl>
+              <div class="gallery-slide__body"><p>The root sheet: power, connectors, and the two alu_4b instances that become the 8-bit slice.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/kicad/sch-1.webp" data-type="image" data-thumb="assets/story/kicad/sch-1.webp"
+              data-date="Aug 2026" data-title="Schematic sheet 1 — alu_4b" data-meta="Nibble cell"
+              data-chapter="07_alu Design" data-fig="Fig. 1b" data-slug="sch-1">
+              <dl class="gallery-slide__facts"><div><dt>Cell</dt><dd>alu_4b</dd></div></dl>
+              <div class="gallery-slide__body"><p>One nibble cell: dual-LUT muxes, carry chain, and the opcode select that repeats across the word.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/kicad/sch-2.webp" data-type="image" data-thumb="assets/story/kicad/sch-2.webp"
+              data-date="Aug 2026" data-title="Schematic sheet 2 — flags" data-meta="flags_logic"
+              data-chapter="07_alu Design" data-fig="Fig. 1c" data-slug="sch-2">
+              <dl class="gallery-slide__facts"><div><dt>Block</dt><dd>Flags</dd></div></dl>
+              <div class="gallery-slide__body"><p>Zero, carry, negative, overflow — the flag block that turns arithmetic into branch conditions.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/kicad/sch-3.webp" data-type="image" data-thumb="assets/story/kicad/sch-3.webp"
+              data-date="Aug 2026" data-title="Schematic sheet 3 — I/O" data-meta="iopins · headers"
+              data-chapter="07_alu Design" data-fig="Fig. 1d" data-slug="sch-3">
+              <dl class="gallery-slide__facts"><div><dt>Block</dt><dd>I/O pins</dd></div></dl>
+              <div class="gallery-slide__body"><p>Bench headers and probe points. The slice has to be debuggable without a logic analyzer on every net.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/kicad/sch-4.webp" data-type="image" data-thumb="assets/story/kicad/sch-4.webp"
+              data-date="Aug 2026" data-title="Schematic sheet 4 — LED unit" data-meta="Opcode lamp wall"
+              data-chapter="07_alu Design" data-fig="Fig. 1e" data-slug="sch-4">
+              <dl class="gallery-slide__facts"><div><dt>Block</dt><dd>LED wall</dd></div></dl>
+              <div class="gallery-slide__body"><p>The opcode lamp wall on its own sheet — one LED per function so the bench can read what the ALU is doing.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/kicad/sch-5.webp" data-type="image" data-thumb="assets/story/kicad/sch-5.webp"
+              data-date="Aug 2026" data-title="Schematic sheet 5 — support" data-meta="Decoders · glue"
+              data-chapter="07_alu Design" data-fig="Fig. 1f" data-slug="sch-5">
+              <dl class="gallery-slide__facts"><div><dt>Block</dt><dd>Glue logic</dd></div></dl>
+              <div class="gallery-slide__body"><p>Decoders and support logic that tie the hierarchy together — the sheets you only notice when something does not enable.</p></div>
             </article>
 
             <article class="gallery-slide"
@@ -241,12 +332,76 @@
               <dl class="gallery-slide__facts"><div><dt>Stack</dt><dd>2-layer · ENIG</dd></div><div><dt>Qty</dt><dd>5 boards</dd></div></dl>
               <div class="gallery-slide__body"><p>Five boards for under six dollars. That was cheap enough to spin again without thinking twice if the fab made a mistake.</p></div>
             </article>
+
             <article class="gallery-slide"
-              data-src="assets/plates/digikey.jpg" data-type="image" data-thumb="assets/plates/digikey.jpg"
-              data-date="Aug 2026" data-title="DigiKey — parts inbound" data-meta="74ACT151 · 283 · 688"
-              data-chapter="Shop Floor" data-fig="Fig. 3">
-              <dl class="gallery-slide__facts"><div><dt>Key ICs</dt><dd>151 · 283 · 688 · 377 · 541</dd></div></dl>
-              <div class="gallery-slide__body"><p>25 logic ICs per 8-bit slice. I chose the 74ACT family to completely replace the discrete transistors on 07_alu.</p></div>
+              data-src="assets/plates/digikey-order.webp" data-type="image" data-thumb="assets/plates/digikey-order.webp"
+              data-date="Aug 2026" data-title="DigiKey Order" data-meta="Logic components"
+              data-chapter="Shop Floor" data-fig="Fig. 4" data-slug="digikey-order">
+              <dl class="gallery-slide__facts"><div><dt>Vendor</dt><dd>DigiKey</dd></div></dl>
+              <div class="gallery-slide__body"><p>The paper trail for the logic components. It's one thing to draw them, another to pay for them and wait for the box.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/plates/jlcpcb-checkout.webp" data-type="image" data-thumb="assets/plates/jlcpcb-checkout.webp"
+              data-date="Aug 2026" data-title="JLCPCB Checkout" data-meta="PCB Fabrication"
+              data-chapter="Shop Floor" data-fig="Fig. 5" data-slug="jlcpcb-checkout">
+              <dl class="gallery-slide__facts"><div><dt>Vendor</dt><dd>JLCPCB</dd></div></dl>
+              <div class="gallery-slide__body"><p>The moment of truth. Hitting checkout on a board order always feels like locking in a bet.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/plates/jlcpcb-order.webp" data-type="image" data-thumb="assets/plates/jlcpcb-order.webp"
+              data-date="Aug 2026" data-title="JLCPCB Order Details" data-meta="PCB Specs"
+              data-chapter="Shop Floor" data-fig="Fig. 6" data-slug="jlcpcb-order">
+              <dl class="gallery-slide__facts"><div><dt>Layer</dt><dd>2-layer</dd></div></dl>
+              <div class="gallery-slide__body"><p>Order placed. The waiting game begins for the ENIG finish boards to arrive.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/plates/jlcpcb-summary.webp" data-type="image" data-thumb="assets/plates/jlcpcb-summary.webp"
+              data-date="Aug 2026" data-title="JLCPCB Summary" data-meta="Final order confirmation"
+              data-chapter="Shop Floor" data-fig="Fig. 7" data-slug="jlcpcb-summary">
+              <dl class="gallery-slide__facts"><div><dt>Status</dt><dd>Confirmed</dd></div></dl>
+              <div class="gallery-slide__body"><p>The order summary. Soon enough, these numbers turn into actual copper on the desk.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/plates/mouser-pmod-1.jpg" data-type="image" data-thumb="assets/plates/mouser-pmod-1.jpg"
+              data-date="Aug 2026" data-title="Mouser PMOD Order" data-meta="VGA strategy pivot"
+              data-chapter="Shop Floor" data-fig="Fig. 8" data-slug="mouser-pmod-1">
+              <dl class="gallery-slide__facts"><div><dt>Vendor</dt><dd>Mouser</dd></div></dl>
+              <div class="gallery-slide__body"><p>After the VGA adapter refused to play along, I had to pivot. The PMOD order receipt from Mouser marks that shift in strategy.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/plates/mouser-pmod-2.jpg" data-type="image" data-thumb="assets/plates/mouser-pmod-2.jpg"
+              data-date="Aug 2026" data-title="Mouser PMOD Order — Part 2" data-meta="VGA strategy pivot"
+              data-chapter="Shop Floor" data-fig="Fig. 9" data-slug="mouser-pmod-2">
+              <dl class="gallery-slide__facts"><div><dt>Part</dt><dd>VGA PMOD</dd></div></dl>
+              <div class="gallery-slide__body"><p>The rest of the Mouser order. A CPU without a display is a heater, so this PMOD was critical to getting pixels on the screen.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/assembly/hdmi-test.mp4" data-type="video" data-thumb="assets/assembly/hdmi-test.webp" data-poster="assets/assembly/hdmi-test.webp"
+              data-date="Aug 2026" data-title="First Pixels: 12-bit PMOD HDMI" data-meta="FPGA · Video Peripheral Test"
+              data-chapter="Shop Floor" data-fig="Fig. 10" data-slug="hdmi-test">
+              <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>Peripheral</dt><dd>12-bit PMOD</dd></div></dl>
+              <div class="gallery-slide__body"><p>After soldering the pins, the HDMI output works beautifully! Pure red, green, blue, and gray bars on the screen. Getting real pixels on the glass makes all the abstract logic suddenly feel very real.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/assembly/fpga-board-pmod.webp" data-type="image" data-thumb="assets/assembly/fpga-board-pmod.webp"
+              data-date="Aug 2026" data-title="Nexys A7 + DVI PMOD on the bench" data-meta="JC + JD · iCEBreaker 12-bit DVI"
+              data-chapter="Shop Floor" data-fig="Fig. 11" data-slug="fpga-board-pmod">
+              <dl class="gallery-slide__facts"><div><dt>Board</dt><dd>Nexys A7-100T</dd></div><div><dt>PMOD</dt><dd>JC + JD</dd></div></dl>
+              <div class="gallery-slide__body"><p>The bring-up rig: Nexys A7 with the iCEBreaker 12-bit DVI PMOD seated on JC and JD, HDMI out, DONE lit after an open-source bitstream flash.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/open-source/librelane-3.0.8.webp" data-type="image" data-thumb="assets/story/open-source/librelane-3.0.8.webp"
+              data-date="Aug 2026" data-title="LibreLane 3.0.8" data-meta="Open ASIC flow · contributions"
+              data-chapter="Shop Floor" data-fig="Fig. 12" data-slug="librelane">
+              <dl class="gallery-slide__facts"><div><dt>Tool</dt><dd>LibreLane</dd></div><div><dt>Role</dt><dd>Upstream PRs</dd></div></dl>
+              <div class="gallery-slide__body"><p>The same open toolchain ethic as the FPGA pivot on the Mac. LibreLane is where tapeout habits get tested before they touch Tomato copper.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/open-source/openroad-activity.webp" data-type="image" data-thumb="assets/story/open-source/openroad-activity.webp"
+              data-date="Aug 2026" data-title="OpenROAD activity" data-meta="Place &amp; route · FOSS stack"
+              data-chapter="Shop Floor" data-fig="Fig. 13" data-slug="openroad">
+              <dl class="gallery-slide__facts"><div><dt>Stack</dt><dd>Yosys · nextpnr · X-Ray</dd></div></dl>
+              <div class="gallery-slide__body"><p>Researching the FOSS FPGA and ASIC stacks that could replace slow closed tools. OpenROAD sits in the same toolbox as the Nexys bring-up Makefile.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/story/hardware/nexys-a7.jpg" data-type="image" data-thumb="assets/story/hardware/nexys-a7.jpg"
@@ -307,6 +462,13 @@
               <div class="gallery-slide__body"><p>Take the cell, lay it out eight times. This is the direct ancestor to the two 4-bit cells that eventually became 07_alu.</p></div>
             </article>
             <article class="gallery-slide"
+              data-src="assets/plates/alu-4b-final.webp" data-type="image" data-thumb="assets/plates/alu-4b-final.webp"
+              data-date="Jun 2026" data-title="alu_4b — final Digital sheet" data-meta="Nibble cell · verified"
+              data-chapter="The Simulation" data-fig="Fig. 3a" data-slug="alu-4b-final">
+              <dl class="gallery-slide__facts"><div><dt>Cell</dt><dd>4-bit slice</dd></div><div><dt>Plane</dt><dd>Digital</dd></div></dl>
+              <div class="gallery-slide__body"><p>The nibble cell frozen in Digital before it became KiCad footprints. Two of these chained on CIN-MAIN became 07_alu.</p></div>
+            </article>
+            <article class="gallery-slide"
               data-src="assets/story/alu/cla-74182.png" data-type="image" data-thumb="assets/story/alu/cla-74182.png"
               data-date="2025" data-title="Ten 74182s" data-meta="Carry lookahead, not ripple"
               data-chapter="The Simulation" data-fig="Fig. 4" data-slug="cla-74182">
@@ -326,6 +488,13 @@
               data-chapter="The Simulation" data-fig="Fig. 6" data-slug="nibble-mux">
               <dl class="gallery-slide__facts"><div><dt>Proof</dt><dd>Digital · working mux</dd></div></dl>
               <div class="gallery-slide__body"><p>The insight on the black card finally turned into a schematic that ran. The nibbles time-share a single ROM, and latches hold a digit each. Without doing this, every single hex lamp would have demanded its own decoder.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/display/segment-control.webp" data-type="image" data-thumb="assets/story/display/segment-control.webp"
+              data-date="2025" data-title="Segment control" data-meta="Seven-segment decode · sim"
+              data-chapter="The Simulation" data-fig="Fig. 6a" data-slug="segment-control">
+              <dl class="gallery-slide__facts"><div><dt>Target</dt><dd>7-segment</dd></div></dl>
+              <div class="gallery-slide__body"><p>From hand-drawn hex patterns to a control sheet that drives segments from a nibble. The display problem stays a memory problem.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/story/alu/barrel-shift.png" data-type="image" data-thumb="assets/story/alu/barrel-shift.png"
@@ -361,6 +530,48 @@
               data-chapter="The Simulation" data-fig="Fig. 11" data-slug="eeprom-fanout">
               <dl class="gallery-slide__facts"><div><dt>Word</dt><dd>40b control</dd></div></dl>
               <div class="gallery-slide__body"><p>One memory, driving a lot of enables. Fanout is simply the tax you pay for having a centralized control unit.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/plates/microcode-modular.webp" data-type="image" data-thumb="assets/plates/microcode-modular.webp"
+              data-date="2026" data-title="Modular microcode decode" data-meta="Digital · control fanout"
+              data-chapter="The Simulation" data-fig="Fig. 11a" data-slug="microcode-modular">
+              <dl class="gallery-slide__facts"><div><dt>Plane</dt><dd>Digital</dd></div></dl>
+              <div class="gallery-slide__body"><p>Microcode broken into modules instead of one unreadable sheet. Each block maps to a strobe the datapath can actually route.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/digital/main-2026-06-06.webp" data-type="image" data-thumb="assets/story/digital/main-2026-06-06.webp"
+              data-date="6 Jun 2026" data-title="Digital main — 6 June" data-meta="main.dig snapshot"
+              data-chapter="The Simulation" data-fig="Fig. 16" data-slug="main-0606">
+              <dl class="gallery-slide__facts"><div><dt>Sheet</dt><dd>main.dig</dd></div></dl>
+              <div class="gallery-slide__body"><p>Early June on the big sheet — still wiring the control spine before the custom programs ran clean.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/digital/main-2026-06-07.webp" data-type="image" data-thumb="assets/story/digital/main-2026-06-07.webp"
+              data-date="7 Jun 2026" data-title="Digital main — 7 June" data-meta="main.dig snapshot"
+              data-chapter="The Simulation" data-fig="Fig. 17" data-slug="main-0607">
+              <dl class="gallery-slide__facts"><div><dt>Sheet</dt><dd>main.dig</dd></div></dl>
+              <div class="gallery-slide__body"><p>Another day on main.dig. The bus and register file start to look like a machine instead of a pile of parts.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/digital/main-2026-06-08.webp" data-type="image" data-thumb="assets/story/digital/main-2026-06-08.webp"
+              data-date="8 Jun 2026" data-title="Digital main — 8 June" data-meta="main.dig snapshot"
+              data-chapter="The Simulation" data-fig="Fig. 18" data-slug="main-0608">
+              <dl class="gallery-slide__facts"><div><dt>Sheet</dt><dd>main.dig</dd></div></dl>
+              <div class="gallery-slide__body"><p>Fetch and execute paths tightening. Each snapshot is a commit in the sim before any Gerber existed.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/digital/main-2026-06-16.webp" data-type="image" data-thumb="assets/story/digital/main-2026-06-16.webp"
+              data-date="16 Jun 2026" data-title="Digital main — 16 June" data-meta="main.dig snapshot"
+              data-chapter="The Simulation" data-fig="Fig. 19" data-slug="main-0616">
+              <dl class="gallery-slide__facts"><div><dt>Sheet</dt><dd>main.dig</dd></div></dl>
+              <div class="gallery-slide__body"><p>Mid-June: MMIO and arbiter experiments showing up on the same canvas as the ALU slices.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/story/digital/main-2026-06-27.webp" data-type="image" data-thumb="assets/story/digital/main-2026-06-27.webp"
+              data-date="27 Jun 2026" data-title="Digital main — 27 June" data-meta="main.dig snapshot · plate source"
+              data-chapter="The Simulation" data-fig="Fig. 20" data-slug="main-0627">
+              <dl class="gallery-slide__facts"><div><dt>Sheet</dt><dd>main.dig</dd></div><div><dt>Status</dt><dd>Programs running</dd></div></dl>
+              <div class="gallery-slide__body"><p>Late June — the sheet that became the front-page Digital plate. Custom programs and Fibonacci already behaving like a CPU.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/story/run/fibonacci-register.jpg" data-type="image" data-thumb="assets/story/run/fibonacci-register.jpg"

@@ -251,34 +251,29 @@
       <section class="section" id="dispatch">
         <div class="wrap lead-grid">
           <article>
-            <p class="kicker">Latest dispatch · 18 August 2026</p>
-            <h2 class="headline">First phase of assembly.</h2>
-            <p class="deck">The DigiKey box landed. Every <strong>74ACT151</strong> is down on one board, and so are the
-              adders. Seven LEDs. Copper next to the sim.</p>
-            <p class="byline">From the log · Lot 07 · <a href="boards/07-alu.html">07_alu</a></p>
+            <p class="kicker">Latest dispatch · 28 August 2026</p>
+            <h2 class="headline">Pixels on the glass.</h2>
+            <p class="deck">The 12-bit DVI PMOD is soldered, flashed, and throwing color bars on HDMI. Abstract logic finally has a screen.</p>
+            <p class="byline">From the log · FPGA · <a href="journal/pixels-on-glass.html">full entry</a></p>
             <div class="cols">
-              <p class="drop">After weeks of staring at schematics and KiCad renders, the silicon is on the desk. One
-                board has every mux placed, each <strong>74ACT283</strong> soldered, and the first lamps of the debug
-                wall sitting on their pads.</p>
-              <p>The half-soldered slice held next to Digital is the whole argument of this paper in one frame: the
-                truth table on the glass, the gates on the copper, the same machine.</p>
+              <p class="drop">Adapter soup failed last week. The iCEBreaker PMOD on JC + JD did not: red, green, blue, and gray bars at 640×480, flashed from the open-source toolchain on the Mac.</p>
+              <p>Earlier: the <a href="journal/pmod-pivot.html">PMOD pivot</a>, muxes and adders down, first lights, and an external plan to drive the
+                datapath at about 1&nbsp;Hz. The vault has thirty dispatches now.</p>
             </div>
             <nav class="jump jump--loud">
+              <a href="journal/pixels-on-glass.html">Read the dispatch &rarr;</a>
               <a href="journal.html">Open the Journal &rarr;</a>
-              <a href="gallery.html">View the Gallery frames &rarr;</a>
             </nav>
           </article>
-          <figure class="plate plate--ink plate--square">
-            <a href="journal.html">
-              <img src="assets/gallery/assembly/half-soldered-plate-640w.webp"
-                srcset="assets/gallery/assembly/half-soldered-plate-640w.webp 640w, assets/gallery/assembly/half-soldered-plate-1280w.webp 1280w, assets/assembly/half-soldered-plate.webp 1120w"
-                sizes="(max-width: 860px) min(100vw - 1.7rem, 28rem), min(28rem, 42vw)"
-                alt="Half-soldered Tomato ALU 8-bit board held next to its Digital simulation." width="1120"
-                height="1120" loading="lazy" decoding="async" />
+          <figure class="plate plate--ink">
+            <a href="journal/pixels-on-glass.html">
+              <img src="assets/assembly/hdmi-test.webp"
+                alt="HDMI color bars from the Nexys A7 and 12-bit DVI PMOD." width="1200"
+                height="675" loading="lazy" decoding="async" />
             </a>
             <figcaption class="plate-cap">
-              <span>Fig. — On the bench</span>
-              <span>Half-soldered 07_alu · Digital</span>
+              <span>Fig. — First pixels</span>
+              <span>hdmi_test · 640×480 color bars</span>
             </figcaption>
           </figure>
         </div>
