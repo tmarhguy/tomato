@@ -1,4 +1,3 @@
- 
 
 <h1 align="center">Tomato - 32b Discrete Computer</h1>
 <p align="center"><strong>32-bit Computer. The oddest machine built in a dorm.</strong></p>
@@ -19,7 +18,7 @@ But for a solo dorm-room project, the manufacturing costs ballooned exponentiall
 The paper: **[tomato.tmarhguy.com](https://tomato.tmarhguy.com/)** · the site: **[web/README](web/README.md)** · the vault: **[docs/log/](docs/log/)**.
 
 <p align="center">
-  <img src="media/kicad/07_alu/pcb/immersion_black.gif" alt="Tomato 07_alu — Dual-LUT slice in the round" width="48%" />
+  <img src="web/assets/pcb/immersion_black.webp" alt="Tomato 07_alu — Dual-LUT slice in the round" width="48%" />
   <img src="web/assets/assembly/half-soldered-plate.webp" alt="Tomato 07_alu — first population, next to Digital" width="48%" />
 </p>
 <p align="center"><em>Lot 07 in the round &amp; on the iron · Dual-LUT slice · <a href="https://tomato.tmarhguy.com/playground.html">playground</a></em></p>
@@ -182,14 +181,13 @@ tomato/
 ├── hardware/
 │   ├── digital/modules/  # Digital schematics (.dig) — logic source of truth
 │   ├── kicad/boards/     # Numbered PCB designs (01_alu … 08_display)
-│   ├── fpga/             # Vivado projects (FSM, hex display)
+│   ├── fpga/             # Nexys A7 — core (CPU + Tomato OS), hdmi_test (DVI PMOD)
 │   └── verilog/          # Export policy (read-only netlists)
 ├── microcode/            # Per-board control ROM hex images
 ├── verification/         # ALU harness: formal, directed, UVM
 ├── firmware/             # Stub — not started
 ├── software/             # Stub — not started
-├── web/                  # Broadsheet — tomato.tmarhguy.com
-└── media/                # Screenshots, PCB photos, schematic exports
+└── web/                  # Broadsheet — tomato.tmarhguy.com (assets/ = all plates)
 ```
 
 ---
@@ -222,8 +220,8 @@ ALU verification ladder: `alu-1b-final` → 2x `alu-4b` → 4x `alu-8b` → `alu
 | 08    | [08_alu_fsm/](hardware/kicad/boards/08_alu_fsm/), [08_display/](hardware/kicad/boards/08_display/) | FSM bring-up, display                                                                     | In design         |
 
 <p align="center">
-  <img src="media/kicad/07_alu/pcb/alu_8b_board.png" alt="Tomato ALU PCB — board render" width="47%" />
-  <img src="media/kicad/07_alu/pcb/alu_8b_pcb.png" alt="Tomato ALU PCB — top-layer layout" width="50%" />
+  <img src="web/assets/pcb/alu_8b_board.webp" alt="Tomato ALU PCB — board render" width="47%" />
+  <img src="web/assets/pcb/alu_8b_pcb.jpg" alt="Tomato ALU PCB — top-layer layout" width="50%" />
 </p>
 <p align="center"><em>Lot 07 · left: board render · right: routed top copper · two 4-bit cells, flag logic, opcode/operand LED bring-up (<a href="hardware/kicad/boards/07_alu/README.md">full ALU board doc</a>)</em></p>
 
@@ -304,6 +302,7 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 | [hardware/kicad/README.md](hardware/kicad/README.md)       | KiCad overview                                 |
 | [07_alu board doc](hardware/kicad/boards/07_alu/README.md) | Dual-LUT ALU PCB — schematics, layout, pinout |
 | [hardware/digital/README.md](hardware/digital/README.md)   | Digital simulation                             |
+| [hardware/fpga/README.md](hardware/fpga/README.md)       | Nexys A7 — Tomato OS on a monitor, open-source flow |
 | [microcode/README.md](microcode/README.md)                 | Control ROM packing                            |
 
 ### Full design journal
@@ -344,7 +343,7 @@ Tomato project.
 
 Tomato is a solo hardware architecture project: discrete-logic CPU design, KiCad PCBs, Digital simulation, and a public build log. Questions, collabs, or “why did you route it that way?” — reach out.
 
-[![Email](https://img.shields.io/badge/Email-tmarhguy@gmail.com-D14836?logo=gmail&logoColor=white)](mailto:tmarhguy@gmail.com) [![Edu Email](https://img.shields.io/badge/Email-tmarhguy@engineering.upenn.edu-011F5B)](mailto:tmarhguy@engineering.upenn.edu)[![Twitter](https://img.shields.io/badge/Twitter-@marhguy__tyrone-1DA1F2?logo=twitter&logoColor=white)](https://twitter.com/marhguy_tyrone)
+[![Email](https://img.shields.io/badge/Email-tmarhguy@gmail.com-D14836?logo=gmail&logoColor=white)](mailto:tmarhguy@gmail.com) [![Edu Email](https://img.shields.io/badge/Email-tmarhguy@engineering.upenn.edu-011F5B)](mailto:tmarhguy@engineering.upenn.edu) [![Twitter](https://img.shields.io/badge/Twitter-@marhguy__tyrone-1DA1F2?logo=twitter&logoColor=white)](https://twitter.com/marhguy_tyrone)
 
  [![Instagram](https://img.shields.io/badge/Instagram-@tmarhguy-E4405F?logo=instagram&logoColor=white)](https://instagram.com/tmarhguy) [![Substack](https://img.shields.io/badge/Substack-@tmarhguy-FF6719?logo=substack&logoColor=white)](https://substack.com/@tmarhguy) [![Paper](https://img.shields.io/badge/Paper-tomato.tmarhguy.com-2ea043)](https://tomato.tmarhguy.com/) [![GitHub](https://img.shields.io/badge/GitHub-@tmarhguy-181717?logo=github&logoColor=white)](https://github.com/tmarhguy)
 
