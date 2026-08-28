@@ -5,10 +5,10 @@ Tomato assembly → hex/mem pipeline for FPGA sim (and later board load).
 ## Assemble
 
 ```bash
-python3 software/assembler.py software/asm/counter.s -o hardware/fpga/tomato/tb/mem/counter.mem --list
+python3 software/assembler.py software/asm/counter.s -o hardware/fpga/core/tb/mem/counter.mem --list
 ```
 
-From `hardware/fpga/tomato`: `make asm`.
+From `hardware/fpga/core`: `make asm`.
 
 ## Syntax (v1)
 

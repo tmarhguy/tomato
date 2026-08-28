@@ -5,7 +5,7 @@
 The physical **32-bit ALU** for Tomato — two independent 3-input LUT planes per bit, summed through **74ACT283** nibble adders, with on-board flag logic, carry select, and a bring-up LED wall. One PCB is an **8-bit slice**; stack two for 16-bit bench bring-up. Digital source of truth: [alu-32b-final.dig](../../../digital/modules/alu-32b-final.dig). KiCad project: [07_alu.kicad_pro](07_alu.kicad_pro).
 
 <p align="center">
-  <img src="../../../../media/kicad/07_alu/pcb/immersion_black.gif" alt="Tomato 07_alu — Dual-LUT slice in the round" width="48%" />
+  <img src="../../../../web/assets/pcb/immersion_black.webp" alt="Tomato 07_alu — Dual-LUT slice in the round" width="48%" />
   <img src="../../../../web/assets/assembly/half-soldered-plate.webp" alt="Tomato 07_alu — first population, next to Digital" width="48%" />
 </p>
 <p align="center"><em>Lot 07 in the round &amp; on the iron · Dual-LUT slice</em></p>
@@ -42,10 +42,10 @@ alu_out[n] = ( lutA(a,b,c) + lutB(a,b,c) + cin ) & 1   per bit, ripple across ni
 | Layout | Routed — **0 unrouted** nets (see status below) |
 | Silk | Tomato ALU branding, UPenn / author contact on copper |
 
-![Board render](../../../../media/kicad/07_alu/pcb/alu_8b_board.png)
+![Board render](../../../../web/assets/pcb/alu_8b_board.webp)
 *Figure 1 — `07_alu` board render — `CELL 0` / `CELL 1`, flag logic, opcode/operand LED wall, I/O headers.*
 
-![PCB layout overview](../../../../media/kicad/07_alu/pcb/alu_8b_pcb.png)
+![PCB layout overview](../../../../web/assets/pcb/alu_8b_pcb.jpg)
 *Figure 2 — Top copper — routed cells, flag block, silkscreen.*
 
 ---
@@ -84,32 +84,32 @@ Full CPU width is four 8-bit slices (or eight 4-bit cells) in the larger Tomato 
 
 ### Top sheet — two 4-bit ALU cells
 
-![Top schematic](../../../../media/kicad/07_alu/schematics/07_alu-images-0.jpg)
+![Top schematic](../../../../web/assets/story/kicad/sch-0.webp)
 *Figure 3 — `alu_4b_0` and `alu_4b_1` chained; `flags_logic`, `led_control`, and `iopins` sheets.*
 
 ### 4-bit slice — dual LUT into adder
 
-![4-bit ALU slice](../../../../media/kicad/07_alu/schematics/07_alu-images-1.jpg)
+![4-bit ALU slice](../../../../web/assets/story/kicad/sch-1.webp)
 *Figure 4 — `alu_1b_X0–X3` and `alu_1b_Y0–Y3` feed **U3 (74ACT283)**; `cinD` / `cout` nibble carry.*
 
 ### 1-bit LUT3 (`alu_1b_Y` example)
 
-![1-bit LUT slice](../../../../media/kicad/07_alu/schematics/07_alu-images-2.jpg)
+![1-bit LUT slice](../../../../web/assets/story/kicad/sch-2.webp)
 *Figure 5 — **74ACT151** as 3-input LUT: `a,b,c` select among `ALU_OPCODE_Y0–Y7`.*
 
 ### Flag logic
 
-![Flags logic](../../../../media/kicad/07_alu/schematics/07_alu-images-4.jpg)
+![Flags logic](../../../../web/assets/story/kicad/sch-4.webp)
 *Figure 6 — Zero compare (**74HCT688**), flag register (**74ACT377**), **74ACT151** `CIN-MAIN` mux from `CSEL` + latched flags.*
 
 ### LED bring-up panel
 
-![LED unit](../../../../media/kicad/07_alu/schematics/07_alu-images-3.jpg)
+![LED unit](../../../../web/assets/story/kicad/sch-3.webp)
 *Figure 7 — Visualize `ALU_OPCODE_X/Y`, flags, and A/B/C/OUT buses on the bench.*
 
 ### I/O connectors
 
-![I/O pins](../../../../media/kicad/07_alu/schematics/07_alu-images-5.jpg)
+![I/O pins](../../../../web/assets/story/kicad/sch-5.webp)
 *Figure 8 — Headers for A/B/C/OUT, opcode buses, `CSEL`, `FLAG_WE`, `SYS-CLK`, power.*
 
 ---
@@ -118,15 +118,15 @@ Full CPU width is four 8-bit slices (or eight 4-bit cells) in the larger Tomato 
 
 | Asset | Description |
 |-------|-------------|
-| [alu_8b_board.png](../../../../media/kicad/07_alu/pcb/alu_8b_board.png) | Board render — assembled view, silk, LED wall |
-| [alu_8b_pcb.png](../../../../media/kicad/07_alu/pcb/alu_8b_pcb.png) | 2D layout — top copper, cells, flag block |
-| [status_bar.png](../../../../media/kicad/07_alu/pcb/status_bar.png) | Route status — **717 pads**, **358 vias**, **2405** segments, **185 nets**, **0 unrouted** |
-| [drc.png](../../../../media/kicad/07_alu/tests/drc.png) | Design Rules Check — **0 violations**, **0 unconnected** |
+| [alu_8b_board.webp](../../../../web/assets/pcb/alu_8b_board.webp) | Board render — assembled view, silk, LED wall |
+| [alu_8b_pcb.jpg](../../../../web/assets/pcb/alu_8b_pcb.jpg) | 2D layout — top copper, cells, flag block |
+| [status-bar.webp](../../../../web/assets/pcb/status-bar.webp) | Route status — **717 pads**, **358 vias**, **2405** segments, **185 nets**, **0 unrouted** |
+| [drc.webp](../../../../web/assets/pcb/drc.webp) | Design Rules Check — **0 violations**, **0 unconnected** |
 
-![Route status](../../../../media/kicad/07_alu/pcb/status_bar.png)
+![Route status](../../../../web/assets/pcb/status-bar.webp)
 *Figure 9 — KiCad status bar — fully routed, fab-ready.*
 
-![DRC clean](../../../../media/kicad/07_alu/tests/drc.png)
+![DRC clean](../../../../web/assets/pcb/drc.webp)
 *Figure 10 — DRC pass — no violations, no unconnected items.*
 
 ---
@@ -205,7 +205,7 @@ Suggested flow: program opcode buses for a known LUT pair (e.g. add = `0x96` on 
 | [iopins.kicad_sch](iopins.kicad_sch) | Connector map |
 | [07_alu_digikey_bom.csv](../../fabrication/07_alu/07_alu_digikey_bom.csv) | DigiKey BOM — 2-board order |
 
-Media exports (figures above): [media/kicad/07_alu/](../../../../media/kicad/07_alu/).
+Figures above live under [`web/assets/`](../../../../web/assets/).
 
 ---
 

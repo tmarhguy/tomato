@@ -11,7 +11,7 @@ python3 tools/gen_microcode_v1.py              # pack hex + mem from the CSV
 python3 tools/burn_microcode_to_digital.py     # optional Digital board burn
 ```
 
-Also writes `$readmemh`-ready `*.mem` under `microcode/` and `hardware/fpga/tomato/tb/mem/`.
+Also writes `$readmemh`-ready `*.mem` under `microcode/` and `hardware/fpga/core/tb/mem/`.
 
 | File | Board | Fields |
 |------|-------|--------|

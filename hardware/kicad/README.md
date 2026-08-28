@@ -72,7 +72,7 @@ kicad/
    - Control signal generation
    - ~68 transistors
 
-![Main Logic Board](../../media/pcb/layouts/main_logic.png)
+![Main Logic Board](../../web/assets/pcb/layouts/main_logic.png)
 *Figure 1 - Main ALU logic board: 270×270mm with 3,488 transistors (Hybrid)*
 
 **Evidence:** Physical PCB fabricated and assembled.
@@ -98,7 +98,7 @@ kicad/
 | Format | Purpose | Location |
 |--------|---------|----------|
 | **PDF** | Documentation | Export as needed |
-| **SVG** | Vector schematics | `media/schematics photos svg/` |
+| **SVG** | Vector schematics | `../../web/assets/schematics photos svg/` |
 | **Gerber** | Manufacturing | Generated on demand |
 | **BOM** | Component list | `docs/build-notes/bom.md` |
 | **STEP** | 3D mechanical | `web/glb exports/` |
@@ -111,7 +111,7 @@ kicad/
 
 **File:** `boards/main_logic/main_logic.kicad_sch`
 
-![Main Logic Schematic](../media/schematics photos svg/main_logic.svg)
+![Main Logic Schematic](../../web/assets/schematics photos svg/main_logic.svg)
 *Figure 2 - Complete main logic schematic*
 
 **Key Components:**
@@ -132,7 +132,7 @@ Outputs: OUT[7:0], LESS, EQUAL, POSITIVE, COUT
 
 **File:** `boards/add_sub/add_sub.kicad_sch`
 
-![Add/Sub Schematic](../../media/schematics/boards/add_sub_page-0001.jpg)
+![Add/Sub Schematic](../../web/assets/schematics/boards/add_sub_page-0001.jpg)
 *Figure 3 - Add/subtract module with XOR array*
 
 **Function:** Conditional B inversion for subtraction
@@ -149,7 +149,7 @@ Outputs: OUT[7:0], LESS, EQUAL, POSITIVE, COUT
 
 **File:** `boards/flags/flags.kicad_sch`
 
-![Flags Schematic](../../media/schematics/boards/flags.svg)
+![Flags Schematic](../../web/assets/schematics/boards/flags.svg)
 *Figure 4 - Flag generation circuit*
 
 **Flags generated:**
@@ -164,7 +164,7 @@ Outputs: OUT[7:0], LESS, EQUAL, POSITIVE, COUT
 
 **File:** `boards/main_control/main_control.kicad_sch`
 
-![Control Schematic](../../media/schematics/boards/main_control.svg)
+![Control Schematic](../../web/assets/schematics/boards/main_control.svg)
 *Figure 5 - Control unit opcode decoder*
 
 **Function:** FUNC[4:0] → {M, MUX_SEL, INV_OUT, LOGIC_SEL}
@@ -179,7 +179,7 @@ Outputs: OUT[7:0], LESS, EQUAL, POSITIVE, COUT
 
 ### Step 1: Schematic Capture
 
-![Schematic Design](../../media/design/kicad/design_kicad_alu_schematic.jpg)
+![Schematic Design](../../web/assets/design/kicad/design_kicad_alu_schematic.jpg)
 *Figure 6 - Schematic capture in KiCad*
 
 **Process:**
@@ -192,7 +192,7 @@ Outputs: OUT[7:0], LESS, EQUAL, POSITIVE, COUT
 
 ### Step 2: PCB Layout
 
-![PCB Layout](../../media/design/kicad/design_kicad_alu_pcb_layout.png)
+![PCB Layout](../../web/assets/design/kicad/design_kicad_alu_pcb_layout.png)
 *Figure 7 - PCB layout for ALU*
 
 **Process:**
@@ -206,7 +206,7 @@ Outputs: OUT[7:0], LESS, EQUAL, POSITIVE, COUT
 
 ### Step 3: Routing
 
-[![Routing Demo](../../media/design/kicad/design_kicad_alu_pcb_layout.png)](../../media/videos/process/begining-routing-kicad-screenrecord.mp4)
+[![Routing Demo](../../web/assets/design/kicad/design_kicad_alu_pcb_layout.png)](../../web/assets/videos/process/begining-routing-kicad-screenrecord.mp4)
 *Figure 8 - Click to watch: PCB routing demonstration*
 
 **Routing strategy:**
@@ -272,10 +272,10 @@ KiCad → File → Fabrication Outputs → Gerbers
 - **Inspection:** Magnification recommended
 - **Testing:** Test subsystems before full integration
 
-![Component Placement](../../media/photos/assembly/not_closeup_soldered_mosfets.jpg)
+![Component Placement](../../web/assets/photos/assembly/not_closeup_soldered_mosfets.jpg)
 *Figure 9 - Component placement before soldering*
 
-![Soldering Progress](../../media/photos/assembly/not_closeup_soldered_mosfets.jpg)
+![Soldering Progress](../../web/assets/photos/assembly/not_closeup_soldered_mosfets.jpg)
 *Figure 10 - Hand soldering transistors (Total count: 3,488)*
 
 **Evidence:** Assembly process documented step-by-step.
