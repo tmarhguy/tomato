@@ -20,37 +20,17 @@ node_modules/
 *~*.lck
 *-backups/
 
-# FPGA Tomato Icarus sim artifacts
-hardware/fpga/tomato/sim/
+# FPGA Icarus sim artifacts
+hardware/fpga/core/sim/
 
 # Keep burn boot marker tracked despite *.txt
-!hardware/fpga/tomato/rtl/burn/BOOT.txt
+!hardware/fpga/core/rtl/burn/BOOT.txt
 
-# Xilinx Vivado — generated outputs (keep *.xpr and *.srcs/constrs)
-hardware/fpga/*/*.cache/
-hardware/fpga/*/*.runs/
-hardware/fpga/*/*.hw/
-hardware/fpga/**/.Xil/
-hardware/fpga/**/.jobs/
-hardware/fpga/**/*.jou
-hardware/fpga/**/*.pb
-hardware/fpga/**/*.rpt
-hardware/fpga/**/*.rpx
-hardware/fpga/**/*.dcp
+# Open-source FPGA flow: per-project build output, and the shared ~2.7 GB
+# toolchain (OSS CAD Suite + prjxray) that `make setup` installs.
+hardware/fpga/*/build/
+hardware/fpga/.tools/
 hardware/fpga/**/*.bit
-hardware/fpga/**/*.vdi
-hardware/fpga/**/*.wdf
-hardware/fpga/**/*.wpc
-hardware/fpga/**/ISEWrap.js
-hardware/fpga/**/ISEWrap.sh
-hardware/fpga/**/rundef.js
-hardware/fpga/**/runme.bat
-hardware/fpga/**/runme.sh
-hardware/fpga/**/runme.log
-hardware/fpga/**/gen_run.xml
-hardware/fpga/**/.vivado*.rst
-hardware/fpga/**/.Vivado*.rst
-hardware/fpga/**/utils_1/
 
 # Digital Verilog exports (copy locally for sim/formal; not source-of-truth in git)
 *.txt
@@ -81,7 +61,8 @@ test/reports/
 !verification/formal/PROPERTY_INVENTORY.md
 
 *.zip
-/hardware/kicad/boards/07_alu/.history
+**/.history/
 *.jou
 vivado.log
 /scratch
+/media

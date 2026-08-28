@@ -1,6 +1,6 @@
 # Thin wrappers — verification (default) + Tomato FPGA core tests + web sanity
 
-FPGA := hardware/fpga/tomato
+FPGA := hardware/fpga/core
 
 all:
 	@$(MAKE) -C verification help
