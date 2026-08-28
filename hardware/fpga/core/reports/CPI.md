@@ -11,4 +11,4 @@ Sim-only: cycle + fetch-retire from reset release to halt. Not a board MHz claim
 | bytes | 23 | 9 | **2.556** |
 | softops | 20 | 9 | **2.222** |
 
-Reproduce: `make -C hardware/fpga/tomato cpi`
+Reproduce: `make -C hardware/fpga/core cpi`
