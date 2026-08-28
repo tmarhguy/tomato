@@ -1,5 +1,5 @@
 /**
- * Dual-LUT model vs the Verilog in hardware/fpga/tomato/rtl/alu.v
+ * Dual-LUT model vs the Verilog in hardware/fpga/core/rtl/alu.v
  */
 import assert from "node:assert/strict";
 import test from "node:test";

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * In-place visually-lossless optimize for media/ and web/assets sources.
+ * In-place visually-lossless optimize for web/assets sources.
  * Videos longer than 90s become an iPhone-style timelapse (silent, ~20–40s).
  */
 import { spawnSync } from "node:child_process";
@@ -132,7 +132,7 @@ function optimizeVideo(file) {
   return { before, after, duration, speed: long ? speed : 1, long };
 }
 
-const files = [...walk(join(root, "media")), ...walk(join(web, "assets"))].filter((p) => {
+const files = walk(join(web, "assets")).filter((p) => {
   const e = extname(p).toLowerCase();
   if (p.includes("/assets/gallery/")) return false;
   return IMG.has(e) || VID.has(e);

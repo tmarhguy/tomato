@@ -39,7 +39,7 @@ const REQUIRED = [
   "assets/pcb/alu.glb",
   "assets/pcb/immersion_black.mp4",
   "assets/pcb/immersion_black.webp",
-  "assets/pcb/immersion_white.gif",
+  "assets/pcb/immersion_white.webp",
   "assets/pcb/immersion_white_poster.webp",
   "assets/pcb/hero.mp4",
   "assets/pcb/hero.webp",
@@ -57,6 +57,9 @@ const REQUIRED = [
   "assets/assembly/placing-and-soldering.webp",
   "assets/assembly/soldering-led.mp4",
   "assets/assembly/soldering-led.webp",
+  "assets/assembly/hdmi-test.mp4",
+  "assets/assembly/hdmi-test.webp",
+  "assets/assembly/fpga-board-pmod.webp",
   "boards.html",
   "architecture.html",
   "isa.html",
@@ -361,21 +364,32 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
   assert.match(js, /deferSrc/);
 });
 
-test("front page latest dispatch is the assembly log", () => {
+test("front page latest dispatch is pixels on the glass", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
   assert.match(html, /id=["']dispatch["']/);
   assert.match(html, /href=["']journal\.html["']/);
-  assert.match(html, /First phase of assembly/);
-  assert.match(html, /assets\/assembly\/half-soldered/);
+  assert.match(html, /Pixels on the glass/);
+  assert.match(html, /hdmi-test\.webp/);
   assert.match(html, /id=["']iron["']/);
   assert.match(html, /placing-and-soldering\.mp4/);
   assert.match(html, /assets\/assembly\/work-setup\.mp4/);
   const journal = readFileSync(join(WEB, "journal.html"), "utf8");
+  assert.match(journal, /journal\/pixels-on-glass\.html/);
+  assert.match(journal, /journal\/pmod-pivot\.html/);
+  assert.match(journal, /journal\/first-lights\.html/);
   assert.match(journal, /journal\/first-assembly\.html/);
-  assert.match(journal, /twenty-five/i);
+  assert.match(journal, /thirty/i);
   const assembly = readFileSync(join(WEB, "journal/first-assembly.html"), "utf8");
   assert.match(assembly, /assets\/assembly\/board-test\.webp/);
   assert.match(assembly, /assets\/assembly\/work-setup\.mp4/);
+  const lights = readFileSync(join(WEB, "journal/first-lights.html"), "utf8");
+  assert.match(lights, /assets\/assembly\/board-test\.webp/);
+  const pixels = readFileSync(join(WEB, "journal/pixels-on-glass.html"), "utf8");
+  assert.match(pixels, /assets\/assembly\/hdmi-test\.mp4/);
+  assert.match(pixels, /assets\/assembly\/fpga-board-pmod\.webp/);
+  const pmod = readFileSync(join(WEB, "journal/pmod-pivot.html"), "utf8");
+  assert.match(pmod, /mouser-pmod-1\.jpg/);
+  assert.match(pmod, /pixels-on-glass\.html/);
 });
 
 test("front page hardware compiler links to the sweep clips", () => {

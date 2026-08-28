@@ -8,7 +8,7 @@
 ![Deploy](https://img.shields.io/badge/Deploy-tomato.tmarhguy.com-2563EB?style=for-the-badge)
 
 <p align="center">
-  <img src="../media/logs/2026-08-13-tomato_magazine%20_top.png" alt="The Tomato, Vol. 32 No. 1 — front page, August 2026" />
+  <img src="assets/plates/front-page.webp" alt="The Tomato, Vol. 32 No. 1 — front page, August 2026" />
 </p>
 <p align="center"><em>Vol. 32 · No. 1 · Magnesium Alley, Ashtown-Bay Perimeter · August 2026</em></p>
 
@@ -73,7 +73,7 @@ We run two cameras on one model (`assets/pcb/alu.glb`), exported directly from *
 The [`playground.html`](https://tomato.tmarhguy.com/playground.html) interface is `07_alu` on a wire. It’s a **bit-level Dual-LUT emulator** running in the browser. Toggle operands, flip both LUT opcodes, and assert carry. If the Dual-LUT architecture doesn't survive a bit-flip in the browser, it won't survive a logic probe on the physical bench.
 
 <p align="center">
-  <img src="../media/kicad/07_alu/pcb/immersion_black.gif" alt="Tomato 07_alu — Dual-LUT slice in the round" />
+  <img src="assets/pcb/immersion_black.webp" alt="Tomato 07_alu — Dual-LUT slice in the round" />
 </p>
 <p align="center"><em>Lot 07 in the round · the slice the playground runs · <a href="https://tomato.tmarhguy.com/playground.html">open the playground</a></em></p>
 

@@ -11,13 +11,17 @@
     "optimize-assembly": "node scripts/optimize-assembly.mjs"
   },
   "devDependencies": {
-    "sharp": "^0.35.3",
     "@gltf-transform/core": "^4.2.1",
     "@gltf-transform/extensions": "^4.2.1",
     "@gltf-transform/functions": "^4.2.1",
-    "draco3dgltf": "^1.5.7"
+    "draco3dgltf": "^1.5.7",
+    "sharp": "^0.35.3"
   },
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.3.0",
+    "ffprobe-static": "^3.1.0"
   }
 }
