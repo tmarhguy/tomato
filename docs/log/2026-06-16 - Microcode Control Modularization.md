@@ -38,7 +38,7 @@ HALT stays on `main`—opcode `0x3FF` plus execute phase. One comparator, not wo
 
 All six control boards are in the Control Unit block on `main`—decode sits with the datapath it drives instead of one central microcode blob.
 
-![Modular main layout in Digital](../../../media/logs/2026-06-16-microcode-control-modularization-main.png)
+![Modular main layout in Digital](../../web/assets/plates/microcode-modular.webp)
 
 #### Status
 

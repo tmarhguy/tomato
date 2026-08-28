@@ -1,7 +1,7 @@
 The new solder station arrived on campus from Amazon and works perfectly. Now, I’m just waiting on the custom PCB and DigiKey components to arrive so I can get to work and resume building project "Tomato."
 
 <p align="center">
-  <img src="../../media/orders/solder_station.jpeg" alt="WEP 926LED V3 on the desk — display at 480, iron over a small Microchip board." width="400" />
+  <img src="../../web/assets/plates/solder-station.jpeg" alt="WEP 926LED V3 on the desk — display at 480, iron over a small Microchip board." width="400" />
 </p>
 
 > **Station in. Boards still inbound.** The iron works. Tomato waits on the custom PCB and DigiKey parts. Then: back to the build.

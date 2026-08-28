@@ -16,7 +16,7 @@ Let's put Tomato in a newspaper feel to remind of its truest time, but let's add
 
 <p align="center">
 
-![The Tomato, Vol. 32 No. 1 — front page. Ashtown Valley, the Bay Perimeter, 13 August 2026.](../../media/logs/2026-08-13-tomato_magazine%20_top.png)
+![The Tomato, Vol. 32 No. 1 — front page. Ashtown Valley, the Bay Perimeter, 13 August 2026.](../../web/assets/plates/front-page.webp)
 
 </p>
 
