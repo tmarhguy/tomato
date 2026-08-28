@@ -17,8 +17,8 @@ After months of schematic churn, opcode tables, and the occasional 40b detour, T
 The dual-LUT ALU is no longer a KiCad fantasy. Copper is being etched. Chips are in a warehouse in Minnesota. I am genuinely excited.
 
 <p align="center">
-  <img src="../../media/kicad/07_alu/pcb/alu_8b_board.png" alt="Tomato ALU — board render" width="46%" />
-  <img src="../../media/kicad/07_alu/pcb/alu_8b_pcb.png" alt="Tomato ALU — top copper" width="50%" />
+  <img src="../../web/assets/pcb/alu_8b_board.webp" alt="Tomato ALU — board render" width="46%" />
+  <img src="../../web/assets/pcb/alu_8b_pcb.jpg" alt="Tomato ALU — top copper" width="50%" />
 </p>
 
 <p align="center"><em>Figure 1 — What we are actually building: <code>07_alu</code> — board render (left), routed top copper (right). DRC clean, 0 unrouted nets.</em></p>
@@ -35,13 +35,13 @@ I finally stopped polishing and hit submit. The existential “one more routing 
 
 If there is a fab error, I can spin another batch without heartbreak. That was the whole point of keeping the board small and the order cheap.
 
-![JLCPCB order confirmation](../../media/orders/pcb_order_jlcpcb.png)
+![JLCPCB order confirmation](../../web/assets/plates/jlcpcb-order.webp)
 *Figure 2 — JLCPCB order — copper incoming.*
 
-![JLCPCB checkout](../../media/orders/02_jlcpcb.png)
+![JLCPCB checkout](../../web/assets/plates/jlcpcb-checkout.webp)
 *Figure 3 — JLC order details.*
 
-![JLCPCB summary](../../media/orders/03_jlcpcb.png)
+![JLCPCB summary](../../web/assets/plates/jlcpcb-summary.webp)
 *Figure 4 — JLC summary.*
 
 ---
@@ -73,7 +73,7 @@ I sized the cart for **two boards** — a full **16-bit** datapath from day one.
 
 Swapped the backordered Samsung 100nF caps for Yageo `311-1344-1-ND`. Picked `CD74HCT688M96` over SN74HC688 for cleaner 5V ACT interfacing. Same footprint, better margins.
 
-![DigiKey order confirmation](../../media/orders/01_digikey.png)
+![DigiKey order confirmation](../../web/assets/plates/digikey-order.webp)
 *Figure 5 — DigiKey order `100884560` — 10 line items, two boards worth of silicon.*
 
 ---
