@@ -1,10 +1,19 @@
-# Microcode
+# Tomato — Microcode
+
+<p align="center"><strong>Per-board EEPROM images · packed from the ISA CSV.</strong></p>
+
+![Format](https://img.shields.io/badge/Format-v2.0%20raw-7C3AED) ![Authority](https://img.shields.io/badge/Authority-tomato.v1.csv-2563EB)
 
 Per-board 8-bit EEPROM images for Tomato control decode. Digital format: `v2.0 raw`.
 
-## Tomato ISA v1
-
 **Authority (512 rows):** [`docs/isa/tomato.v1.csv`](../docs/isa/tomato.v1.csv)
+
+**Project map:** [Root README](../README.md) · [ISA](../docs/isa/README.md) · [FPGA burn](../hardware/fpga/core/README.md)
+
+<p align="center">
+  <img src="../web/assets/plates/microcode-modular.webp" alt="Modular microcode control boards" width="70%" />
+</p>
+<p align="center"><em>Modular decode · local EEPROMs travel with the datapath</em></p>
 
 ```bash
 python3 tools/gen_microcode_v1.py              # pack hex + mem from the CSV
