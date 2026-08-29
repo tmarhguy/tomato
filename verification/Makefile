@@ -43,7 +43,8 @@ UVM_32B_SRCS := $(COMMON_SV) \
         directed lint clean synth synth_clean \
         uvm_1b_smoke uvm_1b_exhaustive uvm_8b_smoke uvm_8b_full \
         uvm_32b_smoke uvm_32b_directed uvm_32b_ops91 uvm_32b_random uvm_32b_edge uvm_32b_flag \
-        uvm_32b_regression uvm_regression
+        uvm_32b_regression uvm_regression \
+        gauntlet gauntlet_formal gauntlet_smoke gauntlet_claim
 
 all: signoff
 
@@ -57,6 +58,8 @@ help:
 	@echo "  make uvm_regression    1b + 8b + 32b UVM (Questa)"
 	@echo "  make synth             Yosys → sky130 area/timing (see synthesis/README.md)"
 	@echo "  make synth_clean       remove synthesis reports/"
+	@echo "  make gauntlet_smoke    FPGA ALU: Verilator 1e6 (see gauntlet/)"
+	@echo "  make gauntlet_claim    FPGA ALU: formal + 10B + 130B (long)"
 
 generate:
 	@$(GENERATE)
@@ -103,6 +106,16 @@ signoff: generate formal_all lint directed
 
 signoff_full: generate formal_full lint directed
 	@echo "=== SIGNOFF FULL PASS ==="
+
+# --- Gauntlet (FPGA dual-LUT ALU copy; does not touch hardware/fpga/core) ---
+gauntlet gauntlet_smoke:
+	$(MAKE) -C $(ROOT)/gauntlet smoke
+
+gauntlet_formal:
+	$(MAKE) -C $(ROOT)/gauntlet formal
+
+gauntlet_claim:
+	$(MAKE) -C $(ROOT)/gauntlet claim
 
 # --- UVM (Questa) ---
 define RUN_UVM_1B

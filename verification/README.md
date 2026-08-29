@@ -1,17 +1,24 @@
 # Tomato — ALU verification
 
-![status](https://img.shields.io/badge/status-signoff_passing-2ea043?style=for-the-badge)
-![architecture](https://img.shields.io/badge/architecture-32_bit-2563EB?style=for-the-badge)
-![formal](https://img.shields.io/badge/formal-SymbiYosys-7C3AED?style=for-the-badge)
-![UVM](https://img.shields.io/badge/UVM-Questa-0891B2?style=for-the-badge)
+<p align="center"><strong>Formal · directed · UVM sign-off for the dual-LUT ALU.</strong></p>
+
+![Status](https://img.shields.io/badge/status-signoff_passing-2ea043) ![Stack](https://img.shields.io/badge/stack-SymbiYosys%20%2B%20UVM-7C3AED)
 
 Layered sign-off for the **Tomato dual-LUT 32-bit ALU**: independent 3-input LUT planes per bit, ripple carry across byte slices, flag latches on the top 8b slice — `out = f(a,b,c) + g(a,b,c) + cin`. Proof runs from the 1-bit programmable-LUT cell up through the exported 32-bit netlist.
 
 **Tools:** SymbiYosys formal (1b → 8b → 32b comb + sequential flag cover), Icarus directed replay of Digital test vectors, Questa UVM with a shared reference model.
 
+**FPGA dual-LUT ALU:** [gauntlet/](gauntlet/) — Verilator **10B** (8b) + **130B** (32b) and SymbiYosys on a copy of [`hardware/fpga/core/rtl/alu.v`](../hardware/fpga/core/rtl/alu.v). `make gauntlet_smoke` · `make gauntlet_claim`.
+
 **Harness root:** `verification/` · **RTL policy:** Digital exports in `rtl/` are read-only copies — regenerate from [alu-32b-final.dig](../../hardware/digital/modules/alu-32b-final.dig), then re-run sign-off.
 
 **Project map:** [Root README](../README.md) · **ASIC metrics:** [synthesis/README.md](synthesis/README.md) · **Carry benchmark:** [test/README.md](../test/README.md)
+
+<p align="center">
+  <img src="../web/assets/plates/alu-4b-final.webp" alt="ALU 4-bit cell plate" width="48%" />
+  <img src="../web/assets/assembly/layout-tomato-alu-8bit.png" alt="Tomato 8-bit ALU layout" width="48%" />
+</p>
+<p align="center"><em>What gets proved · Dual-LUT slice hierarchy</em></p>
 
 ---
 
@@ -107,6 +114,7 @@ verification/
 ├── rtl/                → [rtl/README.md](rtl/README.md) — Digital-export DUT netlists
 ├── formal/             → [formal/README.md](formal/README.md)
 ├── directed/           → [directed/README.md](directed/README.md)
+├── gauntlet/           → [gauntlet/README.md](gauntlet/README.md) — FPGA ALU 10B/130B + SymbiYosys
 ├── synthesis/          → [synthesis/README.md](synthesis/README.md) — Yosys → Sky130 HD
 ├── uvm/                → [uvm/README.md](uvm/README.md)
 │   ├── common/         → ref model, op table, directed vectors (generated pkgs committed)
@@ -133,6 +141,7 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 | Formal 32b flags | PASS (cover) | `make formal_32b_flags` |
 | Formal inventory | **5/5 jobs**; **19 assert + 20 cover** (40+48 elaborated) | `make formal_inventory` → [formal/PROPERTY_INVENTORY.md](formal/PROPERTY_INVENTORY.md) |
 | Directed vectors | 476/476 pass vs ALU golden | `make directed` |
+| FPGA ALU (core copy) | SymbiYosys 1b+8b+32b; Verilator 10B / 130B | `make gauntlet_claim` → [gauntlet/](gauntlet/) |
 | Lint | 0 errors | `make lint` |
 | UVM `op91_cp` | Covergroup over **91 ALU control-table rows** (not 512 CPU opcodes, not toggle/branch %) | `make uvm_32b_ops91` (Questa) |
 | UVM directed replay | 476 vectors | `make uvm_32b_directed` |
