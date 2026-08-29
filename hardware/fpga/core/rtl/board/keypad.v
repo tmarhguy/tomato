@@ -21,13 +21,19 @@
  * The four arrow codes are also their CP437 glyphs (^ v < >), so software can
  * echo a keycode straight into the framebuffer and get the right picture.
  *
- * One key per press: a code is latched on the debounced rising edge and held
- * with kb_ready until the CPU reads the data word (rd), so a held button does
- * not machine-gun the menu. A fresh press always wins over a stale unread one.
+ * One key per press for Enter (N17): latched on the debounced rising edge
+ * and held with kb_ready until the CPU reads the data word (rd). Arrows
+ * auto-repeat while held so Snake/Tetris can steer without mashing. A
+ * fresh press always wins over a stale unread one.
  */
 module keypad #(
     // Debounce sample interval in clocks. 65536 @ 6.25 MHz ≈ 10 ms.
-    parameter SAMPLE = 16
+    parameter SAMPLE = 16,
+    // Held arrows auto-repeat so Tetris/Snake can slide without mashing.
+    // Enter never repeats: the press that opens a screen must not also
+    // dismiss it. 0 disables. 24 ticks × 10 ms ≈ 240 ms, then every 80 ms.
+    parameter REPEAT_AFTER = 24,
+    parameter REPEAT_RATE  = 8
 ) (
     input        clk,
     input        reset,
@@ -74,6 +80,22 @@ module keypad #(
     end
 
     wire [4:0] pressed = stable & ~stable_d;   // one-shot, one sample wide
+    wire [3:0] arrows  = stable[3:0];
+
+    // Count debounce ticks while any arrow is down. Enter is excluded so a
+    // held N17 cannot machine-gun the menu or bounce out of a screen.
+    reg [7:0] hold;
+    always @(posedge clk) begin
+        if (reset) hold <= 8'd0;
+        else if (tick) begin
+            if (arrows == 4'b0) hold <= 8'd0;
+            else if (hold == (REPEAT_AFTER + REPEAT_RATE - 1)) hold <= REPEAT_AFTER;
+            else hold <= hold + 8'd1;
+        end
+    end
+
+    wire do_repeat = (REPEAT_AFTER != 0) && tick && (arrows != 4'b0) &&
+                     (hold == REPEAT_AFTER);
 
     reg [7:0] data_r;
     reg       ready_r;
@@ -93,6 +115,12 @@ module keypad #(
             else if (pressed[1]) data_r <= KEY_DOWN;
             else if (pressed[2]) data_r <= KEY_LEFT;
             else                 data_r <= KEY_RIGHT;
+        end else if (do_repeat) begin
+            ready_r <= 1'b1;
+            if      (stable[0]) data_r <= KEY_UP;
+            else if (stable[1]) data_r <= KEY_DOWN;
+            else if (stable[2]) data_r <= KEY_LEFT;
+            else                data_r <= KEY_RIGHT;
         end else if (rd) begin
             ready_r <= 1'b0;
         end
