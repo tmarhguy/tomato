@@ -39,7 +39,7 @@ After discarding a full Lookahead Carry (74182) architecture due to the exponent
 
 I injected localized **Carry Bypass (Carry Skip)** logic directly into the fundamental 4-bit slice, leaving the 32-bit top-level schematic completely untouched.
 
-![4-bit ALU final schematic in Digital](../../../media/logs/2026-06-27-alu-4b-final.png)
+![4-bit ALU final schematic in Digital](../../web/assets/plates/alu-4b-final.webp)
 
 By utilizing four XOR gates to check if each bit is propagating ($P = A \oplus B$) and feeding them into a 4-input AND gate ($P_{group}$), a 2-to-1 multiplexer at the end of the slice determines the carry behavior. If $P_{group}$ is true, the incoming `cin` skips the 74283 adder entirely and flies directly to `cout`.
 

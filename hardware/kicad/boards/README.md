@@ -60,7 +60,7 @@ Current implementation uses modular approach for easier assembly and debugging.
 
 **Schematic:** [main_logic.kicad_sch](main_logic/main_logic.kicad_sch)
 
-![Main Logic Schematic](../../../media/schematics/boards/main_logic.svg)
+![Main Logic Schematic](../../../web/assets/schematics/boards/main_logic.svg)
 *Figure 1 - Main logic unit schematic*
 
 **Function:** Core logic operations (NAND, NOR, XOR, PASS)
@@ -73,7 +73,7 @@ IN:  A[7:0], B[7:0], LOGIC_SEL[2:0], VCC, GND
 OUT: LOGIC_OUT[7:0]
 ```
 
-![Main Logic PCB](../../../media/pcb/layouts/main_logic.png)
+![Main Logic PCB](../../../web/assets/pcb/layouts/main_logic.png)
 *Figure 2 - Fabricated main logic board*
 
 **Evidence:** Logic unit board fabricated and tested.
@@ -84,7 +84,7 @@ OUT: LOGIC_OUT[7:0]
 
 **Schematic:** [add_sub.kicad_sch](add_sub/add_sub.kicad_sch)
 
-![Add/Sub Schematic](../../../media/schematics/boards/add_sub_page-0001.jpg)
+![Add/Sub Schematic](../../../web/assets/schematics/boards/add_sub_page-0001.jpg)
 *Figure 3 - Add/subtract module schematic*
 
 **Function:** 8-bit ripple-carry adder with conditional B inversion
@@ -100,7 +100,7 @@ IN:  A[7:0], B[7:0], M (ADD/SUB), Cin, VCC, GND
 OUT: SUM[7:0], COUT
 ```
 
-![Add/Sub PCB](../../../media/pcb/layouts/add_sub.png)
+![Add/Sub PCB](../../../web/assets/pcb/layouts/add_sub.png)
 *Figure 4 - Fabricated add/subtract board*
 
 **Evidence:** Arithmetic unit core module.
@@ -111,7 +111,7 @@ OUT: SUM[7:0], COUT
 
 **Schematic:** [flags.kicad_sch](flags/flags.kicad_sch)
 
-![Flags Schematic](../../../media/schematics/boards/flags.svg)
+![Flags Schematic](../../../web/assets/schematics/boards/flags.svg)
 *Figure 5 - Flags generation circuit*
 
 **Function:** Generate comparison and status flags
@@ -128,7 +128,7 @@ IN:  A[7:0], B[7:0], OUT[7:0], COUT_IN, VCC, GND
 OUT: LESS, EQUAL, POSITIVE, COUT
 ```
 
-![Flags PCB](../../../media/pcb/layouts/flags.png)
+![Flags PCB](../../../web/assets/pcb/layouts/flags.png)
 *Figure 6 - Fabricated flags board*
 
 **Evidence:** Dedicated flag generation hardware.
@@ -139,7 +139,7 @@ OUT: LESS, EQUAL, POSITIVE, COUT
 
 **Schematic:** [main_control.kicad_sch](main_control/main_control.kicad_sch)
 
-![Control Schematic](../../../media/schematics/boards/main_control.svg)
+![Control Schematic](../../../web/assets/schematics/boards/main_control.svg)
 *Figure 7 - Control unit opcode decoder*
 
 **Function:** Decode 5-bit opcode to control signals
@@ -157,7 +157,7 @@ IN:  FUNC[4:0], VCC, GND
 OUT: M, MUX_SEL, INV_OUT, LOGIC_SEL[2:0]
 ```
 
-![Control PCB](../../../media/pcb/layouts/main_control.png)
+![Control PCB](../../../web/assets/pcb/layouts/main_control.png)
 *Figure 8 - Fabricated control decoder board*
 
 **Evidence:** Control unit generates all internal control signals from opcode.
@@ -174,10 +174,10 @@ OUT: M, MUX_SEL, INV_OUT, LOGIC_SEL[2:0]
 - led_panel_3 - Flags
 - led_panel_4 - Opcode display
 
-![LED Panel 1](../../../media/pcb/layouts/led_panel_1.png)
+![LED Panel 1](../../../web/assets/pcb/layouts/led_panel_1.png)
 *Figure 9 - LED display panel for upper nibble*
 
-![LED Panel 2](../../../media/pcb/layouts/led_panel_2.png)
+![LED Panel 2](../../../web/assets/pcb/layouts/led_panel_2.png)
 *Figure 10 - LED display panel for lower nibble*
 
 **Evidence:** LED panels provide binary output visualization.

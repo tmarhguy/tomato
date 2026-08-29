@@ -39,7 +39,7 @@ const REQUIRED = [
   "assets/pcb/alu.glb",
   "assets/pcb/immersion_black.mp4",
   "assets/pcb/immersion_black.webp",
-  "assets/pcb/immersion_white.gif",
+  "assets/pcb/immersion_white.webp",
   "assets/pcb/immersion_white_poster.webp",
   "assets/pcb/hero.mp4",
   "assets/pcb/hero.webp",

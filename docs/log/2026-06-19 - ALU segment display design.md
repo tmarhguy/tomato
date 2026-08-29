@@ -208,7 +208,7 @@ One-time burn with TL866II+. Bit map: `D0`=a, `D1`=b, `D2`=c, `D3`=d, `D4`=e, `D
 
 Bugs found along the way: `din` fights if two registers write at once (decoder must stay strictly one-hot); segment bit order vs Digital Seven-Seg pinout; decimal mode ROM address is `0100xxxx` not `01xxxxxx`.
 
-![32-digit multiplexed display in Digital](../../media/logs/2026-06-19-alu-segment-display-control.png)
+![32-digit multiplexed display in Digital](../../web/assets/story/display/segment-control.webp)
 
 #### What this ROM does not do
 

@@ -13,7 +13,7 @@ Pack microcode / FPGA burn:
 
 ```bash
 python3 tools/gen_microcode_v1.py --pack-rom   # regenerate v1 + .mem
-cd hardware/fpga/tomato && make burn           # embed into rtl/burn/
+cd hardware/fpga/core && make burn           # embed into rtl/burn/
 ```
 
 **Policy:** solidified burn ops stay. Add new burns in `burn_core_rows()` when you need them. Do not invent hundreds of growth phantoms. Empty ROM rows are `status=nop`.

@@ -1,0 +1,628 @@
+\documentclass[11pt,openany]{book}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{csquotes}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[hidelinks]{hyperref}
+\usepackage{needspace}
+
+\graphicspath{{../../web/assets/}{figs/}{../../web/assets/story/}}
+\DeclareGraphicsExtensions{.png,.jpg,.jpeg,.pdf,.webp}
+\onehalfspacing
+\setlength{\parskip}{0.32em}
+\setlength{\parindent}{1.1em}
+\captionsetup{font=small,labelfont=bf,skip=6pt}
+
+\definecolor{click}{HTML}{8B1E1E}
+
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries\color{click}}
+  {\chaptertitlename\ \thechapter}{0.55em}{\Huge}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{0.75em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\small\textit{Tomato, from the chats}}
+\fancyhead[LO,RE]{\small\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newcommand{\asked}[1]{%
+  \begin{quote}
+  \noindent\textbf{Asked.}\quad\textit{#1}
+  \end{quote}
+}
+
+\newcommand{\fig}[3]{%
+  \begin{figure}[htbp]
+  \centering
+  \includegraphics[width=#1\linewidth]{#2}
+  \caption{#3}
+  \end{figure}
+}
+
+\title{Tomato, from the chats}
+\author{Tyrone Marhguy}
+\date{August 2026}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\chapter*{What this is}
+
+This is a windback of Tomato from the first Digital netlist to Lot~07 on the iron. It is stitched from three records that already exist in the tree, not from a second invention of the machine.
+
+The Gemini dump in \texttt{chats/combined\_chats.pdf} is twenty threads, 717 pages, exported 24~August~2026. Those threads are where the questions happened: how many arithmetic forms sit in a LUT-plus-adder, whether a register can be read and written in one cycle, whether forty bits would finally give an honest $C$, whether an 8-to-1 mux beats a forest of 4-to-1s.
+
+The journal in \texttt{docs/log/} is twenty-five dated dispatches. Microcode split into boards on 16~June. The terminal mode mux died on 27~June. Dual LUT3 landed on 13~July. Forty bits lasted one day at the end of July. The boards left JLCPCB on 7~August. The first 74ACT chips hit flux on 18~August. The ISA that actually burns is not a phantom catalog: \texttt{tomato.v1.csv} is 512 rows with on the order of \textbf{51} \texttt{status=burn} ops; unused rows are \texttt{nop}.
+
+The plates in \texttt{web/assets/} are what the words were about: \texttt{main.dig} evolving through June, the 4-bit cell, the display scan, KiCad copper, JLCPCB and DigiKey receipts, five bare boards on a desk, a half-soldered slice held up to the same render on a monitor.
+
+A later pass at this story (the notes in \texttt{chats/secon-pass.md}) wanted the same arc and filled it with language Tomato never signed: a ``parametric physical hypervisor,'' 1{,}779 unique native instructions, 100\% RISC-V execution, ENIG over matte black as if that were in the order log. Those numbers are not copied here. Coverage of other ISAs is a CSV of maps, not a claim that the bench runs ARM. The opcode ROM is 512 rows. The ALU equation that went to fab is two LUT3s into an adder plus a carry select.
+
+What was cut from the chats on purpose is the same as before: career glaze, Tiny Tapeout league tables, which coding agent to hire, renaming the slice an NPU. What was added is everything the first pass skipped because it lived in the logs and the photos rather than in Gemini.
+
+\tableofcontents
+
+\mainmatter
+
+\chapter{Before the name}
+
+The silkscreen on \texttt{07\_alu} is not decoration. Penn Engineering, Achimota, a map of Ghana, and the line \emph{Unaffiliated student project} sit in the corner because the builder needed those facts on copper, not in a README nobody opens.
+
+The 13~August journal is the then/now table. At thirteen, on a parked bus without grid power, light came from phone batteries and a wind generator that had no working propellers. He was the wind: hours of hand-cranking, watching a meter stay under 5~V so the cells charged to 4.1~V. The iron was a nail heated in a fire, held with pliers or a wooden handle that caught fire, melting salvaged solder. The station on the campus desk in 2026 is a WEP 926LED V3 at 480\,$^\circ$C, coil stand, brass wool, a spool.
+
+That is not a metaphor for Tomato. It is why the project refuses a black box. If a result cannot be probed, it is not done.
+
+The first ALU in this repo is not Lot~07. \texttt{hardware/kicad/boards/01\_alu/} is a 270~mm $\times$ 270~mm 8-bit board: 3{,}488 MOSFETs hybrid-counted, $\sim$445~ns worst-case, combinational, no clock. Arithmetic and logic are still separate engines muxed at the end. That board is the ancestor the chats are arguing with. Lot~07 is the 99.95~mm $\times$ 99.80~mm 8-bit dual-LUT slice that actually went to JLC.
+
+Mosaic-32 is the name on early Gemini titles and a locked demo plan (display, matrix, audio, buttons, Megaprocessor-shaped). Tomato is the name that stuck because ``32b cpu'' and ``40b cpu'' were already too many generic labels. The 13~August web log is explicit: no special love of tomatoes. The paper is a 90s broadsheet because the chips are 74-series, and Ashtown Valley is Ghana with the valley and the perimeter, not Silicon Valley.
+
+\fig{0.55}{orders/solder_station.jpeg}{13 August 2026. WEP 926LED V3 on the desk. Boards still inbound.}
+
+\chapter{Grid paper, sand, and a 1-bit cell}
+
+The plates under \texttt{web/assets/story/} are the pictorial the Gemini PDF could not carry. Tomato did not begin as KiCad Lot~07.
+
+On grid paper: $\mathrm{Sum}=A\oplus B\oplus C_{\mathrm{in}}$. Carry rewritten so the XOR already paid for the sum is reused: $C_{\mathrm{out}}=AB+C_{\mathrm{in}}(A\oplus B)$. That reuse ethic is in the MOSFET board and in the 74ACT slice.
+
+\fig{0.82}{notes/full-adder-derive.png}{Full adder on grid paper: recycle the XOR into carry.}
+
+\fig{0.82}{notes/mux-insight.jpg}{Mux as the programmable gate --- LUT before it had a part number.}
+
+\fig{0.82}{notes/hex-patterns.jpg}{Hex segment patterns --- homework that becomes the AT28C16 font.}
+
+\fig{0.82}{notes/hex-to-rom.jpg}{Hex to ROM: the table the display log later burns.}
+
+The machine also left the desk. Atlantic City; laptop on sand; Verilog and Digital on a battery.
+
+\fig{0.82}{field/atlantic-city.jpg}{Field notes, Atlantic City.}
+
+\fig{0.82}{field/laptop-on-sand.jpg}{Laptop on sand. The netlist is portable; the PCB is not.}
+
+The 1-bit cell the chats open on is the 8-to-1 mux with $A,B,C$ as selects.
+
+\fig{0.88}{alu/1b-cell-8to1.png}{1-bit LUT3: 8-to-1, opcode bits as the table.}
+
+\fig{0.88}{alu/lut2-cell.png}{LUT2 cell --- cheaper, loses the third variable.}
+
+\fig{0.88}{alu/8b-mux-sim.png}{8-bit mux simulation: the cell tiled.}
+
+Barrel shift and 74182 CLA are the two blocks the ALU chat keeps trying to swallow or spit out.
+
+\fig{0.88}{alu/barrel-shift.png}{Barrel shifter in Digital. Reverse--right--reverse for left.}
+
+\fig{0.88}{alu/cla-74182.png}{74182 lookahead. Later dropped on 2-layer copper as a routing spine.}
+
+A 64-bit drawing exists as a what-if. The July log will refuse to fab it as one panel.
+
+\fig{0.88}{arch/64b-machine.png}{64-bit machine on paper. Induction from a 4-bit slice, not one 240~mm board.}
+
+\fig{0.88}{arch/alu-32b-sheet.jpg}{32-bit ALU sheet --- the object the 8-bit PCB implements two nibbles of.}
+
+\chapter{Twenty rooms}
+
+The PDF is a concatenation. Titles in dump order:
+
+\begin{center}
+\small
+\begin{tabular}{@{}rlp{7.6cm}@{}}
+\toprule
+\# & Pages & Title as exported \\
+\midrule
+1  & 1--12   & ALU Operations Exploration \\
+2  & 13--28  & Boolean-Arithmetic Data Path Exploration \\
+3  & 29--63  & Building a Discrete 32-Bit Computer \\
+4  & 64--87  & CPU Architecture: Progress and Next Steps \\
+5  & 88--102 & Comparing Hardware Projects: RAM vs.\ ALU \\
+6  & 103--132 & Datapath Reconfiguration Recommendations \\
+7  & 133--147 & Datapath Review and Expansion \\
+8  & 148--163 & Discrete CPU Control Unit Redesign \\
+9  & 164--195 & Displaying 32-bit Numbers on Segment Displays \\
+10 & 196--227 & Dual-Port SRAM for CPU--FPGA Interface \\
+11 & 228--255 & FPGA Architectures: LUT vs.\ Fused Logic-Arithmetic \\
+12 & 256--295 & LUT3 Design and Operation Sweep \\
+13 & 296--317 & Modern ALU Circuitry: Reality and Open Source \\
+14 & 318--322 & Mosaic-32 Design Review \\
+15 & 323--343 & Mosaic-32 Simulation: Multiplexer Strategy \\
+16 & 344--363 & RISC-V and ISA Coverage Explained \\
+17 & 364--390 & Tomato32: Bridging Hardware and Software \\
+18 & 391--414 & Tomato32: Self-Synthesizing Computer Architecture \\
+19 & 415--635 & Silkscreen, GitHub copy, board sign-off \\
+20 & 636--717 & SPICE testbench for \texttt{gate\_xor\_2in} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Room 5 is the fused-ALU thesis against a backyard RAM video, then a dead fork into TPU naming. The thesis is kept: arithmetic and logic were being built as separate engines and muxed; Tomato puts both on one adder. Room 8 redesigns control from a 555 and a draft graph. Room 9's title is leftover; the chat is outreach and drivers. Room 10 is SRAM shopping and an ESP32 keyboard buffer. Those rooms are inventoried so the dump is not silently cropped.
+
+The dated journal, in order of the work:
+
+\begin{center}
+\small
+\begin{tabular}{@{}lp{9.2cm}@{}}
+\toprule
+Date & Dispatch \\
+\midrule
+10 Jun & Mul-div: 284/85 sequenced, or Newton, or LUT divide \\
+11 Jun & Load/store; 48-bit microcode map; bugs at address 0 \\
+15 Jun & Priority-encoder multiply; $O(16)$ not $O(32)$ \\
+16 Jun & Microcode split onto six boards \\
+19 Jun & 32-digit hex display; five rejected approaches \\
+26 Jun & 74251; NAND G/P; 74283 slices \\
+27 Jun & Kill mode muxes; 4-bit carry skip \\
+13 Jul & Dual LUT3; latch; demo FSM; pipeline thought; 16b macros \\
+30 Jul & Redesign into 40-bit word \\
+31 Jul & Fall back to 32-bit; no throwaway FSM \\
+2 Aug & Peripheral queue; tri-state data bus \\
+7--8 Aug & JLC + DigiKey \texttt{100884560} \\
+13 Aug & Iron; broadsheet / Ashtown Valley \\
+15 Aug & PCBs arrive; ISA as a wire \\
+16 Aug & Web/GLB optimization \\
+18 Aug & First population of \texttt{07\_alu} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\chapter{The first question}
+
+The dump opens on a finished 1-bit cell, Digital Verilog pasted in. An 8-to-1 mux with $A,B,C$ as selects and eight opcode bits as data: LUT3. That output is one addend of a 74283. The other addend is $B$ after \texttt{bsel}/\texttt{binv}: $B$, $\sim B$, $0$, or all-ones. Carry-in is a bit.
+
+\asked{Look at this ALU and let's find all the arith possibilities\ldots $A+\sim B+1 \Rightarrow A-B$\ldots I am expecting about 30--50 unique operations.}
+
+Not ``implement ADD.'' Enumerate what the copper already is. That night's count, after duplicates, was 42 clean arithmetic forms from eight LUT pass-throughs $\times$ four B-leg states $\times$ two carries.
+
+Then the question that is Tomato:
+
+\asked{Are we underselling this computer looking at the sheer capacity to do logic + arith in one cycle, like AND3 $+ B$\ldots}
+
+Once the A-leg is any Boolean of three bits, the block is $f(A,B,C)+g_{\mathrm{mask}}(B)+C_{\mathrm{in}}$. Mixed terms are the point if opcode bits are spent on them. Control, in that chat: ``don't worry about the control unit lol, it is already done.'' It was not. June would split microcode into six boards.
+
+A later pass at this story counted 1{,}779 unique native instructions after ``redundancy phantoms.'' That number is not in the journal and is not the ISA. The ROM that shipped is 512 rows. The 42 is a historical snapshot of one LUT plus a B-mask, before the second LUT3.
+
+\chapter{Same-cycle read and write}
+
+\asked{If the ALU is actually reading\ldots does it write at the same time? Come to think of it\ldots let's trace.}
+
+Async SRAM dumps $R_a,R_b,R_c$ as soon as addresses settle. The ALU ripples. The result sits on write data. Write enable must be a pulse. If $\overline{\mathrm{WE}}$ is a level and the clock stays high, the new value reappears on the read port, the ALU computes again, and the register fills with garbage. 74HC574s are edge-triggered. Cheap SRAM is not. The register file is SRAM, not a pile of 574s. That had to be seen in the trace.
+
+The 11~June load/store log is the same family of bug in microcode. Every opcode indexes a \textbf{48-bit} word. The fields that matter for memory:
+
+\begin{center}
+\small
+\begin{tabular}{@{}llp{6.8cm}@{}}
+\toprule
+Bits & Field & Role \\
+\midrule
+{[7:0]} & \texttt{alu-op} & LUT / adder program \\
+{[12:8]} & \texttt{alu-pre} & Asel, ainv, Bsel, binv, csel \\
+{[13]} & \texttt{cin-sel} & FLAG\_C vs constant 1 \\
+{[15:14]} & \texttt{shift-op} & LSL/LSR/ASR/ROR \\
+{[19:16]} & \texttt{ir-imm-sel} & one of 16 immediate shapes \\
+{[23:21]} & \texttt{wb-sel} & ALU, shift, PC+1, mem, I/O, RegA, IR-imm, MUL \\
+{[24]} & \texttt{reg-we} & register write \\
+{[26--27]} & \texttt{mem-rd/wr} & memory enables \\
+{[29:28]} & \texttt{mem-sel} & word / byte signed / byte unsigned / half \\
+{[36:35]} & \texttt{cycles} & 2-phase or FETCH+EXEC+MEM\_WAIT \\
+{[39:37]} & \texttt{ctrl-bussel} & address from IR, ALU, RegB, PC, or SP \\
+{[40--41]} & \texttt{mul-en}/\texttt{div-en} & engines \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Sequencer (74163) ticks on the \textbf{falling} clock; IR, registers, flags on the \textbf{rising} edge. FETCH ($Q{=}00$): PC owns the bus, IR latches. EXECUTE ($Q{=}01$): microcode live, ALU runs, writes happen. MEM\_WAIT ($Q{=}10$): no register write.
+
+\texttt{alu-pre}: bit0 Asel, bit1 ainv, bit2 Bsel, bit3 binv, bit4 use REG\_C as carry operand. \texttt{alu-op=0x96} with Asel and Bsel is the full adder. \texttt{alu-op=0x00} and \texttt{alu-pre=0x00} forces both legs to zero --- ALU out is always 0.
+
+Opcodes $0x30$--$0x34$ and $0x40$--$0x42$ had that zeroing, with \texttt{ctrl-bussel=1}, so every offset access hit \textbf{address 0}. Direct \texttt{reg\_b} address ops ($0x35$, $0x43$) worked. Store data was hardwired to \texttt{reg\_b}, so a conventional \texttt{SW rA, [rB+imm]} was not representable. An extra latch in \texttt{modules/main.v} (not in the exported Verilog) made load writeback use the previous cycle. The testbench had zero stimulus; \texttt{fib.hex} never touched memory. Fix shape for $0x30$: bits [11:0] \texttt{0x796} instead of \texttt{0x000}. That is how a machine looks before the ROM is honest.
+
+\fig{0.98}{bus/mmio-passed.png}{MMIO path in simulation --- the bus the load/store log is trying to make honest.}
+
+\chapter{The bit that is opcode and mux}
+
+\asked{5b each, and the last 5b does two things: if opcode MSB is 1, writeback is $C$; if 0, mux write as $C$ or $W$.}
+
+Bit 31 as a 74HC157 select is a dual-format ISA without a second decoder. The follow-up was correct: RRRR is stuck in a 32-register window unless a bank latch exists, and the MSB is doing two jobs. SETBANK amortizes. A prefix that stalls fetch is a heavier sequencer than bring-up wanted.
+
+\asked{Examine if we can do a 40b instruction too\ldots}
+
+Already in this early thread. The Verilog of that day had no independent \texttt{ADDR\_C}; port C was the write address. Destructive $C{=}W$ was the 32-bit compromise. 30~July would try a full 40-bit machine. 31~July would walk it back.
+
+\chapter{The rest of the computer, still in Digital}
+
+June screenshots of \texttt{main.dig} are the machine around the ALU: sequencer, one fat microcode block, ALU, register, IR, bus arbitration, shift, flags, MMIO.
+
+\fig{0.98}{digital/2026-06-06-main.png}{6 June 2026. \texttt{main.dig}: one microcode blob feeding the whole datapath.}
+
+\fig{0.98}{digital/2026-06-07-main.png}{7 June. Same machine, still one control ROM.}
+
+\fig{0.98}{digital/2026-06-08-main.png}{8 June. Sequencer phases, IR slice, ALU-32, writeback mux still one picture.}
+
+\section{Shift}
+
+A 32-bit barrel of 74HC157s, 0--31 places, one cycle. Hardware is a right shifter. Left is reverse, shift right, reverse. 00 LSR, 01 LSL, 10 ASR, 11 collapsed to LSR. Rotates were in the spec and not in the netlist.
+
+\asked{$A+A+1$ is rotating, right?}
+
+$A+A$ is LSL1. $A+A+1$ forces a one into the LSB. True ROL is $A+A+C_{\mathrm{in}}$ with the flag fed back. The shift board stays a shifter.
+
+$2A$ as $A+A$ also needs $A$ on both adder legs. Early Y-select was $[B,\sim B,V_{\mathrm{CC}},\mathrm{GND}]$. Putting $A$ on Y is a routing change, not a new ALU. The second-pass notes treat that as a workaround. The chats treat it as a missing trace.
+
+\section{Multiply}
+
+\asked{We want a multiplication board\ldots a lot of programs will rely on that.}
+
+Combinational $32\times32$ is a board larger than the computer. Na\"ive shift-add is 32 cycles. The 10~June log wanted 74xx284/85 sequenced to $32\times32\to64$ in at most four cycles, and Newton--Raphson or a LUT for divide. The 15~June log settled on a priority encoder: load the sparse operand, jump to the next set bit, shift-add, clear that bit, repeat. Worst case $O(16)$, not $O(32)$, no Wallace tree. Same rhythm for divide. Average hoped for 5--10 cycles. Status line in that log stops mid-sentence: designed, not yet the first copper. Lot~07 is the ALU. Mul-div is Lot~02 in the later board queue.
+
+The register file was already 3R1W ``so I can do $A\times B+C$ and fetch all at once.'' MAC is an addressing argument as much as an arithmetic one.
+
+\section{4-to-1 versus 8-to-1}
+
+\asked{Compared to the 4to1 and the 8to1, which one feels genuinely impressive and why?}
+
+Opcode bits as a truth table beat opcode bits as mux selects plus more bits for more muxes. LUT3 is fewer wires for more functions. That is the switch.
+
+\chapter{Microcode as boards}
+
+16~June: one 64-bit control word in Digital is a splitter. On a board it is a ribbon that does not go where the names suggest. The fix is small EEPROMs next to the copper they drive, same opcode on a backplane: ALU control, shift/mul-div, IR/reg/writeback, mem I/O, mem bus, PC/stack (two ROMs). HALT stays on \texttt{main}. One CSV, scripted per-board images. Cons: eight EEPROMs and the chance of pasting a 64-bit dump into an 8-bit socket.
+
+\fig{0.98}{logs/2026-06-16-microcode-control-modularization-main.png}{16 June. Control split into six blocks. 1{,}050 nodes in the status bar.}
+
+\fig{0.98}{digital/2026-06-16-main.png}{Same day, full \texttt{main}: control column on the left, ALU and mul-div in the middle, PC and bus on the right.}
+
+Chat 6's 32- then 48- then ``stay at 40'' micro-opcode is a different forty from the instruction word. Both real. Easy to confuse. Writable SRAM control store needs a hard region so the machine cannot erase reset.
+
+\fig{0.88}{control/eeprom-fanout.png}{Opcode fanout to local EEPROMs --- decode sits next to the copper it drives.}
+
+\fig{0.88}{control/datapath-32b.png}{32-bit datapath in Digital after the split.}
+
+\fig{0.88}{spice/555-clock.png}{555 clock. Chat 8's control-from-scratch draft still starts here.}
+
+\fig{0.88}{control/fsm-early.png}{Early FSM. The 31~July log will refuse to let this become a second Tomato.}
+
+\chapter{Lamps: thirty-two digits}
+
+19~June. Four 32-bit values on screen: $A$, $B$, $C$, writeback. Thirty-two seven-segment digits. 74HC4511 and 4543 blank above 9. K-map hex font is correct and 448 chips. One ROM per digit is wasteful. Final: one AT28C16, 5-bit counter, 32:1 nibble pick (tri-state 74AC125s in copper), 74HC154 strobe, 32$\times$74HC373 latches. 69 ICs. Latches are the trick: without them each digit is on 1/32 of the time. Sim clock 1~kHz, full scan 32~ms. Font \texttt{0x3F, 0x06, \ldots}. Bring-up: one digit, one row, four rows. Bugs: two registers writing \texttt{din}, segment bit order, decimal ROM bank \texttt{0100xxxx}. Full hex-to-decimal of a word is not this board; that needs divide upstream.
+
+\fig{0.88}{display/nibble-mux.png}{Nibble mux for the scan: one font ROM, time-shared digits.}
+
+\fig{0.98}{logs/2026-06-19-alu-segment-display-control.png}{Display control in Digital. Test vectors \texttt{DEADBEEF}, \texttt{BAD12345}, \texttt{12345678}, \texttt{98432DAD}.}
+
+\chapter{Part numbers and a deleted mux}
+
+26~June, 74251 note: 125+138 for a cell is three chips and contention. 74251 is the same logic without High-Z fights, stronger drive than 74151. Logical function unchanged; routing and bus length better. A later second-pass writeup reversed this into ``replace 251 with 151 to prevent High-Z.'' The log is the other way.
+
+Same day, G/P for a 74182: NAND instead of AND plus a 541 inverter farm; spare NAND as inverter. 74283 in eight 4-bit slices.
+
+27~June is the architecture change. Parallel logic and arith used to collide in eight 74257 mode muxes. Those muxes and the A-mask gates are deleted. LUT3 feeds the 74283 $A$ pins. Arithmetic: LUT programmed as a wire, B-mask $B$ or $\sim B$. Logic: LUT computes, B-mask 0, cin 0, adder is a conduit. FPGA: about 1.2~ns recovered on the critical path. Discrete: routing becomes a line instead of a web.
+
+Carry: 74182 CLA was a central spine on 2-layer PCB. Pure 32-bit ripple was $\sim$110~ns, $\sim$9~MHz. 4-bit carry skip in the slice, 32-bit sheet untouched. Journal: $\sim$16.5~MHz on 74AHCT copper. Vivado then drops native CARRY4 and reports $\sim$146.5~MHz instead of a naked \texttt{a+b} above 160. Copper was the customer.
+
+\fig{0.98}{logs/2026-06-27-alu-4b-final.png}{27 June. 4-bit cell in Digital: four 1-bit LUT slices, B-effective, 74283.}
+
+\fig{0.98}{digital/2026-06-27-main.png}{\texttt{main.dig} the same day: modular control still in place, ALU-32 as the combinational core.}
+
+\chapter{What to call the block}
+
+\asked{Doesn't make any sense to call this an ALU. Is this an existing architecture I independently found?}
+
+The claim is structural: Boolean into the adder, always. Chat 5 said it without the TPU fork: the split into ``Arithmetic'' and ``Logic'' looks harmless and forces two engines muxed at the end; Tomato wants $(A\oplus C)+B$ and $\mathrm{AND3}(A,B,C)$ in one pulse, not a dumb ALU behind a decode. 74181 is a fixed catalog. Tomato's catalog is the ROM. Intel i9 schematics are not a 74-series netlist (chat 13). The NPU rename in that same room is still the wrong fork.
+
+\chapter{July: dual LUT, latch, demo, slice}
+
+13~July, architecture upgrade. $g(B)$ was two chips for four useful states (including force-0 for logic mode). A second 8-to-1 is one chip and a full LUT3. Dual 4-to-1 looks cheaper until 74153 shares selects and wastes half the package. Two LUT3s: same chip budget as a true dual LUT2, much larger space.
+
+\[
+\mathrm{out} = f(A,B,C) + g(A,B,C) + h(C_{\mathrm{in}})
+\]
+
+$h$ is a carry mux over constants and flags (the chats say sixteen sources). Theoretical slice space $256\times256\times 8 = 524{,}288$. The ROM does not enumerate it. Commutative pairs $f+g$ and $g+f$ are the same copper. Unique-ops homework is later; bring-up does not wait for it.
+
+Truth-table latch, same day: hold the 16-bit opcode (two LUT bytes) plus an enable so ADD stays ADD until you say otherwise, and so the table cannot black out while the adder is still rippling. Future: per-slice latches, FPGA-like without leaving the premise.
+
+Demo ideas: Fibonacci and Collatz undersell the hardware. FSM injects $A,B,C$, compares to a ROM of expected results, zero flag burns the opcode. Exhaustive 64-bit search is not a demo. 4-bit slice plus induction. Adjustable clock so the lamps are visible. ``Long bus rides seem to help in ideation.''
+
+\asked{I am watching it find its own opcode!!!}
+
+That is brute force over a known result, not invention. It is the demo that matches a programmed LUT.
+
+Pipelined FPGA thought, same day: retarget one cell from XNOR to NAND just before use, two control units. If every cell must change, you wait. Father's wind-generator line: if the wind stops, we die. Physics still wins. ``An 8-bit ALU that I started with is no longer recognizable.''
+
+Downgrade for an upgrade: do not fab one 32-bit 240~mm panel. Fab 16-bit (later 8-bit) macros that cascade. Inner slices do not need full flag farms. Zero in / zero out. Board area hopefully half, no waste panels. Lot~07 is the 8-bit version of that decision: two 4-bit cells, $\sim$100~mm square, stack two for 16-bit bring-up.
+
+The KiCad ratsnest of the unsliced machine is why. 24~cm of airwires is a poster, not a first fab.
+
+\fig{0.92}{kicad/ratsnest-32b.png}{32-bit ratsnest. This is what ``one board'' actually looks like.}
+
+\fig{0.92}{kicad/24cm-routing.png}{24~cm routing pass --- abandoned as the bring-up vehicle.}
+
+\fig{0.92}{kicad/24cm-3d.png}{3D of the oversized panel. Lot~07 is the slice that fits a budget.}
+
+\chapter{Forty bits for a day}
+
+30~July: the ALU is three-operand; the 32-bit word is not. Canonical 40-bit: 12-bit INS, four 6-bit addresses, 4-bit bank. Instruction equals machine word. Fourth read port. 4096-row table. Maybe Tomato40.
+
+31~July, fallback: 40 is a second weirdness on top of a weird ALU. 9-bit opcode, 512 rows, four 5-bit fields, 3-bit bank, 32 GPR $\times$ 8 banks $=$ 256. Dark silicon stays dark. \texttt{07\_alu} is not respun. Ship 32-bit. The lingering catch the same day: you need control to test control. Do not build a throwaway FSM that becomes Tomato. Build the peripheral boards. Use the display and sim vectors for ALU acceptance.
+
+\chapter{August: other boards, then order}
+
+2~August. ALU routed. Next is 32-bit plumbing. Na\"ive 74257 forests are hundreds of millimetres. Plan: tri-state drivers (74AC125 family), one-hot decode, same idea as the display scan. Contention at lab clocks estimated small if enables are never stacked.
+
+Board queue after the ALU (from that log):
+
+\begin{center}
+\small
+\begin{tabular}{@{}llp{6.4cm}@{}}
+\toprule
+Lot & KiCad & Role \\
+\midrule
+07 & \texttt{07\_alu} & Dual-LUT slice --- on the iron \\
+06 & \texttt{06\_data\_bus} & Writeback mux, bus arbitration, drivers \\
+04 & \texttt{04\_register} & 3R1W, 32 GPR $\times$ 8 banks \\
+05 & \texttt{05\_program\_counter} & Fetch, jumps, SP \\
+03 & \texttt{03\_memory} & Load/store, byte lanes \\
+02 & \texttt{02\_shift\_encoder} & Barrel + priority-encoder mul-div \\
+08 & display / ALU FSM & Bench lamps and vectors \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Control ROM boards ride with their datapath slices. Chat 18, still in KiCad: drivers vs LEDs vs 10~k$\Omega$ pull-downs, space gone so DIP switches move to a second board, 0.5~mm power on two layers, islands stitched, a few MHz only. ZIF for SOIC was asked; confidence is Digital agreeing with the netlist, then SPICE on one XOR.
+
+7~August. Boards to JLCPCB, under \$6, $\sim$two weeks to Philadelphia. Same night DigiKey order \texttt{100884560}, sized for \textbf{two} slices (16-bit cascade on the bench). All-in $\sim$\$61. SIP-4 and headers from the lab. 130 LEDs do not lie.
+
+\begin{center}
+\small
+\begin{tabular}{@{}llp{5.6cm}@{}}
+\toprule
+Qty (2 bds) & Part & Role \\
+\midrule
+34 & CD74ACT151M96 & LUT3 muxes + flag CSEL \\
+4 & CD74ACT283M & 4-bit adders \\
+4 & SN74ACT00DR & NAND glue \\
+2 & SN74ACT86DR & XOR \\
+2 & MC74ACT377DWR2G & Flag latch \\
+2 & CD74ACT541M96 & Octal buffer, straight pinout \\
+2 & CD74HCT688M96 & Zero detect (HCT into 5~V ACT) \\
+54 & CC0603 100nF & Decoupling (Yageo; Samsung backordered) \\
+130 & LTST-C170KRKT & 0805 red wall \\
+14 & 4610X-101-471LF & SIP-9 470~$\Omega$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+One board is 131 placements, 25 logic ICs / 8 bits $=$ 3.125 IC/bit, $\sim$99.95~$\times$~99.80~mm. Bring-up: known LUT pair (add as \texttt{0x96} on both planes in the board README), wiggle $A,B,C$, read OUT on lamps.
+
+\fig{0.72}{kicad/07_alu/pcb/alu_8b_board.png}{What was ordered: \texttt{07\_alu} render. CELL 0 / CELL 1, flag block, LED wall.}
+
+\fig{0.72}{kicad/07_alu/pcb/alu_8b_pcb.png}{Top copper, 2-layer, DRC clean.}
+
+\fig{0.85}{orders/pcb_order_jlcpcb.png}{JLCPCB confirmation.}
+
+\fig{0.72}{orders/02_jlcpcb.png}{JLC order details.}
+
+\fig{0.65}{orders/03_jlcpcb.png}{JLC summary.}
+
+\fig{0.55}{orders/01_digikey.png}{DigiKey \texttt{100884560}.}
+
+Schematic sheets for the slice:
+
+\fig{0.95}{kicad/07_alu/schematics/07_alu-images-0.jpg}{Top sheet: two \texttt{alu\_4b}, flags, LEDs, I/O.}
+
+\fig{0.95}{kicad/07_alu/schematics/07_alu-images-1.jpg}{4-bit: dual LUT3 into 74ACT283.}
+
+\fig{0.95}{kicad/07_alu/schematics/07_alu-images-2.jpg}{1-bit 74ACT151, $a,b,c$ select among eight opcode bits.}
+
+\fig{0.95}{kicad/07_alu/schematics/07_alu-images-4.jpg}{Flags: HCT688 zero, ACT377 latch, ACT151 carry select.}
+
+\fig{0.95}{kicad/07_alu/schematics/07_alu-images-3.jpg}{LED unit.}
+
+\fig{0.95}{kicad/07_alu/schematics/07_alu-images-5.jpg}{Headers.}
+
+\fig{0.95}{kicad/07_alu/pcb/status_bar.png}{KiCad status: 0 unrouted.}
+
+\fig{0.72}{kicad/07_alu/tests/drc.png}{DRC: 0 violations, 0 unconnected.}
+
+The 21~July chat paste: 2345 segments, 388 vias, 760 pads, 18 core 74xx, 7 flag 74xx, 0 ERC/DRC. 74541 chosen over 74244 because inputs and outputs sit on opposite sides; zigzag 244 pinout tangles a 32-bit bus. Chat 20: SPICE on the exported \texttt{gate\_xor\_2in} nets \texttt{/A,/B,/Y}, four rows PASS. Confidence is one gate at a time.
+
+Legacy 01\_alu 3D, for the scale that was abandoned:
+
+\fig{0.98}{plates/legacy-alu_full_3d.webp}{Earlier dense discrete/hybrid layout. Not the 100~mm slice that went to fab.}
+
+\chapter{The paper}
+
+13~August. Unbounded problems: the name, the site. Product page would lie (Tomato is not a product). React would lie (wrong decade). Broadsheet: 90s stock, 3D KiCad as the plate. GitHub rendered in the same type. Ashtown Valley, Bay Perimeter.
+
+\fig{0.98}{figs/broadsheet-front.png}{Vol.~32 No.~1. Nameplate, copper plate, 32-bit word at the fold.}
+
+16~August, the viewer. Vanilla HTML/CSS/JS, Three.js 0.169, no bundler. Raw KiCad GLB $\sim$31~MB, $\sim$41k meshes. Client merge froze the main thread (Lighthouse TBT $\sim$3130~ms, score 43). Palette join welded copper under mask. Pipeline that ships: \texttt{dedup $\to$ join(keepMeshes) $\to$ flatten $\to$ join $\to$ weld $\to$ prune $\to$ sparse $\to$ draco}. 1.26~MB, 9 meshes. Layers stay separate so the mask can be glass and the copper metal. Merge in \texttt{pcb-look.js} still exists and bails under 32 meshes.
+
+ISA as a wire, 15~August. An ISA is a map onto muxes already in copper. ``We support sixty-six ISAs'' is the wrong headline. Overlay word, sixteen immediates, dual-LUT load. About thirty-seven families a person would name at a bench; more CSV rows than that. Not x86 segmentation. Not TrustZone. Compute, shift, register access. Locked policy in \texttt{docs/isa/README.md}: no $\sim$20-opcode lean map; no tile VPU --- display is CPU-painted tile RAM plus VGA scanout. Authority: \texttt{profiles.csv} and \texttt{tomato.v1.csv}.
+
+\chapter{What ran in the sim}
+
+Fibonacci left a value in a register at 1:50~a.m.\ in an early screenshot. The 13~July demo log still calls Fibonacci and Collatz too small for the hardware. Custom programs and an HTML emulator exist as plates; they are not the opcode-search demo.
+
+\fig{0.72}{run/fibonacci-register.jpg}{Fibonacci in a register. Kept as a plate; dismissed as the showpiece.}
+
+\fig{0.72}{run/custom-program.png}{A custom program on the datapath.}
+
+\fig{0.72}{run/html-emulator.jpg}{HTML emulator --- chat 13's ``toggle the Verilog,'' no slop.}
+
+\chapter{Boards on the desk}
+
+15~August. Five \texttt{07\_alu} copies. Continuity on power. No islands. Roommate: it is funny that this was done alone---multimeter, FPGA, KiCad, down to this.
+
+\fig{0.62}{logs/pcb_arrive_board_0.jpeg}{Five boards as received.}
+
+\fig{0.72}{logs/continuity_test.jpeg}{Power rails. No islands.}
+
+18~August. DigiKey delayed, replaced after a call. Box, flux, tweezers. All 74ACT151 and 74ACT283 on one board. About seven 0805 lamps. Half-soldered slice next to Digital on the monitor.
+
+\fig{0.72}{assembly/digikey_order_box.jpeg}{The box.}
+
+\fig{0.72}{assembly/work_setup_solder.jpeg}{The bench.}
+
+\fig{0.62}{assembly/half_soldered_board_next_to_sim.jpeg}{Copper in hand, render on the screen. Silk: unaffiliated, July 2026, ``I discovered FPGAs some weeks ago.''}
+
+\chapter{Beside Tomato}
+
+\texttt{web/assets/story/open-source/} is not the ALU. LibreLane 3.0.8 lists a Yosys $\ge$ 0.68 \texttt{abc -fast} fix by the same author. OpenROAD: LEF58\_MINWIDTH trailing whitespace. The about page also points at Verilator and OpenFPGA. The first public ALU was 3{,}488 MOSFETs at \texttt{alu.tmarhguy.com}. Tomato is the 74ACT slice.
+
+\fig{0.55}{open-source/librelane-3.0.8.png}{LibreLane 3.0.8, PR 1015.}
+
+\fig{0.85}{open-source/openroad-contribution-activity.png}{OpenROAD, August 2026.}
+
+\chapter{FPGA beside the copper}
+
+Nexys A7 is a timing oracle and a possible host, not the product. Chat 10: no busy flag; dual-port for VGA; ESP32 as a keyboard FIFO (scan codes, drop after $\sim$5~s, CPU reads a mailbox) --- peripheral idea, not Lot~07. Chat 11: MAC does not fall out of one LUT3. Mouse was asked and deferred; keyboard first.
+
+\fig{0.72}{hardware/nexys-a7.jpg}{Nexys A7. FPGA beside the copper, not instead of it.}
+
+Journal FPGA numbers after mode-mux deletion and carry skip: $\sim$146.5~MHz with custom skip, faster if you throw the skip away and use CARRY4. A second-pass writeup cites 100~MHz fail, WNS $-3.5$~ns, 74~MHz, 5--20~MHz on discrete. Those Vivado dumps are not in \texttt{docs/log/}. What the log signed is skip versus CARRY4, and a discrete target in the mid-teens of MHz after skip. Chat 6 budgeted under 30~MHz. Do not mix the two reports into one number.
+
+\chapter{Where it is}
+
+Late August 2026, this tree:
+
+\begin{itemize}[leftmargin=1.3em]
+\item Dual LUT3 into ripple (and skip) adder. \texttt{docs/alu/alu-32b/}. Logs 27~June and 13~July.
+\item ISA: \texttt{docs/isa/tomato.v1.csv}, 512 rows, $\sim$51 burned, rest NOP.
+\item Paper: \texttt{tomato.tmarhguy.com}. Journal from \texttt{docs/log/}. Playground is the dual-LUT on a wire. Viewer is the Draco GLB.
+\item Lot~07 on the iron (muxes and adders down, lamps started). Lots 02--06 and 08 designed in pieces, not all assembled.
+\item FPGA tree under \texttt{hardware/fpga/tomato/} for the same burn. Verification: directed, RTL, formal inventory, UVM on 1b/8b/32b ALU.
+\end{itemize}
+
+The chats are the argument. The journal is the verdict. The photographs are the experiment.
+
+\chapter{Pivots}
+
+\begin{enumerate}[leftmargin=1.4em]
+\item Named ops $\to$ enumerate LUT + adder.
+\item Discrete 3{,}488-T 8-bit panel $\to$ hybrid $\to$ 74ACT 8-bit slice.
+\item 4:1 forest $\to$ LUT3 (8:1).
+\item Independent $C$ $\to$ $C$ tied to $W$ in 32-bit IR.
+\item One 64-bit microcode ribbon $\to$ six local EEPROMs.
+\item BCD display chips $\to$ one font ROM + scan + latches.
+\item Terminal 74257 mode mux $\to$ LUT into adder, add-zero for logic.
+\item 74182 CLA $\to$ 4-bit carry skip.
+\item 74151 $+$ 125/138 $\to$ 74251 / ACT151 as the LUT.
+\item Single LUT $+$ B-mask $\to$ dual LUT3 $+$ $h(\mathrm{cin})$.
+\item 32-bit one-board $\to$ cascadeable 8-bit / 16-bit macros.
+\item Mosaic-32 $\to$ Tomato.
+\item $32 \to 40 \to 32$ instruction word. 512 rows locked.
+\item ``Native multi-ISA core'' $\to$ ISA as a map onto muxes.
+\item Sim $\to$ KiCad $\to$ JLC $\to$ continuity $\to$ 74ACT on the iron.
+\item 31~MB KiCad GLB $\to$ 1.26~MB Draco, layers unfused.
+\end{enumerate}
+
+\chapter{What later retellings get wrong}
+
+Gemini congratulates and invents transistor counts. It lists 42, then 48, then 61 named functions; the journal does not treat those as the ISA.
+
+The second-pass narrative is useful as a table of contents and dangerous as a spec. It calls Tomato a hypervisor. It publishes hex opcodes (ADD \texttt{0x15}, and so on) that are not copied from \texttt{tomato.v1.csv} here. It claims 1{,}779 unique instructions and 100\% RV32IM. It reverses the 74151/74251 decision. It specifies ENIG and matte black as if the 7~August log had said so; that log says cheap 2-layer boards under \$6. It imports TinyTapeout MAC work as if it were this datapath.
+
+The builder's lines that survive: ``you're missing a lot,'' ``don't glaze me,'' ``I don't want an FPGA lol'' (then a Nexys as a tool), ``too expensive,'' ``I've run out of space,'' ``I am watching it find its own opcode,'' ``isn't it hilarious that I did it all by myself,'' ``Tomato is nothing special btw.''
+
+\chapter{Catalog of questions that changed a wire}
+
+Not every Gemini turn. The ones that moved copper, width, or a block name.
+
+\textbf{ALU ops.} Enumerate arithmetic from LUT3$+$74283$+$B-mask$+$cin (expect 30--50; 42 that night). Do not undersell logic-plus-arith. Map redundancies in the 2048-ish half.
+
+\textbf{Datapath.} Trace read vs write; SRAM WE race. Opcode MSB as write mux; 5-bit fields; bank. Shared MSB. 40-bit instruction. Fourth operand for $(A\oplus B\wedge C)+B$. SETBANK. Overwrite registers rather than ``clean'' them.
+
+\textbf{Machine around the ALU.} What the shift board does. Is $A{+}A{+}1$ rotate. Full op catalog then mul/div. 3R1W for MAC fetch. 8:1 vs 4:1. CLA vs skip. RISC-V base ALU coverage (shifts excepted). LUT3 elsewhere.
+
+\textbf{Control.} Redesign from scratch; 555; EEPROM vs writable store with a hard region; 32/48/40-bit micro-opcode; 541/139 mux depth; 646 on the bus; finish v1.
+
+\textbf{I/O and FPGA.} Dual-port vs muxed scan; no busy flag; ESP32 FIFO; VGA; Nexys pins. LUT fabric vs fused cell. Emulator as toggles, not slop.
+
+\textbf{Copper.} Drivers/LEDs/pull-downs; two-layer islands; KiCad vs sim; SPICE XOR PASS; silkscreen unaffiliated.
+
+\appendix
+\chapter{Source map}
+
+\begin{tabular}{@{}p{5.4cm}p{9.2cm}@{}}
+\toprule
+Artifact & Role \\
+\midrule
+\texttt{chats/combined\_chats.pdf} & Twenty Gemini exports \\
+\texttt{chats/secon-pass.md} & Later narrative pass (structure kept, numbers checked) \\
+\texttt{docs/log/} & Dated verdicts \\
+\texttt{docs/isa/tomato.v1.csv} & Opcode ROM \\
+\texttt{docs/alu/} & Control maps \\
+\texttt{hardware/kicad/boards/01\_alu/} & MOSFET-era 8-bit ancestor \\
+\texttt{hardware/kicad/boards/07\_alu/} & Lot on the iron \\
+\texttt{web/assets/} & Plates in this book \\
+\texttt{web/} & The paper \\
+\bottomrule
+\end{tabular}
+
+\bigskip
+\noindent Gemini app IDs, dump order:
+
+{\scriptsize\raggedright\ttfamily
+4230523f81df8d67,
+6cb55090bdf19c81,
+2cf65fc4c16d760d,
+fe28dee07529bba9,
+4ee22d598b4141cd,
+7da1975efcb592f7,
+ef89b1dbb21e3392,
+98366b333db8193a,
+6fcf01b5842839b5,
+3f36e3ca17bb91d0,
+e8347338240990ee,
+cb2fb07e16befca0,
+5edb591716353210,
+8bd22cbc93a15997,
+ffdcad7abd3e53c9,
+e38e5068046c9417,
+ad544b10f3320bd3,
+c2c2d276bc1ebd3a,
+a42ec4a2172002b8,
+9974c252ce523711
+\par}
+
+\chapter{Media used}
+
+Digital: \texttt{2026-06-06} through \texttt{2026-06-27} \texttt{main.png} (including the 7 June sheet). Logs: microcode, display, 4-bit cell, magazine front, PCB arrive, continuity. KiCad: board render, copper, schematic sheets 0--5, status, DRC, legacy 3D. Orders: JLC, DigiKey, solder station. Assembly: box, bench, half-soldered. Open-source: LibreLane, OpenROAD. Story plates: notes, field, 1-bit/LUT2/8-bit mux, barrel, 74182, 64-bit drawing, 32-bit sheet, ratsnest, 24~cm routing/3D, nibble mux, EEPROM fanout, datapath, 555, early FSM, Nexys, MMIO, Fibonacci, custom program, HTML emulator.
+
+Not embedded (video): \texttt{pcb\_arrive.mp4}, \texttt{placing\_and\_soldering.mp4}, \texttt{soldering\_led.mp4}. GIFs \texttt{immersion\_black.gif} / \texttt{immersion\_white.gif} are the orbit of the same board; the still render is in the order chapter.
+
+\end{document}

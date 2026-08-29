@@ -34,6 +34,7 @@
       items: [
         { path: "architecture.html", hash: "slice", label: "Dual-LUT ALU" },
         { path: "boards/07-alu.html", label: "Lot 07 — copper", flag: "soldering" },
+        { path: "journal/first-lights.html", label: "First lights and flux" },
         { path: "journal/first-assembly.html", label: "First phase of assembly" },
         { path: "boards/01-alu.html", label: "Lot 01 — predecessor" },
         { path: "journal/mode-mux.html", label: "Muxes removed" },
@@ -109,7 +110,10 @@
     {
       title: "Journal",
       items: [
-        { path: "journal/first-assembly.html", label: "First phase of assembly", flag: "now" },
+        { path: "journal/pixels-on-glass.html", label: "Pixels on the glass", flag: "now" },
+        { path: "journal/pmod-pivot.html", label: "The PMOD pivot" },
+        { path: "journal/first-lights.html", label: "First lights and flux" },
+        { path: "journal/first-assembly.html", label: "First phase of assembly" },
         { path: "journal/pcbs-arrive.html", label: "PCBs arrive" },
         { path: "journal/microcode.html", label: "Decode modularization" },
       ],

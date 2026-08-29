@@ -1,5 +1,5 @@
 /**
- * Tomato Dual-LUT ALU — same machine as hardware/fpga/tomato/rtl/alu.v
+ * Tomato Dual-LUT ALU — same machine as hardware/fpga/core/rtl/alu.v
  *
  * lut[{C,B,A}]  (C is MSB).  out = int(f(A,B,C)) + int(g(A,B,C)) + cin
  * csr: [0]Z [1]~Z [2]N [3]C [4]V [5]LT [6]GT [7]GTE

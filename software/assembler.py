@@ -16,12 +16,15 @@ Encodings:
 Directives:
   .org addr        — set next word address (sparse image; holes = NOP/0)
   .word n, n, ...  — emit raw 32-bit data words (glyphs / tables)
+  .space n         — reserve n zeroed words (arrays the program writes at runtime)
+  .ascii "text"    — one word per character (memory is word-addressed)
+  .asciz "text"    — same, NUL-terminated
 
 Pseudos:
   LA rd, label     — ADDI rd, r0, addr (label must fit signed imm13)
 
 Usage:
-  python3 software/assembler.py software/asm/counter.s -o hardware/fpga/tomato/tb/mem/counter.mem
+  python3 software/assembler.py software/asm/counter.s -o hardware/fpga/core/tb/mem/counter.mem
 """
 from __future__ import annotations
 
@@ -37,6 +40,47 @@ V1 = ROOT / "docs/isa/tomato.v1.csv"
 
 REG = re.compile(r"^r(\d+)$", re.I)
 IDENT = re.compile(r"^[A-Za-z_.][A-Za-z0-9_.]*$")
+
+# Strings are matched off the raw line: splitting on whitespace/commas first
+# would shred them, and a ';' inside quotes is text, not a comment.
+STR_DIR = re.compile(
+    r'^\s*(?:(?P<label>[A-Za-z_.][A-Za-z0-9_.]*)\s*:)?\s*'
+    r'\.(?P<dir>ascii|asciz)\s+'
+    r'"(?P<text>(?:[^"\\]|\\.)*)"\s*(?:;.*)?$',
+    re.I,
+)
+ESCAPES = {"n": 0x0A, "r": 0x0D, "t": 0x09, "0": 0x00, "\\": 0x5C, '"': 0x22}
+
+
+def unescape(text: str) -> list[int]:
+    """Quoted string → one codepoint per word.
+
+    \\xHH reaches the CP437 chrome glyphs (arrows, box rule) that have no
+    keyboard character.
+    """
+    out: list[int] = []
+    i = 0
+    while i < len(text):
+        c = text[i]
+        if c == "\\" and i + 1 < len(text):
+            nxt = text[i + 1]
+            if nxt in ("x", "X"):
+                hex_digits = text[i + 2 : i + 4]
+                if len(hex_digits) != 2 or not all(d in "0123456789abcdefABCDEF" for d in hex_digits):
+                    raise ValueError(f"\\x needs two hex digits, got {text[i + 2 : i + 4]!r}")
+                out.append(int(hex_digits, 16))
+                i += 4
+                continue
+            if nxt not in ESCAPES:
+                raise ValueError(f"unknown escape \\{nxt}")
+            out.append(ESCAPES[nxt])
+            i += 2
+            continue
+        if ord(c) > 0xFF:
+            raise ValueError(f"non-Latin-1 character {c!r} in string")
+        out.append(ord(c))
+        i += 1
+    return out
 
 
 def load_opcodes():
@@ -162,6 +206,24 @@ def assemble(src: str, ops: dict) -> list[int]:
         s = raw.strip()
         if not s or s.startswith(";") or s.startswith("#"):
             continue
+
+        sm = STR_DIR.match(raw)
+        if sm:
+            if sm.group("label"):
+                if sm.group("label") in labels:
+                    raise AsmError(i, f"duplicate label {sm.group('label')}")
+                labels[sm.group("label")] = pc
+            try:
+                chars = unescape(sm.group("text"))
+            except ValueError as e:
+                raise AsmError(i, str(e)) from e
+            if sm.group("dir").lower() == "asciz":
+                chars.append(0)
+            for ch in chars:
+                items.append((i, ".WORD", [str(ch)], pc))
+                pc += 1
+            continue
+
         try:
             label, mnem, operands = tokenize_line(raw)
         except ValueError as e:
@@ -187,6 +249,18 @@ def assemble(src: str, ops: dict) -> list[int]:
                 items.append((i, ".WORD", [tok], pc))
                 pc += 1
             continue
+        if mnem in (".SPACE", ".ZERO", ".SKIP"):
+            # Runtime arrays: the label is what matters, the words stay 0. No
+            # items are emitted, so a trailing .space leaves the image short
+            # rather than padding it with thousands of zeros.
+            if len(operands) != 1:
+                raise AsmError(i, ".space n")
+            try:
+                n = parse_imm(operands[0], 24, signed=False)
+            except ValueError as e:
+                raise AsmError(i, str(e)) from e
+            pc += n
+            continue
         items.append((i, mnem, operands, pc))
         pc += 1
 
@@ -211,8 +285,16 @@ def assemble(src: str, ops: dict) -> list[int]:
     for line_no, mnem, operands, addr in items:
         try:
             if mnem == ".WORD":
+                tok = operands[0].strip()
+                # A bare identifier is a label — that is how string tables and
+                # jump tables get built.
+                if IDENT.match(tok):
+                    if tok not in labels:
+                        raise ValueError(f"unknown label {tok}")
+                    words[addr] = labels[tok] & 0xFFFFFFFF
+                    continue
                 # allow full unsigned 32-bit (signed parse then mask)
-                tok = operands[0].strip().lower().replace("_", "")
+                tok = tok.lower().replace("_", "")
                 if tok.startswith("0x"):
                     words[addr] = int(tok, 16) & 0xFFFFFFFF
                 else:

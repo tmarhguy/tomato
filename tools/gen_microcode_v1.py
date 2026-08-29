@@ -6,7 +6,7 @@ Default: read the CSV → write microcode/*.hex + *.mem (+ FPGA tb/mem).
            (rare; overwrites docs/isa/tomato.v1.csv).
 
 FPGA dual-LUT: alu_control_1 = lutA, alu_lut_b = lutB.
-Packing matches hardware/fpga/tomato/rtl/control.v.
+Packing matches hardware/fpga/core/rtl/control.v.
 """
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 V1 = ROOT / "docs/isa/tomato.v1.csv"
 MC = ROOT / "microcode"
-FPGA_MEM = ROOT / "hardware/fpga/tomato/tb/mem"
+FPGA_MEM = ROOT / "hardware/fpga/core/tb/mem"
 DEPTH = 512
 
 ROM_FILES = {
