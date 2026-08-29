@@ -91,7 +91,7 @@
                   <tr><td>No output mux</td><td>LUT feeds the adder. Logic rides arithmetic</td></tr>
                   <tr><td>65,536-op ALU</td><td>Dual 8-bit LUT programs. <strong>524,288</strong> with carry-select</td></tr>
                   <tr><td>3R-1W register file</td><td>Three reads, one write on execute</td></tr>
-                  <tr><td>256 GPR</td><td><strong>32</strong> names × <strong>8</strong> banks. <span class="mono">r0</span> hardwired 0</td></tr>
+                  <tr><td><a href="journal/register-upgrade.html">32,768 GPR</a></td><td>Full <strong>15-bit</strong> SRAM depth (<span class="mono">AS6C62256</span>). Half a Blackwell SM. <span class="mono">r0</span> = 0</td></tr>
                   <tr><td><a href="architecture.html#register-file">Immediate box</a></td><td><strong>16 encodings</strong>: imm8, imm12, imm13, imm16, LUI</td></tr>
                   <tr><td>Priority-encoder MUL</td><td>Worst <strong>16</strong> cycles, best <strong>0</strong>. ~<strong>4</strong> amortized</td></tr>
                   <tr><td><a href="architecture.html#decode">Modular control</a></td><td>Local EEPROMs, global <strong>9-bit</strong> opcode, <strong>512-row</strong> ROM</td></tr>
@@ -229,7 +229,7 @@
               </tbody>
             </table>
           </div>
-          <p>Native ALU syntax, conceptual: <span class="mono">opcode rd, rA, rB, rC</span> — destination is <span class="mono">f + g + cin</span>. <strong>Thirty-two GPR</strong> times <strong>eight banks</strong> is <strong>256</strong> addressable registers. Low bits double-book as branch condition, jump mode, or immediate overlay depending on the mnemonic—the same slices, different assembly spellings. Field layout authority: <span class="mono">opcode-map.csv</span>.</p>
+          <p>Native ALU syntax, conceptual: <span class="mono">opcode rd, rA, rB, rC</span> — destination is <span class="mono">f + g + cin</span>. <strong>Thirty-two names</strong> times <strong>eight banks</strong> times a latched <strong>7-bit superbank</strong> is <a href="journal/register-upgrade.html"><strong>32,768 GPR</strong></a> — the full address depth of the discrete SRAMs. Low bits double-book as branch condition, jump mode, or immediate overlay depending on the mnemonic—the same slices, different assembly spellings. Field layout authority: <span class="mono">opcode-map.csv</span>.</p>
           <h2 id="decode">Modular decode</h2>
           <p>One central microcode blob is elegant in simulation and miserable on a breadboard: twenty-something control wires crawling to the wrong places. Tomato split decode into small boards with local EEPROMs. They all listen to the same opcode from the IR; each sits next to the hardware it drives.</p>
           <ul>
@@ -261,14 +261,15 @@
             </header>
             <div class="chapter-body">
               <div class="prose">
-                <p>Tomato is anchored by a <strong>3-read-1-write register file</strong> expanded to <strong>256 GPRs</strong>—32 names times eight banks. An immediate box and decode logic digest <strong>16 encodings</strong>: native imm8, unsigned imm12, signed imm13 (I-type), imm16, LUI. Lot <a href="boards/04-register.html">04_register</a> owns the file and IR; lot <a href="boards/06-bus.html">06_data_bus</a> owns the tri-state write-back highway (<strong>9&nbsp;ns</strong> vs. <strong>52&nbsp;ns</strong> cascading 151 topology).</p>
+                <p>Tomato is anchored by a <strong>3-read-1-write register file</strong> expanded to <a href="journal/register-upgrade.html"><strong>32,768 GPR</strong></a>—32 names × eight banks × a latched 7-bit superbank on the full 15-bit SRAM address. The discrete parts already have those fifteen address lines; using fewer would waste silicon already in the BOM. That is <strong>half</strong> the 65,536 × 32-bit physical register file of a single NVIDIA Blackwell SM. An immediate box and decode logic digest <strong>16 encodings</strong>: native imm8, unsigned imm12, signed imm13 (I-type), imm16, LUI. Lot <a href="boards/04-register.html">04_register</a> owns the file and IR; lot <a href="boards/06-bus.html">06_data_bus</a> owns the tri-state write-back highway (<strong>9&nbsp;ns</strong> vs. <strong>52&nbsp;ns</strong> cascading 151 topology).</p>
               </div>
               <aside class="chapter-aside">
                 <div class="spec-grid">
-                  <div class="spec"><span class="spec-val">256</span><span class="spec-label">GPR · 3R1W</span></div>
+                  <div class="spec"><span class="spec-val">32,768</span><span class="spec-label">GPR · 3R1W</span></div>
                   <div class="spec"><span class="spec-val">16</span><span class="spec-label">Instruction shapes</span></div>
                   <div class="spec"><span class="spec-val">9<small>ns</small></span><span class="spec-label">Write-back</span></div>
                 </div>
+                <p class="aside-note" style="margin-top:.75rem;font-size:.8rem;"><a href="journal/register-upgrade.html#why-32768">Why 32,768? →</a></p>
               </aside>
             </div>
           </article>
@@ -335,8 +336,8 @@
             </article>
             <article class="terrain-card">
               <p class="numeral">II. Registers</p>
-              <h3>32 GPR × 8 banks.</h3>
-              <p>256 names you can spill to and wire on modular boards. The LUT catalog could name more. We did not.</p>
+              <h3><a href="journal/register-upgrade.html">32,768 GPR</a>.</h3>
+              <p>32 names × 8 banks × latched superbank:7 — the full 15-bit depth of the discrete SRAMs. Leaving address lines unused was the waste.</p>
             </article>
             <article class="terrain-card">
               <p class="numeral">III. Authority</p>
@@ -470,7 +471,7 @@
                   <span class="ad-item-no">04</span>
                   <span class="ad-item-name">Register</span>
                   <span class="ad-item-st">In design</span>
-                  <p>Thirty-two names, eight banks. File lives in Digital.</p>
+                  <p><a href="journal/register-upgrade.html">32,768 GPR</a> — names, banks, and a latched superbank on 15-bit SRAM.</p>
                 </a>
                 <a class="ad-item" href="boards/05-pc.html">
                   <span class="ad-item-no">05</span>

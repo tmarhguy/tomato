@@ -4,7 +4,7 @@
 
 ![Status](<https://img.shields.io/badge/Status-Active%20Development-2ea043>) ![Architecture](https://img.shields.io/badge/Architecture-32--bit-011F5B) ![License](https://img.shields.io/badge/License-SHL--2.1-990000) ![Logic](<https://img.shields.io/badge/Logic-74xx%20Discrete-EAB308>)
 
-![ALU](<https://img.shields.io/badge/ALU-Dual--LUT%2074ACT-DC2626>) ![ISA](<https://img.shields.io/badge/ISA-512%20Opcodes-2563EB>) ![Microcode](<https://img.shields.io/badge/Microcode-Modular%20Decode-7C3AED>) ![PCB](<https://img.shields.io/badge/PCB-KiCad%2010-F59E0B?logo=kicad&logoColor=white>)
+![ALU](<https://img.shields.io/badge/ALU-Dual--LUT%2074ACT-DC2626>) ![ISA](<https://img.shields.io/badge/ISA-512%20Opcodes-2563EB>) ![GPR](<https://img.shields.io/badge/GPR-32768-8B1E1E>) ![Microcode](<https://img.shields.io/badge/Microcode-Modular%20Decode-7C3AED>) ![PCB](<https://img.shields.io/badge/PCB-KiCad%2010-F59E0B?logo=kicad&logoColor=white>)
 
 **Before Tomato, there was the transistor board.**
 Same story, same narrative—but this time, it had to be smarter.
@@ -26,7 +26,7 @@ The paper: **[tomato.tmarhguy.com](https://tomato.tmarhguy.com/)** · the site: 
 </table>
 <p align="center"><em>Lot 07 Dual-LUT PCB · board · on the iron · top copper · <a href="https://tomato.tmarhguy.com/software.html">software</a> · <a href="https://tomato.tmarhguy.com/playground.html">playground</a></em></p>
 
-Tomato grew as a revolution: a **65k operational space** (**~3,500×** operation increase than the earlier 8bit board for less area) from a **[dual-LUT3](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>)** fused into an adder, built for linear scale. The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **[512-row opcode ROM](docs/isa/tomato.v1.csv)** fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
+Tomato grew as a revolution: a **65k operational space** (**~3,500×** operation increase than the earlier 8bit board for less area) from a **[dual-LUT3](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>)** fused into an adder, built for linear scale. The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **[512-row opcode ROM](docs/isa/tomato.v1.csv)** fans out into modular control boards that sit next to the hardware they actually drive. The register file is **[32,768 GPR](https://tomato.tmarhguy.com/journal/register-upgrade.html)** — full 15-bit depth of the discrete SRAMs (half a Blackwell SM's physical 65,536 × 32-bit file, one context). The [design journal](docs/log/) is where the arguments live; this README is the map.
 
 The dual-LUT slice is **[on the iron](<docs/log/2026-08-18 - First Phase of Assembly.md>)** — muxes and adders down on one [`07_alu`](hardware/kicad/boards/07_alu/README.md) board.
 
@@ -116,7 +116,7 @@ Typical field packing (ALU register ops):
 | `rA`   | 5    | `[17:13]` | ALU operand A                                   |
 | `rB`   | 5    | `[12:8]`  | ALU operand B                                   |
 | `rC`   | 5    | `[7:3]`   | ALU operand C                                   |
-| `BANK` | 3    | `[2:0]`   | Bank select (8 banks → 32 GPR × 8 = 256 regs) |
+| `BANK` | 3    | `[2:0]`   | Primary bank (8 banks → 32 × 8 = 256 in-window); latched `superbank:7` opens full **32,768 GPR** |
 
 Each operand is **5 + 3b bank** in address terms: a 5-bit GPR index within the bank selected by `BANK[2:0]`.
 
@@ -148,7 +148,13 @@ See [opcode-map.csv](docs/opcode-map.csv) for mnemonic layout and [Load Store Pi
 
 ### Register file
 
-**32 GPR × 8 banks = 256** addressable registers. Not the full theoretical address space the LUT catalog could name — enough for real programs and modular board bring-up without widening the datapath.
+> **Note — Why 32,768 GPR?**
+>
+> Tomato exposes **32,768 32-bit GPR locations** because the selected discrete SRAMs (**AS6C62256-55PCN**, 32K × 8) already provide a full **15-bit address space**. The chips, buses, and mirrored 3R1W structure are already in the design — exposing anything less would leave usable address depth disconnected.
+>
+> As absurd as it sounds, that architectural GPR space is **half the size of the 65,536 × 32-bit physical register file in a single NVIDIA Blackwell SM** (their SM serves many threads; Tomato is one architectural context). Full argument: [Register Upgrade](<docs/log/2026-08-29%20-%20Register%20Upgrade.md>) · [on the paper](https://tomato.tmarhguy.com/journal/register-upgrade.html).
+
+**[32,768 GPR](https://tomato.tmarhguy.com/journal/register-upgrade.html)** — `register:5` × `bank:3` × latched `superbank:7` on the full **15-bit** address depth. Ordinary instructions keep a 256-register window; `SETBANK2` changes the window without widening the word.
 
 ### Datapath and control
 
@@ -293,7 +299,7 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 | Architecture                  | **32-bit**      | See[Falling back to 32b](<docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md>) |
 | ALU PCB (`07_alu`)          | Populating            | [First phase of assembly](<docs/log/2026-08-18 - First Phase of Assembly.md>)      |
 | Opcode ROM                    | 512 rows (planned)    | Down from 1024-row budget                                                         |
-| Register file                 | 32 GPR × 8 banks     | 256 addressable registers                                                         |
+| Register file                 | **32,768 GPR**       | 15-bit SRAM depth · [Register Upgrade](<docs/log/2026-08-29%20-%20Register%20Upgrade.md>) |
 | `main.dig` + control boards | In progress           | Modular decode on bench                                                           |
 | ALU verification              | Passing on 32b export | [verification/](verification/)                                                     |
 | ALU ASIC characterization     | Sky130 HD mapped      | [6531 µm², 512 cells, ~210 MHz est.](verification/synthesis/README.md)           |

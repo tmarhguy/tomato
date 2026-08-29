@@ -26,14 +26,14 @@ The whole Tomato32 CPU on a **Nexys A7-100T**, running **Tomato OS** on a monito
 
 ```
  TOMATO OS  v1.0                            Designed by Tyrone Marhguy
- dual-LUT3 ALU  -  524288 ops  -  256 GPR 3R1W              READY
+ dual-LUT3 ALU  -  524288 ops  -  32768 GPR 3R1W             READY
  ┌ MAIN MENU ─────────────────┐  ┌ THE MACHINE ──────────────┐
  │ ▶ System info              │  │ Designed by               │
  │   Palette                  │  │ TYRONE MARHGUY            │
  │   Font chart               │  │ Penn Engineering  2028    │
  │   Keypad test              │  │                           │
  │   Fibonacci                │  │ dual-LUT3 ALU, 524288 ops │
- │   Snake                    │  │ 256 GPR, 8 banks, 3R1W    │
+ │   Snake                    │  │ 32768 GPR, banked, 3R1W   │
  │   Tetris                   │  │ 512-row modular microcode │
  │   About Tomato             │  └───────────────────────────┘
  │   Memory map               │

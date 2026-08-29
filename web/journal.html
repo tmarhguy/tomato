@@ -19,7 +19,7 @@
     })();
   </script>
   <title>Journal — The Tomato</title>
-  <meta name="description" content="Latest: first phase of assembly on 07_alu. The Tomato design journal — what was tried, what broke routing, what was too slow on the bench." />
+  <meta name="description" content="Latest: Register Upgrade — 32 to 32,768 via a secondary-bank latch. The Tomato design journal." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/magazine.css" />
 
   <meta property="og:title" content="Journal — The Tomato" />
-  <meta property="og:description" content="Latest: first phase of assembly on 07_alu. DigiKey on the desk. Muxes and adders down." />
+  <meta property="og:description" content="Latest: Register Upgrade — primary bank, secondary latch, 32 → 256 → 32,768." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
@@ -35,7 +35,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="Journal — The Tomato" />
-  <meta name="twitter:description" content="Latest: first phase of assembly on 07_alu. DigiKey on the desk. Muxes and adders down." />
+  <meta name="twitter:description" content="Latest: Register Upgrade — primary bank, secondary latch, 32 → 256 → 32,768." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
@@ -76,33 +76,41 @@
         <div class="wrap lead-grid lead-grid--dispatch">
           <article>
             <p class="kicker">Latest · 29 August 2026</p>
-            <h2 class="headline"><a href="journal/tomato-works.html">Tomato works beautifully!</a></h2>
-            <p class="deck">Rendering an HDMI signal and a GUI on a TV, running over 2,300 lines of assembly code as TomatoOS.</p>
-            <p class="byline">Dispatch · OS · <a href="journal/tomato-works.html">open the full entry</a></p>
-            <p class="drop">For all these months of working, I will say today was the most thrilling, mainly because I got Tomato to render an HDMI signal and a GUI on my TV (or any screen for that matter).</p>
-            <p>The vault still holds every earlier choice — the PMOD pivot, first lights, invisible bring-up logic, the gallery cut. <strong>Thirty-three dispatches</strong>. This is the one at the top.</p>
+            <h2 class="headline"><a href="journal/register-upgrade.html">Register Upgrade</a></h2>
+            <p class="deck"><strong>32,768 GPR</strong> — 15-bit AS6C62256 depth. Half a Blackwell SM's physical register file. Using less would waste the chips.</p>
+            <p class="byline">Dispatch · Register file · <a href="journal/register-upgrade.html">open the full entry</a></p>
+            <p class="drop">Tomato exposes <strong>32,768 32-bit GPR locations</strong> because the discrete SRAMs already provide fifteen address bits. The chips, buses, and mirrored 3R1W structure are already there — anything less leaves usable depth disconnected.</p>
+            <p>Earlier: <a href="journal/tomato-works.html">Tomato works beautifully!</a>, One Press, One Key, pixels on the glass. <strong>Thirty-four dispatches</strong>. This is the one at the top.</p>
           </article>
           <figure class="plate plate--ink">
-            <video muted loop playsinline webkit-playsinline controls preload="metadata" width="1280" height="720" poster="assets/os/hdmi-demo-poster.jpg" aria-label="Tomato OS menu and games over HDMI">
-              <source src="assets/os/hdmi-demo-games-ui.mp4" type="video/mp4" />
-              <source src="assets/os/hdmi-demo-games-ui.mov" type="video/quicktime" />
-            </video>
+            <div style="padding:1.25rem 1rem; background:var(--ivory); border:1px solid var(--dust);">
+              <p class="exhibit-label" style="margin:0 0 .75rem">Why 32,768?</p>
+              <p style="margin:0; font-family:var(--gothic); font-weight:700; font-size:clamp(1.35rem, 4vw, 2rem); letter-spacing:.04em; color:var(--red);">32,768 GPR</p>
+              <p style="margin:.65rem 0 0; font-size:.85rem; color:var(--muted);">15-bit SRAM · half a Blackwell SM · one context</p>
+            </div>
             <figcaption class="plate-cap">
-              <span>Fig. — Tomato works</span>
-              <span>hdmi_test · TomatoOS GUI</span>
+              <span>Fig. — Register windows</span>
+              <span>SETBANK2 · AS6C62256</span>
             </figcaption>
           </figure>
           <nav class="jump jump--loud">
-            <a href="journal/tomato-works.html">Read the dispatch →</a>
-            <a href="journal/one-press.html">One Press, One Key →</a>
+            <a href="journal/register-upgrade.html">Read the dispatch →</a>
+            <a href="journal/tomato-works.html">Tomato works beautifully! →</a>
           </nav>
         </div>
       </section>
 
       <section class="section">
         <div class="wrap">
-          <p class="exhibit-label">Dispatches · thirty-three entries in the vault</p>
+          <p class="exhibit-label">Dispatches · thirty-four entries in the vault</p>
           <div class="log-list">
+            <a class="log-item" href="journal/register-upgrade.html">
+              <span class="log-date">29 Aug 2026</span>
+              <span>
+                <span class="log-title">Register Upgrade</span>
+                <span class="log-blurb"><strong>32,768 GPR</strong> — 15-bit depth; half a Blackwell SM; using less wastes the SRAMs.</span>
+              </span>
+            </a>
             <a class="log-item" href="journal/tomato-works.html">
               <span class="log-date">29 Aug 2026</span>
               <span>
@@ -336,7 +344,7 @@
             </a>
           </div>
           <nav class="jump">
-            <a href="journal/tomato-works.html">Start with the latest →</a>
+            <a href="journal/register-upgrade.html">Start with the latest →</a>
             <a href="journal/welcome.html">Start at the origin →</a>
             <a href="source.html">GitHub →</a>
           </nav>

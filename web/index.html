@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>The Tomato — A Homebrew 32-bit CPU from Discrete Logic</title>
   <meta name="description"
-    content="Tomato: ISA, assembler, and OS on a 32-bit Dual-LUT machine in 74xx copper — boots Tomato OS over HDMI." />
+    content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." />
   <meta name="theme-color" content="#f4f0e6" />
   <script>
     (function () {
@@ -60,7 +60,7 @@
 
   <meta property="og:title" content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" />
   <meta property="og:description"
-    content="Tomato: ISA, assembler, and OS on a 32-bit Dual-LUT machine in 74xx copper — boots Tomato OS over HDMI." />
+    content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
@@ -69,7 +69,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" />
   <meta name="twitter:description"
-    content="Tomato: ISA, assembler, and OS on a 32-bit Dual-LUT machine in 74xx copper — boots Tomato OS over HDMI." />
+    content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
@@ -118,19 +118,21 @@
             <div class="lead-hed">
               <p class="kicker">The machine</p>
               <h2 class="headline">A discrete <span style="color: var(--red);">32-bit polymorphic</span> CPU.</h2>
-              <p class="deck">ISA, assembler, and Tomato OS on HDMI. Dual-LUT copper underneath —
+              <p class="deck"><strong>32,768 GPR</strong> on discrete SRAM — primary bank in the word, secondary bank in a latch.
+                Dual-LUT copper underneath —
                 <strong>10&nbsp;billion</strong> Verilator vectors on the byte slice,
                 <strong>130&nbsp;billion</strong> on the 32-bit ALU,
-                <a href="architecture.html#verification">SymbiYosys</a> on the datapath.</p>
+                <a href="architecture.html#verification">SymbiYosys</a> on the datapath.
+                <a href="journal/register-upgrade.html">Register Upgrade →</a></p>
               <p class="byline">By Tyrone Marhguy · Computer Engineering ’28 · Penn · 639 hours</p>
             </div>
             <ul class="pitch" aria-label="Tomato in six facts">
               <li><strong>32-bit</strong><span>homebrew CPU</span></li>
               <li><strong>74xx</strong><span>discrete copper</span></li>
               <li><strong>524,288</strong><span>ALU operations</span></li>
+              <li><strong>32,768 GPR</strong><span><a href="journal/register-upgrade.html">banked SRAM</a></span></li>
               <li><strong>ISA</strong><span>512-row ROM</span></li>
               <li><strong>Tomato OS</strong><span>~2.3k asm lines</span></li>
-              <li><strong>HDMI</strong><span>boots on glass</span></li>
             </ul>
             <div class="hero-prose">
               <p class="drop">When I decided to build a discrete computer on my own architecture from the transistor
@@ -237,7 +239,7 @@
                 mask-and-add: <code>A + (B AND C)</code>. Cryptographic acceleration:
                 <code>A + ((A AND B) XOR (NOT A AND C))</code>—SHA-256 Choose—in <strong>one cycle</strong>.
               </p>
-              <p>The rest of this paper is optional. The facts that do not move sit in the table below: 256 GPRs,
+              <p>The rest of this paper is optional. The facts that do not move sit in the table below: <a href="journal/register-upgrade.html"><strong>32,768 GPR</strong></a>,
                 parametric ISA, hardware opcode compiler, formal sign-off. The copper is lot 07.
                 <a href="software.html">Tomato OS</a> paints the desktop — each glyph a native opcode.</p>
             </div>
@@ -251,30 +253,59 @@
         </div>
       </section>
 
+      <section class="section section--room" id="why-32768">
+        <div class="wrap">
+          <article class="faq-gpr faq-gpr--panel">
+            <header class="faq-gpr__hed">
+              <p class="exhibit-label">The question everyone asks</p>
+              <h2 class="faq-gpr__title">Why 32,768 GPR?</h2>
+            </header>
+            <div class="faq-gpr__body">
+              <p class="faq-gpr__lead">Tomato exposes <strong>32,768 32-bit GPR locations</strong> because the selected discrete SRAMs (<span class="mono">AS6C62256-55PCN</span>, 32K × 8) already provide a full <strong>15-bit address space</strong>.</p>
+              <p>The chips, buses, and mirrored 3R1W structure are already in the design — exposing anything less would leave usable address depth disconnected.</p>
+              <p class="faq-gpr__punch">That is <strong>half</strong> the 65,536 × 32-bit physical register file in a single NVIDIA Blackwell SM.</p>
+            </div>
+            <aside class="faq-gpr__aside" aria-label="At a glance">
+              <dl class="faq-gpr__facts">
+                <div><dt>Part</dt><dd class="mono">AS6C62256</dd></div>
+                <div><dt>Address bits</dt><dd>15</dd></div>
+                <div><dt>Per mirror</dt><dd>32,768 × 32</dd></div>
+                <div><dt>vs Blackwell SM</dt><dd>½ of 65,536</dd></div>
+              </dl>
+            </aside>
+          </article>
+          <nav class="jump jump--loud" style="margin-top:1.25rem">
+            <a href="journal/register-upgrade.html">Register Upgrade — full argument →</a>
+            <a href="architecture.html#register-file">Architecture · registers →</a>
+          </nav>
+        </div>
+      </section>
 
       <section class="section" id="dispatch">
         <div class="wrap lead-grid lead-grid--dispatch">
           <article>
             <p class="kicker">Latest dispatch · 29 August 2026</p>
-            <h2 class="headline">Tomato works beautifully!</h2>
-            <p class="deck">Rendering an HDMI signal and a GUI on a TV, running over 2,300 lines of assembly code as TomatoOS.</p>
-            <p class="byline">From the log · OS · <a href="journal/tomato-works.html">full entry</a></p>
-            <p class="drop">For all these months of working, I will say today was the most thrilling, mainly because I got Tomato to render an HDMI signal and a GUI on my TV (or any screen for that matter).</p>
-            <p>Earlier: <a href="journal/one-press.html">One Press, One Key</a>, pixels on the glass, and ditching Vivado for open-source synthesis. The vault has thirty-three dispatches now.</p>
+            <h2 class="headline">Register Upgrade</h2>
+            <p class="deck"><strong>32,768 GPR</strong> — full 15-bit SRAM depth via primary bank and a latched superbank. Same instruction width. <a href="journal/register-upgrade.html">Read why →</a></p>
+            <p class="byline">From the log · Register file · <a href="journal/register-upgrade.html">full entry</a></p>
+            <p class="drop">The discrete AS6C62256 SRAMs already bring <strong>15 address bits</strong>. Tomato exposes all of them as <strong>32,768 GPR</strong> — half a Blackwell SM. Leaving pins disconnected would be the waste.</p>
+            <p>Earlier: <a href="journal/tomato-works.html">Tomato works beautifully!</a>, One Press, One Key, and pixels on the glass. The vault has thirty-four dispatches now.</p>
           </article>
-          <figure class="plate plate--ink">
-            <video muted loop playsinline webkit-playsinline controls preload="metadata" width="1280" height="720" poster="assets/os/hdmi-demo-poster.jpg" aria-label="Tomato OS menu and games over HDMI">
-              <source src="assets/os/hdmi-demo-games-ui.mp4" type="video/mp4" />
-              <source src="assets/os/hdmi-demo-games-ui.mov" type="video/quicktime" />
-            </video>
+          <figure class="plate plate--ink plate--dispatch-sum">
+            <div class="dispatch-sum">
+              <p class="exhibit-label">Why 32,768?</p>
+              <p class="dispatch-sum__num">32,768 <span>GPR</span></p>
+              <p class="dispatch-sum__lede">15-bit AS6C62256 depth · half a Blackwell SM</p>
+              <p class="dispatch-sum__jump"><a href="#why-32768">why →</a></p>
+            </div>
             <figcaption class="plate-cap">
-              <span>Fig. — Tomato works</span>
-              <span>hdmi_test · TomatoOS GUI</span>
+              <span>Fig. — Register windows</span>
+              <span>SETBANK2 · AS6C62256</span>
             </figcaption>
           </figure>
           <nav class="jump jump--loud">
-            <a href="journal/tomato-works.html">Read the dispatch &rarr;</a>
-            <a href="software.html">Open the Software sheet &rarr;</a>
+            <a href="journal/register-upgrade.html">Read the dispatch &rarr;</a>
+            <a href="architecture.html">Architecture &rarr;</a>
             <a href="journal.html">Open the Journal &rarr;</a>
           </nav>
         </div>
@@ -341,8 +372,8 @@
                     <td>Three reads, one write on execute</td>
                   </tr>
                   <tr>
-                    <td>256 GPR</td>
-                    <td>32 General Purpose Registers × 8 banks.</td>
+                    <td><a href="journal/register-upgrade.html">32,768 GPR</a></td>
+                    <td>15-bit <span class="mono">AS6C62256</span> depth. Half a Blackwell SM's 65,536×32 physical file — one context</td>
                   </tr>
                   <tr>
                     <td><a href="architecture.html#register-file">Immediate box</a></td>
@@ -428,8 +459,7 @@
                 manufacturability and brutal time constraints.(Someday, <strong>I will lay them out as raw transistors,
                   just as I always intended.</strong> ) But even in its current form, Tomato has outgrown its ALU roots.
                 It has taken on multiple shapes: <strong>8‑bit</strong>, <strong>32‑bit</strong>, even
-                <strong>40‑bit</strong> variants—it accommodates a <strong>quirky 3‑Read‑1‑Write 256 General Purpose
-                  Registers register file</strong> I designed for it and the very‑long instruction word
+                <strong>40‑bit</strong> variants—it accommodates a <strong>quirky 3‑Read‑1‑Write <a href="journal/register-upgrade.html">32,768 GPR</a> register file</strong> I designed for it and the very‑long instruction word
                 (<strong>VLIW</strong>) architecture it somehow demands.
               </p>
             </article>

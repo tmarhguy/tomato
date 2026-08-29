@@ -83,7 +83,7 @@ The [`playground.html`](https://tomato.tmarhguy.com/playground.html) interface i
 
 ### 3. The Journal & Boards
 
-The journal takes [`docs/log/`](../docs/log/) and typesets it. It runs to **30 dispatches**, tracking the build from the first gate to the chips on the copper. The **[boards catalog](https://tomato.tmarhguy.com/boards.html)** tracks all **8 lots**. Lot **07** is **on the iron**. The remaining lots (Shift, Memory, Register File, PC) are currently being plumbed.
+The journal takes [`docs/log/`](../docs/log/) and typesets it. It runs to **34 dispatches**, tracking the build from the first gate to the chips on the copper. The **[boards catalog](https://tomato.tmarhguy.com/boards.html)** tracks all **8 lots**. Lot **07** is **on the iron**. The remaining lots (Shift, Memory, Register File, PC) are currently being plumbed.
 
 ### 4. The Gallery
 

@@ -44,6 +44,7 @@
       title: "Datapath",
       items: [
         { path: "architecture.html", hash: "register-file", label: "Registers & write-back" },
+        { path: "journal/register-upgrade.html", label: "Register Upgrade", flag: "now" },
         { path: "boards/04-register.html", label: "Lot 04 — register file" },
         { path: "boards/06-bus.html", label: "Lot 06 — data bus" },
       ],
@@ -86,7 +87,7 @@
         { path: "software.html", hash: "stack", label: "The stack" },
         { path: "software.html", hash: "os", label: "What is on the screen" },
         { path: "software.html", hash: "glass", label: "On the glass" },
-        { path: "journal/tomato-works.html", label: "It boots on HDMI", flag: "now" },
+        { path: "journal/tomato-works.html", label: "It boots on HDMI" },
         { path: "journal/one-press.html", label: "One press, one key" },
         { path: "architecture.html", hash: "firmware", label: "Firmware chapter" },
       ],

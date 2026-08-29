@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>Register Upgrade — The Tomato</title>
+  <meta name="description" content="AS6C62256 has 15 address bits — Tomato exposes all of them: 32,768 GPR. Half a Blackwell SM." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+
+  <meta property="og:title" content="Register Upgrade — The Tomato" />
+  <meta property="og:description" content="AS6C62256 has 15 address bits — Tomato exposes all of them: 32,768 GPR. Half a Blackwell SM." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/register-upgrade.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="Register Upgrade — The Tomato" />
+  <meta name="twitter:description" content="AS6C62256 has 15 address bits — Tomato exposes all of them: 32,768 GPR. Half a Blackwell SM." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
+  <meta name="author" content="Tyrone Marhguy" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../software.html">Software</a>
+          <a href="../playground.html">Playground</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Catalog</a>
+          <a href="../board.html">Orbit</a>
+          <a href="../gallery.html">Gallery</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+          <a class="is-circ" href="../viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" width="52" height="61" />
+          <a href="../index.html"><h1>Tomato</h1></a>
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>29 August 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section section--hero">
+        <div class="wrap bank-open">
+          <p class="kicker">Dispatch · Register file</p>
+          <p class="bank-open__num">32,768</p>
+          <h1 class="headline bank-open__title">Register Upgrade</h1>
+          <p class="deck bank-open__deck"><strong>AS6C62256</strong> has 15 address bits — Tomato exposes all of them: <strong>32,768 GPR</strong>. Half a Blackwell SM.</p>
+          <p class="byline">29 August 2026 · from the log · <a href="#why-32768">Why 32,768? ↓</a></p>
+        </div>
+      </section>
+
+      <section class="section section--room" id="why-32768">
+        <div class="wrap">
+          <article class="faq-gpr faq-gpr--panel">
+            <header class="faq-gpr__hed">
+              <p class="exhibit-label">Note</p>
+              <h2 class="faq-gpr__title">Why 32,768 GPR?</h2>
+            </header>
+            <div class="faq-gpr__body">
+              <p class="faq-gpr__lead">Tomato exposes <strong>32,768 32-bit GPR locations</strong> because the selected discrete SRAMs (<span class="mono">AS6C62256-55PCN</span>, 32K × 8) already provide a full <strong>15-bit address space</strong>. The chips, buses, and mirrored 3R1W structure are already in the design — exposing anything less would leave usable address depth disconnected.</p>
+              <p class="faq-gpr__punch">That is <strong>half</strong> the 65,536 × 32-bit physical register file in a single NVIDIA Blackwell SM.</p>
+            </div>
+            <aside class="faq-gpr__aside" aria-label="At a glance">
+              <dl class="faq-gpr__facts">
+                <div><dt>Part</dt><dd class="mono">AS6C62256</dd></div>
+                <div><dt>Address bits</dt><dd>15</dd></div>
+                <div><dt>Per mirror</dt><dd>32,768 × 32</dd></div>
+                <div><dt>vs Blackwell SM</dt><dd>½ of 65,536</dd></div>
+              </dl>
+            </aside>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <p class="exhibit-label">How the file grew</p>
+          <h2 class="shelf-title">32 → 256 → 32,768</h2>
+          <ol class="bank-steps">
+            <li>
+              <span class="bank-steps__n">32 GPR</span>
+              <span class="bank-steps__how"><span class="mono">register:5</span></span>
+            </li>
+            <li>
+              <span class="bank-steps__n">256 GPR</span>
+              <span class="bank-steps__how">+ <span class="mono">bank:3</span></span>
+            </li>
+            <li class="is-now">
+              <span class="bank-steps__n">32,768 GPR</span>
+              <span class="bank-steps__how">+ <span class="mono">superbank:7</span></span>
+            </li>
+          </ol>
+          <p class="bank-addr"><span class="mono">[ superbank:7 ][ bank:3 ][ register:5 ]</span> · <strong>7 + 3 + 5 = 15</strong> → 32,768 × 32-bit locations</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">It was only right to start Tomato with the conventional <strong>32 general-purpose registers</strong>. But there was an obvious waste: the discrete register file was already going to use parallel asynchronous SRAMs with thousands of available addresses.</p>
+          <p class="byline">See also: <a href="tomato-works.html">Tomato works beautifully!</a> · <a href="falling-back.html">Falling back to 32b</a> · <a href="isa-as-a-wire.html">ISA as a Wire</a></p>
+
+          <h2>Secondary bank is state, not a field</h2>
+          <p>The 7-bit secondary bank is <strong>not</strong> carried inside every ordinary instruction. It is architectural state. A dedicated custom op changes it:</p>
+          <pre class="log-pre">SETBANK2 0x03          →  superbank_latch ← 0x03
+physical_address       =  { superbank_latch, bank, register }</pre>
+          <p>One operation changes the entire visible <strong>256-register window</strong> — no copying, no spill to RAM, no widening normal instructions. Ordinary encoding stays:</p>
+          <pre class="log-pre">[ opcode:9 ][ A:5 ][ B:5 ][ C/D:5 ][ bank:3 ]</pre>
+          <p>while the upper seven address bits live in the latch until the next <span class="mono">SETBANK2</span>.</p>
+
+          <h2>Why plain SRAM gives Tomato 3R1W</h2>
+          <p>Tomato's ALU needs three independent register operands, so the file needs <strong>three reads and one write</strong>. Ordinary async SRAM does not provide that, so the file is mirrored three times.</p>
+          <p>Four ×8 SRAMs make one 32-bit mirror (<span class="mono">4 × (32K × 8) = 32K × 32</span>). Three identical mirrors give the three read ports:</p>
+          <pre class="log-pre">             READ A        READ B        READ C
+            Mirror A      Mirror B      Mirror C
+             SRAM ×4       SRAM ×4       SRAM ×4
+                ↑             ↑             ↑
+                └──── broadcast write ─────┘</pre>
+          <p>Writes broadcast address and data to all three; reads present independent addresses. Effective <strong>3R1W from 12 ordinary SRAM chips</strong> — no exotic multiported part.</p>
+
+          <h2>The waste that started this</h2>
+          <p>On an 8K-deep device, 32 architectural registers used <strong>0.39%</strong> of the address depth. Tomato's existing 3-bit bank field grew that to <strong>256 GPR</strong> — still only <strong>3.125%</strong>. The SRAMs, PCB area, 32-bit buses, and three mirrors were already paid for. The unused depth was just sitting there.</p>
+
+          <h2>SRAM upgrade: AS6C6264 → AS6C62256</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th></th><th>AS6C6264</th><th><strong>AS6C62256-55PCN</strong></th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Organization</td><td>8K × 8</td><td><strong>32K × 8</strong></td></tr>
+                <tr><td>Capacity</td><td>64 Kbit</td><td><strong>256 Kbit</strong></td></tr>
+                <tr><td>Address bits</td><td>13</td><td><strong>15</strong></td></tr>
+                <tr><td>32-bit addresses per mirror</td><td>8,192</td><td><strong>32,768</strong></td></tr>
+                <tr><td>Access time</td><td>55 ns</td><td><strong>55 ns</strong></td></tr>
+                <tr><td>Supply</td><td>2.7–5.5 V</td><td><strong>2.7–5.5 V</strong></td></tr>
+                <tr><td>Interface</td><td>Async parallel</td><td><strong>Async parallel</strong></td></tr>
+                <tr><td>Chips needed for 3R1W</td><td>12</td><td><strong>12</strong></td></tr>
+                <tr><td>Approx. 12-chip cost*</td><td>~USD 114</td><td><strong>~USD 122</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p><em>*Pricing observed during this comparison; distributor and quantity pricing will move.</em></p>
+          <p>For roughly <strong>USD 7 more</strong> across the whole register file: <strong>4× the depth</strong>, same chip count, same 55&nbsp;ns class. So instead of leaving two address lines unused, expose the full device:</p>
+          <pre class="log-pre">128 superbanks  ×  8 primary banks  ×  32 registers  =  32,768 GPR</pre>
+          <p>And yes — that number is absurd.</p>
+
+          <h2>How absurd?</h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Architecture</th><th>Integer / register space</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>x86-64</td><td><strong>16</strong></td></tr>
+                <tr><td>ARM AArch64</td><td><strong>31</strong></td></tr>
+                <tr><td>RISC-V RV32I</td><td><strong>32</strong></td></tr>
+                <tr><td>NVIDIA Blackwell</td><td><strong>255 / thread</strong> · <strong>65,536 / SM</strong></td></tr>
+                <tr><td><strong>Tomato</strong></td><td><strong>32,768</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>So: <strong>2,048×</strong> x86-64, <strong>1,024×</strong> RV32I, <strong>half</strong> a Blackwell SM — <strong>32,768</strong>, period. The AS6C62256 presents fifteen address bits; once twelve of those chips are in the BOM for 3R1W, wiring them fully is the only move that isn't waste.</p>
+          <p>A flat 32K-register ISA would still be terrible: fifteen bits per operand × four → <strong>60 bits</strong> just naming registers. Banking keeps the common 5-bit fields and amortizes the upper bits:</p>
+          <pre class="log-pre">SETBANK2 0x57
+
+ADD r4, r7, r12
+MUL r2, r9, r20
+…</pre>
+          <p>All of those ops stay inside the window selected by <span class="mono">0x57</span> until another bank op changes it. Huge file; ordinary instruction width unchanged.</p>
+
+          <h2>Final organization</h2>
+          <pre class="log-pre">                 superbank latch (7)
+                            │
+Normal instruction: [ bank:3 ][ register:5 ]
+                            │
+                   15-bit SRAM address
+                            │
+                     1 of 32,768 GPR
+
+read_A = { superbank, bank, reg_A }
+read_B = { superbank, bank, reg_B }
+read_C = { superbank, bank, reg_C }
+write  = { superbank, bank, reg_D }   # broadcast to all mirrors</pre>
+
+          <h2>Next</h2>
+          <ol>
+            <li>Add the 7-bit secondary-bank latch and custom <span class="mono">SETBANK2</span></li>
+            <li>Simulate and test in Hneemann's Digital</li>
+            <li>Update KiCad register-file / control schematics and SRAM routing</li>
+            <li>Update the hand-written Verilog / SystemVerilog FPGA core</li>
+            <li>Test bank switching, isolation, mirrored writes, independent 3R reads, and preservation across superbanks</li>
+            <li>Run architectural / program regressions</li>
+            <li>Yosys and the rest of the open-source FPGA flow for hardware bring-up</li>
+          </ol>
+          <p>This started as trying not to waste an SRAM. Now Tomato has <strong>32,768 GPR</strong> — because the chips come with <strong>15 address bits</strong>, and using any less is a waste.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="tomato-works.html"><span class="dir">Previous</span><span class="to">Tomato works beautifully!</span></a>
+            <a class="next" href="../journal.html"><span class="dir">Index</span><span class="to">The journal</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><div class="footer-band"><div class="footer-art">
+<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script src="../js/mast.js" defer></script>
+</body>
+</html>

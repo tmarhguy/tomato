@@ -506,6 +506,7 @@ h3 {
 
 .lead-grid--dispatch {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: stretch;
 }
 
 .lead-grid--dispatch > article .drop {
@@ -514,6 +515,82 @@ h3 {
 
 .lead-grid--dispatch > article p + p {
   margin-top: .65rem;
+}
+
+/* Dispatch summary plate — match article column height */
+.lead-grid--dispatch > .plate--dispatch-sum {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  min-height: 0;
+}
+
+.dispatch-sum {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.85rem;
+  min-height: 18rem;
+  padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 2.5vw, 1.85rem);
+  background: var(--ivory);
+  border: 1.5px solid var(--dust);
+  border-left: 4px solid var(--red);
+}
+
+.dispatch-sum .exhibit-label {
+  margin: 0;
+}
+
+.dispatch-sum__num {
+  margin: 0;
+  font-family: var(--nameplate);
+  font-size: clamp(2.75rem, 6.5vw, 4.25rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--red);
+}
+
+.dispatch-sum__num span {
+  display: inline-block;
+  margin-left: 0.12em;
+  font-family: var(--gothic);
+  font-size: 0.38em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  vertical-align: 0.35em;
+  color: var(--ink);
+}
+
+.dispatch-sum__lede {
+  margin: 0;
+  max-width: 16rem;
+  font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.dispatch-sum__jump {
+  margin: 0.35rem 0 0;
+  font-family: var(--gothic);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.dispatch-sum__jump a {
+  color: var(--red);
+  text-decoration: none;
+  border-bottom: 1.5px solid color-mix(in srgb, var(--red) 45%, transparent);
+}
+
+.dispatch-sum__jump a:hover {
+  border-bottom-color: var(--red);
+}
+
+.plate--dispatch-sum .plate-cap {
+  margin-top: 0.55rem;
 }
 
 @media (max-width: 1040px) {
@@ -1116,6 +1193,254 @@ html[data-theme=dark] .lead-gif.is-live .lead-clip--night {
   padding: .75rem .85rem;
   background: var(--wash);
   border: 1px solid var(--dust);
+}
+
+.callout--faq {
+  margin: 1.25rem 0 1.5rem;
+  padding: 1rem 1.1rem;
+  border: 1.5px solid var(--red);
+  background: color-mix(in srgb, var(--red) 6%, var(--ivory));
+}
+
+.callout--faq .callout-label {
+  color: var(--red);
+}
+
+.callout--faq p {
+  margin: 0 0 .55rem;
+  font-size: .95rem;
+  line-height: 1.45;
+}
+
+.callout--faq p:last-child {
+  margin-bottom: 0;
+}
+
+/* Front / journal: “Why 32,768 GPR?” */
+.faq-gpr {
+  display: grid;
+  gap: 1.5rem 2.5rem;
+}
+
+.faq-gpr--panel {
+  padding: 1.75rem 1.5rem 1.85rem;
+  background: var(--ivory);
+  border: 1px solid var(--dust);
+  border-left: 4px solid var(--red);
+}
+
+@media (min-width: 960px) {
+  .faq-gpr--panel {
+    grid-template-columns: minmax(14rem, 0.9fr) minmax(0, 1.35fr) minmax(11rem, 0.75fr);
+    padding: 2.25rem 2rem;
+    align-items: start;
+  }
+}
+
+.faq-gpr__hed {
+  margin: 0;
+}
+
+.faq-gpr__hed .exhibit-label {
+  margin: 0 0 0.75rem;
+}
+
+.faq-gpr__num {
+  margin: 0;
+  font-family: var(--nameplate);
+  font-size: clamp(3.2rem, 9vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--red);
+}
+
+.faq-gpr__title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.55rem, 3vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.12;
+  color: var(--ink);
+}
+
+.faq-gpr__body {
+  margin: 0;
+  max-width: 40rem;
+}
+
+.faq-gpr__lead {
+  margin: 0 0 0.9rem;
+  font-family: var(--body);
+  font-size: clamp(1.08rem, 1.55vw, 1.22rem);
+  line-height: 1.42;
+  color: var(--ink);
+}
+
+.faq-gpr__body > p {
+  margin: 0 0 0.8rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.faq-gpr__punch {
+  margin: 1.1rem 0 0 !important;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--dust);
+  color: var(--ink) !important;
+  font-size: 1.05rem !important;
+  line-height: 1.42 !important;
+}
+
+.faq-gpr__aside {
+  margin: 0;
+  padding: 1rem 0 0;
+  border-top: 1px solid var(--dust);
+}
+
+@media (min-width: 960px) {
+  .faq-gpr__aside {
+    padding: 0 0 0 1.25rem;
+    border-top: 0;
+    border-left: 1px solid var(--dust);
+  }
+}
+
+.faq-gpr__facts {
+  margin: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.faq-gpr__facts > div {
+  margin: 0;
+}
+
+.faq-gpr__facts dt {
+  margin: 0;
+  font-family: var(--gothic);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.faq-gpr__facts dd {
+  margin: 0.2rem 0 0;
+  font-family: var(--gothic);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.faq-gpr__jump {
+  margin-top: 0.35rem;
+}
+
+@media (min-width: 960px) {
+  .faq-gpr--panel .faq-gpr__jump {
+    grid-column: 2;
+  }
+}
+
+/* Register Upgrade open + timeline */
+.bank-open {
+  padding-bottom: 0.5rem;
+}
+
+.bank-open__num {
+  margin: 0.35rem 0 0.15rem;
+  font-family: var(--nameplate);
+  font-size: clamp(4rem, 14vw, 7.5rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--red);
+}
+
+.bank-open__title {
+  margin: 0.35rem 0 0.75rem;
+}
+
+.bank-open__deck {
+  max-width: 40rem;
+}
+
+.bank-steps {
+  list-style: none;
+  margin: 1.25rem 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+@media (min-width: 720px) {
+  .bank-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+}
+
+.bank-steps li {
+  margin: 0;
+  padding: 1.1rem 1rem 1.15rem;
+  border: 1.5px solid var(--dust);
+  background: var(--ivory);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-height: 6.5rem;
+}
+
+.bank-steps li.is-now {
+  border-color: var(--red);
+  background: var(--red);
+  color: var(--on-fill);
+}
+
+.bank-steps__n {
+  font-family: var(--gothic);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.bank-steps__how {
+  font-size: 0.9rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.bank-steps li.is-now .bank-steps__how {
+  color: color-mix(in srgb, var(--on-fill) 82%, transparent);
+}
+
+.bank-steps li.is-now .mono {
+  color: var(--on-fill);
+}
+
+.bank-addr {
+  margin: 0 0 0.5rem;
+  padding: 0.85rem 0 0;
+  border-top: 1px solid var(--dust);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.story pre.log-pre {
+  overflow: auto;
+  padding: 0.85rem 1rem;
+  margin: 1rem 0;
+  background: var(--wash);
+  border: 1px solid var(--dust);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  white-space: pre;
+  column-span: all;
 }
 
 .callout-label {

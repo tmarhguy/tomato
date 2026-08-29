@@ -363,23 +363,35 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
   assert.match(js, /deferSrc/);
 });
 
-test("front page latest dispatch is Tomato OS on HDMI", () => {
+test("front page latest dispatch is Register Upgrade", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
   assert.match(html, /id=["']dispatch["']/);
-  assert.match(html, /Tomato works beautifully/);
-  assert.match(html, /journal\/tomato-works\.html/);
-  assert.match(html, /hdmi-demo-games-ui\.mp4/);
-  assert.match(html, /software\.html/);
+  assert.match(html, /Register Upgrade/);
+  assert.match(html, /journal\/register-upgrade\.html/);
+  assert.match(html, /why-32768/);
+  assert.match(html, /Blackwell SM/);
+  assert.match(html, /15-bit address space/);
+  assert.match(html, /32,768 GPR/);
+  assert.match(html, /SETBANK2/);
+  assert.doesNotMatch(html, /HDMI<\/strong><span>boots on glass/);
   assert.match(html, /id=["']iron["']/);
   assert.match(html, /placing-and-soldering\.mp4/);
   assert.match(html, /assets\/assembly\/work-setup\.mp4/);
   const journal = readFileSync(join(WEB, "journal.html"), "utf8");
+  assert.match(journal, /journal\/register-upgrade\.html/);
+  assert.match(journal, /thirty-four/i);
+  assert.match(journal, /Blackwell/);
   assert.match(journal, /journal\/tomato-works\.html/);
-  assert.match(journal, /thirty-three/i);
-  assert.match(journal, /hdmi-demo-games-ui\.mp4/);
+  const upgrade = readFileSync(join(WEB, "journal/register-upgrade.html"), "utf8");
+  assert.match(upgrade, /SETBANK2/);
+  assert.match(upgrade, /AS6C62256/);
+  assert.match(upgrade, /32,768 GPR/);
+  assert.match(upgrade, /why-32768/);
+  assert.match(upgrade, /Blackwell SM/);
+  assert.match(upgrade, /15-bit address space/);
+  assert.match(upgrade, /waste|disconnected/i);
   const works = readFileSync(join(WEB, "journal/tomato-works.html"), "utf8");
-  assert.match(works, /hdmi-demo-games-ui/);
-  assert.match(works, /main-menu-screen/);
+  assert.match(works, /register-upgrade\.html/);
 });
 
 test("front page hardware compiler links to the sweep clips", () => {

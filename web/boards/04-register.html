@@ -19,7 +19,7 @@
     })();
   </script>
   <title>Lot 04 — Register file — The Tomato</title>
-  <meta name="description" content="04_register: 256 GPR 3-read-1-write register file and instruction register for Tomato." />
+  <meta name="description" content="04_register: 32,768 GPR 3-read-1-write register file and instruction register for Tomato." />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="../css/magazine.css" />
 
   <meta property="og:title" content="Lot 04 — Register file — The Tomato" />
-  <meta property="og:description" content="04_register: 256 GPR 3-read-1-write register file and instruction register for Tomato." />
+  <meta property="og:description" content="04_register: 32,768 GPR 3-read-1-write register file and instruction register for Tomato." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/boards/04-register.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
@@ -35,7 +35,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="Lot 04 — Register file — The Tomato" />
-  <meta name="twitter:description" content="04_register: 256 GPR 3-read-1-write register file and instruction register for Tomato." />
+  <meta name="twitter:description" content="04_register: 32,768 GPR 3-read-1-write register file and instruction register for Tomato." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
@@ -71,8 +71,8 @@
         <div class="wrap hed">
           <p class="kicker">Lot 04 · Register · In design</p>
           <h1 class="headline">256 names, three reads, one write — the monstrous GPR file.</h1>
-          <p class="deck">Tomato’s register board implements a <strong>3-read-1-write</strong> file expanded to <strong>256 general-purpose registers</strong>, plus the instruction register sheet that holds the 32-bit word the rest of the machine decodes.</p>
-          <p class="byline">KiCad · <code>04_register</code> · eight banks on the word</p>
+          <p class="deck">Tomato’s register board implements a <strong>3-read-1-write</strong> file of <a href="../journal/register-upgrade.html"><strong>32,768 GPR</strong></a> — the full 15-bit depth of <span class="mono">AS6C62256</span> parts already in the BOM (half a Blackwell SM's physical 65,536 × 32-bit file, one context). Plus the instruction register sheet.</p>
+          <p class="byline">KiCad · <code>04_register</code> · <a href="../journal/register-upgrade.html#why-32768">Why 32,768? →</a></p>
         </div>
       </section>
       <div class="wrap arch-layout">

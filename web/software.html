@@ -165,7 +165,7 @@
           <p><span class="mono">LA</span> assembles to <span class="mono">ADDI rd, r0, addr</span>, so labels it names stay under <span class="mono">0x1000</span>. Code and strings can sit higher. A <span class="mono">.word label</span> holds the full address; <span class="mono">puts</span> prints from anywhere. Quirk text and the racer use that: pointers low, bulk high.</p>
 
           <h2 id="machine">What the software is for</h2>
-          <p>Tomato keeps the three-variable ALU, dual LUT planes, no output mux, 256 GPRs, and an overlay that maps other encodings onto muxes. The software stack makes that readable on a monitor. Palette swatch, font chart, keypad test, and memory map came out of the menu once bring-up was done — visitors do not need them.</p>
+          <p>Tomato keeps the three-variable ALU, dual LUT planes, no output mux, <a href="journal/register-upgrade.html"><strong>32,768 GPR</strong></a> (15-bit discrete SRAM depth — half a Blackwell SM's physical file, one context), and an overlay that maps other encodings onto muxes. The software stack makes that readable on a monitor. Palette swatch, font chart, keypad test, and memory map came out of the menu once bring-up was done — visitors do not need them.</p>
         </div>
       </section>
 
