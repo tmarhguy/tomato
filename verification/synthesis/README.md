@@ -1,14 +1,14 @@
-# ALU synthesis - SkyWater 130nm HD
+# ALU synthesis — SkyWater 130nm HD
 
-![status](https://img.shields.io/badge/status-characterized-2ea043?style=for-the-badge)
-![architecture](https://img.shields.io/badge/architecture-32_bit-2563EB?style=for-the-badge)
-![silicon](https://img.shields.io/badge/silicon-SkyWater_130nm-7C3AED?style=for-the-badge)
-![EDA](https://img.shields.io/badge/EDA-Yosys-EAB308?style=for-the-badge)
-![PDK](https://img.shields.io/badge/PDK-sky130_fd_sc_hd-0D9488?style=for-the-badge)
+<p align="center"><strong>Yosys + ABC characterization of the Dual-LUT 32b ALU.</strong></p>
+
+![Status](https://img.shields.io/badge/status-characterized-2ea043) ![PDK](https://img.shields.io/badge/PDK-sky130_fd_sc_hd-0D9488)
 
 Open-source **ASIC characterization** of the Tomato 32-bit ALU: the Digital-export netlist [rtl/alu-32b-final.v](rtl/alu-32b-final.v) mapped to **sky130_fd_sc_hd** standard cells with Yosys + ABC, then measured for gate area, cell count, logic depth, and carry-chain timing. This is not tape-out sign-off. It answers: if this Verilog were silicon on a standard open PDK, how big and how fast is the datapath?
 
 The discrete bench runs at breadboard speeds; this flow reports what the **same logic** looks like at 130nm. Source schematic: [alu-32b-final.dig](../../hardware/digital/modules/alu-32b-final.dig). Functional sign-off lives in [verification/README.md](../README.md).
+
+**Project map:** [Verification](../README.md) · [Benchmark](../../test/README.md) · [Root README](../../README.md)
 
 ---
 
@@ -218,20 +218,4 @@ Clean generated artifacts: `make synth_clean`.
 
 ## Author
 
-**Tyrone Marhguy** - Computer Engineering '28, [University of Pennsylvania](https://www.upenn.edu/)
-
-Tomato is a solo hardware architecture project: discrete-logic CPU design, KiCad PCBs, Digital simulation, and a public build log.
-
-| Platform | Link |
-|----------|------|
-| Email | [tmarhguy@gmail.com](mailto:tmarhguy@gmail.com) · [tmarhguy@engineering.upenn.edu](mailto:tmarhguy@engineering.upenn.edu) |
-| Twitter | [@marhguy_tyrone](https://twitter.com/marhguy_tyrone) |
-| Instagram | [@tmarhguy](https://instagram.com/tmarhguy) |
-| Substack | [@tmarhguy](https://substack.com/@tmarhguy) |
-| GitHub | [@tmarhguy](https://github.com/tmarhguy) |
-
-![UPenn](https://img.shields.io/badge/UPenn-CE_2028-011F5B?style=for-the-badge)
-![Computer Engineering](https://img.shields.io/badge/Computer_Engineering-hardware-990000?style=for-the-badge)
-![homebrew hardware](https://img.shields.io/badge/homebrew-hardware-2ea043?style=for-the-badge)
-![ASIC synthesis](https://img.shields.io/badge/ASIC-synthesis-EAB308?style=for-the-badge)
-![SkyWater 130nm](https://img.shields.io/badge/SkyWater-130nm-7C3AED?style=for-the-badge)
+**Tyrone Marhguy** — Computer Engineering '28, [University of Pennsylvania](https://www.upenn.edu/). Contact badges live on the [root README](../../README.md#author).
