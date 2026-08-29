@@ -23,9 +23,6 @@ node_modules/
 # FPGA Icarus sim artifacts
 hardware/fpga/core/sim/
 
-# Keep burn boot marker tracked despite *.txt
-!hardware/fpga/core/rtl/burn/BOOT.txt
-
 # Open-source FPGA flow: per-project build output, and the shared ~2.7 GB
 # toolchain (OSS CAD Suite + prjxray) that `make setup` installs.
 hardware/fpga/*/build/
@@ -34,6 +31,8 @@ hardware/fpga/**/*.bit
 
 # Digital Verilog exports (copy locally for sim/formal; not source-of-truth in git)
 *.txt
+# Burn boot marker is a .txt that must stay in the tree.
+!hardware/fpga/core/rtl/burn/BOOT.txt
 
 # Verification — hand-authored Verilog (exceptions to *.v above)
 !verification/formal/*_bind.v
