@@ -10,7 +10,7 @@
  * Copyright (c) 2025-2026 Tyrone Marhguy
  * SPDX-License-Identifier: CERN-OHL-P-2.0
  *
- * Shows a 32-bit value (WB) on Nexys A7 common-anode digits.
+ * Shows a 32-bit value (last nonzero writeback / store) on Nexys A7 digits.
  */
 module hex (
     input         clk,

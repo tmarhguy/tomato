@@ -31,7 +31,7 @@ module main (
     input         kb_ready,    // key pending (IRQ + status MMIO)
     output        kb_rd,       // CPU consumed the key this cycle
     output [7:0]  io_out,      // last OUT byte (UART TX / LED)
-    output [31:0] disp_value,  // last WB mux value (board drives the 7-seg)
+    output [31:0] disp_value,  // last nonzero WB / store (board 7-seg)
     output        halted,
     // Tile RAM scanout port — driven by rtl/board/videoout.v
     input         tile_rclk,
@@ -140,13 +140,15 @@ module main (
         .rdata    (tile_rdata)
     );
 
-    // 7-seg source = last value written back to a register. Latching on every
-    // execute instead let HALT — whose wb mux reads 0 — wipe the display at
-    // the exact moment you want to read the answer off the board.
+    // 7-seg = last nonzero writeback (or store). Latching every execute let
+    // HALT wipe the answer; latching every LW of 0 (the OS idle poll) held
+    // 00000000 on the board while the machine was clearly running.
     reg [31:0] disp;
+    wire disp_reg = exec & cregwe & (addrw != 5'd0) & (wbdata != 32'd0);
+    wire disp_mem = exec & cmemwr & (wbdata != 32'd0);
     always @(posedge clk) begin
-        if (reset)               disp <= 32'h0;
-        else if (exec && cregwe) disp <= wbdata;
+        if (reset)                 disp <= 32'h0;
+        else if (disp_reg | disp_mem) disp <= wbdata;
     end
     assign disp_value = disp;
 
