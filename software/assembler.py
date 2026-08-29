@@ -16,6 +16,7 @@ Encodings:
 Directives:
   .org addr        — set next word address (sparse image; holes = NOP/0)
   .word n, n, ...  — emit raw 32-bit data words (glyphs / tables)
+  .space n         — reserve n zeroed words (arrays the program writes at runtime)
   .ascii "text"    — one word per character (memory is word-addressed)
   .asciz "text"    — same, NUL-terminated
 
@@ -247,6 +248,18 @@ def assemble(src: str, ops: dict) -> list[int]:
             for tok in operands:
                 items.append((i, ".WORD", [tok], pc))
                 pc += 1
+            continue
+        if mnem in (".SPACE", ".ZERO", ".SKIP"):
+            # Runtime arrays: the label is what matters, the words stay 0. No
+            # items are emitted, so a trailing .space leaves the image short
+            # rather than padding it with thousands of zeros.
+            if len(operands) != 1:
+                raise AsmError(i, ".space n")
+            try:
+                n = parse_imm(operands[0], 24, signed=False)
+            except ValueError as e:
+                raise AsmError(i, str(e)) from e
+            pc += n
             continue
         items.append((i, mnem, operands, pc))
         pc += 1
