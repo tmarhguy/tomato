@@ -65,6 +65,54 @@ Tomato runs as synthesizable Verilog on a Nexys A7, paints a 640×480 monitor, a
 
 ---
 
+## Get to work
+
+A clone is enough to **simulate** Tomato OS and the CPU. The multi-gigabyte FPGA toolchain is **gitignored on purpose** — install it only when you want a bitstream.
+
+**What is already in the tree (do not regenerate just to peek):**
+
+| Piece | Path |
+| ----- | ---- |
+| CPU + board RTL | `hardware/fpga/core/rtl/` |
+| Burned OS + microcode (bitstream literals) | `hardware/fpga/core/rtl/burn/` |
+| Tomato OS source | `software/os/tomato_os.s` |
+| Assembler + ISA | `software/assembler.py`, `docs/isa/tomato.v1.csv` |
+| Icarus benches | `hardware/fpga/core/tb/` |
+
+**What stays local (ignored):** `hardware/fpga/.tools/` (~2.7 GB), `hardware/fpga/*/build/`, `*.bit`, `hardware/fpga/core/sim/`, `web/node_modules/`, editor/Obsidian junk.
+
+### Simulate (minutes — needs Icarus + Python 3)
+
+```bash
+git clone https://github.com/tmarhguy/tomato.git
+cd tomato
+make -C hardware/fpga/core test    # units + programs + OS + games
+make -C hardware/fpga/core os      # dump the desktop framebuffer as text
+```
+
+On macOS with Nix: `nix-env -iA nixpkgs.verilog` (or any package that provides `iverilog` / `vvp`).
+
+### Bitstream on a Nexys A7 (one-time toolchain, then flash)
+
+```bash
+cd hardware/fpga/core
+make setup                         # → ../.tools/ (gitignored)
+../scripts/env.sh make fpga        # yosys → nextpnr → .bit
+../scripts/env.sh make program
+```
+
+Changed the OS? `make burn BOOT=tomato_os` before `make fpga`. Full board notes: [hardware/fpga/core/README.md](hardware/fpga/core/README.md).
+
+### Broadsheet site
+
+```bash
+cd web && python3 -m http.server 8080
+```
+
+Open [http://localhost:8080/](http://localhost:8080/). Details: [web/README.md](web/README.md).
+
+---
+
 ## Why Tomato
 
 Tomato is intentionally a **[build log machine](<docs/log/Welcome to Tomato 32.md>)**. Every odd choice is documented somewhere in [docs/log/](docs/log/) — what was tried, what broke routing, what was too slow on the bench, what got deleted to recover PCB area. If you love computers because you like *how* they are built, not just what they run, that journal is the real entry point. Start with [Welcome to Tomato 32](<docs/log/Welcome%20to%20Tomato%2032.md>).
@@ -85,6 +133,7 @@ Tomato is intentionally a **[build log machine](<docs/log/Welcome to Tomato 32.m
 
 - [Why Tomato](#why-tomato)
 - [It boots](#it-boots)
+- [Get to work](#get-to-work)
 - [Architecture at a glance](#architecture-at-a-glance)
 - [Source of truth](#source-of-truth)
 - [Repository map](#repository-map)
@@ -218,9 +267,11 @@ tomato/
 │   └── verilog/          # Export policy (read-only netlists)
 ├── microcode/            # Per-board control ROM hex images
 ├── verification/         # ALU harness: formal, directed, UVM
-├── firmware/             # Stub — not started
-├── software/             # Stub — not started
-└── web/                  # Broadsheet — tomato.tmarhguy.com (assets/ = all plates)
+├── software/
+│   ├── assembler.py      # .s → .mem / .hex from tomato.v1.csv
+│   ├── asm/              # small program benches
+│   └── os/tomato_os.s    # desktop + games (burned into the FPGA image)
+└── web/                  # Broadsheet — tomato.tmarhguy.com
 ```
 
 ---
@@ -304,7 +355,8 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 | ALU verification              | Passing on 32b export | [verification/](verification/)                                                     |
 | ALU ASIC characterization     | Sky130 HD mapped      | [6531 µm², 512 cells, ~210 MHz est.](verification/synthesis/README.md)           |
 | Peripheral PCBs               | In design             | Register, memory, PC, data bus                                                    |
-| Firmware / software           | Not started           | README stubs only                                                                 |
+| Tomato OS (FPGA)              | **Running**           | Desktop, quirk sheet, Fib / Snake / Tetris · [software/os/](software/os/)           |
+| Broadsheet                    | Live                  | [tomato.tmarhguy.com](https://tomato.tmarhguy.com/)                                 |
 
 **Bring-up direction:** Build peripherals and modular control boards — not a throwaway FSM that becomes Tomato anyway. The ALU PCB can be exercised through `alu-display-control` and simulation vectors while fab runs ([lingering catch](<docs/log/2026-07-31%20-%20The%20lingering%20thoughts.md>)).
 

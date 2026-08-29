@@ -92,6 +92,8 @@ core/
 
 ## Build and flash
 
+**Clone first?** You already have the RTL, burned OS, and benches. For simulation you only need Icarus + Python 3 — see [Get to work](../../README.md#get-to-work) in the root README. The steps below are for a **bitstream** on the Nexys.
+
 One-time, from `hardware/fpga/core`:
 
 ```bash
