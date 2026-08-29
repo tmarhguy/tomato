@@ -506,34 +506,34 @@
       </section>
 
       <section class="section section--room" id="verification">
-          <p class="exhibit-label">ALU sign-off · not the whole CPU</p>
+          <p class="exhibit-label">ALU verification · source in the repo</p>
           <div class="exhibits">
             <article class="exhibit">
-              <p class="exhibit-num">5 / 5</p>
-              <p class="exhibit-kicker">Formal · SymbiYosys</p>
+              <p class="exhibit-num">1b · 8b · 32b</p>
+              <p class="exhibit-kicker">SymbiYosys</p>
               <hr />
-              <h3>Pass</h3>
-              <p>Documented jobs only. Assert and cover live in the verification tree.</p>
+              <h3>Proved</h3>
+              <p>k-induction on the dual-LUT datapath. <span class="mono">verification/gauntlet</span> · <span class="mono">make formal</span></p>
+            </article>
+            <article class="exhibit">
+              <p class="exhibit-num">10B / 130B</p>
+              <p class="exhibit-kicker">Verilator · golden</p>
+              <hr />
+              <h3>Ran</h3>
+              <p>Eight-bit core and full 32-bit slice vs golden. <span class="mono">make core10b</span> · <span class="mono">make slice130b</span></p>
             </article>
             <article class="exhibit">
               <p class="exhibit-num">476</p>
-              <p class="exhibit-kicker">Directed · golden</p>
+              <p class="exhibit-kicker">Directed · Digital export</p>
               <hr />
-              <h3>All matched</h3>
-              <p>Against the unified ALU reference. Not toggle coverage. Not “100% CPU.”</p>
-            </article>
-            <article class="exhibit">
-              <p class="exhibit-num">8 MHz</p>
-              <p class="exhibit-kicker">FPGA analysis</p>
-              <hr />
-              <h3>Honest constraint</h3>
-              <p>Bitstream closed. Board oscillator is 100. The timing we claimed is the timing we closed.</p>
+              <h3>Matched</h3>
+              <p>Icarus replay of the schematic netlist. Separate tree: <span class="mono">verification/</span> sign-off.</p>
             </article>
           </div>
           <nav class="jump">
+            <a href="https://github.com/tmarhguy/tomato/tree/main/verification/gauntlet">Gauntlet source →</a>
             <a href="boards.html">Board catalog →</a>
             <a href="isa.html">ISA and the ROM →</a>
-            <a href="journal.html">The journal →</a>
           </nav>
       </section>
         </div>

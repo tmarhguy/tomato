@@ -118,7 +118,10 @@
             <div class="lead-hed">
               <p class="kicker">The machine</p>
               <h2 class="headline">A discrete <span style="color: var(--red);">32-bit polymorphic</span> CPU.</h2>
-              <p class="deck">ISA, assembler, and Tomato OS on HDMI. Dual-LUT copper underneath — <strong>130 billion</strong> Verilator cycles, signed with <a href="architecture.html#verification">SymbiYosys k-induction</a>.</p>
+              <p class="deck">ISA, assembler, and Tomato OS on HDMI. Dual-LUT copper underneath —
+                <strong>10&nbsp;billion</strong> Verilator vectors on the byte slice,
+                <strong>130&nbsp;billion</strong> on the 32-bit ALU,
+                <a href="architecture.html#verification">SymbiYosys</a> on the datapath.</p>
               <p class="byline">By Tyrone Marhguy · Computer Engineering ’28 · Penn · 639 hours</p>
             </div>
             <ul class="pitch" aria-label="Tomato in six facts">
@@ -432,14 +435,14 @@
             </article>
             <article class="axiom">
               <p class="axiom-n">IV. Verification &amp; Testing</p>
-              <h3>The 130-billion vector gauntlet</h3>
-              <p>Schematic eyeballing is not a tapeout. I exported the board into Verilog from <strong>Digital</strong>,
-                then <strong>Verilator</strong> compiled it to C++ so brute-force benches were actually viable:
-                <strong>10 billion</strong> directed and random vectors on the ALU core, then <strong>130
-                  billion</strong> across the entire 32-bit slice. Simulation is still simulation. <strong>SymbiYosys
-                  k-induction</strong> proved the logic plane is an ALU—no untested edge. Last gauntlet: the
-                architecture on <strong>FPGA</strong>, alive on the first toggle of the 4-bit sample. <a
-                  href="architecture.html#verification">ALU sign-off →</a>
+              <h3>10 billion on the byte. 130 billion on the word.</h3>
+              <p>The dual-LUT ALU in <code>hardware/fpga/core</code> is the machine that runs Tomato OS.
+                <strong>Verilator</strong> ran <strong>10&nbsp;billion</strong> vectors on the 8-bit slice and
+                <strong>130&nbsp;billion</strong> on the full 32-bit ALU against a golden model —
+                every mismatch aborts. <strong>SymbiYosys</strong> proved the same datapath at 1b, 8b, and 32b.
+                Re-run it from <code>verification/gauntlet</code>: <code>make formal</code>, <code>make core10b</code>,
+                <code>make slice130b</code>, or <code>make claim</code> for all three. <a
+                  href="architecture.html#verification">ALU verification →</a>
               </p>
             </article>
           </div>
