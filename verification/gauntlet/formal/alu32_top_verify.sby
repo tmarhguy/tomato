@@ -1,0 +1,18 @@
+# Prove full `alu` top for csel 0/1 (constant cin) vs golden
+[options]
+mode prove
+depth 1
+
+[engines]
+smtbmc bitwuzla
+
+[script]
+read -formal alu.v
+read -formal alu_ref.v
+read -formal alu32_top_verify_bind.v
+prep -top alu32_top_verify
+
+[files]
+../rtl/alu.v
+alu_ref.v
+alu32_top_verify_bind.v

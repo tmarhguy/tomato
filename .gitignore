@@ -47,6 +47,14 @@ verification/formal/alu_*_verify/
 verification/formal/alu_*_prove/
 verification/directed/run_extracted_tb.v
 
+# Gauntlet (FPGA ALU Verilator / SymbiYosys claim assert)
+verification/gauntlet/obj/
+verification/gauntlet/results/
+verification/gauntlet/formal/alu*_verify/
+!verification/gauntlet/rtl/alu.v
+!verification/gauntlet/formal/*.v
+!verification/gauntlet/verilator/*
+
 # Verification synthesis — generated reports and fetched PDK liberty
 verification/synthesis/reports/
 verification/synthesis/pdk/*.lib

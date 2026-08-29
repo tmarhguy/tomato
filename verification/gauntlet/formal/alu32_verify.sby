@@ -1,0 +1,18 @@
+# Prove 32-bit alu datapath (4×alu8b) vs dual-LUT golden for all inputs
+[options]
+mode prove
+depth 1
+
+[engines]
+smtbmc bitwuzla
+
+[script]
+read -formal alu.v
+read -formal alu_ref.v
+read -formal alu32_verify_bind.v
+prep -top alu32_verify
+
+[files]
+../rtl/alu.v
+alu_ref.v
+alu32_verify_bind.v

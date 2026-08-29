@@ -1,0 +1,16 @@
+# Prove alu1b for all lut/A/B/C
+[options]
+mode prove
+depth 1
+
+[engines]
+smtbmc z3
+
+[script]
+read -formal alu.v
+read -formal alu1b_verify_bind.v
+prep -top alu1b_verify
+
+[files]
+../rtl/alu.v
+alu1b_verify_bind.v

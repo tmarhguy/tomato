@@ -1,0 +1,16 @@
+# Prove alu8b byte-slice for all lut/A/B/C/cin
+[options]
+mode prove
+depth 1
+
+[engines]
+smtbmc bitwuzla
+
+[script]
+read -formal alu.v
+read -formal alu8b_verify_bind.v
+prep -top alu8b_verify
+
+[files]
+../rtl/alu.v
+alu8b_verify_bind.v
