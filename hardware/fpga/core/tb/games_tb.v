@@ -205,27 +205,27 @@ module games_tb;
         tick; tick;
         reset = 0;
 
-        // ---- menu: eight entries, Fibonacci / Snake / Tetris among them ----
-        wait_str(8, 5, "System info", 11, "menu sysinfo");
-        wait_ch(8, 9, "F", "menu Fibonacci");
-        wait_ch(9, 9, "i", "menu Fibonacci i");
-        wait_ch(8, 10, "S", "menu Snake");
-        wait_ch(9, 10, "n", "menu Snake n");
-        wait_ch(8, 11, "T", "menu Tetris");
-        wait_ch(9, 11, "e", "menu Tetris e");
+        // ---- menu: nine entries, Fibonacci / Snake / Tetris among them ----
+        wait_str(8, 6, "System info", 11, "menu sysinfo");
+        wait_ch(8, 14, "F", "menu Fibonacci");
+        wait_ch(9, 14, "i", "menu Fibonacci i");
+        wait_ch(8, 16, "S", "menu Snake");
+        wait_ch(9, 16, "n", "menu Snake n");
+        wait_ch(8, 18, "T", "menu Tetris");
+        wait_ch(9, 18, "e", "menu Tetris e");
         $display("menu: Fibonacci / Snake / Tetris listed");
 
         // ---- N17 enter opens the highlighted entry ----
         press(8'h0D);
-        wait_str(7, 6, "SYSTEM INFO", 11, "enter -> system info");
+        wait_str(7, 3, "SYSTEM INFO", 11, "enter -> system info");
         $display("enter: opened System info");
         press(8'h11);
-        wait_str(8, 5, "System info", 11, "left back to menu");
+        wait_str(8, 6, "System info", 11, "left back to menu");
 
         // ---- Fibonacci: down×4, enter, F(10)=55, up → F(11)=89, +10, back ----
         repeat (4) press(8'h1F);
         press(8'h0D);
-        wait_str(7, 6, "FIBONACCI", 9, "fib title");
+        wait_str(7, 3, "FIBONACCI", 9, "fib title");
         wait_ch(10, 9, "1", "fib n tens");
         wait_ch(11, 9, "0", "fib n ones");
         wait_ch(13, 11, "5", "fib F(10) tens");
@@ -244,12 +244,12 @@ module games_tb;
         $display("fib: right → n=21");
 
         press(8'h11);
-        wait_str(8, 5, "System info", 11, "fib back");
+        wait_str(8, 6, "System info", 11, "fib back");
 
         // r20 is kept, so one down from Fibonacci lands on Snake.
         press(8'h1F);
         press(8'h0D);
-        wait_str(7, 6, "SNAKE", 5, "snake title");
+        wait_str(7, 3, "SNAKE", 5, "snake title");
         wait_str(24, 23, "press any k", 11, "snake start prompt");
         press(8'h10);                    // start (already heading right)
         n = 0;
@@ -277,12 +277,12 @@ module games_tb;
         press(8'h11);                    // left
         wait_n(2000);
         press(8'h0D);                    // quit
-        wait_str(8, 5, "System info", 11, "snake quit to menu");
+        wait_str(8, 6, "System info", 11, "snake quit to menu");
         $display("snake: quit");
 
         press(8'h1F);
         press(8'h0D);
-        wait_str(7, 6, "TETRIS", 6, "tetris title");
+        wait_str(7, 3, "TETRIS", 6, "tetris title");
         wait_str(33, 25, "press any k", 11, "tetris start prompt");
         press(8'h10);
         n = 0;
@@ -339,7 +339,7 @@ module games_tb;
         $display("tetris: drop maxy=%0d blocks=%0d", maxy, db0);
 
         press(8'h0D);
-        wait_str(8, 5, "System info", 11, "tetris quit to menu");
+        wait_str(8, 6, "System info", 11, "tetris quit to menu");
         $display("tetris: quit");
 
         if (halted) begin

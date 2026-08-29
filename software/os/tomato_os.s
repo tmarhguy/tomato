@@ -123,13 +123,13 @@ screen_sysinfo:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_si_h1
             JAL     r16, puts
 
             LA      r19, si_body        ; table of string pointers
-            ADDI    r18, r0, 10         ; first body row
+            ADDI    r18, r0, 7          ; first body row; +2 each pass
 si_line:
             LW      r22, r19, 0
             CMP     r22, r0
@@ -139,7 +139,7 @@ si_line:
             MOV     r5, r24
             MOV     r4, r22
             JAL     r16, puts
-            ADDI    r18, r18, 1
+            ADDI    r18, r18, 2
             ADDI    r19, r19, 1
             JMP     si_line
 si_done:
@@ -152,7 +152,7 @@ screen_palette:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_pal_h1
             JAL     r16, puts
@@ -165,7 +165,7 @@ pal_row:
 
             ; index label, two hex digits
             ADDI    r1, r0, 8
-            ADDI    r2, r0, 10
+            ADDI    r2, r0, 7
             ADD     r2, r2, r18
             MOV     r3, r18
             MOV     r5, r27
@@ -177,7 +177,7 @@ pal_row:
             ADDI    r3, r0, 0xDB
             OR      r3, r3, r5
             ADDI    r1, r0, 12
-            ADDI    r2, r0, 10
+            ADDI    r2, r0, 7
             ADD     r2, r2, r18
             ADDI    r4, r0, 24
             JAL     r16, fill
@@ -194,7 +194,7 @@ screen_font:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_font_h1
             JAL     r16, puts
@@ -213,8 +213,8 @@ font_cell:
             ADDI    r1, r0, 24
             ADD     r1, r1, r22
             ADD     r1, r1, r22         ; x = 24 + col*2
-            ADDI    r2, r0, 10
-            ADD     r2, r2, r7          ; y = 10 + row
+            ADDI    r2, r0, 7
+            ADD     r2, r2, r7          ; y = 7 + row
 
             MOV     r3, r18
             OR      r3, r3, r24
@@ -235,19 +235,19 @@ screen_keypad:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_kp_h1
             JAL     r16, puts
 
             ADDI    r1, r0, 8
-            ADDI    r2, r0, 11
+            ADDI    r2, r0, 8
             MOV     r5, r24
             LA      r4, s_kp_glyph
             JAL     r16, puts
 
             ADDI    r1, r0, 8
-            ADDI    r2, r0, 13
+            ADDI    r2, r0, 10
             MOV     r5, r24
             LA      r4, s_kp_code
             JAL     r16, puts
@@ -258,7 +258,7 @@ kp_wait:
 
             ; the keycode is its own glyph — draw it big and plain
             ADDI    r1, r0, 24
-            ADDI    r2, r0, 11
+            ADDI    r2, r0, 8
             MOV     r3, r21
             OR      r3, r3, r26
             MUL     r11, r2, r10
@@ -267,7 +267,7 @@ kp_wait:
             SW      r3, r11, 0
 
             ADDI    r1, r0, 24
-            ADDI    r2, r0, 13
+            ADDI    r2, r0, 10
             MOV     r3, r21
             MOV     r5, r24
             JAL     r16, puthex2
@@ -285,13 +285,13 @@ screen_about:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_owner
             JAL     r16, puts
 
             LA      r19, ab_body
-            ADDI    r18, r0, 10
+            ADDI    r18, r0, 7          ; body with a blank row between lines
 ab_line:
             LW      r22, r19, 0
             CMP     r22, r0
@@ -301,29 +301,29 @@ ab_line:
             MOV     r5, r24
             MOV     r4, r22
             JAL     r16, puts
-            ADDI    r18, r18, 1
+            ADDI    r18, r18, 2
             ADDI    r19, r19, 1
             JMP     ab_line
 ab_done:
             ADDI    r1, r0, 8
-            ADDI    r2, r0, 22
+            ADDI    r2, r0, 28
             ADDI    r3, r0, 56
             ADDI    r4, r0, 7
             MOV     r5, r26
             JAL     r16, box
 
             ADDI    r1, r0, 12
-            ADDI    r2, r0, 24
+            ADDI    r2, r0, 30
             MOV     r5, r26
             LA      r4, c_2
             JAL     r16, puts
             ADDI    r1, r0, 12
-            ADDI    r2, r0, 25
+            ADDI    r2, r0, 32
             MOV     r5, r24
             LA      r4, c_3
             JAL     r16, puts
             ADDI    r1, r0, 12
-            ADDI    r2, r0, 26
+            ADDI    r2, r0, 33
             MOV     r5, r27
             LA      r4, s_penn
             JAL     r16, puts
@@ -337,13 +337,13 @@ screen_map:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_map_h1
             JAL     r16, puts
 
             LA      r19, map_body
-            ADDI    r18, r0, 10
+            ADDI    r18, r0, 7
 map_line:
             LW      r22, r19, 0
             CMP     r22, r0
@@ -353,7 +353,7 @@ map_line:
             MOV     r5, r24
             MOV     r4, r22
             JAL     r16, puts
-            ADDI    r18, r18, 1
+            ADDI    r18, r18, 2
             ADDI    r19, r19, 1
             JMP     map_line
 map_done:
@@ -1355,18 +1355,19 @@ draw_desktop:
             LA      r4, s_owner
             JAL     r16, puts
 
-            ADDI    r1, r0, 0           ; second bar: the claim
-            ADDI    r2, r0, 1
+            ; row 1 stays empty — a beat between the title and the claim
+            ADDI    r1, r0, 0           ; claim bar
+            ADDI    r2, r0, 2
             MOV     r3, r27
             ADDI    r4, r0, 80
             JAL     r16, fill
             ADDI    r1, r0, 2
-            ADDI    r2, r0, 1
+            ADDI    r2, r0, 2
             MOV     r5, r27
             LA      r4, s_claim
             JAL     r16, puts
             ADDI    r1, r0, 68
-            ADDI    r2, r0, 1
+            ADDI    r2, r0, 2
             MOV     r5, r27
             LA      r4, s_ready
             JAL     r16, puts
@@ -1382,32 +1383,33 @@ draw_desktop:
             LA      r4, s_keys
             JAL     r16, puts
 
-            ADDI    r1, r0, 4           ; menu frame — nine entries
-            ADDI    r2, r0, 3
+            ; menu frame — nine entries, one blank row between each
+            ADDI    r1, r0, 4
+            ADDI    r2, r0, 4
             ADDI    r3, r0, 34
-            ADDI    r4, r0, 12
+            ADDI    r4, r0, 22
             MOV     r5, r27
             JAL     r16, box
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 3
+            ADDI    r2, r0, 4
             MOV     r5, r26
             LA      r4, s_menu_hd
             JAL     r16, puts
 
             ADDI    r1, r0, 40          ; the machine card
-            ADDI    r2, r0, 3
+            ADDI    r2, r0, 4
             ADDI    r3, r0, 36
-            ADDI    r4, r0, 12
+            ADDI    r4, r0, 22
             MOV     r5, r27
             JAL     r16, box
             ADDI    r1, r0, 42
-            ADDI    r2, r0, 3
+            ADDI    r2, r0, 4
             MOV     r5, r26
             LA      r4, s_card_hd
             JAL     r16, puts
 
             LA      r19, card_body
-            ADDI    r18, r0, 5
+            ADDI    r18, r0, 6          ; first card line; +2 each pass
 dd_card:
             LW      r22, r19, 0
             CMP     r22, r0
@@ -1417,12 +1419,12 @@ dd_card:
             MOV     r5, r24
             MOV     r4, r22
             JAL     r16, puts
-            ADDI    r18, r18, 1
+            ADDI    r18, r18, 2
             ADDI    r19, r19, 1
             JMP     dd_card
 dd_card_done:
             ADDI    r1, r0, 42
-            ADDI    r2, r0, 6
+            ADDI    r2, r0, 8           ; c_2 — name in gold
             MOV     r5, r26
             LA      r4, c_2
             JAL     r16, puts
@@ -1454,6 +1456,7 @@ screen_frame:
             LA      r4, s_owner
             JAL     r16, puts
 
+            ; row 1 stays empty under the title bar
             ADDI    r1, r0, 0
             ADDI    r2, r0, 59
             MOV     r3, r23
@@ -1466,14 +1469,14 @@ screen_frame:
             JAL     r16, puts
 
             ADDI    r1, r0, 4
-            ADDI    r2, r0, 6
+            ADDI    r2, r0, 3           ; panel sits under the air beneath the title
             ADDI    r3, r0, 72
-            ADDI    r4, r0, 50
+            ADDI    r4, r0, 53
             MOV     r5, r27
             JAL     r16, box
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 6
+            ADDI    r2, r0, 3
             MOV     r5, r26
             MOV     r4, r22
             JAL     r16, puts
@@ -1500,6 +1503,7 @@ footer:
             JR      r16
 
 ; draw_menu: n_menu entries inside the frame, r20 highlighted.
+; Row = 6 + 2*index so every entry has a blank line under it.
 draw_menu:
             MOV     r17, r16
             ZERO    r18                 ; entry index
@@ -1510,8 +1514,9 @@ dm_entry:
             CMP     r18, r7
             BGE     dm_done
 
-            ADDI    r2, r0, 5
-            ADD     r2, r2, r18         ; row
+            ADDI    r2, r0, 6
+            ADD     r2, r2, r18
+            ADD     r2, r2, r18         ; row = 6 + 2*index
 
             ; wipe the line so the old highlight does not linger
             ADDI    r1, r0, 5
@@ -1523,13 +1528,15 @@ dm_entry:
             BNE     dm_plain
             ; selected: paint the bar, then a caret
             ADDI    r1, r0, 5
-            ADDI    r2, r0, 5
+            ADDI    r2, r0, 6
+            ADD     r2, r2, r18
             ADD     r2, r2, r18
             MOV     r3, r23
             ADDI    r4, r0, 32
             JAL     r16, fill
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 5
+            ADDI    r2, r0, 6
+            ADD     r2, r2, r18
             ADD     r2, r2, r18
             ADDI    r3, r0, 0x10        ; right-pointing caret
             OR      r3, r3, r23
@@ -1543,7 +1550,8 @@ dm_plain:
             MOV     r5, r24
 dm_text:
             ADDI    r1, r0, 8
-            ADDI    r2, r0, 5
+            ADDI    r2, r0, 6
+            ADD     r2, r2, r18
             ADD     r2, r2, r18
             LW      r4, r19, 0
             JAL     r16, puts

@@ -26,16 +26,26 @@ The whole Tomato32 CPU on a **Nexys A7-100T**, running **Tomato OS** on a monito
 
 ```
  TOMATO OS  v1.0                            Designed by Tyrone Marhguy
+
  dual-LUT3 ALU  -  524288 ops  -  32768 GPR 3R1W             READY
+
  ┌ MAIN MENU ─────────────────┐  ┌ THE MACHINE ──────────────┐
  │ ▶ System info              │  │ Designed by               │
+ │                            │  │                           │
  │   Palette                  │  │ TYRONE MARHGUY            │
+ │                            │  │                           │
  │   Font chart               │  │ Penn Engineering  2028    │
+ │                            │  │                           │
  │   Keypad test              │  │                           │
- │   Fibonacci                │  │ dual-LUT3 ALU, 524288 ops │
- │   Snake                    │  │ 32768 GPR, banked, 3R1W   │
- │   Tetris                   │  │ 512-row modular microcode │
- │   About Tomato             │  └───────────────────────────┘
+ │                            │  │ dual-LUT3 ALU, 524288 ops │
+ │   Fibonacci                │  │                           │
+ │                            │  │ 32768 GPR, banked, 3R1W   │
+ │   Snake                    │  │                           │
+ │                            │  │ 512-row modular microcode │
+ │   Tetris                   │  └───────────────────────────┘
+ │                            │
+ │   About Tomato             │
+ │                            │
  │   Memory map               │
  └────────────────────────────┘
  ↑ ↓ move    ENTER select    ← back
@@ -97,11 +107,17 @@ Then always through `env.sh`, which layers the three tool sources onto `PATH`:
 
 The first build also generates the **chipdb** for the part (several minutes, a few GB of RAM), cached in `build/chipdb/` afterwards. Steady-state rebuilds are a few minutes.
 
-Changed the OS or the microcode? Re-burn before synthesising — both are compiled into the RTL as literal Verilog, not loaded from a file at runtime:
+**Tomato OS and the microcode are baked into the bitstream** as literal Verilog (`rtl/burn/*.vh`), not loaded from a file at runtime. After editing `software/os/tomato_os.s` (or the ISA / microcode), re-burn **before** synthesising:
 
 ```bash
-make burn BOOT=tomato_os     # → rtl/burn/dmem_init.vh + microcode in control.v
+make burn BOOT=tomato_os     # → rtl/burn/dmem_*.vh + tb/mem/tomato_os.mem
+../scripts/env.sh make fpga
+../scripts/env.sh make program
 ```
+
+Board RTL only (keypad, video, top)? Skip burn — `make fpga` + `make program` is enough. Changing both OS and keypad in one session: burn, then fpga, then program.
+
+The D-pad keypad (`rtl/board/keypad.v`) integrates contact bounce (~16 ms) and emits a **one-clock** press edge so one push is one key. Enter never auto-repeats; arrows do, for Snake / Tetris. If menus bounce or About flickers, reflash a bitstream that includes that module — reloading only `tomato_os.mem` will not fix it.
 
 ---
 

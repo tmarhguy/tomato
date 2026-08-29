@@ -545,22 +545,23 @@ h3 {
 
 .dispatch-sum__num {
   margin: 0;
-  font-family: var(--nameplate);
+  font-family: var(--gothic);
   font-size: clamp(2.75rem, 6.5vw, 4.25rem);
-  font-weight: 900;
-  line-height: 0.9;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
   color: var(--red);
 }
 
 .dispatch-sum__num span {
   display: inline-block;
-  margin-left: 0.12em;
+  margin-left: 0.18em;
   font-family: var(--gothic);
-  font-size: 0.38em;
+  font-size: 0.42em;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  vertical-align: 0.35em;
+  letter-spacing: 0.04em;
+  vertical-align: 0.28em;
   color: var(--ink);
 }
 
@@ -1079,19 +1080,21 @@ html[data-theme=dark] .lead-gif.is-live .lead-clip--night {
 }
 
 .axiom code {
-  display: block;
-  margin: .55rem 0;
-  padding: .55rem .65rem;
+  display: inline;
+  margin: 0;
+  padding: .08em .28em;
   font-family: ui-monospace, Menlo, Consolas, monospace;
-  font-size: .72rem;
+  font-size: .82em;
   font-weight: 600;
   letter-spacing: 0;
-  line-height: 1.4;
-  text-align: left;
+  line-height: inherit;
+  text-align: inherit;
   color: var(--ink);
   background: var(--wash);
   border: 1px solid var(--dust);
-  overflow-x: auto;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
 }
 
 .inside-mast {

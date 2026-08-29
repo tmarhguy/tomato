@@ -26,7 +26,7 @@ The keyboard matrix has limited the system input that I can reliably test. I am 
 
 While this is exciting, I plan to reach the ultimate test, which is showing the steps it takes to actually compute operations. 
 
-**The reality here is Tomato is not another RISC-V.** Its quirks alone point to a machine designed for extreme throughput at the lowest frequencies, doing things like `A + (B AND C)` in one cycle effortlessly. It is further running with 256 General Purpose Registers and extreme parametrization to allow other ISAs to natively run on it rather than using naive emulation.
+**The reality here is Tomato is not another RISC-V.** Its quirks alone point to a machine designed for extreme throughput at the lowest frequencies, doing things like `A + (B AND C)` in one cycle effortlessly. It is further running with **32,768 general-purpose registers** and extreme parametrization to allow other ISAs to natively run on it rather than using naive emulation.
 
 So, I will design it to show how it crunches through what are normally multi-instructions in the lowest step. 
 
