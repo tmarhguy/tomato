@@ -42,7 +42,7 @@ The dual-LUT slice is **[on the iron](<docs/log/2026-08-18 - First Phase of Asse
 
 ---
 
-## It boots
+## It boots!
 
 Tomato runs as synthesizable Verilog on a Nexys A7, paints a 640×480 monitor, and boots an OS written in Tomato assembly.
 
