@@ -22,19 +22,26 @@ The whole Tomato32 CPU on a **Nexys A7-100T**, running **Tomato OS** on a monito
 
 ## What is on the screen
 
-[Tomato OS](../../../software/os/tomato_os.s) is ~430 instructions of Tomato assembly. It clears an 80×60 text field, paints a title bar and a footer, and puts up a five-entry menu you move through with the buttons:
+[Tomato OS](../../../software/os/tomato_os.s) paints an 80×60 text field and a menu you drive with the Nexys D-pad. **N17 (center) is Enter** — it opens the highlighted entry. Up/down move the highlight; left goes back; left/right steer in the games.
 
 ```
- TOMATO OS  v1   32-bit discrete CPU   Nexys A7-100T
- ┌ MAIN MENU ─────────────────────────┐
- │ ▶ System info                      │
- │   Palette                          │
- │   Font chart                       │
- │   Keypad test                      │
- │   About Tomato                     │
- └────────────────────────────────────┘
- ↑ ↓ move    ENTER select
+ TOMATO OS  v1.0                            Designed by Tyrone Marhguy
+ dual-LUT3 ALU  -  524288 ops  -  256 GPR 3R1W              READY
+ ┌ MAIN MENU ─────────────────┐  ┌ THE MACHINE ──────────────┐
+ │ ▶ System info              │  │ Designed by               │
+ │   Palette                  │  │ TYRONE MARHGUY            │
+ │   Font chart               │  │ Penn Engineering  2028    │
+ │   Keypad test              │  │                           │
+ │   Fibonacci                │  │ dual-LUT3 ALU, 524288 ops │
+ │   Snake                    │  │ 256 GPR, 8 banks, 3R1W    │
+ │   Tetris                   │  │ 512-row modular microcode │
+ │   About Tomato             │  └───────────────────────────┘
+ │   Memory map               │
+ └────────────────────────────┘
+ ↑ ↓ move    ENTER select    ← back
 ```
+
+A boot splash (gold mark, **TOMATO OS v1.0**, progress bar) runs once before this desktop. System info is the spec sheet. About is signed. Fibonacci / Snake / Tetris play from the D-pad. The Nexys 7-seg follows the last nonzero writeback (or store), so it is not stuck at zero while the shell waits for a key.
 
 Every screen is drawn by the CPU storing words into the framebuffer window. Nothing about the display is hardwired into the machine — the scanout just reads tile RAM.
 
