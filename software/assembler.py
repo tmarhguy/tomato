@@ -22,9 +22,11 @@ Directives:
 
 Pseudos:
   LA rd, label     — ADDI rd, r0, addr (label must fit signed imm13)
+  plus docs/isa/tomato.v1.pseudo.csv (CALL, BEQZ, LI, …)
 
 Usage:
   python3 software/assembler.py software/asm/counter.s -o hardware/fpga/core/tb/mem/counter.mem
+  python3 software/assembler.py --selftest
 """
 from __future__ import annotations
 
@@ -37,6 +39,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 V1 = ROOT / "docs/isa/tomato.v1.csv"
+PSEUDO = ROOT / "docs/isa/tomato.v1.pseudo.csv"
 
 REG = re.compile(r"^r(\d+)$", re.I)
 IDENT = re.compile(r"^[A-Za-z_.][A-Za-z0-9_.]*$")
@@ -98,6 +101,42 @@ def load_opcodes():
             "status": r.get("status", ""),
         }
     return ops
+
+
+def load_pseudos(ops: dict):
+    """Assembler vocabulary from docs/isa/tomato.v1.pseudo.csv.
+
+    Each entry expands into instructions that are already burned, so this table
+    can grow without touching the ROM. Returns {mnemonic: (argc, steps)} where
+    steps is a list of (mnemonic, [operand templates]).
+    """
+    if not PSEUDO.exists():
+        return {}
+    body = "\n".join(l for l in PSEUDO.read_text().splitlines() if not l.startswith("#"))
+    out = {}
+    for r in csv.DictReader(io.StringIO(body)):
+        m = r["mnemonic"].strip().upper()
+        if not m:
+            continue
+        if m in ops:
+            raise ValueError(f"pseudo {m} would shadow burned opcode {m}")
+        steps = []
+        for piece in r["expands"].split("|"):
+            parts = [p for p in re.split(r"[\s,]+", piece.strip()) if p]
+            if not parts:
+                raise ValueError(f"pseudo {m}: empty expansion step")
+            steps.append((parts[0].upper(), parts[1:]))
+        if int(r["words"]) != len(steps):
+            raise ValueError(
+                f"pseudo {m}: words={r['words']} but expansion has {len(steps)} instructions"
+            )
+        argc = 0
+        for _, toks in steps:
+            for t in toks:
+                if t.startswith("$"):
+                    argc = max(argc, int(t[1:]))
+        out[m] = (argc, steps)
+    return out
 
 
 def parse_reg(tok: str) -> int:
@@ -198,6 +237,7 @@ def tokenize_line(line: str):
 
 def assemble(src: str, ops: dict) -> list[int]:
     """Assemble to a dense word image (NOP-filled holes from .org)."""
+    pseudos = load_pseudos(ops)
     lines = src.splitlines()
     labels: dict[str, int] = {}
     items = []  # (line_no, mnem, operands, addr)
@@ -260,6 +300,25 @@ def assemble(src: str, ops: dict) -> list[int]:
             except ValueError as e:
                 raise AsmError(i, str(e)) from e
             pc += n
+            continue
+        if mnem in pseudos:
+            argc, steps = pseudos[mnem]
+            if len(operands) != argc:
+                raise AsmError(i, f"{mnem} takes {argc} operand(s), got {len(operands)}")
+            base = pc
+            for smnem, stoks in steps:
+                sub = []
+                for t in stoks:
+                    if t.startswith("$"):
+                        sub.append(operands[int(t[1:]) - 1])
+                    elif t.startswith("@+"):
+                        name = f".Lpx{base:x}_{t[2:]}"
+                        labels[name] = base + int(t[2:])
+                        sub.append(name)
+                    else:
+                        sub.append(t)
+                items.append((i, smnem, sub, pc))
+                pc += 1
             continue
         items.append((i, mnem, operands, pc))
         pc += 1
@@ -454,14 +513,72 @@ def write_mem(path: Path, words: list[int], fmt: str):
             f.write(f"{w:08x}\n")
 
 
+def selftest(ops: dict) -> int:
+    """Every pseudo must assemble to exactly its documented expansion."""
+    pseudos = load_pseudos(ops)
+    cases = {
+        "LI":   (["r5", "100"],        ["ADDI r5, r0, 100"]),
+        "CLR":  (["r5"],               ["ZERO r5"]),
+        "NEG":  (["r5", "r6"],         ["SUB r5, r0, r6"]),
+        "INC":  (["r5"],               ["ADDI r5, r5, 1"]),
+        "DEC":  (["r5"],               ["ADDI r5, r5, -1"]),
+        "TST":  (["r6"],               ["CMP r6, r0"]),
+        "CALL": (["target"],           ["JAL r16, target"]),
+        "BRA":  (["target"],           ["JMP target"]),
+        "ASL":  (["r5", "r6", "r7"],   ["LSL r5, r6, r7"]),
+        "BZ":   (["target"],           ["BEQ target"]),
+        "BNZ":  (["target"],           ["BNE target"]),
+        "BMI":  (["target"],           ["BLT target"]),
+        "BPL":  (["target"],           ["BGE target"]),
+        "BEQZ": (["r6", "target"],     ["CMP r6, r0", "BEQ target"]),
+        "BNEZ": (["r6", "target"],     ["CMP r6, r0", "BNE target"]),
+        "BLTZ": (["r6", "target"],     ["CMP r6, r0", "BLT target"]),
+        "BGEZ": (["r6", "target"],     ["CMP r6, r0", "BGE target"]),
+        "BLE":  (["target"],           ["BEQ target", "BLT target"]),
+        "BGT":  (["target"],           ["BEQ skip", "BGE target", "skip:"]),
+    }
+    missing = sorted(set(pseudos) - set(cases))
+    if missing:
+        print(f"FAIL: pseudo(s) with no selftest case: {', '.join(missing)}")
+        return 1
+
+    bad = 0
+    for mnem in pseudos:
+        argv, expansion = cases[mnem]
+        got = assemble(f"{mnem} {', '.join(argv)}\ntarget: NOP\n", ops)
+        want = assemble("\n".join(expansion) + "\ntarget: NOP\n", ops)
+        n = len(pseudos[mnem][1])
+        if got[:n] != want[:n]:
+            print(
+                f"FAIL: {mnem} -> {[f'{w:08x}' for w in got[:n]]} "
+                f"!= {[f'{w:08x}' for w in want[:n]]}"
+            )
+            bad += 1
+    if bad:
+        print(f"FAIL: {bad} pseudo(s) do not match their expansion")
+        return 1
+    print(f"PASS: {len(pseudos)} pseudo-instructions match their documented expansion")
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("source", type=Path, help=".s assembly file")
+    ap.add_argument("source", type=Path, nargs="?", help=".s assembly file")
     ap.add_argument("-o", "--output", type=Path, help="output .mem or .hex")
     ap.add_argument("--list", action="store_true", help="print listing to stdout")
+    ap.add_argument(
+        "--selftest",
+        action="store_true",
+        help="check every pseudo against its documented expansion, then exit",
+    )
     args = ap.parse_args()
 
     ops = load_opcodes()
+
+    if args.selftest:
+        return selftest(ops)
+    if args.source is None:
+        ap.error("source is required unless --selftest")
     src = args.source.read_text()
     try:
         words = assemble(src, ops)
