@@ -173,7 +173,7 @@ module os_tb;
 
         $sformat(path, "tb/mem/%0s.mem", prog);
         $readmemh(path, uut.dmem);
-        uut.dmem[14'h0E03] = 32'd1;     // tune_boot: skip the splash delay
+        uut.dmem[14'h0F03] = 32'd1;     // tune_boot: skip the splash delay
 
         tick; tick;
         reset = 0;

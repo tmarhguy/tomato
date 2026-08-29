@@ -1,7 +1,7 @@
 /*
  * Tomato OS — enter selects, then Fibonacci / Snake / Tetris actually play.
  *
- * Tunables at 0xE00 are poked to 1 so a world step is microseconds, not a
+ * Tunables at 0xF00 are poked to 1 so a world step is microseconds, not a
  * fifth of a second. The OS code path is otherwise identical to the board.
  */
 `timescale 1ns/1ps
@@ -186,7 +186,7 @@ module games_tb;
         end
     endtask
 
-    localparam TUNE = 14'h0E00;
+    localparam TUNE = 14'h0F00;
 
     initial begin
         for (n = 0; n < 256; n = n + 1) uut.regs0.mem[n] = 32'h0;
@@ -226,21 +226,21 @@ module games_tb;
         repeat (4) press(8'h1F);
         press(8'h0D);
         wait_str(7, 3, "FIBONACCI", 9, "fib title");
-        wait_ch(10, 9, "1", "fib n tens");
-        wait_ch(11, 9, "0", "fib n ones");
+        wait_ch(10, 8, "1", "fib n tens");
+        wait_ch(11, 8, "0", "fib n ones");
         wait_ch(13, 11, "5", "fib F(10) tens");
         wait_ch(14, 11, "5", "fib F(10) ones");
         $display("fib: F(10)=55");
 
         press(8'h1E);                    // up → n=11
-        wait_ch(11, 9, "1", "fib n=11");
+        wait_ch(11, 8, "1", "fib n=11");
         wait_ch(13, 11, "8", "fib F(11) tens");
         wait_ch(14, 11, "9", "fib F(11) ones");
         $display("fib: up → F(11)=89");
 
         press(8'h10);                    // right → +10 → n=21
-        wait_ch(10, 9, "2", "fib n=21 tens");
-        wait_ch(11, 9, "1", "fib n=21 ones");
+        wait_ch(10, 8, "2", "fib n=21 tens");
+        wait_ch(11, 8, "1", "fib n=21 ones");
         $display("fib: right → n=21");
 
         press(8'h11);
