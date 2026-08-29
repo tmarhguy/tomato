@@ -1,3 +1,4 @@
+ 
 
 <h1 align="center">Tomato - 32b Discrete Computer</h1>
 <p align="center"><strong>32-bit Computer. The oddest machine built in a dorm.</strong></p>
@@ -18,10 +19,10 @@ But for a solo dorm-room project, the manufacturing costs ballooned exponentiall
 The paper: **[tomato.tmarhguy.com](https://tomato.tmarhguy.com/)** · the site: **[web/README](web/README.md)** · the vault: **[docs/log/](docs/log/)**.
 
 <p align="center">
-  <img src="web/assets/pcb/immersion_black.webp" alt="Tomato 07_alu — Dual-LUT slice in the round" width="48%" />
-  <img src="web/assets/assembly/half-soldered-plate.webp" alt="Tomato 07_alu — first population, next to Digital" width="48%" />
+  <video src="web/assets/os/hdmi-demo-games-ui.mp4" poster="web/assets/os/hdmi-demo-poster.jpg" controls playsinline muted loop width="53%"></video>
+  <img src="web/assets/assembly/half-soldered-plate.webp" alt="Tomato 07_alu — first population, next to Digital" width="30%" />
 </p>
-<p align="center"><em>Lot 07 in the round &amp; on the iron · Dual-LUT slice · <a href="https://tomato.tmarhguy.com/playground.html">playground</a></em></p>
+<p align="center"><em>Tomato OS on HDMI · Lot 07 on the iron · <a href="https://tomato.tmarhguy.com/software.html">software</a> · <a href="https://tomato.tmarhguy.com/playground.html">playground</a></em></p>
 
 Tomato grew as a revolution: a **65k operational space** (**~3,500×** operation increase than the earlier 8bit board for less area) from a **[dual-LUT3](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>)** fused into an adder, built for linear scale. The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **[512-row opcode ROM](docs/isa/tomato.v1.csv)** fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
 
@@ -36,6 +37,24 @@ The dual-LUT slice is **[on the iron](<docs/log/2026-08-18 - First Phase of Asse
 | **Ops Space** | 19 operations | ~65k combinations | **~3,500×** expansion |
 | **Footprint** | Single massive 270×270 mm PCB | Modular 4-bit slice boards | Better routing, linear cost |
 | **Control** | Fixed decode logic | 512-row microcode ROM | Programmable ISA overlay |
+
+---
+
+## It boots
+
+Tomato runs as synthesizable Verilog on a Nexys A7, paints a 640×480 monitor, and boots an OS written in Tomato assembly.
+
+**[Tomato OS](https://tomato.tmarhguy.com/software.html)** is an 80×60 text desktop: menu, machine card, and six screens — *What is Tomato*, *Fibonacci*, *Snake*, *Tetris*, *Racer*, and *About Tomato*. Five buttons are the keyboard. Every instruction that draws the screen is a row of [tomato.v1.csv](docs/isa/tomato.v1.csv).
+
+| Layer     | What it is                                                | Where                                                        |
+| --------- | --------------------------------------------------------- | ------------------------------------------------------------ |
+| CPU       | Multi-cycle Von Neumann core, 6.25 MHz on Artix-7          | [hardware/fpga/core/rtl/](hardware/fpga/core/rtl/)            |
+| ISA       | 51 burned opcodes out of 512 ROM rows                      | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv)              |
+| Vocabulary| 19 pseudo-instructions that expand into burned opcodes      | [docs/isa/tomato.v1.pseudo.csv](docs/isa/tomato.v1.pseudo.csv) |
+| Assembler | Two-pass, driven by those CSVs                             | [software/assembler.py](software/assembler.py)                |
+| OS        | Desktop, menu, and four games, in Tomato assembly          | [software/os/tomato_os.s](software/os/tomato_os.s)            |
+| Tests     | 20 module benches plus boot, menu, and games end-to-end    | `make -C hardware/fpga/core test`                             |
+| Paper     | Architecture · ISA · Software                              | [tomato.tmarhguy.com](https://tomato.tmarhguy.com/)           |
 
 ---
 
@@ -161,6 +180,7 @@ Per bit-slice there are **524,288** theoretical `(lutA, lutB, csel)` combination
 | Logic / timing     | [hardware/digital/modules/*.dig](hardware/digital/modules/) | KiCad bring-up, Verilog export                          |
 | Opcode mnemonics   | [docs/opcode-map.csv](docs/opcode-map.csv)                  | Assembly reference, ROM programming                     |
 | Microcode fields   | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv)            | Single ISA / ROM authority                              |
+| Assembler vocabulary | [docs/isa/tomato.v1.pseudo.csv](docs/isa/tomato.v1.pseudo.csv) | Pseudo-instructions — no ROM rows, no new silicon    |
 | LUT programs       | [docs/isa/lut.csv](docs/isa/lut.csv)                        | ALU primitive catalog                                   |
 | Control ROM images | [microcode/*.hex](microcode/)                               | Digital control boards                                  |
 | Physical PCB       | [hardware/kicad/boards/](hardware/kicad/boards/)            | Fab / assembly                                          |
@@ -181,12 +201,12 @@ tomato/
 ├── hardware/
 │   ├── digital/modules/  # Digital schematics (.dig) — logic source of truth
 │   ├── kicad/boards/     # Numbered PCB designs (01_alu … 08_display)
-│   ├── fpga/             # Nexys A7 — core (CPU + Tomato OS), hdmi_test (DVI PMOD)
+│   ├── fpga/             # Vivado projects (FSM, hex display)
 │   └── verilog/          # Export policy (read-only netlists)
 ├── microcode/            # Per-board control ROM hex images
 ├── verification/         # ALU harness: formal, directed, UVM
-├── firmware/             # Stub — not started
-├── software/             # Stub — not started
+├── software/             # assembler.py, os/tomato_os.s (Tomato OS), asm/ demos
+├── firmware/             # Stub — the discrete machine's own boot ROM
 └── web/                  # Broadsheet — tomato.tmarhguy.com (assets/ = all plates)
 ```
 
@@ -220,8 +240,8 @@ ALU verification ladder: `alu-1b-final` → 2x `alu-4b` → 4x `alu-8b` → `alu
 | 08    | [08_alu_fsm/](hardware/kicad/boards/08_alu_fsm/), [08_display/](hardware/kicad/boards/08_display/) | FSM bring-up, display                                                                     | In design         |
 
 <p align="center">
-  <img src="web/assets/pcb/alu_8b_board.webp" alt="Tomato ALU PCB — board render" width="47%" />
-  <img src="web/assets/pcb/alu_8b_pcb.jpg" alt="Tomato ALU PCB — top-layer layout" width="50%" />
+  <img src="media/kicad/07_alu/pcb/alu_8b_board.png" alt="Tomato ALU PCB — board render" width="47%" />
+  <img src="media/kicad/07_alu/pcb/alu_8b_pcb.png" alt="Tomato ALU PCB — top-layer layout" width="50%" />
 </p>
 <p align="center"><em>Lot 07 · left: board render · right: routed top copper · two 4-bit cells, flag logic, opcode/operand LED bring-up (<a href="hardware/kicad/boards/07_alu/README.md">full ALU board doc</a>)</em></p>
 
@@ -254,7 +274,7 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 
 ## Project status
 
-**As of July 2026**
+**As of August 2026**
 
 | Area                          | Status                | Notes                                                                             |
 | ----------------------------- | --------------------- | --------------------------------------------------------------------------------- |
@@ -266,7 +286,10 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 | ALU verification              | Passing on 32b export | [verification/](verification/)                                                     |
 | ALU ASIC characterization     | Sky130 HD mapped      | [6531 µm², 512 cells, ~210 MHz est.](verification/synthesis/README.md)           |
 | Peripheral PCBs               | In design             | Register, memory, PC, data bus                                                    |
-| Firmware / software           | Not started           | README stubs only                                                                 |
+| FPGA core                     | **Boots**       | CPU + VGA + keypad on Nexys A7 — [fpga/core](hardware/fpga/core/README.md)         |
+| Tomato OS                     | **Running**     | Desktop, six screens, four games — [tomato_os.s](software/os/tomato_os.s)          |
+| Assembler + ISA vocabulary    | Shipping              | 51 opcodes, 19 pseudos — [software/](software/README.md)                           |
+| Firmware (discrete boot ROM)  | Not started           | README stub only                                                                  |
 
 **Bring-up direction:** Build peripherals and modular control boards — not a throwaway FSM that becomes Tomato anyway. The ALU PCB can be exercised through `alu-display-control` and simulation vectors while fab runs ([lingering catch](<docs/log/2026-07-31%20-%20The%20lingering%20thoughts.md>)).
 
@@ -296,14 +319,22 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 
 ### Subsystem READMEs
 
-| README                                                    | Content                                        |
-| --------------------------------------------------------- | ---------------------------------------------- |
-| [verification/README.md](verification/README.md)           | ALU sign-off harness                           |
-| [hardware/kicad/README.md](hardware/kicad/README.md)       | KiCad overview                                 |
+Each important README follows the same shape as this file: title, one-line pitch, **one or two badges**, short intro, **Project map** links, then the body.
+
+| README | Content |
+|--------|---------|
+| [docs/README.md](docs/README.md) | Doc index — journal, ISA, history |
+| [docs/isa/README.md](docs/isa/README.md) | Burn ROM + assembler vocabulary |
+| [software/README.md](software/README.md) | Assembler, ISA vocabulary, Tomato OS |
+| [hardware/README.md](hardware/README.md) | Digital · KiCad · FPGA · Verilog policy |
+| [hardware/digital/README.md](hardware/digital/README.md) | Digital simulation |
+| [hardware/kicad/README.md](hardware/kicad/README.md) | KiCad lots overview |
 | [07_alu board doc](hardware/kicad/boards/07_alu/README.md) | Dual-LUT ALU PCB — schematics, layout, pinout |
-| [hardware/digital/README.md](hardware/digital/README.md)   | Digital simulation                             |
-| [hardware/fpga/README.md](hardware/fpga/README.md)       | Nexys A7 — Tomato OS on a monitor, open-source flow |
-| [microcode/README.md](microcode/README.md)                 | Control ROM packing                            |
+| [hardware/fpga/README.md](hardware/fpga/README.md) | Nexys A7 — open-source flow |
+| [hardware/fpga/core/README.md](hardware/fpga/core/README.md) | The core, the OS, and what is on the screen |
+| [verification/README.md](verification/README.md) | ALU sign-off harness |
+| [microcode/README.md](microcode/README.md) | Control ROM packing |
+| [web/README.md](web/README.md) | Broadsheet / paper |
 
 ### Full design journal
 
@@ -318,6 +349,7 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 | Architecture / tradeoff | New entry in`docs/log/` — the default way decisions get made                       |
 | Opcode / mnemonic       | Update`opcode-map.csv` and microcode hex                                            |
 | Microcode fields        | Edit`docs/isa/tomato.v1.csv`, then `python3 tools/gen_microcode_v1.py --pack-rom` |
+| Assembler vocabulary    | Add a row to`docs/isa/tomato.v1.pseudo.csv`, then `python3 software/assembler.py --selftest` |
 | Logic / timing          | Edit Digital`.dig` → export Verilog → `make signoff`                            |
 | Physical board          | KiCad in`hardware/kicad/boards/`                                                    |
 
@@ -343,7 +375,7 @@ Tomato project.
 
 Tomato is a solo hardware architecture project: discrete-logic CPU design, KiCad PCBs, Digital simulation, and a public build log. Questions, collabs, or “why did you route it that way?” — reach out.
 
-[![Email](https://img.shields.io/badge/Email-tmarhguy@gmail.com-D14836?logo=gmail&logoColor=white)](mailto:tmarhguy@gmail.com) [![Edu Email](https://img.shields.io/badge/Email-tmarhguy@engineering.upenn.edu-011F5B)](mailto:tmarhguy@engineering.upenn.edu) [![Twitter](https://img.shields.io/badge/Twitter-@marhguy__tyrone-1DA1F2?logo=twitter&logoColor=white)](https://twitter.com/marhguy_tyrone)
+[![Email](https://img.shields.io/badge/Email-tmarhguy@gmail.com-D14836?logo=gmail&logoColor=white)](mailto:tmarhguy@gmail.com) [![Edu Email](https://img.shields.io/badge/Email-tmarhguy@engineering.upenn.edu-011F5B)](mailto:tmarhguy@engineering.upenn.edu)[![Twitter](https://img.shields.io/badge/Twitter-@marhguy__tyrone-1DA1F2?logo=twitter&logoColor=white)](https://twitter.com/marhguy_tyrone)
 
  [![Instagram](https://img.shields.io/badge/Instagram-@tmarhguy-E4405F?logo=instagram&logoColor=white)](https://instagram.com/tmarhguy) [![Substack](https://img.shields.io/badge/Substack-@tmarhguy-FF6719?logo=substack&logoColor=white)](https://substack.com/@tmarhguy) [![Paper](https://img.shields.io/badge/Paper-tomato.tmarhguy.com-2ea043)](https://tomato.tmarhguy.com/) [![GitHub](https://img.shields.io/badge/GitHub-@tmarhguy-181717?logo=github&logoColor=white)](https://github.com/tmarhguy)
 
