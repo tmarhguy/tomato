@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>The Tomato — A Homebrew 32-bit CPU from Discrete Logic</title>
   <meta name="description"
-    content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 524,288 operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
+    content="Tomato: ISA, assembler, and OS on a 32-bit Dual-LUT machine in 74xx copper — boots Tomato OS over HDMI." />
   <meta name="theme-color" content="#f4f0e6" />
   <script>
     (function () {
@@ -60,7 +60,7 @@
 
   <meta property="og:title" content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" />
   <meta property="og:description"
-    content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 524,288 operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
+    content="Tomato: ISA, assembler, and OS on a 32-bit Dual-LUT machine in 74xx copper — boots Tomato OS over HDMI." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
@@ -69,7 +69,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" />
   <meta name="twitter:description"
-    content="Before Tomato: 3,488 discrete CMOS transistors on alu.tmarhguy.com. After: a 524,288 operational Dual-LUT architecture in 74xx copper. 639 hours from scratch." />
+    content="Tomato: ISA, assembler, and OS on a 32-bit Dual-LUT machine in 74xx copper — boots Tomato OS over HDMI." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
@@ -82,6 +82,7 @@
           <a href="index.html" aria-current="page">Front</a>
           <a href="architecture.html">Architecture</a>
           <a href="isa.html">ISA</a>
+          <a href="software.html">Software</a>
           <a href="playground.html">Playground</a>
           <a href="journal.html">Journal</a>
           <a href="boards.html">Catalog</a>
@@ -103,7 +104,7 @@
           <h1>Tomato</h1>
         </div>
         <p class="flag-bottom">
-          <span>A Homebrew 32-bit CPU</span>
+          <span>ISA · OS · copper</span>
           <span>built from Discrete Logic</span>
           <span>74xx · Dual-LUT · CERN-OHL-P</span>
         </p>
@@ -115,19 +116,18 @@
         <div class="wrap lead-grid">
           <article class="lead-story">
             <div class="lead-hed">
-              <p class="kicker">The machine · from scratch</p>
+              <p class="kicker">The machine</p>
               <h2 class="headline">A discrete <span style="color: var(--red);">32-bit polymorphic</span> CPU.</h2>
-              <p class="deck">Dual-LUT architecture. <strong>130 billion</strong> Verilator simulation cycles. Formally
-                verified via <a href="architecture.html#verification">SymbiYosys k-induction</a>.</p>
+              <p class="deck">ISA, assembler, and Tomato OS on HDMI. Dual-LUT copper underneath — <strong>130 billion</strong> Verilator cycles, signed with <a href="architecture.html#verification">SymbiYosys k-induction</a>.</p>
               <p class="byline">By Tyrone Marhguy · Computer Engineering ’28 · Penn · 639 hours</p>
             </div>
             <ul class="pitch" aria-label="Tomato in six facts">
               <li><strong>32-bit</strong><span>homebrew CPU</span></li>
               <li><strong>74xx</strong><span>discrete copper</span></li>
               <li><strong>524,288</strong><span>ALU operations</span></li>
-              <li><strong>130B</strong><span>vectors · proved</span></li>
-              <li><strong>SymbiYosys</strong><span>formal induction</span></li>
-              <li><strong>Verilator</strong><span>UVM vs golden</span></li>
+              <li><strong>ISA</strong><span>512-row ROM</span></li>
+              <li><strong>Tomato OS</strong><span>~2.3k asm lines</span></li>
+              <li><strong>HDMI</strong><span>boots on glass</span></li>
             </ul>
             <div class="hero-prose">
               <p class="drop">When I decided to build a discrete computer on my own architecture from the transistor
@@ -235,47 +235,45 @@
                 <code>A + ((A AND B) XOR (NOT A AND C))</code>—SHA-256 Choose—in <strong>one cycle</strong>.
               </p>
               <p>The rest of this paper is optional. The facts that do not move sit in the table below: 256 GPRs,
-                parametric ISA, hardware opcode compiler, formal sign-off. The copper is lot 07.</p>
+                parametric ISA, hardware opcode compiler, formal sign-off. The copper is lot 07.
+                <a href="software.html">Tomato OS</a> paints the desktop — each glyph a native opcode.</p>
             </div>
           </div>
           <nav class="jump jump--loud" aria-label="If you only click once">
+            <a href="software.html">Software →</a>
             <a href="architecture.html">Architecture →</a>
+            <a href="isa.html">ISA →</a>
             <a href="playground.html">Run the slice →</a>
-            <a href="source.html">GitHub →</a>
-            <a href="viewer.html">Tour the board →</a>
           </nav>
         </div>
       </section>
 
 
       <section class="section" id="dispatch">
-        <div class="wrap lead-grid">
+        <div class="wrap lead-grid lead-grid--dispatch">
           <article>
-            <p class="kicker">Latest dispatch · 28 August 2026</p>
-            <h2 class="headline">Pixels on the glass.</h2>
-            <p class="deck">The 12-bit DVI PMOD is soldered, flashed, and throwing color bars on HDMI. Abstract logic finally has a screen.</p>
-            <p class="byline">From the log · FPGA · <a href="journal/pixels-on-glass.html">full entry</a></p>
-            <div class="cols">
-              <p class="drop">Adapter soup failed last week. The iCEBreaker PMOD on JC + JD did not: red, green, blue, and gray bars at 640×480, flashed from the open-source toolchain on the Mac.</p>
-              <p>Earlier: the <a href="journal/pmod-pivot.html">PMOD pivot</a>, muxes and adders down, first lights, and an external plan to drive the
-                datapath at about 1&nbsp;Hz. The vault has thirty dispatches now.</p>
-            </div>
-            <nav class="jump jump--loud">
-              <a href="journal/pixels-on-glass.html">Read the dispatch &rarr;</a>
-              <a href="journal.html">Open the Journal &rarr;</a>
-            </nav>
+            <p class="kicker">Latest dispatch · 29 August 2026</p>
+            <h2 class="headline">Tomato works beautifully!</h2>
+            <p class="deck">Rendering an HDMI signal and a GUI on a TV, running over 2,300 lines of assembly code as TomatoOS.</p>
+            <p class="byline">From the log · OS · <a href="journal/tomato-works.html">full entry</a></p>
+            <p class="drop">For all these months of working, I will say today was the most thrilling, mainly because I got Tomato to render an HDMI signal and a GUI on my TV (or any screen for that matter).</p>
+            <p>Earlier: <a href="journal/one-press.html">One Press, One Key</a>, pixels on the glass, and ditching Vivado for open-source synthesis. The vault has thirty-three dispatches now.</p>
           </article>
           <figure class="plate plate--ink">
-            <a href="journal/pixels-on-glass.html">
-              <img src="assets/assembly/hdmi-test.webp"
-                alt="HDMI color bars from the Nexys A7 and 12-bit DVI PMOD." width="1200"
-                height="675" loading="lazy" decoding="async" />
-            </a>
+            <video muted loop playsinline webkit-playsinline controls preload="metadata" width="1280" height="720" poster="assets/os/hdmi-demo-poster.jpg" aria-label="Tomato OS menu and games over HDMI">
+              <source src="assets/os/hdmi-demo-games-ui.mp4" type="video/mp4" />
+              <source src="assets/os/hdmi-demo-games-ui.mov" type="video/quicktime" />
+            </video>
             <figcaption class="plate-cap">
-              <span>Fig. — First pixels</span>
-              <span>hdmi_test · 640×480 color bars</span>
+              <span>Fig. — Tomato works</span>
+              <span>hdmi_test · TomatoOS GUI</span>
             </figcaption>
           </figure>
+          <nav class="jump jump--loud">
+            <a href="journal/tomato-works.html">Read the dispatch &rarr;</a>
+            <a href="software.html">Open the Software sheet &rarr;</a>
+            <a href="journal.html">Open the Journal &rarr;</a>
+          </nav>
         </div>
       </section>
 

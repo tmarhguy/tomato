@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>One Press, One Key — The Tomato</title>
+  <meta name="description" content="Fixing the keyboard matrix bounce, overcoming the memory wall, and growing the vocabulary with pseudo-instructions." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+
+  <meta property="og:title" content="One Press, One Key — The Tomato" />
+  <meta property="og:description" content="Fixing the keyboard matrix bounce, overcoming the memory wall, and growing the vocabulary with pseudo-instructions." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/one-press.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/fpga-board-pmod.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="One Press, One Key — The Tomato" />
+  <meta name="twitter:description" content="Fixing the keyboard matrix bounce, overcoming the memory wall, and growing the vocabulary with pseudo-instructions." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/fpga-board-pmod.webp" />
+  <meta name="author" content="Tyrone Marhguy" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../software.html">Software</a>
+          <a href="../playground.html">Playground</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Catalog</a>
+          <a href="../board.html">Orbit</a>
+          <a href="../gallery.html">Gallery</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+          <a class="is-circ" href="../viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" width="52" height="61" />
+          <a href="../index.html"><h1>Tomato</h1></a>
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>28 August 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Dispatch · OS</p>
+          <h1 class="headline">One Press, One Key</h1>
+          <p class="deck">Fixing the keyboard matrix bounce, overcoming the memory wall, and growing the vocabulary with pseudo-instructions.</p>
+          <p class="byline">28 August 2026 · from the log</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">Getting Tomato OS to work was thrilling, but it was honestly almost unusable at first. Just tapping the D-pad once would skip three or four menu entries. And clicking "About Tomato" would just flash it on screen for a frame before slamming straight back to the main menu. I initially thought it was just contact bounce or bad flash images, but I was wrong.</p>
+          <h3>Fixing the Keyboard Arithmetic</h3>
+          <p>It turns out the bug wasn't bounce at all, it was my arithmetic! The keypad debounces by sampling the buttons slowly, which is fine, but the press <em>edge</em> was the problem. I was checking if a new press happened by comparing registers that only updated once per ~10 ms sample interval. So the edge signal stayed triggered for that whole 10 ms window.</p>
+          <p>This wouldn't be an issue if the CPU just read the keypad once, but <code>menu_wait</code> polls the keyboard MMIO in a tight loop thousands of times! And because I made a fresh press outrank an unread one, the CPU just kept seeing "a fresh press is happening" for the whole window.</p>
+          <p>I wrote a quick test to poll the keypad exactly like the OS does. One clean button push gave me 256 keycodes in simulation, and on real hardware it was giving me 65,536! No wonder the menu was jumping and the About screen was blinking away (since the ENTER press was still held when About's wait loop started, it just instantly went back to the menu).</p>
+          <p>To fix this, I made sure a button level has to hold steady for twelve consecutive samples (about 16 ms) to debounce properly. But more importantly, the <em>edge</em> for "a press just happened" must be exactly one clock cycle wide. So I now check that edge against the debounced state every single clock cycle, not every sample. One clock, one edge, one keycode! The CPU can poll a million times but only sees the press once.</p>
+          <h2>The "What is Tomato" Screen</h2>
+
+          <p>With the input finally working reliably, I could redesign the menu. I cut some of the bring-up screens that were just for testing (like the font chart and keypad tester) and kept a clean six-entry menu: <strong>What is Tomato</strong>, Fibonacci, Snake, Tetris, Racer, and About Tomato.</p>
+          
+          <figure class="plate plate--ink">
+            <img src="../assets/os/about-screen.jpg" alt="About Tomato screen" loading="lazy" decoding="async" />
+            <figcaption class="plate-cap">
+              <span>About Tomato</span>
+              <span>Running on custom hardware</span>
+            </figcaption>
+          </figure>
+
+          <p>The <strong>What is Tomato</strong> screen is the one I really wanted. It lists all the quirks and features of the machine on one screen (like the 3-variable ALU, 3R-1W register file, and polymorphic LUT programs). But 17 rows of text is a lot, and I was running out of space in low memory!</p>
+
+          <figure class="plate plate--ink">
+            <img src="../assets/os/what-is-tomato-screen.jpg" alt="What is Tomato screen" loading="lazy" decoding="async" />
+            <figcaption class="plate-cap">
+              <span>What is Tomato</span>
+              <span>17 rows of text from higher memory</span>
+            </figcaption>
+          </figure>
+
+          <p>Then I realized a fun trick: only <code>LA</code> (Load Address) is limited to the lower <code>0x1000</code> range. But a pointer table entry can hold a full 32-bit address, and my <code>puts</code> routine can print from anywhere! So I just moved all the text up to <code>0x1800</code> and kept a small pointer table in low memory. It worked perfectly.</p>
+          <p>I also finally got to use color! The desktop had been monochrome, so I added cyan, navy, and gold. It looks so much better now.</p>
+          <h3>Growing the Vocabulary</h3>
+          <p>The last thing I wanted to fix was the assembly vocabulary. When writing TomatoOS, I kept having to write things like <code>CMP</code> then <code>BEQ</code> just to check if a register was zero.</p>
+          <p>I didn't want to add rows to the actual silicon instruction set (<code>tomato.v1.csv</code>), because that would change the datapath and ROM. So instead, I created <code>tomato.v1.pseudo.csv</code> to add pseudo-instructions like <code>CALL</code>, <code>BEQZ</code>, <code>LI</code>, etc. These just expand into opcodes that are already burned and tested in silicon!</p>
+          <p>I went ahead and rewrote 61 compare-and-branch pairs and 170 calls in the OS to use these new mnemonics. When I rebuilt it, the binary was byte-for-byte identical! It makes the source code so much easier to read without changing how the machine actually works.</p>
+          <p>I am genuinely happy with how things are coming together. Having a screen that says what the machine is, in color, and with reliable controls makes all these months of building worth it!</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="ditching-vivado.html"><span class="dir">Previous</span><span class="to">Exploring Beyond Vivado</span></a>
+            <a class="next" href="tomato-works.html"><span class="dir">Next</span><span class="to">Tomato works beautifully!</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art">
+<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script src="../js/mast.js" defer></script>
+</body>
+</html>

@@ -1,11 +1,7 @@
 <h1 align="center">TOMATO</h1>
 <p align="center"><strong>32-bit Computer.</strong> The oddest machine still built from chips.</p>
 
-![Status](https://img.shields.io/badge/Status-In%20print-2ea043?style=for-the-badge)
-![Form](https://img.shields.io/badge/Form-Static%20broadsheet-011F5B?style=for-the-badge)
-![Board](https://img.shields.io/badge/Board-07__alu%20KiCad%20GLB-F59E0B?style=for-the-badge&logo=kicad&logoColor=white)
-![ALU](https://img.shields.io/badge/Playground-Dual--LUT%20emulator-DC2626?style=for-the-badge)
-![Deploy](https://img.shields.io/badge/Deploy-tomato.tmarhguy.com-2563EB?style=for-the-badge)
+![Form](https://img.shields.io/badge/Form-Static%20broadsheet-011F5B) ![Deploy](https://img.shields.io/badge/Deploy-tomato.tmarhguy.com-2563EB)
 
 <p align="center">
   <img src="assets/plates/front-page.webp" alt="The Tomato, Vol. 32 No. 1 — front page, August 2026" />
@@ -18,7 +14,15 @@ This is not a SaaS product page. It is not a bloated React template. It is a **9
 **Core CPU architecture:** [Root README](../README.md)  
 **Design journal:** [docs/log/](../docs/log/)
 
+### Run locally
 
+Do not open HTML via `file://` — the GLB and ES modules need a server.
+
+```bash
+cd web && python3 -m http.server 8080
+```
+
+Then open **[http://localhost:8080/](http://localhost:8080/)**. Same thing: `cd web && npm run serve`.
 
 ---
 
@@ -79,7 +83,17 @@ The [`playground.html`](https://tomato.tmarhguy.com/playground.html) interface i
 
 ### 3. The Journal & Boards
 
-The journal takes [`docs/log/`](../docs/log/) and typesets it. It contains **25 dispatches**, tracking the build from the first gate to the chips on the copper. The **[boards catalog](https://tomato.tmarhguy.com/boards.html)** tracks all **8 lots**. Lot **07** is **on the iron**. The remaining lots (Shift, Memory, Register File, PC) are currently being plumbed.
+The journal takes [`docs/log/`](../docs/log/) and typesets it. It runs to **30 dispatches**, tracking the build from the first gate to the chips on the copper. The **[boards catalog](https://tomato.tmarhguy.com/boards.html)** tracks all **8 lots**. Lot **07** is **on the iron**. The remaining lots (Shift, Memory, Register File, PC) are currently being plumbed.
+
+### 4. The Gallery
+
+[`gallery.html`](https://tomato.tmarhguy.com/gallery.html) is the plate room — the renders, the copper, and the bench photographs, laid out as a bound pictorial rather than a grid of thumbnails.
+
+---
+
+## What the paper is now describing
+
+[`architecture.html`](https://tomato.tmarhguy.com/architecture.html), [`isa.html`](https://tomato.tmarhguy.com/isa.html), and [`software.html`](https://tomato.tmarhguy.com/software.html) cover the datapath, the ROM plus assembler vocabulary, and Tomato OS on HDMI. Source: [hardware/fpga/core](../hardware/fpga/core/README.md) · [software/os/tomato_os.s](../software/os/tomato_os.s).
 
 ---
 
@@ -90,15 +104,18 @@ web/
 ├── index.html              # The Front Page
 ├── architecture.html       # Datapath & Overlay Word
 ├── isa.html                # 512-row ROM & Mnemonic logic
+├── software.html           # Assembler, Tomato OS, stack
 ├── playground.html         # Dual-LUT Emulator
 ├── journal.html            # Log Index
-├── journal/*.html          # Typeset design logs
+├── journal/*.html          # Typeset design logs (30)
 ├── boards.html             # Lots 01–08 tracking
-├── boards/*.html           # Individual board specs
+├── boards/*.html           # Individual board specs (8)
 ├── board.html              # Embedded 3D bench
 ├── viewer.html             # Full-screen immersion viewer
+├── gallery.html            # The plate room, as a bound pictorial
 ├── source.html             # GitHub rendered in-paper
 ├── about.html              # The Correspondent
+├── 404.html                # Missing page, still in the broadsheet
 ├── css/magazine.css        # The core broadsheet stylesheet
 ├── css/viewer.css          # Black studio lighting
 ├── js/                     # Engine: bench, viewer, alu emulator, forge
@@ -111,11 +128,11 @@ web/
 
 ## Local Development & Testing
 
-**Preview:**
-Because of the GLB and ES modules, you must serve the directory (do not open via `file://`).
+**Preview** (same as [Run locally](#run-locally) above):
 
 ```bash
 cd web && python3 -m http.server 8080
+# → http://localhost:8080/
 ```
 
 **Sanity Tests:**

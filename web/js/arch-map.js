@@ -80,8 +80,16 @@
       ],
     },
     {
-      title: "Firmware",
-      items: [{ path: "architecture.html", hash: "firmware", label: "TomatoOS" }],
+      title: "Software",
+      items: [
+        { path: "software.html", label: "Tomato OS & assembler" },
+        { path: "software.html", hash: "stack", label: "The stack" },
+        { path: "software.html", hash: "os", label: "What is on the screen" },
+        { path: "software.html", hash: "glass", label: "On the glass" },
+        { path: "journal/tomato-works.html", label: "It boots on HDMI", flag: "now" },
+        { path: "journal/one-press.html", label: "One press, one key" },
+        { path: "architecture.html", hash: "firmware", label: "Firmware chapter" },
+      ],
     },
     {
       title: "Opcode & ISA",
@@ -89,6 +97,7 @@
         { path: "isa.html", label: "512-row ROM" },
         { path: "isa.html", hash: "profiles", label: "Parametric ISA maps" },
         { path: "journal/isa-as-a-wire.html", label: "ISA as a Wire" },
+        { path: "software.html", hash: "stack", label: "Pseudos & vocabulary" },
       ],
     },
     {

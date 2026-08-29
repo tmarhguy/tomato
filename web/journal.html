@@ -19,7 +19,7 @@
     })();
   </script>
   <title>Journal — The Tomato</title>
-  <meta name="description" content="Latest: pixels on the glass — 12-bit DVI PMOD color bars on HDMI. The Tomato design journal." />
+  <meta name="description" content="Latest: first phase of assembly on 07_alu. The Tomato design journal — what was tried, what broke routing, what was too slow on the bench." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,16 +27,16 @@
   <link rel="stylesheet" href="css/magazine.css" />
 
   <meta property="og:title" content="Journal — The Tomato" />
-  <meta property="og:description" content="Latest: pixels on the glass. 12-bit DVI PMOD color bars on HDMI." />
+  <meta property="og:description" content="Latest: first phase of assembly on 07_alu. DigiKey on the desk. Muxes and adders down." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/hdmi-test.webp" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="Journal — The Tomato" />
-  <meta name="twitter:description" content="Latest: pixels on the glass. 12-bit DVI PMOD color bars on HDMI." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/hdmi-test.webp" />
+  <meta name="twitter:description" content="Latest: first phase of assembly on 07_alu. DigiKey on the desk. Muxes and adders down." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
 <body>
@@ -47,6 +47,7 @@
           <a href="index.html">Front</a>
           <a href="architecture.html">Architecture</a>
           <a href="isa.html">ISA</a>
+          <a href="software.html">Software</a>
           <a href="playground.html">Playground</a>
           <a href="journal.html" aria-current="page">Journal</a>
           <a href="boards.html">Catalog</a>
@@ -72,37 +73,57 @@
 
     <main>
       <section class="section section--hero">
-        <div class="wrap lead-grid">
+        <div class="wrap lead-grid lead-grid--dispatch">
           <article>
-            <p class="kicker">Latest · 28 August 2026</p>
-            <h2 class="headline"><a href="journal/pixels-on-glass.html">Pixels on the glass.</a></h2>
-            <p class="deck">The 12-bit DVI PMOD is soldered, flashed, and throwing color bars on HDMI. Abstract logic finally has a screen.</p>
-            <p class="byline">Dispatch · FPGA · <a href="journal/pixels-on-glass.html">open the full entry</a></p>
-            <div class="cols">
-              <p class="drop">Adapter soup failed last week. The iCEBreaker PMOD on JC + JD did not: red, green, blue, and gray bars at 640×480, flashed from the open-source toolchain on the Mac.</p>
-              <p>The vault still holds every earlier choice — the PMOD pivot, first lights, invisible bring-up logic, the gallery cut. <strong>Thirty dispatches</strong>. This is the one at the top.</p>
-            </div>
-            <nav class="jump">
-              <a href="journal/pixels-on-glass.html">Read the dispatch →</a>
-              <a href="journal/pmod-pivot.html">The PMOD pivot →</a>
-            </nav>
+            <p class="kicker">Latest · 29 August 2026</p>
+            <h2 class="headline"><a href="journal/tomato-works.html">Tomato works beautifully!</a></h2>
+            <p class="deck">Rendering an HDMI signal and a GUI on a TV, running over 2,300 lines of assembly code as TomatoOS.</p>
+            <p class="byline">Dispatch · OS · <a href="journal/tomato-works.html">open the full entry</a></p>
+            <p class="drop">For all these months of working, I will say today was the most thrilling, mainly because I got Tomato to render an HDMI signal and a GUI on my TV (or any screen for that matter).</p>
+            <p>The vault still holds every earlier choice — the PMOD pivot, first lights, invisible bring-up logic, the gallery cut. <strong>Thirty-three dispatches</strong>. This is the one at the top.</p>
           </article>
           <figure class="plate plate--ink">
-            <a href="journal/pixels-on-glass.html">
-              <img src="assets/assembly/hdmi-test.webp" alt="HDMI color bars from the Nexys A7 and 12-bit DVI PMOD." width="1200" height="675" />
-            </a>
+            <video muted loop playsinline webkit-playsinline controls preload="metadata" width="1280" height="720" poster="assets/os/hdmi-demo-poster.jpg" aria-label="Tomato OS menu and games over HDMI">
+              <source src="assets/os/hdmi-demo-games-ui.mp4" type="video/mp4" />
+              <source src="assets/os/hdmi-demo-games-ui.mov" type="video/quicktime" />
+            </video>
             <figcaption class="plate-cap">
-              <span>Fig. — First pixels</span>
-              <span>hdmi_test · 640×480 color bars</span>
+              <span>Fig. — Tomato works</span>
+              <span>hdmi_test · TomatoOS GUI</span>
             </figcaption>
           </figure>
+          <nav class="jump jump--loud">
+            <a href="journal/tomato-works.html">Read the dispatch →</a>
+            <a href="journal/one-press.html">One Press, One Key →</a>
+          </nav>
         </div>
       </section>
 
       <section class="section">
         <div class="wrap">
-          <p class="exhibit-label">Dispatches · thirty entries in the vault</p>
+          <p class="exhibit-label">Dispatches · thirty-three entries in the vault</p>
           <div class="log-list">
+            <a class="log-item" href="journal/tomato-works.html">
+              <span class="log-date">29 Aug 2026</span>
+              <span>
+                <span class="log-title">Tomato works beautifully!</span>
+                <span class="log-blurb">HDMI signal and a GUI on a TV, running over 2,300 lines of assembly.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/one-press.html">
+              <span class="log-date">28 Aug 2026</span>
+              <span>
+                <span class="log-title">One Press, One Key</span>
+                <span class="log-blurb">Fixing the keyboard matrix bounce and growing the vocabulary with pseudo-instructions.</span>
+              </span>
+            </a>
+            <a class="log-item" href="journal/ditching-vivado.html">
+              <span class="log-date">28 Aug 2026</span>
+              <span>
+                <span class="log-title">Exploring Beyond Vivado</span>
+                <span class="log-blurb">Ditching Vivado for open-source synthesis: Yosys, nextpnr, and openFPGALoader.</span>
+              </span>
+            </a>
             <a class="log-item" href="journal/pixels-on-glass.html">
               <span class="log-date">28 Aug 2026</span>
               <span>
@@ -315,7 +336,7 @@
             </a>
           </div>
           <nav class="jump">
-            <a href="journal/pixels-on-glass.html">Start with the latest →</a>
+            <a href="journal/tomato-works.html">Start with the latest →</a>
             <a href="journal/welcome.html">Start at the origin →</a>
             <a href="source.html">GitHub →</a>
           </nav>
