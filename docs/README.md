@@ -1,6 +1,6 @@
 # Tomato — Documentation
 
-<p align="center"><strong>ISA tables · design journal · ALU notes · history windback.</strong></p>
+<p align="center"><strong>ISA tables · design journal · ALU notes.</strong></p>
 
 ![Vault](https://img.shields.io/badge/Vault-docs%2Flog-011F5B) ![ISA](https://img.shields.io/badge/ISA-tomato.v1.csv-2563EB)
 
@@ -18,6 +18,5 @@ Doc index for the repo. Arguments live in the journal; tables live under `isa/`;
 | [`isa/`](isa/) | Opcode ROM, pseudos, LUT catalog, profiles |
 | [`log/`](log/) | Design journal (Obsidian vault) — start with [Welcome to Tomato 32](<log/Welcome%20to%20Tomato%2032.md>) |
 | [`alu/`](alu/) | LaTeX ALU reference (control map, bit-slice) |
-| [`history/`](history/) | Chat-to-paper windback (Tectonic) |
 
 **Conventions:** architecture decisions → new `docs/log/` entry. Opcode / microcode → `isa/tomato.v1.csv`. Assembler vocabulary → `isa/tomato.v1.pseudo.csv`.

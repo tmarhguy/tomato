@@ -4,7 +4,7 @@
 
 ![Status](https://img.shields.io/badge/Status-Historical-6B7280) ![Era](https://img.shields.io/badge/Era-Early%20ALU-990000)
 
-Archive lot for early ALU board work. The living Dual-LUT PCB is **[07_alu](../07_alu/README.md)**. The prior 8-bit discrete-transistor story (270×270 mm, ~3,488 devices) is documented at [alu.tmarhguy.com](https://alu.tmarhguy.com) and in [docs/history](../../../../docs/history/).
+Archive lot for early ALU board work. The living Dual-LUT PCB is **[07_alu](../07_alu/README.md)**. The prior 8-bit discrete-transistor story (270×270 mm, ~3,488 devices) is documented at [alu.tmarhguy.com](https://alu.tmarhguy.com).
 
 **Project map:** [Boards](../README.md) · [07_alu](../07_alu/README.md) · [Root README](../../../../README.md)
 
