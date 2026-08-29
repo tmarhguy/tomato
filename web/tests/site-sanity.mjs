@@ -73,6 +73,7 @@ const NAV = [
   "index.html",
   "architecture.html",
   "isa.html",
+  "software.html",
   "playground.html",
   "journal.html",
   "boards.html",
@@ -344,38 +345,41 @@ test("CSS has brand tokens", () => {
 
 test("gallery ships responsive WebP variants and LCP preload", () => {
   const html = readFileSync(join(WEB, "gallery.html"), "utf8");
-  assert.match(html, /assets\/gallery\/assembly\/placing-and-soldering-640w\.webp/);
   assert.match(html, /fetchpriority="high"/);
-  assert.match(html, /placing-and-soldering\.mp4/);
+  assert.match(html, /assets\/os\/hdmi-demo-poster\.jpg/);
+  assert.match(html, /hdmi-demo-games-ui\.mp4/);
+  assert.ok(existsSync(join(WEB, "assets/os/hdmi-demo-games-ui.mp4")));
+  assert.ok(existsSync(join(WEB, "assets/os/hdmi-demo-poster.jpg")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/placing-and-soldering-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-640w.webp")));
-  assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-128w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-640w.webp")));
-  // First slide is soldering — priority lead
+  // First slide is Tomato OS on HDMI — latest story lead
   const slides = html.slice(html.indexOf('class="gallery-slides"'));
   const firstSrc = slides.match(/data-src="([^"]+)"/);
-  assert.equal(firstSrc && firstSrc[1], "assets/assembly/placing-and-soldering.mp4");
+  assert.equal(firstSrc && firstSrc[1], "assets/os/hdmi-demo-games-ui.mp4");
   const js = readFileSync(join(WEB, "js/gallery.js"), "utf8");
   assert.match(js, /galleryVariant/);
   assert.match(js, /fetchPriority/);
   assert.match(js, /deferSrc/);
 });
 
-test("front page latest dispatch is the assembly log", () => {
+test("front page latest dispatch is Tomato OS on HDMI", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
   assert.match(html, /id=["']dispatch["']/);
-  assert.match(html, /href=["']journal\.html["']/);
-  assert.match(html, /First phase of assembly/);
-  assert.match(html, /assets\/assembly\/half-soldered/);
+  assert.match(html, /Tomato works beautifully/);
+  assert.match(html, /journal\/tomato-works\.html/);
+  assert.match(html, /hdmi-demo-games-ui\.mp4/);
+  assert.match(html, /software\.html/);
   assert.match(html, /id=["']iron["']/);
   assert.match(html, /placing-and-soldering\.mp4/);
   assert.match(html, /assets\/assembly\/work-setup\.mp4/);
   const journal = readFileSync(join(WEB, "journal.html"), "utf8");
-  assert.match(journal, /journal\/first-assembly\.html/);
-  assert.match(journal, /twenty-five/i);
-  const assembly = readFileSync(join(WEB, "journal/first-assembly.html"), "utf8");
-  assert.match(assembly, /assets\/assembly\/board-test\.webp/);
-  assert.match(assembly, /assets\/assembly\/work-setup\.mp4/);
+  assert.match(journal, /journal\/tomato-works\.html/);
+  assert.match(journal, /thirty-three/i);
+  assert.match(journal, /hdmi-demo-games-ui\.mp4/);
+  const works = readFileSync(join(WEB, "journal/tomato-works.html"), "utf8");
+  assert.match(works, /hdmi-demo-games-ui/);
+  assert.match(works, /main-menu-screen/);
 });
 
 test("front page hardware compiler links to the sweep clips", () => {

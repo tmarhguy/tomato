@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>Software — Tomato OS &amp; Assembler — The Tomato</title>
+  <meta name="description" content="Tomato’s ISA, assembler, and OS: about 2,300 lines of Tomato assembly drive an 80×60 desktop over HDMI." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/magazine.css" />
+
+  <meta property="og:title" content="Software — Tomato OS &amp; Assembler — The Tomato" />
+  <meta property="og:description" content="Tomato’s ISA, assembler, and OS: about 2,300 lines of Tomato assembly drive an 80×60 desktop over HDMI." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/software.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/os/main-menu-screen.jpg" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="Software — Tomato OS &amp; Assembler — The Tomato" />
+  <meta name="twitter:description" content="Tomato’s ISA, assembler, and OS: about 2,300 lines of Tomato assembly drive an 80×60 desktop over HDMI." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/os/main-menu-screen.jpg" />
+  <meta name="author" content="Tyrone Marhguy" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <nav class="mast-nav" aria-label="Primary">
+          <a href="index.html">Front</a>
+          <a href="architecture.html">Architecture</a>
+          <a href="isa.html">ISA</a>
+          <a href="software.html" aria-current="page">Software</a>
+          <a href="playground.html">Playground</a>
+          <a href="journal.html">Journal</a>
+          <a href="boards.html">Catalog</a>
+          <a href="board.html">Orbit</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="source.html">GitHub</a>
+          <a href="about.html">About</a>
+          <a class="is-tour" href="viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="assets/mark.svg" alt="" width="52" height="61" />
+          <a href="index.html"><h1>Tomato</h1></a>
+        </div>
+        <p class="flag-bottom">
+          <span>Inside</span>
+          <span>Software · OS · assembler · vocabulary</span>
+          <span>Vol. 32</span>
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Software</p>
+          <h1 class="headline">ISA, assembler, and Tomato OS</h1>
+          <p class="deck">The machine has a language. The language has tools. The tools boot a desktop on HDMI — about <strong>2,300 lines</strong> of Tomato assembly, every glyph a row of <span class="mono">tomato.v1.csv</span>.</p>
+          <p class="byline">Authority · <span class="mono">software/os/tomato_os.s</span> · <a href="journal/tomato-works.html">HDMI dispatch</a> · <a href="journal/one-press.html">one press, one key</a></p>
+        </div>
+      </section>
+
+      <div class="wrap arch-layout">
+        <aside data-arch-map data-root=""></aside>
+        <div class="arch-content">
+      <section class="section">
+        <div class="wrap story">
+          <figure class="plate plate--ink">
+            <video muted loop playsinline webkit-playsinline controls preload="metadata" width="1280" height="720" poster="assets/os/hdmi-demo-poster.jpg" aria-label="Tomato OS menu and games over HDMI">
+              <source src="assets/os/hdmi-demo-games-ui.mp4" type="video/mp4" />
+              <source src="assets/os/hdmi-demo-games-ui.mov" type="video/quicktime" />
+            </video>
+            <figcaption>Tomato OS · Nexys A7 · five-button D-pad · 640×480 over the DVI PMOD</figcaption>
+          </figure>
+
+          <p class="drop">Dual-LUT copper is why Tomato is odd. The OS is why you can sit someone in front of a monitor and show them the machine. Boot splash, desktop, menu, a seventeen-row quirk table, Fibonacci, Snake, Tetris, Racer, About — burned into data memory and scanned out as an 80×60 text field.</p>
+          <p>The display is tile RAM the CPU paints. Scanout only reads it. <em>What is Tomato</em> is the architecture writeup running on the same datapath it describes.</p>
+
+          <h2 id="stack">How the stack is split</h2>
+          <p>Three files, three jobs. Keep them apart.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Layer</th><th>What it is</th><th>Where</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Silicon language</td><td>512-row microcode ROM · ~51 burns</td><td class="mono"><a href="isa.html">tomato.v1.csv</a></td></tr>
+                <tr><td>Assembler vocabulary</td><td>19 pseudos that expand into burns</td><td class="mono">tomato.v1.pseudo.csv</td></tr>
+                <tr><td>Assembler</td><td>Two-pass · CSVs are the opcode table</td><td class="mono">software/assembler.py</td></tr>
+                <tr><td>Tomato OS</td><td>Desktop, menu, six screens, four games</td><td class="mono">software/os/tomato_os.s</td></tr>
+                <tr><td>Proof</td><td>Icarus · boot · menu · games</td><td class="mono">make -C hardware/fpga/core test</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p><span class="mono">CALL</span>, <span class="mono">BEQZ</span>, and the rest live in the pseudo CSV. Add a row, run <span class="mono">--selftest</span>, keep the burned image identical. The OS source gets clearer; the ROM does not grow. <a href="journal/one-press.html">How that landed →</a></p>
+
+          <h2 id="os">Menu and screens</h2>
+          <p>Five Nexys buttons. Center is Enter. Up and down move the highlight; left goes back; left and right steer in the games. One press is one keycode — after a bench that counted hundreds of repeats from a single push and forced the edge fix.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Screen</th><th>Job</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>What is Tomato</td><td>Seventeen quirks, two columns</td></tr>
+                <tr><td>Fibonacci</td><td>Integer demo; 7-seg follows writeback</td></tr>
+                <tr><td>Snake / Tetris / Racer</td><td>Games that stress tile paint, timing, keypad</td></tr>
+                <tr><td>About Tomato</td><td>Name, thesis, links</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--room" id="glass">
+        <div class="wrap story">
+          <p class="exhibit-label">On the glass</p>
+          <div class="two-up">
+            <figure class="plate plate--ink">
+              <img src="assets/os/what-is-tomato-screen.jpg" alt="What is Tomato quirk table on HDMI" width="960" height="540" loading="lazy" />
+              <figcaption class="plate-cap"><span>What is Tomato</span><span>Quirks table</span></figcaption>
+            </figure>
+            <figure class="plate plate--ink">
+              <img src="assets/os/tetris-screen.jpg" alt="Tetris on Tomato OS" width="960" height="540" loading="lazy" />
+              <figcaption class="plate-cap"><span>Tetris</span><span>Tile RAM</span></figcaption>
+            </figure>
+          </div>
+          <div class="two-up" style="margin-top: 1.25rem;">
+            <figure class="plate plate--ink">
+              <img src="assets/os/racer-screen.jpg" alt="Racer on Tomato OS" width="960" height="540" loading="lazy" />
+              <figcaption class="plate-cap"><span>Racer</span><span>Seven lanes</span></figcaption>
+            </figure>
+            <figure class="plate plate--ink">
+              <img src="assets/os/about-screen.jpg" alt="About Tomato window" width="960" height="540" loading="lazy" />
+              <figcaption class="plate-cap"><span>About</span><span>Full window</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap story">
+          <h2 id="memory">Fitting prose above 0x1000</h2>
+          <p><span class="mono">LA</span> assembles to <span class="mono">ADDI rd, r0, addr</span>, so labels it names stay under <span class="mono">0x1000</span>. Code and strings can sit higher. A <span class="mono">.word label</span> holds the full address; <span class="mono">puts</span> prints from anywhere. Quirk text and the racer use that: pointers low, bulk high.</p>
+
+          <h2 id="machine">What the software is for</h2>
+          <p>Tomato keeps the three-variable ALU, dual LUT planes, no output mux, 256 GPRs, and an overlay that maps other encodings onto muxes. The software stack makes that readable on a monitor. Palette swatch, font chart, keypad test, and memory map came out of the menu once bring-up was done — visitors do not need them.</p>
+        </div>
+      </section>
+
+      <section class="section section--room" id="exhibits">
+        <div class="wrap">
+          <div class="exhibits">
+            <article class="exhibit">
+              <p class="exhibit-num">~2.3k</p>
+              <p class="exhibit-kicker">lines of assembly</p>
+              <hr />
+              <h3>Tomato OS</h3>
+              <p>Desktop, chrome, games — one source the benches pin.</p>
+            </article>
+            <article class="exhibit">
+              <p class="exhibit-num">19</p>
+              <p class="exhibit-kicker">pseudos</p>
+              <hr />
+              <h3>Vocabulary</h3>
+              <p>CALL, BEQZ, LI expand into burns. ROM stays put.</p>
+            </article>
+            <article class="exhibit">
+              <p class="exhibit-num">80×60</p>
+              <p class="exhibit-kicker">text field</p>
+              <hr />
+              <h3>CPU-painted</h3>
+              <p>Tile RAM plus scanout. Games stay in software.</p>
+            </article>
+          </div>
+          <nav class="jump">
+            <a href="isa.html">← ISA</a>
+            <a href="architecture.html">Architecture →</a>
+            <a href="journal/tomato-works.html">HDMI dispatch →</a>
+            <a href="https://github.com/tmarhguy/tomato/blob/main/software/os/tomato_os.s">Source →</a>
+          </nav>
+        </div>
+      </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-band">
+        <div class="footer-art">
+<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script type="module" src="js/arch-map.js"></script>
+  <script src="js/mast.js" defer></script>
+</body>
+</html>

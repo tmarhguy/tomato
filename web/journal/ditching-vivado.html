@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f4f0e6" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else if (dark) {
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>Exploring Beyond Vivado: The Open-Source Synthesis Pivot — The Tomato</title>
+  <meta name="description" content="Ditching Vivado for open-source synthesis: Yosys, nextpnr, and openFPGALoader." />
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+
+  <meta property="og:title" content="Exploring Beyond Vivado: The Open-Source Synthesis Pivot — The Tomato" />
+  <meta property="og:description" content="Ditching Vivado for open-source synthesis: Yosys, nextpnr, and openFPGALoader." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/ditching-vivado.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/fpga-board-pmod.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:title" content="Exploring Beyond Vivado: The Open-Source Synthesis Pivot — The Tomato" />
+  <meta name="twitter:description" content="Ditching Vivado for open-source synthesis: Yosys, nextpnr, and openFPGALoader." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/fpga-board-pmod.webp" />
+  <meta name="author" content="Tyrone Marhguy" />
+</head>
+<body>
+  <div class="page">
+    <header class="wrap">
+      <div class="mast">
+        <nav class="mast-nav">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../software.html">Software</a>
+          <a href="../playground.html">Playground</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Catalog</a>
+          <a href="../board.html">Orbit</a>
+          <a href="../gallery.html">Gallery</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+          <a class="is-circ" href="../viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <div class="flag flag--inside">
+        <div class="nameplate">
+          <img src="../assets/mark.svg" alt="" width="52" height="61" />
+          <a href="../index.html"><h1>Tomato</h1></a>
+        </div>
+        <p class="flag-bottom"><span>Journal</span><span>28 August 2026</span><span>Vol. 32</span></p>
+      </div>
+    </header>
+    <main>
+      <section class="section">
+        <div class="wrap hed">
+          <p class="kicker">Dispatch · Build Tooling</p>
+          <h1 class="headline">Exploring Beyond Vivado</h1>
+          <p class="deck">Ditching Vivado for open-source synthesis: Yosys, nextpnr, and openFPGALoader.</p>
+          <p class="byline">28 August 2026 · from the log</p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap story">
+          <p class="drop">With the HDMI 12-bit PMOD test successfully throwing pixels on the glass, my next hurdle was the build process itself. Up until now, I've been relying on Xilinx Vivado for synthesis and routing.</p>
+          <p>The problem? Vivado is notoriously heavy and incredibly slow by default, especially on my laptop. Waiting for simple design changes to synthesize completely breaks my flow. I wanted to explore tools that are as fast as possible, which led me down the rabbit hole of open-source FPGA toolchains.</p>
+          <p>My research points to a completely open-source (FOSS) stack tailored for the Nexys A7-100T:</p>
+          <ul>
+            <li><strong>Yosys</strong> for fast synthesis (converting SystemVerilog/Verilog to a JSON netlist)</li>
+            <li><strong>nextpnr-xilinx</strong> for lightning-fast place and route</li>
+            <li><strong>Project X-Ray</strong> for generating the final bitstream</li>
+            <li><strong>openFPGALoader</strong> for flashing the board via JTAG</li>
+          </ul>
+          <p>Using the <code>openXC7</code> Nix toolchain, I can pull all of these tools into an isolated shell.</p>
+
+        <figure class="plate plate--ink">
+          <img src="../assets/compiler/terminal-done-generating-bitstream.png" alt="Terminal showing successful bitstream generation" loading="lazy" decoding="async" />
+          <figcaption class="plate-cap">
+            <span>Open-Source Stack</span>
+            <span>Generating the bitstream without Vivado</span>
+          </figcaption>
+        </figure>
+
+        <p>Going forward, I will be ditching the slow Vivado environment on my laptop and doing all future synthesis natively on my Mac using this open-source stack. Once I figure out the exact <code>Makefile</code> wiring to compile the entire Tomato core, the build-to-flash loop should drop from painful minutes down to seconds!</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="pixels-on-glass.html"><span class="dir">Previous</span><span class="to">Pixels on the glass</span></a>
+            <a class="next" href="one-press.html"><span class="dir">Next</span><span class="to">One Press, One Key</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><div class="footer-band"><div class="footer-art">
+<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script src="../js/mast.js" defer></script>
+</body>
+</html>
