@@ -1,9 +1,12 @@
-# Sky130 benchmark — Kogge-Stone vs Tomato ALU variants
+# Sky130 benchmark — Kogge-Stone vs Tomato ALU
 
-![status](https://img.shields.io/badge/benchmark-Kogge_Stone-2ea043?style=for-the-badge)
-![PDK](https://img.shields.io/badge/PDK-sky130_fd_sc_hd-0D9488?style=for-the-badge)
+<p align="center"><strong>Same PDK · ripple Dual-LUT vs Kogge-Stone carry.</strong></p>
+
+![Benchmark](https://img.shields.io/badge/benchmark-Kogge_Stone-2ea043) ![PDK](https://img.shields.io/badge/PDK-sky130_fd_sc_hd-0D9488)
 
 Side-by-side synthesis on **SkyWater 130nm HD** (same Yosys + ABC flow as [verification/synthesis](../verification/synthesis/README.md)):
+
+**Project map:** [Root README](../README.md) · [Verification](../verification/README.md) · [Synthesis](../verification/synthesis/README.md)
 
 | Design | What it is |
 |--------|------------|
