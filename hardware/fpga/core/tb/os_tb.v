@@ -154,7 +154,7 @@ module os_tb;
     initial begin
         prog     = "tomato_os";
         keys_arg = "";
-        settle   = 200000;
+        settle   = 400000;
         want_dump = 0;
         nkeys = 0;
 
@@ -173,16 +173,36 @@ module os_tb;
 
         $sformat(path, "tb/mem/%0s.mem", prog);
         $readmemh(path, uut.dmem);
+        uut.dmem[14'h0E03] = 32'd1;     // tune_boot: skip the splash delay
 
         tick; tick;
         reset = 0;
 
-        // Let the first screen paint.
+        // Let the first screen paint (splash + desktop).
         for (k = 0; k < settle; k = k + 1) tick;
 
         drawn = painted(1'b0);
         if (drawn < 300) begin
             $display("FAIL: only %0d cells painted after boot — no GUI on screen", drawn);
+            dump_screen;
+            $finish(1);
+        end
+        // Menu contract: enter selects, and the three games have to be on it.
+        if (uut.vga0.lo[5*80 + 8][7:0] !== "S" ||
+            uut.vga0.lo[9*80 + 8][7:0] !== "F" ||
+            uut.vga0.lo[10*80 + 8][7:0] !== "S" ||
+            uut.vga0.lo[10*80 + 9][7:0] !== "n" ||
+            uut.vga0.lo[11*80 + 8][7:0] !== "T") begin
+            $display("FAIL: menu missing System/Fibonacci/Snake/Tetris");
+            dump_screen;
+            $finish(1);
+        end
+        // Title bar: TOMATO OS v1.0, Designed by Tyrone Marhguy
+        if (uut.vga0.lo[0*80 + 2][7:0] !== "T" ||
+            uut.vga0.lo[0*80 + 13][7:0] !== "v" ||
+            uut.vga0.lo[0*80 + 54][7:0] !== "D" ||
+            uut.vga0.lo[6*80 + 42][7:0] !== "T") begin
+            $display("FAIL: TOMATO OS v1.0 / Designed by missing from chrome");
             dump_screen;
             $finish(1);
         end
