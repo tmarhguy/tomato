@@ -1,8 +1,18 @@
-# Main ALU Board (270×270mm)
+# 01 — Early ALU (historical)
 
-**Monolithic 8-bit ALU - Complete combinational processor on single PCB**
+<p align="center"><strong>Pre-Tomato experiments · superseded by Lot 07.</strong></p>
+
+![Status](https://img.shields.io/badge/Status-Historical-6B7280) ![Era](https://img.shields.io/badge/Era-Early%20ALU-990000)
+
+Archive lot for early ALU board work. The living Dual-LUT PCB is **[07_alu](../07_alu/README.md)**. The prior 8-bit discrete-transistor story (270×270 mm, ~3,488 devices) is documented at [alu.tmarhguy.com](https://alu.tmarhguy.com) and in [docs/history](../../../../docs/history/).
+
+**Project map:** [Boards](../README.md) · [07_alu](../07_alu/README.md) · [Root README](../../../../README.md)
 
 ---
+
+# Legacy notes (transistor-era board)
+
+**Monolithic 8-bit ALU — complete combinational processor on a single PCB** (historical reference below).
 
 ## Specifications
 

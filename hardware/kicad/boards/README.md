@@ -1,4 +1,47 @@
-# Board Designs
+# Tomato — PCB lots
+
+<p align="center"><strong>Eight modular boards · Dual-LUT copper · Lot 07 on the iron.</strong></p>
+
+![Lots](https://img.shields.io/badge/Lots-01%E2%80%9308-011F5B) ![Active](https://img.shields.io/badge/Active-07__alu-2ea043)
+
+Numbered KiCad projects for the discrete Tomato machine. Each lot owns one subsystem so ribbons stay short and bring-up can happen board-by-board.
+
+**Project map:** [KiCad](../README.md) · [Hardware](../../README.md) · [07_alu](07_alu/README.md) · Paper: [boards.html](https://tomato.tmarhguy.com/boards.html)
+
+<p align="center">
+  <img src="../../../web/assets/pcb/hero.webp" alt="Tomato ALU PCB hero plate" width="48%" />
+  <img src="../../../web/assets/pcb/pcb-arrive.webp" alt="Tomato PCBs arrived" width="48%" />
+</p>
+<p align="center"><em>Lot plates · hero render &amp; boards in hand · <a href="07_alu/README.md">07_alu</a></em></p>
+
+<p align="center">
+  <img src="../../../web/assets/pcb/drc.webp" alt="KiCad DRC on Tomato ALU" width="48%" />
+  <img src="../../../web/assets/plates/kicad-sch.jpg" alt="KiCad schematic" width="48%" />
+</p>
+<p align="center"><em>DRC and schematic · copper before iron</em></p>
+
+| Board | Path | Role | Status |
+|-------|------|------|--------|
+| 01 | [01_alu/](01_alu/) | Early ALU experiments | Historical |
+| 02 | [02_shift_encoder/](02_shift_encoder/) | Shift encoder + mul-div control | In design |
+| 03 | [03_memory/](03_memory/) | Memory, byte-lane decoder, VGA | In design |
+| 04 | [04_register/](04_register/) | Register file, IR | In design |
+| 05 | [05_program_counter/](05_program_counter/) | PC, stack pointer | In design |
+| 06 | [06_data_bus/](06_data_bus/) | Data bus, wb_mux, arbitration | In design |
+| 07 | [07_alu/](07_alu/) | Dual-LUT ALU — **board doc + figures** | Populating |
+| 08 | [08_alu_fsm/](08_alu_fsm/), [08_display/](08_display/) | FSM bring-up, display | In design |
+
+Also present: `08_alu/` (related lot experiments). Prefer the numbered names in the table when linking from the paper.
+
+**Bring-up:** assemble and probe Lot 07 first ([First Phase of Assembly](<../../../docs/log/2026-08-18%20-%20First%20Phase%20of%20Assembly.md>)). Peripherals follow once the Dual-LUT slice signs off on the bench.
+
+---
+
+## Legacy — transistor-era board inventory
+
+> Historical inventory for the pre-Tomato 8-bit transistor / modular ALU boards (`alu/`, `main_logic/`, …). Those folder names are **not** the current `01_`–`08_` lots.
+
+### Board Designs
 
 **Individual PCB boards for the 8-Bit Transistor ALU system**
 

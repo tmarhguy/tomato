@@ -1,4 +1,50 @@
-# KiCad PCB Design Files
+# Tomato — KiCad
+
+<p align="center"><strong>Numbered PCB lots for the 32-bit Dual-LUT machine.</strong></p>
+
+![CAD](https://img.shields.io/badge/CAD-KiCad%2010-F59E0B?logo=kicad&logoColor=white) ![Lot](https://img.shields.io/badge/Lot%2007-Populating-2ea043)
+
+Physical boards for Tomato. Logic authority stays in [Digital](../digital/README.md); these projects are fab and assembly. Lot **07** (`07_alu`) is on the iron.
+
+**Project map:** [Hardware](../README.md) · [Boards](boards/README.md) · [07_alu doc](boards/07_alu/README.md) · Paper: [boards.html](https://tomato.tmarhguy.com/boards.html)
+
+<p align="center">
+  <img src="../../web/assets/pcb/immersion_black.webp" alt="Tomato 07_alu — Dual-LUT slice in the round" width="48%" />
+  <img src="../../web/assets/assembly/half-soldered-plate.webp" alt="Tomato 07_alu — first population" width="48%" />
+</p>
+<p align="center"><em>Lot 07 in the round &amp; on the iron · Dual-LUT slice · <a href="boards/07_alu/README.md">board doc</a></em></p>
+
+<p align="center">
+  <img src="../../web/assets/pcb/alu_8b_board.webp" alt="Tomato ALU PCB — board render" width="47%" />
+  <img src="../../web/assets/pcb/alu_8b_pcb.jpg" alt="Tomato ALU PCB — top-layer layout" width="50%" />
+</p>
+<p align="center"><em>Left: board render · Right: routed top copper</em></p>
+
+```
+kicad/
+├── boards/     # 01_alu … 08_display — numbered lots
+├── modules/    # Reusable subcircuits
+└── README.md
+```
+
+| Lot | Path | Role | Status |
+|-----|------|------|--------|
+| 01 | [01_alu/](boards/01_alu/) | Early ALU experiments | Historical |
+| 02 | [02_shift_encoder/](boards/02_shift_encoder/) | Shift encoder + mul-div control | In design |
+| 03 | [03_memory/](boards/03_memory/) | Memory, byte-lane, VGA | In design |
+| 04 | [04_register/](boards/04_register/) | Register file, IR | In design |
+| 05 | [05_program_counter/](boards/05_program_counter/) | PC, stack pointer | In design |
+| 06 | [06_data_bus/](boards/06_data_bus/) | Data bus, wb_mux | In design |
+| 07 | [07_alu/](boards/07_alu/) | Dual-LUT ALU PCB | **Populating** |
+| 08 | [08_alu_fsm/](boards/08_alu_fsm/), [08_display/](boards/08_display/) | FSM bring-up, display | In design |
+
+---
+
+## Legacy — 8-bit transistor ALU (pre-Tomato)
+
+> The notes below document the earlier discrete-transistor / modular board story (270×270 mm class designs, `main_logic`, `add_sub`, …). Paths and inventory there are **historical**. Living Tomato copper is the numbered lots above; Lot 07 is the Dual-LUT slice.
+
+### KiCad PCB Design Files
 
 **Complete hardware design for the 8-bit discrete transistor ALU**
 
