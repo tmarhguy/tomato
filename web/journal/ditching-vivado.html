@@ -19,7 +19,7 @@
     })();
   </script>
   <title>Exploring Beyond Vivado: The Open-Source Synthesis Pivot — The Tomato</title>
-  <meta name="description" content="Ditching Vivado for open-source synthesis: Yosys, nextpnr, and openFPGALoader." />
+  <meta name="description" content="Open-source FPGA synthesis on the Nexys A7: Yosys, nextpnr-xilinx, Project X-Ray, openFPGALoader." />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="../css/magazine.css" />
 
   <meta property="og:title" content="Exploring Beyond Vivado: The Open-Source Synthesis Pivot — The Tomato" />
-  <meta property="og:description" content="Ditching Vivado for open-source synthesis: Yosys, nextpnr, and openFPGALoader." />
+  <meta property="og:description" content="Open-source FPGA synthesis on the Nexys A7: Yosys, nextpnr-xilinx, Project X-Ray, openFPGALoader." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/ditching-vivado.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/fpga-board-pmod.webp" />
@@ -35,7 +35,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:title" content="Exploring Beyond Vivado: The Open-Source Synthesis Pivot — The Tomato" />
-  <meta name="twitter:description" content="Ditching Vivado for open-source synthesis: Yosys, nextpnr, and openFPGALoader." />
+  <meta name="twitter:description" content="Open-source FPGA synthesis on the Nexys A7: Yosys, nextpnr-xilinx, Project X-Ray, openFPGALoader." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/fpga-board-pmod.webp" />
   <meta name="author" content="Tyrone Marhguy" />
 </head>
@@ -71,14 +71,14 @@
         <div class="wrap hed">
           <p class="kicker">Dispatch · Build Tooling</p>
           <h1 class="headline">Exploring Beyond Vivado</h1>
-          <p class="deck">Ditching Vivado for open-source synthesis: Yosys, nextpnr, and openFPGALoader.</p>
+          <p class="deck">Open-source FPGA synthesis on the Nexys A7: Yosys, nextpnr-xilinx, Project X-Ray, openFPGALoader.</p>
           <p class="byline">28 August 2026 · from the log</p>
         </div>
       </section>
       <section class="section">
         <div class="wrap story">
-          <p class="drop">With the HDMI 12-bit PMOD test successfully throwing pixels on the glass, my next hurdle was the build process itself. Up until now, I've been relying on Xilinx Vivado for synthesis and routing.</p>
-          <p>The problem? Vivado is notoriously heavy and incredibly slow by default, especially on my laptop. Waiting for simple design changes to synthesize completely breaks my flow. I wanted to explore tools that are as fast as possible, which led me down the rabbit hole of open-source FPGA toolchains.</p>
+          <p class="drop">With the HDMI 12-bit PMOD test successfully showing video out, my next hurdle was the build process itself. Up until now, I've been relying on Xilinx Vivado for synthesis and routing.</p>
+          <p>Vivado on my old Windows machine feels heavy and incredibly slow by default. Simple designs take forever, so I began reading about faster open-source FPGA toolchains.</p>
           <p>My research points to a completely open-source (FOSS) stack tailored for the Nexys A7-100T:</p>
           <ul>
             <li><strong>Yosys</strong> for fast synthesis (converting SystemVerilog/Verilog to a JSON netlist)</li>
@@ -86,7 +86,7 @@
             <li><strong>Project X-Ray</strong> for generating the final bitstream</li>
             <li><strong>openFPGALoader</strong> for flashing the board via JTAG</li>
           </ul>
-          <p>Using the <code>openXC7</code> Nix toolchain, I can pull all of these tools into an isolated shell.</p>
+          <p><code>openXC7</code>'s Nix flake is Linux-only, so on the Mac the same stack is assembled from OSS CAD Suite (<code>yosys</code>, <code>openFPGALoader</code>), nixpkgs (<code>nextpnr-xilinx</code>, <code>bbasm</code>), and a local Project X-Ray bitgen build (<code>fasm2frames</code>, <code>xc7frames2bit</code>). The <code>hdmi_test</code> Makefile and <code>scripts/env.sh</code> wire that together.</p>
 
         <figure class="plate plate--ink">
           <img src="../assets/compiler/terminal-done-generating-bitstream.png" alt="Terminal showing successful bitstream generation" loading="lazy" decoding="async" />
@@ -96,7 +96,8 @@
           </figcaption>
         </figure>
 
-        <p>Going forward, I will be ditching the slow Vivado environment on my laptop and doing all future synthesis natively on my Mac using this open-source stack. Once I figure out the exact <code>Makefile</code> wiring to compile the entire Tomato core, the build-to-flash loop should drop from painful minutes down to seconds!</p>
+        <p>Going forward, I plan to transition away from Vivado on my laptop and handle all future synthesis natively on my Mac using this open-source stack. Once I figure out the exact <code>Makefile</code> wiring to compile the entire Tomato core, the build-to-flash loop should drop from painful minutes down to mere seconds!</p>
+        <p>Vivado was very useful for helping me build an intuition of the synthesis, implementation, and bitstream cycle. It helped me visualize the nets and understand why a constraint file is needed for standards like LVCMOS33.</p>
         </div>
         <div class="wrap">
           <nav class="pager">

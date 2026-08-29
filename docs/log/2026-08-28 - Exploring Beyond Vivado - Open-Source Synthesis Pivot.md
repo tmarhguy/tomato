@@ -1,6 +1,8 @@
-With the HDMI 12-bit PMOD test successfully showing video out, my next hurdle was the build process itself. Up until now, I've been relying on Xilinx Vivado for synthesis and routing. 
+# Exploring Beyond Vivado: The Open-Source Synthesis Pivot
 
-Vivado on my old windows feels heavy and incredibly slow by default. Simple designs take forever, so I began reading about faster open source options toolchains for FPGA.
+With the HDMI 12-bit PMOD test successfully showing video out, my next hurdle was the build process itself. Up until now, I've been relying on Xilinx Vivado for synthesis and routing.
+
+Vivado on my old Windows machine feels heavy and incredibly slow by default. Simple designs take forever, so I began reading about faster open-source FPGA toolchains.
 
 My research points to a completely open-source (FOSS) stack tailored for the Nexys A7-100T:
 - **Yosys** for fast synthesis (converting SystemVerilog/Verilog to a JSON netlist)
