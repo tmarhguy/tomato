@@ -20,6 +20,7 @@ SIM           ?= sim
 
 RTL     := $(wildcard rtl/*.v)
 BOARD   := $(wildcard rtl/board/*.v)
+BURN    := $(wildcard rtl/burn/*.vh)
 ROOT    := $(abspath ../../..)
 ASM     := python3 $(ROOT)/software/assembler.py
 GENMC   := python3 $(ROOT)/tools/gen_microcode_v1.py
@@ -32,14 +33,18 @@ OS_SRC  := $(ROOT)/software/os
 PROG_MEM := tb/mem/counter.mem tb/mem/fib.mem tb/mem/collatz.mem tb/mem/call.mem tb/mem/bytes.mem \
 	tb/mem/ecall.mem tb/mem/io.mem tb/mem/softops.mem tb/mem/kb_mmio.mem
 
-TBS := shift lane wb bus sp regs ir pc vga muldiv alu control hex videoout main counter fidelity \
+TBS := shift lane wb bus sp regs ir pc vga muldiv alu control hex videoout keypad main counter fidelity \
 	kb_io burn_boot
 
 # ---- open-source bitstream flow ---------------------------------------------
 TOP        := nexys_top
 SRC        := $(RTL) $(BOARD)
 XDC        := constr/nexys.xdc
-FREQ_MHZ   := 100
+# nextpnr --freq is one number for every named clock. cpu_clk actually runs at
+# 6.25 MHz (100/16) and pix_clk at 25 MHz; 100 MHz was a vanity Fmax check that
+# fails when a rebuild places ~2.5 % worse (97.5 MHz this pass). 90 still
+# proves an order of magnitude of margin without aborting a legal route.
+FREQ_MHZ   := 90
 YOSYS_INC  := rtl
 # -nodsp: a 33x33 multiply tiles across several DSP48s wired PCOUT→PCIN, and
 # nextpnr places the halves in different DSP columns, where no cascade wire
@@ -47,11 +52,14 @@ YOSYS_INC  := rtl
 # the part has to spare, and MUL is one 6.25 MHz execute cycle either way.
 SYNTH_OPTS := -nodsp
 
-.PHONY: all test clean asm os microcode font pack-isa lean-isa burn burn-check progs cpi $(TBS)
+.PHONY: all test clean asm os games microcode font pack-isa lean-isa burn burn-check progs cpi $(TBS)
 
 all: test
 
 include ../common.mk
+
+# main.v / control.v `include rtl/burn/*.vh — yosys must re-run when burn changes.
+$(JSON): $(BURN)
 
 $(SIM):
 	mkdir -p $(SIM)
@@ -70,6 +78,7 @@ pack-isa lean-isa:
 burn: microcode tb/mem/tomato_os.mem
 	$(GENBURN) --boot $(BOOT)
 	@echo "FPGA burn ready: boot=$(BOOT)"
+	@echo "Next: ../scripts/env.sh make fpga program   (re-synth — burn is baked into the .bit)"
 
 burn-check: microcode
 	$(GENMC) --check
@@ -149,6 +158,12 @@ $(SIM)/hex_tb.vvp: rtl/board/hex.v tb/hex_tb.v | $(SIM)
 $(SIM)/videoout_tb.vvp: rtl/board/videoout.v rtl/board/font_rom.v tb/videoout_tb.v | $(SIM)
 	$(IVERILOG) -o $@ rtl/board/videoout.v rtl/board/font_rom.v tb/videoout_tb.v
 
+$(SIM)/keypad_tb.vvp: rtl/board/keypad.v tb/keypad_tb.v | $(SIM)
+	$(IVERILOG) -o $@ rtl/board/keypad.v tb/keypad_tb.v
+
+$(SIM)/games_tb.vvp: $(RTL) tb/games_tb.v tb/mem/tomato_os.mem | $(SIM)
+	$(IVERILOG) -o $@ $(RTL) tb/games_tb.v
+
 # ---- whole-machine benches ---------------------------------------------------
 $(SIM)/main_tb.vvp: $(RTL) tb/main_tb.v | $(SIM)
 	$(IVERILOG) -o $@ $(RTL) tb/main_tb.v
@@ -188,7 +203,10 @@ endef
 os: $(SIM)/os_tb.vvp
 	$(VVP) $< +DUMP=1
 
-test: burn-check $(foreach t,$(TBS),$(SIM)/$(t)_tb.vvp) $(SIM)/prog_tb.vvp $(SIM)/os_tb.vvp $(SIM)/board_lint.vvp
+games: $(SIM)/games_tb.vvp
+	$(VVP) $<
+
+test: burn-check $(foreach t,$(TBS),$(SIM)/$(t)_tb.vvp) $(SIM)/prog_tb.vvp $(SIM)/os_tb.vvp $(SIM)/games_tb.vvp $(SIM)/board_lint.vvp
 	$(call RUN_TB,shift)
 	$(call RUN_TB,lane)
 	$(call RUN_TB,wb)
@@ -203,6 +221,7 @@ test: burn-check $(foreach t,$(TBS),$(SIM)/$(t)_tb.vvp) $(SIM)/prog_tb.vvp $(SIM
 	$(call RUN_TB,control)
 	$(call RUN_TB,hex)
 	$(call RUN_TB,videoout)
+	$(call RUN_TB,keypad)
 	$(call RUN_TB,main)
 	$(call RUN_TB,counter)
 	$(call RUN_TB,fidelity)
@@ -236,9 +255,12 @@ test: burn-check $(foreach t,$(TBS),$(SIM)/$(t)_tb.vvp) $(SIM)/prog_tb.vvp $(SIM
 	@$(VVP) $(SIM)/prog_tb.vvp +PROG=kb_mmio +EXPECT_R1=126 +EXPECT_R2=1 +KB=126 +EXPECT_DISP=1 | tee $(SIM)/prog_kb_mmio.log
 	@grep -q '^PASS:' $(SIM)/prog_kb_mmio.log
 	@echo "=== tomato_os ==="
-	@$(VVP) $(SIM)/os_tb.vvp +KEYS=1f0d11 | tee $(SIM)/os_tb.log
+	@$(VVP) $(SIM)/os_tb.vvp +KEYS=0d11 | tee $(SIM)/os_tb.log
 	@grep -q '^PASS:' $(SIM)/os_tb.log
-	@echo "All Tomato core tests passed (units + programs + OS)."
+	@echo "=== games ==="
+	@$(VVP) $(SIM)/games_tb.vvp | tee $(SIM)/games_tb.log
+	@grep -q '^PASS:' $(SIM)/games_tb.log
+	@echo "All Tomato core tests passed (units + programs + OS + games)."
 
 progs: $(SIM)/prog_tb.vvp
 	$(VVP) $< +PROG=counter +EXPECT_R1=10 +EXPECT_DISP=10
