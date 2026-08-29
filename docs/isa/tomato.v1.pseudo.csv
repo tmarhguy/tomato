@@ -1,0 +1,46 @@
+# Tomato ISA v1 — ASSEMBLER VOCABULARY (no ROM rows, no new silicon).
+#
+# tomato.v1.csv is the authority for the 512 microcode ROM rows: one row per
+# burned opcode. This file is the authority for everything you may *write* that
+# is not itself an opcode. Every entry expands into opcodes that are already
+# burned and already covered by the testbenches, so growing this file costs no
+# ROM, no datapath, and no re-verification of the machine.
+#
+# Why bother: the CPU only has BEQ / BNE / BLT / BGE and a separate CMP, so
+# ordinary intent ("branch if this register is zero", "call this routine",
+# "branch if less or equal") reads as two unrelated lines. Naming those shapes
+# makes the OS source say what it means.
+#
+# COLUMNS:
+#   mnemonic  what you write
+#   form      operand shape; $1..$3 are the operands in order
+#   expands   one or more real instructions, separated by " | "
+#   words     how many instruction words it assembles to
+#   flags     does the expansion disturb the flags (yes/no/sets)
+#   why       what it is for
+#
+# TEMPLATE TOKENS:
+#   $1 $2 $3  the operands, substituted verbatim
+#   @+N       absolute address of (first word of this expansion) + N. Used to
+#             branch over the next instruction without inventing a label.
+#
+mnemonic,form,expands,words,flags,why
+LI,"LI rd, imm","ADDI $1, r0, $2",1,sets,load a literal — says value where LA says address
+CLR,"CLR rd","ZERO $1",1,no,zero a register with the intent spelled out
+NEG,"NEG rd, rA","SUB $1, r0, $2",1,sets,two's-complement negate
+INC,"INC rd","ADDI $1, $1, 1",1,sets,bump a counter in place
+DEC,"DEC rd","ADDI $1, $1, -1",1,sets,drop a counter in place
+TST,"TST rA","CMP $1, r0",1,sets,set flags from one register against zero
+CALL,"CALL label","JAL r16, $1",1,no,the calling convention — r16 is the link register
+BRA,"BRA label","JMP $1",1,no,unconditional branch, named like the conditionals
+ASL,"ASL rd, rA, rB","LSL $1, $2, $3",1,no,arithmetic-shift-left spelling of LSL
+BZ,"BZ label","BEQ $1",1,no,reads better than BEQ after a TST
+BNZ,"BNZ label","BNE $1",1,no,reads better than BNE after a TST
+BMI,"BMI label","BLT $1",1,no,branch on negative after a TST
+BPL,"BPL label","BGE $1",1,no,branch on non-negative after a TST
+BEQZ,"BEQZ rA, label","CMP $1, r0 | BEQ $2",2,sets,branch if a register is zero
+BNEZ,"BNEZ rA, label","CMP $1, r0 | BNE $2",2,sets,branch if a register is non-zero
+BLTZ,"BLTZ rA, label","CMP $1, r0 | BLT $2",2,sets,branch if a register is negative
+BGEZ,"BGEZ rA, label","CMP $1, r0 | BGE $2",2,sets,branch if a register is non-negative
+BLE,"BLE label","BEQ $1 | BLT $1",2,no,"branch if <=; either flag will do, so two taken-branches"
+BGT,"BGT label","BEQ @+2 | BGE $1",2,no,"branch if >; skip the BGE when equal"
