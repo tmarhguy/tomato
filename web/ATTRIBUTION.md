@@ -42,6 +42,7 @@ Figures are Tomato’s own work, ornaments drawn for the paper, or a public-doma
 | `assets/pcb/drc.webp` | KiCad DRC report — 0 errors before fab |
 | `assets/pcb/status-bar.webp` | KiCad status bar — 185 nets, zero unrouted |
 | `assets/plates/alu-4b-final.webp` | Digital `alu-4b-final` nibble cell |
+| `assets/story/digital/main-tomato-v1-burn.webp` | Digital `main.dig` — tomato-v1-burn top sheet |
 | `assets/plates/microcode-modular.webp` | Digital modular microcode decode sheet |
 | `assets/plates/front-page.webp` | Front page plate — Vol. 32 No. 1 |
 | `assets/story/display/segment-control.webp` | Digital seven-segment control sheet |

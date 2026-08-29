@@ -74,7 +74,7 @@
         <div class="wrap">
           <div class="hed hed--gallery">
             <h1 class="headline">Tomato OS on glass — then the copper trail.</h1>
-            <p class="deck">Latest frames first: HDMI desktop, games, and the open-source bitstream. Assembly, Lot 07, and the older paper trail follow.</p>
+            <p class="deck">HDMI demo and main menu lead; OS screens are woven through assembly, copper, and the paper trail — not stacked as one block.</p>
           </div>
           <div class="gallery-toolbar">
             <div class="gallery-tabs" role="tablist" aria-label="Gallery sections"></div>
@@ -89,7 +89,7 @@
               <button type="button" class="gallery-arrow gallery-arrow--next hud-desk" aria-label="Next frame">›</button>
             </div>
             <p class="gallery-swipe-hint">Swipe to browse · tap frame to expand</p>
-            <p class="gallery-counter"><span class="gallery-counter__cur">1</span> / <span class="gallery-counter__total">85</span></p>
+            <p class="gallery-counter"><span class="gallery-counter__cur">1</span> / <span class="gallery-counter__total">86</span></p>
             <div class="gallery-detail" aria-live="polite">
               <div class="gallery-detail__head">
                 <p class="gallery-detail__chapter"></p>
@@ -122,75 +122,19 @@
               <div class="gallery-slide__body"><p class="drop">The main menu running live on the TV via the 12-bit PMOD. Six entries, all navigable with the D-pad.</p></div>
             </article>
             <article class="gallery-slide"
-              data-src="assets/os/what-is-tomato-screen.jpg" data-type="image" data-thumb="assets/os/what-is-tomato-screen.jpg"
-              data-date="29 Aug 2026" data-title="What is Tomato" data-meta="OS · Architecture sheet"
-              data-chapter="Tomato OS" data-fig="Fig. 3" data-slug="what-is">
-              <dl class="gallery-slide__facts"><div><dt>Text</dt><dd>0x1800 Memory</dd></div></dl>
-              <div class="gallery-slide__body"><p>The most important screen on the system. Overcoming the low memory wall allowed this massive text block to be rendered by pulling from higher memory via pointers.</p></div>
-            </article>
-            <article class="gallery-slide"
-              data-src="assets/os/about-screen.jpg" data-type="image" data-thumb="assets/os/about-screen.jpg"
-              data-date="29 Aug 2026" data-title="About Tomato" data-meta="OS · Info screen"
-              data-chapter="Tomato OS" data-fig="Fig. 4" data-slug="about">
-              <dl class="gallery-slide__facts"><div><dt>Screen</dt><dd>About</dd></div></dl>
-              <div class="gallery-slide__body"><p>The screen that used to flash for one frame before the debounce arithmetic fix. Now it reliably waits for the next key press.</p></div>
-            </article>
-            <article class="gallery-slide"
-              data-src="assets/os/tetris-screen.jpg" data-type="image" data-thumb="assets/os/tetris-screen.jpg"
-              data-date="Aug 2026" data-title="Tetris Port" data-meta="OS · Games"
-              data-chapter="Tomato OS" data-fig="Fig. 5" data-slug="tetris">
-              <dl class="gallery-slide__facts"><div><dt>Game</dt><dd>Tetris</dd></div></dl>
-              <div class="gallery-slide__body"><p>One of the first games ported to TomatoOS. Playing it on a real screen through custom 74xx logic feels entirely different than any emulator.</p></div>
-            </article>
-            <article class="gallery-slide"
-              data-src="assets/os/racer-screen.jpg" data-type="image" data-thumb="assets/os/racer-screen.jpg"
-              data-date="Aug 2026" data-title="Racer Port" data-meta="OS · Games"
-              data-chapter="Tomato OS" data-fig="Fig. 6" data-slug="racer">
-              <dl class="gallery-slide__facts"><div><dt>Game</dt><dd>Racer</dd></div></dl>
-              <div class="gallery-slide__body"><p>The Racer port up and running. The graphics are simple, but the throughput behind it is what makes it exciting.</p></div>
-            </article>
-            <article class="gallery-slide"
-              data-src="assets/os/snake-game-over-screen.jpg" data-type="image" data-thumb="assets/os/snake-game-over-screen.jpg"
-              data-date="Aug 2026" data-title="Snake — Game Over" data-meta="OS · Games"
-              data-chapter="Tomato OS" data-fig="Fig. 7" data-slug="snake">
-              <dl class="gallery-slide__facts"><div><dt>Game</dt><dd>Snake</dd></div></dl>
-              <div class="gallery-slide__body"><p>The Snake port game over screen. Built entirely with the parametric ISA and the new pseudo-instructions.</p></div>
-            </article>
-            <article class="gallery-slide"
-              data-src="assets/os/fibonacci-screen.jpg" data-type="image" data-thumb="assets/os/fibonacci-screen.jpg"
-              data-date="Aug 2026" data-title="Fibonacci" data-meta="OS · Math"
-              data-chapter="Tomato OS" data-fig="Fig. 8" data-slug="fibonacci">
-              <dl class="gallery-slide__facts"><div><dt>Program</dt><dd>Fibonacci</dd></div></dl>
-              <div class="gallery-slide__body"><p>The obligatory Fibonacci sequence cruncher, running effortlessly on the lowest frequencies.</p></div>
-            </article>
-            <article class="gallery-slide"
-              data-src="assets/os/keyboard-matrix-attempt.mp4" data-type="video" data-thumb="assets/os/what-is-tomato-screen.jpg" data-poster="assets/os/what-is-tomato-screen.jpg"
-              data-date="Aug 2026" data-title="Keyboard Matrix Attempt" data-meta="Hardware · Input"
-              data-chapter="Tomato OS" data-fig="Fig. 9" data-slug="kb-matrix">
-              <dl class="gallery-slide__facts"><div><dt>Input</dt><dd>Keyboard</dd></div></dl>
-              <div class="gallery-slide__body"><p>Starting to convert an Amazon keyboard into a proper matrix. The 5 buttons on the A7 were too limiting for complex apps.</p></div>
-            </article>
-            <article class="gallery-slide"
-              data-src="assets/assembly/fpga-num-seg-disp.mov" data-type="video" data-thumb="assets/os/tetris-screen.jpg" data-poster="assets/os/tetris-screen.jpg"
-              data-date="Aug 2026" data-title="Segment Display Action" data-meta="FPGA · Output"
-              data-chapter="Tomato OS" data-fig="Fig. 10" data-slug="seg-disp">
-              <dl class="gallery-slide__facts"><div><dt>Display</dt><dd>Numeric Segment</dd></div></dl>
-              <div class="gallery-slide__body"><p>The seven-segment display churning numbers live as Tomato runs.</p></div>
-            </article>
-            <article class="gallery-slide"
               data-src="assets/compiler/terminal-done-generating-bitstream.png" data-type="image" data-thumb="assets/compiler/terminal-done-generating-bitstream.png"
               data-date="Aug 2026" data-title="Open-Source Synthesis" data-meta="Yosys · nextpnr"
               data-chapter="Build Tooling" data-fig="Fig. 1" data-slug="oss-synth">
               <dl class="gallery-slide__facts"><div><dt>Tools</dt><dd>FOSS Stack</dd></div></dl>
-              <div class="gallery-slide__body"><p>Ditching Vivado. A terminal screenshot showing the final bitstream generated using Yosys and nextpnr in a fraction of the time.</p></div>
-            </article><article class="gallery-slide"
+              <div class="gallery-slide__body"><p>Beyond Vivado. A terminal screenshot showing the final bitstream generated using Yosys and nextpnr in a fraction of the time.</p></div>
+            </article>
+            <article class="gallery-slide"
               data-src="assets/assembly/board-test.webp" data-type="image" data-thumb="assets/assembly/board-test.webp"
               data-date="24 Aug 2026" data-title="On-board test — yay" data-meta="07_alu · bench bring-up"
               data-chapter="Arrival &amp; Assembly" data-fig="Fig. — Test" data-slug="board-test">
               <dl class="gallery-slide__facts"><div><dt>Board</dt><dd>07_alu</dd></div><div><dt>Status</dt><dd>On the bench</dd></div></dl>
               <div class="gallery-slide__body"><p>The slice under test. Copper on the mat, tools around it — the board is no longer a render.</p></div>
             </article>
-
             <article class="gallery-slide"
               data-src="assets/assembly/work-setup.mp4" data-type="video" data-thumb="assets/assembly/work-setup.webp" data-poster="assets/assembly/work-setup.webp"
               data-date="23 Aug 2026" data-title="Soldering lights on the loop" data-meta="07_alu · bench · board cutaways"
@@ -245,6 +189,13 @@
               data-chapter="Arrival &amp; Assembly" data-fig="Fig. 3">
               <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>Boards</dt><dd>5 × 07_alu</dd></div></dl>
               <div class="gallery-slide__body"><p>A slow pass over the stack. You can really see the mask colour, the edge plating, and that massive LED wall footprint right before I started populating them.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/os/what-is-tomato-screen.jpg" data-type="image" data-thumb="assets/os/what-is-tomato-screen.jpg"
+              data-date="29 Aug 2026" data-title="What is Tomato" data-meta="OS · Architecture sheet"
+              data-chapter="Tomato OS" data-fig="Fig. 3" data-slug="what-is">
+              <dl class="gallery-slide__facts"><div><dt>Text</dt><dd>0x1800 Memory</dd></div></dl>
+              <div class="gallery-slide__body"><p>The most important screen on the system. Overcoming the low memory wall allowed this massive text block to be rendered by pulling from higher memory via pointers.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/pcb/continuity-test.jpeg" data-type="image" data-thumb="assets/pcb/continuity-test.jpeg"
@@ -310,6 +261,13 @@
               <div class="gallery-slide__body"><p>The moment of truth. Hitting checkout on a board order always feels like locking in a bet.</p></div>
             </article>
             <article class="gallery-slide"
+              data-src="assets/os/about-screen.jpg" data-type="image" data-thumb="assets/os/about-screen.jpg"
+              data-date="29 Aug 2026" data-title="About Tomato" data-meta="OS · Info screen"
+              data-chapter="Tomato OS" data-fig="Fig. 4" data-slug="about">
+              <dl class="gallery-slide__facts"><div><dt>Screen</dt><dd>About</dd></div></dl>
+              <div class="gallery-slide__body"><p>The screen that used to flash for one frame before the debounce arithmetic fix. Now it reliably waits for the next key press.</p></div>
+            </article>
+            <article class="gallery-slide"
               data-src="assets/plates/jlcpcb-order.webp" data-type="image" data-thumb="assets/plates/jlcpcb-order.webp"
               data-date="Aug 2026" data-title="JLCPCB Order Details" data-meta="PCB Specs"
               data-chapter="Shop Floor" data-fig="Fig. 6" data-slug="jlcpcb-order">
@@ -330,7 +288,6 @@
               <dl class="gallery-slide__facts"><div><dt>Stack</dt><dd>2-layer · ENIG</dd></div><div><dt>Qty</dt><dd>5 boards</dd></div></dl>
               <div class="gallery-slide__body"><p>Five boards for under six dollars. That was cheap enough to spin again without thinking twice if the fab made a mistake.</p></div>
             </article>
-
             <article class="gallery-slide"
               data-src="assets/plates/solder-station.jpeg" data-type="image" data-thumb="assets/plates/solder-station.jpeg"
               data-date="Jul 2026" data-title="Solder station arrives" data-meta="Iron on the desk"
@@ -352,7 +309,6 @@
               <dl class="gallery-slide__facts"><div><dt>Hit</dt><dd>AND3 · 0x80</dd></div><div><dt>Plane</dt><dd>Artix-7</dd></div></dl>
               <div class="gallery-slide__body"><p>That same sweep, but running on hardware. This FPGA clip confirmed the sim hit way before any copper was populated.</p></div>
             </article>
-
             <article class="gallery-slide"
               data-src="assets/compiler/opcode-sweep-sim.mp4" data-type="video" data-thumb="assets/compiler/opcode-sweep-sim.webp" data-poster="assets/compiler/opcode-sweep-sim.webp"
               data-date="Aug 2026" data-title="Opcode sweep — simulation" data-meta="Digital · AND3 · 0x80"
@@ -366,6 +322,13 @@
               data-chapter="Bench &amp; Motion" data-fig="Fig. 3">
               <dl class="gallery-slide__facts"><div><dt>Source</dt><dd>KiCad GLB</dd></div><div><dt>Light</dt><dd>Studio · mask &amp; copper</dd></div></dl>
               <div class="gallery-slide__body"><p>The front-page orbit. I set up paper-stock lighting on the real mask colour. It's the exact same model you see on the interactive bench.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/os/tetris-screen.jpg" data-type="image" data-thumb="assets/os/tetris-screen.jpg"
+              data-date="Aug 2026" data-title="Tetris Port" data-meta="OS · Games"
+              data-chapter="Tomato OS" data-fig="Fig. 5" data-slug="tetris">
+              <dl class="gallery-slide__facts"><div><dt>Game</dt><dd>Tetris</dd></div></dl>
+              <div class="gallery-slide__body"><p>One of the first games ported to TomatoOS. Playing it on a real screen through custom 74xx logic feels entirely different than any emulator.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/pcb/status-bar.webp" data-type="image" data-thumb="assets/pcb/status-bar.webp"
@@ -388,7 +351,6 @@
               <dl class="gallery-slide__facts"><div><dt>Layer</dt><dd>B.Cu</dd></div><div><dt>Pours</dt><dd>Ground flood</dd></div></dl>
               <div class="gallery-slide__body"><p>The back side: ground pours, stitching vias, and the underside of the LED wall. Two-layer boards still have a face you rarely show off.</p></div>
             </article>
-
             <article class="gallery-slide"
               data-src="assets/pcb/alu_8b_board.webp" data-type="image" data-thumb="assets/pcb/alu_8b_board.webp"
               data-date="Aug 2026" data-title="Board render — two 4-bit cells" data-meta="CELL 0 / CELL 1 · flag block · LED wall"
@@ -423,6 +385,13 @@
               data-chapter="07_alu Design" data-fig="Fig. 4" data-slug="layout-8bit">
               <dl class="gallery-slide__facts"><div><dt>Board</dt><dd>07_alu</dd></div><div><dt>View</dt><dd>Top copper</dd></div></dl>
               <div class="gallery-slide__body"><p>The routed board before export. Two 4-bit cells, flag block, and the LED wall footprint all locked on one 100 mm square.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/os/racer-screen.jpg" data-type="image" data-thumb="assets/os/racer-screen.jpg"
+              data-date="Aug 2026" data-title="Racer Port" data-meta="OS · Games"
+              data-chapter="Tomato OS" data-fig="Fig. 6" data-slug="racer">
+              <dl class="gallery-slide__facts"><div><dt>Game</dt><dd>Racer</dd></div></dl>
+              <div class="gallery-slide__body"><p>The Racer port up and running. The graphics are simple, but the throughput behind it is what makes it exciting.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/assembly/3d-olive-penn-branding.png" data-type="image" data-thumb="assets/assembly/3d-olive-penn-branding.png"
@@ -473,7 +442,6 @@
               <dl class="gallery-slide__facts"><div><dt>Block</dt><dd>Glue logic</dd></div></dl>
               <div class="gallery-slide__body"><p>Decoders and support logic that tie the hierarchy together — the sheets you only notice when something does not enable.</p></div>
             </article>
-
             <article class="gallery-slide"
               data-src="assets/pcb/alu_8b_pcb.jpg" data-type="image" data-thumb="assets/pcb/alu_8b_pcb.jpg"
               data-date="Aug 2026" data-title="Top copper — routed" data-meta="185 nets · 0 unrouted · DRC clean"
@@ -487,6 +455,13 @@
               data-chapter="The Simulation" data-fig="Fig. 2" data-slug="lut2">
               <dl class="gallery-slide__facts"><div><dt>Cell</dt><dd>LUT2 from muxes</dd></div></dl>
               <div class="gallery-slide__body"><p>Feeding hex control into stacked 4-to-1s. This was the dual-LUT idea, still just a schematic and not yet 74ACT151 copper.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/os/snake-game-over-screen.jpg" data-type="image" data-thumb="assets/os/snake-game-over-screen.jpg"
+              data-date="Aug 2026" data-title="Snake — Game Over" data-meta="OS · Games"
+              data-chapter="Tomato OS" data-fig="Fig. 7" data-slug="snake">
+              <dl class="gallery-slide__facts"><div><dt>Game</dt><dd>Snake</dd></div></dl>
+              <div class="gallery-slide__body"><p>The Snake port game over screen. Built entirely with the parametric ISA and the new pseudo-instructions.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/story/spice/555-clock.png" data-type="image" data-thumb="assets/story/spice/555-clock.png"
@@ -524,6 +499,13 @@
               <div class="gallery-slide__body"><p>Boxes before any footprints. Source A, Source B, destination, memory, and flags. Later sheets would test this exact unit in Digital. If the arrows lied, the sim was always going to say so louder than any DRC.</p></div>
             </article>
             <article class="gallery-slide"
+              data-src="assets/story/digital/main-tomato-v1-burn.webp" data-type="image" data-thumb="assets/story/digital/main-tomato-v1-burn.webp"
+              data-date="29 Aug 2026" data-title="Digital main — tomato-v1-burn" data-meta="main.dig · top-level CPU"
+              data-chapter="The Simulation" data-fig="Fig. 21" data-slug="main-v1-burn">
+              <dl class="gallery-slide__facts"><div><dt>Sheet</dt><dd>main.dig</dd></div><div><dt>Nodes</dt><dd>629</dd></div></dl>
+              <div class="gallery-slide__body"><p class="drop">The living top sheet: control decode, alu-32b-final, register file, RAM and VGA, IR, PC, and the data-bus switch — labeled tomato-v1-burn. Same machine the FPGA and the OS boot from.</p></div>
+            </article>
+            <article class="gallery-slide"
               data-src="assets/story/digital/main-2026-06-16.webp" data-type="image" data-thumb="assets/story/digital/main-2026-06-16.webp"
               data-date="16 Jun 2026" data-title="Digital main — 16 June" data-meta="main.dig snapshot"
               data-chapter="The Simulation" data-fig="Fig. 19" data-slug="main-0616">
@@ -543,6 +525,13 @@
               data-chapter="The Simulation" data-fig="Fig. 16" data-slug="main-0606">
               <dl class="gallery-slide__facts"><div><dt>Sheet</dt><dd>main.dig</dd></div></dl>
               <div class="gallery-slide__body"><p>Early June on the big sheet — still wiring the control spine before the custom programs ran clean.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/os/fibonacci-screen.jpg" data-type="image" data-thumb="assets/os/fibonacci-screen.jpg"
+              data-date="Aug 2026" data-title="Fibonacci" data-meta="OS · Math"
+              data-chapter="Tomato OS" data-fig="Fig. 8" data-slug="fibonacci">
+              <dl class="gallery-slide__facts"><div><dt>Program</dt><dd>Fibonacci</dd></div></dl>
+              <div class="gallery-slide__body"><p>The obligatory Fibonacci sequence cruncher, running effortlessly on the lowest frequencies.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/story/digital/main-2026-06-07.webp" data-type="image" data-thumb="assets/story/digital/main-2026-06-07.webp"
@@ -599,7 +588,15 @@
               data-chapter="The Simulation" data-fig="Fig. 15" data-slug="mmio">
               <dl class="gallery-slide__facts"><div><dt>Was</dt><dd>Arbiter red</dd></div><div><dt>Now</dt><dd>Bus green</dd></div></dl>
               <div class="gallery-slide__body"><p>Memory-mapped I/O really only counts when the arbiter stops lying to you. It failed, then it passed, and then I captured this still.</p></div>
-            </article>            <article class="gallery-slide"
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/os/keyboard-matrix-attempt.mp4" data-type="video" data-thumb="assets/os/what-is-tomato-screen.jpg" data-poster="assets/os/what-is-tomato-screen.jpg"
+              data-date="Aug 2026" data-title="Keyboard Matrix Attempt" data-meta="Hardware · Input"
+              data-chapter="Tomato OS" data-fig="Fig. 9" data-slug="kb-matrix">
+              <dl class="gallery-slide__facts"><div><dt>Input</dt><dd>Keyboard</dd></div></dl>
+              <div class="gallery-slide__body"><p>Starting to convert an Amazon keyboard into a proper matrix. The 5 buttons on the A7 were too limiting for complex apps.</p></div>
+            </article>
+            <article class="gallery-slide"
               data-src="assets/plates/microcode-modular.webp" data-type="image" data-thumb="assets/plates/microcode-modular.webp"
               data-date="2026" data-title="Modular microcode decode" data-meta="Digital · control fanout"
               data-chapter="The Simulation" data-fig="Fig. 11a" data-slug="microcode-modular">
@@ -648,7 +645,6 @@
               <dl class="gallery-slide__facts"><div><dt>Place</dt><dd>Atlantic City</dd></div></dl>
               <div class="gallery-slide__body"><p>Atlantic City. Another day, same project, just a different desk and different sand. The build logs caught all the odd offices.</p></div>
             </article>
-
             <article class="gallery-slide"
               data-src="assets/story/notes/full-adder-derive.png" data-type="image" data-thumb="assets/story/notes/full-adder-derive.png"
               data-date="Oct 2025" data-title="Before there was copper" data-meta="Grid paper · full adder"
@@ -662,6 +658,13 @@
               data-chapter="Notes &amp; Paper" data-fig="Fig. 2" data-slug="hex-scratch">
               <dl class="gallery-slide__facts"><div><dt>Target</dt><dd>Segment decode</dd></div></dl>
               <div class="gallery-slide__body"><p>Digits long before there was a ROM. I drew each nibble out as lamps by hand, just so a lookup table would actually have something to remember later.</p></div>
+            </article>
+            <article class="gallery-slide"
+              data-src="assets/assembly/fpga-num-seg-disp.mov" data-type="video" data-thumb="assets/os/tetris-screen.jpg" data-poster="assets/os/tetris-screen.jpg"
+              data-date="Aug 2026" data-title="Segment Display Action" data-meta="FPGA · Output"
+              data-chapter="Tomato OS" data-fig="Fig. 10" data-slug="seg-disp">
+              <dl class="gallery-slide__facts"><div><dt>Display</dt><dd>Numeric Segment</dd></div></dl>
+              <div class="gallery-slide__body"><p>The seven-segment display churning numbers live as Tomato runs.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/story/notes/hex-to-rom.jpg" data-type="image" data-thumb="assets/story/notes/hex-to-rom.jpg"
@@ -684,7 +687,6 @@
               <dl class="gallery-slide__facts"><div><dt>FPGA</dt><dd>Artix-7 100T</dd></div></dl>
               <div class="gallery-slide__body"><p>The Nexys A7. Silicon that can pretend to be whatever netlist I throw at it. It sat there next to a PCB still routing—two different futures on the exact same desk.</p></div>
             </article>
-
             <article class="gallery-slide"
               data-src="assets/story/arch/alu-32b-sheet.jpg" data-type="image" data-thumb="assets/story/arch/alu-32b-sheet.jpg"
               data-date="25 Jun 2024" data-title="Tomato ALU — 32-bit sheet" data-meta="KiCad 6 · A2 · alu-32b.kicad_sch"
@@ -721,7 +723,6 @@
               <div class="gallery-slide__body"><p>It was pretty enough to keep the render. Just not small enough to order five of.</p></div>
             </article>
 
-            
           </div>          </div>
         </div>
       </section>
