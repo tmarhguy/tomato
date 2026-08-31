@@ -21,30 +21,19 @@
  * The four arrow codes are also their CP437 glyphs (^ v < >), so software can
  * echo a keycode straight into the framebuffer and get the right picture.
  *
- * One key per press: a code is latched on the debounced rising edge and held
- * with kb_ready until the CPU reads the data word (rd), so a held button does
- * not machine-gun the menu. A fresh press always wins over a stale unread one.
- *
- * Two things make exactly one clean keycode per push:
- *   1. An integrating debounce: a level must agree with itself for STABLE_N
- *      samples before it is accepted, so chattering contacts never get in.
- *   2. A press edge that is one CLOCK wide, not one SAMPLE wide. The CPU polls
- *      this port thousands of times per sample interval, and a fresh press
- *      outranks `rd` in the latch below; a sample-wide edge therefore re-armed
- *      kb_ready on every cycle and turned one click into thousands of keys.
+ * One key per press for Enter (N17): latched on the debounced rising edge
+ * and held with kb_ready until the CPU reads the data word (rd). Arrows
+ * auto-repeat while held so Snake/Tetris can steer without mashing. A
+ * fresh press always wins over a stale unread one.
  */
 module keypad #(
-    // Debounce sample interval in clocks. 8192 @ 6.25 MHz ≈ 1.3 ms.
-    parameter SAMPLE = 13,
-    // A level has to agree with itself for this many samples before it is
-    // believed. 12 × 1.3 ms ≈ 16 ms, longer than the contacts bounce, and
-    // bounce keeps resetting the count so it never reaches the threshold.
-    parameter STABLE_N = 12,
+    // Debounce sample interval in clocks. 65536 @ 6.25 MHz ≈ 10 ms.
+    parameter SAMPLE = 16,
     // Held arrows auto-repeat so Tetris/Snake can slide without mashing.
     // Enter never repeats: the press that opens a screen must not also
-    // dismiss it. 0 disables. 180 ticks ≈ 240 ms, then every 60 ≈ 80 ms.
-    parameter REPEAT_AFTER = 180,
-    parameter REPEAT_RATE  = 60
+    // dismiss it. 0 disables. 24 ticks × 10 ms ≈ 240 ms, then every 80 ms.
+    parameter REPEAT_AFTER = 24,
+    parameter REPEAT_RATE  = 8
 ) (
     input        clk,
     input        reset,
@@ -70,7 +59,8 @@ module keypad #(
         sync1 <= sync0;
     end
 
-    // Slow sample tick.
+    // Sample the synchronised buttons slowly; contact bounce settles well
+    // inside one interval, so the sampled value is the debounced value.
     reg [SAMPLE-1:0] div;
     wire tick = (div == {SAMPLE{1'b1}});
     always @(posedge clk) begin
@@ -78,33 +68,18 @@ module keypad #(
         else       div <= div + 1'b1;
     end
 
-    // Integrating debounce: the sampled vector must agree with the accepted
-    // one for STABLE_N consecutive ticks before it is accepted. A bouncing
-    // contact flips back and forth, resets the count, and never gets through.
-    reg [4:0] stable;
-    reg [7:0] agree;
+    reg [4:0] stable, stable_d;
     always @(posedge clk) begin
         if (reset) begin
-            stable <= 5'b0;
-            agree  <= 8'd0;
+            stable   <= 5'b0;
+            stable_d <= 5'b0;
         end else if (tick) begin
-            if (sync1 == stable)              agree <= 8'd0;
-            else if (agree >= (STABLE_N - 1)) begin
-                stable <= sync1;
-                agree  <= 8'd0;
-            end else                          agree <= agree + 8'd1;
+            stable   <= sync1;
+            stable_d <= stable;
         end
     end
 
-    // The press edge is taken against a CLOCK-rate copy, so it is exactly one
-    // clock wide. Taken against a tick-rate copy it would stay asserted for a
-    // whole sample interval, and because a fresh press outranks `rd` in the
-    // latch below, that re-armed kb_ready every cycle — one click, thousands
-    // of keys.
-    reg [4:0] stable_q;
-    always @(posedge clk) stable_q <= stable;
-
-    wire [4:0] pressed = stable & ~stable_q;   // one-shot, one clock wide
+    wire [4:0] pressed = stable & ~stable_d;   // one-shot, one sample wide
     wire [3:0] arrows  = stable[3:0];
 
     // Count debounce ticks while any arrow is down. Enter is excluded so a
@@ -114,7 +89,7 @@ module keypad #(
         if (reset) hold <= 8'd0;
         else if (tick) begin
             if (arrows == 4'b0) hold <= 8'd0;
-            else if (hold == REPEAT_AFTER + REPEAT_RATE - 1) hold <= REPEAT_AFTER[7:0];
+            else if (hold == (REPEAT_AFTER + REPEAT_RATE - 1)) hold <= REPEAT_AFTER;
             else hold <= hold + 8'd1;
         end
     end
