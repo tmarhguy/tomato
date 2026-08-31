@@ -27,9 +27,9 @@ module burn_boot_tb;
     );
 
     // draw_desktop puts s_title at column 2 of row 0 in white-on-tomato, and
-    // the " MAIN MENU " heading at column 6 of row 3 in gold-on-black.
+    // the " MAIN MENU " heading at column 6 of row 4 in gold-on-black.
     localparam TITLE_AT = 0 * 80 + 2;   // 'T' of TOMATO, attr 0x4F
-    localparam MENU_AT  = 3 * 80 + 7;   // 'M' of MAIN,   attr 0x0E
+    localparam MENU_AT  = 4 * 80 + 7;   // 'M' of MAIN,   attr 0x0E
     localparam TITLE_W  = 32'h00004F54;
     localparam MENU_W   = 32'h00000E4D;
     localparam MAXCYC   = 4000000;

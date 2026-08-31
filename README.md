@@ -4,7 +4,7 @@
 
 ![Status](<https://img.shields.io/badge/Status-Active%20Development-2ea043>) ![Architecture](https://img.shields.io/badge/Architecture-32--bit-011F5B) ![License](https://img.shields.io/badge/License-SHL--2.1-990000) ![Logic](<https://img.shields.io/badge/Logic-74xx%20Discrete-EAB308>)
 
-![ALU](<https://img.shields.io/badge/ALU-Dual--LUT%2074ACT-DC2626>) ![ISA](<https://img.shields.io/badge/ISA-512%20Opcodes-2563EB>) ![Microcode](<https://img.shields.io/badge/Microcode-Modular%20Decode-7C3AED>) ![PCB](<https://img.shields.io/badge/PCB-KiCad%2010-F59E0B?logo=kicad&logoColor=white>)
+![ALU](<https://img.shields.io/badge/ALU-Dual--LUT%2074ACT-DC2626>) ![ISA](<https://img.shields.io/badge/ISA-512%20Opcodes-2563EB>) ![GPR](<https://img.shields.io/badge/GPR-32768-8B1E1E>) ![Microcode](<https://img.shields.io/badge/Microcode-Modular%20Decode-7C3AED>) ![PCB](<https://img.shields.io/badge/PCB-KiCad%2010-F59E0B?logo=kicad&logoColor=white>)
 
 **Before Tomato, there was the transistor board.**
 Same story, same narrative—but this time, it had to be smarter.
@@ -26,7 +26,7 @@ The paper: **[tomato.tmarhguy.com](https://tomato.tmarhguy.com/)** · the site: 
 </table>
 <p align="center"><em>Lot 07 Dual-LUT PCB · board · on the iron · top copper · <a href="https://tomato.tmarhguy.com/software.html">software</a> · <a href="https://tomato.tmarhguy.com/playground.html">playground</a></em></p>
 
-Tomato grew as a revolution: a **65k operational space** (**~3,500×** operation increase than the earlier 8bit board for less area) from a **[dual-LUT3](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>)** fused into an adder, built for linear scale. The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **[512-row opcode ROM](docs/isa/tomato.v1.csv)** fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
+Tomato grew as a revolution: a **65k operational space** (**~3,500×** operation increase than the earlier 8bit board for less area) from a **[dual-LUT3](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>)** fused into an adder, built for linear scale. The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **[512-row opcode ROM](docs/isa/tomato.v1.csv)** fans out into modular control boards that sit next to the hardware they actually drive. The register file is **[32,768 GPR](https://tomato.tmarhguy.com/journal/register-upgrade.html)** — full 15-bit depth of the discrete SRAMs (half a Blackwell SM's physical 65,536 × 32-bit file, one context). The [design journal](docs/log/) is where the arguments live; this README is the map.
 
 The dual-LUT slice is **[on the iron](<docs/log/2026-08-18 - First Phase of Assembly.md>)** — muxes and adders down on one [`07_alu`](hardware/kicad/boards/07_alu/README.md) board.
 
@@ -65,6 +65,54 @@ Tomato runs as synthesizable Verilog on a Nexys A7, paints a 640×480 monitor, a
 
 ---
 
+## Get to work
+
+A clone is enough to **simulate** Tomato OS and the CPU. The multi-gigabyte FPGA toolchain is **gitignored on purpose** — install it only when you want a bitstream.
+
+**What is already in the tree (do not regenerate just to peek):**
+
+| Piece | Path |
+| ----- | ---- |
+| CPU + board RTL | `hardware/fpga/core/rtl/` |
+| Burned OS + microcode (bitstream literals) | `hardware/fpga/core/rtl/burn/` |
+| Tomato OS source | `software/os/tomato_os.s` |
+| Assembler + ISA | `software/assembler.py`, `docs/isa/tomato.v1.csv` |
+| Icarus benches | `hardware/fpga/core/tb/` |
+
+**What stays local (ignored):** `hardware/fpga/.tools/` (~2.7 GB), `hardware/fpga/*/build/`, `*.bit`, `hardware/fpga/core/sim/`, `web/node_modules/`, editor/Obsidian junk.
+
+### Simulate (minutes — needs Icarus + Python 3)
+
+```bash
+git clone https://github.com/tmarhguy/tomato.git
+cd tomato
+make -C hardware/fpga/core test    # units + programs + OS + games
+make -C hardware/fpga/core os      # dump the desktop framebuffer as text
+```
+
+On macOS with Nix: `nix-env -iA nixpkgs.verilog` (or any package that provides `iverilog` / `vvp`).
+
+### Bitstream on a Nexys A7 (one-time toolchain, then flash)
+
+```bash
+cd hardware/fpga/core
+make setup                         # → ../.tools/ (gitignored)
+../scripts/env.sh make fpga        # yosys → nextpnr → .bit
+../scripts/env.sh make program
+```
+
+Changed the OS? `make burn BOOT=tomato_os` before `make fpga`. Full board notes: [hardware/fpga/core/README.md](hardware/fpga/core/README.md).
+
+### Broadsheet site
+
+```bash
+cd web && python3 -m http.server 8080
+```
+
+Open [http://localhost:8080/](http://localhost:8080/). Details: [web/README.md](web/README.md).
+
+---
+
 ## Why Tomato
 
 Tomato is intentionally a **[build log machine](<docs/log/Welcome to Tomato 32.md>)**. Every odd choice is documented somewhere in [docs/log/](docs/log/) — what was tried, what broke routing, what was too slow on the bench, what got deleted to recover PCB area. If you love computers because you like *how* they are built, not just what they run, that journal is the real entry point. Start with [Welcome to Tomato 32](<docs/log/Welcome%20to%20Tomato%2032.md>).
@@ -85,6 +133,7 @@ Tomato is intentionally a **[build log machine](<docs/log/Welcome to Tomato 32.m
 
 - [Why Tomato](#why-tomato)
 - [It boots](#it-boots)
+- [Get to work](#get-to-work)
 - [Architecture at a glance](#architecture-at-a-glance)
 - [Source of truth](#source-of-truth)
 - [Repository map](#repository-map)
@@ -116,7 +165,7 @@ Typical field packing (ALU register ops):
 | `rA`   | 5    | `[17:13]` | ALU operand A                                   |
 | `rB`   | 5    | `[12:8]`  | ALU operand B                                   |
 | `rC`   | 5    | `[7:3]`   | ALU operand C                                   |
-| `BANK` | 3    | `[2:0]`   | Bank select (8 banks → 32 GPR × 8 = 256 regs) |
+| `BANK` | 3    | `[2:0]`   | Primary bank (8 banks → 32 × 8 = 256 in-window); latched `superbank:7` opens full **32,768 GPR** |
 
 Each operand is **5 + 3b bank** in address terms: a 5-bit GPR index within the bank selected by `BANK[2:0]`.
 
@@ -148,7 +197,13 @@ See [opcode-map.csv](docs/opcode-map.csv) for mnemonic layout and [Load Store Pi
 
 ### Register file
 
-**32 GPR × 8 banks = 256** addressable registers. Not the full theoretical address space the LUT catalog could name — enough for real programs and modular board bring-up without widening the datapath.
+> **Note — Why 32,768 GPR?**
+>
+> Tomato exposes **32,768 32-bit GPR locations** because the selected discrete SRAMs (**AS6C62256-55PCN**, 32K × 8) already provide a full **15-bit address space**. The chips, buses, and mirrored 3R1W structure are already in the design — exposing anything less would leave usable address depth disconnected.
+>
+> As absurd as it sounds, that architectural GPR space is **half the size of the 65,536 × 32-bit physical register file in a single NVIDIA Blackwell SM** (their SM serves many threads; Tomato is one architectural context). Full argument: [Register Upgrade](<docs/log/2026-08-29%20-%20Register%20Upgrade.md>) · [on the paper](https://tomato.tmarhguy.com/journal/register-upgrade.html).
+
+**[32,768 GPR](https://tomato.tmarhguy.com/journal/register-upgrade.html)** — `register:5` × `bank:3` × latched `superbank:7` on the full **15-bit** address depth. Ordinary instructions keep a 256-register window; `SETBANK2` changes the window without widening the word.
 
 ### Datapath and control
 
@@ -212,9 +267,11 @@ tomato/
 │   └── verilog/          # Export policy (read-only netlists)
 ├── microcode/            # Per-board control ROM hex images
 ├── verification/         # ALU harness: formal, directed, UVM
-├── firmware/             # Stub — not started
-├── software/             # Stub — not started
-└── web/                  # Broadsheet — tomato.tmarhguy.com (assets/ = all plates)
+├── software/
+│   ├── assembler.py      # .s → .mem / .hex from tomato.v1.csv
+│   ├── asm/              # small program benches
+│   └── os/tomato_os.s    # desktop + games (burned into the FPGA image)
+└── web/                  # Broadsheet — tomato.tmarhguy.com
 ```
 
 ---
@@ -293,12 +350,13 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 | Architecture                  | **32-bit**      | See[Falling back to 32b](<docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md>) |
 | ALU PCB (`07_alu`)          | Populating            | [First phase of assembly](<docs/log/2026-08-18 - First Phase of Assembly.md>)      |
 | Opcode ROM                    | 512 rows (planned)    | Down from 1024-row budget                                                         |
-| Register file                 | 32 GPR × 8 banks     | 256 addressable registers                                                         |
+| Register file                 | **32,768 GPR**       | 15-bit SRAM depth · [Register Upgrade](<docs/log/2026-08-29%20-%20Register%20Upgrade.md>) |
 | `main.dig` + control boards | In progress           | Modular decode on bench                                                           |
 | ALU verification              | Passing on 32b export | [verification/](verification/)                                                     |
 | ALU ASIC characterization     | Sky130 HD mapped      | [6531 µm², 512 cells, ~210 MHz est.](verification/synthesis/README.md)           |
 | Peripheral PCBs               | In design             | Register, memory, PC, data bus                                                    |
-| Firmware / software           | Not started           | README stubs only                                                                 |
+| Tomato OS (FPGA)              | **Running**           | Desktop, quirk sheet, Fib / Snake / Tetris · [software/os/](software/os/)           |
+| Broadsheet                    | Live                  | [tomato.tmarhguy.com](https://tomato.tmarhguy.com/)                                 |
 
 **Bring-up direction:** Build peripherals and modular control boards — not a throwaway FSM that becomes Tomato anyway. The ALU PCB can be exercised through `alu-display-control` and simulation vectors while fab runs ([lingering catch](<docs/log/2026-07-31%20-%20The%20lingering%20thoughts.md>)).
 
