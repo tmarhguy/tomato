@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+tomatoWEB/dist/
 
 # Obsidian
 .obsidian/
@@ -33,6 +34,10 @@ hardware/fpga/**/*.bit
 *.txt
 # Burn boot marker is a .txt that must stay in the tree.
 !hardware/fpga/core/rtl/burn/BOOT.txt
+# Public site identifiers (crawlers, security contact, credits).
+!web/robots.txt
+!web/humans.txt
+!web/.well-known/security.txt
 
 # Verification — hand-authored Verilog (exceptions to *.v above)
 !verification/formal/*_bind.v
