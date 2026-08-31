@@ -3583,10 +3583,10 @@ html[data-theme="light"] .page--landing .landing-lead-media .lead-clip--paper {
   color: #fff;
 }
 
-/* Reveal / scrub */
+/* Reveal / scrub — only hide when JS opted in (html.has-landing-reveal). */
 
-.landing-reveal,
-.landing-scrub[data-scrub] {
+html.has-landing-reveal .landing-reveal,
+html.has-landing-reveal .landing-scrub[data-scrub] {
   opacity: 0;
   transform: translateY(40px);
   filter: blur(2px);
@@ -3598,8 +3598,8 @@ html[data-theme="light"] .page--landing .landing-lead-media .lead-clip--paper {
 }
 
 @media (max-width: 860px) {
-  .landing-reveal,
-  .landing-scrub[data-scrub] {
+  html.has-landing-reveal .landing-reveal,
+  html.has-landing-reveal .landing-scrub[data-scrub] {
     opacity: 1;
     transform: none;
     filter: none;
@@ -3607,8 +3607,8 @@ html[data-theme="light"] .page--landing .landing-lead-media .lead-clip--paper {
   }
 }
 
-.landing-reveal.is-in,
-.landing-scrub[data-scrub].is-in {
+html.has-landing-reveal .landing-reveal.is-in,
+html.has-landing-reveal .landing-scrub[data-scrub].is-in {
   opacity: 1;
   transform: none;
   filter: none;
@@ -3644,8 +3644,8 @@ html[data-theme="light"] .page--landing .landing-lead-media .lead-clip--paper {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .landing-reveal,
-  .landing-scrub[data-scrub],
+  html.has-landing-reveal .landing-reveal,
+  html.has-landing-reveal .landing-scrub[data-scrub],
   .landing-depth__card {
     opacity: 1;
     transform: none;
