@@ -22,11 +22,11 @@
 ;
 ; Memory map — everything an LA reaches has to sit under 4096.
 ;   0x0000  code
-;   0x0590  strings, string tables, jump table, tetromino table
-;   0x0E00  tunables the bench pokes before reset (game speeds, boot)
-;   0x0E08  scratch and mutable state
-;   0x0E20  tetris board, one 10-bit row mask per word
-;   0x0E40  snake body ring, 128 packed cells
+;   0x0640  strings, string tables, jump table, tetromino table
+;   0x0F00  tunables the bench pokes before reset (game speeds, boot)
+;   0x0F08  scratch and mutable state
+;   0x0F20  tetris board, one 10-bit row mask per word
+;   0x0F40  snake body ring, 128 packed cells
 ;
 ; Register map
 ;   r0            zero
@@ -118,31 +118,62 @@ menu_enter:
 ; ============================================================================
 
 ; ---- system info -----------------------------------------------------------
+; Quirk sheet — same facts as the architecture paper, name | machine.
 screen_sysinfo:
             LA      r4, s_sysinfo
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_si_h1
             JAL     r16, puts
 
-            LA      r19, si_body        ; table of string pointers
-            ADDI    r18, r0, 10         ; first body row
+            ADDI    r1, r0, 8
+            ADDI    r2, r0, 7
+            MOV     r5, r27
+            LA      r4, s_si_qh
+            JAL     r16, puts
+            ADDI    r1, r0, 32
+            ADDI    r2, r0, 7
+            MOV     r5, r27
+            LA      r4, s_si_mh
+            JAL     r16, puts
+
+            LA      r19, si_name
+            LA      r7, si_mach
+            ADDI    r18, r0, 9
 si_line:
             LW      r22, r19, 0
             CMP     r22, r0
             BEQ     si_done
             ADDI    r1, r0, 8
             MOV     r2, r18
+            MOV     r5, r26
+            MOV     r4, r22
+            JAL     r16, puts
+            LW      r22, r7, 0
+            ADDI    r1, r0, 32
+            MOV     r2, r18
             MOV     r5, r24
             MOV     r4, r22
             JAL     r16, puts
-            ADDI    r18, r18, 1
+            ADDI    r18, r18, 2
             ADDI    r19, r19, 1
+            ADDI    r7, r7, 1
             JMP     si_line
 si_done:
+            ADDI    r1, r0, 8
+            ADDI    r2, r0, 44
+            MOV     r5, r26
+            LA      r4, s_si_foot
+            JAL     r16, puts
+            ADDI    r1, r0, 8
+            ADDI    r2, r0, 46
+            MOV     r5, r27
+            LA      r4, s_web
+            JAL     r16, puts
+
             JAL     r16, wait_back
             JMP     main_loop
 
@@ -152,7 +183,7 @@ screen_palette:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_pal_h1
             JAL     r16, puts
@@ -163,10 +194,13 @@ pal_row:
             CMP     r18, r6
             BGE     pal_done
 
+            ; row = 7 + 2*index — a blank line between swatches
+            ADDI    r2, r0, 7
+            ADD     r2, r2, r18
+            ADD     r2, r2, r18
+
             ; index label, two hex digits
             ADDI    r1, r0, 8
-            ADDI    r2, r0, 10
-            ADD     r2, r2, r18
             MOV     r3, r18
             MOV     r5, r27
             JAL     r16, puthex2
@@ -177,7 +211,8 @@ pal_row:
             ADDI    r3, r0, 0xDB
             OR      r3, r3, r5
             ADDI    r1, r0, 12
-            ADDI    r2, r0, 10
+            ADDI    r2, r0, 7
+            ADD     r2, r2, r18
             ADD     r2, r2, r18
             ADDI    r4, r0, 24
             JAL     r16, fill
@@ -185,6 +220,11 @@ pal_row:
             ADDI    r18, r18, 1
             JMP     pal_row
 pal_done:
+            ADDI    r1, r0, 8
+            ADDI    r2, r0, 40
+            MOV     r5, r27
+            LA      r4, s_web
+            JAL     r16, puts
             JAL     r16, wait_back
             JMP     main_loop
 
@@ -194,7 +234,7 @@ screen_font:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_font_h1
             JAL     r16, puts
@@ -213,8 +253,9 @@ font_cell:
             ADDI    r1, r0, 24
             ADD     r1, r1, r22
             ADD     r1, r1, r22         ; x = 24 + col*2
-            ADDI    r2, r0, 10
-            ADD     r2, r2, r7          ; y = 10 + row
+            ADDI    r2, r0, 7
+            ADD     r2, r2, r7
+            ADD     r2, r2, r7          ; y = 7 + 2*row
 
             MOV     r3, r18
             OR      r3, r3, r24
@@ -226,6 +267,11 @@ font_cell:
             ADDI    r18, r18, 1
             JMP     font_cell
 font_done:
+            ADDI    r1, r0, 8
+            ADDI    r2, r0, 40
+            MOV     r5, r27
+            LA      r4, s_web
+            JAL     r16, puts
             JAL     r16, wait_back
             JMP     main_loop
 
@@ -235,19 +281,19 @@ screen_keypad:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_kp_h1
             JAL     r16, puts
 
             ADDI    r1, r0, 8
-            ADDI    r2, r0, 11
+            ADDI    r2, r0, 8
             MOV     r5, r24
             LA      r4, s_kp_glyph
             JAL     r16, puts
 
             ADDI    r1, r0, 8
-            ADDI    r2, r0, 13
+            ADDI    r2, r0, 10
             MOV     r5, r24
             LA      r4, s_kp_code
             JAL     r16, puts
@@ -258,7 +304,7 @@ kp_wait:
 
             ; the keycode is its own glyph — draw it big and plain
             ADDI    r1, r0, 24
-            ADDI    r2, r0, 11
+            ADDI    r2, r0, 8
             MOV     r3, r21
             OR      r3, r3, r26
             MUL     r11, r2, r10
@@ -267,7 +313,7 @@ kp_wait:
             SW      r3, r11, 0
 
             ADDI    r1, r0, 24
-            ADDI    r2, r0, 13
+            ADDI    r2, r0, 10
             MOV     r3, r21
             MOV     r5, r24
             JAL     r16, puthex2
@@ -285,13 +331,13 @@ screen_about:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_owner
             JAL     r16, puts
 
             LA      r19, ab_body
-            ADDI    r18, r0, 10
+            ADDI    r18, r0, 7          ; body with a blank row between lines
 ab_line:
             LW      r22, r19, 0
             CMP     r22, r0
@@ -301,31 +347,36 @@ ab_line:
             MOV     r5, r24
             MOV     r4, r22
             JAL     r16, puts
-            ADDI    r18, r18, 1
+            ADDI    r18, r18, 2
             ADDI    r19, r19, 1
             JMP     ab_line
 ab_done:
             ADDI    r1, r0, 8
-            ADDI    r2, r0, 22
+            ADDI    r2, r0, 28
             ADDI    r3, r0, 56
-            ADDI    r4, r0, 7
+            ADDI    r4, r0, 9
             MOV     r5, r26
             JAL     r16, box
 
             ADDI    r1, r0, 12
-            ADDI    r2, r0, 24
+            ADDI    r2, r0, 30
             MOV     r5, r26
             LA      r4, c_2
             JAL     r16, puts
             ADDI    r1, r0, 12
-            ADDI    r2, r0, 25
+            ADDI    r2, r0, 32
             MOV     r5, r24
             LA      r4, c_3
             JAL     r16, puts
             ADDI    r1, r0, 12
-            ADDI    r2, r0, 26
+            ADDI    r2, r0, 34          ; air under the class year
             MOV     r5, r27
             LA      r4, s_penn
+            JAL     r16, puts
+            ADDI    r1, r0, 12
+            ADDI    r2, r0, 36          ; air under the university line
+            MOV     r5, r26
+            LA      r4, s_web
             JAL     r16, puts
 
             JAL     r16, wait_back
@@ -337,13 +388,13 @@ screen_map:
             JAL     r16, screen_frame
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
+            ADDI    r2, r0, 5
             MOV     r5, r26
             LA      r4, s_map_h1
             JAL     r16, puts
 
             LA      r19, map_body
-            ADDI    r18, r0, 10
+            ADDI    r18, r0, 7
 map_line:
             LW      r22, r19, 0
             CMP     r22, r0
@@ -353,7 +404,7 @@ map_line:
             MOV     r5, r24
             MOV     r4, r22
             JAL     r16, puts
-            ADDI    r18, r18, 1
+            ADDI    r18, r18, 2
             ADDI    r19, r19, 1
             JMP     map_line
 map_done:
@@ -432,21 +483,22 @@ fib_quit:
             JMP     main_loop
 
 ; fib_draw: headline plus a 24-slot window around n, with n picked out in gold.
+; n / F(n) sit on 8 and 11; the term table is double-spaced from row 14.
 fib_draw:
             MOV     r17, r16
 
             ADDI    r1, r0, 6           ; n = <term>
-            ADDI    r2, r0, 9
+            ADDI    r2, r0, 8
             MOV     r3, r24
             ADDI    r4, r0, 60
             JAL     r16, fill
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 9
+            ADDI    r2, r0, 8
             MOV     r5, r26
             LA      r4, s_fib_n
             JAL     r16, puts
             ADDI    r1, r0, 10
-            ADDI    r2, r0, 9
+            ADDI    r2, r0, 8
             MOV     r3, r18
             MOV     r5, r24
             JAL     r16, putdec
@@ -508,17 +560,20 @@ fd_done:
             MOV     r16, r17
             JR      r16
 
-; fd_xy: slot r30 → (r1, r2). Twelve to a column, two columns.
+; fd_xy: slot r30 → (r1, r2). Twelve to a column, two columns, blank between rows.
 fd_xy:
             ADDI    r11, r0, 12
             CMP     r30, r11
             BGE     fd_xy_right
             ADDI    r1, r0, 8
-            ADDI    r2, r30, 14
+            MOV     r2, r30
+            ADD     r2, r2, r30
+            ADDI    r2, r2, 14          ; y = 14 + 2*slot
             JR      r16
 fd_xy_right:
             ADDI    r1, r0, 42
             SUB     r2, r30, r11
+            ADD     r2, r2, r2          ; 2*(slot-12)
             ADDI    r2, r2, 14
             JR      r16
 
@@ -1355,18 +1410,19 @@ draw_desktop:
             LA      r4, s_owner
             JAL     r16, puts
 
-            ADDI    r1, r0, 0           ; second bar: the claim
-            ADDI    r2, r0, 1
+            ; row 1 stays empty — a beat between the title and the claim
+            ADDI    r1, r0, 0           ; claim bar
+            ADDI    r2, r0, 2
             MOV     r3, r27
             ADDI    r4, r0, 80
             JAL     r16, fill
             ADDI    r1, r0, 2
-            ADDI    r2, r0, 1
+            ADDI    r2, r0, 2
             MOV     r5, r27
             LA      r4, s_claim
             JAL     r16, puts
             ADDI    r1, r0, 68
-            ADDI    r2, r0, 1
+            ADDI    r2, r0, 2
             MOV     r5, r27
             LA      r4, s_ready
             JAL     r16, puts
@@ -1382,32 +1438,33 @@ draw_desktop:
             LA      r4, s_keys
             JAL     r16, puts
 
-            ADDI    r1, r0, 4           ; menu frame — nine entries
-            ADDI    r2, r0, 3
+            ; menu frame — nine entries, one blank row between each
+            ADDI    r1, r0, 4
+            ADDI    r2, r0, 4
             ADDI    r3, r0, 34
-            ADDI    r4, r0, 12
+            ADDI    r4, r0, 22
             MOV     r5, r27
             JAL     r16, box
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 3
+            ADDI    r2, r0, 4
             MOV     r5, r26
             LA      r4, s_menu_hd
             JAL     r16, puts
 
             ADDI    r1, r0, 40          ; the machine card
-            ADDI    r2, r0, 3
+            ADDI    r2, r0, 4
             ADDI    r3, r0, 36
-            ADDI    r4, r0, 12
+            ADDI    r4, r0, 22
             MOV     r5, r27
             JAL     r16, box
             ADDI    r1, r0, 42
-            ADDI    r2, r0, 3
+            ADDI    r2, r0, 4
             MOV     r5, r26
             LA      r4, s_card_hd
             JAL     r16, puts
 
             LA      r19, card_body
-            ADDI    r18, r0, 5
+            ADDI    r18, r0, 6          ; first card line; +2 each pass
 dd_card:
             LW      r22, r19, 0
             CMP     r22, r0
@@ -1417,12 +1474,12 @@ dd_card:
             MOV     r5, r24
             MOV     r4, r22
             JAL     r16, puts
-            ADDI    r18, r18, 1
+            ADDI    r18, r18, 2
             ADDI    r19, r19, 1
             JMP     dd_card
 dd_card_done:
             ADDI    r1, r0, 42
-            ADDI    r2, r0, 6
+            ADDI    r2, r0, 8           ; c_2 — name in gold
             MOV     r5, r26
             LA      r4, c_2
             JAL     r16, puts
@@ -1454,6 +1511,7 @@ screen_frame:
             LA      r4, s_owner
             JAL     r16, puts
 
+            ; row 1 stays empty under the title bar
             ADDI    r1, r0, 0
             ADDI    r2, r0, 59
             MOV     r3, r23
@@ -1466,14 +1524,14 @@ screen_frame:
             JAL     r16, puts
 
             ADDI    r1, r0, 4
-            ADDI    r2, r0, 6
+            ADDI    r2, r0, 3           ; panel sits under the air beneath the title
             ADDI    r3, r0, 72
-            ADDI    r4, r0, 50
+            ADDI    r4, r0, 53
             MOV     r5, r27
             JAL     r16, box
 
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 6
+            ADDI    r2, r0, 3
             MOV     r5, r26
             MOV     r4, r22
             JAL     r16, puts
@@ -1500,6 +1558,7 @@ footer:
             JR      r16
 
 ; draw_menu: n_menu entries inside the frame, r20 highlighted.
+; Row = 6 + 2*index so every entry has a blank line under it.
 draw_menu:
             MOV     r17, r16
             ZERO    r18                 ; entry index
@@ -1510,8 +1569,9 @@ dm_entry:
             CMP     r18, r7
             BGE     dm_done
 
-            ADDI    r2, r0, 5
-            ADD     r2, r2, r18         ; row
+            ADDI    r2, r0, 6
+            ADD     r2, r2, r18
+            ADD     r2, r2, r18         ; row = 6 + 2*index
 
             ; wipe the line so the old highlight does not linger
             ADDI    r1, r0, 5
@@ -1523,13 +1583,15 @@ dm_entry:
             BNE     dm_plain
             ; selected: paint the bar, then a caret
             ADDI    r1, r0, 5
-            ADDI    r2, r0, 5
+            ADDI    r2, r0, 6
+            ADD     r2, r2, r18
             ADD     r2, r2, r18
             MOV     r3, r23
             ADDI    r4, r0, 32
             JAL     r16, fill
             ADDI    r1, r0, 6
-            ADDI    r2, r0, 5
+            ADDI    r2, r0, 6
+            ADD     r2, r2, r18
             ADD     r2, r2, r18
             ADDI    r3, r0, 0x10        ; right-pointing caret
             OR      r3, r3, r23
@@ -1543,7 +1605,8 @@ dm_plain:
             MOV     r5, r24
 dm_text:
             ADDI    r1, r0, 8
-            ADDI    r2, r0, 5
+            ADDI    r2, r0, 6
+            ADD     r2, r2, r18
             ADD     r2, r2, r18
             LW      r4, r19, 0
             JAL     r16, puts
@@ -1868,11 +1931,11 @@ rnd_go:
 ; ============================================================================
 ; Data
 ; ============================================================================
-            .org 0x590
+            .org 0x640
 
 s_title:    .asciz "TOMATO OS  v1.0"
 s_owner:    .asciz "Designed by Tyrone Marhguy"
-s_claim:    .asciz "dual-LUT3 ALU  -  524288 ops  -  256 GPR 3R1W"
+s_claim:    .asciz "dual-LUT3 ALU  -  524288 ops  -  32768 GPR 3R1W"
 s_ready:    .asciz "READY"
 s_keys:     .asciz "\x1e \x1f move    ENTER select    \x11 back"
 s_back:     .asciz "\x11 back"
@@ -1903,6 +1966,7 @@ m_tetris:   .asciz "Tetris"
 m_about:    .asciz "About Tomato"
 m_map:      .asciz "Memory map"
 s_penn:     .asciz "University of Pennsylvania"
+s_web:      .asciz "tomato.tmarhguy.com"
 
 s_map:      .asciz " MEMORY MAP "
 s_map_h1:   .asciz "Every bus the CPU can name"
@@ -1916,16 +1980,49 @@ mp_6:       .asciz "Word-addressed. One instruction, one word."
 
 s_sysinfo:  .asciz " SYSTEM INFO "
 s_si_h1:    .asciz "WHAT IS TOMATO"
-si_body:    .word si_1, si_2, si_3, si_4, si_5, si_6, si_7, si_8, si_9, 0
-si_1:       .asciz "3-variable ALU     out = f(a,b,c) + g(a,b,c) + cin"
-si_2:       .asciz "Dual-LUT ALU       two independent LUT3 planes per bit"
-si_3:       .asciz "No output mux      LUT feeds the adder. Logic rides arithmetic"
-si_4:       .asciz "Polymorphic ALU    dual 8-bit LUT programs, 524288 ops"
-si_5:       .asciz "3R-1W register file  three reads, one write on execute"
-si_6:       .asciz "256 GPR            32 registers x 8 banks, r0 wired zero"
-si_7:       .asciz "Immediate box      imm8, imm12, imm13, imm16, LUI"
-si_8:       .asciz "Barrel shifter     LSL / LSR / ASR / ROR, amount = B[4:0]"
-si_9:       .asciz "Designed by        Tyrone Marhguy, Penn Engineering 2028"
+s_si_qh:    .asciz "Quirk"
+s_si_mh:    .asciz "The machine"
+s_si_foot:  .asciz "The facts that do not move."
+si_name:    .word sin_1, sin_2, sin_3, sin_4, sin_5, sin_6, sin_7, sin_8
+            .word sin_9, sin_10, sin_11, sin_12, sin_13, sin_14, sin_15, sin_16
+            .word sin_17, 0
+si_mach:    .word sim_1, sim_2, sim_3, sim_4, sim_5, sim_6, sim_7, sim_8
+            .word sim_9, sim_10, sim_11, sim_12, sim_13, sim_14, sim_15, sim_16
+            .word sim_17, 0
+sin_1:      .asciz "3-variable ALU"
+sim_1:      .asciz "out = f(a,b,c) + g(a,b,c) + cin"
+sin_2:      .asciz "Dual-LUT ALU"
+sim_2:      .asciz "two independent LUT3 planes per bit"
+sin_3:      .asciz "No output mux"
+sim_3:      .asciz "LUT feeds the adder. Logic rides arithmetic"
+sin_4:      .asciz "Polymorphic ALU"
+sim_4:      .asciz "dual 8-bit LUT programs. 524288 ops + csel"
+sin_5:      .asciz "3R-1W register file"
+sim_5:      .asciz "three reads, one write on execute"
+sin_6:      .asciz "32768 GPR"
+sim_6:      .asciz "15-bit AS6C62256. half a Blackwell SM"
+sin_7:      .asciz "Immediate box"
+sim_7:      .asciz "16 encodings: imm8, imm12, imm13, imm16, LUI"
+sin_8:      .asciz "Priority-encoder MUL"
+sim_8:      .asciz "worst 16 cycles, best 0, ~4 amortized"
+sin_9:      .asciz "Modular control"
+sim_9:      .asciz "local EEPROMs, 9-bit opcode, 512-row ROM"
+sin_10:     .asciz "Overlay word"
+sim_10:     .asciz "low bits: COND, jump mode, or immediate"
+sin_11:     .asciz "8 flags"
+sim_11:     .asciz "Z ~Z N C V LT GT GTE. cin from any"
+sin_12:     .asciz "Barrel shifter"
+sim_12:     .asciz "LSL / LSR / ASR / ROR. amount = B[4:0]"
+sin_13:     .asciz "Parametric ISA"
+sim_13:     .asciz "opcode configures muxes. ~37 family maps"
+sin_14:     .asciz "Multi-cycle VN"
+sim_14:     .asciz "fetch + exec; three phases if memory waits"
+sin_15:     .asciz "Dark silicon"
+sim_15:     .asciz "512 burned rows. the plane knows more"
+sin_16:     .asciz "Write-back mux"
+sim_16:     .asciz "9 ns tri-state vs 52 ns cascading 151"
+sin_17:     .asciz "Byte-lane memory"
+sim_17:     .asciz "word / half / byte, signed or unsigned"
 
 s_palette:  .asciz " PALETTE "
 s_pal_h1:   .asciz "Sixteen indices, as the scanout resolves them"
@@ -1971,7 +2068,7 @@ c_2:        .asciz "TYRONE MARHGUY"
 c_3:        .asciz "Penn Engineering  2028"
 c_4:        .asciz ""
 c_5:        .asciz "dual-LUT3 ALU, 524288 ops"
-c_6:        .asciz "256 GPR, 8 banks, 3R1W"
+c_6:        .asciz "32768 GPR, banked, 3R1W"
 c_7:        .asciz "512-row modular microcode"
 
 s_about:    .asciz " ABOUT "
@@ -1981,7 +2078,7 @@ ab_2:       .asciz "simulated in Digital, cloned to Verilog, and carried"
 ab_3:       .asciz "here on an FPGA while the copper is still under the iron."
 ab_4:       .asciz ""
 ab_5:       .asciz "Dual-LUT3 ALU. Two planes per bit. 524288 operations."
-ab_6:       .asciz "256 GPRs, 3R1W. Immediate box. Eight microcode planes."
+ab_6:       .asciz "32768 GPRs, 3R1W. Immediate box. Eight microcode planes."
 ab_7:       .asciz "Dark silicon: 512 burned rows. The plane knows more."
 ab_8:       .asciz "Write-back mux: 9 ns tri-state vs 52 ns cascading 151."
 ab_9:       .asciz "Byte-lane memory. Overlay word. This is Tomato ISA v1."
@@ -1990,20 +2087,20 @@ ab_9:       .asciz "Byte-lane memory. Overlay word. This is Tomato ISA v1."
 ; Iterations per input slice; eight slices make one world step. Sized for the
 ; 6.25 MHz CPU clock. tb/games_tb.v pokes these four words before releasing
 ; reset so a step costs microseconds instead of a fifth of a second.
-            .org 0xE00
+            .org 0xF00
 tune_snake: .word 9000
 tune_tetris: .word 26000
 tune_fib:   .word 4000
 tune_boot:  .word 5000
 
 ; ---- mutable state ---------------------------------------------------------
-            .org 0xE08
+            .org 0xF08
 v_seed:     .word 0x2545F491
 v_capt:     .word 0
 dec_buf:    .space 12
 
-            .org 0xE20
+            .org 0xF20
 tt_row:     .space 20           ; one 10-bit occupancy mask per board row
 
-            .org 0xE40
+            .org 0xF40
 sn_buf:     .space 128          ; snake body, a ring of packed cells
