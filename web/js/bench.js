@@ -11,7 +11,34 @@ function easeOutCubic(u) {
   return 1 - (1 - u) ** 3;
 }
 
-const STAGE = 0x050505;
+const STAGE_DARK = 0x050505;
+const STAGE_LIGHT = 0xf4f0e6; /* Paper stock — same as mast PAPER */
+
+function stageHex() {
+  const theme = document.documentElement.getAttribute("data-theme");
+  if (theme === "light") return STAGE_LIGHT;
+  if (theme === "dark") return STAGE_DARK;
+
+  const root = document.querySelector(".landing-hero__viewer, .page--landing, .page") || document.documentElement;
+  const css =
+    getComputedStyle(root).getPropertyValue("--landing-viewer-bg").trim() ||
+    getComputedStyle(root).getPropertyValue("--landing-bg").trim() ||
+    getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+  if (css) {
+    try {
+      return new THREE.Color(css).getHex();
+    } catch {}
+  }
+  return STAGE_DARK;
+}
+
+function syncStageBackground(scene, renderer) {
+  const hex = stageHex();
+  scene.background = new THREE.Color(hex);
+  renderer.setClearColor(hex, 1);
+  const stage = renderer.domElement && renderer.domElement.closest(".bench-stage");
+  if (stage) stage.style.background = `#${hex.toString(16).padStart(6, "0")}`;
+}
 
 function isHand() {
   return (
@@ -32,10 +59,10 @@ function injectHud(stage) {
   const hud = document.createElement("div");
   hud.className = "bench-hud";
   hud.innerHTML = `
-    <button type="button" class="bench-hud-toggle" data-hud="legend" aria-expanded="${isHand() ? "false" : "true"}">
+    <button type="button" class="bench-hud-toggle" data-hud="legend" aria-expanded="false">
       <span class="hud-desk">Controls</span><span class="hud-hand">Controls</span>
     </button>
-    <div class="bench-legend-wrap"${isHand() ? " hidden" : ""}>
+    <div class="bench-legend-wrap" hidden>
       <div class="bench-legend bench-legend--desk">
         <p class="bench-legend-row"><span>Turn</span><kbd>Drag</kbd></p>
         <p class="bench-legend-row"><span>Slide</span><kbd>Right-drag</kbd></p>
@@ -54,10 +81,23 @@ function injectHud(stage) {
       </div>
     </div>
   `;
-  const mark = document.createElement("p");
-  mark.className = "bench-mark";
-  mark.innerHTML = `<span></span> KiCad model`;
-  stage.append(hud, mark);
+  const markWrap = document.createElement("div");
+  markWrap.className = "bench-mark-wrap";
+  markWrap.innerHTML = `
+    <button type="button" class="bench-mark" data-hud="model" aria-expanded="false" aria-label="KiCad PCB model">
+      KiCad
+    </button>
+    <div class="bench-model-wrap" hidden>
+      <div class="bench-model-info">
+        <p class="bench-model-kicker">07_alu · KiCad 10 export</p>
+        <p>This is the real PCB model — soldermask, copper, pads, and 74ACT footprints straight from KiCad. The lighting is studio; the geometry is not restyled.</p>
+        <p class="bench-model-stat"><span>Shipped GLB</span><span>1.26 MB · 9 meshes</span></p>
+        <p class="bench-model-stat"><span>Raw export</span><span>~31 MB · ~41k primitives</span></p>
+        <p class="bench-model-note">We join footprints by material and Draco-compress so copper stays on its own layer. <a href="journal/web-optimization.html">How we shrunk the GLB</a></p>
+      </div>
+    </div>
+  `;
+  stage.append(hud, markWrap);
 }
 
 export async function mountBench(canvas, opts) {
@@ -65,7 +105,6 @@ export async function mountBench(canvas, opts) {
   if (stage) injectHud(stage);
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(STAGE);
 
   const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 500);
   const renderer = new THREE.WebGLRenderer({
@@ -73,6 +112,7 @@ export async function mountBench(canvas, opts) {
     antialias: true,
     powerPreference: "high-performance",
   });
+  syncStageBackground(scene, renderer);
   const mobile = isCoarsePointer();
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -260,6 +300,13 @@ export async function mountBench(canvas, opts) {
     root.querySelectorAll("[data-bench]").forEach((btn) => {
       const name = btn.getAttribute("data-bench");
       if (name === "spin" || name === "grid") return;
+      if (name === "flip") {
+        const onCopper = currentView === "copper";
+        btn.textContent = onCopper ? "Top" : "Bottom";
+        btn.setAttribute("aria-label", onCopper ? "Switch to top view" : "Switch to bottom copper view");
+        btn.classList.toggle("is-on", currentView === "top" || currentView === "copper");
+        return;
+      }
       btn.classList.toggle("is-on", name === currentView && name !== "reset");
     });
   }
@@ -344,7 +391,7 @@ export async function mountBench(canvas, opts) {
   }
 
   const blockScroll = (e) => {
-    if (e.target.closest(".bench-hud, .bench-tools, button, a")) return;
+    if (e.target.closest(".bench-hud, .bench-mark-wrap, .bench-tools, button, a")) return;
     if (e.cancelable) e.preventDefault();
   };
 
@@ -440,6 +487,10 @@ export async function mountBench(canvas, opts) {
     if (name === "top") go("top");
     if (name === "iso") go("iso");
     if (name === "side") go("side");
+    if (name === "flip") {
+      go(currentView === "copper" ? "top" : "copper");
+      return;
+    }
     if (name === "spin") {
       controls.autoRotate = !controls.autoRotate;
       syncSpin();
@@ -457,11 +508,34 @@ export async function mountBench(canvas, opts) {
 
   stage?.querySelector("[data-hud=legend]")?.addEventListener("click", (e) => {
     const wrap = stage.querySelector(".bench-legend-wrap");
+    const modelWrap = stage.querySelector(".bench-model-wrap");
+    const modelBtn = stage.querySelector("[data-hud=model]");
     if (!wrap) return;
     const open = wrap.hasAttribute("hidden");
     wrap.toggleAttribute("hidden", !open);
     e.currentTarget.setAttribute("aria-expanded", String(open));
     e.currentTarget.classList.toggle("is-on", open);
+    if (open && modelWrap && modelBtn) {
+      modelWrap.setAttribute("hidden", "");
+      modelBtn.setAttribute("aria-expanded", "false");
+      modelBtn.classList.remove("is-on");
+    }
+  });
+
+  stage?.querySelector("[data-hud=model]")?.addEventListener("click", (e) => {
+    const wrap = stage.querySelector(".bench-model-wrap");
+    const legendWrap = stage.querySelector(".bench-legend-wrap");
+    const legendBtn = stage.querySelector("[data-hud=legend]");
+    if (!wrap) return;
+    const open = wrap.hasAttribute("hidden");
+    wrap.toggleAttribute("hidden", !open);
+    e.currentTarget.setAttribute("aria-expanded", String(open));
+    e.currentTarget.classList.toggle("is-on", open);
+    if (open && legendWrap && legendBtn) {
+      legendWrap.setAttribute("hidden", "");
+      legendBtn.setAttribute("aria-expanded", "false");
+      legendBtn.classList.remove("is-on");
+    }
   });
 
   function onKey(e) {
@@ -506,6 +580,20 @@ export async function mountBench(canvas, opts) {
   syncGrid();
   syncViewBtns();
 
+  const themeObs = new MutationObserver(() => {
+    requestAnimationFrame(() => {
+      syncStageBackground(scene, renderer);
+      controls.update();
+      renderer.render(scene, camera);
+    });
+  });
+  themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  document.addEventListener("tomato:theme", () => {
+    syncStageBackground(scene, renderer);
+    controls.update();
+    renderer.render(scene, camera);
+  });
+
   return {
     reset: () => act("reset"),
     front: () => act("front"),
@@ -516,6 +604,7 @@ export async function mountBench(canvas, opts) {
     },
     dispose() {
       cancelAnimationFrame(raf);
+      themeObs.disconnect();
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVis);

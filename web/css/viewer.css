@@ -115,18 +115,10 @@ body.is-ready #viewer-canvas {
   font-family: ui-monospace, Menlo, monospace;
 }
 
-.chip::before {
-  content: "";
-  width: 0.35rem;
-  height: 0.35rem;
-  border-radius: 99px;
-  background: var(--red);
-}
-
 .chip-hand { display: none; }
 
 .view-bar {
-  display: none;
+  display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 0.35rem;
@@ -155,10 +147,6 @@ body.is-ready #viewer-canvas {
   background: var(--red);
   border-color: var(--red);
   color: #050505;
-}
-
-.chip.is-on::before {
-  background: #050505;
 }
 
 .legend--hand { display: none; }
@@ -251,13 +239,6 @@ body.is-ready #viewer-canvas {
   letter-spacing: 0.08em;
   font-family: ui-monospace, Menlo, monospace;
   color: var(--cream);
-}
-
-.badge i {
-  width: 0.35rem;
-  height: 0.35rem;
-  border-radius: 99px;
-  background: var(--red);
 }
 
 body.is-playing .back,
@@ -370,12 +351,19 @@ body.is-playing .badge { display: none; }
 }
 
 @media (max-width: 860px), (pointer: coarse) {
-  .badge { display: none; }
+  .badge {
+    display: flex;
+    top: 4.25rem;
+    right: 0.65rem;
+    bottom: auto;
+    left: auto;
+    font-size: 9px;
+    padding: 0.28rem 0.55rem;
+  }
   .chip-desk,
   .legend--desk { display: none !important; }
   .legend--hand:not([hidden]) { display: block; }
   .view-bar {
-    display: flex;
     flex-wrap: wrap;
     max-width: none;
     justify-content: flex-end;

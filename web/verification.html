@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>Verification — ALU Sign-off — The Tomato</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/magazine.css" />
+  <link rel="stylesheet" href="css/site.css?v=34" />
+<!-- tomato-seo -->
+  <meta name="description" content="Tomato ALU verification sign-off: SymbiYosys formal proofs 1b→32b, 476 directed Icarus vectors, UVM Questa scoreboard, Verilator gauntlet 10 billion (8b) + 130 billion (32b) vectors, golden model, make signoff CI." />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, ALU verification, sby, formal equivalence, directed testbench, UVM ALU, Verilator gauntlet, 10B vectors, 130B vectors, golden model, dual-LUT proof, make signoff, Property inventory, opcode sweep FPGA, Verification, ALU, Sign-off, tomato, formal, proofs, directed, icarus, vectors" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="author" type="text/plain" href="humans.txt" />
+  <meta property="og:title" content="Verification — ALU Sign-off — The Tomato" />
+  <meta property="og:description" content="Tomato ALU verification sign-off: SymbiYosys formal proofs 1b→32b, 476 directed Icarus vectors, UVM Questa scoreboard, Verilator gauntlet 10 billion (8b) + 130 billion (32b) vectors, golden model, make signoff CI." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/verification.html" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/verification.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/compiler/opcode-sweep-fpga.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
+  <meta name="twitter:title" content="Verification — ALU Sign-off — The Tomato" />
+  <meta name="twitter:description" content="Tomato ALU verification sign-off: SymbiYosys formal proofs 1b→32b, 476 directed Icarus vectors, UVM Questa scoreboard, Verilator gauntlet 10 billion (8b) + 130 billion (32b) vectors, golden model, make signoff CI." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/compiler/opcode-sweep-fpga.webp" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://tomato.tmarhguy.com/verification.html#webpage",
+  "url": "https://tomato.tmarhguy.com/verification.html",
+  "name": "Verification — ALU Sign-off — The Tomato",
+  "description": "Tomato ALU verification sign-off: SymbiYosys formal proofs 1b→32b, 476 directed Icarus vectors, UVM Questa scoreboard, Verilator gauntlet 10 billion (8b) + 130 billion (32b) vectors, golden model, make signoff CI.",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US",
+  "headline": "Verification — ALU Sign-off",
+  "author": {
+    "@type": "Person",
+    "name": "Tyrone Marhguy"
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "SymbiYosys"
+    },
+    {
+      "@type": "Thing",
+      "name": "Verilator"
+    },
+    {
+      "@type": "Thing",
+      "name": "UVM"
+    },
+    {
+      "@type": "Thing",
+      "name": "ALU formal verification"
+    },
+    {
+      "@type": "Thing",
+      "name": "FPGA gauntlet"
+    }
+  ]
+}</script>
+  <!-- /tomato-seo -->
+</head>
+<body>
+  <div class="page page--site">
+    <header class="wrap">
+      <div class="mast">
+        <nav class="mast-nav" aria-label="Primary">
+          <a href="index.html">Front</a>
+          <a href="architecture.html">Architecture</a>
+          <a href="verification.html" aria-current="page">Verification</a>
+          <a href="isa.html">ISA</a>
+          <a href="software.html">Software</a>
+          <a href="os.html">Tomato OS</a>
+          <a href="playground.html">Playground</a>
+          <a href="journal.html">Journal</a>
+          <a href="boards.html">Catalog</a>
+          <a href="board.html">Orbit</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="source.html">GitHub</a>
+          <a href="about.html">About</a>
+          <a class="is-tour" href="viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <a class="site-brand-seed nameplate" href="index.html" hidden>
+        <img src="assets/mark.svg" alt="" width="52" height="61" />
+        <h1>Tomato</h1>
+      </a>
+    </header>
+
+    <main>
+      <section class="site-hero site-hero--verify" aria-labelledby="verify-title">
+        <div class="site-hero__media">
+          <figure class="plate">
+            <video class="verify-hero-video" autoplay muted playsinline webkit-playsinline controls preload="metadata" poster="assets/gallery/compiler/opcode-sweep-fpga-640w.webp" width="480" height="544" aria-label="Opcode sweep on Artix-7, AND3 hit at 0x80">
+              <source src="assets/compiler/opcode-sweep-fpga.mp4" type="video/mp4" />
+            </video>
+            <figcaption class="plate-cap"><span>Fig. — Artix-7</span><span>Opcode sweep · AND3 hit at 0x80</span></figcaption>
+          </figure>
+        </div>
+        <div class="site-hero__copy">
+          <p class="kicker">ALU sign-off</p>
+          <h1 class="headline" id="verify-title">The datapath is proved, not pitched</h1>
+          <p class="deck">Layered sign-off for the dual-LUT ALU: <strong>SymbiYosys</strong> from 1b through full 32b combinatorial equivalence, <strong>476</strong> directed vectors replayed from Digital, <strong>UVM</strong> on Questa, and a <strong>Verilator gauntlet</strong> at <strong>10&nbsp;billion</strong> (8b) and <strong>130&nbsp;billion</strong> (32b) vectors — every mismatch aborts.</p>
+          <p class="byline">Authority · <span class="mono">verification/</span> · latest run 2026-06-19 · <a href="https://github.com/tmarhguy/tomato/tree/main/verification">GitHub tree →</a></p>
+          <nav class="site-hero__actions" aria-label="Jump">
+            <a class="is-primary" href="#ladder">The ladder</a>
+            <a href="#signoff">Fast sign-off</a>
+            <a href="#gauntlet">10B / 130B</a>
+            <a href="#commands">Run it</a>
+          </nav>
+        </div>
+      </section>
+
+      <section class="site-facts" id="stats" aria-labelledby="stats-label">
+        <div class="site-facts__hed">
+          <p class="kicker" id="stats-label">At a glance</p>
+          <p class="byline">What the repo actually runs · ALU export scope</p>
+        </div>
+        <div class="site-facts__grid">
+          <article class="site-fact">
+            <h3 class="site-fact__name"><a href="#formal">Formal</a></h3>
+            <p class="site-fact__body"><strong>5/5</strong> SymbiYosys jobs · 1b → 8b → 32b spot + flags + full comb equiv (~74&nbsp;s)</p>
+          </article>
+          <article class="site-fact">
+            <h3 class="site-fact__name"><a href="#directed">Directed</a></h3>
+            <p class="site-fact__body"><strong>476/476</strong> Icarus vectors vs unified golden · all <span class="mono">csel</span> modes</p>
+          </article>
+          <article class="site-fact">
+            <h3 class="site-fact__name"><a href="#gauntlet">Gauntlet</a></h3>
+            <p class="site-fact__body"><strong>10B</strong> Verilator on 8b slice · <strong>130B</strong> on 32-bit FPGA <span class="mono">alu.v</span></p>
+          </article>
+          <article class="site-fact">
+            <h3 class="site-fact__name"><a href="#uvm">UVM</a></h3>
+            <p class="site-fact__body"><strong>91</strong>-row ALU control table · 1b exhaustive + 8b full + 32b regression (Questa)</p>
+          </article>
+          <article class="site-fact">
+            <h3 class="site-fact__name">Fast CI</h3>
+            <p class="site-fact__body"><span class="mono">make signoff</span> · ~<strong>35&nbsp;s</strong> from repo root <span class="mono">make test</span></p>
+          </article>
+          <article class="site-fact">
+            <h3 class="site-fact__name">Golden model</h3>
+            <p class="site-fact__body">One ripple-LUT reference · <span class="mono">out = f + g + cin</span> · shared across all layers</p>
+          </article>
+        </div>
+      </section>
+
+      <div class="site-layout">
+        <aside class="site-toc" data-arch-map data-root=""></aside>
+        <div class="site-body">
+          <section class="site-prose" id="ladder">
+            <p class="drop">Verification mirrors the hierarchy on the schematic and on lot&nbsp;07 copper: prove the programmable 1-bit LUT cell, compose it into 8-bit slices, then close the full 32-bit export. Digital <span class="mono">.dig</span> is the logic source; read-only netlists land in <span class="mono">verification/rtl/</span>. Re-export, re-run sign-off.</p>
+            <p>The property under test is always the same family: <span class="mono">out = f(a,b,c) + g(a,b,c) + h(c<sub>in</sub>)</span>. Two independent 8:1 mux planes per bit feed a ripple carry-select adder. Formal proofs the LUT relations and combinatorial output; directed replay checks the exported netlist against Digital’s vectors; UVM scoreboards the sequential flag path; the gauntlet hammers the FPGA copy of the running machine.</p>
+
+            <h2 id="signoff">Digital-export sign-off</h2>
+            <p>The main harness in <span class="mono">verification/</span> signs off the Digital-export ALU — not the full CPU, ISA ROM, or memory system. From the repo root, <span class="mono">make test</span> runs the fast path.</p>
+
+            <div class="site-spec" aria-label="Sign-off ladder">
+              <div class="site-spec__cell">
+                <p class="site-spec__val">~35 s</p>
+                <p class="site-spec__label"><span class="mono">make signoff</span></p>
+              </div>
+              <div class="site-spec__cell">
+                <p class="site-spec__val">~3 min</p>
+                <p class="site-spec__label"><span class="mono">make signoff_full</span></p>
+              </div>
+              <div class="site-spec__cell">
+                <p class="site-spec__val">476</p>
+                <p class="site-spec__label">directed vectors</p>
+              </div>
+              <div class="site-spec__cell">
+                <p class="site-spec__val">5/5</p>
+                <p class="site-spec__label">formal jobs</p>
+              </div>
+            </div>
+
+            <ol class="site-rail">
+              <li class="site-ch site-ch--hero" id="formal">
+                <p class="site-ch__n">01 · Formal</p>
+                <h3>SymbiYosys · 1b → 8b → 32b</h3>
+                <p><strong>1b:</strong> k-induction proves <span class="mono">MUX_OUT = OPCODE[{C,B,A}]</span>, plus generate/propagate for every input. <strong>8b:</strong> same relations per bit-slice. <strong>32b spot:</strong> 12 fast regression properties. <strong>32b equiv:</strong> <span class="mono">Out === golden(...)</span> for all inputs (~74&nbsp;s). <strong>Flags:</strong> cover mode for <span class="mono">FLAG_WE</span> reachability.</p>
+                <p>Inventory: <strong>19</strong> source asserts + <strong>20</strong> cover points (<strong>40</strong> + <strong>48</strong> elaborated on 8b). See <a href="https://github.com/tmarhguy/tomato/blob/main/verification/formal/PROPERTY_INVENTORY.md"><span class="mono">verification/formal/PROPERTY_INVENTORY.md</span></a>.</p>
+              </li>
+              <li class="site-ch" id="directed">
+                <p class="site-ch__n">02 · Directed</p>
+                <h3>476 vectors · Icarus · Digital replay</h3>
+                <p>Every vector extracted from Digital testbenches passes against the unified golden — no skips. Six flag-only vectors with <span class="mono">exp=x</span> are skipped at codegen. Exercises all <span class="mono">csel</span> modes and opcode pairs the schematic actually runs.</p>
+              </li>
+              <li class="site-ch" id="uvm">
+                <p class="site-ch__n">03 · UVM</p>
+                <h3>Questa scoreboard · 1b / 8b / 32b</h3>
+                <p><strong>1b exhaustive:</strong> 128-row <span class="mono">0x96</span> table + 256× LUT sweep + G/P corners. <strong>8b full:</strong> CLA boundaries, logic sweep, <strong>5000</strong> random. <strong>32b regression:</strong> 476 directed + 91-op coverage + edge cases + flag test + <strong>10k</strong> random. Requires Questa (<span class="mono">vlog</span>/<span class="mono">vsim</span>) — not wired in GitHub Actions yet.</p>
+              </li>
+              <li class="site-ch">
+                <p class="site-ch__n">04 · Lint</p>
+                <h3>Verilator · all three slices</h3>
+                <p><span class="mono">make lint</span> on 1b, 8b, and 32b exports — zero errors before directed replay runs.</p>
+              </li>
+            </ol>
+
+            <h2 id="gauntlet">FPGA gauntlet · 10B + 130B</h2>
+            <p>Separate tree: <span class="mono">verification/gauntlet/</span> holds a copy of <span class="mono">hardware/fpga/core/rtl/alu.v</span> — the ALU that runs Tomato OS on the Nexys&nbsp;A7. Refresh with <span class="mono">make sync</span>; do not edit core from here.</p>
+            <p>SymbiYosys proves 1b, 8b, and 32b <span class="mono">Out ≡ golden</span>. Verilator drives <strong>10,000,000,000</strong> vectors on the 8-bit slice and <strong>130,000,000,000</strong> on the full 32-bit ALU. Directed warmup (LUT×minterm×cin on 8b; low-byte grid on 32b), then random fill. Measured on Apple Silicon: ~25&nbsp;Mvec/s (8b), ~13–16&nbsp;Mvec/s (32b) — about <strong>7&nbsp;minutes</strong> for 10B and <strong>2–3&nbsp;hours</strong> for 130B.</p>
+
+            <div class="two-up two-up--sweeps compiler-reels">
+              <figure class="figure" data-src="assets/compiler/opcode-sweep-sim.mp4" data-poster="assets/gallery/compiler/opcode-sweep-sim-640w.webp">
+                <div class="sweep-media">
+                  <video class="ambient-video" muted loop playsinline webkit-playsinline preload="metadata" poster="assets/gallery/compiler/opcode-sweep-sim-640w.webp" width="1680" height="1080" aria-label="Opcode sweep in simulation">
+                    <source src="assets/compiler/opcode-sweep-sim.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <p class="caption"><span>Fig. — Simulation</span><span>Opcode space sweep</span></p>
+              </figure>
+              <figure class="figure" data-src="assets/compiler/opcode-sweep-fpga.mp4" data-poster="assets/gallery/compiler/opcode-sweep-fpga-640w.webp">
+                <div class="sweep-media sweep-media--fpga">
+                  <video class="ambient-video" muted loop playsinline webkit-playsinline preload="metadata" poster="assets/gallery/compiler/opcode-sweep-fpga-640w.webp" width="480" height="544" aria-label="Opcode sweep on Artix-7">
+                    <source src="assets/compiler/opcode-sweep-fpga.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <p class="caption"><span>Fig. — Artix-7</span><span>AND3 · 0x80</span></p>
+              </figure>
+            </div>
+
+            <h2 id="commands">Run it yourself</h2>
+            <p>Dependencies for sign-off: <span class="mono">python3</span>, <span class="mono">yosys</span>, <span class="mono">symbiyosys</span> (<span class="mono">sby</span>), <span class="mono">z3</span>, <span class="mono">iverilog</span>, <span class="mono">verilator</span>. Gauntlet needs the FPGA OSS CAD Suite on <span class="mono">PATH</span>.</p>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Command</th><th>What it does</th><th>Time</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td class="mono">make test</td><td>Repo root → <span class="mono">verification/signoff</span></td><td>~35 s</td></tr>
+                  <tr><td class="mono">make signoff_full</td><td>+ 32b combinatorial equivalence proof</td><td>~3 min</td></tr>
+                  <tr><td class="mono">make directed</td><td>476 Icarus vectors</td><td>seconds</td></tr>
+                  <tr><td class="mono">make formal_32b_equiv</td><td>Full 32b comb proof alone</td><td>~74 s</td></tr>
+                  <tr><td class="mono">make uvm_regression</td><td>1b + 8b + 32b UVM (Questa)</td><td>local</td></tr>
+                  <tr><td class="mono">make gauntlet_smoke</td><td>1M vectors each width</td><td>quick</td></tr>
+                  <tr><td class="mono">make gauntlet_claim</td><td>Formal + 10B + 130B → <a href="https://github.com/tmarhguy/tomato/blob/main/verification/gauntlet/README.md"><span class="mono">CLAIM.txt</span></a></td><td>hours</td></tr>
+                  <tr><td class="mono">make fpga-test</td><td>Full CPU Icarus sim (separate harness)</td><td>varies</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <pre class="site-cmd"><code>cd verification
+make signoff              # fast CI (~35 s)
+make signoff_full         # + 32b equiv (~3 min)
+
+cd verification/gauntlet
+make sync && make claim   # formal + 10B + 130B</code></pre>
+
+            <h2 id="limits">Scope &amp; honest limits</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Topic</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>ALU export only</td><td>Full CPU, ISA ROM, memory, FPGA top — <strong>not</strong> this harness</td></tr>
+                  <tr><td><span class="mono">op91_cp</span></td><td>91 ALU control-table rows — not 512 CPU opcodes, not toggle/branch %</td></tr>
+                  <tr><td>Sequential <span class="mono">CSR_FLAG</span></td><td>Cover + UVM flag test — not SMT latch prove</td></tr>
+                  <tr><td>UVM in CI</td><td>Questa not in GitHub Actions yet</td></tr>
+                  <tr><td>Synthesis (<span class="mono">make synth</span>)</td><td>Sky130 characterization — not functional tape-out sign-off</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <nav class="jump jump--loud" aria-label="Related">
+              <a href="playground.html">Try the slice →</a>
+              <a href="architecture.html#slice">Dual-LUT datapath →</a>
+              <a href="boards/07-alu.html">Lot 07 copper →</a>
+              <a href="https://github.com/tmarhguy/tomato/tree/main/verification">GitHub verification →</a>
+            </nav>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-band">
+        <div class="footer-art">
+          <p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script type="module" src="js/arch-map.js"></script>
+  <script src="js/compiler-reels.js" defer></script>
+  <script src="js/mast.js" defer></script>
+<!-- tomato-vercel -->
+  <script src="js/vercel-analytics.js" defer></script>
+  <script src="js/vercel-speed-insights.js" defer></script>
+<!-- /tomato-vercel -->
+</body>
+</html>

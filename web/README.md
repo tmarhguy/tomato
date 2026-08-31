@@ -8,7 +8,7 @@
 </p>
 <p align="center"><em>Vol. 32 · No. 1 · Magnesium Alley, Ashtown-Bay Perimeter · August 2026</em></p>
 
-This is not a SaaS product page. It is not a bloated React template. It is a **90s broadsheet**—typeset in Playfair and Source Serif—that acts as a temporal bridge to the hardware. It features a fully interactive 3D KiCad GLB of [`07_alu`](https://tomato.tmarhguy.com/board.html), a bit-level **[Dual-LUT playground](https://tomato.tmarhguy.com/playground.html)**, and the project's **[engineering journal](https://tomato.tmarhguy.com/journal.html)**.
+This is not a SaaS product page. It is not a bloated React template. It is a **90s broadsheet**—typeset in Playfair and Source Serif—that acts as a temporal bridge to the hardware. It features a fully interactive 3D KiCad GLB of [`07_alu`](https://tomato.tmarhguy.com/board.html), a bit-level **[Dual-LUT playground](https://tomato.tmarhguy.com/playground.html)**, **[ALU verification sign-off](https://tomato.tmarhguy.com/verification.html)** (SymbiYosys, 476 directed, 10B/130B Verilator), and the project's **[engineering journal](https://tomato.tmarhguy.com/journal.html)**.
 
 **Live:** [tomato.tmarhguy.com](https://tomato.tmarhguy.com/)  
 **Core CPU architecture:** [Root README](../README.md)  
@@ -83,7 +83,7 @@ The [`playground.html`](https://tomato.tmarhguy.com/playground.html) interface i
 
 ### 3. The Journal & Boards
 
-The journal takes [`docs/log/`](../docs/log/) and typesets it. It runs to **30 dispatches**, tracking the build from the first gate to the chips on the copper. The **[boards catalog](https://tomato.tmarhguy.com/boards.html)** tracks all **8 lots**. Lot **07** is **on the iron**. The remaining lots (Shift, Memory, Register File, PC) are currently being plumbed.
+The journal takes [`docs/log/`](../docs/log/) and typesets it. It runs to **34 dispatches**, tracking the build from the first gate to the chips on the copper. The **[boards catalog](https://tomato.tmarhguy.com/boards.html)** tracks all **8 lots**. Lot **07** is **soldered** and on the bench. The remaining lots (Shift, Memory, Register File, PC) are currently being plumbed.
 
 ### 4. The Gallery
 

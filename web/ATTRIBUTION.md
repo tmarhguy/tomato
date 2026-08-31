@@ -11,6 +11,8 @@ Figures are Tomato’s own work, ornaments drawn for the paper, or a public-doma
 | `assets/pcb/hero.webp` | Poster still for the front-page tour |
 | `assets/compiler/opcode-sweep-sim.mp4` | Opcode-space sweep in simulation — H.264 from `opcode_sweep_sim.mp4` |
 | `assets/compiler/opcode-sweep-fpga.mp4` | Same FSM on Artix‑7 — H.264 from `fpga_opcode_sweep.mp4` |
+| `assets/compiler/fpga-terminal-program.mp4` | Open-source FPGA build — Yosys → nextpnr → bitstream (`media/compiler/fpga_terminal_program.mp4`) |
+| `assets/compiler/fpga-terminal-program.webp` | Poster still for the terminal build clip |
 | `assets/compiler/opcode-sweep-sim.webp` | Poster still for the simulation sweep |
 | `assets/assembly/digikey-box.webp` | DigiKey parts box, 17 Aug 2026 — cropped to the branded face |
 | `assets/assembly/work-setup.mp4` | Soldering lights on the loop, interleaved with board-test stills (3s / 2s) |
@@ -18,6 +20,8 @@ Figures are Tomato’s own work, ornaments drawn for the paper, or a public-doma
 | `assets/assembly/board-test.webp` | On-board test still — 07_alu on the mat |
 | `assets/assembly/half-soldered.webp` | Half-soldered 07_alu held next to Digital |
 | `assets/assembly/half-soldered-plate.webp` | Square plate of the half-soldered shot |
+| `assets/og/tomato-board.webp` | KiCad 07_alu isometric — 1200×630 Open Graph card (`media/pcb/board_iso.png`) |
+| `assets/pcb/board-iso.webp` | Full-aspect 07_alu isometric still |
 | `assets/assembly/placing-and-soldering.mp4` | Placing 74ACT logic on 07_alu |
 | `assets/assembly/placing-and-soldering.webp` | Poster still for the placement clip |
 | `assets/assembly/soldering-led.mp4` | Soldering 0805 indicator LEDs |

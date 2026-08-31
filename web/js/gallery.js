@@ -37,8 +37,14 @@
   var showBtn = null;
 
   var drag = { on: false, id: null, x0: 0, y0: 0, dx: 0, locked: false, swiped: false };
+  var tapFrame = null;
   var lbDrag = { on: false, id: null, x0: 0, y0: 0, dx: 0, locked: false };
   var gapPx = 16;
+  var trackBase = 0;
+  var dragRaf = 0;
+  var pendingDx = 0;
+  var lbDragRaf = 0;
+  var lbPendingDx = 0;
 
   function $(sel, el) {
     return (el || document).querySelector(sel);
@@ -390,6 +396,14 @@
     }
   }
 
+  function scheduleFitDetail() {
+    if (detailRaf) return;
+    detailRaf = requestAnimationFrame(function () {
+      detailRaf = 0;
+      fitDetailPanel();
+    });
+  }
+
   function renderDetail() {
     var s = slides[index];
     if (!s || !detail) return;
@@ -400,7 +414,7 @@
     var totalEl = $(".gallery-counter__total");
     if (totalEl) totalEl.textContent = String(playlist.length || slides.length);
     root.setAttribute("aria-label", "Frame " + (index + 1) + " of " + slides.length + ": " + s.title);
-    fitDetailPanel();
+    scheduleFitDetail();
   }
 
   function syncFrames() {
@@ -446,11 +460,34 @@
     return x + frame.offsetWidth / 2 - viewport.offsetWidth / 2;
   }
 
-  function layoutTrack(extraDx) {
+  function measureTrackBase() {
+    trackBase = -centerOffset(index);
+  }
+
+  function applyTrackTransform(extraDx) {
+    if (!track) return;
+    track.style.transform = "translate3d(" + (trackBase + (extraDx || 0)) + "px,0,0)";
+  }
+
+  function layoutTrack(extraDx, options) {
     if (!track || !frames.length) return;
-    var base = -centerOffset(index);
-    track.style.transform = "translate3d(" + (base + (extraDx || 0)) + "px,0,0)";
+    options = options || {};
+    if (options.sync === false) {
+      applyTrackTransform(extraDx);
+      return;
+    }
+    measureTrackBase();
+    applyTrackTransform(extraDx);
     syncFrames();
+  }
+
+  function scheduleTrackDrag(dx) {
+    pendingDx = dx;
+    if (dragRaf) return;
+    dragRaf = requestAnimationFrame(function () {
+      dragRaf = 0;
+      layoutTrack(pendingDx, { sync: false });
+    });
   }
 
   function scrollFilmstrip(smooth) {
@@ -483,11 +520,6 @@
     }
 
     frame.appendChild(inner);
-    frame.addEventListener("click", function () {
-      if (drag.swiped) return;
-      if (i === index) openLightbox();
-      else setIndex(i);
-    });
 
     return frame;
   }
@@ -501,6 +533,7 @@
     btn.addEventListener("click", function () {
       stopSlideshow();
       setIndex(i);
+      openLightbox();
     });
 
     var img = bindOptimizedImage(document.createElement("img"), slide.thumb, slide.rawThumb, {
@@ -601,6 +634,10 @@
   }
 
   function resetLbDrag() {
+    if (lbDragRaf) {
+      cancelAnimationFrame(lbDragRaf);
+      lbDragRaf = 0;
+    }
     lbDrag.on = false;
     lbDrag.locked = false;
     lbDrag.dx = 0;
@@ -608,6 +645,7 @@
       lightboxStage.style.transform = "";
       lightboxStage.classList.remove("is-dragging");
     }
+    if (lightboxFigure) lightboxFigure.classList.remove("is-dragging");
     setSwipeLock(false);
   }
 
@@ -640,12 +678,19 @@
       }
       lbDrag.locked = true;
       lightboxStage.classList.add("is-dragging");
+      lightboxFigure.classList.add("is-dragging");
       setSwipeLock(true);
     }
 
     e.preventDefault();
     lbDrag.dx = dx;
-    lightboxStage.style.transform = "translate3d(" + dx + "px,0,0)";
+    lbPendingDx = dx;
+    if (lbDragRaf) return;
+    lbDragRaf = requestAnimationFrame(function () {
+      lbDragRaf = 0;
+      if (!lightboxStage) return;
+      lightboxStage.style.transform = "translate3d(" + lbPendingDx + "px,0,0)";
+    });
   }
 
   function onLightboxPointerUp(e) {
@@ -680,16 +725,24 @@
   }
 
   function resetDrag() {
+    if (dragRaf) {
+      cancelAnimationFrame(dragRaf);
+      dragRaf = 0;
+    }
     drag.on = false;
     drag.locked = false;
     drag.dx = 0;
+    pendingDx = 0;
+    tapFrame = null;
     track.classList.remove("is-dragging");
+    if (viewport) viewport.classList.remove("is-dragging");
     setSwipeLock(false);
   }
 
   function onPointerDown(e) {
     if (e.button > 0) return;
     if (lightbox && !lightbox.hidden) return;
+    tapFrame = e.target.closest(".gallery-frame");
     drag.on = true;
     drag.id = e.pointerId;
     drag.x0 = e.clientX;
@@ -717,12 +770,13 @@
       drag.locked = true;
       drag.swiped = true;
       track.classList.add("is-dragging");
+      viewport.classList.add("is-dragging");
       setSwipeLock(true);
     }
 
     e.preventDefault();
     drag.dx = dx;
-    layoutTrack(drag.dx);
+    scheduleTrackDrag(dx);
   }
 
   function onPointerUp(e) {
@@ -730,6 +784,8 @@
     var threshold = swipeThreshold();
     var dx = drag.dx;
     var wasSwipe = drag.swiped;
+    var frame = tapFrame;
+    tapFrame = null;
     resetDrag();
     try {
       viewport.releasePointerCapture(e.pointerId);
@@ -737,7 +793,15 @@
 
     if (dx <= -threshold) step(1);
     else if (dx >= threshold) step(-1);
-    else layoutTrack(0);
+    else {
+      layoutTrack(0);
+      if (!wasSwipe && frame) {
+        stopSlideshow();
+        var tapIndex = parseInt(frame.dataset.index, 10);
+        if (!isNaN(tapIndex) && tapIndex !== index) setIndex(tapIndex);
+        openLightbox();
+      }
+    }
 
     if (wasSwipe) {
       setTimeout(function () {
@@ -850,12 +914,14 @@
     document.addEventListener("keydown", onKeyDown);
 
     new ResizeObserver(function () {
-      layoutTrack(drag.on && drag.locked ? drag.dx : 0);
-      fitDetailPanel();
+      measureTrackBase();
+      applyTrackTransform(drag.on && drag.locked ? drag.dx : 0);
+      if (!drag.on) syncFrames();
+      scheduleFitDetail();
     }).observe(viewport);
 
     new ResizeObserver(function () {
-      fitDetailPanel();
+      scheduleFitDetail();
     }).observe(detail);
 
     renderDetail();

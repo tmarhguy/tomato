@@ -3,51 +3,75 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#f4f0e6" />
+  <meta name="theme-color" content="#050505" />
   <script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
-        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
         if (saved === "dark" || saved === "light") {
           document.documentElement.setAttribute("data-theme", saved);
           document.documentElement.style.colorScheme = saved;
-        } else if (dark) {
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
           document.documentElement.style.colorScheme = "dark";
         }
       } catch (e) {}
     })();
   </script>
   <title>Lot 07 — Dual-LUT ALU — The Tomato</title>
-  <meta name="description" content="07_alu: Dual-LUT 8-bit ALU slice. 99.95×99.80 mm, 25 logic ICs per 8b, routed and ordered August 2026." />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/magazine.css" />
-
+  <link rel="stylesheet" href="../css/site.css?v=34" />
+<!-- tomato-seo -->
+  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato PCB, KiCad lot, discrete ALU board, Lot, Dual-LUT, ALU, tomato, 32-bit" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Lot 07 — Dual-LUT ALU — The Tomato" />
-  <meta property="og:description" content="07_alu: Dual-LUT 8-bit ALU slice. 99.95×99.80 mm, 25 logic ICs per 8b, routed and ordered August 2026." />
+  <meta property="og:description" content="The Tomato 32-bit CPU" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/boards/07-alu.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/boards/07-alu.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Lot 07 — Dual-LUT ALU — The Tomato" />
-  <meta name="twitter:description" content="07_alu: Dual-LUT 8-bit ALU slice. 99.95×99.80 mm, 25 logic ICs per 8b, routed and ordered August 2026." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/assembly/half-soldered-plate.webp" />
-  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tomato.tmarhguy.com/boards/07-alu.html#webpage",
+  "url": "https://tomato.tmarhguy.com/boards/07-alu.html",
+  "name": "Lot 07 — Dual-LUT ALU — The Tomato",
+  "description": "The Tomato 32-bit CPU",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US"
+}</script>
+  <!-- /tomato-seo -->
 </head>
 <body>
-  <div class="page">
+  <div class="page page--site">
     <header class="wrap">
       <div class="mast">
         <nav class="mast-nav" aria-label="Primary">
           <a href="../index.html">Front</a>
           <a href="../architecture.html">Architecture</a>
+          <a href="../verification.html">Verification</a>
           <a href="../isa.html">ISA</a>
           <a href="../software.html">Software</a>
+          <a href="../os.html">Tomato OS</a>
           <a href="../playground.html">Playground</a>
           <a href="../journal.html">Journal</a>
           <a href="../boards.html" aria-current="page">Catalog</a>
@@ -58,36 +82,33 @@
           <a class="is-tour" href="../viewer.html">Tour the board</a>
         </nav>
       </div>
-      <div class="flag flag--inside">
-        <div class="nameplate">
-          <img src="../assets/mark.svg" alt="" width="52" height="61" />
-          <a href="../index.html"><h1>Tomato</h1></a>
-        </div>
-        <p class="flag-bottom"><span>Lot 07</span><span>Dual-LUT ALU · populating</span><span>Vol. 32</span></p>
-      </div>
-    </header>
+      <a class="site-brand-seed nameplate" href="../index.html" hidden>
+        <img src="../assets/mark.svg" alt="" width="52" height="61" />
+        <h1>Tomato</h1>
+      </a>
+</header>
     <main>
-      <section class="section">
-        <div class="wrap hed">
-          <p class="kicker">Lot 07 · ALU · In assembly</p>
+      <section class="site-hero site-hero--solo">
+        <div class="site-hero__copy">
+<p class="kicker">Lot 07 · ALU · In assembly</p>
           <h1 class="headline">Dual-LUT 8-bit slice — the board that left the screen.</h1>
-          <p class="deck">Two independent 3-input LUT planes per bit, summed through <strong>74ACT283</strong> nibble adders. One PCB is an 8-bit bring-up slice; stack two for 16-bit bench work. Muxes and adders are down on the first board.</p>
+          <p class="deck">Two independent 3-input LUT planes per bit, summed through <strong>74ACT283</strong> nibble adders. One PCB is an 8-bit bring-up slice; stack two for 16-bit bench work. Soldering is done on the first board — muxes and adders down.</p>
           <figure class="figure" style="margin: 1.25rem 0;">
             <img src="../assets/assembly/half-soldered-plate.webp" alt="Half-soldered 07_alu Dual-LUT 8-bit slice next to its Digital simulation." />
           </figure>
-          <p class="byline">99.95 × 99.80 mm · 131 placements · populating August 2026</p>
+          <p class="byline">99.95 × 99.80 mm · 131 placements · soldered August 2026</p>
         </div>
       </section>
-      <div class="wrap arch-layout">
-        <aside data-arch-map data-root="../"></aside>
-        <div class="arch-content">
+      <div class="site-layout">
+        <aside class="site-toc" data-arch-map data-root="../"></aside>
+        <div class="site-body">
       <section class="section">
-        <div class="wrap story">
+        <div class="site-prose">
           <div class="callout">
             <span class="callout-label">Per-bit behaviour</span>
             <code class="callout-formula">alu_out[n] = ( lutA(a,b,c) + lutB(a,b,c) + cin ) &amp; 1</code>
           </div>
-          <p class="drop">This is the physical heart of Tomato’s 32-bit ALU—not the legacy 270&nbsp;mm transistor <a href="01-alu.html">01_alu</a>, but the <strong>74ACT dual-LUT</strong> slice that actually went to fab. Each bit cell is a pair of <strong>74ACT151</strong> muxes programmed by 8-bit opcode buses, feeding a ripple-carry nibble adder. The topology mirrors the Digital verification ladder: <code>alu_1b_X/Y</code> → <code>alu_4b</code> × 2 → 8b on PCB.</p>
+          <p class="drop">This is the physical heart of Tomato’s 32-bit ALU—not the legacy 270&nbsp;mm transistor <a href="01-alu.html">01_alu</a>, but the <strong>74ACT dual-LUT</strong> slice that actually went to fab. Each bit cell is a pair of <strong>74ACT151</strong> muxes programmed by 8-bit opcode buses, feeding a ripple-carry nibble adder. The topology mirrors the <a href="../verification.html#ladder">Digital verification ladder</a>: <code>alu_1b_X/Y</code> → <code>alu_4b</code> × 2 → 8b on PCB.</p>
           <h2>At a glance</h2>
           <dl class="ad-facts" style="column-span: all; max-width: 28rem;">
             <div><dt>Outline</dt><dd>99.95 × 99.80 mm ≈ 9975 mm²</dd></div>
@@ -133,5 +154,9 @@
   </div>
   <script type="module" src="../js/arch-map.js"></script>
   <script src="../js/mast.js" defer></script>
+<!-- tomato-vercel -->
+  <script src="../js/vercel-analytics.js" defer></script>
+  <script src="../js/vercel-speed-insights.js" defer></script>
+<!-- /tomato-vercel -->
 </body>
 </html>

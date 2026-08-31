@@ -345,6 +345,9 @@ function truthExpr(lut) {
   return terms.length === 0 ? "0" : terms.length === 8 ? "1" : terms.join(" | ");
 }
 
+export const ALU_SLICE_PROGRAMS = 256 * 256 * 2;
+export const ALU_OPCODE_SPACE = 256 * 256 * 8;
+
 export const PRESET_GROUPS = [
   { id: "arith", label: "Arithmetic" },
   { id: "bitwise", label: "Bitwise" },
@@ -361,19 +364,22 @@ export const PROGRAMS = [
   { id: "dec", group: "arith", name: "Decrement", lutA: 0xaa, lutB: 0xff, cin: 0, csel: 0, blurb: "Drop A by one." },
   { id: "neg", group: "arith", name: "Negate", lutA: 0x55, lutB: 0x00, cin: 1, csel: 1, blurb: "Two’s complement: invert A, add one." },
   { id: "and", group: "bitwise", name: "And", lutA: 0x88, lutB: 0x00, cin: 0, csel: 0, blurb: "Bitwise AND — one plane, Y tied off." },
+  { id: "nand", group: "bitwise", name: "Nand", lutA: 0x77, lutB: 0x00, cin: 0, csel: 0, blurb: "Bitwise NAND on the X plane." },
   { id: "or", group: "bitwise", name: "Or", lutA: 0xee, lutB: 0x00, cin: 0, csel: 0, blurb: "Bitwise OR on the X plane." },
   { id: "xor", group: "bitwise", name: "Xor", lutA: 0x66, lutB: 0x00, cin: 0, csel: 0, blurb: "Bitwise XOR — the half-adder sum trick." },
   { id: "pass", group: "bitwise", name: "Pass A", lutA: 0xaa, lutB: 0x00, cin: 0, csel: 0, blurb: "Run operand A straight through." },
   { id: "not", group: "bitwise", name: "Not A", lutA: 0x55, lutB: 0x00, cin: 0, csel: 0, blurb: "Invert every bit of A." },
-  { id: "and3", group: "bool3", name: "All three", lutA: 0x80, lutB: 0x00, cin: 0, csel: 0, blurb: "True only when A, B, and C are all high — opcode 0x80." },
-  { id: "or3", group: "bool3", name: "Any input", lutA: 0xfe, lutB: 0x00, cin: 0, csel: 0, blurb: "True if any of A, B, or C is high." },
+  { id: "and3", group: "bool3", name: "AND3", lutA: 0x80, lutB: 0x00, cin: 0, csel: 0, blurb: "A∧B∧C — opcode 0x80 on the X plane (FPGA sweep demo)." },
+  { id: "choose", group: "bool3", name: "SHA Choose", lutA: 0xd8, lutB: 0x00, cin: 0, csel: 0, blurb: "(A∧B)⊕(¬A∧C) — the SHA-256 mux function in one LUT load." },
+  { id: "or3", group: "bool3", name: "OR3", lutA: 0xfe, lutB: 0x00, cin: 0, csel: 0, blurb: "A∨B∨C — true if any input is high." },
   { id: "nand3", group: "bool3", name: "Not all three", lutA: 0x7f, lutB: 0x00, cin: 0, csel: 0, blurb: "False only when every input is high." },
   { id: "xor3", group: "bool3", name: "Odd parity", lutA: 0x96, lutB: 0x00, cin: 0, csel: 0, blurb: "Three-way XOR — the full-adder sum bit." },
   { id: "xnor3", group: "bool3", name: "Even parity", lutA: 0x69, lutB: 0x00, cin: 0, csel: 0, blurb: "True when an even number of inputs are high." },
   { id: "maj", group: "bool3", name: "Majority", lutA: 0xe8, lutB: 0x00, cin: 0, csel: 0, blurb: "Two-of-three wins — the full-adder carry bit." },
   { id: "nmaj", group: "bool3", name: "Minority", lutA: 0x17, lutB: 0x00, cin: 0, csel: 0, blurb: "Inverted majority — carry-out’s shy cousin." },
-  { id: "mux", group: "bool3", name: "Mux", lutA: 0xac, lutB: 0x00, cin: 0, csel: 0, blurb: "C high picks A; C low picks B." },
-  { id: "hybrid", group: "hybrid", name: "Both bools", lutA: 0x80, lutB: 0x7f, cin: 0, csel: 0, blurb: "All-three on X, not-all-three on Y — sum stuck at one." },
+  { id: "mux", group: "bool3", name: "Mux C→AB", lutA: 0xac, lutB: 0x00, cin: 0, csel: 0, blurb: "C high picks A; C low picks B." },
+  { id: "maskadd", group: "hybrid", name: "A + B∧C", lutA: 0xaa, lutB: 0xc0, cin: 0, csel: 0, blurb: "Predicated add — A plus (B AND C) in one native step." },
+  { id: "hybrid", group: "hybrid", name: "AND3 + NAND3", lutA: 0x80, lutB: 0x7f, cin: 0, csel: 0, blurb: "All-three on X, not-all-three on Y — dual-plane bool." },
 ];
 
 export function matchProgram(lutA, lutB, cin) {

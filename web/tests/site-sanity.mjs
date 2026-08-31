@@ -23,6 +23,9 @@ const REQUIRED = [
   "css/viewer.css",
   "js/mast.js",
   "js/bench.js",
+  "js/landing.js",
+  "js/vercel-analytics.js",
+  "js/vercel-speed-insights.js",
   "js/viewer.js",
   "js/pcb-look.js",
   "viewer.html",
@@ -47,19 +50,31 @@ const REQUIRED = [
   "assets/compiler/opcode-sweep-fpga.mp4",
   "assets/compiler/opcode-sweep-sim.webp",
   "assets/compiler/opcode-sweep-fpga.webp",
+  "assets/compiler/fpga-terminal-program.mp4",
+  "assets/compiler/fpga-terminal-program.webp",
   "assets/assembly/digikey-box.webp",
   "assets/assembly/work-setup.webp",
   "assets/assembly/work-setup.mp4",
   "assets/assembly/board-test.webp",
   "assets/assembly/half-soldered.webp",
   "assets/assembly/half-soldered-plate.webp",
+  "assets/og/tomato-board.webp",
+  "assets/pcb/board-iso.webp",
   "assets/assembly/placing-and-soldering.mp4",
   "assets/assembly/placing-and-soldering.webp",
   "assets/assembly/soldering-led.mp4",
   "assets/assembly/soldering-led.webp",
   "boards.html",
   "architecture.html",
+  "verification.html",
+  "sitemap.xml",
+  "robots.txt",
+  "site.webmanifest",
+  "humans.txt",
+  ".well-known/security.txt",
+  "data/seo.json",
   "isa.html",
+  "os.html",
   "journal.html",
   "board.html",
   "gallery.html",
@@ -67,13 +82,16 @@ const REQUIRED = [
   "about.html",
   "js/gallery.js",
   "js/compiler-reels.js",
+  "js/media-lightbox.js",
 ];
 
 const NAV = [
   "index.html",
   "architecture.html",
+  "verification.html",
   "isa.html",
   "software.html",
+  "os.html",
   "playground.html",
   "journal.html",
   "boards.html",
@@ -159,7 +177,15 @@ test("HTML documents have basics", () => {
     assert.match(html, /charset=["']utf-8["']/i, `${label}: charset`);
     assert.match(html, /name=["']viewport["']/i, `${label}: viewport`);
     assert.match(html, /<title>[^<]+<\/title>/i, `${label}: title`);
-    assert.match(html, viewer ? /viewer\.css/ : /magazine\.css/, `${label}: stylesheet`);
+    assert.match(
+      html,
+      viewer
+        ? /viewer\.css/
+        : label === "index.html"
+          ? /magazine\.css/
+          : /magazine\.css/,
+      `${label}: stylesheet`
+    );
     assert.match(html, /favicon\.svg/, `${label}: favicon`);
   }
 });
@@ -232,13 +258,15 @@ test("journal index lists every journal/*.html article", () => {
 });
 
 test("board playground wires Three.js import map + bench module", () => {
-  for (const page of ["index.html", "board.html"]) {
-    const html = readFileSync(join(WEB, page), "utf8");
-    assert.match(html, /type=["']importmap["']/, `${page}: importmap`);
-    assert.match(html, /three@0\.169\.0/, `${page}: three CDN pin`);
-    assert.match(html, /js\/bench\.js/, `${page}: bench module`);
-    assert.match(html, /id=["']bench["']/, `${page}: #bench canvas`);
-  }
+  const index = readFileSync(join(WEB, "index.html"), "utf8");
+  const board = readFileSync(join(WEB, "board.html"), "utf8");
+  assert.match(index, /type=["']importmap["']/, "index.html: importmap");
+  assert.match(index, /js\/bench\.js/, "index.html: bench module");
+  assert.match(index, /id=["']bench["']/, "index.html: #bench canvas");
+  assert.match(board, /type=["']importmap["']/, "board.html: importmap");
+  assert.match(board, /three@0\.169\.0/, "board.html: three CDN pin");
+  assert.match(board, /js\/bench\.js/, "board.html: bench module");
+  assert.match(board, /id=["']bench["']/, "board.html: #bench canvas");
 });
 
 test("source page loads forge.js", () => {
@@ -282,11 +310,14 @@ test("3D viewer page is the light 07_alu tour", () => {
   assert.match(js, /sampleTour/);
   assert.match(js, /PATH_S/);
   assert.match(js, /applyMaskPeel/);
-  for (const page of ["index.html", "board.html"]) {
-    const src = readFileSync(join(WEB, page), "utf8");
-    assert.match(src, /viewer\.html/, `${page}: Tour opens viewer`);
-    assert.match(src, /class=["']bench-tour["']/, `${page}: Tour CTA on the board`);
-  }
+  const index = readFileSync(join(WEB, "index.html"), "utf8");
+  const board = readFileSync(join(WEB, "board.html"), "utf8");
+  assert.match(index, /viewer\.html/, "index.html: Tour opens viewer");
+  assert.match(index, /landing-hero__paths[\s\S]*is-tour[\s\S]*viewer\.html/, "index.html: Tour in hero paths");
+  assert.match(index, /landing-hero__paths[\s\S]*architecture\.html/, "index.html: Architecture in hero paths");
+  assert.match(index, /landing-hero__paths[\s\S]*#what-is-tomato/, "index.html: What is Tomato anchor in hero paths");
+  assert.match(board, /viewer\.html/, "board.html: Tour opens viewer");
+  assert.match(board, /class=["']bench-tour["']/, "board.html: Tour CTA on the board");
 });
 
 test("JS modules parse (syntax)", async () => {
@@ -363,23 +394,36 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
   assert.match(js, /deferSrc/);
 });
 
-test("front page latest dispatch is Tomato OS on HDMI", () => {
+test("front page latest dispatch is Register Upgrade", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
   assert.match(html, /id=["']dispatch["']/);
-  assert.match(html, /Tomato works beautifully/);
-  assert.match(html, /journal\/tomato-works\.html/);
-  assert.match(html, /hdmi-demo-games-ui\.mp4/);
-  assert.match(html, /software\.html/);
+  assert.match(html, /Register Upgrade/);
+  assert.match(html, /journal\/register-upgrade\.html/);
+  assert.match(html, /why-32768/);
+  assert.match(html, /Blackwell SM/);
+  assert.match(html, /15 address bits|15-bit address/);
+  assert.match(html, /32,768 General Purpose Register File/);
+  assert.match(html, /SETBANK2/);
+  assert.doesNotMatch(html, /HDMI<\/strong><span>boots on glass/);
   assert.match(html, /id=["']iron["']/);
   assert.match(html, /placing-and-soldering\.mp4/);
   assert.match(html, /assets\/assembly\/work-setup\.mp4/);
+  assert.match(html, /assets\/og\/tomato-board\.webp/);
   const journal = readFileSync(join(WEB, "journal.html"), "utf8");
+  assert.match(journal, /journal\/register-upgrade\.html/);
+  assert.match(journal, /thirty-four/i);
+  assert.match(journal, /Blackwell/);
   assert.match(journal, /journal\/tomato-works\.html/);
-  assert.match(journal, /thirty-three/i);
-  assert.match(journal, /hdmi-demo-games-ui\.mp4/);
+  const upgrade = readFileSync(join(WEB, "journal/register-upgrade.html"), "utf8");
+  assert.match(upgrade, /SETBANK2/);
+  assert.match(upgrade, /AS6C62256/);
+  assert.match(upgrade, /General Purpose Register File/);
+  assert.match(upgrade, /why-32768/);
+  assert.match(upgrade, /Blackwell SM/);
+  assert.match(upgrade, /15-bit address space/);
+  assert.match(upgrade, /waste|disconnected/i);
   const works = readFileSync(join(WEB, "journal/tomato-works.html"), "utf8");
-  assert.match(works, /hdmi-demo-games-ui/);
-  assert.match(works, /main-menu-screen/);
+  assert.match(works, /register-upgrade\.html/);
 });
 
 test("front page hardware compiler links to the sweep clips", () => {
@@ -388,11 +432,19 @@ test("front page hardware compiler links to the sweep clips", () => {
   assert.match(html, /opcode-sweep-sim\.mp4/);
   assert.match(html, /opcode-sweep-fpga\.mp4/);
   assert.match(html, /compiler-reels/);
-  assert.match(html, /compiler-reels\.js/);
+  assert.match(readFileSync(join(WEB, "js/landing.js"), "utf8"), /compiler-reels\.js/);
   assert.match(html, /two-up--sweeps/);
+  assert.match(html, /playground\.html#compiler/);
+  assert.doesNotMatch(html, /fpga-terminal-program\.mp4/);
   assert.match(html, /data-src="assets\/compiler\/opcode-sweep-sim\.mp4"/);
   const js = readFileSync(join(WEB, "js/playground.js"), "utf8");
   assert.match(js, /opcode-sweep-fpga\.mp4/);
+});
+
+test("ditching-vivado ships open-source stack terminal clip", () => {
+  const html = readFileSync(join(WEB, "journal/ditching-vivado.html"), "utf8");
+  assert.match(html, /fpga-terminal-program\.mp4/);
+  assert.match(html, /Yosys · nextpnr · bitstream/);
 });
 
 test("front page swaps the black orbit MP4 in dark stock", () => {
@@ -405,14 +457,15 @@ test("front page swaps the black orbit MP4 in dark stock", () => {
   assert.match(html, /lead-lcp/);
   assert.match(html, /fetchpriority="high"/);
   assert.match(html, /hero-640w\.webp/);
-  assert.match(html, /active\.preload = "auto"/);
+  assert.match(html, /active\.preload = "metadata"/);
+  assert.match(html, /IntersectionObserver/);
   const js = readFileSync(join(WEB, "js/mast.js"), "utf8");
   assert.match(js, /data-theme-set/);
   assert.match(js, /lead-night/);
   assert.match(js, /lead-lcp/);
   assert.match(js, /canplay/);
   assert.match(js, /prefers-color-scheme: dark/);
-  assert.match(js, /removeAttribute\("data-theme"\)/);
+  assert.match(js, /setAttribute\("data-theme"/);
 });
 
 test("HTTP smoke: every HTML page returns 200 from static server", async () => {
@@ -495,6 +548,7 @@ test("shipped clips are real MP4s with posters, not leftover GIFs", () => {
   hasFtyp("assets/pcb/immersion_black.mp4", "immersion_black.mp4");
   hasFtyp("assets/compiler/opcode-sweep-sim.mp4", "opcode-sweep-sim.mp4");
   hasFtyp("assets/compiler/opcode-sweep-fpga.mp4", "opcode-sweep-fpga.mp4");
+  hasFtyp("assets/compiler/fpga-terminal-program.mp4", "fpga-terminal-program.mp4");
   hasFtyp("assets/assembly/placing-and-soldering.mp4", "placing-and-soldering.mp4");
   hasFtyp("assets/assembly/soldering-led.mp4", "soldering-led.mp4");
   hasFtyp("assets/assembly/work-setup.mp4", "work-setup.mp4");
@@ -504,8 +558,11 @@ test("shipped clips are real MP4s with posters, not leftover GIFs", () => {
     ["assets/pcb/immersion_white_poster.webp", "RIFF"],
     ["assets/compiler/opcode-sweep-sim.webp", "RIFF"],
     ["assets/compiler/opcode-sweep-fpga.webp", "RIFF"],
+    ["assets/compiler/fpga-terminal-program.webp", "RIFF"],
     ["assets/assembly/digikey-box.webp", "RIFF"],
     ["assets/assembly/half-soldered-plate.webp", "RIFF"],
+    ["assets/og/tomato-board.webp", "RIFF"],
+    ["assets/pcb/board-iso.webp", "RIFF"],
     ["assets/assembly/placing-and-soldering.webp", "RIFF"],
     ["assets/assembly/soldering-led.webp", "RIFF"],
     ["assets/assembly/work-setup.webp", "RIFF"],
@@ -541,7 +598,14 @@ test("every magazine page bootstraps Paper/Black before paint", () => {
   assert.match(mast, /slice-dark\.svg/);
   assert.match(mast, /lead-spin/);
   assert.match(mast, /lead-night/);
-  assert.match(mast, /removeAttribute\("data-theme"\)/);
+  assert.match(mast, /setAttribute\("data-theme"/);
+  assert.match(mast, /media-lightbox\.js/);
+  assert.match(mast, /tomatoMediaLightbox/);
+  const mediaLb = readFileSync(join(WEB, "js/media-lightbox.js"), "utf8");
+  assert.match(mediaLb, /document\.addEventListener\("click"/);
+  assert.match(mediaLb, /window\.tomatoMediaLightbox/);
+  assert.match(mast, /wireExternalLinks/);
+  assert.match(mast, /target = "_blank"/);
 });
 
 test("AND3 FPGA hit is boxed on the paper, playground, and demo log", () => {
@@ -580,7 +644,7 @@ test("AND3 FPGA hit is boxed on the paper, playground, and demo log", () => {
 test("Vercel build is the web test suite on the web/ folder", () => {
   const vercel = JSON.parse(readFileSync(join(WEB, "../vercel.json"), "utf8"));
   assert.equal(vercel.outputDirectory, "web");
-  assert.match(String(vercel.buildCommand), /tests\/\*\.mjs/);
+  assert.match(String(vercel.buildCommand), /npm test/);
   assert.ok(Array.isArray(vercel.headers) && vercel.headers.length >= 1);
   const boards = readdirSync(join(WEB, "boards")).filter((n) => n.endsWith(".html")).sort();
   assert.deepEqual(boards, [
@@ -593,6 +657,58 @@ test("Vercel build is the web test suite on the web/ folder", () => {
     "07-alu.html",
     "08-display.html",
   ]);
+});
+
+test("sitemap, robots, and canonical tags ship", () => {
+  const sitemap = readFileSync(join(WEB, "sitemap.xml"), "utf8");
+  assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/verification\.html<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/index\.html<\/loc>/);
+  const robots = readFileSync(join(WEB, "robots.txt"), "utf8");
+  assert.match(robots, /Sitemap:\s*https:\/\/tomato\.tmarhguy\.com\/sitemap\.xml/);
+  const manifest = JSON.parse(readFileSync(join(WEB, "site.webmanifest"), "utf8"));
+  assert.equal(manifest.short_name, "Tomato");
+  assert.match(readFileSync(join(WEB, "humans.txt"), "utf8"), /Tyrone Marhguy/);
+  assert.match(readFileSync(join(WEB, ".well-known/security.txt"), "utf8"), /github\.com\/tmarhguy\/tomato/);
+  const verify = readFileSync(join(WEB, "verification.html"), "utf8");
+  assert.match(verify, /rel="canonical" href="https:\/\/tomato\.tmarhguy\.com\/verification\.html"/);
+  assert.match(verify, /PROPERTY_INVENTORY\.md/);
+  assert.match(verify, /compiler-reels/);
+});
+
+test("pages ship rich SEO metadata block", () => {
+  const index = readFileSync(join(WEB, "index.html"), "utf8");
+  const verify = readFileSync(join(WEB, "verification.html"), "utf8");
+  for (const html of [index, verify]) {
+    assert.match(html, /<!-- tomato-seo -->/);
+    assert.match(html, /meta name="keywords"/);
+    assert.match(html, /meta name="robots" content="index, follow/);
+    assert.match(html, /rel="manifest" href="[^"]*site\.webmanifest"/);
+    assert.match(html, /application\/ld\+json/);
+    assert.match(html, /og:locale/);
+  }
+  assert.match(index, /SymbiYosys/);
+  assert.match(verify, /Verilator gauntlet/);
+  assert.match(index, /"@type": "WebSite"/);
+  assert.match(verify, /"@type": "TechArticle"/);
+  const seo = JSON.parse(readFileSync(join(WEB, "data/seo.json"), "utf8"));
+  assert.ok(Array.isArray(seo.globalKeywords) && seo.globalKeywords.length >= 10);
+});
+
+test("pages ship Vercel analytics + speed insights loaders", () => {
+  const index = readFileSync(join(WEB, "index.html"), "utf8");
+  const journal = readFileSync(join(WEB, "journal/welcome.html"), "utf8");
+  const viewer = readFileSync(join(WEB, "viewer.html"), "utf8");
+  for (const html of [index, journal, viewer]) {
+    assert.match(html, /<!-- tomato-vercel -->/);
+    assert.match(html, /vercel-analytics\.js/);
+    assert.match(html, /vercel-speed-insights\.js/);
+  }
+  assert.match(index, /src="js\/vercel-analytics\.js"/);
+  assert.match(journal, /src="\.\.\/js\/vercel-analytics\.js"/);
+  const analytics = readFileSync(join(WEB, "js/vercel-analytics.js"), "utf8");
+  const speed = readFileSync(join(WEB, "js/vercel-speed-insights.js"), "utf8");
+  assert.match(analytics, /\/_vercel\/insights\/script\.js/);
+  assert.match(speed, /\/_vercel\/speed-insights\/script\.js/);
 });
 
 test("subdir deploy simulation: journal page assets resolve via ../", () => {

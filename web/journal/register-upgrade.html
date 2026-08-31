@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050505" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <title>Register Upgrade — The Tomato</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/magazine.css" />
+  <link rel="stylesheet" href="../css/site.css?v=34" />
+<!-- tomato-seo -->
+  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Register, Upgrade, tomato, 32-bit" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="author" type="text/plain" href="../humans.txt" />
+  <meta property="og:title" content="Register Upgrade — The Tomato" />
+  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/register-upgrade.html" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/journal/register-upgrade.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
+  <meta name="twitter:title" content="Register Upgrade — The Tomato" />
+  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "https://tomato.tmarhguy.com/journal/register-upgrade.html#webpage",
+  "url": "https://tomato.tmarhguy.com/journal/register-upgrade.html",
+  "name": "Register Upgrade — The Tomato",
+  "description": "The Tomato 32-bit CPU",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US",
+  "headline": "Register Upgrade",
+  "author": {
+    "@type": "Person",
+    "name": "Tyrone Marhguy"
+  },
+  "datePublished": "29 August 2026 · from the log ·"
+}</script>
+  <!-- /tomato-seo -->
+</head>
+<body>
+  <div class="page page--site page--journal">
+    <header class="wrap">
+      <div class="mast">
+        <nav class="mast-nav" aria-label="Primary">
+          <a href="../index.html">Front</a>
+          <a href="../architecture.html">Architecture</a>
+          <a href="../verification.html">Verification</a>
+          <a href="../isa.html">ISA</a>
+          <a href="../software.html">Software</a>
+          <a href="../os.html">Tomato OS</a>
+          <a href="../playground.html">Playground</a>
+          <a href="../journal.html" aria-current="page">Journal</a>
+          <a href="../boards.html">Catalog</a>
+          <a href="../board.html">Orbit</a>
+          <a href="../gallery.html">Gallery</a>
+          <a href="../source.html">GitHub</a>
+          <a href="../about.html">About</a>
+          <a class="is-tour" href="../viewer.html">Tour the board</a>
+        </nav>
+      </div>
+      <a class="site-brand-seed nameplate" href="../index.html" hidden>
+        <img src="../assets/mark.svg" alt="" width="52" height="61" />
+        <h1>Tomato</h1>
+      </a>
+    </header>
+
+    <main>
+      <section class="site-hero site-hero--solo site-hero--bank" aria-labelledby="reg-title">
+        <div class="site-hero__copy">
+          <p class="kicker">Dispatch · Register file</p>
+          <p class="bank-open__num" aria-hidden="true">32,768</p>
+          <h1 class="headline bank-open__title" id="reg-title">General Purpose Register File</h1>
+          <p class="deck bank-open__deck"><span class="bank-open__dispatch">Register Upgrade</span> · <strong>AS6C62256</strong> has 15 address bits — Tomato exposes all of them. Half a Blackwell SM.</p>
+          <p class="byline">29 August 2026 · from the log · <a href="#why-32768">Why 32,768? ↓</a></p>
+        </div>
+      </section>
+
+      <section class="section section--room section--journal" id="why-32768">
+        <div class="wrap">
+          <article class="faq-gpr faq-gpr--panel">
+            <header class="faq-gpr__hed">
+              <p class="exhibit-label">Note</p>
+              <h2 class="faq-gpr__title">Why 32,768 General Purpose Register File?</h2>
+            </header>
+            <div class="faq-gpr__body">
+              <p class="faq-gpr__lead">Tomato exposes <strong>32,768 32-bit GPR locations</strong> because the selected discrete SRAMs (<span class="mono">AS6C62256-55PCN</span>, 32K × 8) already provide a full <strong>15-bit address space</strong>. The chips, buses, and mirrored 3R1W structure are already in the design — exposing anything less would leave usable address depth disconnected.</p>
+              <p class="faq-gpr__punch">That is <strong>half</strong> the 65,536 × 32-bit physical register file in a single NVIDIA Blackwell SM.</p>
+            </div>
+            <aside class="faq-gpr__aside" aria-label="At a glance">
+              <dl class="faq-gpr__facts">
+                <div><dt>Part</dt><dd class="mono">AS6C62256</dd></div>
+                <div><dt>Address bits</dt><dd>15</dd></div>
+                <div><dt>Per mirror</dt><dd>32,768 × 32</dd></div>
+                <div><dt>Per instruction</dt><dd>256</dd></div>
+                <div><dt>vs Blackwell SM</dt><dd>½ of 65,536</dd></div>
+              </dl>
+            </aside>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--room section--journal">
+        <div class="wrap">
+          <article class="dispatch-panel bank-growth">
+            <header class="dispatch-panel__head">
+              <p class="exhibit-label">How the file grew</p>
+              <h2 class="shelf-title">32 GPR → 256 GPR → 32,768 GPR</h2>
+            </header>
+            <ol class="bank-steps">
+              <li>
+                <span class="bank-steps__n">32 GPR</span>
+                <span class="bank-steps__how"><span class="mono">register:5</span></span>
+              </li>
+              <li>
+                <span class="bank-steps__n">256 GPR</span>
+                <span class="bank-steps__how">+ <span class="mono">bank:3</span></span>
+              </li>
+              <li class="is-now">
+                <span class="bank-steps__n">32,768 GPR</span>
+                <span class="bank-steps__how">+ <span class="mono">superbank:7</span></span>
+              </li>
+            </ol>
+            <div class="bank-addr-panel" role="note" aria-label="15-bit address layout">
+              <p class="bank-addr-panel__fields"><span class="mono">[ superbank:7 ][ bank:3 ][ register:5 ]</span></p>
+              <p class="bank-addr-panel__sum"><strong>7 + 3 + 5 = 15</strong> → 32,768 × 32-bit locations</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section--journal">
+        <div class="site-prose wrap">
+          <p class="drop">It was only right to start Tomato with the conventional <strong>32 general-purpose registers</strong>. But there was an obvious waste: the discrete register file was already going to use parallel asynchronous SRAMs with thousands of available addresses.</p>
+          <nav class="see-also" aria-label="Related dispatches">
+            <span class="see-also__label">See also</span>
+            <a href="tomato-works.html">Tomato works beautifully!</a>
+            <a href="falling-back.html">Falling back to 32b</a>
+            <a href="isa-as-a-wire.html">ISA as a Wire</a>
+          </nav>
+
+          <article class="dispatch-block" id="superbank">
+            <h2>Secondary bank is state, not a field</h2>
+            <p>The 7-bit secondary bank is <strong>not</strong> carried inside every ordinary instruction. It is architectural state. A dedicated custom op changes it:</p>
+            <figure class="code-figure">
+              <figcaption class="code-figure__label">SETBANK2 · physical address</figcaption>
+              <pre class="log-pre log-pre--code">SETBANK2 0x03          →  superbank_latch ← 0x03
+physical_address       =  { superbank_latch, bank, register }</pre>
+            </figure>
+            <p>One operation changes the entire visible <strong>256-register window</strong> — no copying, no spill to RAM, no widening normal instructions. Ordinary encoding stays:</p>
+            <figure class="code-figure">
+              <figcaption class="code-figure__label">Instruction word · unchanged width</figcaption>
+              <pre class="log-pre log-pre--code">[ opcode:9 ][ A:5 ][ B:5 ][ C/D:5 ][ bank:3 ]</pre>
+            </figure>
+            <p>while the upper seven address bits live in the latch until the next <span class="mono">SETBANK2</span>.</p>
+          </article>
+
+          <article class="dispatch-block" id="mirrors">
+            <h2>Why plain SRAM gives Tomato 3R1W</h2>
+            <p>Tomato's ALU needs three independent register operands, so the file needs <strong>three reads and one write</strong>. Ordinary async SRAM does not provide that, so the file is mirrored three times.</p>
+            <p>Four ×8 SRAMs make one 32-bit mirror (<span class="mono">4 × (32K × 8) = 32K × 32</span>). Three identical mirrors give the three read ports:</p>
+            <figure class="rf-diagram" aria-labelledby="rf-mirror-caption">
+              <figcaption class="code-figure__label" id="rf-mirror-caption">Mirrored 3R1W from twelve chips</figcaption>
+              <div class="rf-diagram__sheet">
+                <div class="rf-diagram__cols">
+                  <div class="rf-diagram__col">
+                    <div class="rf-diagram__read">
+                      <span class="rf-diagram__read-k">Read A</span>
+                      <span class="rf-diagram__read-d">Independent address</span>
+                    </div>
+                    <div class="rf-diagram__stem rf-diagram__stem--read" aria-hidden="true"></div>
+                    <article class="rf-diagram__mirror">
+                      <header class="rf-diagram__mirror-head">
+                        <h3 class="rf-diagram__mirror-name">Mirror A</h3>
+                        <p class="rf-diagram__mirror-meta"><span class="mono">32K × 32</span></p>
+                      </header>
+                      <ul class="rf-diagram__chips" aria-label="Four 8-bit SRAMs">
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                      </ul>
+                    </article>
+                    <div class="rf-diagram__stem rf-diagram__stem--write" aria-hidden="true"></div>
+                  </div>
+                  <div class="rf-diagram__col">
+                    <div class="rf-diagram__read">
+                      <span class="rf-diagram__read-k">Read B</span>
+                      <span class="rf-diagram__read-d">Independent address</span>
+                    </div>
+                    <div class="rf-diagram__stem rf-diagram__stem--read" aria-hidden="true"></div>
+                    <article class="rf-diagram__mirror">
+                      <header class="rf-diagram__mirror-head">
+                        <h3 class="rf-diagram__mirror-name">Mirror B</h3>
+                        <p class="rf-diagram__mirror-meta"><span class="mono">32K × 32</span></p>
+                      </header>
+                      <ul class="rf-diagram__chips" aria-label="Four 8-bit SRAMs">
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                      </ul>
+                    </article>
+                    <div class="rf-diagram__stem rf-diagram__stem--write" aria-hidden="true"></div>
+                  </div>
+                  <div class="rf-diagram__col">
+                    <div class="rf-diagram__read">
+                      <span class="rf-diagram__read-k">Read C</span>
+                      <span class="rf-diagram__read-d">Independent address</span>
+                    </div>
+                    <div class="rf-diagram__stem rf-diagram__stem--read" aria-hidden="true"></div>
+                    <article class="rf-diagram__mirror">
+                      <header class="rf-diagram__mirror-head">
+                        <h3 class="rf-diagram__mirror-name">Mirror C</h3>
+                        <p class="rf-diagram__mirror-meta"><span class="mono">32K × 32</span></p>
+                      </header>
+                      <ul class="rf-diagram__chips" aria-label="Four 8-bit SRAMs">
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                        <li><span class="mono">SRAM</span><span>×8</span></li>
+                      </ul>
+                    </article>
+                    <div class="rf-diagram__stem rf-diagram__stem--write" aria-hidden="true"></div>
+                  </div>
+                </div>
+                <div class="rf-diagram__bus" aria-hidden="true">
+                  <span class="rf-diagram__bus-rail"></span>
+                </div>
+                <div class="rf-diagram__write">
+                  <p class="rf-diagram__write-k">Broadcast write</p>
+                  <p class="rf-diagram__write-d">One address + data fan out to every mirror · <strong>1W</strong></p>
+                </div>
+                <p class="rf-diagram__foot"><span class="mono">4 × (32K × 8)</span> per mirror · <strong>12</strong> <span class="mono">AS6C62256</span> total · effective <strong>3R1W</strong></p>
+              </div>
+            </figure>
+            <p>Writes broadcast address and data to all three; reads present independent addresses. Effective <strong>3R1W from 12 ordinary SRAM chips</strong> — no exotic multiported part.</p>
+          </article>
+
+          <article class="dispatch-block" id="waste">
+            <h2>The waste that started this</h2>
+            <p>On an 8K-deep device, 32 architectural registers used <strong>0.39%</strong> of the address depth. Tomato's existing 3-bit bank field grew that to <strong>256 GPR</strong> — still only <strong>3.125%</strong>. The SRAMs, PCB area, 32-bit buses, and three mirrors were already paid for. The unused depth was just sitting there.</p>
+          </article>
+
+          <article class="dispatch-block" id="sram-upgrade">
+            <h2>SRAM upgrade: AS6C6264 → AS6C62256</h2>
+            <div class="table-wrap">
+              <p class="table-wrap__caption">Part comparison · same 55&nbsp;ns class · same 12-chip 3R1W</p>
+              <table>
+                <thead>
+                  <tr><th scope="col"></th><th scope="col">AS6C6264</th><th scope="col">AS6C62256-55PCN</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Organization</th><td>8K × 8</td><td><strong>32K × 8</strong></td></tr>
+                  <tr><th scope="row">Capacity</th><td>64 Kbit</td><td><strong>256 Kbit</strong></td></tr>
+                  <tr><th scope="row">Address bits</th><td>13</td><td><strong>15</strong></td></tr>
+                  <tr><th scope="row">32-bit addresses per mirror</th><td>8,192</td><td><strong>32,768</strong></td></tr>
+                  <tr><th scope="row">Access time</th><td>55 ns</td><td><strong>55 ns</strong></td></tr>
+                  <tr><th scope="row">Supply</th><td>2.7–5.5 V</td><td><strong>2.7–5.5 V</strong></td></tr>
+                  <tr><th scope="row">Interface</th><td>Async parallel</td><td><strong>Async parallel</strong></td></tr>
+                  <tr><th scope="row">Chips needed for 3R1W</th><td>12</td><td><strong>12</strong></td></tr>
+                  <tr><th scope="row">Approx. 12-chip cost*</th><td>~USD 114</td><td><strong>~USD 122</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-note"><em>*Pricing observed during this comparison; distributor and quantity pricing will move.</em></p>
+            <p>For roughly <strong>USD 7 more</strong> across the whole register file: <strong>4× the depth</strong>, same chip count, same 55&nbsp;ns class. So instead of leaving two address lines unused, expose the full device:</p>
+            <figure class="code-figure">
+              <figcaption class="code-figure__label">Full depth exposed</figcaption>
+              <pre class="log-pre log-pre--code">128 superbanks  ×  8 primary banks  ×  32 registers  =  32,768 GPR</pre>
+            </figure>
+            <p>And yes — that number is absurd.</p>
+          </article>
+
+          <article class="dispatch-block" id="absurd">
+            <h2>How absurd?</h2>
+            <div class="table-wrap">
+              <p class="table-wrap__caption">Integer register space · selected architectures</p>
+              <table>
+                <thead>
+                  <tr><th scope="col">Architecture</th><th scope="col">Integer / register space</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">x86-64</th><td><strong>16</strong></td></tr>
+                  <tr><th scope="row">ARM AArch64</th><td><strong>31</strong></td></tr>
+                  <tr><th scope="row">RISC-V RV32I</th><td><strong>32</strong></td></tr>
+                  <tr><th scope="row">NVIDIA Blackwell</th><td><strong>255 / thread</strong> · <strong>65,536 / SM</strong></td></tr>
+                  <tr class="is-highlight"><th scope="row">Tomato</th><td><strong>256 / instruction</strong> · <strong>32,768</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-wrap">
+              <p class="table-wrap__caption">Tomato vs the baselines</p>
+              <table>
+                <thead>
+                  <tr><th scope="col">Baseline</th><th scope="col">Register space</th><th scope="col">vs Tomato</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">x86-64</th><td>16 GPR</td><td><strong>2,048×</strong></td></tr>
+                  <tr><th scope="row">RISC-V RV32I</th><td>32 GPR</td><td><strong>1,024×</strong></td></tr>
+                  <tr><th scope="row">NVIDIA Blackwell SM</th><td>65,536 × 32-bit physical</td><td><strong>½</strong> (half)</td></tr>
+                  <tr class="is-highlight"><th scope="row">Tomato</th><td><strong>256</strong> per instruction · <strong>32,768</strong> in the file</td><td>—</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>The AS6C62256 presents fifteen address bits; once twelve of those chips are in the BOM for 3R1W, wiring them fully is the only move that isn't waste.</p>
+            <p>A flat 32K-register ISA would still be terrible: fifteen bits per operand × four → <strong>60 bits</strong> just naming registers. Banking keeps the common 5-bit fields and amortizes the upper bits:</p>
+            <figure class="code-figure">
+              <figcaption class="code-figure__label">Windowed ops after SETBANK2</figcaption>
+              <pre class="log-pre log-pre--code">SETBANK2 0x57
+
+ADD r4, r7, r12
+MUL r2, r9, r20
+…</pre>
+            </figure>
+            <p>All of those ops stay inside the window selected by <span class="mono">0x57</span> until another bank op changes it. Huge file; ordinary instruction width unchanged.</p>
+          </article>
+
+          <article class="dispatch-block" id="organization">
+            <h2>Final organization</h2>
+            <figure class="addr-diagram" aria-labelledby="addr-org-caption">
+              <figcaption class="code-figure__label" id="addr-org-caption">Address map · three reads · one broadcast write</figcaption>
+              <div class="addr-diagram__sheet">
+                <div class="addr-diagram__stack">
+                  <div class="addr-diagram__latch">
+                    <span class="addr-diagram__tag">Architectural state</span>
+                    <p class="addr-diagram__latch-k">Superbank latch</p>
+                    <p class="addr-diagram__latch-v"><span class="mono">superbank:7</span></p>
+                  </div>
+                  <div class="addr-diagram__stem" aria-hidden="true"></div>
+                  <div class="addr-diagram__insn">
+                    <span class="addr-diagram__tag">Normal instruction</span>
+                    <div class="addr-diagram__bar addr-diagram__bar--insn" role="img" aria-label="bank 3 bits, register 5 bits">
+                      <span class="addr-diagram__seg addr-diagram__seg--bank">bank<span class="addr-diagram__bits">3</span></span>
+                      <span class="addr-diagram__seg addr-diagram__seg--reg">register<span class="addr-diagram__bits">5</span></span>
+                    </div>
+                  </div>
+                  <div class="addr-diagram__merge" aria-hidden="true">
+                    <span class="addr-diagram__merge-rail"></span>
+                  </div>
+                  <div class="addr-diagram__addr">
+                    <p class="addr-diagram__addr-k">15-bit SRAM address</p>
+                    <div class="addr-diagram__bar addr-diagram__bar--full" role="img" aria-label="superbank 7 bits, bank 3 bits, register 5 bits">
+                      <span class="addr-diagram__seg addr-diagram__seg--super">superbank<span class="addr-diagram__bits">7</span></span>
+                      <span class="addr-diagram__seg addr-diagram__seg--bank">bank<span class="addr-diagram__bits">3</span></span>
+                      <span class="addr-diagram__seg addr-diagram__seg--reg">register<span class="addr-diagram__bits">5</span></span>
+                    </div>
+                  </div>
+                  <div class="addr-diagram__stem addr-diagram__stem--short" aria-hidden="true"></div>
+                  <p class="addr-diagram__target"><strong>1</strong> of <strong>32,768</strong> GPR</p>
+                </div>
+                <div class="addr-diagram__ports">
+                  <p class="addr-diagram__ports-k">Port map</p>
+                  <ul class="addr-diagram__port-list">
+                    <li class="addr-diagram__port addr-diagram__port--read">
+                      <span class="addr-diagram__port-name mono">read_A</span>
+                      <span class="addr-diagram__port-eq">=</span>
+                      <span class="addr-diagram__port-expr">{ superbank, bank, <strong>reg_A</strong> }</span>
+                    </li>
+                    <li class="addr-diagram__port addr-diagram__port--read">
+                      <span class="addr-diagram__port-name mono">read_B</span>
+                      <span class="addr-diagram__port-eq">=</span>
+                      <span class="addr-diagram__port-expr">{ superbank, bank, <strong>reg_B</strong> }</span>
+                    </li>
+                    <li class="addr-diagram__port addr-diagram__port--read">
+                      <span class="addr-diagram__port-name mono">read_C</span>
+                      <span class="addr-diagram__port-eq">=</span>
+                      <span class="addr-diagram__port-expr">{ superbank, bank, <strong>reg_C</strong> }</span>
+                    </li>
+                    <li class="addr-diagram__port addr-diagram__port--write">
+                      <span class="addr-diagram__port-name mono">write</span>
+                      <span class="addr-diagram__port-eq">=</span>
+                      <span class="addr-diagram__port-expr">{ superbank, bank, <strong>reg_D</strong> }</span>
+                      <span class="addr-diagram__port-note">broadcast to all mirrors</span>
+                    </li>
+                  </ul>
+                </div>
+                <p class="addr-diagram__foot"><strong>256</strong> per instruction window · <span class="mono">SETBANK2</span> moves the superbank field</p>
+              </div>
+            </figure>
+          </article>
+
+          <article class="dispatch-block dispatch-block--next" id="next">
+            <h2>Next</h2>
+            <ol class="dispatch-checklist">
+              <li>Add the 7-bit secondary-bank latch and custom <span class="mono">SETBANK2</span></li>
+              <li>Simulate and test in Hneemann's Digital</li>
+              <li>Update KiCad register-file / control schematics and SRAM routing</li>
+              <li>Update the hand-written Verilog / SystemVerilog FPGA core</li>
+              <li>Test bank switching, isolation, mirrored writes, independent 3R reads, and preservation across superbanks</li>
+              <li>Run architectural / program regressions</li>
+              <li>Yosys and the rest of the open-source FPGA flow for hardware bring-up</li>
+            </ol>
+          </article>
+
+          <p class="prose-foot">This started as trying not to waste an SRAM. Now Tomato has <strong>32,768 GPR</strong> — because the chips come with <strong>15 address bits</strong>, and using any less is a waste.</p>
+        </div>
+        <div class="wrap">
+          <nav class="pager">
+            <a href="tomato-works.html"><span class="dir">Previous</span><span class="to">Tomato works beautifully!</span></a>
+            <a class="next" href="../journal.html"><span class="dir">Index</span><span class="to">The journal</span></a>
+          </nav>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><div class="footer-band"><div class="footer-art">
+<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
+  </div>
+  <script src="../js/mast.js" defer></script>
+<!-- tomato-vercel -->
+  <script src="../js/vercel-analytics.js" defer></script>
+  <script src="../js/vercel-speed-insights.js" defer></script>
+<!-- /tomato-vercel -->
+</body>
+</html>
