@@ -15,6 +15,7 @@ Layered sign-off for the **Tomato dual-LUT 32-bit ALU**: independent 3-input LUT
 **Project map:** [Root README](../README.md) · **ASIC metrics:** [synthesis/README.md](synthesis/README.md) · **Carry benchmark:** [test/README.md](../test/README.md)
 
 <p align="center">
+  <img src="../web/assets/plates/alu-4b-final.webp" alt="ALU 4-bit cell plate" width="48%" />
   <img src="../web/assets/assembly/layout-tomato-alu-8bit.png" alt="Tomato 8-bit ALU layout" width="48%" />
 </p>
 <p align="center"><em>What gets proved · Dual-LUT slice hierarchy</em></p>
