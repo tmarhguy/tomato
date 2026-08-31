@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="description" content="A homebrew 32-bit CPU built from discrete logic gates. Tomato scales a dual-LUT architecture across 74xx series logic." />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#f4f0e6" />
+  <meta name="theme-color" content="#050505" />
   <script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
-        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
         if (saved === "dark" || saved === "light") {
           document.documentElement.setAttribute("data-theme", saved);
           document.documentElement.style.colorScheme = saved;
-        } else if (dark) {
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
           document.documentElement.style.colorScheme = "dark";
         }
       } catch (e) {}
@@ -23,31 +22,62 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/magazine.css" />
-
+  <link rel="stylesheet" href="../css/site.css?v=34" />
+<!-- tomato-seo -->
+  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Microcode, modularization, tomato, 32-bit" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Microcode modularization — The Tomato" />
-  <meta property="og:description" content="A homebrew 32-bit CPU built from discrete logic gates. Tomato scales a dual-LUT architecture across 74xx series logic." />
-  <meta property="og:type" content="website" />
+  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/microcode.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/journal/microcode.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Microcode modularization — The Tomato" />
-  <meta name="twitter:description" content="A homebrew 32-bit CPU built from discrete logic gates. Tomato scales a dual-LUT architecture across 74xx series logic." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
-  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "https://tomato.tmarhguy.com/journal/microcode.html#webpage",
+  "url": "https://tomato.tmarhguy.com/journal/microcode.html",
+  "name": "Microcode modularization — The Tomato",
+  "description": "The Tomato 32-bit CPU",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US",
+  "headline": "Microcode modularization",
+  "author": {
+    "@type": "Person",
+    "name": "Tyrone Marhguy"
+  },
+  "datePublished": "16 June 2026"
+}</script>
+  <!-- /tomato-seo -->
 </head>
 <body>
-  <div class="page">
+  <div class="page page--site page--journal">
     <header class="wrap">
       <div class="mast">
-        <nav class="mast-nav">
+        <nav class="mast-nav" aria-label="Primary">
           <a href="../index.html">Front</a>
           <a href="../architecture.html">Architecture</a>
+          <a href="../verification.html">Verification</a>
           <a href="../isa.html">ISA</a>
           <a href="../software.html">Software</a>
+          <a href="../os.html">Tomato OS</a>
           <a href="../playground.html">Playground</a>
           <a href="../journal.html" aria-current="page">Journal</a>
           <a href="../boards.html">Catalog</a>
@@ -58,28 +88,26 @@
           <a class="is-tour" href="../viewer.html">Tour the board</a>
         </nav>
       </div>
-      <div class="flag flag--inside">
-        <div class="nameplate">
-          <img src="../assets/mark.svg" alt="" width="52" height="61" />
-          <a href="../index.html"><h1>Tomato</h1></a>
-        </div>
-        <p class="flag-bottom"><span>Journal</span><span>16 June 2026</span><span>Vol. 32</span></p>
-      </div>
+      <a class="site-brand-seed nameplate" href="../index.html" hidden>
+        <img src="../assets/mark.svg" alt="" width="52" height="61" />
+        <h1>Tomato</h1>
+      </a>
     </header>
+
     <main>
-      <section class="section">
-        <div class="wrap hed">
-          <p class="kicker">Control</p>
+      <section class="site-hero site-hero--solo">
+        <div class="site-hero__copy">
+          <p class="kicker">Dispatch · Control</p>
           <h1 class="headline">The ROM was always going to be a wiring problem</h1>
           <p class="deck">One 64-bit control word is simple in Digital. On a breadboard it is twenty-something wires crawling across the whole CPU — to the wrong places.</p>
           <p class="byline">16 June 2026 · from the log</p>
         </div>
       </section>
-      <div class="wrap arch-layout">
-        <aside data-arch-map data-root="../"></aside>
-        <div class="arch-content">
-      <section class="section">
-        <div class="wrap story">
+      <div class="site-layout">
+        <aside class="site-toc" data-arch-map data-root="../"></aside>
+        <div class="site-body">
+      <section class="section section--journal">
+        <div class="site-prose wrap">
           <p class="drop">Every instruction looks up a control word: what the ALU should do, whether to write a register, read memory, jump the PC, enable multiply. In simulation that is one chip and one splitter. On a breadboard the signals do not even go where you would expect. Shift mode comes out of ALU decode and plugs into mul-div. Flag-write lives with memory controls and feeds the ALU. PC jump fields split across two ROM bytes. Fine on paper. Miserable to route.</p>
           <h2>Before</h2>
           <p>One <span class="mono">microcode.dig</span> on main. One EEPROM, one 64-bit splitter, every control line tunneling from the same place. One ROM file, one address bus from the IR, dead simple in Digital. Fanout hell: to test mul-div you need the entire decode tree. Touch the bit layout and you redo a 64-wide splitter.</p>
@@ -115,5 +143,9 @@
   </div>
   <script type="module" src="../js/arch-map.js"></script>
   <script src="../js/mast.js" defer></script>
+<!-- tomato-vercel -->
+  <script src="../js/vercel-analytics.js" defer></script>
+  <script src="../js/vercel-speed-insights.js" defer></script>
+<!-- /tomato-vercel -->
 </body>
 </html>

@@ -7,12 +7,26 @@
   /** @type {{ title: string, items: Link[] }[]} */
   const SECTIONS = [
     {
+      title: "Verification",
+      items: [
+        { path: "verification.html", label: "ALU sign-off" },
+        { path: "verification.html", hash: "ladder", label: "1b → 32b ladder" },
+        { path: "verification.html", hash: "signoff", label: "Fast sign-off" },
+        { path: "verification.html", hash: "formal", label: "SymbiYosys" },
+        { path: "verification.html", hash: "directed", label: "476 directed" },
+        { path: "verification.html", hash: "uvm", label: "UVM" },
+        { path: "verification.html", hash: "gauntlet", label: "10B / 130B gauntlet" },
+        { path: "verification.html", hash: "commands", label: "Run commands" },
+        { path: "verification.html", hash: "limits", label: "Scope & limits" },
+        { path: "playground.html", hash: "compiler", label: "Opcode compiler" },
+      ],
+    },
+    {
       title: "Playground",
       items: [
-        { path: "playground.html", hash: "bench", label: "The bench" },
-        { path: "playground.html", hash: "trace", label: "Bit by bit" },
-        { path: "playground.html", hash: "touch", label: "What moves" },
-        { path: "playground.html", hash: "compiler", label: "Find opcode" },
+        { path: "playground.html", hash: "bench", label: "Try the slice" },
+        { path: "playground.html", hash: "trace", label: "One bit at a time" },
+        { path: "playground.html", hash: "compiler", label: "Opcode compiler" },
         { path: "board.html", label: "Lot 07 in 3D" },
       ],
     },
@@ -26,7 +40,7 @@
         { path: "architecture.html", hash: "word", label: "32-bit word" },
         { path: "architecture.html", hash: "decode", label: "Modular decode" },
         { path: "architecture.html", hash: "boards", label: "Board progress" },
-        { path: "architecture.html", hash: "verification", label: "ALU sign-off" },
+        { path: "architecture.html", hash: "verification", label: "ALU sign-off (essay)" },
       ],
     },
     {
@@ -83,11 +97,16 @@
     {
       title: "Software",
       items: [
-        { path: "software.html", label: "Tomato OS & assembler" },
-        { path: "software.html", hash: "stack", label: "The stack" },
-        { path: "software.html", hash: "os", label: "What is on the screen" },
-        { path: "software.html", hash: "glass", label: "On the glass" },
-        { path: "journal/tomato-works.html", label: "It boots on HDMI" },
+        { path: "software.html", label: "Assembler & toolchain" },
+        { path: "software.html", hash: "usage", label: "How you use it" },
+        { path: "software.html", hash: "stack", label: "What each file does" },
+        { path: "os.html", label: "Tomato OS", flag: "hdmi" },
+        { path: "os.html", hash: "controls", label: "D-pad controls" },
+        { path: "os.html", hash: "menu", label: "Main menu" },
+        { path: "os.html", hash: "display", label: "Framebuffer" },
+        { path: "os.html", hash: "build", label: "Build & run" },
+        { path: "os.html", hash: "screens", label: "Screenshots" },
+        { path: "journal/tomato-works.html", label: "First HDMI boot" },
         { path: "journal/one-press.html", label: "One press, one key" },
         { path: "architecture.html", hash: "firmware", label: "Firmware chapter" },
       ],
@@ -95,10 +114,12 @@
     {
       title: "Opcode & ISA",
       items: [
-        { path: "isa.html", label: "512-row ROM" },
-        { path: "isa.html", hash: "profiles", label: "Parametric ISA maps" },
+        { path: "isa.html", label: "ISA reference" },
+        { path: "isa.html", hash: "usage", label: "How you use it" },
+        { path: "isa.html", hash: "files", label: "Authority files" },
+        { path: "isa.html", hash: "profiles", label: "ROM at a glance" },
         { path: "journal/isa-as-a-wire.html", label: "ISA as a Wire" },
-        { path: "software.html", hash: "stack", label: "Pseudos & vocabulary" },
+        { path: "software.html", hash: "stack", label: "Pseudos & assembler" },
       ],
     },
     {

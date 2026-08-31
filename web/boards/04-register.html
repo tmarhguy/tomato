@@ -3,51 +3,75 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#f4f0e6" />
+  <meta name="theme-color" content="#050505" />
   <script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
-        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
         if (saved === "dark" || saved === "light") {
           document.documentElement.setAttribute("data-theme", saved);
           document.documentElement.style.colorScheme = saved;
-        } else if (dark) {
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
           document.documentElement.style.colorScheme = "dark";
         }
       } catch (e) {}
     })();
   </script>
   <title>Lot 04 — Register file — The Tomato</title>
-  <meta name="description" content="04_register: 32,768 GPR 3-read-1-write register file and instruction register for Tomato." />
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/magazine.css" />
-
+  <link rel="stylesheet" href="../css/site.css?v=34" />
+<!-- tomato-seo -->
+  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato PCB, KiCad lot, discrete ALU board, Lot, Register, file, tomato, 32-bit" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Lot 04 — Register file — The Tomato" />
-  <meta property="og:description" content="04_register: 32,768 GPR 3-read-1-write register file and instruction register for Tomato." />
+  <meta property="og:description" content="The Tomato 32-bit CPU" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/boards/04-register.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/boards/04-register.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Lot 04 — Register file — The Tomato" />
-  <meta name="twitter:description" content="04_register: 32,768 GPR 3-read-1-write register file and instruction register for Tomato." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
-  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tomato.tmarhguy.com/boards/04-register.html#webpage",
+  "url": "https://tomato.tmarhguy.com/boards/04-register.html",
+  "name": "Lot 04 — Register file — The Tomato",
+  "description": "The Tomato 32-bit CPU",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US"
+}</script>
+  <!-- /tomato-seo -->
 </head>
 <body>
-  <div class="page">
+  <div class="page page--site">
     <header class="wrap">
       <div class="mast">
         <nav class="mast-nav" aria-label="Primary">
           <a href="../index.html">Front</a>
           <a href="../architecture.html">Architecture</a>
+          <a href="../verification.html">Verification</a>
           <a href="../isa.html">ISA</a>
           <a href="../software.html">Software</a>
+          <a href="../os.html">Tomato OS</a>
           <a href="../playground.html">Playground</a>
           <a href="../journal.html">Journal</a>
           <a href="../boards.html" aria-current="page">Catalog</a>
@@ -58,28 +82,25 @@
           <a class="is-tour" href="../viewer.html">Tour the board</a>
         </nav>
       </div>
-      <div class="flag flag--inside">
-        <div class="nameplate">
-          <img src="../assets/mark.svg" alt="" width="52" height="61" />
-          <a href="../index.html"><h1>Tomato</h1></a>
-        </div>
-        <p class="flag-bottom"><span>Lot 04</span><span>Register · in design</span><span>Vol. 32</span></p>
-      </div>
-    </header>
+      <a class="site-brand-seed nameplate" href="../index.html" hidden>
+        <img src="../assets/mark.svg" alt="" width="52" height="61" />
+        <h1>Tomato</h1>
+      </a>
+</header>
     <main>
-      <section class="section">
-        <div class="wrap hed">
-          <p class="kicker">Lot 04 · Register · In design</p>
+      <section class="site-hero site-hero--solo">
+        <div class="site-hero__copy">
+<p class="kicker">Lot 04 · Register · In design</p>
           <h1 class="headline">256 names, three reads, one write — the monstrous GPR file.</h1>
           <p class="deck">Tomato’s register board implements a <strong>3-read-1-write</strong> file of <a href="../journal/register-upgrade.html"><strong>32,768 GPR</strong></a> — the full 15-bit depth of <span class="mono">AS6C62256</span> parts already in the BOM (half a Blackwell SM's physical 65,536 × 32-bit file, one context). Plus the instruction register sheet.</p>
           <p class="byline">KiCad · <code>04_register</code> · <a href="../journal/register-upgrade.html#why-32768">Why 32,768? →</a></p>
         </div>
       </section>
-      <div class="wrap arch-layout">
-        <aside data-arch-map data-root="../"></aside>
-        <div class="arch-content">
+      <div class="site-layout">
+        <aside class="site-toc" data-arch-map data-root="../"></aside>
+        <div class="site-body">
       <section class="section">
-        <div class="wrap story">
+        <div class="site-prose">
           <p class="drop">The 32-bit instruction word carries five register fields—<strong>rd, rA, rB, rC</strong>, and a <strong>3-bit bank</strong>—so the physical file must serve three concurrent read ports and one write port without turning the PCB into a fire hazard. Digital already models the behaviour; the board work is fanout, tri-state discipline, and decode EEPROMs sitting next to the storage arrays.</p>
           <h2>Sheets</h2>
           <p><strong>register.kicad_sch</strong> — GPR arrays and read/write port muxing. <strong>ir.kicad_sch</strong> — instruction register latch and hold timing relative to fetch. Decode stays local: universal <strong>10-bit opcode</strong> into combinational EEPROM, same pattern as every other slice in the stack.</p>
@@ -106,5 +127,9 @@
   </div>
   <script type="module" src="../js/arch-map.js"></script>
   <script src="../js/mast.js" defer></script>
+<!-- tomato-vercel -->
+  <script src="../js/vercel-analytics.js" defer></script>
+  <script src="../js/vercel-speed-insights.js" defer></script>
+<!-- /tomato-vercel -->
 </body>
 </html>

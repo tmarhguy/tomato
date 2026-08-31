@@ -3,51 +3,75 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#f4f0e6" />
+  <meta name="theme-color" content="#050505" />
   <script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
-        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
         if (saved === "dark" || saved === "light") {
           document.documentElement.setAttribute("data-theme", saved);
           document.documentElement.style.colorScheme = saved;
-        } else if (dark) {
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
           document.documentElement.style.colorScheme = "dark";
         }
       } catch (e) {}
     })();
   </script>
   <title>Playground — Dual-LUT ALU — The Tomato</title>
-  <meta name="description" content="Inbound 07_alu emulator: toggle A, B, C, both LUT opcodes, and carry. See which inputs move which outputs." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/magazine.css?v=pg-paper" />
-
+  <link rel="stylesheet" href="css/site.css?v=34" />
+<!-- tomato-seo -->
+  <meta name="description" content="Browser Dual-LUT ALU playground: set A, B, C and opcodes, trace one bit through 74ACT151 muxes and ripple carry, opcode compiler sweep clips, interactive 07_alu slice." />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, ALU emulator, dual-LUT simulator, opcode compiler demo, 74ACT151, bit-slice trace, interactive CPU, Playground, Dual-LUT, ALU, browser, opcodes, trace, through, muxes, ripple, carry" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="author" type="text/plain" href="humans.txt" />
   <meta property="og:title" content="Playground — Dual-LUT ALU — The Tomato" />
-  <meta property="og:description" content="Inbound 07_alu emulator: toggle A, B, C, both LUT opcodes, and carry. See which inputs move which outputs." />
+  <meta property="og:description" content="Browser Dual-LUT ALU playground: set A, B, C and opcodes, trace one bit through 74ACT151 muxes and ripple carry, opcode compiler sweep clips, interactive 07_alu slice." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/playground.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/playground.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Playground — Dual-LUT ALU — The Tomato" />
-  <meta name="twitter:description" content="Inbound 07_alu emulator: toggle A, B, C, both LUT opcodes, and carry. See which inputs move which outputs." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
-  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="twitter:description" content="Browser Dual-LUT ALU playground: set A, B, C and opcodes, trace one bit through 74ACT151 muxes and ripple carry, opcode compiler sweep clips, interactive 07_alu slice." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tomato.tmarhguy.com/playground.html#webpage",
+  "url": "https://tomato.tmarhguy.com/playground.html",
+  "name": "Playground — Dual-LUT ALU — The Tomato",
+  "description": "Browser Dual-LUT ALU playground: set A, B, C and opcodes, trace one bit through 74ACT151 muxes and ripple carry, opcode compiler sweep clips, interactive 07_alu slice.",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US"
+}</script>
+  <!-- /tomato-seo -->
 </head>
 <body>
-  <div class="page">
+  <div class="page page--site">
     <header class="wrap">
       <div class="mast">
         <nav class="mast-nav" aria-label="Primary">
           <a href="index.html">Front</a>
           <a href="architecture.html">Architecture</a>
+          <a href="verification.html">Verification</a>
           <a href="isa.html">ISA</a>
           <a href="software.html">Software</a>
+          <a href="os.html">Tomato OS</a>
           <a href="playground.html" aria-current="page">Playground</a>
           <a href="journal.html">Journal</a>
           <a href="boards.html">Catalog</a>
@@ -58,122 +82,40 @@
           <a class="is-tour" href="viewer.html">Tour the board</a>
         </nav>
       </div>
-      <div class="flag flag--inside">
-        <p class="flag-top">
-          <span>Vol. 32 · No. 1</span>
-          <span>Ashtown Valley, the Bay Perimeter</span>
-          <span>Playground · Dual-LUT</span>
-        </p>
-        <div class="nameplate">
-          <img src="assets/mark.svg" alt="" width="52" height="61" />
-          <a href="index.html"><h1>Tomato</h1></a>
-        </div>
-        <p class="flag-bottom">
-          <span>A Homebrew 32-bit CPU</span>
-          <span>built from Discrete Logic</span>
-          <span>74xx · Dual-LUT · CERN-OHL-P</span>
-        </p>
-      </div>
+      <a class="site-brand-seed nameplate" href="index.html" hidden>
+        <img src="assets/mark.svg" alt="" width="52" height="61" />
+        <h1>Tomato</h1>
+      </a>
     </header>
 
     <main>
-      <section class="section">
-        <div class="wrap hed">
-          <p class="kicker">Playground · Dual-LUT</p>
-          <h1 class="headline">Flip a bit. Read the sum.</h1>
-          <p class="deck">Two <strong>151</strong> planes feed one <strong>283</strong> — <code>out = f(A,B,C) + g(A,B,C) + cin</code>. Same slice as lot 07, live in the browser.</p>
-          <p class="byline"><code>alu.v</code> · <a href="boards/07-alu.html">lot 07</a> · <a href="board.html">3D board</a></p>
+      <section class="site-hero site-hero--solo">
+        <div class="site-hero__copy">
+          <p class="kicker">Playground · 07_alu slice</p>
+          <h1 class="headline">Pick an operation. Flip some bits. Read the sum.</h1>
+          <p class="deck">Every Tomato ALU step is the same shape: two <strong>74ACT151</strong> planes program what <em>f</em> and <em>g</em> mean, then a <strong>74ACT283</strong> adds them with carry. <code>out = f(A,B,C) + g(A,B,C) + cin</code> — <strong>524,288</strong> opcode pairs on the word, not a fixed function table.</p>
+          <p class="byline"><a href="architecture.html#slice">Architecture</a> · <a href="boards/07-alu.html">Lot 07</a> · <a href="viewer.html">3D board</a></p>
         </div>
       </section>
 
-      <section class="section">
-        <div class="wrap pg-layout">
-          <aside class="pg-nav" aria-label="Playground sections">
-            <p class="pg-nav__title">On this page</p>
-            <ul class="pg-nav__list">
-              <li><a class="pg-nav__link" href="#overview">Overview</a></li>
-              <li><a class="pg-nav__link" href="#bench">Fused datapath</a></li>
-              <li><a class="pg-nav__link" href="#map">Canonical maps</a></li>
-              <li><a class="pg-nav__link" href="#wire">ISA as a wire</a></li>
-              <li><a class="pg-nav__link" href="#compiler">Find opcode</a></li>
-              <li><a class="pg-nav__link" href="#trace">Bit by bit</a></li>
-              <li><a class="pg-nav__link" href="#touch">What moves</a></li>
-              <li><a class="pg-nav__link" href="#truth">Eight rows</a></li>
-              <li><a class="pg-nav__link" href="#bom">BOM · 07_alu</a></li>
-            </ul>
-          </aside>
+      <section class="section slice-lab">
+        <div class="wrap">
+          <noscript>
+            <p class="slice-lede">Enable JavaScript to run the Dual-LUT emulator.</p>
+          </noscript>
 
-          <div class="pg-main" id="pg-main">
-            <noscript>
-              <p class="pg-lede">Enable JavaScript to run the Dual-LUT emulator.</p>
-            </noscript>
-
-            <div id="pg-overview" class="pg-overview">
-              <div class="pg-metrics" id="overview">
-                <article class="pg-metric">
-                  <p class="pg-metric__k">Predecessor</p>
-                  <p class="pg-metric__v">3,488</p>
-                  <p class="pg-metric__d">Discrete MOSFETs on 01_alu — complete on paper, set aside</p>
-                </article>
-                <article class="pg-metric">
-                  <p class="pg-metric__k">Opcode ROM</p>
-                  <p class="pg-metric__v">512</p>
-                  <p class="pg-metric__d">Rows · 9-bit opcode indexes the muxes, not a second ISA</p>
-                </article>
-                <article class="pg-metric">
-                  <p class="pg-metric__k">This slice</p>
-                  <p class="pg-metric__v">8-bit</p>
-                  <p class="pg-metric__d">07_alu · two 4-bit cells · 74ACT151 + 74ACT283</p>
-                </article>
-                <article class="pg-metric">
-                  <p class="pg-metric__k">Equation</p>
-                  <p class="pg-metric__v pg-metric__v--eq">f+g+cin</p>
-                  <p class="pg-metric__d">Dual LUT3 into the adder — no mode mux at the end</p>
-                </article>
-              </div>
-            </div>
-            <div id="pg-controls"></div>
-            <div id="pg-hero" class="pg-hero"></div>
-            <div id="pg-pipe" class="pg-pipe" aria-live="polite"></div>
-            <div id="pg-status" class="pg-status" aria-live="polite"></div>
-            <div id="pg-bench"></div>
-            <div id="pg-map"></div>
-            <section class="pg-isa" id="wire">
-              <p class="kicker">ISA as a wire</p>
-              <h2 class="pg-h">The opcode hits the muxes</h2>
-              <p class="pg-lede">Tomato does not translate foreign ISAs in micro-ops. A <strong>9-bit</strong> opcode indexes a control word that <em>is</em> the mux select — ALU planes, immediate shape, write-back, byte lane, PC overlay. One cycle. Coverage of other ISAs lives in CSV maps, not a claim that the bench runs ARM. <a href="journal/isa-as-a-wire.html">Read the dispatch →</a></p>
-              <div class="pg-pillars">
-                <article><h3>Overlay word</h3><p>Low bits of the instruction double as condition, jump mode, or immediate overlay — same copper, different spellings.</p></article>
-                <article><h3>Immediate box</h3><p>Dedicated encodings for immediate shapes, not a cycle spent unpacking someone else’s packing.</p></article>
-                <article><h3>Dual-LUT map</h3><p>If the integer op lives in the three-input boolean family, it is a LUT load. ADD, AND3, majority — same adder.</p></article>
-              </div>
-            </section>
-            <div id="pg-detail"></div>
-            <section class="pg-bom" id="bom">
-              <p class="kicker">Lot 07</p>
-              <h2 class="pg-h">Bill of materials · two 8-bit slices</h2>
-              <p class="pg-lede">DigiKey line items that populate 07_alu. Search the table. Full order log: <a href="journal/ordered.html">Ordered Tomato</a>.</p>
-              <label class="pg-label" for="pg-bom-q">Find a part</label>
-              <input id="pg-bom-q" class="pg-bom-q" type="search" placeholder="151, adder, LED…" autocomplete="off" />
-              <div class="table-wrap">
-                <table class="pg-bom-table">
-                  <thead><tr><th>Part</th><th>Qty</th><th>Role</th><th>Pkg</th></tr></thead>
-                  <tbody id="pg-bom-body">
-                    <tr><td>CD74ACT151M96</td><td>34</td><td>8:1 mux — Dual-LUT planes</td><td>SOIC-16</td></tr>
-                    <tr><td>CD74ACT283M</td><td>4</td><td>4-bit adder</td><td>SOIC-16</td></tr>
-                    <tr><td>SN74ACT00DR</td><td>4</td><td>Quad NAND glue</td><td>SOIC-14</td></tr>
-                    <tr><td>SN74ACT86DR</td><td>2</td><td>Quad XOR</td><td>SOIC-14</td></tr>
-                    <tr><td>MC74ACT377DWR2G</td><td>2</td><td>Octal DFF · flag latch</td><td>SOIC-20</td></tr>
-                    <tr><td>CD74ACT541M96</td><td>2</td><td>Octal buffer</td><td>SOIC-20</td></tr>
-                    <tr><td>CD74HCT688M96</td><td>2</td><td>8-bit comparator · zero</td><td>SOIC-20</td></tr>
-                    <tr><td>CC0603 100nF</td><td>54</td><td>Decoupling</td><td>0603</td></tr>
-                    <tr><td>LTST-C170KRKT</td><td>130</td><td>Red debug LEDs</td><td>0805</td></tr>
-                    <tr><td>4610X-101-471LF</td><td>14</td><td>470Ω LED SIP</td><td>SIP-9</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
+          <div id="pg-main" class="slice-lab__main">
+            <div id="pg-hero" class="slice-hero" aria-live="polite"></div>
+            <div id="pg-bench" class="slice-bench"></div>
+            <div id="pg-detail" class="slice-detail"></div>
           </div>
+
+          <nav class="slice-more" aria-label="Go deeper">
+            <a href="architecture.html#slice">How the slice works</a>
+            <a href="verification.html">ALU verification</a>
+            <a href="isa.html">ISA sheet</a>
+            <a href="verification.html#gauntlet">Opcode sweep clips</a>
+          </nav>
         </div>
       </section>
     </main>
@@ -181,12 +123,16 @@
     <footer class="footer">
       <div class="footer-band">
         <div class="footer-art">
-<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
+          <p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
         </div>
       </div>
     </footer>
   </div>
   <script type="module" src="js/playground.js"></script>
   <script src="js/mast.js" defer></script>
+<!-- tomato-vercel -->
+  <script src="js/vercel-analytics.js" defer></script>
+  <script src="js/vercel-speed-insights.js" defer></script>
+<!-- /tomato-vercel -->
 </body>
 </html>

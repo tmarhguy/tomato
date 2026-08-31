@@ -42,6 +42,22 @@
     return `#/${kind}/${branch}${p}`;
   }
 
+  function ghWebUrl(route) {
+    if (!route) return GH;
+    if (route.tab === "issues") return `${GH}/issues`;
+    if (route.tab === "pulls") return `${GH}/pulls`;
+    if (route.tab === "commits") return `${GH}/commits`;
+    const branch = route.branch || "main";
+    const path = route.path ? `/${route.path}` : "";
+    const kind = route.kind === "blob" ? "blob" : "tree";
+    return `${GH}/${kind}/${branch}${path}`;
+  }
+
+  function ghCta(route, size) {
+    const cls = size === "sm" ? "forge-btn forge-btn--gh forge-btn--sm" : "forge-btn forge-btn--gh";
+    return `<a class="${cls}" href="${ghWebUrl(route)}" target="_blank" rel="noopener">Open on GitHub</a>`;
+  }
+
   function fmtDate(iso) {
     if (!iso) return "";
     const d = new Date(iso);
@@ -91,8 +107,13 @@
     const wrap = document.createElement("div");
     wrap.innerHTML = html;
     wrap.querySelectorAll("img").forEach((img) => {
-      img.setAttribute("src", rawUrl(img.getAttribute("src") || "", dir, branch));
+      const src = img.getAttribute("src") || "";
+      img.setAttribute("src", rawUrl(src, dir, branch));
       img.loading = "lazy";
+      if (/img\.shields\.io/i.test(src)) {
+        img.classList.add("forge-badge");
+        img.setAttribute("referrerpolicy", "no-referrer");
+      }
     });
     wrap.querySelectorAll("a[href]").forEach((a) => {
       const href = a.getAttribute("href") || "";
@@ -144,9 +165,9 @@
         <p class="forge-about">${esc(meta.description || "")}</p>
       </div>
       <div class="forge-tools">
-        <div class="forge-toggle" role="group" aria-label="Read the tree">
-          <a class="is-on" href="source.html" aria-current="page">Paper</a>
-          <a href="${GH}" target="_blank" rel="noopener">GitHub</a>
+        <div class="forge-gh-row">
+          <span class="forge-view-badge">Paper view</span>
+          ${ghCta(route)}
         </div>
         <div class="forge-actions">
           <a class="forge-btn" href="${GH}" target="_blank" rel="noopener">Star</a>
@@ -232,7 +253,10 @@
         const blob = await api(`${ROOT}/contents/${readmeFile.path}?ref=${encodeURIComponent(route.branch)}`);
         if (blob.content) {
           readme = `<article class="forge-readme">
-            <div class="forge-readme-bar"><span>${esc(readmeFile.name)}</span><span>Rendered</span></div>
+            <div class="forge-readme-bar">
+              <span>${esc(readmeFile.name)}</span>
+              <span class="forge-bar-meta"><span>Rendered</span>${ghCta(route, "sm")}</span>
+            </div>
             <div class="forge-readme-body">${md(decode64(blob.content), "", route.branch)}</div>
           </article>`;
         }
@@ -244,6 +268,7 @@
       ${header(repoMeta, route)}
       <div class="forge-toolbar">
         <select id="forge-branch" aria-label="Branch"></select>
+        ${ghCta(route)}
         <label class="forge-clone">
           <input id="forge-clone" readonly value="https://github.com/${OWNER}/${REPO}.git" />
           <button type="button" id="forge-copy">Copy</button>
@@ -284,12 +309,16 @@
       ${header(repoMeta, route)}
       <div class="forge-toolbar">
         <select id="forge-branch" aria-label="Branch"></select>
-        <a class="forge-btn" href="${href("tree", route.branch, route.path.split("/").slice(0, -1).join("/"))}">Up</a>
+        ${ghCta(route)}
+        <a class="forge-btn forge-btn--ghost" href="${href("tree", route.branch, route.path.split("/").slice(0, -1).join("/"))}">Up</a>
       </div>
       ${crumb(route.branch, route.path)}
       ${bar}
       <article class="forge-blob">
-        <div class="forge-blob-bar"><span>${esc(blob.name)}</span><span>${blob.size || 0} bytes</span></div>
+        <div class="forge-blob-bar">
+          <span class="forge-blob-name">${esc(blob.name)}</span>
+          <span class="forge-bar-meta"><span>${blob.size || 0} bytes</span>${ghCta(route, "sm")}</span>
+        </div>
         ${body}
       </article>`;
     await fillBranches(route.branch);

@@ -3,53 +3,77 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#f4f0e6" />
+  <meta name="theme-color" content="#050505" />
   <script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
-        var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
         if (saved === "dark" || saved === "light") {
           document.documentElement.setAttribute("data-theme", saved);
           document.documentElement.style.colorScheme = saved;
-        } else if (dark) {
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
           document.documentElement.style.colorScheme = "dark";
         }
       } catch (e) {}
     })();
   </script>
   <title>Gallery — The Tomato</title>
-  <meta name="description" content="Tomato OS on HDMI, Lot 07 on the iron, Dual-LUT copper — then the paper trail that got there." />
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preload" as="image" href="assets/os/hdmi-demo-poster.jpg" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" media="print" onload="this.media='all'" />
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=Libre+Franklin:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;0,900;1,500;1,700;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" /></noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" /></noscript>
   <link rel="stylesheet" href="css/magazine.css" />
-
+  <link rel="stylesheet" href="css/site.css?v=34" />
+<!-- tomato-seo -->
+  <meta name="description" content="Tomato photo gallery: TomatoOS on HDMI, opcode sweeps, Nexys A7 bench, 07_alu solder and test, KiCad copper, Yosys bitstream terminal, assembly timelapse." />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato gallery, FPGA demo video, PCB photos, HDMI games, opcode sweep video, open source synthesis, Gallery, tomato, photo, opcode, sweeps, nexys, bench, 07_alu, solder" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="author" type="text/plain" href="humans.txt" />
   <meta property="og:title" content="Gallery — The Tomato" />
-  <meta property="og:description" content="Tomato OS on HDMI, Lot 07 on the iron, Dual-LUT copper — then the paper trail that got there." />
+  <meta property="og:description" content="Tomato photo gallery: TomatoOS on HDMI, opcode sweeps, Nexys A7 bench, 07_alu solder and test, KiCad copper, Yosys bitstream terminal, assembly timelapse." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/gallery.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/os/hdmi-demo-poster.jpg" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/gallery.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Gallery — The Tomato" />
-  <meta name="twitter:description" content="Tomato OS on HDMI, Lot 07 on the iron, Dual-LUT copper — then the paper trail that got there." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/os/hdmi-demo-poster.jpg" />
-  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="twitter:description" content="Tomato photo gallery: TomatoOS on HDMI, opcode sweeps, Nexys A7 bench, 07_alu solder and test, KiCad copper, Yosys bitstream terminal, assembly timelapse." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tomato.tmarhguy.com/gallery.html#webpage",
+  "url": "https://tomato.tmarhguy.com/gallery.html",
+  "name": "Gallery — The Tomato",
+  "description": "Tomato photo gallery: TomatoOS on HDMI, opcode sweeps, Nexys A7 bench, 07_alu solder and test, KiCad copper, Yosys bitstream terminal, assembly timelapse.",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US"
+}</script>
+  <!-- /tomato-seo -->
 </head>
 <body>
-  <div class="page">
+  <div class="page page--site">
     <header class="wrap">
       <div class="mast">
         <nav class="mast-nav" aria-label="Primary">
           <a href="index.html">Front</a>
           <a href="architecture.html">Architecture</a>
+          <a href="verification.html">Verification</a>
           <a href="isa.html">ISA</a>
           <a href="software.html">Software</a>
+          <a href="os.html">Tomato OS</a>
           <a href="playground.html">Playground</a>
           <a href="journal.html">Journal</a>
           <a href="boards.html">Catalog</a>
@@ -60,22 +84,21 @@
           <a class="is-tour" href="viewer.html">Tour the board</a>
         </nav>
       </div>
-      <div class="flag flag--inside">
-        <div class="nameplate">
-          <img src="assets/mark.svg" alt="" width="52" height="61" />
-          <a href="index.html"><h1>Tomato</h1></a>
-        </div>
-        <p class="flag-bottom"><span>Photo desk</span><span>OS · HDMI · 07_alu</span><span>Vol. 32</span></p>
-      </div>
-    </header>
+      <a class="site-brand-seed nameplate" href="index.html" hidden>
+        <img src="assets/mark.svg" alt="" width="52" height="61" />
+        <h1>Tomato</h1>
+      </a>
+</header>
 
     <main>
+      <section class="site-hero site-hero--solo site-hero--gallery" aria-labelledby="gallery-title">
+        <div class="site-hero__copy">
+          <h1 class="headline" id="gallery-title">Gallery</h1>
+          <p class="deck">HDMI demos, soldering, and the boards — Tomato OS first, then assembly, KiCad, and the shop floor.</p>
+        </div>
+      </section>
       <section class="section section--room">
         <div class="wrap">
-          <div class="hed hed--gallery">
-            <h1 class="headline">Tomato OS on glass — then the copper trail.</h1>
-            <p class="deck">HDMI demo and main menu lead; OS screens are woven through assembly, copper, and the paper trail — not stacked as one block.</p>
-          </div>
           <div class="gallery-toolbar">
             <div class="gallery-tabs" role="tablist" aria-label="Gallery sections"></div>
             <button type="button" class="gallery-slideshow" aria-pressed="false">Slideshow</button>
@@ -112,7 +135,7 @@
               data-date="29 Aug 2026" data-title="TomatoOS UI Demo" data-meta="OS · HDMI recording"
               data-chapter="Tomato OS" data-fig="Fig. 1" data-slug="os-demo">
               <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · HDMI</dd></div></dl>
-              <div class="gallery-slide__body"><p>Navigating the OS on a TV. This is the culmination of all the hardware and software layers working together flawlessly.</p></div>
+              <div class="gallery-slide__body"><p>Main menu on a TV over HDMI. FPGA, PMOD, and Tomato OS all running.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/os/main-menu-screen.jpg" data-type="image" data-thumb="assets/os/main-menu-screen.jpg"
@@ -122,11 +145,13 @@
               <div class="gallery-slide__body"><p class="drop">The main menu running live on the TV via the 12-bit PMOD. Six entries, all navigable with the D-pad.</p></div>
             </article>
             <article class="gallery-slide"
-              data-src="assets/compiler/terminal-done-generating-bitstream.png" data-type="image" data-thumb="assets/compiler/terminal-done-generating-bitstream.png"
-              data-date="Aug 2026" data-title="Open-Source Synthesis" data-meta="Yosys · nextpnr"
+              data-src="assets/compiler/fpga-terminal-program.mp4" data-type="video"
+              data-thumb="assets/gallery/compiler/fpga-terminal-program-640w.webp"
+              data-poster="assets/gallery/compiler/fpga-terminal-program-640w.webp"
+              data-date="Aug 2026" data-title="Open-Source Synthesis" data-meta="Yosys · nextpnr · ~21 s"
               data-chapter="Build Tooling" data-fig="Fig. 1" data-slug="oss-synth">
-              <dl class="gallery-slide__facts"><div><dt>Tools</dt><dd>FOSS Stack</dd></div></dl>
-              <div class="gallery-slide__body"><p>Beyond Vivado. A terminal screenshot showing the final bitstream generated using Yosys and nextpnr in a fraction of the time.</p></div>
+              <dl class="gallery-slide__facts"><div><dt>Tools</dt><dd>FOSS stack</dd></div><div><dt>Clip</dt><dd>~21 s · terminal</dd></div></dl>
+              <div class="gallery-slide__body"><p>Beyond Vivado. Yosys, nextpnr, and Project X-Ray compile the Tomato core to a bitstream on the Mac — terminal capture from synthesis through DONE.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/assembly/board-test.webp" data-type="image" data-thumb="assets/assembly/board-test.webp"
@@ -147,9 +172,9 @@
               data-date="18 Aug 2026" data-title="Half-soldered, next to Digital" data-meta="07_alu · first population · CELL 0 / CELL 1"
               data-chapter="Arrival &amp; Assembly" data-fig="Fig. 7">
               <dl class="gallery-slide__facts">
-                <div><dt>On the iron</dt><dd>74ACT151 · 74ACT283</dd></div>
+                <div><dt>On the bench</dt><dd>74ACT151 · 74ACT283</dd></div>
                 <div><dt>Lamps</dt><dd>7 LEDs down</dd></div>
-                <div><dt>Status</dt><dd>One board populating</dd></div>
+                <div><dt>Status</dt><dd>One board soldered</dd></div>
               </dl>
               <div class="gallery-slide__body">
                 <p>The silicon on the copper at last. I got every mux down on one board, both adders, and the first few lamps of the debug wall. Holding it right next to the sim, the slice finally started looking like the machine I designed.</p>
@@ -160,7 +185,7 @@
               data-date="18 Aug 2026" data-title="Placing the 74ACT logic" data-meta="74ACT151 muxes · 74ACT283 adders"
               data-chapter="Arrival &amp; Assembly" data-fig="Fig. 5">
               <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>On the board</dt><dd>Every 151 · each 283</dd></div></dl>
-              <div class="gallery-slide__body"><p>Tweezers, an iron, and just going one SOIC at a time. The dual-LUT plane was suddenly no longer just a schematic symbol.</p></div>
+              <div class="gallery-slide__body"><p>Tweezers, an iron, one SOIC at a time. Real parts on real pads instead of schematic symbols.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/assembly/soldering-led.mp4" data-type="video" data-thumb="assets/assembly/soldering-led.webp" data-poster="assets/assembly/soldering-led.webp"
@@ -179,7 +204,7 @@
                 <div><dt>Status</dt><dd>Power continuity clean</dd></div>
               </dl>
               <div class="gallery-slide__body">
-                <p class="drop">The PCBs all just arrived—five of them. I tested the power with a continuity meter and logged zero islands. It's kind of beautiful holding a board like this and realizing I remember placing every single trace.</p>
+                <p class="drop">Five boards showed up. Continuity on power was clean on all of them. I still remember placing every trace on this outline.</p>
                 <p>And then the soldering began.</p>
               </div>
             </article>
@@ -209,7 +234,7 @@
               data-date="Aug 2026" data-title="First Pixels: 12-bit PMOD HDMI" data-meta="FPGA · Video Peripheral Test"
               data-chapter="Shop Floor" data-fig="Fig. 10" data-slug="hdmi-test">
               <dl class="gallery-slide__facts"><div><dt>Format</dt><dd>MP4 · bench</dd></div><div><dt>Peripheral</dt><dd>12-bit PMOD</dd></div></dl>
-              <div class="gallery-slide__body"><p>After soldering the pins, the HDMI output works beautifully! Pure red, green, blue, and gray bars on the screen. Getting real pixels on the glass makes all the abstract logic suddenly feel very real.</p></div>
+              <div class="gallery-slide__body"><p>Soldered the PMOD pins, plugged in HDMI, got color bars — red, green, blue, gray. First sign the video path works.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/assembly/fpga-board-pmod.webp" data-type="image" data-thumb="assets/assembly/fpga-board-pmod.webp"
@@ -251,14 +276,14 @@
               data-date="Aug 2026" data-title="DigiKey Order" data-meta="Logic components"
               data-chapter="Shop Floor" data-fig="Fig. 4" data-slug="digikey-order">
               <dl class="gallery-slide__facts"><div><dt>Vendor</dt><dd>DigiKey</dd></div></dl>
-              <div class="gallery-slide__body"><p>The paper trail for the logic components. It's one thing to draw them, another to pay for them and wait for the box.</p></div>
+              <div class="gallery-slide__body"><p>DigiKey receipt for the 74xx parts. Drawing them is free. Buying them is not.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/plates/jlcpcb-checkout.webp" data-type="image" data-thumb="assets/plates/jlcpcb-checkout.webp"
               data-date="Aug 2026" data-title="JLCPCB Checkout" data-meta="PCB Fabrication"
               data-chapter="Shop Floor" data-fig="Fig. 5" data-slug="jlcpcb-checkout">
               <dl class="gallery-slide__facts"><div><dt>Vendor</dt><dd>JLCPCB</dd></div></dl>
-              <div class="gallery-slide__body"><p>The moment of truth. Hitting checkout on a board order always feels like locking in a bet.</p></div>
+              <div class="gallery-slide__body"><p>Checkout on JLC. Then you wait for the boards to show up.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/os/about-screen.jpg" data-type="image" data-thumb="assets/os/about-screen.jpg"
@@ -272,14 +297,14 @@
               data-date="Aug 2026" data-title="JLCPCB Order Details" data-meta="PCB Specs"
               data-chapter="Shop Floor" data-fig="Fig. 6" data-slug="jlcpcb-order">
               <dl class="gallery-slide__facts"><div><dt>Layer</dt><dd>2-layer</dd></div></dl>
-              <div class="gallery-slide__body"><p>Order placed. The waiting game begins for the ENIG finish boards to arrive.</p></div>
+              <div class="gallery-slide__body"><p>Order placed. ENIG boards inbound.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/plates/jlcpcb-summary.webp" data-type="image" data-thumb="assets/plates/jlcpcb-summary.webp"
               data-date="Aug 2026" data-title="JLCPCB Summary" data-meta="Final order confirmation"
               data-chapter="Shop Floor" data-fig="Fig. 7" data-slug="jlcpcb-summary">
               <dl class="gallery-slide__facts"><div><dt>Status</dt><dd>Confirmed</dd></div></dl>
-              <div class="gallery-slide__body"><p>The order summary. Soon enough, these numbers turn into actual copper on the desk.</p></div>
+              <div class="gallery-slide__body"><p>Order summary. These line items become physical boards a week later.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/plates/jlcpcb.jpg" data-type="image" data-thumb="assets/plates/jlcpcb.jpg"
@@ -292,8 +317,8 @@
               data-src="assets/plates/solder-station.jpeg" data-type="image" data-thumb="assets/plates/solder-station.jpeg"
               data-date="Jul 2026" data-title="Solder station arrives" data-meta="Iron on the desk"
               data-chapter="Shop Floor" data-fig="Fig. 1">
-              <dl class="gallery-slide__facts"><div><dt>Status</dt><dd>Ready to populate</dd></div></dl>
-              <div class="gallery-slide__body"><p class="drop">The iron finally sat on the desk. With the boards and DigiKey parts inbound, it was just a waiting game.</p></div>
+              <dl class="gallery-slide__facts"><div><dt>Status</dt><dd>Soldered</dd></div></dl>
+              <div class="gallery-slide__body"><p class="drop">Iron on the desk. Boards and DigiKey parts were already ordered — just waiting on delivery.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/assembly/digikey-box.webp" data-type="image" data-thumb="assets/assembly/digikey-box.webp"
@@ -328,7 +353,7 @@
               data-date="Aug 2026" data-title="Tetris Port" data-meta="OS · Games"
               data-chapter="Tomato OS" data-fig="Fig. 5" data-slug="tetris">
               <dl class="gallery-slide__facts"><div><dt>Game</dt><dd>Tetris</dd></div></dl>
-              <div class="gallery-slide__body"><p>One of the first games ported to TomatoOS. Playing it on a real screen through custom 74xx logic feels entirely different than any emulator.</p></div>
+              <div class="gallery-slide__body"><p>One of the first games on TomatoOS. Tetris on hardware you soldered hits different from an emulator.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/pcb/status-bar.webp" data-type="image" data-thumb="assets/pcb/status-bar.webp"
@@ -377,7 +402,7 @@
               data-date="Aug 2026" data-title="KiCad hierarchy — 07_alu" data-meta="alu_4b × 2 · flags_logic · led_unit"
               data-chapter="07_alu Design" data-fig="Fig. 1">
               <dl class="gallery-slide__facts"><div><dt>Sheets</dt><dd>alu_4b × 2</dd></div><div><dt>Support</dt><dd>flags · iopins · LEDs</dd></div></dl>
-              <div class="gallery-slide__body"><p class="drop">The schematic tree directly mirrors the Digital simulation. The hierarchy on the sheet matches the verification ladder exactly, right from 1b up through 8b.</p></div>
+              <div class="gallery-slide__body"><p class="drop">The schematic tree directly mirrors the Digital simulation. The hierarchy on the sheet matches the <a href="verification.html#ladder">verification ladder</a> exactly, right from 1b up through 8b.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/assembly/layout-tomato-alu-8bit.png" data-type="image" data-thumb="assets/assembly/layout-tomato-alu-8bit.png"
@@ -391,7 +416,7 @@
               data-date="Aug 2026" data-title="Racer Port" data-meta="OS · Games"
               data-chapter="Tomato OS" data-fig="Fig. 6" data-slug="racer">
               <dl class="gallery-slide__facts"><div><dt>Game</dt><dd>Racer</dd></div></dl>
-              <div class="gallery-slide__body"><p>The Racer port up and running. The graphics are simple, but the throughput behind it is what makes it exciting.</p></div>
+              <div class="gallery-slide__body"><p>Racer on TomatoOS. Simple graphics; still fun because it is on the real machine.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/assembly/3d-olive-penn-branding.png" data-type="image" data-thumb="assets/assembly/3d-olive-penn-branding.png"
@@ -531,7 +556,7 @@
               data-date="Aug 2026" data-title="Fibonacci" data-meta="OS · Math"
               data-chapter="Tomato OS" data-fig="Fig. 8" data-slug="fibonacci">
               <dl class="gallery-slide__facts"><div><dt>Program</dt><dd>Fibonacci</dd></div></dl>
-              <div class="gallery-slide__body"><p>The obligatory Fibonacci sequence cruncher, running effortlessly on the lowest frequencies.</p></div>
+              <div class="gallery-slide__body"><p>Fibonacci on the slow clock — the usual sanity check once fetch and execute behave.</p></div>
             </article>
             <article class="gallery-slide"
               data-src="assets/story/digital/main-2026-06-07.webp" data-type="image" data-thumb="assets/story/digital/main-2026-06-07.webp"
@@ -590,7 +615,7 @@
               <div class="gallery-slide__body"><p>Memory-mapped I/O really only counts when the arbiter stops lying to you. It failed, then it passed, and then I captured this still.</p></div>
             </article>
             <article class="gallery-slide"
-              data-src="assets/os/keyboard-matrix-attempt.mp4" data-type="video" data-thumb="assets/os/what-is-tomato-screen.jpg" data-poster="assets/os/what-is-tomato-screen.jpg"
+              data-src="assets/os/keyboard-matrix-attempt.mp4" data-type="video" data-thumb="assets/os/keyboard-matrix-attempt.webp" data-poster="assets/os/keyboard-matrix-attempt.webp"
               data-date="Aug 2026" data-title="Keyboard Matrix Attempt" data-meta="Hardware · Input"
               data-chapter="Tomato OS" data-fig="Fig. 9" data-slug="kb-matrix">
               <dl class="gallery-slide__facts"><div><dt>Input</dt><dd>Keyboard</dd></div></dl>
@@ -660,7 +685,7 @@
               <div class="gallery-slide__body"><p>Digits long before there was a ROM. I drew each nibble out as lamps by hand, just so a lookup table would actually have something to remember later.</p></div>
             </article>
             <article class="gallery-slide"
-              data-src="assets/assembly/fpga-num-seg-disp.mov" data-type="video" data-thumb="assets/os/tetris-screen.jpg" data-poster="assets/os/tetris-screen.jpg"
+              data-src="assets/assembly/fpga-num-seg-disp.mov" data-type="video" data-thumb="assets/assembly/fpga-num-seg-disp.webp" data-poster="assets/assembly/fpga-num-seg-disp.webp"
               data-date="Aug 2026" data-title="Segment Display Action" data-meta="FPGA · Output"
               data-chapter="Tomato OS" data-fig="Fig. 10" data-slug="seg-disp">
               <dl class="gallery-slide__facts"><div><dt>Display</dt><dd>Numeric Segment</dd></div></dl>
@@ -737,5 +762,9 @@
   </div>
   <script src="js/mast.js" defer></script>
   <script src="js/gallery.js" defer></script>
+<!-- tomato-vercel -->
+  <script src="js/vercel-analytics.js" defer></script>
+  <script src="js/vercel-speed-insights.js" defer></script>
+<!-- /tomato-vercel -->
 </body>
 </html>

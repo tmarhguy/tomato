@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
   <title>3D Viewer — The Tomato 07_alu</title>
-  <meta name="description" content="Immersive 3D tour of Tomato 07_alu — skim the copper, peel the mask, take over the board." />
   <meta name="theme-color" content="#050505" />
   <style>html,body{background:#050505;margin:0}</style>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -18,19 +17,41 @@
     }
   }
   </script>
-
+<!-- tomato-seo -->
+  <meta name="description" content="Immersive full-screen 3D tour of Tomato 07_alu PCB — top, iso, bottom copper, mask peel, keyboard shortcuts." />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, PCB 3D viewer, 07_alu tour, KiCad model, copper layers, Viewer, The, Tomato, 07_alu, immersive, full-screen, bottom, copper, keyboard, shortcuts" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="author" type="text/plain" href="humans.txt" />
   <meta property="og:title" content="3D Viewer — The Tomato 07_alu" />
-  <meta property="og:description" content="Immersive 3D tour of Tomato 07_alu — skim the copper, peel the mask, take over the board." />
+  <meta property="og:description" content="Immersive full-screen 3D tour of Tomato 07_alu PCB — top, iso, bottom copper, mask peel, keyboard shortcuts." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/viewer.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/viewer.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="3D Viewer — The Tomato 07_alu" />
-  <meta name="twitter:description" content="Immersive 3D tour of Tomato 07_alu — skim the copper, peel the mask, take over the board." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/pcb/pcb-arrive.webp" />
-  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="twitter:description" content="Immersive full-screen 3D tour of Tomato 07_alu PCB — top, iso, bottom copper, mask peel, keyboard shortcuts." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tomato.tmarhguy.com/viewer.html#webpage",
+  "url": "https://tomato.tmarhguy.com/viewer.html",
+  "name": "3D Viewer — The Tomato 07_alu",
+  "description": "Immersive full-screen 3D tour of Tomato 07_alu PCB — top, iso, bottom copper, mask peel, keyboard shortcuts.",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US"
+}</script>
+  <!-- /tomato-seo -->
 </head>
 <body>
   <main id="full-screen-viewer">
@@ -45,7 +66,7 @@
         <p><span>Zoom</span><kbd>Scroll</kbd></p>
         <p><span>Pan</span><kbd>Right-drag</kbd></p>
         <p><span>Spin</span><kbd>Space</kbd></p>
-        <p><span>Top Iso Side</span><kbd>1 2 3</kbd></p>
+        <p><span>Top Iso Side Bottom</span><kbd>1 2 3 4</kbd></p>
         <p><span>Reset</span><kbd>R</kbd></p>
         <p><span>Tour</span><kbd>I</kbd></p>
       </div>
@@ -69,7 +90,7 @@
       <i></i>
       <span>Tour&nbsp;<span class="tour-text">the board</span></span>
     </button>
-    <p class="badge"><i></i> REAL PCB MODEL</p>
+    <p class="badge">REAL PCB MODEL</p>
     <p class="tour-line" id="tour-line" hidden aria-live="polite">
       <span class="tour-kicker" id="tour-kicker"></span>
       <span class="tour-caption" id="tour-caption"></span>
@@ -84,5 +105,9 @@
     </div>
   </main>
   <script type="module" src="js/viewer.js"></script>
+<!-- tomato-vercel -->
+  <script src="js/vercel-analytics.js" defer></script>
+  <script src="js/vercel-speed-insights.js" defer></script>
+<!-- /tomato-vercel -->
 </body>
 </html>

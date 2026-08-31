@@ -600,6 +600,7 @@ window.addEventListener("keydown", (e) => {
   if (k === "1") go("top");
   if (k === "2") go("iso");
   if (k === "3") go("side");
+  if (k === "4") go("bottom");
   if (k === "r") go("reset");
 });
 

@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+tomatoWEB/dist/
 
 # Obsidian / editor
 .obsidian/
@@ -35,6 +36,10 @@ hardware/fpga/**/*.bit
 *.txt
 # Burn boot marker must stay so clones know which dmem image is active.
 !hardware/fpga/core/rtl/burn/BOOT.txt
+# Public site identifiers (crawlers, security contact, credits).
+!web/robots.txt
+!web/humans.txt
+!web/.well-known/security.txt
 
 # Verification — keep hand-authored bind/wrap/TB Verilog tracked
 !verification/formal/*_bind.v
