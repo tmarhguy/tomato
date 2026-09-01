@@ -40,7 +40,7 @@ module burn_boot_tb;
     function [31:0] tile;
         input integer idx;
         begin
-            tile = {uut.vga0.hi[idx], uut.vga0.lo[idx]};
+            tile = {uut.display0.hi[idx], uut.display0.lo[idx]};
         end
     endfunction
 

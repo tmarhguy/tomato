@@ -24,7 +24,9 @@ module videoout_tb;
 
     videoout uut (
         .pix_clk(pix_clk), .reset(reset),
+        .mode_pix(1'b0),
         .tile_addr(tile_addr), .tile_data(tile_data),
+        .pix_addr(), .pix_index(8'h0), .pal_rgb(12'h0),
         .r(r), .g(g), .b(b), .hs(hs), .vs(vs), .de(de)
     );
 

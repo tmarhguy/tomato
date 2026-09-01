@@ -140,8 +140,8 @@ $(SIM)/ir_tb.vvp: rtl/ir.v tb/ir_tb.v | $(SIM)
 $(SIM)/pc_tb.vvp: rtl/pc.v tb/pc_tb.v | $(SIM)
 	$(IVERILOG) -o $@ rtl/pc.v tb/pc_tb.v
 
-$(SIM)/vga_tb.vvp: rtl/vga.v tb/vga_tb.v | $(SIM)
-	$(IVERILOG) -o $@ rtl/vga.v tb/vga_tb.v
+$(SIM)/vga_tb.vvp: rtl/display.v rtl/disp_fb_bank.v rtl/vga.v tb/vga_tb.v | $(SIM)
+	$(IVERILOG) -o $@ rtl/display.v rtl/disp_fb_bank.v rtl/vga.v tb/vga_tb.v
 
 $(SIM)/muldiv_tb.vvp: rtl/shift.v rtl/muldiv.v tb/muldiv_tb.v | $(SIM)
 	$(IVERILOG) -o $@ rtl/shift.v rtl/muldiv.v tb/muldiv_tb.v

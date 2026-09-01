@@ -40,7 +40,7 @@ module games_tb;
         input integer x;
         input integer y;
         begin
-            glyph = uut.vga0.lo[y * 80 + x][7:0];
+            glyph = uut.display0.lo[y * 80 + x][7:0];
         end
     endfunction
 
@@ -193,8 +193,8 @@ module games_tb;
         uut.regs0.bank = 3'd0;
         for (n = 0; n < 16384; n = n + 1) uut.dmem[n] = 32'h0;
         for (n = 0; n < 8192; n = n + 1) begin
-            uut.vga0.lo[n] = 16'h0;
-            uut.vga0.hi[n] = 16'h0;
+            uut.display0.lo[n] = 16'h0;
+            uut.display0.hi[n] = 16'h0;
         end
         $readmemh("tb/mem/tomato_os.mem", uut.dmem);
         uut.dmem[TUNE + 0] = 32'd1;

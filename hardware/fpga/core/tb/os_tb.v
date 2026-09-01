@@ -89,7 +89,7 @@ module os_tb;
             for (y = 0; y < 60; y = y + 1) begin
                 line = 0;
                 for (x = 0; x < 80; x = x + 1) begin
-                    fb_word = {uut.vga0.hi[y * 80 + x], uut.vga0.lo[y * 80 + x]};
+                    fb_word = {uut.display0.hi[y * 80 + x], uut.display0.lo[y * 80 + x]};
                     line = {line[8*79-1:0], printable(fb_word)};
                 end
                 $display("|%0s|", line);
@@ -105,7 +105,7 @@ module os_tb;
         begin
             n = 0;
             for (i = 0; i < 4800; i = i + 1)
-                if ({uut.vga0.hi[i], uut.vga0.lo[i]} != 32'h0) n = n + 1;
+                if ({uut.display0.hi[i], uut.display0.lo[i]} != 32'h0) n = n + 1;
             painted = n;
         end
     endfunction
@@ -167,8 +167,8 @@ module os_tb;
         uut.regs0.bank = 3'd0;
         for (k = 0; k < 16384; k = k + 1) uut.dmem[k] = 32'h0;
         for (k = 0; k < 8192; k = k + 1) begin
-            uut.vga0.lo[k] = 16'h0;
-            uut.vga0.hi[k] = 16'h0;
+            uut.display0.lo[k] = 16'h0;
+            uut.display0.hi[k] = 16'h0;
         end
 
         $sformat(path, "tb/mem/%0s.mem", prog);
@@ -189,21 +189,21 @@ module os_tb;
         end
         // Menu contract: enter selects, and the three games have to be on it.
         // Rows are double-spaced: System@6, Fib@14, Snake@16, Tetris@18.
-        if (uut.vga0.lo[6*80 + 8][7:0] !== "S" ||
-            uut.vga0.lo[14*80 + 8][7:0] !== "F" ||
-            uut.vga0.lo[16*80 + 8][7:0] !== "S" ||
-            uut.vga0.lo[16*80 + 9][7:0] !== "n" ||
-            uut.vga0.lo[18*80 + 8][7:0] !== "T") begin
+        if (uut.display0.lo[6*80 + 8][7:0] !== "S" ||
+            uut.display0.lo[14*80 + 8][7:0] !== "F" ||
+            uut.display0.lo[16*80 + 8][7:0] !== "S" ||
+            uut.display0.lo[16*80 + 9][7:0] !== "n" ||
+            uut.display0.lo[18*80 + 8][7:0] !== "T") begin
             $display("FAIL: menu missing System/Fibonacci/Snake/Tetris");
             dump_screen;
             $finish(1);
         end
         // Title bar: TOMATO OS v1.0, Designed by Tyrone Marhguy
         // Machine card name sits on row 8 after the blank under Designed by.
-        if (uut.vga0.lo[0*80 + 2][7:0] !== "T" ||
-            uut.vga0.lo[0*80 + 13][7:0] !== "v" ||
-            uut.vga0.lo[0*80 + 54][7:0] !== "D" ||
-            uut.vga0.lo[8*80 + 42][7:0] !== "T") begin
+        if (uut.display0.lo[0*80 + 2][7:0] !== "T" ||
+            uut.display0.lo[0*80 + 13][7:0] !== "v" ||
+            uut.display0.lo[0*80 + 54][7:0] !== "D" ||
+            uut.display0.lo[8*80 + 42][7:0] !== "T") begin
             $display("FAIL: TOMATO OS v1.0 / Designed by missing from chrome");
             dump_screen;
             $finish(1);

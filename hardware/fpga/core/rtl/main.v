@@ -36,7 +36,12 @@ module main (
     // Tile RAM scanout port — driven by rtl/board/videoout.v
     input         tile_rclk,
     input  [12:0] tile_raddr,
-    output [31:0] tile_rdata
+    output [31:0] tile_rdata,
+    // Bitmap scanout — pixel address from videoout, data back to videoout
+    input  [16:0] pix_raddr,
+    output [7:0]  pix_rdata,
+    output [11:0] pal_rgb,
+    output        mode_pix
 );
     wire       kb_en = kb_ready;
 
@@ -73,6 +78,7 @@ module main (
 
     wire        vga_hit = (memaddr[21:19] == 3'b110);
     wire        kb_hit  = (memaddr[21:19] == 3'b111);
+    wire [31:0] disp_rdata;
     reg  [7:0]  io_out_r;
     assign io_out = io_out_r;
 
@@ -130,14 +136,21 @@ module main (
         .sp_out  (spout)
     );
 
-    vga vga0 (
-        .clk      (clk),
-        .mem_addr (memaddr),
-        .mem_din  (wbdata),
-        .mem_wr   (cmemwr),
-        .rclk     (tile_rclk),
-        .raddr    (tile_raddr),
-        .rdata    (tile_rdata)
+    display display0 (
+        .clk        (clk),
+        .mem_addr   (memaddr),
+        .mem_din    (wbdata),
+        .mem_wr     (cmemwr),
+        .mem_rd     (cmemrd & exec),
+        .bytesel    (cbytesel),
+        .cpu_rdata  (disp_rdata),
+        .rclk       (tile_rclk),
+        .tile_raddr (tile_raddr),
+        .tile_rdata (tile_rdata),
+        .pix_raddr  (pix_raddr),
+        .pix_rdata  (pix_rdata),
+        .pal_rgb    (pal_rgb),
+        .mode_pix   (mode_pix)
     );
 
     // 7-seg = last nonzero writeback (or store). Latching every execute let
@@ -256,6 +269,7 @@ module main (
     // MMIO [21:19]==111: word0 = kb data, word1 = {ready}
     assign memram = kb_hit
                   ? (memaddr[0] ? {31'b0, kb_ready} : {24'b0, kb_data})
+                  : vga_hit ? disp_rdata
                   : dread;
 
     alu alu0 (

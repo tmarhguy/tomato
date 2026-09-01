@@ -98,6 +98,16 @@ module nexys_top #(
     wire        halted;
     wire [12:0] tile_raddr;
     wire [31:0] tile_rdata;
+    wire [16:0] pix_raddr;
+    wire [7:0]  pix_rdata;
+    wire [11:0] pal_rgb;
+    wire        mode_pix;
+    reg         mode_pix_r, mode_pix_s;
+
+    always @(posedge pix_clk) begin
+        mode_pix_r <= mode_pix;
+        mode_pix_s <= mode_pix_r;
+    end
 
     main cpu (
         .clk        (cpu_clk),
@@ -110,7 +120,11 @@ module nexys_top #(
         .halted     (halted),
         .tile_rclk  (pix_clk),
         .tile_raddr (tile_raddr),
-        .tile_rdata (tile_rdata)
+        .tile_rdata (tile_rdata),
+        .pix_raddr  (pix_raddr),
+        .pix_rdata  (pix_rdata),
+        .pal_rgb    (pal_rgb),
+        .mode_pix   (mode_pix)
     );
 
     // ---- scanout ----------------------------------------------------------
@@ -120,8 +134,12 @@ module nexys_top #(
     videoout video0 (
         .pix_clk   (pix_clk),
         .reset     (pix_reset),
+        .mode_pix  (mode_pix_s),
         .tile_addr (tile_raddr),
         .tile_data (tile_rdata),
+        .pix_addr  (pix_raddr),
+        .pix_index (pix_rdata),
+        .pal_rgb   (pal_rgb),
         .r         (px_r),
         .g         (px_g),
         .b         (px_b),
