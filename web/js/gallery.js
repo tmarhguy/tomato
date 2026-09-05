@@ -4,9 +4,11 @@
 (function () {
   "use strict";
 
-  var SWIPE_PX = 36;
-  var SWIPE_RATIO = 0.14;
-  var AXIS_LOCK = 8;
+  var SWIPE_PX = 28;
+  var SWIPE_RATIO = 0.12;
+  var AXIS_LOCK = 6;
+  var FLICK_VX = 0.42; /* px/ms — quick flicks commit even with short travel */
+  var FLICK_MIN_DX = 8;
 
   var root = null;
   var viewport = null;
@@ -35,10 +37,33 @@
   var showTimer = null;
   var tabsRoot = null;
   var showBtn = null;
+  var detailRaf = 0;
+  var mediaSyncTimer = 0;
 
-  var drag = { on: false, id: null, x0: 0, y0: 0, dx: 0, locked: false, swiped: false };
+  var drag = {
+    on: false,
+    id: null,
+    x0: 0,
+    y0: 0,
+    dx: 0,
+    locked: false,
+    swiped: false,
+    lastX: 0,
+    lastT: 0,
+    vx: 0,
+  };
   var tapFrame = null;
-  var lbDrag = { on: false, id: null, x0: 0, y0: 0, dx: 0, locked: false };
+  var lbDrag = {
+    on: false,
+    id: null,
+    x0: 0,
+    y0: 0,
+    dx: 0,
+    locked: false,
+    lastX: 0,
+    lastT: 0,
+    vx: 0,
+  };
   var gapPx = 16;
   var trackBase = 0;
   var dragRaf = 0;
@@ -273,26 +298,44 @@
     document.documentElement.classList.toggle("is-gallery-swipe", on);
   }
 
-  function setIndex(i) {
+  function setIndex(i, options) {
     if (!slides.length) return;
+    options = options || {};
     index = wrap(i);
     renderDetail();
-    layoutTrack(0);
+    layoutTrack(0, { deferMedia: options.deferMedia === true });
     scrollFilmstrip(false);
   }
 
-  function step(delta) {
+  function step(delta, options) {
     if (!playlist.length) {
-      setIndex(index + delta);
+      setIndex(index + delta, options);
       return;
     }
     var pos = playlist.indexOf(index);
     if (pos < 0) pos = 0;
-    setIndex(playlist[wrapPlay(pos + delta)]);
+    setIndex(playlist[wrapPlay(pos + delta)], options);
   }
 
   function swipeThreshold() {
     return Math.max(SWIPE_PX, (viewport ? viewport.offsetWidth : 0) * SWIPE_RATIO);
+  }
+
+  function sampleVelocity(state, clientX) {
+    var now = performance.now();
+    var dt = now - state.lastT;
+    if (dt > 0 && dt < 64) {
+      var instant = (clientX - state.lastX) / dt;
+      state.vx = state.vx * 0.35 + instant * 0.65;
+    }
+    state.lastX = clientX;
+    state.lastT = now;
+  }
+
+  function shouldCommitSwipe(dx, vx, threshold) {
+    if (dx <= -threshold || (vx <= -FLICK_VX && dx <= -FLICK_MIN_DX)) return 1;
+    if (dx >= threshold || (vx >= FLICK_VX && dx >= FLICK_MIN_DX)) return -1;
+    return 0;
   }
 
   function setBlock(el, text) {
@@ -417,7 +460,9 @@
     scheduleFitDetail();
   }
 
-  function syncFrames() {
+  function syncFrames(options) {
+    options = options || {};
+    var deferMedia = options.deferMedia === true;
     var pos = playlist.indexOf(index);
     var prev = pos > 0 ? playlist[pos - 1] : playlist.length > 1 ? playlist[playlist.length - 1] : -1;
     var next = pos >= 0 && pos < playlist.length - 1 ? playlist[pos + 1] : playlist.length > 1 ? playlist[0] : -1;
@@ -430,6 +475,30 @@
       frame.classList.toggle("is-adjacent", dist === 1);
       frame.classList.toggle("is-far", dist > 1);
       frame.setAttribute("aria-hidden", i === index ? "false" : "true");
+      frame.dataset.dist = String(dist);
+    });
+    filmCells.forEach(function (cell, i) {
+      cell.classList.toggle("is-active", i === index);
+      cell.setAttribute("aria-selected", i === index ? "true" : "false");
+    });
+    if (deferMedia) {
+      if (mediaSyncTimer) clearTimeout(mediaSyncTimer);
+      mediaSyncTimer = setTimeout(function () {
+        mediaSyncTimer = 0;
+        syncFrameMedia();
+      }, 120);
+      return;
+    }
+    if (mediaSyncTimer) {
+      clearTimeout(mediaSyncTimer);
+      mediaSyncTimer = 0;
+    }
+    syncFrameMedia();
+  }
+
+  function syncFrameMedia() {
+    frames.forEach(function (frame, i) {
+      var dist = parseInt(frame.dataset.dist || "2", 10);
       if (slides[i].type === "video") {
         if (dist <= 1) ensureFrameVideo(frame, slides[i]);
         else unloadFrameVideo(frame);
@@ -438,10 +507,6 @@
       } else {
         unloadFrameImage(frame);
       }
-    });
-    filmCells.forEach(function (cell, i) {
-      cell.classList.toggle("is-active", i === index);
-      cell.setAttribute("aria-selected", i === index ? "true" : "false");
     });
     pauseVideos(track);
     var vid = $("video", frames[index]);
@@ -478,7 +543,7 @@
     }
     measureTrackBase();
     applyTrackTransform(extraDx);
-    syncFrames();
+    syncFrames({ deferMedia: options.deferMedia === true });
   }
 
   function scheduleTrackDrag(dx) {
@@ -488,6 +553,14 @@
       dragRaf = 0;
       layoutTrack(pendingDx, { sync: false });
     });
+  }
+
+  function flushTrackDrag() {
+    if (dragRaf) {
+      cancelAnimationFrame(dragRaf);
+      dragRaf = 0;
+    }
+    if (drag.locked) applyTrackTransform(pendingDx);
   }
 
   function scrollFilmstrip(smooth) {
@@ -587,9 +660,6 @@
     });
 
     lightboxFigure.addEventListener("pointerdown", onLightboxPointerDown);
-    lightboxFigure.addEventListener("pointermove", onLightboxPointerMove, { passive: false });
-    lightboxFigure.addEventListener("pointerup", onLightboxPointerUp);
-    lightboxFigure.addEventListener("pointercancel", onLightboxPointerUp);
   }
 
   function refreshLightboxCopy() {
@@ -633,14 +703,27 @@
     return Math.max(SWIPE_PX, (lightboxFigure ? lightboxFigure.offsetWidth : 0) * SWIPE_RATIO);
   }
 
+  function flushLbDrag() {
+    if (lbDragRaf) {
+      cancelAnimationFrame(lbDragRaf);
+      lbDragRaf = 0;
+    }
+    if (lbDrag.locked && lightboxStage) {
+      lightboxStage.style.transform = "translate3d(" + lbPendingDx + "px,0,0)";
+    }
+  }
+
   function resetLbDrag() {
     if (lbDragRaf) {
       cancelAnimationFrame(lbDragRaf);
       lbDragRaf = 0;
     }
+    bindLbDragWindow(false);
     lbDrag.on = false;
     lbDrag.locked = false;
     lbDrag.dx = 0;
+    lbDrag.vx = 0;
+    lbPendingDx = 0;
     if (lightboxStage) {
       lightboxStage.style.transform = "";
       lightboxStage.classList.remove("is-dragging");
@@ -659,7 +742,10 @@
     lbDrag.y0 = e.clientY;
     lbDrag.dx = 0;
     lbDrag.locked = false;
-    lightboxFigure.setPointerCapture(e.pointerId);
+    lbDrag.lastX = e.clientX;
+    lbDrag.lastT = performance.now();
+    lbDrag.vx = 0;
+    bindLbDragWindow(true);
   }
 
   function onLightboxPointerMove(e) {
@@ -671,18 +757,21 @@
       if (Math.abs(dx) < AXIS_LOCK && Math.abs(dy) < AXIS_LOCK) return;
       if (Math.abs(dx) <= Math.abs(dy)) {
         resetLbDrag();
-        try {
-          lightboxFigure.releasePointerCapture(e.pointerId);
-        } catch (err) {}
         return;
       }
       lbDrag.locked = true;
       lightboxStage.classList.add("is-dragging");
       lightboxFigure.classList.add("is-dragging");
       setSwipeLock(true);
+      try {
+        lightboxFigure.setPointerCapture(e.pointerId);
+      } catch (err) {}
+      lbPendingDx = dx;
+      lightboxStage.style.transform = "translate3d(" + dx + "px,0,0)";
     }
 
     e.preventDefault();
+    sampleVelocity(lbDrag, e.clientX);
     lbDrag.dx = dx;
     lbPendingDx = dx;
     if (lbDragRaf) return;
@@ -695,15 +784,52 @@
 
   function onLightboxPointerUp(e) {
     if (!lbDrag.on || e.pointerId !== lbDrag.id) return;
+    flushLbDrag();
+    bindLbDragWindow(false);
     var threshold = lightboxSwipeThreshold();
     var dx = lbDrag.dx;
-    resetLbDrag();
+    var vx = lbDrag.vx;
+    var locked = lbDrag.locked;
+    var settleDx = lbPendingDx;
+    lbDrag.on = false;
+    lbDrag.locked = false;
+    if (lbDragRaf) {
+      cancelAnimationFrame(lbDragRaf);
+      lbDragRaf = 0;
+    }
+
     try {
       lightboxFigure.releasePointerCapture(e.pointerId);
     } catch (err) {}
 
-    if (dx <= -threshold) lightboxStep(1);
-    else if (dx >= threshold) lightboxStep(-1);
+    if (!locked) {
+      resetLbDrag();
+      return;
+    }
+
+    var dir = shouldCommitSwipe(dx, vx, threshold);
+    if (lightboxStage) lightboxStage.style.transform = "translate3d(" + settleDx + "px,0,0)";
+
+    requestAnimationFrame(function () {
+      lbDrag.dx = 0;
+      lbDrag.vx = 0;
+      lbPendingDx = 0;
+
+      if (dir) {
+        /* Swap while transitions are still off to avoid a snap flash */
+        if (lightboxStage) lightboxStage.style.transform = "";
+        lightboxStep(dir);
+        if (lightboxStage) lightboxStage.classList.remove("is-dragging");
+        if (lightboxFigure) lightboxFigure.classList.remove("is-dragging");
+        setSwipeLock(false);
+        return;
+      }
+
+      if (lightboxStage) lightboxStage.classList.remove("is-dragging");
+      if (lightboxFigure) lightboxFigure.classList.remove("is-dragging");
+      setSwipeLock(false);
+      if (lightboxStage) lightboxStage.style.transform = "";
+    });
   }
 
   function openLightbox() {
@@ -724,14 +850,51 @@
     viewport.focus({ preventScroll: true });
   }
 
+  var dragWindowBound = false;
+  var lbDragWindowBound = false;
+
+  function bindDragWindow(on) {
+    if (on) {
+      if (dragWindowBound) return;
+      dragWindowBound = true;
+      window.addEventListener("pointermove", onPointerMove, { passive: false });
+      window.addEventListener("pointerup", onPointerUp);
+      window.addEventListener("pointercancel", onPointerUp);
+    } else {
+      if (!dragWindowBound) return;
+      dragWindowBound = false;
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
+    }
+  }
+
+  function bindLbDragWindow(on) {
+    if (on) {
+      if (lbDragWindowBound) return;
+      lbDragWindowBound = true;
+      window.addEventListener("pointermove", onLightboxPointerMove, { passive: false });
+      window.addEventListener("pointerup", onLightboxPointerUp);
+      window.addEventListener("pointercancel", onLightboxPointerUp);
+    } else {
+      if (!lbDragWindowBound) return;
+      lbDragWindowBound = false;
+      window.removeEventListener("pointermove", onLightboxPointerMove);
+      window.removeEventListener("pointerup", onLightboxPointerUp);
+      window.removeEventListener("pointercancel", onLightboxPointerUp);
+    }
+  }
+
   function resetDrag() {
     if (dragRaf) {
       cancelAnimationFrame(dragRaf);
       dragRaf = 0;
     }
+    bindDragWindow(false);
     drag.on = false;
     drag.locked = false;
     drag.dx = 0;
+    drag.vx = 0;
     pendingDx = 0;
     tapFrame = null;
     track.classList.remove("is-dragging");
@@ -750,7 +913,10 @@
     drag.dx = 0;
     drag.locked = false;
     drag.swiped = false;
-    viewport.setPointerCapture(e.pointerId);
+    drag.lastX = e.clientX;
+    drag.lastT = performance.now();
+    drag.vx = 0;
+    bindDragWindow(true);
   }
 
   function onPointerMove(e) {
@@ -762,9 +928,6 @@
       if (Math.abs(dx) < AXIS_LOCK && Math.abs(dy) < AXIS_LOCK) return;
       if (Math.abs(dx) <= Math.abs(dy)) {
         resetDrag();
-        try {
-          viewport.releasePointerCapture(e.pointerId);
-        } catch (err) {}
         return;
       }
       drag.locked = true;
@@ -772,42 +935,72 @@
       track.classList.add("is-dragging");
       viewport.classList.add("is-dragging");
       setSwipeLock(true);
+      try {
+        viewport.setPointerCapture(e.pointerId);
+      } catch (err) {}
+      pendingDx = dx;
+      applyTrackTransform(dx);
     }
 
     e.preventDefault();
+    sampleVelocity(drag, e.clientX);
     drag.dx = dx;
     scheduleTrackDrag(dx);
   }
 
   function onPointerUp(e) {
     if (!drag.on || e.pointerId !== drag.id) return;
+    flushTrackDrag();
+    bindDragWindow(false);
     var threshold = swipeThreshold();
     var dx = drag.dx;
+    var vx = drag.vx;
     var wasSwipe = drag.swiped;
     var frame = tapFrame;
     tapFrame = null;
-    resetDrag();
+
+    var settleDx = pendingDx;
+    drag.on = false;
+    drag.locked = false;
+    if (dragRaf) {
+      cancelAnimationFrame(dragRaf);
+      dragRaf = 0;
+    }
+
     try {
       viewport.releasePointerCapture(e.pointerId);
     } catch (err) {}
 
-    if (dx <= -threshold) step(1);
-    else if (dx >= threshold) step(-1);
-    else {
-      layoutTrack(0);
-      if (!wasSwipe && frame) {
-        stopSlideshow();
-        var tapIndex = parseInt(frame.dataset.index, 10);
-        if (!isNaN(tapIndex) && tapIndex !== index) setIndex(tapIndex);
-        openLightbox();
-      }
-    }
+    var dir = wasSwipe ? shouldCommitSwipe(dx, vx, threshold) : 0;
 
-    if (wasSwipe) {
-      setTimeout(function () {
-        drag.swiped = false;
-      }, 0);
-    }
+    if (wasSwipe) applyTrackTransform(settleDx);
+
+    requestAnimationFrame(function () {
+      track.classList.remove("is-dragging");
+      if (viewport) viewport.classList.remove("is-dragging");
+      setSwipeLock(false);
+      pendingDx = 0;
+      drag.dx = 0;
+      drag.vx = 0;
+
+      if (dir) {
+        step(dir, { deferMedia: true });
+      } else {
+        layoutTrack(0);
+        if (!wasSwipe && frame) {
+          stopSlideshow();
+          var tapIndex = parseInt(frame.dataset.index, 10);
+          if (!isNaN(tapIndex) && tapIndex !== index) setIndex(tapIndex);
+          openLightbox();
+        }
+      }
+
+      if (wasSwipe) {
+        setTimeout(function () {
+          drag.swiped = false;
+        }, 0);
+      }
+    });
   }
 
   function onKeyDown(e) {
@@ -907,9 +1100,7 @@
       stopSlideshow();
       onPointerDown(e);
     });
-    viewport.addEventListener("pointermove", onPointerMove, { passive: false });
-    viewport.addEventListener("pointerup", onPointerUp);
-    viewport.addEventListener("pointercancel", onPointerUp);
+    /* move/up are bound on window for the active gesture so web mouse drags stay smooth */
 
     document.addEventListener("keydown", onKeyDown);
 

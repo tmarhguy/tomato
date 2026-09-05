@@ -6342,13 +6342,17 @@ html.is-gallery-swipe .gallery-viewport {
   transition: none;
 }
 
+.gallery-track.is-dragging .gallery-frame {
+  filter: none;
+}
+
 .gallery-track {
   display: flex;
   align-items: center;
   gap: 1rem;
   will-change: transform;
   transform: translate3d(0, 0, 0);
-  transition: transform .42s cubic-bezier(.25, .8, .25, 1);
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1);
 }
 
 .gallery-track.is-dragging {
@@ -6366,7 +6370,8 @@ html.is-gallery-swipe .gallery-viewport {
   max-width: min(36rem, 70%);
   height: auto;
   cursor: pointer;
-  transition: transform .42s cubic-bezier(.25, .8, .25, 1), filter .42s ease, opacity .42s ease;
+  transition: transform .3s cubic-bezier(.22, 1, .36, 1), filter .3s ease, opacity .3s ease;
+  backface-visibility: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -6383,7 +6388,7 @@ html.is-gallery-swipe .gallery-viewport {
   background: var(--wash);
   overflow: hidden;
   box-shadow: 0 0 0 0 transparent;
-  transition: box-shadow .42s ease, border-color .42s ease;
+  transition: box-shadow .3s ease, border-color .3s ease;
   cursor: zoom-in;
 }
 
@@ -6393,6 +6398,9 @@ html.is-gallery-swipe .gallery-viewport {
   object-fit: cover;
   display: block;
   filter: none;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .gallery-frame__clip {
@@ -6431,13 +6439,14 @@ html[data-theme=dark] .gallery-frame.is-active .gallery-frame__inner {
 .gallery-frame.is-adjacent {
   transform: scale(.78);
   opacity: .72;
-  filter: blur(3px) brightness(.72) saturate(.65);
+  /* No blur — compositing blur during swipe is the main web jank source */
+  filter: brightness(.78) saturate(.7);
 }
 
 .gallery-frame.is-far {
   transform: scale(.62);
   opacity: .38;
-  filter: blur(6px) brightness(.55) saturate(.5);
+  filter: brightness(.6) saturate(.55);
   pointer-events: none;
 }
 
@@ -6806,7 +6815,7 @@ html.is-gallery-open {
   place-items: center;
   min-height: 0;
   background: #111;
-  transition: transform .35s cubic-bezier(.25, .8, .25, 1);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1);
   will-change: transform;
 }
 
