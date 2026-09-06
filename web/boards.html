@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -18,42 +19,47 @@
       } catch (e) {}
     })();
   </script>
-  <title>Board catalog — The Tomato</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/magazine.css" />
-  <link rel="stylesheet" href="css/site.css?v=34" />
+<title>A computer, board by board — Tomato</title>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="css/magazine.css" rel="stylesheet"/>
+<link href="css/site.css?v=34" rel="stylesheet"/>
+<link href="css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="css/navigation.css?v=250" />
+<script src="js/navigation.js?v=250" defer></script>
+<link rel="stylesheet" href="css/page-media.css?v=1"/>
 <!-- tomato-seo -->
-  <meta name="description" content="Tomato PCB catalog: eight KiCad lots from 01_alu through 08_display — ALU, shift, memory, register file, PC, bus, dual-LUT 07, video." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, PCB catalog, KiCad boards, 07_alu, discrete CPU boards, lot numbering, Board, catalog, tomato, eight, kicad, 01_alu, through, 08_display, shift, memory, register" />
+  <meta name="description" content="I designed the architecture to be built from off-the-shelf logic and memory chips. The Lot 07 ALU board is soldered. The remaining boards are progressing alongside the software ecosystem on the working FPGA." />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, PCB catalog, KiCad boards, 07_alu, discrete CPU boards, lot numbering, board, designed, architecture, built, off-the-shelf, memory, chips, soldered" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
-  <meta property="og:title" content="Board catalog — The Tomato" />
-  <meta property="og:description" content="Tomato PCB catalog: eight KiCad lots from 01_alu through 08_display — ALU, shift, memory, register file, PC, bus, dual-LUT 07, video." />
+  <meta property="og:title" content="A computer, board by board — Tomato" />
+  <meta property="og:description" content="I designed the architecture to be built from off-the-shelf logic and memory chips. The Lot 07 ALU board is soldered. The remaining boards are progressing alongside the software ecosystem on the working FPGA." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/boards.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/boards.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
-  <meta name="twitter:title" content="Board catalog — The Tomato" />
-  <meta name="twitter:description" content="Tomato PCB catalog: eight KiCad lots from 01_alu through 08_display — ALU, shift, memory, register file, PC, bus, dual-LUT 07, video." />
+  <meta name="twitter:title" content="A computer, board by board — Tomato" />
+  <meta name="twitter:description" content="I designed the architecture to be built from off-the-shelf logic and memory chips. The Lot 07 ALU board is soldered. The remaining boards are progressing alongside the software ecosystem on the working FPGA." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
   "@id": "https://tomato.tmarhguy.com/boards.html#webpage",
   "url": "https://tomato.tmarhguy.com/boards.html",
-  "name": "Board catalog — The Tomato",
-  "description": "Tomato PCB catalog: eight KiCad lots from 01_alu through 08_display — ALU, shift, memory, register file, PC, bus, dual-LUT 07, video.",
+  "name": "A computer, board by board — Tomato",
+  "description": "I designed the architecture to be built from off-the-shelf logic and memory chips. The Lot 07 ALU board is soldered. The remaining boards are progressing alongside the software ecosystem on the working FPGA.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -61,160 +67,36 @@
 }</script>
   <!-- /tomato-seo -->
 </head>
-<body>
-  <div class="page page--site">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="index.html">Front</a>
-          <a href="architecture.html">Architecture</a>
-          <a href="verification.html">Verification</a>
-          <a href="isa.html">ISA</a>
-          <a href="software.html">Software</a>
-          <a href="os.html">Tomato OS</a>
-          <a href="playground.html">Playground</a>
-          <a href="journal.html">Journal</a>
-          <a href="boards.html" aria-current="page">Catalog</a>
-          <a href="board.html">Orbit</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="source.html">GitHub</a>
-          <a href="about.html">About</a>
-          <a class="is-tour" href="viewer.html">Tour the board</a>
-        </nav>
-      </div>
-      <a class="site-brand-seed nameplate" href="index.html" hidden>
-        <img src="assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-</header>
-
-    <main>
-      <section class="site-hero" aria-labelledby="boards-title">
-        <div class="site-hero__media">
-          <img
-            src="assets/gallery/pcb/alu_8b_board-1280w.webp"
-            srcset="assets/gallery/pcb/alu_8b_board-640w.webp 640w, assets/gallery/pcb/alu_8b_board-1280w.webp 1280w"
-            sizes="(max-width: 980px) 100vw, 52vw"
-            width="1280"
-            height="960"
-            alt="07_alu Dual-LUT board — the lot in copper."
-            fetchpriority="high"
-            decoding="async"
-          />
-        </div>
-        <div class="site-hero__copy">
-          <p class="kicker">Progress of Works</p>
-          <h1 class="headline" id="boards-title">Eight lots. One has left the screen.</h1>
-          <p class="deck">Tomato is modular on purpose: each slice gets its own PCB, local EEPROM decode, and a dedicated page in this catalog. Pick a lot for the full story—outline, role in the datapath, and where it stands today. Lot <strong>07</strong> is the one in copper.</p>
-          <p class="byline">KiCad 10 · Digital source of truth · August 2026</p>
-          <nav class="site-hero__actions" aria-label="Jump">
-            <a class="is-primary" href="boards/07-alu.html">Lot 07 →</a>
-            <a href="viewer.html">Tour the board</a>
-            <a href="architecture.html#boards">Then / now</a>
-          </nav>
-        </div>
-      </section>
-
-      <div class="site-layout">
-        <aside class="site-toc" data-arch-map data-root=""></aside>
-        <div class="site-body">
-      <section class="section section--double">
-        <div class="wrap">
-          <div class="ads-mast">
-            <p class="exhibit-label">Catalog · select a lot</p>
-            <h2 class="shelf-title">From transistor predecessor to dual-LUT copper.</h2>
-            <p class="ads-rate">Green is done · gold is now · grey is still on the screen</p>
-          </div>
-          <div class="ads-sheet">
-            <p class="ads-bar"><span>Eight lots in order</span><span>Authority of copper</span></p>
-            <div class="works">
-              <ol class="works-track" aria-label="Board lots">
-                <li class="is-past"><a href="boards/01-alu.html"><span class="works-n">01</span><span class="works-name">ALU</span><span class="works-st">Set aside</span></a></li>
-                <li><a href="boards/02-shift.html"><span class="works-n">02</span><span class="works-name">Shift</span><span class="works-st">In design</span></a></li>
-                <li><a href="boards/03-memory.html"><span class="works-n">03</span><span class="works-name">Memory</span><span class="works-st">In design</span></a></li>
-                <li><a href="boards/04-register.html"><span class="works-n">04</span><span class="works-name">Register</span><span class="works-st">In design</span></a></li>
-                <li><a href="boards/05-pc.html"><span class="works-n">05</span><span class="works-name">PC</span><span class="works-st">In design</span></a></li>
-                <li><a href="boards/06-bus.html"><span class="works-n">06</span><span class="works-name">Bus</span><span class="works-st">In design</span></a></li>
-                <li class="is-now"><a href="boards/07-alu.html"><span class="works-n">07</span><span class="works-name">ALU</span><span class="works-st">Soldered</span></a></li>
-                <li><a href="boards/08-display.html"><span class="works-n">08</span><span class="works-name">Display</span><span class="works-st">In design</span></a></li>
-              </ol>
-              <div class="ad-queue">
-                <a class="ad-item" href="boards/01-alu.html">
-                  <span class="ad-item-no">01</span>
-                  <span class="ad-item-name">ALU</span>
-                  <span class="ad-item-st">Set aside</span>
-                  <p>270&nbsp;mm transistor-hybrid predecessor. 3,488 MOSFETs. Complete on paper—not the copper that went to fab.</p>
-                </a>
-                <a class="ad-item" href="boards/02-shift.html">
-                  <span class="ad-item-no">02</span>
-                  <span class="ad-item-name">Shift</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>32-bit barrel shifter and multiply loop. ~forty 74ACT157 muxes. Priority encoder skips zero chunks.</p>
-                </a>
-                <a class="ad-item" href="boards/03-memory.html">
-                  <span class="ad-item-no">03</span>
-                  <span class="ad-item-name">Memory</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>Dual-port RAM, byte-lane decode, 60×80 tile framebuffer. The bus to the outside world.</p>
-                </a>
-                <a class="ad-item" href="boards/04-register.html">
-                  <span class="ad-item-no">04</span>
-                  <span class="ad-item-name">Register</span>
-                  <span class="ad-item-st">In design</span>
-                  <p><a href="journal/register-upgrade.html">32,768 GPR</a> · 3R1W · 15-bit AS6C62256 depth · half a Blackwell SM (one context)</p>
-                </a>
-                <a class="ad-item" href="boards/05-pc.html">
-                  <span class="ad-item-no">05</span>
-                  <span class="ad-item-name">PC</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>Program counter, stack pointer, interrupt vectors. Keyboard tables and printer I/O hooks.</p>
-                </a>
-                <a class="ad-item" href="boards/06-bus.html">
-                  <span class="ad-item-no">06</span>
-                  <span class="ad-item-name">Bus</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>Tri-state write-back highway. 74ACT541 + 74ACT138 → 9&nbsp;ns mux. Unblocks every other slice.</p>
-                </a>
-                <a class="ad-item" href="boards/07-alu.html">
-                  <span class="ad-item-no">07</span>
-                  <span class="ad-item-name">ALU</span>
-                  <span class="ad-item-st">Soldered</span>
-                  <p>Dual-LUT 8-bit slice. Soldering done on board one. Muxes, adders, seven lamps. The copper sits next to the sim.</p>
-                </a>
-                <a class="ad-item" href="boards/08-display.html">
-                  <span class="ad-item-no">08</span>
-                  <span class="ad-item-name">Display</span>
-                  <span class="ad-item-st">In design</span>
-                  <p>The rest of the lamp wall and VGA timing. 07 already carries its own LED bring-up panel.</p>
-                </a>
-              </div>
-            </div>
-          </div>
-          <p class="shelf-meta">Each lot · <a href="source.html">KiCad in GitHub</a> · decode stays local per board</p>
-          <nav class="jump">
-            <a href="board.html">Orbit 07_alu in 3D →</a>
-            <a href="architecture.html">Architecture overview →</a>
-            <a href="journal/first-assembly.html">Assembly dispatch →</a>
-          </nav>
-        </div>
-      </section>
-        </div>
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-band">
-        <div class="footer-art">
-<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
-        </div>
-      </div>
-    </footer>
-  </div>
-  <script type="module" src="js/arch-map.js"></script>
-  <script src="js/mast.js" defer></script>
+<body class="project-document">
+<div class="page project-page project-boards"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<main class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="index.html">Home</a></nav><section aria-labelledby="boards-title" class="project-hero project-hero-split">
+<div class="project-hero-media">
+<img alt="07_alu Dual-LUT board — the lot in copper." decoding="async" fetchpriority="high" height="960" sizes="(max-width: 980px) 100vw, 52vw" src="assets/gallery/pcb/alu_8b_board-1280w.webp" srcset="assets/gallery/pcb/alu_8b_board-640w.webp 640w, assets/gallery/pcb/alu_8b_board-1280w.webp 1280w" width="1280"/>
+</div>
+<div class="project-hero-copy">
+<p class="kicker">The discrete build</p>
+<h1 class="project-title" id="boards-title">A computer, board by board.</h1>
+<p class="deck">I designed the architecture to be built from off-the-shelf logic and memory chips. The Lot 07 ALU board is soldered. The remaining boards are progressing alongside the software ecosystem on the working FPGA.</p>
+<p class="byline">KiCad 10 · Digital source of truth · August 2026</p>
+<nav aria-label="Jump" class="site-hero__actions">
+<a class="is-primary" href="boards/07-alu.html">Lot 07</a>
+<a href="viewer.html">Tour the board</a>
+<a href="architecture.html#boards">Then / now</a>
+</nav>
+</div>
+</section>
+<section aria-label="Eight board lots" class="board-catalog project-frame"><a class="board-card" href="boards/01-alu.html"><div class="board-card-top"><span>LOT 01</span><span class="board-status">Predecessor</span></div><h2>Transistor ALU</h2><p>An 8-bit starting point: 624 discrete MOSFETs and 74HC logic. Set aside before assembly.</p><span class="board-card-link">Explore the board</span></a><a class="board-card" href="boards/02-shift.html"><div class="board-card-top"><span>LOT 02</span><span class="board-status">In design</span></div><h2>Shift</h2><p>The 32-bit barrel shifter and multiply path.</p><span class="board-card-link">Explore the board</span></a><a class="board-card" href="boards/03-memory.html"><div class="board-card-top"><span>LOT 03</span><span class="board-status">In design</span></div><h2>Memory</h2><p>Program and data storage, byte lanes, and the framebuffer.</p><span class="board-card-link">Explore the board</span></a><a class="board-card" href="boards/04-register.html"><div class="board-card-top"><span>LOT 04</span><span class="board-status">In design</span></div><h2>Registers</h2><p>Three reads, one write, and 32,768 banked 32-bit locations.</p><span class="board-card-link">Explore the board</span></a><a class="board-card" href="boards/05-pc.html"><div class="board-card-top"><span>LOT 05</span><span class="board-status">In design</span></div><h2>Program counter</h2><p>The address of the next instruction, branches, and control flow.</p><span class="board-card-link">Explore the board</span></a><a class="board-card" href="boards/06-bus.html"><div class="board-card-top"><span>LOT 06</span><span class="board-status">In design</span></div><h2>Data bus</h2><p>The shared writeback path connecting the processor’s subsystems.</p><span class="board-card-link">Explore the board</span></a><a class="board-card" href="boards/07-alu.html"><div class="board-card-top"><span>LOT 07</span><span class="board-status is-built">Soldered</span></div><h2>Dual-LUT ALU</h2><p>Two programmable Boolean planes feeding an adder. An 8-bit slice in copper.</p><span class="board-card-link">Explore the board</span></a><a class="board-card" href="boards/08-display.html"><div class="board-card-top"><span>LOT 08</span><span class="board-status">In design</span></div><h2>Display</h2><p>Display timing and the remaining visual output hardware.</p><span class="board-card-link">Explore the board</span></a></section>
+<!-- page-media:start --><section class="media-evidence project-frame" aria-labelledby="media-evidence-title"><header><p class="kicker">From the build</p><h2 id="media-evidence-title">The work behind the words.</h2></header><div class="media-evidence-grid"><figure><a class="media-evidence-image" href="assets/gallery/assembly/placing-and-soldering-1280w.webp" aria-label="View larger: Placing and soldering components on the Tomato ALU"><img src="assets/gallery/assembly/placing-and-soldering-1280w.webp" srcset="assets/gallery/assembly/placing-and-soldering-640w.webp 640w, assets/gallery/assembly/placing-and-soldering-1280w.webp 1280w" sizes="(max-width: 650px) 90vw, 45vw" alt="Placing and soldering components on the Tomato ALU" loading="lazy" decoding="async"/></a><figcaption><a href="journal/first-assembly.html">Placing the logic</a><p>Assembly of the discrete ALU, one package at a time.</p></figcaption></figure><figure><a class="media-evidence-image" href="assets/gallery/assembly/board-test-1280w.webp" aria-label="View larger: Physical Tomato ALU board on the test bench"><img src="assets/gallery/assembly/board-test-1280w.webp" srcset="assets/gallery/assembly/board-test-640w.webp 640w, assets/gallery/assembly/board-test-1280w.webp 1280w" sizes="(max-width: 650px) 90vw, 45vw" alt="Physical Tomato ALU board on the test bench" loading="lazy" decoding="async"/></a><figcaption><a href="journal/first-lights.html">The assembled ALU</a><p>Lot 07 on the bench during board testing.</p></figcaption></figure></div></section><!-- page-media:end -->
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a aria-current="page" href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script src="js/arch-map.js" type="module"></script>
+<script defer="" src="js/mast.js?v=240"></script>
 <!-- tomato-vercel -->
-  <script src="js/vercel-analytics.js" defer></script>
-  <script src="js/vercel-speed-insights.js" defer></script>
+<script defer="" src="js/vercel-analytics.js"></script>
+<script defer="" src="js/vercel-speed-insights.js"></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

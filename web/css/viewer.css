@@ -1,9 +1,9 @@
 /* Light full-screen viewer. Small pills only — no full-screen blur. */
 :root {
   --bg: #050505;
-  --fg: #ededed;
-  --red: #c23a3a;
-  --red-ink: #8b1e1e;
+  --fg: #f1f1ed;
+  --red: #ff583f;
+  --red-ink: #ff583f;
   --cream: #f4f0e6;
 }
 
@@ -420,3 +420,6 @@ body.is-playing .badge { display: none; }
     display: none;
   }
 }
+
+/* Match the main site while retaining the full-screen board workspace. */
+.chip, .back, .view-bar button { border-radius: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }

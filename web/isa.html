@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -18,42 +19,50 @@
       } catch (e) {}
     })();
   </script>
-  <title>ISA as a Wire — The Tomato</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/magazine.css" />
-  <link rel="stylesheet" href="css/site.css?v=34" />
+<title>The words that drive the machine — Tomato</title>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="css/magazine.css" rel="stylesheet"/>
+<link href="css/site.css?v=34" rel="stylesheet"/>
+<link href="css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="css/navigation.css?v=250" />
+<script src="js/navigation.js?v=250" defer></script>
+<link rel="stylesheet" href="css/page-media.css?v=1"/>
 <!-- tomato-seo -->
-  <meta name="description" content="Tomato ISA reference: 512-row microcode, ~37 ISA families mapped, parametric datapath burns, pseudo-instruction CSV, COND and overlay fields in the 32-bit word." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato ISA, microcode table, instruction set, parametric ISA, RISC-V comparison, pseudo ops, ISA, Wire, tomato, reference, 512-row, microcode, families, mapped, parametric, datapath, burns, pseudo-instruction" />
+  <meta name="description" content="Tomato’s instructions select the logic, constants, and routes through its processor. Here is how I map a program onto those controls—and where the instruction coverage still needs work." />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato ISA, microcode table, instruction set, parametric ISA, RISC-V comparison, pseudo ops, words, drive, tomato, instructions, select, constants, routes, through, processor, program" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
-  <meta property="og:title" content="ISA as a Wire — The Tomato" />
-  <meta property="og:description" content="Tomato ISA reference: 512-row microcode, ~37 ISA families mapped, parametric datapath burns, pseudo-instruction CSV, COND and overlay fields in the 32-bit word." />
+  <meta property="og:title" content="The words that drive the machine — Tomato" />
+  <meta property="og:description" content="Tomato’s instructions select the logic, constants, and routes through its processor. Here is how I map a program onto those controls—and where the instruction coverage still needs work." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/isa.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/isa.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
-  <meta name="twitter:title" content="ISA as a Wire — The Tomato" />
-  <meta name="twitter:description" content="Tomato ISA reference: 512-row microcode, ~37 ISA families mapped, parametric datapath burns, pseudo-instruction CSV, COND and overlay fields in the 32-bit word." />
+  <meta name="twitter:title" content="The words that drive the machine — Tomato" />
+  <meta name="twitter:description" content="Tomato’s instructions select the logic, constants, and routes through its processor. Here is how I map a program onto those controls—and where the instruction coverage still needs work." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
   "@id": "https://tomato.tmarhguy.com/isa.html#webpage",
   "url": "https://tomato.tmarhguy.com/isa.html",
-  "name": "ISA as a Wire — The Tomato",
-  "description": "Tomato ISA reference: 512-row microcode, ~37 ISA families mapped, parametric datapath burns, pseudo-instruction CSV, COND and overlay fields in the 32-bit word.",
+  "name": "The words that drive the machine — Tomato",
+  "description": "Tomato’s instructions select the logic, constants, and routes through its processor. Here is how I map a program onto those controls—and where the instruction coverage still needs work.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -61,158 +70,121 @@
 }</script>
   <!-- /tomato-seo -->
 </head>
-<body>
-  <div class="page page--site">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="index.html">Front</a>
-          <a href="architecture.html">Architecture</a>
-          <a href="verification.html">Verification</a>
-          <a href="isa.html" aria-current="page">ISA</a>
-          <a href="software.html">Software</a>
-          <a href="os.html">Tomato OS</a>
-          <a href="playground.html">Playground</a>
-          <a href="journal.html">Journal</a>
-          <a href="boards.html">Catalog</a>
-          <a href="board.html">Orbit</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="source.html">GitHub</a>
-          <a href="about.html">About</a>
-          <a class="is-tour" href="viewer.html">Tour the board</a>
-        </nav>
-      </div>
-          <a class="site-brand-seed nameplate" href="index.html" hidden>
-        <img src="assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-</header>
-
-    <main>
-      <section class="site-hero site-hero--solo" aria-labelledby="isa-title">
-        <div class="site-hero__copy">
-          <p class="kicker">Instruction set</p>
-          <h1 class="headline" id="isa-title">ISA as a Wire</h1>
-          <p class="deck">The opcode does not run through an interpreter. It loads the muxes. This page is the ROM sheet, the file layout, and how you actually program the machine.</p>
-          <p class="byline">Authority · <span class="mono">docs/isa/tomato.v1.csv</span> · <a href="journal/isa-as-a-wire.html">why it is built this way</a></p>
-          <nav class="site-hero__actions" aria-label="Related">
-            <a class="is-primary" href="#usage">How you use it</a>
-            <a href="#profiles">ROM facts</a>
-            <a href="software.html">Assembler &amp; OS</a>
-            <a href="architecture.html#word">32-bit word</a>
-          </nav>
-        </div>
-      </section>
-
-      <div class="site-layout">
-        <aside class="site-toc" data-arch-map data-root=""></aside>
-        <div class="site-body">
-          <section class="site-prose">
-            <p class="drop">Tomato is not emulating other CPUs. The 9-bit opcode indexes a control word that <em>is</em> the datapath configuration — ALU LUTs, immediate shape, writeback, PC overlay — in one cycle. You program it in Tomato assembly; the assembler reads CSV tables; the result burns into FPGA BRAM or discrete EEPROM. Foreign ISAs are maps onto the same word, not a second machine in software.</p>
-
-            <h2 id="usage">How you use it</h2>
-            <ol>
-              <li><strong>Pick or add an opcode</strong> in <span class="mono">tomato.v1.csv</span>. A burn is a real ROM row. Empty rows stay <span class="mono">nop</span>.</li>
-              <li><strong>Spell it in assembly</strong> with <span class="mono">software/assembler.py</span>. Mnemonics come from the CSV, not hard-coded Python.</li>
-              <li><strong>Add syntax sugar</strong> in <span class="mono">tomato.v1.pseudo.csv</span> if you want <span class="mono">CALL</span>, <span class="mono">BEQZ</span>, or <span class="mono">LI</span> without growing the ROM.</li>
-              <li><strong>Assemble and burn.</strong> Tomato OS and test benches share the same flow: assemble <span class="mono">tomato_os.s</span>, load the image, run on Nexys or in simulation.</li>
-              <li><strong>Map another ISA</strong> when you need it — overlay bits, immediate box encoding, LUT pair — as rows in <span class="mono">profiles/</span>, not as new microcode.</li>
-            </ol>
-            <p>Native Tomato syntax is <span class="mono">opcode rd, rA, rB, rC</span> where the ALU computes <span class="mono">rd = f(a,b,c) + g(a,b,c) + cin</span>. Everything else is convenience on top of burns.</p>
-
-            <h2>What lands in the 32-bit word</h2>
-            <p>Three mechanisms absorb most integer ISAs without a pre-decode stage:</p>
-
-            <ol class="site-rail">
-              <li class="site-ch site-ch--hero">
-                <p class="site-ch__n">01 · Overlay</p>
-                <h3>Low bits reuse</h3>
-                <p>The bottom three bits of the instruction overlay as <span class="mono">COND</span>, jump mode, or a short immediate fragment. Same silicon; different mnemonics.</p>
-                <a class="site-ch__more" href="architecture.html#word">Word layout →</a>
-              </li>
-              <li class="site-ch">
-                <p class="site-ch__n">02 · Immediate</p>
-                <h3>Literal box</h3>
-                <p>Sixteen immediate encodings on the register board — <span class="mono">imm8</span> through <span class="mono">imm16</span> and LUI — sized for the common RISC and CISC literal widths.</p>
-              </li>
-              <li class="site-ch">
-                <p class="site-ch__n">03 · ALU</p>
-                <h3>Dual-LUT plane</h3>
-                <p>Any op that fits <span class="mono">f+g+cin</span> runs in one cycle. The opcode loads the truth tables. Mapping a foreign ALU op is table entry, not a redesign.</p>
-                <a class="site-ch__more" href="architecture.html#slice">Slice →</a>
-              </li>
-            </ol>
-
-            <h2 id="files">Authority files</h2>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr><th>File</th><th>You touch it when…</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td class="mono">tomato.v1.csv</td><td>Adding or renaming a burned opcode</td></tr>
-                  <tr><td class="mono">tomato.v1.pseudo.csv</td><td>Adding assembler macros that expand to existing burns</td></tr>
-                  <tr><td class="mono">opcode-map.csv</td><td>Looking up bit patterns · mnemonic cheat sheet</td></tr>
-                  <tr><td class="mono">lut.csv</td><td>Choosing ALU primitives · hardware reference</td></tr>
-                  <tr><td class="mono">profiles.csv</td><td>Tracking parametric maps · sweep database</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <h2>Family maps (~37)</h2>
-            <p>The <span class="mono">profiles/</span> folder lists more rows than anyone would name at a bench — separate CSVs per RISC-V extension, ARM core, PIC variant. Count the families you would actually say out loud (RV32, MIPS, ARM, x86, 6502, Z80, …) and you land around <strong>thirty-seven</strong>. That number moves when a new map ships; it is not a spec limit. The hardware already accepts the encoding family. The work is writing the map.</p>
-            <p><a href="journal/isa-as-a-wire.html">Full argument →</a></p>
-
-            <h2>What this does not cover</h2>
-            <p>Compute, shift, and load/store — the integer core. No tile VPU: the display is CPU-painted tile RAM with VGA scanout. No x86 segmentation, no ARM TrustZone — system furniture that is not a mux on this datapath. Integer code that fits the three mechanisms above runs native. Everything else is out of scope, not slow emulation.</p>
-          </section>
-
-          <section class="section section--room" id="profiles">
-            <p class="exhibit-label">ROM · at a glance</p>
-            <div class="exhibits">
-              <article class="exhibit">
-                <p class="exhibit-num">512</p>
-                <p class="exhibit-kicker">ROM rows</p>
-                <h3>9-bit index</h3>
-                <p>Bits [31:23]. Fits a socketed EEPROM on the discrete boards.</p>
-              </article>
-              <article class="exhibit">
-                <p class="exhibit-num">51</p>
-                <p class="exhibit-kicker">burned today</p>
-                <h3>Rest are nop</h3>
-                <p>Only ship opcodes you use. Empty rows are honest spare.</p>
-              </article>
-              <article class="exhibit">
-                <p class="exhibit-num">~37</p>
-                <p class="exhibit-kicker">ISA families</p>
-                <h3>Mapped</h3>
-                <p>Bench count. The CSV has more rows; the datapath has headroom.</p>
-              </article>
-            </div>
-            <nav class="jump">
-              <a href="architecture.html">← Architecture</a>
-              <a href="software.html">Software →</a>
-              <a href="journal/isa-as-a-wire.html">ISA as a Wire →</a>
-              <a href="source.html">GitHub →</a>
-            </nav>
-          </section>
-        </div>
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-band">
-        <div class="footer-art">
-          <p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
-        </div>
-      </div>
-    </footer>
-  </div>
-  <script type="module" src="js/arch-map.js"></script>
-  <script src="js/mast.js" defer></script>
+<body class="project-document">
+<div class="page project-page project-isa"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<main class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="index.html">Home</a></nav><section aria-labelledby="isa-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
+<p class="kicker">The instruction set</p>
+<h1 class="project-title" id="isa-title">The words that drive the machine.</h1>
+<p class="deck">Tomato’s instructions select the logic, constants, and routes through its processor. Here is how I map a program onto those controls—and where the instruction coverage still needs work.</p>
+<p class="byline">Authority · <span class="mono">docs/isa/tomato.v1.csv</span> · <a href="journal/isa-as-a-wire.html">why it is built this way</a></p>
+<nav aria-label="Related" class="site-hero__actions">
+<a class="is-primary" href="#usage">How you use it</a>
+<a href="#profiles">ROM facts</a>
+<a href="software.html">Assembler &amp; OS</a>
+<a href="architecture.html#word">32-bit word</a>
+</nav>
+</div>
+</section>
+<section aria-label="Isa overview" class="brand-map"><div><span>01 / OPCODE</span><h2>Choose the control word</h2><p>Nine opcode bits select one of 512 rows in the instruction ROM.</p></div><div><span>02 / OPERANDS</span><h2>Name values or carry a constant</h2><p>Instruction fields select registers or contribute bits to an immediate.</p></div><div><span>03 / OPERATION</span><h2>Configure the existing datapath</h2><p>The selected controls determine the calculation and where its result goes.</p></div></section>
+<div class="project-reading-layout">
+<aside class="project-toc"><details open=""><summary>On this page</summary><nav aria-label="On this page"><a href="#usage">How you use it</a><a href="#section-2">What lands in the 32-bit word</a><a href="#files">Authority files</a><a href="#section-4">Family maps (~37)</a><a href="#section-5">What this does not cover</a></nav></details></aside>
+<div class="project-reading-body">
+<section class="site-prose"><p><strong>Polymorphism includes the operand format.</strong> The immediate box can sign-extend a 13-bit offset, zero-extend a 16-bit literal, or place a LUI field in the upper 20 bits. Decode selects these combinational paths without a separate conversion instruction or clock cycle. Instruction overlays and programmable ALU truth tables complete the mapping.</p>
+<p class="">I program Tomato in its own assembly language. A 9-bit opcode selects a control word for the ALU truth tables, immediate format, writeback path, and branch controls. The assembler reads mapping tables and emits machine code for the FPGA memory or discrete hardware. ISA profiles describe how other operations can fit those controls; their implementation and test status must be checked individually.</p>
+<h2 id="usage">How you use it</h2>
+<ol>
+<li><strong>Pick or add an opcode</strong> in <span class="mono">tomato.v1.csv</span>. A burn is a real ROM row. Empty rows stay <span class="mono">nop</span>.</li>
+<li><strong>Spell it in assembly</strong> with <span class="mono">software/assembler.py</span>. Mnemonics come from the CSV, not hard-coded Python.</li>
+<li><strong>Add syntax sugar</strong> in <span class="mono">tomato.v1.pseudo.csv</span> if you want <span class="mono">CALL</span>, <span class="mono">BEQZ</span>, or <span class="mono">LI</span> without growing the ROM.</li>
+<li><strong>Assemble and burn.</strong> Tomato OS and test benches share the same flow: assemble <span class="mono">tomato_os.s</span>, load the image, run on Nexys or in simulation.</li>
+<li><strong>Map another ISA</strong> when you need it — overlay bits, immediate box encoding, LUT pair — as rows in <span class="mono">profiles/</span>, not as new microcode.</li>
+</ol>
+<p>Native Tomato syntax is <span class="mono">opcode rd, rA, rB, rC</span> where the ALU computes <span class="mono">rd = f(a,b,c) + g(a,b,c) + cin</span>. Everything else is convenience on top of burns.</p>
+<h2 id="section-2">What lands in the 32-bit word</h2>
+<p>Three mechanisms absorb most integer ISAs without a pre-decode stage:</p>
+<ol class="site-rail">
+<li class="site-ch site-ch--hero">
+<p class="site-ch__n">01 · Overlay</p>
+<h3>Low bits reuse</h3>
+<p>The bottom three bits of the instruction overlay as <span class="mono">COND</span>, jump mode, or a short immediate fragment. Same silicon; different mnemonics.</p>
+<a class="site-ch__more" href="architecture.html#word">Word layout</a>
+</li>
+<li class="site-ch">
+<p class="site-ch__n">02 · Immediate</p>
+<h3>Literal box</h3>
+<p>Sixteen immediate encodings on the register board — <span class="mono">imm8</span> through <span class="mono">imm16</span> and LUI — sized for the common RISC and CISC literal widths.</p>
+</li>
+<li class="site-ch">
+<p class="site-ch__n">03 · ALU</p>
+<h3>Dual-LUT plane</h3>
+<p>Any op that fits <span class="mono">f+g+cin</span> runs in one cycle. The opcode loads the truth tables. Mapping a foreign ALU op is table entry, not a redesign.</p>
+<a class="site-ch__more" href="architecture.html#slice">Slice</a>
+</li>
+</ol>
+<h2 id="files">Authority files</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>File</th><th>You touch it when…</th></tr>
+</thead>
+<tbody>
+<tr><td class="mono">tomato.v1.csv</td><td>Adding or renaming a burned opcode</td></tr>
+<tr><td class="mono">tomato.v1.pseudo.csv</td><td>Adding assembler macros that expand to existing burns</td></tr>
+<tr><td class="mono">opcode-map.csv</td><td>Looking up bit patterns · mnemonic cheat sheet</td></tr>
+<tr><td class="mono">lut.csv</td><td>Choosing ALU primitives · hardware reference</td></tr>
+<tr><td class="mono">profiles.csv</td><td>Tracking parametric maps · sweep database</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="section-4">Family maps (~37)</h2>
+<p>The <span class="mono">profiles/</span> folder lists more rows than anyone would name at a bench — separate CSVs per RISC-V extension, ARM core, PIC variant. Count the families you would actually say out loud (RV32, MIPS, ARM, x86, 6502, Z80, …) and you land around <strong>thirty-seven</strong>. That number moves when a new map ships; it is not a spec limit. The hardware already accepts the encoding family. The work is writing the map.</p>
+<p><a href="journal/isa-as-a-wire.html">Full argument</a></p>
+<h2 id="section-5">What this does not cover</h2>
+<p>The mappings cover compute, shift, and register or memory operations that fit this datapath. Full binary compatibility also depends on instruction decoding, exceptions, memory behavior, and system features. A mapping file alone does not establish that compatibility. The profile tables record gaps and test status so the software work can address them.</p>
+</section>
+<section class="section section--room" id="profiles">
+<p class="exhibit-label">ROM · at a glance</p>
+<div class="exhibits">
+<article class="exhibit">
+<p class="exhibit-num">512</p>
+<p class="exhibit-kicker">ROM rows</p>
+<h3>9-bit index</h3>
+<p>Bits [31:23]. Fits a socketed EEPROM on the discrete boards.</p>
+</article>
+<article class="exhibit">
+<p class="exhibit-num">51</p>
+<p class="exhibit-kicker">burned today</p>
+<h3>Rest are nop</h3>
+<p>Only ship opcodes you use. Empty rows are honest spare.</p>
+</article>
+<article class="exhibit">
+<p class="exhibit-num">~37</p>
+<p class="exhibit-kicker">ISA families</p>
+<h3>Mapped</h3>
+<p>Bench count. The CSV has more rows; the datapath has headroom.</p>
+</article>
+</div>
+<nav class="jump">
+<a href="architecture.html">Architecture</a>
+<a href="software.html">Software</a>
+<a href="journal/isa-as-a-wire.html">ISA as a Wire</a>
+<a href="source.html">GitHub</a>
+</nav>
+</section>
+</div>
+</div>
+<!-- page-media:start --><section class="media-evidence project-frame" aria-labelledby="media-evidence-title"><header><p class="kicker">From the build</p><h2 id="media-evidence-title">The work behind the words.</h2></header><div class="media-evidence-grid"><figure><a class="media-evidence-image" href="assets/gallery/plates/microcode-modular-640w.webp" aria-label="View larger: Modular microcode control schematic"><img src="assets/gallery/plates/microcode-modular-640w.webp" alt="Modular microcode control schematic" loading="lazy" decoding="async"/></a><figcaption><a href="journal/microcode.html">Control beside the datapath</a><p>The modular control design documented in the build journal.</p></figcaption></figure><figure><a class="media-evidence-image" href="assets/gallery/os/tetris-screen-1280w.webp" aria-label="View larger: Tetris running in Tomato OS"><img src="assets/gallery/os/tetris-screen-1280w.webp" srcset="assets/gallery/os/tetris-screen-640w.webp 640w, assets/gallery/os/tetris-screen-1280w.webp 1280w" sizes="(max-width: 650px) 90vw, 45vw" alt="Tetris running in Tomato OS" loading="lazy" decoding="async"/></a><figcaption><a href="journal/tomato-works.html">Software using the machine</a><p>Tetris in Tomato OS, written for the custom instruction set.</p></figcaption></figure></div></section><!-- page-media:end -->
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a aria-current="page" href="isa.html">Instruction set</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script src="js/arch-map.js" type="module"></script>
+<script defer="" src="js/mast.js?v=240"></script>
 <!-- tomato-vercel -->
-  <script src="js/vercel-analytics.js" defer></script>
-  <script src="js/vercel-speed-insights.js" defer></script>
+<script defer="" src="js/vercel-analytics.js"></script>
+<script defer="" src="js/vercel-speed-insights.js"></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

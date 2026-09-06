@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -18,13 +19,17 @@
       } catch (e) {}
     })();
   </script>
-  <title>Microcode modularization — The Tomato</title>
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/magazine.css" />
-  <link rel="stylesheet" href="../css/site.css?v=34" />
+<title>Microcode modularization — The Tomato</title>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="../css/magazine.css" rel="stylesheet"/>
+<link href="../css/site.css?v=34" rel="stylesheet"/>
+<link href="../css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/navigation.css?v=250" />
+<script src="../js/navigation.js?v=250" defer></script>
+<link rel="stylesheet" href="../css/journal-article.css?v=2"/>
 <!-- tomato-seo -->
   <meta name="description" content="The Tomato 32-bit CPU" />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Microcode, modularization, tomato, 32-bit" />
@@ -39,6 +44,9 @@
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/microcode.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/microcode.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -47,6 +55,7 @@
   <meta name="twitter:title" content="Microcode modularization — The Tomato" />
   <meta name="twitter:description" content="The Tomato 32-bit CPU" />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "Article",
@@ -67,85 +76,60 @@
 }</script>
   <!-- /tomato-seo -->
 </head>
-<body>
-  <div class="page page--site page--journal">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="../index.html">Front</a>
-          <a href="../architecture.html">Architecture</a>
-          <a href="../verification.html">Verification</a>
-          <a href="../isa.html">ISA</a>
-          <a href="../software.html">Software</a>
-          <a href="../os.html">Tomato OS</a>
-          <a href="../playground.html">Playground</a>
-          <a href="../journal.html" aria-current="page">Journal</a>
-          <a href="../boards.html">Catalog</a>
-          <a href="../board.html">Orbit</a>
-          <a href="../gallery.html">Gallery</a>
-          <a href="../source.html">GitHub</a>
-          <a href="../about.html">About</a>
-          <a class="is-tour" href="../viewer.html">Tour the board</a>
-        </nav>
-      </div>
-      <a class="site-brand-seed nameplate" href="../index.html" hidden>
-        <img src="../assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-    </header>
-
-    <main>
-      <section class="site-hero site-hero--solo">
-        <div class="site-hero__copy">
-          <p class="kicker">Dispatch · Control</p>
-          <h1 class="headline">The ROM was always going to be a wiring problem</h1>
-          <p class="deck">One 64-bit control word is simple in Digital. On a breadboard it is twenty-something wires crawling across the whole CPU — to the wrong places.</p>
-          <p class="byline">16 June 2026 · from the log</p>
-        </div>
-      </section>
-      <div class="site-layout">
-        <aside class="site-toc" data-arch-map data-root="../"></aside>
-        <div class="site-body">
-      <section class="section section--journal">
-        <div class="site-prose wrap">
-          <p class="drop">Every instruction looks up a control word: what the ALU should do, whether to write a register, read memory, jump the PC, enable multiply. In simulation that is one chip and one splitter. On a breadboard the signals do not even go where you would expect. Shift mode comes out of ALU decode and plugs into mul-div. Flag-write lives with memory controls and feeds the ALU. PC jump fields split across two ROM bytes. Fine on paper. Miserable to route.</p>
-          <h2>Before</h2>
-          <p>One <span class="mono">microcode.dig</span> on main. One EEPROM, one 64-bit splitter, every control line tunneling from the same place. One ROM file, one address bus from the IR, dead simple in Digital. Fanout hell: to test mul-div you need the entire decode tree. Touch the bit layout and you redo a 64-wide splitter.</p>
-          <h2>Current</h2>
-          <p>Split decode into small boards. Each sits next to the hardware it drives. They all listen to the same opcode from the IR — that is the shared backplane. Each board has its own small EEPROM and a local splitter.</p>
-          <ul>
-            <li>ALU control — opcode, operand prep, carry select. Lives on the ALU board.</li>
-            <li>Shift / mul-div control — shift mode, multiply enable, priority-encoder mux.</li>
-            <li>IR / register / writeback — immediate encoding, writeback source, register write.</li>
-            <li>Memory I/O — bank, read/write, byte lane. Flag-write comes out here too.</li>
-            <li>Memory bus — what is on the address bus, how store data is picked.</li>
-            <li>PC / stack — branches, jumps, link, conditions. Two small ROMs; the fields would not pack.</li>
-          </ul>
-          <p>HALT stays on main. Opcode plus execute phase. One comparator. Not worth its own board.</p>
-          <figure class="figure plate--ink">
-            <img src="../assets/plates/microcode.jpg" alt="Modular control boards on main in Digital." />
-          </figure>
-          <p class="caption"><span>Fig. — Control unit on main</span><span>Decode sits with the datapath it drives</span></p>
-          <p>Short ribbons. Bring-up in pieces: the ALU board with just ALU control, before the rest exists. The master catalog stays the source of truth; a script cuts per-board images. The cost is eight EEPROMs instead of one, and opcode fanout to all of them.</p>
-        </div>
-        <div class="wrap">
-          <nav class="pager">
-            <a href="mul-div.html"><span class="dir">Previous</span><span class="to">Multiplication and division</span></a>
-            <a class="next" href="display.html"><span class="dir">Next</span><span class="to">ALU segment display</span></a>
-          </nav>
-        </div>
-      </section>
-        </div>
-      </div>
-    </main>
-    <footer class="footer"><div class="footer-band"><div class="footer-art">
-<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
-  </div>
-  <script type="module" src="../js/arch-map.js"></script>
-  <script src="../js/mast.js" defer></script>
+<body class="project-document">
+<div class="page project-page project-article journal-redesign"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<main data-journal-kind="engineering" class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../journal.html">Journal</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
+<p class="kicker">Dispatch · Control</p>
+<h1 class="project-title" id="page-title">The ROM was always going to be a wiring problem</h1>
+<p class="deck">One 64-bit control word is simple in Digital. On a breadboard it is twenty-something wires crawling across the whole CPU — to the wrong places.</p>
+<p class="byline">16 June 2026 · from the log</p>
+</div>
+</section><aside class="journal-decision" aria-label="The entry at a glance"><div><span>The starting point</span><p>A central control word spreads wires</p></div><div><span>The move</span><p>Place decode beside each subsystem</p></div><div><span>The result or direction</span><p>Shorter local control connections</p></div></aside>
+<div class="project-reading-layout">
+<aside class="project-toc"><details open=""><summary>On this page</summary><nav aria-label="On this page"><a href="#section-1">Before</a><a href="#section-2">Current</a></nav></details></aside>
+<div class="project-reading-body">
+<section class="section section--journal">
+<div class="site-prose wrap">
+<p class="">Every instruction looks up a control word: what the ALU should do, whether to write a register, read memory, jump the PC, enable multiply. In simulation that is one chip and one splitter. On a breadboard the signals do not even go where you would expect. Shift mode comes out of ALU decode and plugs into mul-div. Flag-write lives with memory controls and feeds the ALU. PC jump fields split across two ROM bytes. Fine on paper. Miserable to route.</p>
+<h2 id="section-1">Before</h2>
+<p>One <span class="mono">microcode.dig</span> on main. One EEPROM, one 64-bit splitter, every control line tunneling from the same place. One ROM file, one address bus from the IR, dead simple in Digital. Fanout hell: to test mul-div you need the entire decode tree. Touch the bit layout and you redo a 64-wide splitter.</p>
+<h2 id="section-2">Current</h2>
+<p>Split decode into small boards. Each sits next to the hardware it drives. They all listen to the same opcode from the IR — that is the shared backplane. Each board has its own small EEPROM and a local splitter.</p>
+<ul>
+<li>ALU control — opcode, operand prep, carry select. Lives on the ALU board.</li>
+<li>Shift / mul-div control — shift mode, multiply enable, priority-encoder mux.</li>
+<li>IR / register / writeback — immediate encoding, writeback source, register write.</li>
+<li>Memory I/O — bank, read/write, byte lane. Flag-write comes out here too.</li>
+<li>Memory bus — what is on the address bus, how store data is picked.</li>
+<li>PC / stack — branches, jumps, link, conditions. Two small ROMs; the fields would not pack.</li>
+</ul>
+<p>HALT stays on main. Opcode plus execute phase. One comparator. Not worth its own board.</p>
+<figure class="figure plate--ink">
+<img alt="Modular control boards on main in Digital." src="../assets/plates/microcode.jpg"/>
+</figure>
+<p class="caption"><span>Fig. — Control unit on main</span><span>Decode sits with the datapath it drives</span></p>
+<p>Short ribbons. Bring-up in pieces: the ALU board with just ALU control, before the rest exists. The master catalog stays the source of truth; a script cuts per-board images. The cost is eight EEPROMs instead of one, and opcode fanout to all of them.</p>
+</div>
+<div class="wrap">
+<nav class="pager">
+<a href="mul-div.html"><span class="dir">Previous</span><span class="to">Multiplication and division</span></a>
+<a class="next" href="display.html"><span class="dir">Next</span><span class="to">ALU segment display</span></a>
+</nav>
+</div>
+</section>
+</div>
+</div>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script src="../js/arch-map.js" type="module"></script>
+<script defer="" src="../js/mast.js?v=240"></script>
 <!-- tomato-vercel -->
-  <script src="../js/vercel-analytics.js" defer></script>
-  <script src="../js/vercel-speed-insights.js" defer></script>
+<script defer="" src="../js/vercel-analytics.js"></script>
+<script defer="" src="../js/vercel-speed-insights.js"></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

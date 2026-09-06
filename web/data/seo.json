@@ -28,30 +28,37 @@
   ],
   "pages": {
     "index.html": {
-      "description": "Tomato: a 32-bit polymorphic CPU on Artix-7 FPGA and discrete 74xx copper — ISA as wire, dual-LUT ALU (524,288 ALU opcodes), 32,768 GPR, custom ISA, TomatoOS over HDMI, SymbiYosys + Verilator sign-off, hardware opcode compiler, KiCad 07_alu board.",
+      "title": "Tomato — A computer whose logic changes with each instruction",
+      "description": "My custom 32-bit Dual-LUT computer: the ALU rewires with each instruction. Tomato OS runs on Artix-7 FPGA; I’m building the same machine in discrete 74xx logic.",
       "keywords": [
-        "rewiring ALU",
+        "polymorphic CPU",
+        "Dual-LUT ALU",
         "LUT3 adder",
-        "524288 ALU opcodes",
+        "524288 ALU configurations",
         "32768 registers",
-        "Blackwell register file",
-        "SHA-256 Choose one cycle",
-        "opcode sweep",
-        "10 billion vectors",
-        "130 billion Verilator",
-        "open source FPGA bitstream",
+        "immediate box",
+        "hardware opcode compiler",
+        "130 billion test vectors",
+        "Tomato OS",
+        "discrete 74xx",
+        "expressiveness per cycle",
         "tomato.tmarhguy.com"
       ],
       "image": "https://tomato.tmarhguy.com/assets/og/tomato-board.webp",
+      "imageAlt": "KiCad render of the Tomato ALU circuit board",
       "jsonLd": {
         "@type": "WebSite",
-        "name": "The Tomato",
-        "alternateName": ["Tomato 32-bit CPU", "Tomato CPU"],
-        "description": "Homebrew 32-bit CPU: dual-LUT ALU on FPGA and 74xx copper, TomatoOS, formal verification, hardware opcode compiler."
+        "name": "Tomato",
+        "alternateName": [
+          "The Tomato",
+          "Tomato 32-bit CPU",
+          "Tomato CPU"
+        ],
+        "description": "A computer whose logic changes with each instruction—custom 32-bit Dual-LUT CPU on FPGA and discrete 74xx, with Tomato OS and formal verification."
       }
     },
     "verification.html": {
-      "description": "Tomato ALU verification sign-off: SymbiYosys formal proofs 1b→32b, 476 directed Icarus vectors, UVM Questa scoreboard, Verilator gauntlet 10 billion (8b) + 130 billion (32b) vectors, golden model, make signoff CI.",
+      "description": "I drove 130 billion Verilator test vectors through the 32-bit ALU against a reference model in a 2 hour 45 minute run. Formal verification separately checks the ALU at 1, 8, and 32 bits. Methods, commands, and limits are here.",
       "keywords": [
         "ALU verification",
         "SymbiYosys",
@@ -71,61 +78,168 @@
       "image": "https://tomato.tmarhguy.com/assets/compiler/opcode-sweep-fpga.webp",
       "jsonLd": {
         "@type": "TechArticle",
-        "about": ["SymbiYosys", "Verilator", "UVM", "ALU formal verification", "FPGA gauntlet"]
+        "about": [
+          "SymbiYosys",
+          "Verilator",
+          "UVM",
+          "ALU formal verification",
+          "FPGA gauntlet"
+        ]
       }
     },
     "architecture.html": {
-      "description": "Tomato CPU architecture: dual-LUT bit-slice ALU f(a,b,c)+g(a,b,c)+cin, 32-bit Von Neumann word, modular microcode ROM, 3R1W register file, board catalog lots 01–08, fetch-decode-execute datapath.",
-      "keywords": ["dual-LUT datapath", "microcode ROM", "32-bit instruction word", "Von Neumann", "bit-slice ALU", "modular decode", "07_alu", "board catalog"]
+      "description": "I built Tomato around a configurable 32-bit arithmetic and logic engine. Follow an instruction from memory, through the controls and calculation, to the register that keeps the result.",
+      "keywords": [
+        "dual-LUT datapath",
+        "microcode ROM",
+        "32-bit instruction word",
+        "Von Neumann",
+        "bit-slice ALU",
+        "modular decode",
+        "07_alu",
+        "board catalog"
+      ]
     },
     "software.html": {
-      "description": "Tomato software stack: tomato.v1.csv ISA, Python assembler, pseudo-instructions, two-pass assembly, make burn and regression — the toolchain behind Tomato OS.",
-      "keywords": ["Tomato assembler", "tomato.v1.csv", "custom assembly", "pseudo-instructions", "assembler.py", "make burn"]
+      "description": "I write programs in Tomato assembly, assemble them into machine code, and run them on the FPGA computer. The next work is making more of the ALU’s compound operations useful through instruction mappings, compiler support, and better tools.",
+      "keywords": [
+        "Tomato assembler",
+        "tomato.v1.csv",
+        "custom assembly",
+        "pseudo-instructions",
+        "assembler.py",
+        "make burn"
+      ]
     },
     "os.html": {
-      "description": "Tomato OS: ~2,100 lines of assembly on Nexys A7 — 80×60 HDMI desktop, nine-menu shell, Snake Tetris Fibonacci, tile framebuffer at 0x300000, five-button D-pad, no C runtime.",
-      "keywords": ["TomatoOS", "Tomato OS", "HDMI desktop", "80x60 framebuffer", "Nexys A7", "Snake", "Tetris", "tomato_os.s", "tile RAM"],
+      "description": "Tomato OS boots on the FPGA computer, draws the menu, reads the controls, and runs games. I wrote it in Tomato’s own assembly language. These recordings show the hardware and software working together.",
+      "keywords": [
+        "TomatoOS",
+        "Tomato OS",
+        "HDMI desktop",
+        "80x60 framebuffer",
+        "Nexys A7",
+        "Snake",
+        "Tetris",
+        "tomato_os.s",
+        "tile RAM"
+      ],
       "image": "https://tomato.tmarhguy.com/assets/gallery/os/main-menu-screen-1280w.webp"
     },
     "playground.html": {
-      "description": "Browser Dual-LUT ALU playground: set A, B, C and opcodes, trace one bit through 74ACT151 muxes and ripple carry, opcode compiler sweep clips, interactive 07_alu slice.",
-      "keywords": ["ALU emulator", "dual-LUT simulator", "opcode compiler demo", "74ACT151", "bit-slice trace", "interactive CPU"]
+      "description": "Two programmable truth tables feed one adder: f(A,B,C) + g(A,B,C) + carry. Try familiar operations, then build compound ones. The ALU has 524,288 control configurations; some produce the same function.",
+      "keywords": [
+        "ALU emulator",
+        "dual-LUT simulator",
+        "opcode compiler demo",
+        "74ACT151",
+        "bit-slice trace",
+        "interactive CPU"
+      ]
     },
     "isa.html": {
-      "description": "Tomato ISA reference: 512-row microcode, ~37 ISA families mapped, parametric datapath burns, pseudo-instruction CSV, COND and overlay fields in the 32-bit word.",
-      "keywords": ["Tomato ISA", "microcode table", "instruction set", "parametric ISA", "RISC-V comparison", "pseudo ops"]
+      "description": "Tomato’s instructions select the logic, constants, and routes through its processor. Here is how I map a program onto those controls—and where the instruction coverage still needs work.",
+      "keywords": [
+        "Tomato ISA",
+        "microcode table",
+        "instruction set",
+        "parametric ISA",
+        "RISC-V comparison",
+        "pseudo ops"
+      ]
     },
     "journal.html": {
-      "description": "The Tomato design journal — FPGA bring-up, 07_alu assembly, register upgrade to 32,768 GPR, HDMI TomatoOS, opcode compiler, open-source synthesis, verification ladder.",
-      "keywords": ["CPU design journal", "homebrew computer log", "FPGA diary", "PCB assembly", "engineering dispatch"]
+      "description": "My record of designing, testing, soldering, and programming Tomato. These entries capture the project at the time they were written—including ideas that changed along the way.",
+      "keywords": [
+        "CPU design journal",
+        "homebrew computer log",
+        "FPGA diary",
+        "PCB assembly",
+        "engineering dispatch"
+      ]
     },
     "gallery.html": {
-      "description": "Tomato photo gallery: TomatoOS on HDMI, opcode sweeps, Nexys A7 bench, 07_alu solder and test, KiCad copper, Yosys bitstream terminal, assembly timelapse.",
-      "keywords": ["Tomato gallery", "FPGA demo video", "PCB photos", "HDMI games", "opcode sweep video", "open source synthesis"]
+      "description": "See Tomato OS on screen, the ALU board being assembled, and the designs behind the hardware. These are recordings and photographs from my build.",
+      "keywords": [
+        "Tomato gallery",
+        "FPGA demo video",
+        "PCB photos",
+        "HDMI games",
+        "opcode sweep video",
+        "open source synthesis"
+      ]
     },
     "board.html": {
-      "description": "Interactive 3D KiCad GLB of Tomato 07_alu — orbit copper, peel soldermask, tour headers and 74ACT logic on the dual-LUT ALU slice.",
-      "keywords": ["07_alu 3D", "KiCad GLB viewer", "PCB tour", "copper peel", "Three.js board"]
+      "description": "Rotate the Lot 07 ALU model to inspect the chips, traces, and connectors. This board implements an 8-bit slice of Tomato’s 32-bit arithmetic and logic engine.",
+      "keywords": [
+        "07_alu 3D",
+        "KiCad GLB viewer",
+        "PCB tour",
+        "copper peel",
+        "Three.js board"
+      ]
     },
     "viewer.html": {
       "description": "Immersive full-screen 3D tour of Tomato 07_alu PCB — top, iso, bottom copper, mask peel, keyboard shortcuts.",
-      "keywords": ["PCB 3D viewer", "07_alu tour", "KiCad model", "copper layers"]
+      "keywords": [
+        "PCB 3D viewer",
+        "07_alu tour",
+        "KiCad model",
+        "copper layers"
+      ]
     },
     "boards.html": {
-      "description": "Tomato PCB catalog: eight KiCad lots from 01_alu through 08_display — ALU, shift, memory, register file, PC, bus, dual-LUT 07, video.",
-      "keywords": ["PCB catalog", "KiCad boards", "07_alu", "discrete CPU boards", "lot numbering"]
+      "description": "I designed the architecture to be built from off-the-shelf logic and memory chips. The Lot 07 ALU board is soldered. The remaining boards are progressing alongside the software ecosystem on the working FPGA.",
+      "keywords": [
+        "PCB catalog",
+        "KiCad boards",
+        "07_alu",
+        "discrete CPU boards",
+        "lot numbering"
+      ]
     },
     "about.html": {
-      "description": "About Tyrone Marhguy and The Tomato — UPenn Computer Engineering homebrew 32-bit CPU, Ghana to Philadelphia, FPGA + 74xx, open hardware CERN-OHL-P.",
-      "keywords": ["Tyrone Marhguy", "UPenn", "homebrew CPU author", "Achimota", "open hardware"]
+      "description": "I’m a Computer Engineering student at the University of Pennsylvania, Class of 2028. I started with an 8-bit ALU and kept building toward a computer whose hardware and software I could understand myself.",
+      "keywords": [
+        "Tyrone Marhguy",
+        "UPenn",
+        "homebrew CPU author",
+        "Achimota",
+        "open hardware"
+      ]
     },
     "source.html": {
       "description": "Browse the Tomato GitHub repository in-browser — verilog, software, verification, KiCad, issues and README rendered in the paper UI.",
-      "keywords": ["Tomato github", "source browser", "verilog repo", "open source CPU"]
+      "keywords": [
+        "Tomato github",
+        "source browser",
+        "verilog repo",
+        "open source CPU"
+      ]
     },
     "journal/ditching-vivado.html": {
       "description": "Open-source FPGA synthesis on Nexys A7: Yosys, nextpnr-xilinx, Project X-Ray bitstream, openFPGALoader — terminal video of Tomato core compile without Vivado.",
-      "keywords": ["ditch Vivado", "Yosys nextpnr", "Project X-Ray", "openFPGALoader", "OSS CAD Suite", "fpga-terminal-program", "Mac FPGA build"]
+      "keywords": [
+        "ditch Vivado",
+        "Yosys nextpnr",
+        "Project X-Ray",
+        "openFPGALoader",
+        "OSS CAD Suite",
+        "fpga-terminal-program",
+        "Mac FPGA build"
+      ]
+    },
+    "faq.html": {
+      "description": "Why I chose two LUTs, three inputs, and a discrete build. Answers about Tomato’s design tradeoffs, verification, hardware compiler, and next experiments.",
+      "keywords": [
+        "Tomato FAQ",
+        "Dual-LUT design tradeoffs",
+        "discrete CPU"
+      ],
+      "jsonLd": {
+        "@type": "WebPage",
+        "name": "Questions behind the computer"
+      }
     }
   }
 }

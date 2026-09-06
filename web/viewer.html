@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>3D Viewer — The Tomato 07_alu</title>
   <meta name="theme-color" content="#050505" />
   <style>html,body{background:#050505;margin:0}</style>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="stylesheet" href="css/viewer.css" />
+  <link rel="stylesheet" href="css/viewer.css?v=220" />
   <script type="importmap">
   {
     "imports": {
@@ -19,7 +19,7 @@
   </script>
 <!-- tomato-seo -->
   <meta name="description" content="Immersive full-screen 3D tour of Tomato 07_alu PCB — top, iso, bottom copper, mask peel, keyboard shortcuts." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, PCB 3D viewer, 07_alu tour, KiCad model, copper layers, Viewer, The, Tomato, 07_alu, immersive, full-screen, bottom, copper, keyboard, shortcuts" />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, PCB 3D viewer, 07_alu tour, KiCad model, copper layers, Viewer, immersive, full-screen, tomato, 07_alu, bottom, copper, keyboard, shortcuts" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
@@ -31,6 +31,9 @@
   <meta property="og:url" content="https://tomato.tmarhguy.com/viewer.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/viewer.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -39,6 +42,7 @@
   <meta name="twitter:title" content="3D Viewer — The Tomato 07_alu" />
   <meta name="twitter:description" content="Immersive full-screen 3D tour of Tomato 07_alu PCB — top, iso, bottom copper, mask peel, keyboard shortcuts." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -56,7 +60,7 @@
 <body>
   <main id="full-screen-viewer">
     <h1 class="vh">Tomato 07_alu — 3D viewer</h1>
-    <a class="back" href="index.html">← Back</a>
+    <a class="back" href="index.html">Tomato</a>
     <canvas id="viewer-canvas" aria-label="Interactive 3D view of Tomato 07_alu."></canvas>
     <div class="hud">
       <button type="button" class="chip" id="legend-btn" aria-expanded="false">Controls</button>

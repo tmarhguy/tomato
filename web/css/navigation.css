@@ -1,0 +1,15 @@
+.front-nav,.project-nav{position:relative;z-index:30}
+.site-menu{display:none;margin:0}
+.site-menu summary{list-style:none;cursor:pointer;width:44px;height:44px;border:1px solid var(--line,var(--rule));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.site-menu summary::-webkit-details-marker{display:none}
+.site-menu summary span{width:20px;height:2px;background:var(--ink)}
+.site-menu nav{position:absolute;right:0;top:calc(100% + 1px);width:min(28rem,100%);display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--bg);border:1px solid var(--line,var(--rule));padding:.75rem;box-shadow:0 12px 30px #0002;z-index:60}
+.site-menu nav a{padding:.7rem;text-decoration:none;font:400 .9rem/1.4 Arial,sans-serif;letter-spacing:0;text-transform:none}
+.site-menu nav a:hover{background:var(--wash)}
+@media(max-width:1000px){.front-nav .front-links,.project-nav .project-primary{display:none}.site-menu{display:block}.front-nav,.project-nav{flex-wrap:nowrap;gap:.75rem;min-height:4.25rem;padding-block:.5rem}.front-nav .theme-toggle,.project-nav .project-theme{margin-left:auto}.front-nav .wordmark,.project-wordmark{margin-right:auto}}
+.site-menu summary span{background:var(--ink,var(--text))}
+@media(max-width:1000px){.front-nav .theme-toggle,.project-nav .project-theme{order:1}.site-menu{order:2}.front-nav .wordmark,.project-wordmark{flex:1;margin-right:0}.site-menu nav{color:var(--ink,var(--text))}}
+/* Keep the remaining destinations reachable at every width. */
+.site-menu{display:block;order:2}
+.site-menu nav{max-height:min(75dvh,36rem);overflow-y:auto}
+@media(min-width:1001px){.site-menu nav a[data-primary-page]{display:none}}

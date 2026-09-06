@@ -26,15 +26,11 @@ Then open **[http://localhost:8080/](http://localhost:8080/)**. Same thing: `cd 
 
 ---
 
-## The Lore: Why a Newspaper?
+## Current website direction
 
-The hardest parts of engineering are often the non-technical ones—like deciding how to present bare-metal silicon on the modern web.
+The homepage leads with the interactive ALU board and the sentence “A computer whose logic changes with each instruction.” The text keeps its natural height; the board fills the remaining opening viewport. The site explains the configurable datapath, running FPGA software, discrete build, hardware compiler, and verification with diagrams and working examples.
 
-A Stripe-style landing page would try to sell a machine that isn't for sale. A generic React SPA has no connection to **74xx** chips or the era they dominated. Tomato physically belongs to the **70s, 80s, and 90s**. Social media didn't exist then, but newspapers did.
-
-So, the site is a broadsheet published in **Magnesium Alley, Ashtown-Bay Perimeter** (a fictionalized Silicon Valley set in [Ghana](https://en.wikipedia.org/wiki/Ghana)). The physical copper, however, is inbound to **Philadelphia**. The front page features the nameplate, the deck, and classifieds for the **eight PCB lots**. The 3D render of the ALU sits on the page like a photoengraved magnesium plate.
-
-That aesthetic choice forced strict technical constraints: **no frameworks**, **no component libraries**, and **no absolute URLs**. The payoff is that the site *is* the journal, not just a brochure with a link to one.
+Read [BRANDING.md](BRANDING.md) before changing the design or project claims. It records the approved voice, evidence boundaries, and recovery workflow. The old newspaper presentation is historical context, not the current design authority.
 
 <p align="center">
   <img src="assets/pcb/alu_8b_board.jpg" alt="Tomato 07_alu — KiCad board render" width="47%" />
@@ -50,10 +46,10 @@ Every choice on this site mirrors the architectural constraints of the CPU itsel
 
 - **Static HTML over SPA:** The shipped `07_alu` GLB is **1.26 MB** Draco (**9** meshes). The raw KiCad export behind it is still ~**31 MB** / ~**41k** primitives — that file does not go in the tab. `web/` deploys as a raw folder. Vercel install command: `echo "no-install"`.
 - **Relative Links Only:** Nested pages (`journal/…`, `boards/…`), local `python3 -m http.server`, and Vercel all break if assets are rooted at `/css/…`. Everything is strictly relative so the paper works on [tomato.tmarhguy.com](https://tomato.tmarhguy.com/), a local preview, or a subdirectory checkout.
-- **Single-File CSS:** Playfair, Source Serif, Libre Franklin, cream stock, and a red tomato over a DIP. No design systems. One stylesheet (`css/magazine.css`) powers the entire site, with the 3D viewer being the sole opt-out.
+- **Shared identity:** `css/landing.css` owns the homepage, `css/brand.css` carries its identity across the reference pages, and `css/viewer.css` keeps the 3D workspace full-screen. Reference pages use rebuilt reading layouts, a static header/footer, a responsive all-pages menu, and specialized tool styles.
 - **KiCad’s Native Copper:** No artificial gold restyling. The export matches the physical board: **FR4 core black**, silk white, copper untouched. Fig. 1 and the interactive GLB use the exact same material palette.
 - **Demand-Rendered 3D:** The optimized GLB is nine draws. A raw KiCad dump is still **~41k**. The loader skips client merge when mesh count is under 32, and the canvas only renders when the camera moves or the board is on-screen.
-- **The Forge in the Paper:** [`source.html`](https://tomato.tmarhguy.com/source.html) pulls the live GitHub repo directly into the broadsheet layout so you never have to break the vintage immersion to view the code.
+- **The Forge in the Paper:** [`source.html`](https://tomato.tmarhguy.com/source.html) pulls the live GitHub repo directly into the broadsheet layout so the design and its source can be explored together.
 
 <p align="center">
   <img src="assets/engravings/eniac-penn.jpg" alt="ENIAC at the Moore School, 1946" width="47%" />

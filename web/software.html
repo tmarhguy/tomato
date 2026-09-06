@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -18,42 +19,49 @@
       } catch (e) {}
     })();
   </script>
-  <title>Software — Assembler &amp; Burn Flow — The Tomato</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/magazine.css" />
-  <link rel="stylesheet" href="css/site.css?v=34" />
+<title>Giving the hardware useful work — Tomato</title>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="css/magazine.css" rel="stylesheet"/>
+<link href="css/site.css?v=34" rel="stylesheet"/>
+<link href="css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="css/navigation.css?v=250" />
+<script src="js/navigation.js?v=250" defer></script>
 <!-- tomato-seo -->
-  <meta name="description" content="Tomato software stack: tomato.v1.csv ISA, Python assembler, pseudo-instructions, two-pass assembly, make burn and regression — the toolchain behind Tomato OS." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato assembler, tomato.v1.csv, custom assembly, pseudo-instructions, assembler.py, make burn, Software, Assembler, amp, Burn, Flow, tomato, stack, python, two-pass, assembly, regression" />
+  <meta name="description" content="I write programs in Tomato assembly, assemble them into machine code, and run them on the FPGA computer. The next work is making more of the ALU’s compound operations useful through instruction mappings, compiler support, and better tools." />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato assembler, tomato.v1.csv, custom assembly, pseudo-instructions, assembler.py, make burn, Giving, hardware, useful, work, write, programs, tomato, assembly, assemble, making, compound, operations" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
-  <meta property="og:title" content="Software — Assembler &amp;amp; Burn Flow — The Tomato" />
-  <meta property="og:description" content="Tomato software stack: tomato.v1.csv ISA, Python assembler, pseudo-instructions, two-pass assembly, make burn and regression — the toolchain behind Tomato OS." />
+  <meta property="og:title" content="Giving the hardware useful work — Tomato" />
+  <meta property="og:description" content="I write programs in Tomato assembly, assemble them into machine code, and run them on the FPGA computer. The next work is making more of the ALU’s compound operations useful through instruction mappings, compiler support, and better tools." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/software.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/software.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
-  <meta name="twitter:title" content="Software — Assembler &amp;amp; Burn Flow — The Tomato" />
-  <meta name="twitter:description" content="Tomato software stack: tomato.v1.csv ISA, Python assembler, pseudo-instructions, two-pass assembly, make burn and regression — the toolchain behind Tomato OS." />
+  <meta name="twitter:title" content="Giving the hardware useful work — Tomato" />
+  <meta name="twitter:description" content="I write programs in Tomato assembly, assemble them into machine code, and run them on the FPGA computer. The next work is making more of the ALU’s compound operations useful through instruction mappings, compiler support, and better tools." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
   "@id": "https://tomato.tmarhguy.com/software.html#webpage",
   "url": "https://tomato.tmarhguy.com/software.html",
-  "name": "Software — Assembler &amp; Burn Flow — The Tomato",
-  "description": "Tomato software stack: tomato.v1.csv ISA, Python assembler, pseudo-instructions, two-pass assembly, make burn and regression — the toolchain behind Tomato OS.",
+  "name": "Giving the hardware useful work — Tomato",
+  "description": "I write programs in Tomato assembly, assemble them into machine code, and run them on the FPGA computer. The next work is making more of the ALU’s compound operations useful through instruction mappings, compiler support, and better tools.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -61,159 +69,113 @@
 }</script>
   <!-- /tomato-seo -->
 </head>
-<body>
-  <div class="page page--site">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="index.html">Front</a>
-          <a href="architecture.html">Architecture</a>
-          <a href="verification.html">Verification</a>
-          <a href="isa.html">ISA</a>
-          <a href="software.html" aria-current="page">Software</a>
-          <a href="playground.html">Playground</a>
-          <a href="journal.html">Journal</a>
-          <a href="boards.html">Catalog</a>
-          <a href="board.html">Orbit</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="source.html">GitHub</a>
-          <a href="about.html">About</a>
-          <a class="is-tour" href="viewer.html">Tour the board</a>
-        </nav>
-      </div>
-      <a class="site-brand-seed nameplate" href="index.html" hidden>
-        <img src="assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-</header>
-
-    <main>
-      <section class="site-hero" aria-labelledby="soft-title">
-        <div class="site-hero__media">
-          <img
-            src="assets/gallery/os/main-menu-screen-1280w.webp"
-            srcset="assets/gallery/os/main-menu-screen-640w.webp 640w, assets/gallery/os/main-menu-screen-1280w.webp 1280w"
-            sizes="(max-width: 980px) 100vw, 52vw"
-            width="1280"
-            height="720"
-            alt="Tomato OS main menu on HDMI."
-            fetchpriority="high"
-            decoding="async"
-          />
-        </div>
-        <div class="site-hero__copy">
-          <p class="kicker">Software</p>
-          <h1 class="headline" id="soft-title">Assembler, ROM, and the burn flow</h1>
-          <p class="deck">Write assembly against CSV tables. Burn the image into the FPGA. The on-screen demo is <a href="os.html">Tomato OS</a> — about <strong>2,100 lines</strong> of asm on HDMI, no C runtime.</p>
-          <p class="byline">Source · <span class="mono">software/assembler.py</span> · <a href="os.html">Tomato OS sheet →</a> · <a href="journal/one-press.html">keypad fix</a></p>
-          <nav class="site-hero__actions" aria-label="Jump">
-            <a class="is-primary" href="#usage">How you use it</a>
-            <a href="#stack">File split</a>
-            <a href="os.html">Tomato OS</a>
-            <a href="isa.html">ISA sheet</a>
-          </nav>
-        </div>
-      </section>
-
-      <div class="site-layout">
-        <aside class="site-toc" data-arch-map data-root=""></aside>
-        <div class="site-body">
-      <section class="section">
-        <div class="site-prose">
-          <figure class="plate plate--ink">
-            <video muted loop playsinline webkit-playsinline controls preload="metadata" width="1280" height="720" poster="assets/os/hdmi-demo-poster.jpg" aria-label="Tomato OS menu and games over HDMI">
-              <source src="assets/os/hdmi-demo-games-ui.mp4" type="video/mp4" />
-              <source src="assets/os/hdmi-demo-games-ui.mov" type="video/quicktime" />
-            </video>
-            <figcaption>Tomato OS · Nexys A7 · five-button D-pad · 640×480 over the DVI PMOD</figcaption>
-          </figure>
-
-          <p class="drop">The assembler holds no opcode table of its own — it reads <span class="mono">tomato.v1.csv</span> and <span class="mono">tomato.v1.pseudo.csv</span> at startup. Growing the machine's vocabulary is a data change, not a code change. <a href="os.html">Tomato OS</a> is the largest program in the tree: menu, games, and HDMI chrome assembled from the same burns.</p>
-
-          <h2 id="usage">How you use it</h2>
-          <ol>
-            <li><strong>Edit</strong> <span class="mono">software/os/tomato_os.s</span> (or a smaller test under <span class="mono">software/</span>).</li>
-            <li><strong>Assemble</strong> with <span class="mono">python software/assembler.py …</span> — opcode names and widths come from <span class="mono">docs/isa/tomato.v1.csv</span>.</li>
-            <li><strong>Burn</strong> the resulting image into FPGA program memory (same flow the Makefile uses for core tests).</li>
-            <li><strong>Run</strong> on Nexys A7: five buttons as a D-pad, center is Enter, HDMI out through the 12-bit DVI PMOD.</li>
-          </ol>
-          <p>Change a pseudo in <span class="mono">tomato.v1.pseudo.csv</span> when you want sweeter syntax; run <span class="mono">--selftest</span> so the ROM image does not drift. Details: <a href="journal/one-press.html">one press, one key</a>.</p>
-
-          <h2 id="stack">What each file does</h2>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Layer</th><th>Job</th><th>Path</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>ROM table</td><td>Which opcodes exist (~51 burns)</td><td class="mono"><a href="isa.html">tomato.v1.csv</a></td></tr>
-                <tr><td>Pseudos</td><td>Macros that expand to burns (19 today)</td><td class="mono">tomato.v1.pseudo.csv</td></tr>
-                <tr><td>Assembler</td><td>Two-pass · CSV-driven</td><td class="mono">software/assembler.py</td></tr>
-                <tr><td>Tomato OS</td><td>Menu, quirks table, games</td><td class="mono">software/os/tomato_os.s</td></tr>
-                <tr><td>Regression</td><td>Boot · menu · games in sim</td><td class="mono">make -C hardware/fpga/core test</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h2 id="os">Tomato OS</h2>
-          <p>The shipping demo has its own sheet: <a href="os.html">Tomato OS →</a> — controls, nine menu entries, framebuffer contract, memory map, build commands, and HDMI screenshots.</p>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="site-prose">
-          <h2 id="memory">Addresses above 0x1000</h2>
-          <p><span class="mono">LA</span> lowers to <span class="mono">ADDI rd, r0, addr</span>, so labels used with <span class="mono">LA</span> must sit below <span class="mono">0x1000</span>. Code and read-only strings can live higher. Store the full pointer in a <span class="mono">.word</span> and pass it to <span class="mono">puts</span> when the text sits above the line — the OS quirk table does this; see <a href="os.html#memory">Tomato OS memory map</a>.</p>
-
-          <h2 id="machine">Why an OS at all</h2>
-          <p>Verification proves the ALU. <a href="os.html">Tomato OS</a> proves keypad MMIO, tile RAM, HDMI timing, and the menu loop on hardware someone can watch — plus pseudos and string layout at scale (<a href="journal/register-upgrade.html">32,768 GPR</a>).</p>
-        </div>
-      </section>
-
-      <section class="section section--room" id="exhibits">
-        <div class="wrap">
-          <div class="exhibits">
-            <article class="exhibit">
-              <p class="exhibit-num">19</p>
-              <p class="exhibit-kicker">pseudos</p>
-              <hr />
-              <h3>Syntax sugar</h3>
-              <p><span class="mono">CALL</span>, <span class="mono">BEQZ</span>, <span class="mono">LI</span> expand to burns.</p>
-            </article>
-            <article class="exhibit">
-              <p class="exhibit-num"><a href="os.html">OS</a></p>
-              <p class="exhibit-kicker">hdmi demo</p>
-              <hr />
-              <h3>~2.1k lines asm</h3>
-              <p>Menu, games, tile desktop — <a href="os.html">Tomato OS sheet →</a></p>
-            </article>
-          </div>
-          <nav class="jump">
-            <a href="isa.html">← ISA</a>
-            <a href="os.html">Tomato OS →</a>
-            <a href="architecture.html">Architecture →</a>
-            <a href="journal/tomato-works.html">HDMI dispatch →</a>
-            <a href="https://github.com/tmarhguy/tomato/blob/main/software/os/tomato_os.s">Source →</a>
-          </nav>
-        </div>
-      </section>
-        </div>
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-band">
-        <div class="footer-art">
-<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
-        </div>
-      </div>
-    </footer>
-  </div>
-  <script type="module" src="js/arch-map.js"></script>
-  <script src="js/mast.js" defer></script>
+<body class="project-document">
+<div class="page project-page project-software"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<main class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="index.html">Home</a></nav><section aria-labelledby="soft-title" class="project-hero project-hero-split">
+<div class="project-hero-media">
+<img alt="Tomato OS main menu on HDMI." decoding="async" fetchpriority="high" height="720" sizes="(max-width: 980px) 100vw, 52vw" src="assets/gallery/os/main-menu-screen-1280w.webp" srcset="assets/gallery/os/main-menu-screen-640w.webp 640w, assets/gallery/os/main-menu-screen-1280w.webp 1280w" width="1280"/>
+</div>
+<div class="project-hero-copy">
+<p class="kicker">Software and tools</p>
+<h1 class="project-title" id="soft-title">Giving the hardware useful work.</h1>
+<p class="deck">I write programs in Tomato assembly, assemble them into machine code, and run them on the FPGA computer. The next work is making more of the ALU’s compound operations useful through instruction mappings, compiler support, and better tools.</p>
+<p class="byline">Source · <span class="mono">software/assembler.py</span> · <a href="os.html">Tomato OS sheet</a> · <a href="journal/one-press.html">keypad fix</a></p>
+<nav aria-label="Jump" class="site-hero__actions">
+<a class="is-primary" href="#usage">How you use it</a>
+<a href="#stack">File split</a>
+<a href="os.html">Tomato OS</a>
+<a href="isa.html">ISA sheet</a>
+</nav>
+</div>
+</section>
+<section aria-label="Software overview" class="brand-map"><div><span>01 / WRITE</span><h2>Tomato assembly</h2><p>Instructions and labels describe the program I want the computer to run.</p></div><div><span>02 / BUILD</span><h2>Machine code and ROM tables</h2><p>The assembler and mapping files turn that program into data the processor can use.</p></div><div><span>03 / GROW</span><h2>Tools and discrete hardware</h2><p>The FPGA supports software development while I build the remaining discrete boards.</p></div></section>
+<div class="project-reading-layout">
+<aside class="project-toc"><details open=""><summary>On this page</summary><nav aria-label="On this page"><a href="#usage">How you use it</a><a href="#stack">What each file does</a><a href="#os">Tomato OS</a><a href="#memory">Addresses above 0x1000</a><a href="#machine">Why an OS at all</a></nav></details></aside>
+<div class="project-reading-body">
+<section class="section">
+<div class="site-prose">
+<figure class="plate plate--ink">
+<video aria-label="Tomato OS menu and games over HDMI" controls="" height="720" loop="" muted="" playsinline="" poster="assets/os/hdmi-demo-poster.jpg" preload="metadata" webkit-playsinline="" width="1280">
+<source src="assets/os/hdmi-demo-games-ui.mp4" type="video/mp4"/>
+<source src="assets/os/hdmi-demo-games-ui.mov" type="video/quicktime"/>
+</video>
+<figcaption>Tomato OS · Nexys A7 · five-button D-pad · 640×480 over the DVI PMOD</figcaption>
+</figure>
+<p class="">The assembler holds no opcode table of its own — it reads <span class="mono">tomato.v1.csv</span> and <span class="mono">tomato.v1.pseudo.csv</span> at startup. Growing the machine's vocabulary is a data change, not a code change. <a href="os.html">Tomato OS</a> is the largest program in the tree: menu, games, and HDMI chrome assembled from the same burns.</p>
+<h2 id="usage">How you use it</h2>
+<ol>
+<li><strong>Edit</strong> <span class="mono">software/os/tomato_os.s</span> (or a smaller test under <span class="mono">software/</span>).</li>
+<li><strong>Assemble</strong> with <span class="mono">python software/assembler.py …</span> — opcode names and widths come from <span class="mono">docs/isa/tomato.v1.csv</span>.</li>
+<li><strong>Burn</strong> the resulting image into FPGA program memory (same flow the Makefile uses for core tests).</li>
+<li><strong>Run</strong> on Nexys A7: five buttons as a D-pad, center is Enter, HDMI out through the 12-bit DVI PMOD.</li>
+</ol>
+<p>Change a pseudo in <span class="mono">tomato.v1.pseudo.csv</span> when you want sweeter syntax; run <span class="mono">--selftest</span> so the ROM image does not drift. Details: <a href="journal/one-press.html">one press, one key</a>.</p>
+<h2 id="stack">What each file does</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Layer</th><th>Job</th><th>Path</th></tr>
+</thead>
+<tbody>
+<tr><td>ROM table</td><td>Which opcodes exist (~51 burns)</td><td class="mono"><a href="isa.html">tomato.v1.csv</a></td></tr>
+<tr><td>Pseudos</td><td>Macros that expand to burns (19 today)</td><td class="mono">tomato.v1.pseudo.csv</td></tr>
+<tr><td>Assembler</td><td>Two-pass · CSV-driven</td><td class="mono">software/assembler.py</td></tr>
+<tr><td>Tomato OS</td><td>Menu, quirks table, games</td><td class="mono">software/os/tomato_os.s</td></tr>
+<tr><td>Regression</td><td>Boot · menu · games in sim</td><td class="mono">make -C hardware/fpga/core test</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="os">Tomato OS</h2>
+<p>The shipping demo has its own sheet: <a href="os.html">Tomato OS</a> — controls, nine menu entries, framebuffer contract, memory map, build commands, and HDMI screenshots.</p>
+</div>
+</section>
+<section class="section">
+<div class="site-prose">
+<h2 id="memory">Addresses above 0x1000</h2>
+<p><span class="mono">LA</span> lowers to <span class="mono">ADDI rd, r0, addr</span>, so labels used with <span class="mono">LA</span> must sit below <span class="mono">0x1000</span>. Code and read-only strings can live higher. Store the full pointer in a <span class="mono">.word</span> and pass it to <span class="mono">puts</span> when the text sits above the line — the OS quirk table does this; see <a href="os.html#memory">Tomato OS memory map</a>.</p>
+<h2 id="machine">Why an OS at all</h2>
+<p>Verification proves the ALU. <a href="os.html">Tomato OS</a> proves keypad MMIO, tile RAM, HDMI timing, and the menu loop on hardware someone can watch — plus pseudos and string layout at scale (<a href="journal/register-upgrade.html">32,768 GPR</a>).</p>
+</div>
+</section>
+<section class="section section--room" id="exhibits">
+<div class="wrap">
+<div class="exhibits">
+<article class="exhibit">
+<p class="exhibit-num">19</p>
+<p class="exhibit-kicker">pseudos</p>
+<hr/>
+<h3>Syntax sugar</h3>
+<p><span class="mono">CALL</span>, <span class="mono">BEQZ</span>, <span class="mono">LI</span> expand to burns.</p>
+</article>
+<article class="exhibit">
+<p class="exhibit-num"><a href="os.html">OS</a></p>
+<p class="exhibit-kicker">hdmi demo</p>
+<hr/>
+<h3>~2.1k lines asm</h3>
+<p>Menu, games, tile desktop — <a href="os.html">Tomato OS sheet</a></p>
+</article>
+</div>
+<nav class="jump">
+<a href="isa.html">ISA</a>
+<a href="os.html">Tomato OS</a>
+<a href="architecture.html">Architecture</a>
+<a href="journal/tomato-works.html">HDMI dispatch</a>
+<a href="https://github.com/tmarhguy/tomato/blob/main/software/os/tomato_os.s">Source</a>
+</nav>
+</div>
+</section>
+</div>
+</div>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a aria-current="page" href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script src="js/arch-map.js" type="module"></script>
+<script defer="" src="js/mast.js?v=240"></script>
 <!-- tomato-vercel -->
-  <script src="js/vercel-analytics.js" defer></script>
-  <script src="js/vercel-speed-insights.js" defer></script>
+<script defer="" src="js/vercel-analytics.js"></script>
+<script defer="" src="js/vercel-speed-insights.js"></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

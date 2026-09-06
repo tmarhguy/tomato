@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -18,13 +19,16 @@
       } catch (e) {}
     })();
   </script>
-  <title>Lot 06 — Data bus — The Tomato</title>
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/magazine.css" />
-  <link rel="stylesheet" href="../css/site.css?v=34" />
+<title>Lot 06 — Data bus — The Tomato</title>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="../css/magazine.css" rel="stylesheet"/>
+<link href="../css/site.css?v=34" rel="stylesheet"/>
+<link href="../css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/navigation.css?v=250" />
+<script src="../js/navigation.js?v=250" defer></script>
 <!-- tomato-seo -->
   <meta name="description" content="The Tomato 32-bit CPU" />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato PCB, KiCad lot, discrete ALU board, Lot, Data, bus, tomato, 32-bit" />
@@ -39,6 +43,9 @@
   <meta property="og:url" content="https://tomato.tmarhguy.com/boards/06-bus.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/boards/06-bus.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -47,6 +54,7 @@
   <meta name="twitter:title" content="Lot 06 — Data bus — The Tomato" />
   <meta name="twitter:description" content="The Tomato 32-bit CPU" />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -61,75 +69,51 @@
 }</script>
   <!-- /tomato-seo -->
 </head>
-<body>
-  <div class="page page--site">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="../index.html">Front</a>
-          <a href="../architecture.html">Architecture</a>
-          <a href="../verification.html">Verification</a>
-          <a href="../isa.html">ISA</a>
-          <a href="../software.html">Software</a>
-          <a href="../os.html">Tomato OS</a>
-          <a href="../playground.html">Playground</a>
-          <a href="../journal.html">Journal</a>
-          <a href="../boards.html" aria-current="page">Catalog</a>
-          <a href="../board.html">Orbit</a>
-          <a href="../gallery.html">Gallery</a>
-          <a href="../source.html">GitHub</a>
-          <a href="../about.html">About</a>
-          <a class="is-tour" href="../viewer.html">Tour the board</a>
-        </nav>
-      </div>
-      <a class="site-brand-seed nameplate" href="../index.html" hidden>
-        <img src="../assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-</header>
-    <main>
-      <section class="site-hero site-hero--solo">
-        <div class="site-hero__copy">
+<body class="project-document">
+<div class="page project-page project-board-detail"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<main class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../boards.html">Board catalog</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
 <p class="kicker">Lot 06 · Bus · In design</p>
-          <h1 class="headline">The 32-bit highway — write-back mux and bus arbitration.</h1>
-          <p class="deck">Finish this lot first: it unblocks every slice that reads or writes the shared word. Tri-state discipline, <strong>74ACT541</strong> buffers, <strong>74ACT138</strong> decoders — <strong>9&nbsp;ns</strong> mux instead of <strong>52&nbsp;ns</strong> cascading 151 topology.</p>
-          <p class="byline">KiCad · <code>06_data_bus</code> · backplane between slices</p>
-        </div>
-      </section>
-      <div class="site-layout">
-        <aside class="site-toc" data-arch-map data-root="../"></aside>
-        <div class="site-body">
-      <section class="section">
-        <div class="site-prose">
-          <p class="drop">A naïve 32-bit mux bank costs hundreds of millimetres and a sluggish cascade. Tomato’s datapath uses a rigid <strong>tri-state common bus</strong>: each contributor drives through matched enables, one-hot decode, the same idea as the display scan. Contention is not theoretical—at bring-up clocks the overlap window is small, and the rule is simple: <strong>one active driver per bus</strong>.</p>
-          <h2>Sheets</h2>
-          <p><strong>wb_mux.kicad_sch</strong> — 8-to-1, 32-bit write-back selection onto the highway. <strong>bus_arbitration.kicad_sch</strong> — who may drive, when, and how decode enables fan out without fighting. Digital already has the behaviour from the front-page datapath chapter; this board makes the fanout physically tolerable.</p>
-          <dl class="ad-facts" style="column-span: all; max-width: 28rem;">
-            <div><dt>Write-back mux</dt><dd>9 ns · tri-state bus</dd></div>
-            <div><dt>vs cascade</dt><dd>52 ns · 151 tree (rejected)</dd></div>
-            <div><dt>Status</dt><dd>In design · priority while ALU fabs</dd></div>
-            <div><dt>Project</dt><dd><code>hardware/kicad/boards/06_data_bus/</code></dd></div>
-          </dl>
-          <p>Related journal: <a href="../journal/more-boards.html">Designing additional boards</a> · <a href="../journal/mode-mux.html">Why the muxes left</a>.</p>
-        </div>
-        <div class="wrap">
-          <nav class="pager">
-            <a href="05-pc.html"><span class="dir">Previous lot</span><span class="to">05 · PC</span></a>
-            <a class="next" href="07-alu.html"><span class="dir">Next lot</span><span class="to">07 · ALU</span></a>
-          </nav>
-        </div>
-      </section>
-        </div>
-      </div>
-    </main>
-    <footer class="footer"><div class="footer-band"><div class="footer-art">
-<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
-  </div>
-  <script type="module" src="../js/arch-map.js"></script>
-  <script src="../js/mast.js" defer></script>
+<h1 class="project-title" id="page-title">The 32-bit highway — write-back mux and bus arbitration.</h1>
+<p class="deck">Finish this lot first: it unblocks every slice that reads or writes the shared word. Tri-state discipline, <strong>74ACT541</strong> buffers, <strong>74ACT138</strong> decoders — <strong>9 ns</strong> mux instead of <strong>52 ns</strong> cascading 151 topology.</p>
+<p class="byline">KiCad · <code>06_data_bus</code> · backplane between slices</p>
+</div>
+</section>
+<div class="project-reading-layout">
+<aside class="project-toc"><details open=""><summary>On this page</summary><nav aria-label="On this page"><a href="#section-1">Sheets</a></nav></details></aside>
+<div class="project-reading-body">
+<section class="section">
+<div class="site-prose">
+<p class="">A naïve 32-bit mux bank costs hundreds of millimetres and a sluggish cascade. Tomato’s datapath uses a rigid <strong>tri-state common bus</strong>: each contributor drives through matched enables, one-hot decode, the same idea as the display scan. Contention is not theoretical—at bring-up clocks the overlap window is small, and the rule is simple: <strong>one active driver per bus</strong>.</p>
+<h2 id="section-1">Sheets</h2>
+<p><strong>wb_mux.kicad_sch</strong> — 8-to-1, 32-bit write-back selection onto the highway. <strong>bus_arbitration.kicad_sch</strong> — who may drive, when, and how decode enables fan out without fighting. Digital already has the behaviour from the front-page datapath chapter; this board makes the fanout physically tolerable.</p>
+<dl class="ad-facts" style="column-span: all; max-width: 28rem;">
+<div><dt>Write-back mux</dt><dd>9 ns · tri-state bus</dd></div>
+<div><dt>vs cascade</dt><dd>52 ns · 151 tree (rejected)</dd></div>
+<div><dt>Status</dt><dd>In design · priority while ALU fabs</dd></div>
+<div><dt>Project</dt><dd><code>hardware/kicad/boards/06_data_bus/</code></dd></div>
+</dl>
+<p>Related journal: <a href="../journal/more-boards.html">Designing additional boards</a> · <a href="../journal/mode-mux.html">Why the muxes left</a>.</p>
+</div>
+<div class="wrap">
+<nav class="pager">
+<a href="05-pc.html"><span class="dir">Previous lot</span><span class="to">05 · PC</span></a>
+<a class="next" href="07-alu.html"><span class="dir">Next lot</span><span class="to">07 · ALU</span></a>
+</nav>
+</div>
+</section>
+</div>
+</div>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script src="../js/arch-map.js" type="module"></script>
+<script defer="" src="../js/mast.js?v=240"></script>
 <!-- tomato-vercel -->
-  <script src="../js/vercel-analytics.js" defer></script>
-  <script src="../js/vercel-speed-insights.js" defer></script>
+<script defer="" src="../js/vercel-analytics.js"></script>
+<script defer="" src="../js/vercel-speed-insights.js"></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

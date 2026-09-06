@@ -1,7 +1,7 @@
 /* Paper / Black stock. Runs before paint if the head snippet set data-theme. */
 (function () {
   const KEY = "tomato.theme";
-  const PAPER = "#f4f0e6";
+  const PAPER = "#f5f5f0";
   const BLACK = "#050505";
 
   function systemMode() {
@@ -124,13 +124,25 @@
     document.querySelectorAll("[data-theme-set]").forEach((btn) => {
       btn.classList.toggle("is-on", btn.getAttribute("data-theme-set") === mode);
     });
+    document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
+      btn.hidden = false;
+      btn.textContent = dark ? "Light mode" : "Dark mode";
+      btn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+    });
     try {
       document.dispatchEvent(new CustomEvent("tomato:theme", { detail: { mode } }));
     } catch {}
   }
 
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("[data-theme-toggle]")) {
+      const currentMode = document.documentElement.getAttribute("data-theme") || defaultMode();
+      set(currentMode === "dark" ? "light" : "dark");
+    }
+  });
+
   function paint() {
-    let mode = defaultMode();
+    let mode = document.documentElement.getAttribute("data-theme") || defaultMode();
     try {
       const saved = localStorage.getItem(KEY);
       if (saved === "dark" || saved === "light") mode = saved;
@@ -162,10 +174,9 @@
       box = document.createElement("div");
       box.className = "theme-switch";
       box.setAttribute("role", "group");
-      box.setAttribute("aria-label", "Paper color");
+      box.setAttribute("aria-label", "Color theme");
       box.innerHTML =
-        '<button type="button" data-theme-set="light">Paper</button>' +
-        '<button type="button" data-theme-set="dark">Black</button>';
+        '<button type="button" data-theme-toggle aria-label="Switch to light theme">Light mode</button>';
       host.append(box);
     }
     bindThemeSwitch(box);
@@ -230,11 +241,10 @@
   ];
 
   const SHELL_LINKS = [
-    { href: "architecture.html", label: "Architecture" },
-    { href: "playground.html", label: "Playground" },
-    { href: "software.html", label: "Software" },
-    { href: "gallery.html", label: "Gallery" },
-    { href: "viewer.html", label: "Tour", tour: true },
+    { href: "index.html#what-is-tomato", label: "The idea" },
+    { href: "index.html#running", label: "See it run" },
+    { href: "architecture.html", label: "Engineering" },
+    { href: "journal.html", label: "Build journal" },
   ];
 
   const MOBILE_NAV_MQ = typeof matchMedia === "function" ? matchMedia("(max-width: 860px)") : null;
@@ -300,6 +310,7 @@
 
   /* Inject landing-style top shell on every non-landing page. */
   (function injectShell() {
+    if (document.querySelector(".project-nav")) return;
     const prefix = pathPrefix();
     const existingNav = document.querySelector(
       ".landing-shell .landing-nav, .site-shell .landing-nav, .site-shell .site-nav, .page--landing .landing-nav"
@@ -334,6 +345,7 @@
 
   /* Sticky bottom site nav — one canonical dock on every page. */
   (function pinDock() {
+    if (document.querySelector(".project-nav")) return;
     const prefix = pathPrefix();
     let nav = document.getElementById("mast-nav");
     const headerNav = document.querySelector("header.wrap .mast-nav");
@@ -410,6 +422,13 @@
       SITE_NAV.map((item) => navLink(prefix, item)).join("") +
       '<p class="site-nav-drawer__more-label">Also</p>' +
       SITE_NAV_MORE.map((item) => navLink(prefix, item)).join("");
+
+    const closeMenu = document.createElement("button");
+    closeMenu.type = "button";
+    closeMenu.className = "site-menu-close";
+    closeMenu.textContent = "Close menu ×";
+    closeMenu.addEventListener("click", () => { close(); toggle.focus(); });
+    drawer.prepend(closeMenu);
 
     document.body.appendChild(veil);
     document.body.appendChild(drawer);
@@ -525,6 +544,8 @@
   if (!document.querySelector(".theme-switch")) {
     wireSwitch(
       document.querySelector(".site-shell .landing-nav, .landing-nav") ||
+        document.querySelector(".mast-nav") ||
+        document.querySelector(".mast") ||
         document.querySelector(".nameplate")
     );
   }

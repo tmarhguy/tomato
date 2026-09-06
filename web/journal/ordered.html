@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -18,13 +19,17 @@
       } catch (e) {}
     })();
   </script>
-  <title>Ordered Tomato — The Tomato</title>
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/magazine.css" />
-  <link rel="stylesheet" href="../css/site.css?v=34" />
+<title>Ordered Tomato — The Tomato</title>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="../css/magazine.css" rel="stylesheet"/>
+<link href="../css/site.css?v=34" rel="stylesheet"/>
+<link href="../css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/navigation.css?v=250" />
+<script src="../js/navigation.js?v=250" defer></script>
+<link rel="stylesheet" href="../css/journal-article.css?v=2"/>
 <!-- tomato-seo -->
   <meta name="description" content="The Tomato 32-bit CPU" />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Ordered, Tomato, 32-bit" />
@@ -39,6 +44,9 @@
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/ordered.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/ordered.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -47,6 +55,7 @@
   <meta name="twitter:title" content="Ordered Tomato — The Tomato" />
   <meta name="twitter:description" content="The Tomato 32-bit CPU" />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "Article",
@@ -67,102 +76,77 @@
 }</script>
   <!-- /tomato-seo -->
 </head>
-<body>
-  <div class="page page--site page--journal">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="../index.html">Front</a>
-          <a href="../architecture.html">Architecture</a>
-          <a href="../verification.html">Verification</a>
-          <a href="../isa.html">ISA</a>
-          <a href="../software.html">Software</a>
-          <a href="../os.html">Tomato OS</a>
-          <a href="../playground.html">Playground</a>
-          <a href="../journal.html" aria-current="page">Journal</a>
-          <a href="../boards.html">Catalog</a>
-          <a href="../board.html">Orbit</a>
-          <a href="../gallery.html">Gallery</a>
-          <a href="../source.html">GitHub</a>
-          <a href="../about.html">About</a>
-          <a class="is-tour" href="../viewer.html">Tour the board</a>
-        </nav>
-      </div>
-      <a class="site-brand-seed nameplate" href="../index.html" hidden>
-        <img src="../assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-    </header>
-
-    <main>
-      <section class="site-hero site-hero--solo">
-        <div class="site-hero__copy">
-          <p class="kicker">Dispatch · Copper</p>
-          <h1 class="headline">It is real. Tomato has left the screen.</h1>
-          <p class="deck">Yesterday: bare boards on JLCPCB. Tonight: every IC, cap, LED, and SIP network on DigiKey — enough for two 07_alu slices.</p>
-          <p class="byline">7 August 2026 · boards · 8 August · parts</p>
-        </div>
-      </section>
-      <section class="section section--journal">
-        <div class="site-prose wrap">
-          <p class="drop">After months of schematic churn, opcode tables, and the occasional 40-bit detour, the dual-LUT ALU is no longer a KiCad fantasy. Copper is being etched. Chips are in a warehouse in Minnesota. I am genuinely excited.</p>
-          <div class="two-up">
-            <figure class="plate">
-              <img src="../assets/pcb/alu_8b_board.webp" alt="07_alu board render." />
-              <figcaption class="plate-cap"><span>Fig. 1</span><span>Board render</span></figcaption>
-            </figure>
-            <figure class="plate">
-              <img src="../assets/pcb/alu_8b_pcb.jpg" alt="Routed top copper of 07_alu." />
-              <figcaption class="plate-cap"><span>Fig. 1b</span><span>Top copper · DRC clean</span></figcaption>
-            </figure>
-          </div>
-          <h2>Fabrication</h2>
-          <p>The existential “one more routing pass” voice is quiet. It was not buying much anymore. Board 07_alu, an 8-bit dual-LUT slice, ordered for under six dollars — cheap enough to spin again if the fab errs. ETA about two weeks to Philadelphia. That was the point of keeping the board small.</p>
-          <figure class="figure">
-            <img src="../assets/plates/jlcpcb.jpg" alt="JLCPCB order confirmation." />
-          </figure>
-          <p class="caption"><span>Fig. 2 — JLCPCB</span><span>Copper incoming</span></p>
-          <h2>DigiKey — order 100884560</h2>
-          <p>Same night, different commitment: thirty-four 74ACT151 muxes do not lie. The cart is sized for two boards — a 16-bit datapath from day one. One board proves the slice; two boards is Tomato width on the bench. The marginal cost of the second slice was too good to skip.</p>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Part</th><th>Qty</th><th>Role</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>CD74ACT151M96</td><td>34</td><td>8:1 LUT muxes — the dual-LUT plane</td></tr>
-                <tr><td>CD74ACT283M</td><td>4</td><td>4-bit ripple adders</td></tr>
-                <tr><td>SN74ACT00 / 86</td><td>4 + 2</td><td>NAND glue, XOR</td></tr>
-                <tr><td>MC74ACT377</td><td>2</td><td>Flag latch</td></tr>
-                <tr><td>CD74HCT688</td><td>2</td><td>Zero detect</td></tr>
-                <tr><td>LEDs, 100nF, SIP-9</td><td>—</td><td>Debug wall and decoupling</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p>Subtotal $48.93. Total with ship, tariff, and tax about $61. All lines immediate. Samsung 100nF caps were backordered; Yageo substituted. HCT688 over HC688 for cleaner 5V ACT margins.</p>
-          <figure class="figure">
-            <img src="../assets/plates/digikey.jpg" alt="DigiKey order confirmation." />
-          </figure>
-          <p class="caption"><span>Fig. 3 — DigiKey</span><span>Ten lines · two boards of silicon</span></p>
-          <h2>What happens next</h2>
-          <p>Wait. Grab the remaining SIP-4 networks and headers — DigiKey would not sell those without a two-thousand-piece reel. Assemble board one: 131 placements, 63 LEDs, the debug wall. Bring up 8-bit — opcode walk, carry chain, flag latch. Assemble board two, cascade to 16-bit, and finally see the dual-LUT datapath breathe.</p>
-          <p>If something is wrong, 130 red LEDs do not lie. This is the best part — where the schematic meets flux and patience. Tomato is ordered. Now we build.</p>
-        </div>
-        <div class="wrap">
-          <nav class="pager">
-            <a href="more-boards.html"><span class="dir">Previous</span><span class="to">Designing additional boards</span></a>
-            <a class="next" href="ashtown-valley.html"><span class="dir">Next</span><span class="to">Front-page news in Ashtown Valley</span></a>
-          </nav>
-        </div>
-      </section>
-    </main>
-    <footer class="footer"><div class="footer-band"><div class="footer-art">
-<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
-  </div>
-  <script src="../js/mast.js" defer></script>
+<body class="project-document">
+<div class="page project-page project-article journal-redesign"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<main data-journal-kind="bench" class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../journal.html">Journal</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
+<p class="kicker">Dispatch · Copper</p>
+<h1 class="project-title" id="page-title">It is real. Tomato has left the screen.</h1>
+<p class="deck">Yesterday: bare boards on JLCPCB. Tonight: every IC, cap, LED, and SIP network on DigiKey — enough for two 07_alu slices.</p>
+<p class="byline">7 August 2026 · boards · 8 August · parts</p>
+</div>
+</section><aside class="journal-decision" aria-label="The entry at a glance"><div><span>The starting point</span><p>The routing is ready</p></div><div><span>The move</span><p>Order the PCBs and components</p></div><div><span>The result or direction</span><p>Two ALU slices in the parts order</p></div></aside><nav class="journal-chapters" aria-label="In this entry"><span>In this entry</span><a href="#read-fabrication">Fabrication</a><a href="#read-digikey-order-100884560">DigiKey — order 100884560</a><a href="#read-what-happens-next">What happens next</a></nav>
+<section class="section section--journal">
+<div class="site-prose wrap">
+<p class="">After months of schematic churn, opcode tables, and the occasional 40-bit detour, the dual-LUT ALU is no longer a KiCad fantasy. Copper is being etched. Chips are in a warehouse in Minnesota. I am genuinely excited.</p>
+<div class="two-up">
+<figure class="plate">
+<img alt="07_alu board render." src="../assets/pcb/alu_8b_board.webp"/>
+<figcaption class="plate-cap"><span>Fig. 1</span><span>Board render</span></figcaption>
+</figure>
+<figure class="plate">
+<img alt="Routed top copper of 07_alu." src="../assets/pcb/alu_8b_pcb.jpg"/>
+<figcaption class="plate-cap"><span>Fig. 1b</span><span>Top copper · DRC clean</span></figcaption>
+</figure>
+</div>
+<h2 id="read-fabrication">Fabrication</h2>
+<p>The existential “one more routing pass” voice is quiet. It was not buying much anymore. Board 07_alu, an 8-bit dual-LUT slice, ordered for under six dollars — cheap enough to spin again if the fab errs. ETA about two weeks to Philadelphia. That was the point of keeping the board small.</p>
+<figure class="figure">
+<img alt="JLCPCB order confirmation." src="../assets/plates/jlcpcb.jpg"/>
+</figure>
+<p class="caption"><span>Fig. 2 — JLCPCB</span><span>Copper incoming</span></p>
+<h2 id="read-digikey-order-100884560">DigiKey — order 100884560</h2>
+<p>Same night, different commitment: thirty-four 74ACT151 muxes do not lie. The cart is sized for two boards — a 16-bit datapath from day one. One board proves the slice; two boards is Tomato width on the bench. The marginal cost of the second slice was too good to skip.</p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>Part</th><th>Qty</th><th>Role</th></tr>
+</thead>
+<tbody>
+<tr><td>CD74ACT151M96</td><td>34</td><td>8:1 LUT muxes — the dual-LUT plane</td></tr>
+<tr><td>CD74ACT283M</td><td>4</td><td>4-bit ripple adders</td></tr>
+<tr><td>SN74ACT00 / 86</td><td>4 + 2</td><td>NAND glue, XOR</td></tr>
+<tr><td>MC74ACT377</td><td>2</td><td>Flag latch</td></tr>
+<tr><td>CD74HCT688</td><td>2</td><td>Zero detect</td></tr>
+<tr><td>LEDs, 100nF, SIP-9</td><td>—</td><td>Debug wall and decoupling</td></tr>
+</tbody>
+</table>
+</div>
+<p>Subtotal $48.93. Total with ship, tariff, and tax about $61. All lines immediate. Samsung 100nF caps were backordered; Yageo substituted. HCT688 over HC688 for cleaner 5V ACT margins.</p>
+<figure class="figure">
+<img alt="DigiKey order confirmation." src="../assets/plates/digikey.jpg"/>
+</figure>
+<p class="caption"><span>Fig. 3 — DigiKey</span><span>Ten lines · two boards of silicon</span></p>
+<h2 id="read-what-happens-next">What happens next</h2>
+<p>Wait. Grab the remaining SIP-4 networks and headers — DigiKey would not sell those without a two-thousand-piece reel. Assemble board one: 131 placements, 63 LEDs, the debug wall. Bring up 8-bit — opcode walk, carry chain, flag latch. Assemble board two, cascade to 16-bit, and finally see the dual-LUT datapath breathe.</p>
+<p>If something is wrong, 130 red LEDs do not lie. This is the best part — where the schematic meets flux and patience. Tomato is ordered. Now we build.</p>
+</div>
+<div class="wrap">
+<nav class="pager">
+<a href="more-boards.html"><span class="dir">Previous</span><span class="to">Designing additional boards</span></a>
+<a class="next" href="ashtown-valley.html"><span class="dir">Next</span><span class="to">Front-page news in Ashtown Valley</span></a>
+</nav>
+</div>
+</section>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script defer="" src="../js/mast.js?v=240"></script>
 <!-- tomato-vercel -->
-  <script src="../js/vercel-analytics.js" defer></script>
-  <script src="../js/vercel-speed-insights.js" defer></script>
+<script defer="" src="../js/vercel-analytics.js"></script>
+<script defer="" src="../js/vercel-speed-insights.js"></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

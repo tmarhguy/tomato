@@ -1,0 +1,135 @@
+{
+  "assets": {
+    "board": {
+      "src": "assets/gallery/assembly/board-test-1280w.webp",
+      "title": "The assembled ALU",
+      "caption": "Lot 07 on the bench during board testing.",
+      "alt": "Physical Tomato ALU board on the test bench",
+      "link": "journal/first-lights.html"
+    },
+    "solder": {
+      "src": "assets/gallery/assembly/placing-and-soldering-1280w.webp",
+      "title": "Placing the logic",
+      "caption": "Assembly of the discrete ALU, one package at a time.",
+      "alt": "Placing and soldering components on the Tomato ALU",
+      "link": "journal/first-assembly.html"
+    },
+    "schematic": {
+      "src": "assets/gallery/plates/kicad-sch-1280w.webp",
+      "title": "The circuit in KiCad",
+      "caption": "The ALU schematic behind the physical board.",
+      "alt": "Tomato ALU schematic in KiCad",
+      "link": "boards/07-alu.html"
+    },
+    "main": {
+      "src": "assets/plates/digital-main.jpg",
+      "title": "The complete simulated machine",
+      "caption": "Datapath and control connected in Digital.",
+      "alt": "Tomato main schematic in Digital",
+      "link": "architecture.html"
+    },
+    "decode": {
+      "src": "assets/gallery/plates/microcode-modular-640w.webp",
+      "title": "Control beside the datapath",
+      "caption": "The modular control design documented in the build journal.",
+      "alt": "Modular microcode control schematic",
+      "link": "journal/microcode.html"
+    },
+    "slice": {
+      "src": "assets/gallery/plates/alu-4b-final-640w.webp",
+      "title": "Inside a four-bit cell",
+      "caption": "A historical slice design from the mode-mux redesign.",
+      "alt": "Four-bit ALU cell schematic",
+      "link": "journal/mode-mux.html"
+    },
+    "os": {
+      "src": "assets/gallery/os/main-menu-screen-1280w.webp",
+      "title": "Tomato OS on screen",
+      "caption": "The menu running through the FPGA display path.",
+      "alt": "Tomato OS main menu on a display",
+      "link": "os.html"
+    },
+    "tetris": {
+      "src": "assets/gallery/os/tetris-screen-1280w.webp",
+      "title": "Software using the machine",
+      "caption": "Tetris in Tomato OS, written for the custom instruction set.",
+      "alt": "Tetris running in Tomato OS",
+      "link": "journal/tomato-works.html"
+    },
+    "sweep": {
+      "src": "assets/compiler/opcode-sweep-fpga.mp4",
+      "poster": "assets/compiler/opcode-sweep-fpga.webp",
+      "title": "The search on FPGA",
+      "caption": "The search loop tries ALU controls and holds a matching result.",
+      "alt": "FPGA hardware compiler recording",
+      "link": "playground.html#compiler"
+    },
+    "terminal": {
+      "src": "assets/compiler/fpga-terminal-program.mp4",
+      "poster": "assets/compiler/fpga-terminal-program.webp",
+      "title": "From build to board",
+      "caption": "A recording of the FPGA programming workflow.",
+      "alt": "Terminal recording of FPGA programming",
+      "link": "journal/ditching-vivado.html"
+    },
+    "hdmi": {
+      "src": "assets/gallery/assembly/hdmi-test-1280w.webp",
+      "title": "First pixels",
+      "caption": "The HDMI color-bar test before the OS demonstration.",
+      "alt": "Color bars from the FPGA HDMI test",
+      "link": "journal/pixels-on-glass.html"
+    }
+  },
+  "pages": {
+    "architecture.html": [
+      "board",
+      "solder"
+    ],
+    "isa.html": [
+      "decode",
+      "tetris"
+    ],
+    "boards.html": [
+      "solder",
+      "board"
+    ],
+    "source.html": [
+      "main",
+      "terminal"
+    ],
+    "faq.html": [
+      "schematic",
+      "board"
+    ],
+    "journal/register-upgrade.html": [
+      "main",
+      "os"
+    ],
+    "journal/invisible-logic.html": [
+      "board",
+      "sweep"
+    ],
+    "journal/mul-div.html": [
+      "main"
+    ],
+    "journal/truth-latch.html": [
+      "slice",
+      "sweep"
+    ],
+    "journal/forty-bit.html": [
+      "decode"
+    ],
+    "journal/more-boards.html": [
+      "schematic",
+      "solder"
+    ],
+    "journal/lingering.html": [
+      "board",
+      "os"
+    ],
+    "journal/isa-as-a-wire.html": [
+      "decode",
+      "tetris"
+    ]
+  }
+}

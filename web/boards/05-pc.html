@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -18,13 +19,16 @@
       } catch (e) {}
     })();
   </script>
-  <title>Lot 05 — Program counter — The Tomato</title>
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/magazine.css" />
-  <link rel="stylesheet" href="../css/site.css?v=34" />
+<title>Lot 05 — Program counter — The Tomato</title>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="../css/magazine.css" rel="stylesheet"/>
+<link href="../css/site.css?v=34" rel="stylesheet"/>
+<link href="../css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/navigation.css?v=250" />
+<script src="../js/navigation.js?v=250" defer></script>
 <!-- tomato-seo -->
   <meta name="description" content="The Tomato 32-bit CPU" />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato PCB, KiCad lot, discrete ALU board, Lot, Program, counter, tomato, 32-bit" />
@@ -39,6 +43,9 @@
   <meta property="og:url" content="https://tomato.tmarhguy.com/boards/05-pc.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/boards/05-pc.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -47,6 +54,7 @@
   <meta name="twitter:title" content="Lot 05 — Program counter — The Tomato" />
   <meta name="twitter:description" content="The Tomato 32-bit CPU" />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -61,74 +69,50 @@
 }</script>
   <!-- /tomato-seo -->
 </head>
-<body>
-  <div class="page page--site">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="../index.html">Front</a>
-          <a href="../architecture.html">Architecture</a>
-          <a href="../verification.html">Verification</a>
-          <a href="../isa.html">ISA</a>
-          <a href="../software.html">Software</a>
-          <a href="../os.html">Tomato OS</a>
-          <a href="../playground.html">Playground</a>
-          <a href="../journal.html">Journal</a>
-          <a href="../boards.html" aria-current="page">Catalog</a>
-          <a href="../board.html">Orbit</a>
-          <a href="../gallery.html">Gallery</a>
-          <a href="../source.html">GitHub</a>
-          <a href="../about.html">About</a>
-          <a class="is-tour" href="../viewer.html">Tour the board</a>
-        </nav>
-      </div>
-      <a class="site-brand-seed nameplate" href="../index.html" hidden>
-        <img src="../assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-</header>
-    <main>
-      <section class="site-hero site-hero--solo">
-        <div class="site-hero__copy">
+<body class="project-document">
+<div class="page project-page project-board-detail"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<main class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../boards.html">Board catalog</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
 <p class="kicker">Lot 05 · PC · In design</p>
-          <h1 class="headline">The counter that walks the ROM — interrupts, vectors, and the stack.</h1>
-          <p class="deck">Program counter, <strong>stack pointer</strong>, <strong>multiple interrupt</strong> lines, keyboard vector tables, and scalable I/O channels—including printer support on the long tail.</p>
-          <p class="byline">KiCad · <code>05_program_counter</code> · sequencing, not yet copper</p>
-        </div>
-      </section>
-      <div class="site-layout">
-        <aside class="site-toc" data-arch-map data-root="../"></aside>
-        <div class="site-body">
-      <section class="section">
-        <div class="site-prose">
-          <p class="drop">Where the ALU is combinational glory, the PC board is sequencing discipline: fetch, branch, jump modes overlaid on the low bits of the 32-bit word, interrupt entry and return, and a stack pointer sheet that makes calls real. Tomato’s PC is equally robust on paper—vector tables for a keyboard, room for peripheral channels, the control fabric <strong>TomatoOS</strong> will assume at boot.</p>
-          <h2>Sheets</h2>
-          <p><strong>05_program_counter.kicad_sch</strong> — PC increment, load, branch/jump muxing. <strong>stack_pointer.kicad_sch</strong> — push/pop addressing and stack discipline. Local EEPROM decode maps the universal opcode into enable lines for each path—no central microcode blob on a long ribbon cable.</p>
-          <dl class="ad-facts" style="column-span: all; max-width: 28rem;">
-            <div><dt>Interrupts</dt><dd>Multiple · vector tables</dd></div>
-            <div><dt>I/O</dt><dd>Keyboard · printer · scalable channels</dd></div>
-            <div><dt>Status</dt><dd>In design · schematic started</dd></div>
-            <div><dt>Project</dt><dd><code>hardware/kicad/boards/05_program_counter/</code></dd></div>
-          </dl>
-        </div>
-        <div class="wrap">
-          <nav class="pager">
-            <a href="04-register.html"><span class="dir">Previous lot</span><span class="to">04 · Register</span></a>
-            <a class="next" href="06-bus.html"><span class="dir">Next lot</span><span class="to">06 · Bus</span></a>
-          </nav>
-        </div>
-      </section>
-        </div>
-      </div>
-    </main>
-    <footer class="footer"><div class="footer-band"><div class="footer-art">
-<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
-  </div>
-  <script type="module" src="../js/arch-map.js"></script>
-  <script src="../js/mast.js" defer></script>
+<h1 class="project-title" id="page-title">The counter that walks the ROM — interrupts, vectors, and the stack.</h1>
+<p class="deck">Program counter, <strong>stack pointer</strong>, <strong>multiple interrupt</strong> lines, keyboard vector tables, and scalable I/O channels—including printer support on the long tail.</p>
+<p class="byline">KiCad · <code>05_program_counter</code> · sequencing, not yet copper</p>
+</div>
+</section>
+<div class="project-reading-layout">
+<aside class="project-toc"><details open=""><summary>On this page</summary><nav aria-label="On this page"><a href="#section-1">Sheets</a></nav></details></aside>
+<div class="project-reading-body">
+<section class="section">
+<div class="site-prose">
+<p class="">Where the ALU is combinational glory, the PC board is sequencing discipline: fetch, branch, jump modes overlaid on the low bits of the 32-bit word, interrupt entry and return, and a stack pointer sheet that makes calls real. Tomato’s PC is equally robust on paper—vector tables for a keyboard, room for peripheral channels, the control fabric <strong>TomatoOS</strong> will assume at boot.</p>
+<h2 id="section-1">Sheets</h2>
+<p><strong>05_program_counter.kicad_sch</strong> — PC increment, load, branch/jump muxing. <strong>stack_pointer.kicad_sch</strong> — push/pop addressing and stack discipline. Local EEPROM decode maps the universal opcode into enable lines for each path—no central microcode blob on a long ribbon cable.</p>
+<dl class="ad-facts" style="column-span: all; max-width: 28rem;">
+<div><dt>Interrupts</dt><dd>Multiple · vector tables</dd></div>
+<div><dt>I/O</dt><dd>Keyboard · printer · scalable channels</dd></div>
+<div><dt>Status</dt><dd>In design · schematic started</dd></div>
+<div><dt>Project</dt><dd><code>hardware/kicad/boards/05_program_counter/</code></dd></div>
+</dl>
+</div>
+<div class="wrap">
+<nav class="pager">
+<a href="04-register.html"><span class="dir">Previous lot</span><span class="to">04 · Register</span></a>
+<a class="next" href="06-bus.html"><span class="dir">Next lot</span><span class="to">06 · Bus</span></a>
+</nav>
+</div>
+</section>
+</div>
+</div>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script src="../js/arch-map.js" type="module"></script>
+<script defer="" src="../js/mast.js?v=240"></script>
 <!-- tomato-vercel -->
-  <script src="../js/vercel-analytics.js" defer></script>
-  <script src="../js/vercel-speed-insights.js" defer></script>
+<script defer="" src="../js/vercel-analytics.js"></script>
+<script defer="" src="../js/vercel-speed-insights.js"></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

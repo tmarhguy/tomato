@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>The Tomato — A Homebrew 32-bit CPU from Discrete Logic</title>
-  <meta name="description"
-    content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<title>The Tomato — A Homebrew 32-bit CPU from Discrete Logic</title>
+<meta content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." name="description"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -22,20 +21,14 @@
       } catch (e) {}
     })();
   </script>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
-    rel="stylesheet" media="print" onload="this.media='all'" />
-  <noscript>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
-      rel="stylesheet" />
-  </noscript>
-  <link rel="stylesheet" href="css/magazine.css?v=3" />
-  <link rel="stylesheet" href="css/site.css?v=34" />
-  <script type="importmap">
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+
+<link href="css/magazine.css?v=3" rel="stylesheet"/>
+<link href="css/site.css?v=34" rel="stylesheet"/>
+<script type="importmap">
   {
     "imports": {
       "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
@@ -43,109 +36,66 @@
     }
   }
   </script>
-
-  <meta property="og:title" content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" />
-  <meta property="og:description"
-    content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://tomato.tmarhguy.com/" />
-  <link rel="canonical" href="https://tomato.tmarhguy.com/broadsheet.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
-  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@tmarhguy" />
-  <meta name="twitter:title" content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" />
-  <meta name="twitter:description"
-    content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
-  <meta name="author" content="Tyrone Marhguy" />
+<meta content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" property="og:title"/>
+<meta content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://tomato.tmarhguy.com/" property="og:url"/>
+<link href="https://tomato.tmarhguy.com/broadsheet.html" rel="canonical"/>
+<meta content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" property="og:image"/>
+<meta content="The Tomato 32-bit CPU" property="og:site_name"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@tmarhguy" name="twitter:site"/>
+<meta content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" name="twitter:title"/>
+<meta content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." name="twitter:description"/>
+<meta content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" name="twitter:image"/>
+<meta content="Tyrone Marhguy" name="author"/>
+<link href="css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="css/navigation.css?v=250" />
+<script src="js/navigation.js?v=250" defer></script>
 </head>
-
-<body>
-  <div class="page page--site">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="index.html">Home</a>
-          <a href="broadsheet.html" aria-current="page">Front</a>
-          <a href="architecture.html">Architecture</a>
-          <a href="verification.html">Verification</a>
-          <a href="isa.html">ISA</a>
-          <a href="software.html">Software</a>
-          <a href="os.html">Tomato OS</a>
-          <a href="playground.html">Playground</a>
-          <a href="journal.html">Journal</a>
-          <a href="boards.html">Catalog</a>
-          <a href="board.html">Orbit</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="source.html">GitHub</a>
-          <a href="about.html">About</a>
-          <a class="is-tour" href="viewer.html">Tour&nbsp;<span class="tour-text">the board</span></a>
-        </nav>
-      </div>
-      <a class="site-brand-seed nameplate" href="index.html" hidden>
-        <img src="assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-</header>
-
-    <main>
-      <section class="section section--hero">
-        <div class="wrap lead-grid">
-          <article class="lead-story">
-            <div class="lead-hed">
-              <p class="kicker">The machine</p>
-              <h2 class="headline">A discrete <span style="color: var(--red);">32-bit polymorphic</span> CPU.</h2>
-              <p class="deck"><strong>32,768 GPR</strong> on discrete SRAM — primary bank in the word, secondary bank in a latch.
+<body class="project-document">
+<div class="page project-page project-broadsheet"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<main class="project-main" id="main">
+<section class="section section--hero">
+<div class="wrap lead-grid">
+<article class="lead-story">
+<div class="lead-hed">
+<p class="kicker">The machine</p>
+<h2 class="headline">A discrete <span style="color: var(--red);">32-bit polymorphic</span> CPU.</h2>
+<p class="deck"><strong>32,768 GPR</strong> on discrete SRAM — primary bank in the word, secondary bank in a latch.
                 Dual-LUT copper underneath —
-                <strong>10&nbsp;billion</strong> Verilator vectors on the byte slice,
-                <strong>130&nbsp;billion</strong> on the 32-bit ALU,
+                <strong>10 billion</strong> Verilator vectors on the byte slice,
+                <strong>130 billion</strong> on the 32-bit ALU,
                 <a href="verification.html">SymbiYosys</a> on the datapath.
-                <a href="journal/register-upgrade.html">Register Upgrade →</a></p>
-              <p class="byline">By Tyrone Marhguy · Computer Engineering ’28 · Penn · 639 hours</p>
-            </div>
-            <ul class="pitch" aria-label="Tomato in six facts">
-              <li><strong>32-bit</strong><span>homebrew CPU</span></li>
-              <li><strong>74xx</strong><span>discrete copper</span></li>
-              <li><strong>524,288</strong><span>ALU operations</span></li>
-              <li><strong>32,768 GPR</strong><span><a href="journal/register-upgrade.html">banked SRAM</a></span></li>
-              <li><strong>ISA</strong><span>512-row ROM</span></li>
-              <li><strong>Tomato OS</strong><span>~2.3k asm lines</span></li>
-            </ul>
-            <div class="hero-prose">
-              <p class="drop">When I decided to build a discrete computer on my own architecture from the transistor
+                <a href="journal/register-upgrade.html">Register Upgrade</a></p>
+<p class="byline">By Tyrone Marhguy · Computer Engineering ’28 · Penn · 639 hours</p>
+</div>
+<ul aria-label="Tomato in six facts" class="pitch">
+<li><strong>32-bit</strong><span>homebrew CPU</span></li>
+<li><strong>74xx</strong><span>discrete copper</span></li>
+<li><strong>524,288</strong><span>ALU operations</span></li>
+<li><strong>32,768 GPR</strong><span><a href="journal/register-upgrade.html">banked SRAM</a></span></li>
+<li><strong>ISA</strong><span>512-row ROM</span></li>
+<li><strong>Tomato OS</strong><span>~2.3k asm lines</span></li>
+</ul>
+<div class="hero-prose">
+<p class="">When I decided to build a discrete computer on my own architecture from the transistor
                 level, the engineering unknowns were massive—but I decided to stay long enough to resolve every single
                 one. Tomato is the
                 evolution
-                of my earlier <a href="https://alu.tmarhguy.com" target="_blank" rel="noopener noreferrer">3,488-MOSFET
+                of my earlier <a href="https://alu.tmarhguy.com" rel="noopener noreferrer" target="_blank">3,488-MOSFET
                   ALU</a>.</p>
-              <p>Hand-soldering 3,488 transistors sounded cool, but time constraints became real. To
+<p>Hand-soldering 3,488 transistors sounded cool, but time constraints became real. To
                 survive, the architecture pivoted from a conventional pipeline to a
                 <strong>polymorphic Dual-LUT3 datapath</strong> where the opcode itself is the computational value.
               </p>
-              <p class="lead-solo">It behaves like a coarse-grain FPGA fabric tuned to the lowest viable unit. It melts
+<p class="lead-solo">It behaves like a coarse-grain FPGA fabric tuned to the lowest viable unit. It melts
                 multi-cycle software bottlenecks into native hardware primitives, transforming a fixed ALU into a 32-bit
-                machine that synthesizes Boolean logic on the fly. Think computing <code>(A &and; B) &oplus; (&not;A &and; C)</code>—the <strong style="color: var(--red);">SHA-256 Choose function</strong>—in a <strong style="color: var(--red);">single clock cycle</strong>, an operation that burns <strong>4 cycles</strong> on a conventional RISC-V core.</p>
-            </div>
-          </article>
-          <a class="lead-gif" href="viewer.html"
-            aria-label="Tomato 07_alu — board tour and the Dual-LUT slice. Open the 3D viewer.">
-            <img id="lead-lcp" class="lead-lcp" alt="" width="960" height="960" decoding="async" fetchpriority="high"
-              src="assets/gallery/pcb/hero-640w.webp"
-              srcset="assets/gallery/pcb/hero-640w.webp 640w, assets/gallery/pcb/hero-1280w.webp 1280w, assets/pcb/hero.webp 960w"
-              sizes="(max-width: 860px) min(18rem, 88vw), min(30rem, 42vw)" />
-            <video id="lead-spin" class="lead-clip lead-clip--paper" muted loop playsinline webkit-playsinline
-              disablepictureinpicture preload="none" poster="assets/gallery/pcb/hero-640w.webp" width="960" height="960"
-              aria-hidden="true">
-              <source src="assets/pcb/hero.mp4" type="video/mp4" />
-            </video>
-            <video id="lead-night" class="lead-clip lead-clip--night" muted loop playsinline webkit-playsinline
-              disablepictureinpicture preload="none" poster="assets/gallery/pcb/immersion_black-640w.webp" width="480" height="480"
-              aria-hidden="true">
-              <source src="assets/pcb/immersion_black.mp4" type="video/mp4" />
-            </video>
-            <script>
-              (function () {
+                machine that synthesizes Boolean logic on the fly. Think computing <code>(A ∧ B) ⊕ (¬A ∧ C)</code>—the <strong style="color: var(--red);">SHA-256 Choose function</strong>—in a <strong style="color: var(--red);">single clock cycle</strong>, an operation that burns <strong>4 cycles</strong> on a conventional RISC-V core.</p>
+</div>
+</article>
+<a aria-label="Tomato 07_alu — board tour and the Dual-LUT slice. Open the 3D viewer." class="lead-gif" href="viewer.html"><img alt="" class="lead-lcp" decoding="async" fetchpriority="high" height="960" id="lead-lcp" sizes="(max-width: 860px) min(18rem, 88vw), min(30rem, 42vw)" src="assets/gallery/pcb/hero-640w.webp" srcset="assets/gallery/pcb/hero-640w.webp 640w, assets/gallery/pcb/hero-1280w.webp 1280w, assets/pcb/hero.webp 960w" width="960"/><video aria-hidden="true" class="lead-clip lead-clip--paper" disablepictureinpicture="" height="960" id="lead-spin" loop="" muted="" playsinline="" poster="assets/gallery/pcb/hero-640w.webp" preload="none" webkit-playsinline="" width="960"><source src="assets/pcb/hero.mp4" type="video/mp4"/></video><video aria-hidden="true" class="lead-clip lead-clip--night" disablepictureinpicture="" height="480" id="lead-night" loop="" muted="" playsinline="" poster="assets/gallery/pcb/immersion_black-640w.webp" preload="none" webkit-playsinline="" width="480"><source src="assets/pcb/immersion_black.mp4" type="video/mp4"/></video><script>(function () {
                 var theme = document.documentElement.getAttribute("data-theme");
                 var dark = theme === "dark" || (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
                 var paper = document.getElementById("lead-spin");
@@ -190,545 +140,445 @@
                 } else {
                   startVideo();
                 }
-              })();
-            </script>
-          </a>
-          <div class="lead-more">
-            <p class="kicker">Why it wins</p>
-            <p class="lead-more-title">Without a multiplexer: planes per bit straight into the adder — no mux.</p>
-            <p>Two independent LUT3 planes per bit feed the adder. That is how <code>A + (B AND C)</code> or the SHA-256
+              })();</script></a>
+<div class="lead-more">
+<p class="kicker">Why it wins</p>
+<p class="lead-more-title">Without a multiplexer: planes per bit straight into the adder — no mux.</p>
+<p>Two independent LUT3 planes per bit feed the adder. That is how <code>A + (B AND C)</code> or the SHA-256
               Choose step becomes a <strong>native hardware step</strong>. We don't build software loops; we rewire the
               ALU's truth table every cycle to absorb the math.</p>
-          </div>
-          <div class="lead-band">
-            <div class="fn-family-row">
-              <div class="fn-family" aria-label="Core engineering equation">
-                <span class="fn-family-label">Core equation</span>
-                <p class="fn-family-eq">out = adder(mux(An, Bn, Cn), mux(An, Bn, Cn), mux(carry / flags))</p>
-              </div>
-              <div class="fn-family" aria-label="Boolean operation family">
-                <span class="fn-family-label">Operation family</span>
-                <p class="fn-family-eq">f(a, b, c) + g(a, b, c) + h(c<sub>in</sub>)</p>
-              </div>
-            </div>
-            <div class="lead-follow">
-              <p>By design, Tomato resolves any <strong>Boolean</strong> of the family
+</div>
+<div class="lead-band">
+<div class="fn-family-row">
+<div aria-label="Core engineering equation" class="fn-family">
+<span class="fn-family-label">Core equation</span>
+<p class="fn-family-eq">out = adder(mux(An, Bn, Cn), mux(An, Bn, Cn), mux(carry / flags))</p>
+</div>
+<div aria-label="Boolean operation family" class="fn-family">
+<span class="fn-family-label">Operation family</span>
+<p class="fn-family-eq">f(a, b, c) + g(a, b, c) + h(c<sub>in</sub>)</p>
+</div>
+</div>
+<div class="lead-follow">
+<p>By design, Tomato resolves any <strong>Boolean</strong> of the family
                 <code>f(a, b, c) + g(a, b, c) + h(c<sub>in</sub>)</code> in a <strong>single clock cycle</strong>. Fused
                 mask-and-add: <code>A + (B AND C)</code>. Cryptographic acceleration:
                 <code>A + ((A AND B) XOR (NOT A AND C))</code>—SHA-256 Choose—in <strong>one cycle</strong>.
               </p>
-              <p>The rest of this paper is optional. The facts that do not move sit in the table below: <a href="journal/register-upgrade.html"><strong>32,768 GPR</strong></a>,
+<p>The rest of this paper is optional. The facts that do not move sit in the table below: <a href="journal/register-upgrade.html"><strong>32,768 GPR</strong></a>,
                 parametric ISA, hardware opcode compiler, formal sign-off. The copper is lot 07.
                 <a href="software.html">Tomato OS</a> paints the desktop — each glyph a native opcode.</p>
-            </div>
-          </div>
-          <nav class="jump jump--loud" aria-label="If you only click once">
-            <a href="software.html">Software →</a>
-            <a href="architecture.html">Architecture →</a>
-            <a href="isa.html">ISA →</a>
-            <a href="playground.html">Run the slice →</a>
-          </nav>
-        </div>
-      </section>
-
-      <section class="section section--room" id="why-32768">
-        <div class="wrap">
-          <article class="faq-gpr faq-gpr--panel">
-            <header class="faq-gpr__hed">
-              <p class="exhibit-label">The question everyone asks</p>
-              <h2 class="faq-gpr__title">Why 32,768 GPR?</h2>
-            </header>
-            <div class="faq-gpr__body">
-              <p class="faq-gpr__lead">Tomato exposes <strong>32,768 32-bit GPR locations</strong> because the selected discrete SRAMs (<span class="mono">AS6C62256-55PCN</span>, 32K × 8) already provide a full <strong>15-bit address space</strong>.</p>
-              <p>The chips, buses, and mirrored 3R1W structure are already in the design — exposing anything less would leave usable address depth disconnected.</p>
-              <p class="faq-gpr__punch">That is <strong>half</strong> the 65,536 × 32-bit physical register file in a single NVIDIA Blackwell SM.</p>
-            </div>
-            <aside class="faq-gpr__aside" aria-label="At a glance">
-              <dl class="faq-gpr__facts">
-                <div><dt>Part</dt><dd class="mono">AS6C62256</dd></div>
-                <div><dt>Address bits</dt><dd>15</dd></div>
-                <div><dt>Per mirror</dt><dd>32,768 × 32</dd></div>
-                <div><dt>vs Blackwell SM</dt><dd>½ of 65,536</dd></div>
-              </dl>
-            </aside>
-          </article>
-          <nav class="jump jump--loud" style="margin-top:1.25rem">
-            <a href="journal/register-upgrade.html">Register Upgrade — full argument →</a>
-            <a href="architecture.html#register-file">Architecture · registers →</a>
-          </nav>
-        </div>
-      </section>
-
-      <section class="section" id="dispatch">
-        <div class="wrap lead-grid lead-grid--dispatch">
-          <article>
-            <p class="kicker">Latest dispatch · 29 August 2026</p>
-            <h2 class="headline">Register Upgrade</h2>
-            <p class="deck"><strong>32,768 GPR</strong> — full 15-bit SRAM depth via primary bank and a latched superbank. Same instruction width. <a href="journal/register-upgrade.html">Read why →</a></p>
-            <p class="byline">From the log · Register file · <a href="journal/register-upgrade.html">full entry</a></p>
-            <p class="drop">The discrete AS6C62256 SRAMs already bring <strong>15 address bits</strong>. Tomato exposes all of them as <strong>32,768 GPR</strong> — half a Blackwell SM. Leaving pins disconnected would be the waste.</p>
-            <p>Earlier: <a href="journal/tomato-works.html">Tomato works beautifully!</a>, One Press, One Key, and <a href="journal/pixels-on-glass.html">HDMI color bars</a>. The vault has thirty-four dispatches now.</p>
-          </article>
-          <figure class="plate plate--ink plate--dispatch-sum">
-            <div class="dispatch-sum">
-              <p class="exhibit-label">Why 32,768?</p>
-              <p class="dispatch-sum__num">32,768 <span>GPR</span></p>
-              <p class="dispatch-sum__lede">15-bit AS6C62256 depth · half a Blackwell SM</p>
-              <p class="dispatch-sum__jump"><a href="#why-32768">why →</a></p>
-            </div>
-            <figcaption class="plate-cap">
-              <span>Fig. — Register windows</span>
-              <span>SETBANK2 · AS6C62256</span>
-            </figcaption>
-          </figure>
-          <nav class="jump jump--loud">
-            <a href="journal/register-upgrade.html">Read the dispatch &rarr;</a>
-            <a href="architecture.html">Architecture &rarr;</a>
-            <a href="journal.html">Open the Journal &rarr;</a>
-          </nav>
-        </div>
-      </section>
-
-      <section class="section" id="iron">
-        <div class="wrap">
-          <p class="exhibit-label">On the bench · Lot 07</p>
-          <h2 class="shelf-title">Soldering is done.</h2>
-          <p class="ads-rate">Muxes, adders, and lamps are down — the slice is on the bench.</p>
-          <div class="two-up two-up--match assembly-bench">
-            <figure class="figure">
-              <video muted loop playsinline webkit-playsinline preload="metadata"
-                poster="assets/gallery/assembly/placing-and-soldering-640w.webp" width="464" height="528"
-                aria-label="Placing and soldering 74xx parts on the Tomato ALU board.">
-                <source src="assets/assembly/placing-and-soldering.mp4" type="video/mp4" />
-              </video>
-              <p class="caption"><span>Fig. — Iron</span><span>Placing · soldering</span></p>
-            </figure>
-            <figure class="figure">
-              <video muted loop playsinline webkit-playsinline preload="metadata"
-                poster="assets/gallery/assembly/work-setup-640w.webp" width="960" height="738"
-                aria-label="Soldering lights on loop — Tomato 07_alu on the bench.">
-                <source src="assets/assembly/work-setup.mp4" type="video/mp4" />
-              </video>
-              <p class="caption"><span>Fig. — Bench</span><span>Soldering lights · board cutaways</span></p>
-            </figure>
-          </div>
-          <p class="caption"><span>Hands on the Dual-LUT slice</span><span><a href="gallery.html">More frames in the Gallery →</a></span></p>
-        </div>
-      </section>
-
-      <section class="section" id="what">
-        <div class="wrap">
-          <div class="quirks quirks--split quirks--front">
-            <p class="exhibit-label">What is Tomato</p>
-            <div class="quirks-sheet">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Quirk</th>
-                    <th>The machine</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>3-variable ALU</td>
-                    <td>Operands A, B, C. <span class="mono">out = f(a,b,c) + g(a,b,c) + cin</span></td>
-                  </tr>
-                  <tr>
-                    <td><a href="architecture.html#slice">Dual-LUT ALU</a></td>
-                    <td>Two independent LUT3 planes per bit</td>
-                  </tr>
-                  <tr>
-                    <td>Without a multiplexer</td>
-                    <td>Planes per bit straight into the adder — no mux</td>
-                  </tr>
-                  <tr>
-                    <td>Polymorphic ALU</td>
-                    <td>Dual 8-bit LUT programs. <strong>524,288</strong> ops with carry-select</td>
-                  </tr>
-                  <tr>
-                    <td>3R-1W register file</td>
-                    <td>Three reads, one write on execute</td>
-                  </tr>
-                  <tr>
-                    <td><a href="journal/register-upgrade.html">32,768 GPR</a></td>
-                    <td>15-bit <span class="mono">AS6C62256</span> depth. Half a Blackwell SM's 65,536×32 physical file — one context</td>
-                  </tr>
-                  <tr>
-                    <td><a href="architecture.html#register-file">Immediate box</a></td>
-                    <td>16 encodings: imm8, imm12, imm13, imm16, LUI</td>
-                  </tr>
-                  <tr>
-                    <td>Priority-encoder MUL</td>
-                    <td>Multiply in <strong>16</strong> cycles worst, best <strong>0</strong>. ~<strong>4</strong>
+</div>
+</div>
+<nav aria-label="If you only click once" class="jump jump--loud">
+<a href="software.html">Software</a>
+<a href="architecture.html">Architecture</a>
+<a href="isa.html">ISA</a>
+<a href="playground.html">Run the slice</a>
+</nav>
+</div>
+</section>
+<section class="section section--room" id="why-32768">
+<div class="wrap">
+<article class="faq-gpr faq-gpr--panel">
+<header class="faq-gpr__hed">
+<p class="exhibit-label">The question everyone asks</p>
+<h2 class="faq-gpr__title">Why 32,768 GPR?</h2>
+</header>
+<div class="faq-gpr__body">
+<p class="faq-gpr__lead">Tomato exposes <strong>32,768 32-bit GPR locations</strong> because the selected discrete SRAMs (<span class="mono">AS6C62256-55PCN</span>, 32K × 8) already provide a full <strong>15-bit address space</strong>.</p>
+<p>The chips, buses, and mirrored 3R1W structure are already in the design — exposing anything less would leave usable address depth disconnected.</p>
+<p class="faq-gpr__punch">That is <strong>half</strong> the 65,536 × 32-bit physical register file in a single NVIDIA Blackwell SM.</p>
+</div>
+<aside aria-label="At a glance" class="faq-gpr__aside">
+<dl class="faq-gpr__facts">
+<div><dt>Part</dt><dd class="mono">AS6C62256</dd></div>
+<div><dt>Address bits</dt><dd>15</dd></div>
+<div><dt>Per mirror</dt><dd>32,768 × 32</dd></div>
+<div><dt>vs Blackwell SM</dt><dd>½ of 65,536</dd></div>
+</dl>
+</aside>
+</article>
+<nav class="jump jump--loud" style="margin-top:1.25rem">
+<a href="journal/register-upgrade.html">Register Upgrade — full argument</a>
+<a href="architecture.html#register-file">Architecture · registers</a>
+</nav>
+</div>
+</section>
+<section class="section" id="dispatch">
+<div class="wrap lead-grid lead-grid--dispatch">
+<article>
+<p class="kicker">Latest dispatch · 29 August 2026</p>
+<h2 class="headline">Register Upgrade</h2>
+<p class="deck"><strong>32,768 GPR</strong> — full 15-bit SRAM depth via primary bank and a latched superbank. Same instruction width. <a href="journal/register-upgrade.html">Read why</a></p>
+<p class="byline">From the log · Register file · <a href="journal/register-upgrade.html">full entry</a></p>
+<p class="">The discrete AS6C62256 SRAMs already bring <strong>15 address bits</strong>. Tomato exposes all of them as <strong>32,768 GPR</strong> — half a Blackwell SM. Leaving pins disconnected would be the waste.</p>
+<p>Earlier: <a href="journal/tomato-works.html">Tomato works beautifully!</a>, One Press, One Key, and <a href="journal/pixels-on-glass.html">HDMI color bars</a>. The vault has thirty-four dispatches now.</p>
+</article>
+<figure class="plate plate--ink plate--dispatch-sum">
+<div class="dispatch-sum">
+<p class="exhibit-label">Why 32,768?</p>
+<p class="dispatch-sum__num">32,768 <span>GPR</span></p>
+<p class="dispatch-sum__lede">15-bit AS6C62256 depth · half a Blackwell SM</p>
+<p class="dispatch-sum__jump"><a href="#why-32768">why</a></p>
+</div>
+<figcaption class="plate-cap">
+<span>Fig. — Register windows</span>
+<span>SETBANK2 · AS6C62256</span>
+</figcaption>
+</figure>
+<nav class="jump jump--loud">
+<a href="journal/register-upgrade.html">Read the dispatch</a>
+<a href="architecture.html">Architecture</a>
+<a href="journal.html">Open the Journal</a>
+</nav>
+</div>
+</section>
+<section class="section" id="iron">
+<div class="wrap">
+<p class="exhibit-label">On the bench · Lot 07</p>
+<h2 class="shelf-title">Soldering is done.</h2>
+<p class="ads-rate">Muxes, adders, and lamps are down — the slice is on the bench.</p>
+<div class="two-up two-up--match assembly-bench">
+<figure class="figure">
+<video aria-label="Placing and soldering 74xx parts on the Tomato ALU board." height="528" loop="" muted="" playsinline="" poster="assets/gallery/assembly/placing-and-soldering-640w.webp" preload="metadata" webkit-playsinline="" width="464">
+<source src="assets/assembly/placing-and-soldering.mp4" type="video/mp4"/>
+</video>
+<p class="caption"><span>Fig. — Iron</span><span>Placing · soldering</span></p>
+</figure>
+<figure class="figure">
+<video aria-label="Soldering lights on loop — Tomato 07_alu on the bench." height="738" loop="" muted="" playsinline="" poster="assets/gallery/assembly/work-setup-640w.webp" preload="metadata" webkit-playsinline="" width="960">
+<source src="assets/assembly/work-setup.mp4" type="video/mp4"/>
+</video>
+<p class="caption"><span>Fig. — Bench</span><span>Soldering lights · board cutaways</span></p>
+</figure>
+</div>
+<p class="caption"><span>Hands on the Dual-LUT slice</span><span><a href="gallery.html">More frames in the Gallery</a></span></p>
+</div>
+</section>
+<section class="section" id="what">
+<div class="wrap">
+<div class="quirks quirks--split quirks--front">
+<p class="exhibit-label">What is Tomato</p>
+<div class="quirks-sheet">
+<div aria-label="Scrollable data table" class="project-table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Quirk</th>
+<th>The machine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3-variable ALU</td>
+<td>Operands A, B, C. <span class="mono">out = f(a,b,c) + g(a,b,c) + cin</span></td>
+</tr>
+<tr>
+<td><a href="architecture.html#slice">Dual-LUT ALU</a></td>
+<td>Two independent LUT3 planes per bit</td>
+</tr>
+<tr>
+<td>Without a multiplexer</td>
+<td>Planes per bit straight into the adder — no mux</td>
+</tr>
+<tr>
+<td>Polymorphic ALU</td>
+<td>Dual 8-bit LUT programs. <strong>524,288</strong> ops with carry-select</td>
+</tr>
+<tr>
+<td>3R-1W register file</td>
+<td>Three reads, one write on execute</td>
+</tr>
+<tr>
+<td><a href="journal/register-upgrade.html">32,768 GPR</a></td>
+<td>15-bit <span class="mono">AS6C62256</span> depth. Half a Blackwell SM's 65,536×32 physical file — one context</td>
+</tr>
+<tr>
+<td><a href="architecture.html#register-file">Immediate box</a></td>
+<td>16 encodings: imm8, imm12, imm13, imm16, LUI</td>
+</tr>
+<tr>
+<td>Priority-encoder MUL</td>
+<td>Multiply in <strong>16</strong> cycles worst, best <strong>0</strong>. ~<strong>4</strong>
                       amortized</td>
-                  </tr>
-                  <tr>
-                    <td><a href="architecture.html#decode">Modular control</a></td>
-                    <td>Local EEPROMs, global <strong>9-bit</strong> opcode, <strong>512-row</strong> ROM</td>
-                  </tr>
-                </tbody>
-              </table>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Quirk</th>
-                    <th>The machine</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><a href="architecture.html#word">Overlay word</a></td>
-                    <td>Low bits: COND, jump mode, or immediate</td>
-                  </tr>
-                  <tr>
-                    <td>8 flags</td>
-                    <td>Z, ~Z, N, C, V, LT, GT, GTE. cin from any</td>
-                  </tr>
-                  <tr>
-                    <td>Barrel shifter</td>
-                    <td>LSL / LSR / ASR / ROR. Amount = B[4:0]</td>
-                  </tr>
-                  <tr>
-                    <td><a href="isa.html">Parametric ISA</a></td>
-                    <td>Opcode configures muxes. <strong>~37+</strong> family maps</td>
-                  </tr>
-                  <tr>
-                    <td>Multi-cycle Von Neumann</td>
-                    <td>Fetch + exec; three phases if memory waits</td>
-                  </tr>
-                  <tr>
-                    <td>Dark silicon</td>
-                    <td><strong>512</strong> burned rows. The plane knows more</td>
-                  </tr>
-                  <tr>
-                    <td>Write-back mux</td>
-                    <td><strong>9 ns</strong> tri-state vs <strong>52 ns</strong> cascading 151</td>
-                  </tr>
-                  <tr>
-                    <td>Byte-lane memory</td>
-                    <td>Word / half / byte, signed or unsigned</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <p class="caption"><span>The facts that do not move</span><span><a href="architecture.html#quirks">The
-                argument →</a></span></p>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="wrap">
-          <div class="axioms">
-            <article class="axiom">
-              <p class="axiom-n">II. The Hardware Compiler</p>
-              <h3>A compiler in hardware</h3>
-              <p>I designed a custom finite-state machine (FSM) to autonomously sweep the opcode space. By evaluating
+</tr>
+<tr>
+<td><a href="architecture.html#decode">Modular control</a></td>
+<td>Local EEPROMs, global <strong>9-bit</strong> opcode, <strong>512-row</strong> ROM</td>
+</tr>
+</tbody>
+</table></div>
+<div aria-label="Scrollable data table" class="project-table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Quirk</th>
+<th>The machine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="architecture.html#word">Overlay word</a></td>
+<td>Low bits: COND, jump mode, or immediate</td>
+</tr>
+<tr>
+<td>8 flags</td>
+<td>Z, ~Z, N, C, V, LT, GT, GTE. cin from any</td>
+</tr>
+<tr>
+<td>Barrel shifter</td>
+<td>LSL / LSR / ASR / ROR. Amount = B[4:0]</td>
+</tr>
+<tr>
+<td><a href="isa.html">Parametric ISA</a></td>
+<td>Opcode configures muxes. <strong>~37+</strong> family maps</td>
+</tr>
+<tr>
+<td>Multi-cycle Von Neumann</td>
+<td>Fetch + exec; three phases if memory waits</td>
+</tr>
+<tr>
+<td>Dark silicon</td>
+<td><strong>512</strong> burned rows. The plane knows more</td>
+</tr>
+<tr>
+<td>Write-back mux</td>
+<td><strong>9 ns</strong> tri-state vs <strong>52 ns</strong> cascading 151</td>
+</tr>
+<tr>
+<td>Byte-lane memory</td>
+<td>Word / half / byte, signed or unsigned</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<p class="caption"><span>The facts that do not move</span><span><a href="architecture.html#quirks">The
+                argument</a></span></p>
+</div>
+</section>
+<section class="section">
+<div class="wrap">
+<div class="axioms">
+<article class="axiom">
+<p class="axiom-n">II. The Hardware Compiler</p>
+<h3>A compiler in hardware</h3>
+<p>I designed a custom finite-state machine (FSM) to autonomously sweep the opcode space. By evaluating
                 inputs A, B, and C against an expected result, the FSM iterates until a matching configuration is
                 identified. This effectively acts as a hardware-level compiler, mapping arbitrary boolean logic
                 operations directly to a single native opcode.</p>
-              <p>When deployed to an <strong>Artix‑7</strong> FPGA, the FSM swept the space until it locked a native
-                opcode. <a href="#opcode-compiler">Opcode compiler →</a></p>
-            </article>
-            <article class="axiom">
-              <p class="axiom-n">III. The Build Philosophy</p>
-              <h3>74xx now. Transistors someday.</h3>
-              <p>For now, Tomato is built exclusively from <strong>74xx series logic chips</strong>—driven purely by
+<p>When deployed to an <strong>Artix‑7</strong> FPGA, the FSM swept the space until it locked a native
+                opcode. <a href="#opcode-compiler">Opcode compiler</a></p>
+</article>
+<article class="axiom">
+<p class="axiom-n">III. The Build Philosophy</p>
+<h3>74xx now. Transistors someday.</h3>
+<p>For now, Tomato is built exclusively from <strong>74xx series logic chips</strong>—driven purely by
                 manufacturability and brutal time constraints.(Someday, <strong>I will lay them out as raw transistors,
                   just as I always intended.</strong> ) But even in its current form, Tomato has outgrown its ALU roots.
                 It has taken on multiple shapes: <strong>8‑bit</strong>, <strong>32‑bit</strong>, even
                 <strong>40‑bit</strong> variants—it accommodates a <strong>quirky 3‑Read‑1‑Write <a href="journal/register-upgrade.html">32,768 GPR</a> register file</strong> I designed for it and the very‑long instruction word
                 (<strong>VLIW</strong>) architecture it somehow demands.
               </p>
-            </article>
-            <article class="axiom">
-              <p class="axiom-n">IV. Verification &amp; Testing</p>
-              <h3>10 billion on the byte. 130 billion on the word.</h3>
-              <p>The dual-LUT ALU in <code>hardware/fpga/core</code> is the machine that runs Tomato OS.
-                <strong>Verilator</strong> ran <strong>10&nbsp;billion</strong> vectors on the 8-bit slice and
-                <strong>130&nbsp;billion</strong> on the full 32-bit ALU against a golden model —
+</article>
+<article class="axiom">
+<p class="axiom-n">IV. Verification &amp; Testing</p>
+<h3>10 billion on the byte. 130 billion on the word.</h3>
+<p>The dual-LUT ALU in <code>hardware/fpga/core</code> is the machine that runs Tomato OS.
+                <strong>Verilator</strong> ran <strong>10 billion</strong> vectors on the 8-bit slice and
+                <strong>130 billion</strong> on the full 32-bit ALU against a golden model —
                 every mismatch aborts. <strong>SymbiYosys</strong> proved the same datapath at 1b, 8b, and 32b.
                 Re-run it from <code>verification/gauntlet</code>: <code>make formal</code>, <code>make core10b</code>,
-                <code>make slice130b</code>, or <code>make claim</code> for all three. <a
-                  href="verification.html">ALU verification →</a>
-              </p>
-            </article>
-          </div>
-          <div class="two-up two-up--sweeps compiler-reels" id="opcode-compiler">
-            <figure class="figure" data-src="assets/compiler/opcode-sweep-sim.mp4"
-              data-poster="assets/gallery/compiler/opcode-sweep-sim-640w.webp">
-              <div class="sweep-media">
-                <video muted loop playsinline webkit-playsinline preload="metadata"
-                  poster="assets/gallery/compiler/opcode-sweep-sim-640w.webp" width="1680" height="1080">
-                  <source src="assets/compiler/opcode-sweep-sim.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <p class="caption"><span>Fig. — Simulation</span><span>Opcode space sweep</span></p>
-            </figure>
-            <figure class="figure" data-src="assets/compiler/opcode-sweep-fpga.mp4"
-              data-poster="assets/gallery/compiler/opcode-sweep-fpga-640w.webp">
-              <div class="sweep-media sweep-media--fpga">
-                <video id="opcode-compiler-fpga" muted loop playsinline webkit-playsinline preload="metadata"
-                  poster="assets/gallery/compiler/opcode-sweep-fpga-640w.webp" width="480" height="544">
-                  <source src="assets/compiler/opcode-sweep-fpga.mp4" type="video/mp4" />
-                </video>
-              </div>
-              <p class="caption"><span>Fig. — Artix‑7</span><span>AND3 · 0x80</span></p>
-            </figure>
-          </div>
-          <aside class="compiler-hit" aria-label="FPGA sweep vector">
-            <span class="compiler-hit-label">FPGA hit</span>
-            <div class="compiler-hit-grid">
-              <div class="compiler-hit-id">
-                <p class="compiler-hit-op">0x80</p>
-                <p class="compiler-hit-fn">AND3</p>
-                <span class="compiler-hit-expected">Expected</span>
-                <p class="compiler-hit-eq">out = f(a, b, c) + g(a, b, c) + h(c<sub>in</sub>)</p>
-                <p class="compiler-hit-hold">Reset zeros the result. Hold, then change the inputs: they take the
+                <code>make slice130b</code>, or <code>make claim</code> for all three. <a href="verification.html">ALU verification</a>
+</p>
+</article>
+</div>
+<div class="two-up two-up--sweeps compiler-reels" id="opcode-compiler">
+<figure class="figure" data-poster="assets/gallery/compiler/opcode-sweep-sim-640w.webp" data-src="assets/compiler/opcode-sweep-sim.mp4">
+<div class="sweep-media">
+<video height="1080" loop="" muted="" playsinline="" poster="assets/gallery/compiler/opcode-sweep-sim-640w.webp" preload="metadata" webkit-playsinline="" width="1680">
+<source src="assets/compiler/opcode-sweep-sim.mp4" type="video/mp4"/>
+</video>
+</div>
+<p class="caption"><span>Fig. — Simulation</span><span>Opcode space sweep</span></p>
+</figure>
+<figure class="figure" data-poster="assets/gallery/compiler/opcode-sweep-fpga-640w.webp" data-src="assets/compiler/opcode-sweep-fpga.mp4">
+<div class="sweep-media sweep-media--fpga">
+<video height="544" id="opcode-compiler-fpga" loop="" muted="" playsinline="" poster="assets/gallery/compiler/opcode-sweep-fpga-640w.webp" preload="metadata" webkit-playsinline="" width="480">
+<source src="assets/compiler/opcode-sweep-fpga.mp4" type="video/mp4"/>
+</video>
+</div>
+<p class="caption"><span>Fig. — Artix‑7</span><span>AND3 · 0x80</span></p>
+</figure>
+</div>
+<aside aria-label="FPGA sweep vector" class="compiler-hit">
+<span class="compiler-hit-label">FPGA hit</span>
+<div class="compiler-hit-grid">
+<div class="compiler-hit-id">
+<p class="compiler-hit-op">0x80</p>
+<p class="compiler-hit-fn">AND3</p>
+<span class="compiler-hit-expected">Expected</span>
+<p class="compiler-hit-eq">out = f(a, b, c) + g(a, b, c) + h(c<sub>in</sub>)</p>
+<p class="compiler-hit-hold">Reset zeros the result. Hold, then change the inputs: they take the
                   function that was found — <span class="mono">out = AND3 + AND3</span>.</p>
-              </div>
-              <dl class="compiler-hit-vec">
-                <div>
-                  <dt>A</dt>
-                  <dd>0x2e653abb</dd>
-                </div>
-                <div>
-                  <dt>B</dt>
-                  <dd>0x7d0145cd</dd>
-                </div>
-                <div>
-                  <dt>C</dt>
-                  <dd>0x1455f659</dd>
-                </div>
-                <div>
-                  <dt>c<sub>in</sub></dt>
-                  <dd>0</dd>
-                </div>
-                <div class="is-out">
-                  <dt>out</dt>
-                  <dd>0x08020012</dd>
-                </div>
-              </dl>
-            </div>
-          </aside>
-          <p class="caption"><span>The hardware compiler on the wire</span><span><a
-                href="playground.html#compiler">Sweep it in the playground →</a></span></p>
-        </div>
-      </section>
-
-      <section class="section section--room" id="stand">
-        <div class="wrap">
-          <p class="exhibit-label">Where we stand</p>
-          <h2 class="statement">After more than <strong>639 hours</strong> poured into a custom computer from absolute
+</div>
+<dl class="compiler-hit-vec">
+<div>
+<dt>A</dt>
+<dd>0x2e653abb</dd>
+</div>
+<div>
+<dt>B</dt>
+<dd>0x7d0145cd</dd>
+</div>
+<div>
+<dt>C</dt>
+<dd>0x1455f659</dd>
+</div>
+<div>
+<dt>c<sub>in</sub></dt>
+<dd>0</dd>
+</div>
+<div class="is-out">
+<dt>out</dt>
+<dd>0x08020012</dd>
+</div>
+</dl>
+</div>
+</aside>
+<p class="caption"><span>The hardware compiler on the wire</span><span><a href="playground.html#compiler">Sweep it in the playground</a></span></p>
+</div>
+</section>
+<section class="section section--room" id="stand">
+<div class="wrap">
+<p class="exhibit-label">Where we stand</p>
+<h2 class="statement">After more than <strong>639 hours</strong> poured into a custom computer from absolute
             scratch, this is where we stand.</h2>
-          <div class="word" aria-label="32-bit instruction word">
-            <span class="op">9b<strong>opcode</strong></span>
-            <span>5b<strong>rd</strong></span>
-            <span>5b<strong>rA</strong></span>
-            <span>5b<strong>rB</strong></span>
-            <span>5b<strong>rC</strong></span>
-            <span>3b<strong>bank</strong></span>
-          </div>
-          <p class="caption"><span>The 32-bit word</span><span>Low bits overlay as COND, jump mode, or immediate</span>
-          </p>
-          <div class="center-col">
-            <p class="lead">The first programs were <strong class="red">hex I wrote by hand</strong>. Then an assembler
+<div aria-label="32-bit instruction word" class="word">
+<span class="op">9b<strong>opcode</strong></span>
+<span>5b<strong>rd</strong></span>
+<span>5b<strong>rA</strong></span>
+<span>5b<strong>rB</strong></span>
+<span>5b<strong>rC</strong></span>
+<span>3b<strong>bank</strong></span>
+</div>
+<p class="caption"><span>The 32-bit word</span><span>Low bits overlay as COND, jump mode, or immediate</span>
+</p>
+<div class="center-col">
+<p class="lead">The first programs were <strong class="red">hex I wrote by hand</strong>. Then an assembler
               cobbled together on the fly, <strong>FPGA tests</strong> on the Artix‑7, simulations that ran for days,
-              and bugs hunted at <strong>3&nbsp;AM</strong>. Dual-LUT copper is inbound; the rest of the machine is
+              and bugs hunted at <strong>3 AM</strong>. Dual-LUT copper is inbound; the rest of the machine is
               still being laid.</p>
-            <p class="lead"><strong>Tomato</strong> is the little obsession, the evolved ALU, and the most rewarding
+<p class="lead"><strong>Tomato</strong> is the little obsession, the evolved ALU, and the most rewarding
               migraine I’ve ever built.</p>
-          </div>
-          <nav class="jump jump--loud" aria-label="Continue inside">
-            <a href="architecture.html">Open architecture →</a>
-            <a href="playground.html">Dual-LUT playground →</a>
-            <a href="boards.html">Board catalog →</a>
-          </nav>
-        </div>
-      </section>
-
-      <section class="section section--double">
-        <div class="wrap">
-          <div class="ads-mast">
-            <p class="exhibit-label">Progress of Works · Lot 07</p>
-            <h2 class="shelf-title">This board has left the screen.</h2>
-            <p class="ads-rate">The transistor board set the foundation. The Dual-LUT datapath is soldered and on the bench.</p>
-          </div>
-          <div class="ads-sheet">
-            <p class="ads-bar"><span>Then and now</span><span>Authority of copper</span></p>
-            <a class="ad-face ad-face--then" href="boards/01-alu.html">
-              <p class="ad-face-kicker"><span>Then · lot 01</span><span>Predecessor</span></p>
-              <span class="ad-face-shot">
-                <img src="assets/plates/legacy-alu_full_3d.webp" alt="Discrete MOSFET hybrid ALU — the predecessor."
-                  width="1120" height="1120" loading="lazy" decoding="async" />
-              </span>
-              <div class="ad-face-copy">
-                <p class="ad-no">01</p>
-                <h3>ALU</h3>
-                <p class="ad-stamp">3,488 CMOS hybrid</p>
-                <p class="ad-blurb"><strong>3,488</strong> discrete CMOS transistors · <strong>19 operations</strong> ·
-                  <strong>5 flags</strong> · power hungry · <strong>270×270&nbsp;mm</strong>. Parasitic capacitance and
-                  extreme assembly time forced the pivot—not the idea.
-                </p>
-                <dl class="ad-facts">
-                  <div>
-                    <dt>Outline</dt>
-                    <dd>270 × 270 mm</dd>
-                  </div>
-                  <div>
-                    <dt>Ops / flags</dt>
-                    <dd>19 · 5</dd>
-                  </div>
-                  <div>
-                    <dt>Authority</dt>
-                    <dd>Paper · proven</dd>
-                  </div>
-                </dl>
-                <p class="ad-cta">Open alu.tmarhguy.com →</p>
-              </div>
-            </a>
-            <a class="ad-face ad-face--now" href="journal.html">
-              <p class="ad-face-kicker"><span>Now · lot 07</span><span>Soldered</span></p>
-              <span class="ad-face-shot">
-                <img src="assets/gallery/assembly/half-soldered-plate-640w.webp"
-                  srcset="assets/gallery/assembly/half-soldered-plate-640w.webp 640w, assets/gallery/assembly/half-soldered-plate-1280w.webp 1280w, assets/assembly/half-soldered-plate.webp 1120w"
-                  sizes="(max-width: 860px) min(100vw - 1.7rem, 22rem), min(22rem, 36vw)"
-                  alt="Half-soldered 07_alu Dual-LUT slice next to its Digital simulation." width="1120" height="1120"
-                  loading="lazy" decoding="async" />
-              </span>
-              <div class="ad-face-copy">
-                <p class="ad-no">07</p>
-                <h3>ALU</h3>
-                <p class="ad-stamp">Dual-LUT · soldered</p>
-                <p class="ad-blurb">Every <strong>74ACT151</strong> is down on one board, the <strong>74ACT283</strong>
-                  adders with them, and seven LEDs of the debug wall. The slice sits next to the sim.</p>
-                <dl class="ad-facts">
-                  <div>
-                    <dt>Footprint</dt>
-                    <dd>99.95 × 99.80 mm</dd>
-                  </div>
-                  <div>
-                    <dt>Density</dt>
-                    <dd>25 logic ICs / 8b</dd>
-                  </div>
-                  <div>
-                    <dt>Authority</dt>
-                    <dd>In assembly · August 2026</dd>
-                  </div>
-                </dl>
-                <p class="ad-cta">Open the Journal →</p>
-              </div>
-            </a>
-            <div class="works">
-              <p class="ad-colhead">The path forward · green is done · gold is now</p>
-              <ol class="works-track" aria-label="Board lots">
-                <li class="is-past"><a href="boards/01-alu.html"><span class="works-n">01</span><span
-                      class="works-name">ALU</span><span class="works-st">3488 CMOS</span></a></li>
-                <li class="is-now"><a href="boards/07-alu.html"><span class="works-n">07</span><span
-                      class="works-name">ALU</span><span class="works-st">Soldered</span></a></li>
-                <li><a href="boards/02-shift.html"><span class="works-n">02</span><span
-                      class="works-name">Shift</span><span class="works-st">In design</span></a></li>
-                <li><a href="boards/03-memory.html"><span class="works-n">03</span><span
-                      class="works-name">Memory</span><span class="works-st">In design</span></a></li>
-                <li><a href="boards/04-register.html"><span class="works-n">04</span><span
-                      class="works-name">Register</span><span class="works-st">In design</span></a></li>
-                <li><a href="boards/05-pc.html"><span class="works-n">05</span><span class="works-name">PC</span><span
-                      class="works-st">In design</span></a></li>
-                <li><a href="boards/06-bus.html"><span class="works-n">06</span><span class="works-name">Bus</span><span
-                      class="works-st">In design</span></a></li>
-              </ol>
-            </div>
-          </div>
-          <p class="shelf-meta">KiCad 10 · 07_alu soldered August 2026 · two 8-bit slices</p>
-        </div>
-      </section>
-
-      <section class="section section--double">
-        <div class="wrap">
-          <p class="exhibit-label">Playground · 07_alu</p>
-          <h2 class="shelf-title">Turn the board that left the screen.</h2>
-          <p class="ads-rate">Drag to orbit · pinch to zoom · Dual-LUT copper in the round</p>
-          <div class="bench">
-            <p class="ad-colhead">The slice in the round</p>
-            <div class="bench-stage">
-              <span class="bench-hint">KiCad GLB · <a href="board.html">open the board</a> · <a
-                  href="playground.html">run the slice</a></span>
-              <canvas id="bench" aria-label="Interactive 3D view of Tomato 07_alu."></canvas>
-              <a class="bench-tour" href="viewer.html">
-                <i></i>
-                <span>Tour&nbsp;<span class="tour-text">the board</span></span>
-              </a>
-            </div>
-            <div class="bench-tools">
-              <button type="button" data-bench="top">Top</button>
-              <button type="button" data-bench="iso">Iso</button>
-              <button type="button" data-bench="side">Side</button>
-              <button type="button" data-bench="front">Front</button>
-              <button type="button" data-bench="copper">Bottom</button>
-              <button type="button" data-bench="flip" class="bench-btn-flip" hidden aria-hidden="true" tabindex="-1">Flip</button>
-              <button type="button" data-bench="reset">Reset</button>
-              <button type="button" data-bench="spin" class="is-on">Hold</button>
-              <button type="button" data-bench="grid" class="is-on">Grid</button>
-              <a class="is-tour" href="viewer.html">Tour&nbsp;<span class="tour-text">the board</span></a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="wrap">
-          <div class="rule"></div>
-          <blockquote class="pull">
-            <p>If you love computers because of how they are built, not just what they run, this journal is the entry
+</div>
+<nav aria-label="Continue inside" class="jump jump--loud">
+<a href="architecture.html">Open architecture</a>
+<a href="playground.html">Dual-LUT playground</a>
+<a href="boards.html">Board catalog</a>
+</nav>
+</div>
+</section>
+<section class="section section--double">
+<div class="wrap">
+<div class="ads-mast">
+<p class="exhibit-label">Progress of Works · Lot 07</p>
+<h2 class="shelf-title">This board has left the screen.</h2>
+<p class="ads-rate">The transistor board set the foundation. The Dual-LUT datapath is soldered and on the bench.</p>
+</div>
+<div class="ads-sheet">
+<p class="ads-bar"><span>Then and now</span><span>Authority of copper</span></p>
+<a class="ad-face ad-face--then" href="boards/01-alu.html"><p class="ad-face-kicker"><span>Then · lot 01</span><span>Predecessor</span></p><span class="ad-face-shot"><img alt="Discrete MOSFET hybrid ALU — the predecessor." decoding="async" height="1120" loading="lazy" src="assets/plates/legacy-alu_full_3d.webp" width="1120"/></span><div class="ad-face-copy"><p class="ad-no">01</p><h3>ALU</h3><p class="ad-stamp">3,488 CMOS hybrid</p><p class="ad-blurb"><strong>3,488</strong>discrete CMOS transistors ·<strong>19 operations</strong>·<strong>5 flags</strong>· power hungry ·<strong>270×270 mm</strong>. Parasitic capacitance and
+                  extreme assembly time forced the pivot—not the idea.</p><dl class="ad-facts"><div><dt>Outline</dt><dd>270 × 270 mm</dd></div><div><dt>Ops / flags</dt><dd>19 · 5</dd></div><div><dt>Authority</dt><dd>Paper · proven</dd></div></dl><p class="ad-cta">Open alu.tmarhguy.com</p></div></a>
+<a class="ad-face ad-face--now" href="journal.html"><p class="ad-face-kicker"><span>Now · lot 07</span><span>Soldered</span></p><span class="ad-face-shot"><img alt="Half-soldered 07_alu Dual-LUT slice next to its Digital simulation." decoding="async" height="1120" loading="lazy" sizes="(max-width: 860px) min(100vw - 1.7rem, 22rem), min(22rem, 36vw)" src="assets/gallery/assembly/half-soldered-plate-640w.webp" srcset="assets/gallery/assembly/half-soldered-plate-640w.webp 640w, assets/gallery/assembly/half-soldered-plate-1280w.webp 1280w, assets/assembly/half-soldered-plate.webp 1120w" width="1120"/></span><div class="ad-face-copy"><p class="ad-no">07</p><h3>ALU</h3><p class="ad-stamp">Dual-LUT · soldered</p><p class="ad-blurb">Every<strong>74ACT151</strong>is down on one board, the<strong>74ACT283</strong>adders with them, and seven LEDs of the debug wall. The slice sits next to the sim.</p><dl class="ad-facts"><div><dt>Footprint</dt><dd>99.95 × 99.80 mm</dd></div><div><dt>Density</dt><dd>25 logic ICs / 8b</dd></div><div><dt>Authority</dt><dd>In assembly · August 2026</dd></div></dl><p class="ad-cta">Open the Journal</p></div></a>
+<div class="works">
+<p class="ad-colhead">The path forward · green is done · gold is now</p>
+<ol aria-label="Board lots" class="works-track">
+<li class="is-past"><a href="boards/01-alu.html"><span class="works-n">01</span><span class="works-name">ALU</span><span class="works-st">3488 CMOS</span></a></li>
+<li class="is-now"><a href="boards/07-alu.html"><span class="works-n">07</span><span class="works-name">ALU</span><span class="works-st">Soldered</span></a></li>
+<li><a href="boards/02-shift.html"><span class="works-n">02</span><span class="works-name">Shift</span><span class="works-st">In design</span></a></li>
+<li><a href="boards/03-memory.html"><span class="works-n">03</span><span class="works-name">Memory</span><span class="works-st">In design</span></a></li>
+<li><a href="boards/04-register.html"><span class="works-n">04</span><span class="works-name">Register</span><span class="works-st">In design</span></a></li>
+<li><a href="boards/05-pc.html"><span class="works-n">05</span><span class="works-name">PC</span><span class="works-st">In design</span></a></li>
+<li><a href="boards/06-bus.html"><span class="works-n">06</span><span class="works-name">Bus</span><span class="works-st">In design</span></a></li>
+</ol>
+</div>
+</div>
+<p class="shelf-meta">KiCad 10 · 07_alu soldered August 2026 · two 8-bit slices</p>
+</div>
+</section>
+<section class="section section--double">
+<div class="wrap">
+<p class="exhibit-label">Playground · 07_alu</p>
+<h2 class="shelf-title">Turn the board that left the screen.</h2>
+<p class="ads-rate">Drag to orbit · pinch to zoom · Dual-LUT copper in the round</p>
+<div class="bench">
+<p class="ad-colhead">The slice in the round</p>
+<div class="bench-stage">
+<span class="bench-hint">KiCad GLB · <a href="board.html">open the board</a> · <a href="playground.html">run the slice</a></span>
+<canvas aria-label="Interactive 3D view of Tomato 07_alu." id="bench"></canvas>
+<a class="bench-tour" href="viewer.html"><i></i><span>Tour<span class="tour-text">the board</span></span></a>
+</div>
+<div class="bench-tools">
+<button data-bench="top" type="button">Top</button>
+<button data-bench="iso" type="button">Iso</button>
+<button data-bench="side" type="button">Side</button>
+<button data-bench="front" type="button">Front</button>
+<button data-bench="copper" type="button">Bottom</button>
+<button aria-hidden="true" class="bench-btn-flip" data-bench="flip" hidden="" tabindex="-1" type="button">Flip</button>
+<button data-bench="reset" type="button">Reset</button>
+<button class="is-on" data-bench="spin" type="button">Hold</button>
+<button class="is-on" data-bench="grid" type="button">Grid</button>
+<a class="is-tour" href="viewer.html">Tour<span class="tour-text">the board</span></a>
+</div>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="wrap">
+<div class="rule"></div>
+<blockquote class="pull">
+<p>If you love computers because of how they are built, not just what they run, this journal is the entry
               point.</p>
-            <cite><a href="journal.html">The Vault &amp; Journal · docs/log on paper</a></cite>
-          </blockquote>
-        </div>
-      </section>
-
-      <section class="section section--room">
-        <div class="wrap forms">
-          <div class="form">
-            <div class="form-top">
-              <p class="form-kicker">Source of Truth</p>
-            </div>
-            <div class="form-body">
-              <h2 class="form-title">Open GitHub.</h2>
-              <p class="lead">Digital schematics, KiCad boards, opcode CSVs, formal jobs, and the vault. Authority lives
+<cite><a href="journal.html">The Vault &amp; Journal · docs/log on paper</a></cite>
+</blockquote>
+</div>
+</section>
+<section class="section section--room">
+<div class="wrap forms">
+<div class="form">
+<div class="form-top">
+<p class="form-kicker">Source of Truth</p>
+</div>
+<div class="form-body">
+<h2 class="form-title">Open GitHub.</h2>
+<p class="lead">Digital schematics, KiCad boards, opcode CSVs, formal jobs, and the vault. Authority lives
                 in the repository.</p>
-              <div class="form-foot">
-                <a class="btn" href="source.html">Open GitHub</a>
-                <p class="form-note">Study, build, fork.<br />© 2026 Tyrone Marhguy · CERN-OHL-P</p>
-              </div>
-            </div>
-          </div>
-          <div class="form">
-            <div class="form-top">
-              <p class="form-kicker">Correspondent</p>
-            </div>
-            <div class="form-body">
-              <h2 class="form-title"><a href="https://tmarhguy.com">Tyrone Marhguy</a></h2>
-              <p class="lead">Builder · Computer Engineering ’28 · Penn. Little obsession, evolved ALU, most rewarding
+<div class="form-foot">
+<a class="btn" href="source.html">Open GitHub</a>
+<p class="form-note">Study, build, fork.<br/>© 2026 Tyrone Marhguy · CERN-OHL-P</p>
+</div>
+</div>
+</div>
+<div class="form">
+<div class="form-top">
+<p class="form-kicker">Correspondent</p>
+</div>
+<div class="form-body">
+<h2 class="form-title"><a href="https://tmarhguy.com">Tyrone Marhguy</a></h2>
+<p class="lead">Builder · Computer Engineering ’28 · Penn. Little obsession, evolved ALU, most rewarding
                 migraine—<strong>639 hours</strong> and counting.</p>
-              <div class="form-foot">
-                <a class="btn" href="about.html">About</a>
-                <p class="form-note"><a href="mailto:tmarhguy@gmail.com">tmarhguy@gmail.com</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-band">
-        <div class="footer-art">
-          <p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
-        </div>
-      </div>
-    </footer>
-  </div>
-  <script type="module">
+<div class="form-foot">
+<a class="btn" href="about.html">About</a>
+<p class="form-note"><a href="mailto:tmarhguy@gmail.com">tmarhguy@gmail.com</a></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script type="module">
     const bench = document.getElementById("bench");
     if (bench) {
       const io = new IntersectionObserver((entries, obs) => {
@@ -739,9 +589,7 @@
       io.observe(bench);
     }
   </script>
-
-  <script src="js/mast.js" defer></script>
-  <script src="js/compiler-reels.js" defer></script>
+<script defer="" src="js/mast.js?v=240"></script>
+<script defer="" src="js/compiler-reels.js"></script>
 </body>
-
 </html>

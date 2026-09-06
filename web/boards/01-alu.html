@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -18,13 +19,16 @@
       } catch (e) {}
     })();
   </script>
-  <title>Lot 01 — Transistor ALU — The Tomato</title>
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/magazine.css" />
-  <link rel="stylesheet" href="../css/site.css?v=34" />
+<title>Lot 01 — Transistor ALU — The Tomato</title>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="../css/magazine.css" rel="stylesheet"/>
+<link href="../css/site.css?v=34" rel="stylesheet"/>
+<link href="../css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/navigation.css?v=250" />
+<script src="../js/navigation.js?v=250" defer></script>
 <!-- tomato-seo -->
   <meta name="description" content="The Tomato 32-bit CPU" />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato PCB, KiCad lot, discrete ALU board, Lot, Transistor, ALU, tomato, 32-bit" />
@@ -39,6 +43,9 @@
   <meta property="og:url" content="https://tomato.tmarhguy.com/boards/01-alu.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/boards/01-alu.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -47,6 +54,7 @@
   <meta name="twitter:title" content="Lot 01 — Transistor ALU — The Tomato" />
   <meta name="twitter:description" content="The Tomato 32-bit CPU" />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -61,88 +69,64 @@
 }</script>
   <!-- /tomato-seo -->
 </head>
-<body>
-  <div class="page page--site">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="../index.html">Front</a>
-          <a href="../architecture.html">Architecture</a>
-          <a href="../verification.html">Verification</a>
-          <a href="../isa.html">ISA</a>
-          <a href="../software.html">Software</a>
-          <a href="../os.html">Tomato OS</a>
-          <a href="../playground.html">Playground</a>
-          <a href="../journal.html">Journal</a>
-          <a href="../boards.html" aria-current="page">Catalog</a>
-          <a href="../board.html">Orbit</a>
-          <a href="../gallery.html">Gallery</a>
-          <a href="../source.html">GitHub</a>
-          <a href="../about.html">About</a>
-          <a class="is-tour" href="../viewer.html">Tour the board</a>
-        </nav>
-      </div>
-      <a class="site-brand-seed nameplate" href="../index.html" hidden>
-        <img src="../assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-</header>
-    <main>
-      <section class="site-hero site-hero--solo">
-        <div class="site-hero__copy">
+<body class="project-document">
+<div class="page project-page project-board-detail"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<main class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../boards.html">Board catalog</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
 <p class="kicker">Lot 01 · ALU · Historical</p>
-          <h1 class="headline">The 270 millimetre predecessor — complete on paper, set aside for copper.</h1>
-          <p class="deck">Before Tomato’s dual-LUT pivot, there was <a href="https://alu.tmarhguy.com" target="_blank" rel="noopener noreferrer">alu.tmarhguy.com</a>: an 8-bit hybrid ALU from <strong>3,488 discrete MOSFETs</strong> on a monolithic 270×270&nbsp;mm board.</p>
-          <p class="byline">270 × 270 mm · 19 operations · 5 flags · pure combinational</p>
-        </div>
-      </section>
-      <div class="site-layout">
-        <aside class="site-toc" data-arch-map data-root="../"></aside>
-        <div class="site-body">
-      <section class="section">
-        <div class="site-prose">
-          <p class="drop">This lot is the origin story—not the board that went to JLCPCB. It proved the narrative: a full ALU you could hold, with a custom graphics block in the bottom-left corner, power-hungry and proud. The physical reality of hand-soldering 3,500 discrete transistors—and the resulting parasitic noise—forced the pivot to <strong>74xx dual-LUT</strong> slices (<a href="07-alu.html">07_alu</a>). The idea survived; the 270&nbsp;mm outline did not.</p>
-          <h2>Functional blocks</h2>
-          <p><strong>Arithmetic (top-left):</strong> 8× 1-bit full adders, XOR array for B, carry chain — A + B or A − B via 2’s complement.</p>
-          <p><strong>Logic (top-right):</strong> NAND, NOR, XOR, PASS A/B through a 5:1 mux bank.</p>
-          <p><strong>Selection (center):</strong> 2:1 mux between arithmetic and logic, global inverter.</p>
-          <p><strong>Flags (bottom-left):</strong> EQUAL, LESS, POSITIVE, COUT — same quadrant philosophy as the successor board’s flag sheet.</p>
-          <p><strong>Control (bottom-right):</strong> <strong>FUNC[4:0]</strong> → M, MUX_SEL, INV_OUT, LOGIC_SEL — combinational decode, no clock.</p>
-          <dl class="ad-facts" style="column-span: all; max-width: 28rem;">
-            <div><dt>Outline</dt><dd>270 × 270 mm = 72,900 mm²</dd></div>
-            <div><dt>Density</dt><dd>436 T/bit · ≈9112 mm²/bit</dd></div>
-            <div><dt>Delay</dt><dd>~445 ns worst case</dd></div>
-            <div><dt>Power</dt><dd>5 V · 0.5–1 A · &lt;200 mA idle bring-up</dd></div>
-            <div><dt>Status</dt><dd>Design complete · superseded by 07</dd></div>
-          </dl>
-          <figure class="plate">
-            <img src="../assets/plates/alu-4b.jpg" alt="Four-bit ALU slice schematic — origin of the Tomato datapath." />
-            <figcaption class="plate-cap"><span>Fig. — 4-bit slice</span><span>Paper authority · lot 01</span></figcaption>
-          </figure>
-          <p>The live predecessor site still documents bench photos, operations, and the transistor romance: <a href="https://alu.tmarhguy.com" target="_blank" rel="noopener noreferrer">alu.tmarhguy.com</a>.</p>
-        </div>
-        <div class="wrap">
-          <nav class="jump">
-            <a href="../boards.html">← Board catalog</a>
-            <a href="07-alu.html">Successor · 07_alu →</a>
-          </nav>
-          <nav class="pager">
-            <a href="08-display.html"><span class="dir">Previous lot</span><span class="to">08 · Display</span></a>
-            <a class="next" href="02-shift.html"><span class="dir">Next lot</span><span class="to">02 · Shift</span></a>
-          </nav>
-        </div>
-      </section>
-        </div>
-      </div>
-    </main>
-    <footer class="footer"><div class="footer-band"><div class="footer-art">
-<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
-  </div>
-  <script type="module" src="../js/arch-map.js"></script>
-  <script src="../js/mast.js" defer></script>
+<h1 class="project-title" id="page-title">The 270 millimetre predecessor — complete on paper, set aside for copper.</h1>
+<p class="deck">Before Tomato’s dual-LUT pivot, there was <a href="https://alu.tmarhguy.com" rel="noopener noreferrer" target="_blank">alu.tmarhguy.com</a>: an 8-bit hybrid ALU from <strong>3,488 discrete MOSFETs</strong> on a monolithic 270×270 mm board.</p>
+<p class="byline">270 × 270 mm · 19 operations · 5 flags · pure combinational</p>
+</div>
+</section>
+<div class="project-reading-layout">
+<aside class="project-toc"><details open=""><summary>On this page</summary><nav aria-label="On this page"><a href="#section-1">Functional blocks</a></nav></details></aside>
+<div class="project-reading-body">
+<section class="section">
+<div class="site-prose">
+<p class="">This lot is the origin story—not the board that went to JLCPCB. It proved the narrative: a full ALU you could hold, with a custom graphics block in the bottom-left corner, power-hungry and proud. The physical reality of hand-soldering 3,500 discrete transistors—and the resulting parasitic noise—forced the pivot to <strong>74xx dual-LUT</strong> slices (<a href="07-alu.html">07_alu</a>). The idea survived; the 270 mm outline did not.</p>
+<h2 id="section-1">Functional blocks</h2>
+<p><strong>Arithmetic (top-left):</strong> 8× 1-bit full adders, XOR array for B, carry chain — A + B or A − B via 2’s complement.</p>
+<p><strong>Logic (top-right):</strong> NAND, NOR, XOR, PASS A/B through a 5:1 mux bank.</p>
+<p><strong>Selection (center):</strong> 2:1 mux between arithmetic and logic, global inverter.</p>
+<p><strong>Flags (bottom-left):</strong> EQUAL, LESS, POSITIVE, COUT — same quadrant philosophy as the successor board’s flag sheet.</p>
+<p><strong>Control (bottom-right):</strong> <strong>FUNC[4:0]</strong> → M, MUX_SEL, INV_OUT, LOGIC_SEL — combinational decode, no clock.</p>
+<dl class="ad-facts" style="column-span: all; max-width: 28rem;">
+<div><dt>Outline</dt><dd>270 × 270 mm = 72,900 mm²</dd></div>
+<div><dt>Density</dt><dd>436 T/bit · ≈9112 mm²/bit</dd></div>
+<div><dt>Delay</dt><dd>~445 ns worst case</dd></div>
+<div><dt>Power</dt><dd>5 V · 0.5–1 A · &lt;200 mA idle bring-up</dd></div>
+<div><dt>Status</dt><dd>Design complete · superseded by 07</dd></div>
+</dl>
+<figure class="plate">
+<img alt="Four-bit ALU slice schematic — origin of the Tomato datapath." src="../assets/plates/alu-4b.jpg"/>
+<figcaption class="plate-cap"><span>Fig. — 4-bit slice</span><span>Paper authority · lot 01</span></figcaption>
+</figure>
+<p>The live predecessor site still documents bench photos, operations, and the transistor romance: <a href="https://alu.tmarhguy.com" rel="noopener noreferrer" target="_blank">alu.tmarhguy.com</a>.</p>
+</div>
+<div class="wrap">
+<nav class="jump">
+<a href="../boards.html">Board catalog</a>
+<a href="07-alu.html">Successor · 07_alu</a>
+</nav>
+<nav class="pager">
+<a href="08-display.html"><span class="dir">Previous lot</span><span class="to">08 · Display</span></a>
+<a class="next" href="02-shift.html"><span class="dir">Next lot</span><span class="to">02 · Shift</span></a>
+</nav>
+</div>
+</section>
+</div>
+</div>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script src="../js/arch-map.js" type="module"></script>
+<script defer="" src="../js/mast.js?v=240"></script>
 <!-- tomato-vercel -->
-  <script src="../js/vercel-analytics.js" defer></script>
-  <script src="../js/vercel-speed-insights.js" defer></script>
+<script defer="" src="../js/vercel-analytics.js"></script>
+<script defer="" src="../js/vercel-speed-insights.js"></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

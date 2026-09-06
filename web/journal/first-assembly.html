@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -18,13 +19,17 @@
       } catch (e) {}
     })();
   </script>
-  <title>First phase of assembly — The Tomato</title>
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/magazine.css" />
-  <link rel="stylesheet" href="../css/site.css?v=34" />
+<title>First phase of assembly — The Tomato</title>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="../css/magazine.css" rel="stylesheet"/>
+<link href="../css/site.css?v=34" rel="stylesheet"/>
+<link href="../css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/navigation.css?v=250" />
+<script src="../js/navigation.js?v=250" defer></script>
+<link rel="stylesheet" href="../css/journal-article.css?v=2"/>
 <!-- tomato-seo -->
   <meta name="description" content="The Tomato 32-bit CPU" />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, First, phase, assembly, tomato, 32-bit" />
@@ -39,6 +44,9 @@
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/first-assembly.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/first-assembly.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -47,6 +55,7 @@
   <meta name="twitter:title" content="First phase of assembly — The Tomato" />
   <meta name="twitter:description" content="The Tomato 32-bit CPU" />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "Article",
@@ -67,99 +76,72 @@
 }</script>
   <!-- /tomato-seo -->
 </head>
-<body>
-  <div class="page page--site page--journal">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="../index.html">Front</a>
-          <a href="../architecture.html">Architecture</a>
-          <a href="../verification.html">Verification</a>
-          <a href="../isa.html">ISA</a>
-          <a href="../software.html">Software</a>
-          <a href="../os.html">Tomato OS</a>
-          <a href="../playground.html">Playground</a>
-          <a href="../journal.html" aria-current="page">Journal</a>
-          <a href="../boards.html">Catalog</a>
-          <a href="../board.html">Orbit</a>
-          <a href="../gallery.html">Gallery</a>
-          <a href="../source.html">GitHub</a>
-          <a href="../about.html">About</a>
-          <a class="is-tour" href="../viewer.html">Tour the board</a>
-        </nav>
-      </div>
-      <a class="site-brand-seed nameplate" href="../index.html" hidden>
-        <img src="../assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-    </header>
-
-    <main>
-      <section class="site-hero site-hero--solo">
-        <div class="site-hero__copy">
-          <p class="kicker">Dispatch · Lot 07</p>
-          <h1 class="headline">First phase of assembly</h1>
-          <p class="deck">The DigiKey box landed. Every <strong>74ACT151</strong> is down on one board, and so are the <strong>74ACT283</strong> adders. Seven LEDs. The copper is finally next to the sim.</p>
-          <p class="byline">18 August 2026 · from the log</p>
-        </div>
-      </section>
-      <section class="section section--journal">
-        <div class="site-prose wrap">
-          <p class="drop">Today is perhaps one of the most important ones of this project. The parts from DigiKey arrived — there was an initial delay, but they replaced the order when I called. After weeks of staring at digital schematics and KiCad renders, having physical silicon show up at the door is a huge milestone.</p>
-          <div class="two-up">
-            <figure class="plate">
-              <img src="../assets/assembly/digikey-box.webp" alt="DigiKey shipping box — the 74ACT parts for 07_alu, 17 August 2026." width="1240" height="720" />
-              <figcaption class="plate-cap"><span>Fig. 1 — The box</span><span>DigiKey · 17 Aug</span></figcaption>
-            </figure>
-            <figure class="plate">
-              <video muted loop playsinline webkit-playsinline preload="metadata"
-                poster="../assets/assembly/work-setup.webp" width="960" height="738"
-                aria-label="Soldering lights on loop — Tomato 07_alu on the bench.">
-                <source src="../assets/assembly/work-setup.mp4" type="video/mp4" />
-              </video>
-              <figcaption class="plate-cap"><span>Fig. 2 — The bench</span><span>Soldering lights · board cutaways</span></figcaption>
-            </figure>
-          </div>
-          <p>With the components finally here I cleared the desk, set out the flux and tweezers, and laid the tools for a real assembly pass. The footprint on these SMD chips is a different object when you are holding them than when you are placing them on a grid.</p>
-          <h2>Logic down</h2>
-          <p>All parts are in. I have soldered every <strong>74ACT151</strong> on one of the boards, and each adder (<strong>74ACT283</strong>). The 74ACT series wants a steady hand. Laying down that much logic takes time and patience.</p>
-          <figure class="figure figure--inset">
-            <video src="../assets/assembly/placing-and-soldering.mp4" poster="../assets/assembly/placing-and-soldering.webp" controls playsinline preload="metadata" width="464" height="528"></video>
-            <figcaption class="caption"><span>Fig. 3 — Placement</span><span>74ACT151s and 74ACT283s onto 07_alu</span></figcaption>
-          </figure>
-          <p>The LEDs are tiny. I have soldered about seven of them. Aligning them without bridging the pads is a test of endurance, but seeing those indicators sit on the copper makes it worth it.</p>
-          <figure class="figure plate--square figure--inset">
-            <video src="../assets/assembly/soldering-led.mp4" poster="../assets/assembly/soldering-led.webp" controls playsinline preload="metadata" width="480" height="480"></video>
-            <figcaption class="caption"><span>Fig. 4 — Lamps</span><span>0805 indicators · seven down</span></figcaption>
-          </figure>
-          <h2>Next to the sim</h2>
-          <p>It is exciting seeing these parts for the first time and each of them fitting. I held the half-soldered board next to the simulation on the monitor. Looking back and forth between the digital truth table and the physical gates on the mat is surreal.</p>
-          <figure class="figure plate--square figure--inset">
-            <img src="../assets/assembly/half-soldered-plate.webp" alt="Half-soldered Tomato ALU 8-bit board held next to its Digital simulation on the monitor." width="1120" height="1120" loading="lazy" />
-            <figcaption class="caption"><span>Fig. 5 — Side by side</span><span>Copper · Digital · the same slice</span></figcaption>
-          </figure>
-          <p>Each one fit so nicely that it made the months of routing and DRC feel suddenly concrete. Designing the paths in KiCad is one thing. Seeing the copper line up with the pins is another. This board is finally coming to life.</p>
-          <figure class="figure figure--inset">
-            <img src="../assets/assembly/board-test.webp" alt="Tomato 07_alu on the bench under test — tools and board on the mat." width="1600" height="1200" loading="lazy" />
-            <figcaption class="caption"><span>Fig. 6 — On-board test</span><span>Yay · the slice on the mat</span></figcaption>
-          </figure>
-          <p>Earlier in the paper: the <a href="ordered.html">order</a>, the <a href="pcbs-arrive.html">bare boards</a>, the <a href="solder-station.html">iron</a>. Lot <a href="../boards/07-alu.html">07</a> is no longer a render.</p>
-        </div>
-        <div class="wrap">
-          <nav class="pager">
-            <a href="web-optimization.html"><span class="dir">Previous</span><span class="to">Web optimization</span></a>
-            <a class="next" href="gallery-paradox.html"><span class="dir">Next</span><span class="to">The gallery paradox</span></a>
-          </nav>
-        </div>
-      </section>
-    </main>
-    <footer class="footer"><div class="footer-band"><div class="footer-art">
-<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p></div></div></footer>
-  </div>
-  <script src="../js/mast.js" defer></script>
+<body class="project-document">
+<div class="page project-page project-article journal-redesign"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<main data-journal-kind="bench" class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../journal.html">Journal</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
+<p class="kicker">Dispatch · Lot 07</p>
+<h1 class="project-title" id="page-title">First phase of assembly</h1>
+<p class="deck">The DigiKey box landed. Every <strong>74ACT151</strong> is down on one board, and so are the <strong>74ACT283</strong> adders. Seven LEDs. The copper is finally next to the sim.</p>
+<p class="byline">18 August 2026 · from the log</p>
+</div>
+</section><aside class="journal-decision" aria-label="The entry at a glance"><div><span>The starting point</span><p>The parts finally arrive</p></div><div><span>The move</span><p>Solder muxes, adders, and LEDs</p></div><div><span>The result or direction</span><p>The schematic becomes a board</p></div></aside>
+<section class="section section--journal">
+<div class="site-prose wrap">
+<p class="">Today is perhaps one of the most important ones of this project. The parts from DigiKey arrived — there was an initial delay, but they replaced the order when I called. After weeks of staring at digital schematics and KiCad renders, having physical silicon show up at the door is a huge milestone.</p>
+<div class="two-up">
+<figure class="plate">
+<img alt="DigiKey shipping box — the 74ACT parts for 07_alu, 17 August 2026." height="720" src="../assets/assembly/digikey-box.webp" width="1240"/>
+<figcaption class="plate-cap"><span>Fig. 1 — The box</span><span>DigiKey · 17 Aug</span></figcaption>
+</figure>
+<figure class="plate">
+<video aria-label="Soldering lights on loop — Tomato 07_alu on the bench." height="738" loop="" muted="" playsinline="" poster="../assets/assembly/work-setup.webp" preload="metadata" webkit-playsinline="" width="960">
+<source src="../assets/assembly/work-setup.mp4" type="video/mp4"/>
+</video>
+<figcaption class="plate-cap"><span>Fig. 2 — The bench</span><span>Soldering lights · board cutaways</span></figcaption>
+</figure>
+</div>
+<p>With the components finally here I cleared the desk, set out the flux and tweezers, and laid the tools for a real assembly pass. The footprint on these SMD chips is a different object when you are holding them than when you are placing them on a grid.</p>
+<h2 id="read-logic-down">Logic down</h2>
+<p>All parts are in. I have soldered every <strong>74ACT151</strong> on one of the boards, and each adder (<strong>74ACT283</strong>). The 74ACT series wants a steady hand. Laying down that much logic takes time and patience.</p>
+<figure class="figure figure--inset">
+<video controls="" height="528" playsinline="" poster="../assets/assembly/placing-and-soldering.webp" preload="metadata" src="../assets/assembly/placing-and-soldering.mp4" width="464"></video>
+<figcaption class="caption"><span>Fig. 3 — Placement</span><span>74ACT151s and 74ACT283s onto 07_alu</span></figcaption>
+</figure>
+<p>The LEDs are tiny. I have soldered about seven of them. Aligning them without bridging the pads is a test of endurance, but seeing those indicators sit on the copper makes it worth it.</p>
+<figure class="figure plate--square figure--inset">
+<video controls="" height="480" playsinline="" poster="../assets/assembly/soldering-led.webp" preload="metadata" src="../assets/assembly/soldering-led.mp4" width="480"></video>
+<figcaption class="caption"><span>Fig. 4 — Lamps</span><span>0805 indicators · seven down</span></figcaption>
+</figure>
+<h2 id="read-next-to-the-sim">Next to the sim</h2>
+<p>It is exciting seeing these parts for the first time and each of them fitting. I held the half-soldered board next to the simulation on the monitor. Looking back and forth between the digital truth table and the physical gates on the mat is surreal.</p>
+<figure class="figure plate--square figure--inset">
+<img alt="Half-soldered Tomato ALU 8-bit board held next to its Digital simulation on the monitor." height="1120" loading="lazy" src="../assets/assembly/half-soldered-plate.webp" width="1120"/>
+<figcaption class="caption"><span>Fig. 5 — Side by side</span><span>Copper · Digital · the same slice</span></figcaption>
+</figure>
+<p>Each one fit so nicely that it made the months of routing and DRC feel suddenly concrete. Designing the paths in KiCad is one thing. Seeing the copper line up with the pins is another. This board is finally coming to life.</p>
+<figure class="figure figure--inset">
+<img alt="Tomato 07_alu on the bench under test — tools and board on the mat." height="1200" loading="lazy" src="../assets/assembly/board-test.webp" width="1600"/>
+<figcaption class="caption"><span>Fig. 6 — On-board test</span><span>Yay · the slice on the mat</span></figcaption>
+</figure>
+<p>Earlier in the paper: the <a href="ordered.html">order</a>, the <a href="pcbs-arrive.html">bare boards</a>, the <a href="solder-station.html">iron</a>. Lot <a href="../boards/07-alu.html">07</a> is no longer a render.</p>
+</div>
+<div class="wrap">
+<nav class="pager">
+<a href="web-optimization.html"><span class="dir">Previous</span><span class="to">Web optimization</span></a>
+<a class="next" href="gallery-paradox.html"><span class="dir">Next</span><span class="to">The gallery paradox</span></a>
+</nav>
+</div>
+</section>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script defer="" src="../js/mast.js?v=240"></script>
 <!-- tomato-vercel -->
-  <script src="../js/vercel-analytics.js" defer></script>
-  <script src="../js/vercel-speed-insights.js" defer></script>
+<script defer="" src="../js/vercel-analytics.js"></script>
+<script defer="" src="../js/vercel-speed-insights.js"></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

@@ -1,5 +1,6 @@
 /* 07_alu playground — lighting and materials match the 8-bit ALU site. */
 import * as THREE from "three";
+import { createBenchIdle } from "./bench-idle.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { lightPcbScene, loadFittedPcb, studioEnv } from "./pcb-look.js";
 
@@ -68,7 +69,7 @@ function injectHud(stage) {
         <p class="bench-legend-row"><span>Slide</span><kbd>Right-drag</kbd></p>
         <p class="bench-legend-row"><span>Zoom</span><kbd>Scroll</kbd></p>
         <p class="bench-legend-row"><span>Hold</span><kbd>Space</kbd></p>
-        <p class="bench-legend-row"><span>Top / Iso / Side</span><kbd>1 2 3</kbd></p>
+        <p class="bench-legend-row"><span>Views</span><kbd>1 2 3 4</kbd></p>
         <p class="bench-legend-row"><span>Reset / Tour / Grid</span><kbd>R I G</kbd></p>
       </div>
       <div class="bench-legend bench-legend--hand">
@@ -127,7 +128,7 @@ export async function mountBench(canvas, opts) {
   const controls = new OrbitControls(camera, canvas);
   controls.enableDamping = true;
   controls.dampingFactor = mobile ? 0.12 : 0.08;
-  controls.autoRotate = true;
+  controls.autoRotate = opts.autoRotate !== false;
   controls.autoRotateSpeed = mobile ? -1.4 : -2.66;
   controls.rotateSpeed = mobile ? 0.65 : 0.9;
   controls.zoomSpeed = mobile ? 0.85 : 1.05;
@@ -156,6 +157,7 @@ export async function mountBench(canvas, opts) {
   let maxDim = 10;
   const look = new THREE.Vector3();
   let anim = null;
+  let resumeAfterReset = false;
   let hovered = false;
   let onScreen = false;
   let pageVisible = true;
@@ -217,6 +219,7 @@ export async function mountBench(canvas, opts) {
   };
 
   function go(name, ms = 800) {
+    resumeAfterReset = false;
     controls.autoRotate = false;
     syncSpin();
     const v = views[name]?.();
@@ -288,6 +291,13 @@ export async function mountBench(canvas, opts) {
 
   let currentView = "reset";
 
+  const viewCycle = [
+    { id: "top", label: "Top" },
+    { id: "iso", label: "Isometric" },
+    { id: "side", label: "Side" },
+    { id: "copper", label: "Bottom" },
+  ];
+
   function syncSpin() {
     const btn = canvas.closest(".bench")?.querySelector('[data-bench="spin"]');
     if (btn) {
@@ -300,6 +310,20 @@ export async function mountBench(canvas, opts) {
     root.querySelectorAll("[data-bench]").forEach((btn) => {
       const name = btn.getAttribute("data-bench");
       if (name === "spin" || name === "grid") return;
+      if (name === "view") {
+        const idx = viewCycle.findIndex((v) => v.id === currentView);
+        const entry = idx >= 0 ? viewCycle[idx] : null;
+        const next = viewCycle[(idx >= 0 ? idx + 1 : 0) % viewCycle.length];
+        btn.textContent = entry ? entry.label : "View";
+        btn.classList.toggle("is-on", idx >= 0);
+        btn.setAttribute(
+          "aria-label",
+          entry
+            ? `Camera view ${entry.label}. Click for ${next.label}`
+            : `Cycle camera views. Click for ${next.label}`
+        );
+        return;
+      }
       if (name === "flip") {
         const onCopper = currentView === "copper";
         btn.textContent = onCopper ? "Top" : "Bottom";
@@ -337,9 +361,21 @@ export async function mountBench(canvas, opts) {
 
   function syncGrid() {
     const btn = canvas.closest(".bench")?.querySelector('[data-bench="grid"]');
-    if (btn) btn.classList.toggle("is-on", grid.visible);
+    if (btn) {
+      const on = grid.visible;
+      btn.classList.toggle("is-on", on);
+      btn.setAttribute("aria-pressed", String(on));
+      btn.setAttribute("aria-label", on ? "Hide floor grid" : "Show floor grid");
+    }
   }
 
+  const idle = createBenchIdle({
+    delayMs: opts.idleResetMs || 0,
+    onIdle() {
+      go("reset", 1000);
+      resumeAfterReset = true;
+    },
+  });
   let raf = 0;
   controls.addEventListener("change", () => {
     lastInput = performance.now();
@@ -359,7 +395,14 @@ export async function mountBench(canvas, opts) {
       controls.target.lerpVectors(anim.fromT, anim.toT, e);
       camera.fov = THREE.MathUtils.lerp(anim.fromF, anim.toF, e);
       camera.updateProjectionMatrix();
-      if (u >= 1) anim = null;
+      if (u >= 1) {
+        anim = null;
+        if (resumeAfterReset) {
+          resumeAfterReset = false;
+          controls.autoRotate = true;
+          syncSpin();
+        }
+      }
     }
 
     controls.update();
@@ -371,6 +414,7 @@ export async function mountBench(canvas, opts) {
   const io = new IntersectionObserver(
     ([entry]) => {
       onScreen = entry.isIntersecting;
+      idle.setActive(isLive());
     },
     { threshold: 0.08 }
   );
@@ -378,10 +422,13 @@ export async function mountBench(canvas, opts) {
 
   function onVis() {
     pageVisible = !document.hidden;
+    idle.setActive(isLive());
   }
   document.addEventListener("visibilitychange", onVis);
 
   function haltSpin() {
+    resumeAfterReset = false;
+    anim = null;
     lastInput = performance.now();
     currentView = "";
     syncViewBtns();
@@ -408,6 +455,14 @@ export async function mountBench(canvas, opts) {
     hovered = false;
   });
   controls.addEventListener("start", haltSpin);
+  controls.addEventListener("start", idle.begin);
+  controls.addEventListener("end", idle.end);
+  const noteActivity = () => {
+    resumeAfterReset = false;
+    idle.activity();
+  };
+  root.addEventListener("pointerdown", noteActivity, { capture: true });
+  root.addEventListener("wheel", noteActivity, { capture: true, passive: true });
   let ptrDownX = 0, ptrDownY = 0, ptrDownTime = 0;
   let wasSpinning = false;
   let tapTimer = 0;
@@ -481,18 +536,27 @@ export async function mountBench(canvas, opts) {
   }
 
   function act(name) {
+    noteActivity();
     if (name === "reset") go("reset");
     if (name === "front") go("front");
     if (name === "copper") go("copper");
     if (name === "top") go("top");
     if (name === "iso") go("iso");
     if (name === "side") go("side");
+    if (name === "view") {
+      const idx = viewCycle.findIndex((v) => v.id === currentView);
+      const next = viewCycle[(idx >= 0 ? idx + 1 : 0) % viewCycle.length];
+      go(next.id);
+      return;
+    }
     if (name === "flip") {
       go(currentView === "copper" ? "top" : "copper");
       return;
     }
     if (name === "spin") {
+      anim = null;
       controls.autoRotate = !controls.autoRotate;
+      idle.hold(!controls.autoRotate);
       syncSpin();
     }
     if (name === "grid") {
@@ -540,8 +604,9 @@ export async function mountBench(canvas, opts) {
 
   function onKey(e) {
     if (!hovered && document.activeElement !== canvas) return;
-    if (e.target.closest("input, textarea")) return;
+    if (e.target.closest("input, textarea, select, button, a")) return;
     const k = e.key.toLowerCase();
+    if ([" ", "1", "2", "3", "4", "r", "i", "g", "arrowleft", "arrowright", "=", "+", "-", "_"].includes(k)) noteActivity();
     if (k === " ") {
       e.preventDefault();
       act("spin");
@@ -549,6 +614,8 @@ export async function mountBench(canvas, opts) {
     if (k === "1") act("top");
     if (k === "2") act("iso");
     if (k === "3") act("side");
+    if (k === "4") act("copper");
+    if (k === "v") act("view");
     if (k === "r") act("reset");
     if (k === "i") openTour();
     if (k === "g") act("grid");
@@ -603,6 +670,9 @@ export async function mountBench(canvas, opts) {
       return controls.autoRotate;
     },
     dispose() {
+      idle.dispose();
+      root.removeEventListener("pointerdown", noteActivity, true);
+      root.removeEventListener("wheel", noteActivity, true);
       cancelAnimationFrame(raf);
       themeObs.disconnect();
       ro.disconnect();

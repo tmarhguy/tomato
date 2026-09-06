@@ -60,6 +60,7 @@ const REQUIRED = [
   "assets/assembly/half-soldered-plate.webp",
   "assets/og/tomato-board.webp",
   "assets/pcb/board-iso.webp",
+  "assets/pcb/board-iso-light.webp",
   "assets/assembly/placing-and-soldering.mp4",
   "assets/assembly/placing-and-soldering.webp",
   "assets/assembly/soldering-led.mp4",
@@ -182,7 +183,7 @@ test("HTML documents have basics", () => {
       viewer
         ? /viewer\.css/
         : label === "index.html"
-          ? /magazine\.css/
+          ? /landing\.css/
           : /magazine\.css/,
       `${label}: stylesheet`
     );
@@ -235,8 +236,14 @@ test("primary nav present on every page", () => {
       assert.match(html, /index\.html/, `${label}: home`);
       continue;
     }
-    assert.match(html, /mast-nav/, `${label}: mast-nav`);
-    assert.match(html, /js\/mast\.js/, `${label}: hamburger script`);
+    if (label === "index.html") {
+      assert.match(html, /aria-label="Primary"/);
+      assert.match(html, /aria-label="All project pages"/);
+      assert.match(html, /js\/landing\.js/);
+    } else {
+      assert.match(html, /project-primary/, `${label}: static primary navigation`);
+      assert.match(html, /js\/mast\.js/, `${label}: shared interactions`);
+    }
     for (const page of [...NAV, "viewer.html"]) {
       const leaf = page.replace(/\.html$/, "");
       assert.ok(
@@ -262,7 +269,7 @@ test("board playground wires Three.js import map + bench module", () => {
   const board = readFileSync(join(WEB, "board.html"), "utf8");
   assert.match(index, /type=["']importmap["']/, "index.html: importmap");
   assert.match(index, /js\/bench\.js/, "index.html: bench module");
-  assert.match(index, /id=["']bench["']/, "index.html: #bench canvas");
+  assert.match(index, /id=["']front-bench["']/, "index.html: interactive board canvas");
   assert.match(board, /type=["']importmap["']/, "board.html: importmap");
   assert.match(board, /three@0\.169\.0/, "board.html: three CDN pin");
   assert.match(board, /js\/bench\.js/, "board.html: bench module");
@@ -277,7 +284,7 @@ test("source page loads forge.js", () => {
 
 test("playground wires Dual-LUT emulator modules", () => {
   const html = readFileSync(join(WEB, "playground.html"), "utf8");
-  assert.match(html, /type=["']module["'][^>]+js\/playground\.js/);
+  assert.match(html, /<script(?=[^>]*type=["']module["'])(?=[^>]*src=["']js\/playground\.js)[^>]*>/);
   assert.match(html, /id=["']pg-main["']/);
   assert.match(html, /id=["']pg-hero["']/);
   assert.match(html, /id=["']pg-bench["']/);
@@ -299,7 +306,7 @@ test("3D viewer page is the light 07_alu tour", () => {
   assert.match(html, /cdn\.jsdelivr\.net/);
   const css = readFileSync(join(WEB, "css/viewer.css"), "utf8");
   assert.match(css, /#050505/);
-  assert.match(css, /#8b1e1e|#c23a3a/);
+  assert.match(css, /#ff583f/);
   assert.match(css, /\.tour-caption/);
   const js = readFileSync(join(WEB, "js/viewer.js"), "utf8");
   const look = readFileSync(join(WEB, "js/pcb-look.js"), "utf8");
@@ -315,7 +322,7 @@ test("3D viewer page is the light 07_alu tour", () => {
   assert.match(index, /viewer\.html/, "index.html: Tour opens viewer");
   assert.match(index, /landing-hero__paths[\s\S]*is-tour[\s\S]*viewer\.html/, "index.html: Tour in hero paths");
   assert.match(index, /landing-hero__paths[\s\S]*architecture\.html/, "index.html: Architecture in hero paths");
-  assert.match(index, /landing-hero__paths[\s\S]*#what-is-tomato/, "index.html: What is Tomato anchor in hero paths");
+  assert.match(index, /href="#what-is-tomato"/, "index.html: introduction is reachable");
   assert.match(board, /viewer\.html/, "board.html: Tour opens viewer");
   assert.match(board, /class=["']bench-tour["']/, "board.html: Tour CTA on the board");
 });
@@ -394,25 +401,17 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
   assert.match(js, /deferSrc/);
 });
 
-test("front page latest dispatch is Register Upgrade", () => {
+test("homepage explains register capacity with bounded comparisons", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
-  assert.match(html, /id=["']dispatch["']/);
-  assert.match(html, /Register Upgrade/);
+  for (const phrase of ["32,768", "65,536", "storage capacity only", "NVIDIA Blackwell SM", "15 address bits", "RV32I", "x0"]) {
+    assert.ok(html.includes(phrase), `homepage missing register context: ${phrase}`);
+  }
   assert.match(html, /journal\/register-upgrade\.html/);
-  assert.match(html, /why-32768/);
-  assert.match(html, /Blackwell SM/);
-  assert.match(html, /15 address bits|15-bit address/);
-  assert.match(html, /32,768 General Purpose Register File/);
-  assert.match(html, /SETBANK2/);
-  assert.doesNotMatch(html, /HDMI<\/strong><span>boots on glass/);
-  assert.match(html, /id=["']iron["']/);
-  assert.match(html, /placing-and-soldering\.mp4/);
-  assert.match(html, /assets\/assembly\/work-setup\.mp4/);
-  assert.match(html, /assets\/og\/tomato-board\.webp/);
+  assert.match(html, /https:\/\/docs\.nvidia\.com\/cuda\/blackwell-tuning-guide/);
   const journal = readFileSync(join(WEB, "journal.html"), "utf8");
   assert.match(journal, /journal\/register-upgrade\.html/);
-  assert.match(journal, /thirty-four/i);
-  assert.match(journal, /Blackwell/);
+  assert.match(journal, /js\/journal-index\.js/);
+  assert.match(journal, /32,768/);
   assert.match(journal, /journal\/tomato-works\.html/);
   const upgrade = readFileSync(join(WEB, "journal/register-upgrade.html"), "utf8");
   assert.match(upgrade, /SETBANK2/);
@@ -426,19 +425,12 @@ test("front page latest dispatch is Register Upgrade", () => {
   assert.match(works, /register-upgrade\.html/);
 });
 
-test("front page hardware compiler links to the sweep clips", () => {
+test("homepage routes compiler evidence to the complete playground", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
-  assert.match(html, /href="#opcode-compiler"/);
-  assert.match(html, /opcode-sweep-sim\.mp4/);
-  assert.match(html, /opcode-sweep-fpga\.mp4/);
-  assert.match(html, /compiler-reels/);
-  assert.match(readFileSync(join(WEB, "js/landing.js"), "utf8"), /compiler-reels\.js/);
-  assert.match(html, /two-up--sweeps/);
   assert.match(html, /playground\.html#compiler/);
-  assert.doesNotMatch(html, /fpga-terminal-program\.mp4/);
-  assert.match(html, /data-src="assets\/compiler\/opcode-sweep-sim\.mp4"/);
   const js = readFileSync(join(WEB, "js/playground.js"), "utf8");
   assert.match(js, /opcode-sweep-fpga\.mp4/);
+  assert.match(js, /opcode-sweep-sim\.mp4/);
 });
 
 test("ditching-vivado ships open-source stack terminal clip", () => {
@@ -447,25 +439,18 @@ test("ditching-vivado ships open-source stack terminal clip", () => {
   assert.match(html, /Yosys · nextpnr · bitstream/);
 });
 
-test("front page swaps the black orbit MP4 in dark stock", () => {
+test("homepage loads the interactive board progressively with a fallback", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
-  assert.match(html, /hero\.mp4/);
-  assert.match(html, /immersion_black\.mp4/);
-  assert.match(html, /lead-clip--night/);
-  assert.match(html, /tomato\.theme/);
-  assert.match(html, /immersion_black/);
-  assert.match(html, /lead-lcp/);
+  const js = readFileSync(join(WEB, "js/landing.js"), "utf8");
+  assert.match(html, /board-iso\.webp/);
+  assert.match(html, /board-iso-light\.webp/);
+  assert.match(html, /__TOMATO_BOARD_ISO__/);
   assert.match(html, /fetchpriority="high"/);
-  assert.match(html, /hero-640w\.webp/);
-  assert.match(html, /active\.preload = "metadata"/);
-  assert.match(html, /IntersectionObserver/);
-  const js = readFileSync(join(WEB, "js/mast.js"), "utf8");
-  assert.match(js, /data-theme-set/);
-  assert.match(js, /lead-night/);
-  assert.match(js, /lead-lcp/);
-  assert.match(js, /canplay/);
-  assert.match(js, /prefers-color-scheme: dark/);
-  assert.match(js, /setAttribute\("data-theme"/);
+  assert.match(js, /mountBench/);
+  assert.match(js, /syncBoardPoster/);
+  assert.match(js, /idleResetMs: reducedMotion \? 0 : 15000/);
+  assert.match(js, /Retry 3D view/);
+  assert.ok(html.indexOf('class="hero-board bench"') < html.indexOf('class="hero-copy"'));
 });
 
 test("HTTP smoke: every HTML page returns 200 from static server", async () => {
@@ -563,6 +548,7 @@ test("shipped clips are real MP4s with posters, not leftover GIFs", () => {
     ["assets/assembly/half-soldered-plate.webp", "RIFF"],
     ["assets/og/tomato-board.webp", "RIFF"],
     ["assets/pcb/board-iso.webp", "RIFF"],
+    ["assets/pcb/board-iso-light.webp", "RIFF"],
     ["assets/assembly/placing-and-soldering.webp", "RIFF"],
     ["assets/assembly/soldering-led.webp", "RIFF"],
     ["assets/assembly/work-setup.webp", "RIFF"],
@@ -589,7 +575,7 @@ test("every magazine page bootstraps Paper/Black before paint", () => {
     assert.match(html, /tomato\.theme/, `${label}: FOUC theme script`);
     assert.match(html, /name=["']theme-color["']/, `${label}: theme-color`);
     assert.match(html, /property=["']og:image["']/, `${label}: og:image`);
-    assert.match(html, /<h1[^>]*>Tomato<\/h1>/, `${label}: nameplate is Tomato`);
+    assert.match(html, /<span>tomato<\/span>/, `${label}: Tomato wordmark`);
     assert.doesNotMatch(html, /1 min(?:ute)?(?: and)? 14/, `${label}: stale sweep timing`);
   }
   const mast = readFileSync(join(WEB, "js/mast.js"), "utf8");
@@ -621,7 +607,6 @@ test("AND3 FPGA hit is boxed on the paper, playground, and demo log", () => {
     "opcode-sweep-fpga.mp4",
   ];
   const pages = {
-    "index.html": readFileSync(join(WEB, "index.html"), "utf8"),
     "js/playground.js": readFileSync(join(WEB, "js/playground.js"), "utf8"),
     "journal/demo-ideas.html": readFileSync(join(WEB, "journal/demo-ideas.html"), "utf8"),
   };
@@ -670,7 +655,7 @@ test("sitemap, robots, and canonical tags ship", () => {
   assert.match(readFileSync(join(WEB, "humans.txt"), "utf8"), /Tyrone Marhguy/);
   assert.match(readFileSync(join(WEB, ".well-known/security.txt"), "utf8"), /github\.com\/tmarhguy\/tomato/);
   const verify = readFileSync(join(WEB, "verification.html"), "utf8");
-  assert.match(verify, /rel="canonical" href="https:\/\/tomato\.tmarhguy\.com\/verification\.html"/);
+  assert.match(verify, /<link(?=[^>]*rel="canonical")(?=[^>]*href="https:\/\/tomato\.tmarhguy\.com\/verification\.html")[^>]*>/);
   assert.match(verify, /PROPERTY_INVENTORY\.md/);
   assert.match(verify, /compiler-reels/);
 });
@@ -680,9 +665,9 @@ test("pages ship rich SEO metadata block", () => {
   const verify = readFileSync(join(WEB, "verification.html"), "utf8");
   for (const html of [index, verify]) {
     assert.match(html, /<!-- tomato-seo -->/);
-    assert.match(html, /meta name="keywords"/);
-    assert.match(html, /meta name="robots" content="index, follow/);
-    assert.match(html, /rel="manifest" href="[^"]*site\.webmanifest"/);
+    assert.match(html, /<meta[^>]*name="keywords"/);
+    assert.match(html, /<meta(?=[^>]*name="robots")(?=[^>]*content="index, follow)[^>]*>/);
+    assert.match(html, /<link(?=[^>]*rel="manifest")(?=[^>]*href="[^"]*site\.webmanifest")[^>]*>/);
     assert.match(html, /application\/ld\+json/);
     assert.match(html, /og:locale/);
   }
@@ -737,3 +722,29 @@ function get(url) {
       .on("error", reject);
   });
 }
+
+ test("shared static navigation includes Gallery and an accessible mobile menu", () => {
+ for (const file of htmlFiles()) {
+ const html = readFileSync(file,"utf8"); if (relWeb(file)==="viewer.html") continue;
+ assert.match(html, /class="site-menu"/);
+ assert.match(html, /aria-label="All pages"/);
+ assert.match(html, /css\/navigation\.css/);
+ assert.equal((html.match(/class="site-menu"/g)||[]).length,1);
+ assert.match(html, /gallery\.html/);
+ assert.match(html, />FAQ</);
+ }
+ const home = readFileSync(join(WEB, "index.html"), "utf8");
+ assert.match(home, /class="front-links"[\s\S]*?>FAQ</);
+ assert.match(home, /class="hero-actions[\s\S]*?href="#questions">FAQ</);
+ assert.match(home, /id="questions"/);
+ assert.match(home, /class="faq-home"/);
+ assert.equal((home.match(/<div class="faq-home">[\s\S]*?<\/div>/)[0].match(/<details>/g) || []).length, 6);
+ });
+ test("homepage has six comparison diagrams and both compiler recordings", () => {
+ const html=readFileSync(join(WEB,"index.html"),"utf8");
+ assert.equal((html.match(/class="evolution-chart"/g)||[]).length,6);
+ assert.match(html,/7.3× smaller/);
+ assert.match(html,/opcode-sweep-sim\.mp4/);
+ assert.match(html,/opcode-sweep-fpga\.mp4/);
+ assert.doesNotMatch(html,/2× PREVIEW/);
+ });

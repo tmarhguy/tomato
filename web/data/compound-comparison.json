@@ -1,0 +1,308 @@
+[
+  {
+    "id": "add",
+    "label": "Add",
+    "formula": "A + B",
+    "rv": [
+      "ADD out, A, B"
+    ],
+    "tomato": [
+      {
+        "dest": "out",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 170,
+        "lutG": 204,
+        "carry": 0,
+        "latchFlags": false
+      }
+    ],
+    "explain": "A tie: ordinary addition needs one step on each datapath."
+  },
+  {
+    "id": "slt",
+    "label": "Signed less-than",
+    "formula": "out = signed(A) < signed(B) ? 1 : 0",
+    "rv": [
+      "SLT out, A, B"
+    ],
+    "tomato": [
+      {
+        "dest": "discard",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 170,
+        "lutG": 51,
+        "carry": 1,
+        "latchFlags": true
+      },
+      {
+        "dest": "out",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 0,
+        "lutG": 0,
+        "carry": "LT",
+        "latchFlags": false
+      }
+    ],
+    "explain": "RV32I wins this sequence: SLT writes a Boolean directly. Tomato first subtracts and latches LT, then computes 0 + 0 + LT. This is a modeled flag-based route; it is not a claim that every possible Tomato implementation needs two steps."
+  },
+  {
+    "id": "maskadd",
+    "label": "Mask + add",
+    "formula": "A + (B AND C)",
+    "rv": [
+      "AND t0, B, C",
+      "ADD out, A, t0"
+    ],
+    "tomato": [
+      {
+        "dest": "out",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 170,
+        "lutG": 192,
+        "carry": 0,
+        "latchFlags": false
+      }
+    ],
+    "explain": "Tomato forms the mask and sum together."
+  },
+  {
+    "id": "masksub",
+    "label": "Mask + subtract",
+    "formula": "A \u2212 (B AND C)",
+    "rv": [
+      "AND t0, B, C",
+      "SUB out, A, t0"
+    ],
+    "tomato": [
+      {
+        "dest": "out",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 170,
+        "lutG": 63,
+        "carry": 1,
+        "latchFlags": false
+      }
+    ],
+    "explain": "Complement the masked value and add carry-in 1 for subtraction."
+  },
+  {
+    "id": "choose",
+    "label": "Choose",
+    "formula": "Choose(A,B,C) = (A AND B) OR (NOT A AND C)",
+    "rv": [
+      "XOR t0, B, C",
+      "AND t0, A, t0",
+      "XOR out, C, t0"
+    ],
+    "tomato": [
+      {
+        "dest": "out",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 216,
+        "lutG": 0,
+        "carry": 0,
+        "latchFlags": false
+      }
+    ],
+    "explain": "A selects B or C independently at each bit. One Tomato truth table implements the selection."
+  },
+  {
+    "id": "majority",
+    "label": "Majority",
+    "formula": "Maj(A,B,C) = (A AND B) OR (C AND (A XOR B))",
+    "rv": [
+      "AND t1, A, B",
+      "XOR t2, A, B",
+      "AND t2, C, t2",
+      "OR out, t1, t2"
+    ],
+    "tomato": [
+      {
+        "dest": "out",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 232,
+        "lutG": 0,
+        "carry": 0,
+        "latchFlags": false
+      }
+    ],
+    "explain": "Each output bit is the majority of the three input bits. Choose and Majority are SHA-256 building blocks, not complete hashes."
+  },
+  {
+    "id": "xorand",
+    "label": "XOR3 + AND3",
+    "formula": "(A XOR B XOR C) + (A AND B AND C)",
+    "rv": [
+      "XOR t1, A, B",
+      "XOR t1, t1, C",
+      "AND t2, A, B",
+      "AND t2, t2, C",
+      "ADD out, t1, t2"
+    ],
+    "tomato": [
+      {
+        "dest": "out",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 150,
+        "lutG": 128,
+        "carry": 0,
+        "latchFlags": false
+      }
+    ],
+    "explain": "Two different Boolean results feed the same adder."
+  },
+  {
+    "id": "select2",
+    "label": "Two selections",
+    "formula": "t = Choose(A,B,C); out = Choose(D,t,E)",
+    "rv": [
+      "XOR t0, B, C",
+      "AND t0, A, t0",
+      "XOR t, C, t0",
+      "XOR t0, t, E",
+      "AND t0, D, t0",
+      "XOR out, E, t0"
+    ],
+    "tomato": [
+      {
+        "dest": "t",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 216,
+        "lutG": 0,
+        "carry": 0,
+        "latchFlags": false
+      },
+      {
+        "dest": "out",
+        "inputs": [
+          "D",
+          "t",
+          "E"
+        ],
+        "lutF": 216,
+        "lutG": 0,
+        "carry": 0,
+        "latchFlags": false
+      }
+    ],
+    "explain": "Two layers of bitwise selection: first A selects B/C, then D selects that result/E. The intermediate t connects the two steps."
+  },
+  {
+    "id": "votemask",
+    "label": "Vote, mask + add",
+    "formula": "t = Maj(A,B,C); out = D + (t AND E)",
+    "rv": [
+      "AND t1, A, B",
+      "XOR t2, A, B",
+      "AND t2, C, t2",
+      "OR t, t1, t2",
+      "AND t0, t, E",
+      "ADD out, D, t0"
+    ],
+    "tomato": [
+      {
+        "dest": "t",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 232,
+        "lutG": 0,
+        "carry": 0,
+        "latchFlags": false
+      },
+      {
+        "dest": "out",
+        "inputs": [
+          "D",
+          "t",
+          "E"
+        ],
+        "lutF": 170,
+        "lutG": 192,
+        "carry": 0,
+        "latchFlags": false
+      }
+    ],
+    "explain": "Compute a bitwise vote, keep selected bits, then add a bias D. Tomato fuses the mask and addition in its second operation."
+  },
+  {
+    "id": "vote2",
+    "label": "Two-stage vote",
+    "formula": "t = Maj(A,B,C); out = Maj(t,D,E)",
+    "rv": [
+      "AND t1, A, B",
+      "XOR t2, A, B",
+      "AND t2, C, t2",
+      "OR t, t1, t2",
+      "AND t1, t, D",
+      "XOR t2, t, D",
+      "AND t2, E, t2",
+      "OR out, t1, t2"
+    ],
+    "tomato": [
+      {
+        "dest": "t",
+        "inputs": [
+          "A",
+          "B",
+          "C"
+        ],
+        "lutF": 232,
+        "lutG": 0,
+        "carry": 0,
+        "latchFlags": false
+      },
+      {
+        "dest": "out",
+        "inputs": [
+          "t",
+          "D",
+          "E"
+        ],
+        "lutF": 232,
+        "lutG": 0,
+        "carry": 0,
+        "latchFlags": false
+      }
+    ],
+    "explain": "A hierarchical bitwise vote. This is NOT majority-of-five: the first three values vote as one group before meeting D and E."
+  }
+]

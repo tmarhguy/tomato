@@ -53,19 +53,27 @@ function assetPrefix(rel) {
 }
 
 function keywordsFor(rel, title, description, override) {
+  const stop = new Set([
+    "the", "and", "for", "with", "from", "that", "this", "into", "onto", "each",
+    "whose", "your", "you", "are", "was", "were", "have", "has", "had", "been",
+    "also", "more", "than", "then", "here", "there", "when", "what", "where",
+    "which", "while", "about", "after", "before", "under", "over", "their",
+    "them", "they", "custom", "computer", "changes", "instruction", "building",
+    "same", "machine", "runs", "rewires", "logic",
+  ]);
   const base = [...cfg.globalKeywords];
   if (override?.keywords) base.push(...override.keywords);
-  const cleanTitle = title.replace(/\s*—\s*The Tomato\s*$/i, "").trim();
+  const cleanTitle = title.replace(/\s*—\s*(The Tomato|Tomato).*$/i, "").trim();
   const fromTitle = cleanTitle
     .split(/[\s·|,/–—]+/)
     .map((w) => w.replace(/^[^\w]+|[^\w+]+$/g, ""))
-    .filter((w) => w.length > 2);
+    .filter((w) => w.length > 2 && !stop.has(w.toLowerCase()));
   const fromDesc = description
     .toLowerCase()
     .replace(/[^\w\s+-]/g, " ")
     .split(/\s+/)
-    .filter((w) => w.length > 4)
-    .slice(0, 10);
+    .filter((w) => w.length > 4 && !stop.has(w))
+    .slice(0, 8);
   if (rel.includes("journal/")) {
     base.push("Tomato journal", "design log", "engineering notebook");
   }
@@ -108,7 +116,8 @@ function jsonLdFor(rel, url, title, description, override, html) {
       "@type": "Thing",
       name: "Tomato homebrew 32-bit CPU",
       description:
-        "Dual-LUT ALU on FPGA and 74xx copper with TomatoOS, formal verification, and hardware opcode compiler.",
+        override.jsonLd.description ||
+        "A computer whose logic changes with each instruction — Dual-LUT ALU on FPGA and 74xx copper, Tomato OS, formal verification, and hardware opcode compiler.",
     };
   }
 
@@ -137,7 +146,10 @@ function jsonLdFor(rel, url, title, description, override, html) {
 
 function buildBlock(rel, html) {
   const override = cfg.pages[rel] || {};
-  const title = pick(/<title>([^<]+)<\/title>/i, html);
+  const title =
+    override.title ||
+    pick(/<title>([^<]+)<\/title>/i, html) ||
+    cfg.siteName;
   let description = override.description || pick(/<meta name="description"\s+content="([^"]+)"/i, html);
   if (!description) description = cfg.siteName;
   const url = `${SITE}/${rel === "index.html" ? "" : rel}`.replace(/\/$/, "") || SITE + "/";
@@ -147,6 +159,9 @@ function buildBlock(rel, html) {
     cfg.defaultImage;
   const keywords = keywordsFor(rel, title, description, override);
   const type = rel.startsWith("journal/") && rel !== "journal.html" ? "article" : "website";
+  const imageAlt =
+    override.imageAlt ||
+    "The Tomato 32-bit CPU";
 
   const lines = [
     MARK_START,
@@ -163,6 +178,9 @@ function buildBlock(rel, html) {
     `  <meta property="og:url" content="${esc(url)}" />`,
     `  <link rel="canonical" href="${esc(url)}" />`,
     `  <meta property="og:image" content="${esc(image)}" />`,
+    `  <meta property="og:image:width" content="1200" />`,
+    `  <meta property="og:image:height" content="630" />`,
+    `  <meta property="og:image:alt" content="${esc(imageAlt)}" />`,
     `  <meta property="og:site_name" content="${esc(cfg.siteName)}" />`,
     `  <meta property="og:locale" content="en_US" />`,
     `  <meta name="twitter:card" content="summary_large_image" />`,
@@ -171,6 +189,7 @@ function buildBlock(rel, html) {
     `  <meta name="twitter:title" content="${esc(title)}" />`,
     `  <meta name="twitter:description" content="${esc(description)}" />`,
     `  <meta name="twitter:image" content="${esc(image)}" />`,
+    `  <meta name="twitter:image:alt" content="${esc(imageAlt)}" />`,
     `  <script type="application/ld+json">${jsonLdFor(rel, url, title, description, override, html)}</script>`,
     `  ${MARK_END}`,
   ];
@@ -204,6 +223,14 @@ for (const file of walk(web)) {
   if (rel === "broadsheet.html") continue;
   let html = readFileSync(file, "utf8");
   html = stripOldSeo(html);
+  const override = cfg.pages[rel] || {};
+  if (override.title) {
+    if (/<title>[^<]*<\/title>/i.test(html)) {
+      html = html.replace(/<title>[^<]*<\/title>/i, `<title>${esc(override.title)}</title>`);
+    } else {
+      html = html.replace(/<\/head>/i, `<title>${esc(override.title)}</title>\n</head>`);
+    }
+  }
   const block = buildBlock(rel, html);
   if (!html.includes("</head>")) continue;
   html = html.replace("</head>", `${block}\n</head>`);

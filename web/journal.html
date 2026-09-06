@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html class="project-document" lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#050505" />
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
     (function () {
       try {
         var saved = localStorage.getItem("tomato.theme");
@@ -18,42 +19,46 @@
       } catch (e) {}
     })();
   </script>
-  <title>Journal — The Tomato</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;0,6..96,900;1,6..96,700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Franklin:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/magazine.css" />
-  <link rel="stylesheet" href="css/site.css?v=34" />
+<title>The decisions behind the computer — Tomato</title>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="css/magazine.css" rel="stylesheet"/>
+<link href="css/site.css?v=34" rel="stylesheet"/>
+<link href="css/brand.css?v=252" rel="stylesheet"/>
+<link href="css/navigation.css?v=250" rel="stylesheet"/>
+<script defer="" src="js/navigation.js?v=250"></script>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato design journal — FPGA bring-up, 07_alu assembly, register upgrade to 32,768 GPR, HDMI TomatoOS, opcode compiler, open-source synthesis, verification ladder." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, CPU design journal, homebrew computer log, FPGA diary, PCB assembly, engineering dispatch, Journal, tomato, design, bring-up, 07_alu, assembly, register, upgrade, opcode" />
+  <meta name="description" content="My record of designing, testing, soldering, and programming Tomato. These entries capture the project at the time they were written—including ideas that changed along the way." />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, CPU design journal, homebrew computer log, FPGA diary, PCB assembly, engineering dispatch, decisions, behind, record, designing, testing, soldering, programming, tomato, these, entries" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
-  <meta property="og:title" content="Journal — The Tomato" />
-  <meta property="og:description" content="The Tomato design journal — FPGA bring-up, 07_alu assembly, register upgrade to 32,768 GPR, HDMI TomatoOS, opcode compiler, open-source synthesis, verification ladder." />
+  <meta property="og:title" content="The decisions behind the computer — Tomato" />
+  <meta property="og:description" content="My record of designing, testing, soldering, and programming Tomato. These entries capture the project at the time they were written—including ideas that changed along the way." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal.html" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
-  <meta name="twitter:title" content="Journal — The Tomato" />
-  <meta name="twitter:description" content="The Tomato design journal — FPGA bring-up, 07_alu assembly, register upgrade to 32,768 GPR, HDMI TomatoOS, opcode compiler, open-source synthesis, verification ladder." />
+  <meta name="twitter:title" content="The decisions behind the computer — Tomato" />
+  <meta name="twitter:description" content="My record of designing, testing, soldering, and programming Tomato. These entries capture the project at the time they were written—including ideas that changed along the way." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
   "@id": "https://tomato.tmarhguy.com/journal.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal.html",
-  "name": "Journal — The Tomato",
-  "description": "The Tomato design journal — FPGA bring-up, 07_alu assembly, register upgrade to 32,768 GPR, HDMI TomatoOS, opcode compiler, open-source synthesis, verification ladder.",
+  "name": "The decisions behind the computer — Tomato",
+  "description": "My record of designing, testing, soldering, and programming Tomato. These entries capture the project at the time they were written—including ideas that changed along the way.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -61,335 +66,24 @@
 }</script>
   <!-- /tomato-seo -->
 </head>
-<body>
-  <div class="page page--site page--journal page--journal-index">
-    <header class="wrap">
-      <div class="mast">
-        <nav class="mast-nav" aria-label="Primary">
-          <a href="index.html">Front</a>
-          <a href="architecture.html">Architecture</a>
-          <a href="verification.html">Verification</a>
-          <a href="isa.html">ISA</a>
-          <a href="software.html">Software</a>
-          <a href="os.html">Tomato OS</a>
-          <a href="playground.html">Playground</a>
-          <a href="journal.html" aria-current="page">Journal</a>
-          <a href="boards.html">Catalog</a>
-          <a href="board.html">Orbit</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="source.html">GitHub</a>
-          <a href="about.html">About</a>
-          <a class="is-tour" href="viewer.html">Tour the board</a>
-        </nav>
-      </div>
-      <a class="site-brand-seed nameplate" href="index.html" hidden>
-        <img src="assets/mark.svg" alt="" width="52" height="61" />
-        <h1>Tomato</h1>
-      </a>
-</header>
-
-    <main>
-      <section class="site-hero site-hero--solo" aria-labelledby="journal-lead-title">
-        <div class="site-hero__copy">
-          <p class="kicker">Journal · thirty-four dispatches</p>
-          <h1 class="headline" id="journal-lead-title">The vault</h1>
-          <p class="deck">Build log for Tomato — word width, decode, Dual-LUT, boards, FPGA, and HDMI bring-up.</p>
-        </div>
-      </section>
-
-      <section class="section section--journal">
-        <div class="wrap lead-grid lead-grid--dispatch">
-          <article>
-            <p class="kicker">Latest · 29 August 2026</p>
-            <h2 class="headline"><a href="journal/register-upgrade.html">Register Upgrade</a></h2>
-            <p class="deck"><strong>32,768 General Purpose Register File</strong> — 15-bit AS6C62256 depth. Half a Blackwell SM's physical register file. Using less would waste the chips.</p>
-            <p class="byline">Dispatch · Register file · <a href="journal/register-upgrade.html">open the full entry</a></p>
-            <p class="drop">Tomato exposes <strong>32,768 32-bit GPR locations</strong> because the discrete SRAMs already provide fifteen address bits. The chips, buses, and mirrored 3R1W structure are already there — anything less leaves usable depth disconnected.</p>
-            <p>Earlier: <a href="journal/tomato-works.html">Tomato works beautifully!</a>, One Press, One Key, <a href="journal/pixels-on-glass.html">HDMI color bars</a>. <strong>Thirty-four dispatches</strong>. This is the one at the top.</p>
-          </article>
-          <figure class="plate plate--ink plate--dispatch-sum">
-            <div class="dispatch-sum">
-              <p class="exhibit-label">Why 32,768?</p>
-              <p class="dispatch-sum__num">32,768 <span class="dispatch-sum__label">General Purpose Register File</span></p>
-              <p class="dispatch-sum__lede">15-bit SRAM · half a Blackwell SM · one context</p>
-              <p class="dispatch-sum__jump"><a href="journal/register-upgrade.html#why-32768">why →</a></p>
-            </div>
-            <figcaption class="plate-cap">
-              <span>Fig. — Register windows</span>
-              <span>SETBANK2 · AS6C62256</span>
-            </figcaption>
-          </figure>
-          <nav class="jump jump--loud">
-            <a href="journal/register-upgrade.html">Read the dispatch →</a>
-            <a href="journal/tomato-works.html">Tomato works beautifully! →</a>
-          </nav>
-        </div>
-      </section>
-
-      <section class="section section--journal">
-        <div class="wrap">
-          <p class="exhibit-label">Dispatches · thirty-four entries in the vault</p>
-          <div class="log-list">
-            <a class="log-item" href="journal/register-upgrade.html">
-              <span class="log-date">29 Aug 2026</span>
-              <span>
-                <span class="log-title">Register Upgrade</span>
-                <span class="log-blurb"><strong>32,768 General Purpose Register File</strong> — 15-bit depth; half a Blackwell SM; using less wastes the SRAMs.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/tomato-works.html">
-              <span class="log-date">29 Aug 2026</span>
-              <span>
-                <span class="log-title">Tomato works beautifully!</span>
-                <span class="log-blurb">HDMI signal and a GUI on a TV, running over 2,300 lines of assembly.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/one-press.html">
-              <span class="log-date">28 Aug 2026</span>
-              <span>
-                <span class="log-title">One Press, One Key</span>
-                <span class="log-blurb">Fixing the keyboard matrix bounce and growing the vocabulary with pseudo-instructions.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/ditching-vivado.html">
-              <span class="log-date">28 Aug 2026</span>
-              <span>
-                <span class="log-title">Exploring Beyond Vivado</span>
-                <span class="log-blurb">Open-source FPGA synthesis: Yosys, nextpnr-xilinx, Project X-Ray, openFPGALoader.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/pixels-on-glass.html">
-              <span class="log-date">28 Aug 2026</span>
-              <span>
-                <span class="log-title">Pixels on the glass</span>
-                <span class="log-blurb">12-bit DVI PMOD soldered and flashed. Color bars on HDMI from the Nexys.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/pmod-pivot.html">
-              <span class="log-date">26 Aug 2026</span>
-              <span>
-                <span class="log-title">The PMOD pivot</span>
-                <span class="log-blurb">VGA adapters failed. A Digilent PMOD is in transit for FPGA pixels.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/invisible-logic.html">
-              <span class="log-date">23 Aug 2026</span>
-              <span>
-                <span class="log-title">The invisible logic</span>
-                <span class="log-blurb">No on-board FSM. Drive A/B/C and opcodes from outside — about 1 Hz.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/first-lights.html">
-              <span class="log-date">21 Aug 2026</span>
-              <span>
-                <span class="log-title">First lights and flux</span>
-                <span class="log-blurb">Muxes, adders, LEDs, headers down. The board lights up — nothing shorted.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/gallery-paradox.html">
-              <span class="log-date">20 Aug 2026</span>
-              <span>
-                <span class="log-title">The gallery paradox</span>
-                <span class="log-blurb">A slideshow with captions beat the magazine-inside-a-magazine layouts.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/first-assembly.html">
-              <span class="log-date">18 Aug 2026</span>
-              <span>
-                <span class="log-title">First phase of assembly</span>
-                <span class="log-blurb">DigiKey on the desk. Every 74ACT151 down. The board next to the sim.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/web-optimization.html">
-              <span class="log-date">16 Aug 2026</span>
-              <span>
-                <span class="log-title">Web optimization</span>
-                <span class="log-blurb">Shrinking the KiCad GLB to 1.26&nbsp;MB Draco, correcting the first draft, and what the stack is now.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/pcbs-arrive.html">
-              <span class="log-date">15 Aug 2026</span>
-              <span>
-                <span class="log-title">PCBs arrive</span>
-                <span class="log-blurb">Five boards. Continuity on power is clean. No islands.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/isa-as-a-wire.html">
-              <span class="log-date">15 Aug 2026</span>
-              <span>
-                <span class="log-title">ISA as a Wire</span>
-                <span class="log-blurb">Parametric datapath, not an emulator. About 37 family maps — the number moves as the copper does.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/solder-station.html">
-              <span class="log-date">13 Aug 2026</span>
-              <span>
-                <span class="log-title">Solder station arrives</span>
-                <span class="log-blurb">Through-hole assembly begins. Tomato waits on copper and DigiKey.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/ashtown-valley.html">
-              <span class="log-date">13 Aug 2026</span>
-              <span>
-                <span class="log-title">Front-page news in Ashtown Valley</span>
-                <span class="log-blurb">The paper is a 90s broadsheet. Ashtown Valley, the Bay Perimeter.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/ordered.html">
-              <span class="log-date">07 Aug 2026</span>
-              <span>
-                <span class="log-title">Ordered Tomato</span>
-                <span class="log-blurb">Boards on JLCPCB. Parts on DigiKey. The dual-LUT ALU left the screen.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/more-boards.html">
-              <span class="log-date">02 Aug 2026</span>
-              <span>
-                <span class="log-title">Designing additional boards</span>
-                <span class="log-blurb">The ALU was the hard part. The rest is 32-bit plumbing while fab runs.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/falling-back.html">
-              <span class="log-date">31 Jul 2026</span>
-              <span>
-                <span class="log-title">Falling back to 32b</span>
-                <span class="log-blurb">A 40-bit word doubled the explanation without doubling silicon on the bench.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/lingering.html">
-              <span class="log-date">31 Jul 2026</span>
-              <span>
-                <span class="log-title">The lingering catch</span>
-                <span class="log-blurb">A throwaway FSM that becomes Tomato anyway — or build the rest of the machine.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/forty-bit.html">
-              <span class="log-date">30 Jul 2026</span>
-              <span>
-                <span class="log-title">Redesign into 40b</span>
-                <span class="log-blurb">The bottleneck was the instruction word, not the ALU. The next day takes it back.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/truth-latch.html">
-              <span class="log-date">13 Jul 2026</span>
-              <span>
-                <span class="log-title">Truth table latch</span>
-                <span class="log-blurb">If the next op is still ADD, pass operands. Keep the opcode latched.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/pipelined.html">
-              <span class="log-date">13 Jul 2026</span>
-              <span>
-                <span class="log-title">Pipelined FPGA — what if</span>
-                <span class="log-blurb">If the winds stop, then we die. Flexibility has a physics.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/downgrade.html">
-              <span class="log-date">13 Jul 2026</span>
-              <span>
-                <span class="log-title">Downgrade for an upgrade</span>
-                <span class="log-blurb">Do not fab one 240 mm monster. Cascade 16-bit cells.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/demo-ideas.html">
-              <span class="log-date">13 Jul 2026</span>
-              <span>
-                <span class="log-title">Demo ideas</span>
-                <span class="log-blurb">Fibonacci is too small. A self-programming FSM on a 4-bit slice.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/arch-upgrade.html">
-              <span class="log-date">13 Jul 2026</span>
-              <span>
-                <span class="log-title">Architecture upgrade</span>
-                <span class="log-blurb">If LUT2 costs four chips, build the second LUT3.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/mode-mux.html">
-              <span class="log-date">27 Jun 2026</span>
-              <span>
-                <span class="log-title">Elimination of mode multiplexers</span>
-                <span class="log-blurb">LUT3 feeds the adder. Logic rides the arithmetic path instead of racing it.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/alu-refine.html">
-              <span class="log-date">26 Jun 2026</span>
-              <span>
-                <span class="log-title">ALU refinement</span>
-                <span class="log-blurb">NAND the generate. Spare gates as inverters. 74283 per nibble.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/act151.html">
-              <span class="log-date">26 Jun 2026</span>
-              <span>
-                <span class="log-title">Redesign with 74251</span>
-                <span class="log-blurb">Three chips for a cell was the wrong optimization. Same logic, no contention.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/display.html">
-              <span class="log-date">19 Jun 2026</span>
-              <span>
-                <span class="log-title">ALU segment display</span>
-                <span class="log-blurb">Thirty-two digits. One ROM. Latches so they stay bright.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/microcode.html">
-              <span class="log-date">16 Jun 2026</span>
-              <span>
-                <span class="log-title">Microcode control modularization</span>
-                <span class="log-blurb">Split decode onto small boards with local EEPROMs so ribbons stay short.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/mul-div.html">
-              <span class="log-date">15 Jun 2026</span>
-              <span>
-                <span class="log-title">Multiplication and division</span>
-                <span class="log-blurb">Naïve shift-add is slow. A Wallace tree eats the board. Priority-encoder loop.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/load-store.html">
-              <span class="log-date">11 Jun 2026</span>
-              <span>
-                <span class="log-title">Load/store pipeline</span>
-                <span class="log-blurb">Every opcode indexes a 48-bit microcode word. Two phases, or three if memory waits.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/mul-engine.html">
-              <span class="log-date">10 Jun 2026</span>
-              <span>
-                <span class="log-title">Implementing the mul-div engine</span>
-                <span class="log-blurb">Multiply in four cycles. Divide is the trick. 74xx284/85 sequenced.</span>
-              </span>
-            </a>
-            <a class="log-item" href="journal/welcome.html">
-              <span class="log-date">Origin</span>
-              <span>
-                <span class="log-title">Welcome to Tomato 32</span>
-                <span class="log-blurb">The first page of the vault. From simple gates to a parametric datapath.</span>
-              </span>
-            </a>
-          </div>
-          <nav class="jump">
-            <a href="journal/register-upgrade.html">Start with the latest →</a>
-            <a href="journal/welcome.html">Start at the origin →</a>
-            <a href="source.html">GitHub →</a>
-          </nav>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-band">
-        <div class="footer-art">
-<p class="footer-copy">Printed for the bench · © 2026 Tyrone Marhguy · CERN-OHL-P</p>
-        </div>
-      </div>
-    </footer>
-  </div>
-  <script src="js/mast.js" defer></script>
+<body class="project-document">
+<div class="page project-page project-journal"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<main class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="index.html">Home</a></nav><section aria-labelledby="journal-lead-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
+<p class="kicker">The build journal</p>
+<h1 class="project-title" id="journal-lead-title">The decisions behind the computer.</h1>
+<p class="deck">My record of designing, testing, soldering, and programming Tomato. These entries capture the project at the time they were written—including ideas that changed along the way.</p>
+</div>
+</section>
+<section aria-labelledby="latest-title" class="journal-feature project-frame"><div class="project-section-label"><span>LATEST ENTRY</span><time datetime="2026-08-29">29 AUGUST 2026</time></div><div class="journal-feature-grid"><div><p class="kicker">Register architecture</p><h2 id="latest-title">Room for <em>32,768 values.</em></h2><p>I used the full 15-bit address depth of the SRAMs. A latched superbank makes those locations accessible while keeping the instruction word at 32 bits.</p><a class="project-button" href="journal/register-upgrade.html">Read Register Upgrade</a></div><a aria-label="Explore how the register address is formed" class="journal-register-figure" href="journal/register-upgrade.html#why-32768"><span>ONE 15-BIT ADDRESS</span><div class="journal-register-bits"><div><strong>7</strong><span>Superbank bits</span></div><div><strong>3</strong><span>Bank bits</span></div><div><strong>5</strong><span>Register bits</span></div></div><p>128 × 8 × 32 =<strong>32,768</strong></p></a></div></section><section aria-labelledby="entries-title" class="journal-entries project-frame"><div class="project-section-label"><h2 id="entries-title">The build record</h2><span>NEWEST FIRST</span></div><a class="journal-row" href="journal/register-upgrade.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">29 Aug 2026</span><h3>Register Upgrade</h3><p>32,768 General Purpose Register File — 15-bit depth; half a Blackwell SM; using less wastes the SRAMs.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/tomato-works.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">29 Aug 2026</span><h3>Tomato works beautifully!</h3><p>HDMI signal and a GUI on a TV, running over 2,300 lines of assembly.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/one-press.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">28 Aug 2026</span><h3>One Press, One Key</h3><p>Fixing the keyboard matrix bounce and growing the vocabulary with pseudo-instructions.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/ditching-vivado.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">28 Aug 2026</span><h3>Exploring Beyond Vivado</h3><p>Open-source FPGA synthesis: Yosys, nextpnr-xilinx, Project X-Ray, openFPGALoader.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/pixels-on-glass.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">28 Aug 2026</span><h3>Pixels on the glass</h3><p>12-bit DVI PMOD soldered and flashed. Color bars on HDMI from the Nexys.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/pmod-pivot.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">26 Aug 2026</span><h3>The PMOD pivot</h3><p>VGA adapters failed. A Digilent PMOD is in transit for FPGA pixels.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/invisible-logic.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">23 Aug 2026</span><h3>The invisible logic</h3><p>No on-board FSM. Drive A/B/C and opcodes from outside — about 1 Hz.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/first-lights.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">21 Aug 2026</span><h3>First lights and flux</h3><p>Muxes, adders, LEDs, headers down. The board lights up — nothing shorted.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/gallery-paradox.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">20 Aug 2026</span><h3>The gallery paradox</h3><p>A slideshow with captions beat the magazine-inside-a-magazine layouts.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/first-assembly.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">18 Aug 2026</span><h3>First phase of assembly</h3><p>DigiKey on the desk. Every 74ACT151 down. The board next to the sim.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/web-optimization.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">16 Aug 2026</span><h3>Web optimization</h3><p>Shrinking the KiCad GLB to 1.26 MB Draco, correcting the first draft, and what the stack is now.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/pcbs-arrive.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">15 Aug 2026</span><h3>PCBs arrive</h3><p>Five boards. Continuity on power is clean. No islands.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/isa-as-a-wire.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">15 Aug 2026</span><h3>ISA as a Wire</h3><p>Parametric datapath, not an emulator. About 37 family maps — the number moves as the copper does.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/solder-station.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">13 Aug 2026</span><h3>Solder station arrives</h3><p>Through-hole assembly begins. Tomato waits on copper and DigiKey.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/ashtown-valley.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">13 Aug 2026</span><h3>Front-page news in Ashtown Valley</h3><p>The paper is a 90s broadsheet. Ashtown Valley, the Bay Perimeter.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/ordered.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">07 Aug 2026</span><h3>Ordered Tomato</h3><p>Boards on JLCPCB. Parts on DigiKey. The dual-LUT ALU left the screen.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/more-boards.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">02 Aug 2026</span><h3>Designing additional boards</h3><p>The ALU was the hard part. The rest is 32-bit plumbing while fab runs.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/falling-back.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">31 Jul 2026</span><h3>Falling back to 32b</h3><p>A 40-bit word doubled the explanation without doubling silicon on the bench.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/lingering.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">31 Jul 2026</span><h3>The lingering catch</h3><p>A throwaway FSM that becomes Tomato anyway — or build the rest of the machine.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/forty-bit.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">30 Jul 2026</span><h3>Redesign into 40b</h3><p>The bottleneck was the instruction word, not the ALU. The next day takes it back.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/truth-latch.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">13 Jul 2026</span><h3>Truth table latch</h3><p>If the next op is still ADD, pass operands. Keep the opcode latched.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/pipelined.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">13 Jul 2026</span><h3>Pipelined FPGA — what if</h3><p>If the winds stop, then we die. Flexibility has a physics.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/downgrade.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">13 Jul 2026</span><h3>Downgrade for an upgrade</h3><p>Do not fab one 240 mm monster. Cascade 16-bit cells.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/demo-ideas.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">13 Jul 2026</span><h3>Demo ideas</h3><p>Fibonacci is too small. A self-programming FSM on a 4-bit slice.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/arch-upgrade.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">13 Jul 2026</span><h3>Architecture upgrade</h3><p>If LUT2 costs four chips, build the second LUT3.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/mode-mux.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">27 Jun 2026</span><h3>Elimination of mode multiplexers</h3><p>LUT3 feeds the adder. Logic rides the arithmetic path instead of racing it.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/alu-refine.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">26 Jun 2026</span><h3>ALU refinement</h3><p>NAND the generate. Spare gates as inverters. 74283 per nibble.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/act151.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">26 Jun 2026</span><h3>Redesign with 74251</h3><p>Three chips for a cell was the wrong optimization. Same logic, no contention.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/display.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">19 Jun 2026</span><h3>ALU segment display</h3><p>Thirty-two digits. One ROM. Latches so they stay bright.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/microcode.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">16 Jun 2026</span><h3>Microcode control modularization</h3><p>Split decode onto small boards with local EEPROMs so ribbons stay short.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/mul-div.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">15 Jun 2026</span><h3>Multiplication and division</h3><p>Naïve shift-add is slow. A Wallace tree eats the board. Priority-encoder loop.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/load-store.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">11 Jun 2026</span><h3>Load/store pipeline</h3><p>Every opcode indexes a 48-bit microcode word. Two phases, or three if memory waits.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/mul-engine.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">10 Jun 2026</span><h3>Implementing the mul-div engine</h3><p>Multiply in four cycles. Divide is the trick. 74xx284/85 sequenced.</p><span aria-hidden="true" class="journal-arrow"></span></a><a class="journal-row" href="journal/welcome.html"><span aria-hidden="true" class="journal-number"></span><span class="journal-date">Origin</span><h3>Welcome to Tomato 32</h3><p>The first page of the vault. From simple gates to a parametric datapath.</p><span aria-hidden="true" class="journal-arrow"></span></a></section></main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a aria-current="page" href="journal.html">Journal</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script defer="" src="js/mast.js?v=240"></script>
 <!-- tomato-vercel -->
-  <script src="js/vercel-analytics.js" defer></script>
-  <script src="js/vercel-speed-insights.js" defer></script>
+<script defer="" src="js/vercel-analytics.js"></script>
+<script defer="" src="js/vercel-speed-insights.js"></script>
 <!-- /tomato-vercel -->
-</body>
+<script defer="" src="js/journal-index.js?v=250"></script></body>
 </html>
