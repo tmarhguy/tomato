@@ -239,14 +239,6 @@ if (loadButton && canvas) {
   loadBoard();
 }
 
-const frontNav = document.querySelector('.front-nav');
-const openingHero = document.querySelector('.hero');
-if (frontNav && openingHero && typeof ResizeObserver !== 'undefined') {
-  const measureNav = () => openingHero.style.setProperty('--front-nav-height', `${frontNav.getBoundingClientRect().height}px`);
-  measureNav();
-  new ResizeObserver(measureNav).observe(frontNav);
-}
-
 // Small, silent 2× preview; a click opens the full recording with native controls.
 const osPreview = document.getElementById('os-preview');
 const osDialog = document.getElementById('os-dialog');

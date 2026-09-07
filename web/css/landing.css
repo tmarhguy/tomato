@@ -63,10 +63,10 @@ h3 { font-size: 1.55rem; line-height: 1.2; font-weight: 500; letter-spacing: -.0
 .theme-toggle { background: transparent; color: var(--muted); border: 1px solid var(--line); padding: .55rem .75rem; font-size: .8125rem; min-height: 44px; }
 .theme-toggle:hover { color: var(--text); border-color: var(--muted); }
 
-/* The copy owns its height. The board fills the remaining opening viewport. */
-.hero { display: grid; grid-template-rows: minmax(min-content, 1fr) auto; min-height: calc(100dvh - var(--front-nav-height, 4.25rem)); }
+/* Board keeps a fixed shape — no viewport-fill / bottom-maintain resize on scroll. */
+.hero { display: grid; grid-template-rows: auto auto; }
 .hero-stage, .hero-board { min-height: 0; display: flex; flex-direction: column; }
-.hero-board { flex: 1 1 0; width: 100%; margin: 0; }
+.hero-board { flex: 0 0 auto; width: 100%; margin: 0; }
 .board-meta {
   flex: 0 0 auto;
   display: grid;
@@ -80,7 +80,16 @@ h3 { font-size: 1.55rem; line-height: 1.2; font-weight: 500; letter-spacing: -.0
 .board-meta__lot { display: flex; gap: .45rem; margin: 0; font: 500 .75rem/1.5 var(--mono); letter-spacing: .045em; text-transform: uppercase; }
 .board-meta > a { text-decoration: none; font: 500 .75rem/1.5 var(--mono); letter-spacing: .045em; white-space: nowrap; }
 .board-meta > a:hover { color: var(--accent); }
-.bench-stage { position: relative; flex: 1 1 0; min-height: 6rem; width: 100%; height: 0; background: #050505; overflow: hidden; }
+.bench-stage {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 14rem;
+  height: auto;
+  background: #050505;
+  overflow: hidden;
+}
 html[data-theme=light] .bench-stage { background: #f4f0e6; }
 .board-image { width: 100%; height: 100%; object-fit: contain; }
 .hero-board .bench-stage { border-block: 1px solid var(--line); }
@@ -412,10 +421,29 @@ h1 {
   .front-links a { font-size: .8125rem; }
   .board-meta { grid-template-columns: 1fr auto; align-items: start; }
   .board-meta__lot { grid-column: 1 / -1; order: 3; }
-  .hero-actions { flex-direction: row; align-items: center; }
+  .hero-actions {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: .35rem .45rem;
+  }
+  .hero-actions .button {
+    min-height: 34px;
+    padding: .35rem .55rem;
+    font-size: .7rem;
+    gap: .35rem;
+    white-space: nowrap;
+  }
+  .hero-actions .text-link {
+    font-size: .7rem;
+    padding-block: .35rem;
+    white-space: nowrap;
+  }
   .hero-deck { max-width: 32rem; font-size: 1.0625rem; margin-top: 0; }
-  .board-chrome { padding-block: .35rem; }
-  .bench-tools { margin-left: 0; width: 100%; }
+  .board-chrome { padding-block: .35rem; justify-content: center; }
+  .board-caption-text { width: 100%; text-align: center; }
+  .bench-tools { margin-left: 0; width: 100%; justify-content: center; }
   .status-strip { display: grid; grid-template-columns: 1fr 1fr; font-size: .8125rem; gap: 1rem; }
   .section-space { padding-block: 3.5rem; }
   .section-label { margin-bottom: 2rem; }
@@ -608,8 +636,13 @@ h1 {
 .logic-trace > div { flex-wrap: wrap; gap: .35rem 1rem; }
 #logic-choices label { min-width: 0; padding: .45rem .5rem; font-size: .8125rem; }
 #logic-choices input { flex-shrink: 0; }
-@media(max-width:760px) { .hero { --front-nav-height: 7.5rem; } .logic-operands { grid-template-columns: repeat(3,minmax(0,1fr)); gap:.4rem; } .logic-operands label { padding:.5rem; } .logic-operands code { font-size:.75rem; overflow-wrap:anywhere; } }
-/* Compact opening: spend the available height on the board. */
+@media(max-width:760px) {
+  .bench-stage { aspect-ratio: 5 / 4; min-height: 12rem; }
+  .logic-operands { grid-template-columns: repeat(3,minmax(0,1fr)); gap:.4rem; }
+  .logic-operands label { padding:.5rem; }
+  .logic-operands code { font-size:.75rem; overflow-wrap:anywhere; }
+}
+/* Compact opening copy. */
 #hero-title {
   max-width: 100%;
   font-size: clamp(1.15rem, 2.4vw + .4rem, 2.5rem);
