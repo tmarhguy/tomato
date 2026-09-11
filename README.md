@@ -1,4 +1,5 @@
 
+
 <h1 align="center">Tomato - 32b Discrete Computer</h1>
 <p align="center"><strong>32-bit Computer. The oddest machine built in a dorm.</strong></p>
 
@@ -26,7 +27,12 @@ The paper: **[tomato.tmarhguy.com](https://tomato.tmarhguy.com/)** · the site: 
 </table>
 <p align="center"><em>Lot 07 Dual-LUT PCB · board · on the iron · top copper · <a href="https://tomato.tmarhguy.com/software.html">software</a> · <a href="https://tomato.tmarhguy.com/playground.html">playground</a></em></p>
 
-Tomato grew as a revolution: a **65k operational space** (**~3,500×** operation increase than the earlier 8bit board for less area) from a **[dual-LUT3](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>)** fused into an adder, built for linear scale. The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. A **[512-row opcode ROM](docs/isa/tomato.v1.csv)** fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
+<p align="center">
+  <img src="web/assets/os/desktop-home.webp" alt="Tomato OS Desktop v1.2 with Ghana wallpaper on the FPGA" width="70%" />
+</p>
+<p align="center"><em>Desktop v1.2 · wallpaper on the FPGA · <a href="https://tomato.tmarhguy.com/journal/wallpaper-polish.html">dispatch</a> · <a href="https://tomato.tmarhguy.com/os.html">OS sheet</a></em></p>
+
+Tomato grew around a **[dual-LUT3](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>)** fused into an adder — **52 burned opcodes** in a **[512-row ROM](docs/isa/tomato.v1.csv)**, not a fixed 19-op decode — built for linear scale. The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. That ROM fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
 
 The dual-LUT slice is **[on the iron](<docs/log/2026-08-18 - First Phase of Assembly.md>)** — muxes and adders down on one [`07_alu`](hardware/kicad/boards/07_alu/README.md) board.
 
@@ -36,7 +42,7 @@ The dual-LUT slice is **[on the iron](<docs/log/2026-08-18 - First Phase of Asse
 |--------|-----------------------------|----------------------|-----------------------|
 | **Architecture** | 8-bit | 32-bit | 4× datapath width |
 | **Logic Base** | ~3,488 discrete CMOS transistors | Dual-LUT3 + Ripple Adder | Massive density increase |
-| **Ops Space** | 19 operations | ~65k combinations | **~3,500×** expansion |
+| **Ops Space** | 19 fixed operations | **52 burned opcodes** (512-row ROM) | Microcoded, extensible ISA |
 | **Footprint** | Single massive 270×270 mm PCB | Modular 4-bit slice boards | Better routing, linear cost |
 | **Control** | Fixed decode logic | 512-row microcode ROM | Programmable ISA overlay |
 
@@ -46,20 +52,19 @@ The dual-LUT slice is **[on the iron](<docs/log/2026-08-18 - First Phase of Asse
 
 Tomato runs as synthesizable Verilog on a Nexys A7, paints a 640×480 monitor, and boots an OS written in Tomato assembly.
 
-**[Tomato OS](https://tomato.tmarhguy.com/software.html)** is an 80×60 text desktop: menu, machine card, and six screens — *What is Tomato*, *Fibonacci*, *Snake*, *Tetris*, *Racer*, and *About Tomato*. Five buttons are the keyboard. Every instruction that draws the screen is a row of [tomato.v1.csv](docs/isa/tomato.v1.csv).
-
-<p align="center">
-  <img src="web/assets/os/main-menu-screen.jpg" alt="Tomato OS main menu on HDMI" width="70%" />
-</p>
-<p align="center"><em>Tomato OS on the glass · D-pad is the keyboard · <a href="https://tomato.tmarhguy.com/software.html">software sheet</a></em></p>
+**[Tomato OS](software/os/tomato_os.s)** now has a Ghana-inspired bitmap desktop,
+an 80×60 text overlay, large headings, and twelve applications. The games are
+Snake, Tetris, Sudoku and Racer. ALU Studio executes `MASKADD` and `XORAND` on the
+CPU and compares their outputs with reference instruction sequences. Five
+buttons control the interface. Plates sit with the PCB hero above; the full walkthrough is on the **[OS sheet](https://tomato.tmarhguy.com/os.html)**.
 
 | Layer     | What it is                                                | Where                                                        |
 | --------- | --------------------------------------------------------- | ------------------------------------------------------------ |
 | CPU       | Multi-cycle Von Neumann core, 6.25 MHz on Artix-7          | [hardware/fpga/core/rtl/](hardware/fpga/core/rtl/)            |
-| ISA       | 51 burned opcodes out of 512 ROM rows                      | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv)              |
+| ISA       | 52 burned opcodes out of 512 ROM rows                      | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv)              |
 | Vocabulary| 19 pseudo-instructions that expand into burned opcodes      | [docs/isa/tomato.v1.pseudo.csv](docs/isa/tomato.v1.pseudo.csv) |
 | Assembler | Two-pass, driven by those CSVs                             | [software/assembler.py](software/assembler.py)                |
-| OS        | Desktop, menu, and four games, in Tomato assembly          | [software/os/tomato_os.s](software/os/tomato_os.s)            |
+| OS        | Bitmap desktop, 12 apps and four games, in Tomato assembly          | [software/os/tomato_os.s](software/os/tomato_os.s)            |
 | Tests     | 20 module benches plus boot, menu, and games end-to-end    | `make -C hardware/fpga/core test`                             |
 | Paper     | Architecture · ISA · Software                              | [tomato.tmarhguy.com](https://tomato.tmarhguy.com/)           |
 
@@ -364,6 +369,12 @@ copyright or present the dual-LUT architecture as unrelated work.
 
 [![LICENSE](<https://img.shields.io/badge/LICENSE-SHL--2.1%20terms-990000>)](LICENSE) [![LICENSE-APACHE](<https://img.shields.io/badge/LICENSE--APACHE-Apache%202.0-990000>)](LICENSE-APACHE) [![NOTICE](<https://img.shields.io/badge/NOTICE-Copyright%20and%20attribution-990000>)](NOTICE) [![THIRD_PARTY_NOTICES.md](<https://img.shields.io/badge/THIRD__PARTY__NOTICES.md-PDK%20and%20tool%20licenses-990000>)](THIRD_PARTY_NOTICES.md)
 
+SHL-2.1 was restored in preference to Apache-2.0 WITH SHL-2.1 while patent strategy is
+under review: CERN-OHL-P grants an express patent licence to Make Products from
+Covered Source; SHL’s “Rights” definition excludes Patents. That is not legal
+advice and does not create patent rights — public disclosure can still affect
+patentability. See [NOTICE](NOTICE).
+
 **Architecture credit:** Tomato dual-LUT bit-slice datapath — Tyrone Marhguy /
 Tomato project.
 
@@ -380,3 +391,11 @@ Tomato is a solo hardware architecture project: discrete-logic CPU design, KiCad
  [![Instagram](https://img.shields.io/badge/Instagram-@tmarhguy-E4405F?logo=instagram&logoColor=white)](https://instagram.com/tmarhguy) [![Substack](https://img.shields.io/badge/Substack-@tmarhguy-FF6719?logo=substack&logoColor=white)](https://substack.com/@tmarhguy) [![Paper](https://img.shields.io/badge/Paper-tomato.tmarhguy.com-2ea043)](https://tomato.tmarhguy.com/) [![GitHub](https://img.shields.io/badge/GitHub-@tmarhguy-181717?logo=github&logoColor=white)](https://github.com/tmarhguy)
 
 ![University of Pennsylvania](<https://img.shields.io/badge/University%20of%20Pennsylvania-Computer%20Engineering-011F5B>) ![Class of 2028](<https://img.shields.io/badge/Class%20of-2028-990000>) ![Verification](<https://img.shields.io/badge/Verification-Formal%20%2B%20UVM-0891B2>)
+
+### September 2026 FPGA / OS update
+
+The build retains 384 KiB of program/data RAM (6× the earlier 64 KiB).
+After a blank screen on hardware at 100 MHz, the board default is restored to
+6.25 MHz (`CPU_DIV_LOG2=4`). The earlier 100.94 MHz timing report did not
+establish reliable operation on the physical board. Tomato OS v3 adds the Ghana wallpaper, Sudoku, restored Racer and
+ALU Studio. A millisecond timer keeps game speed independent of CPU speed.
