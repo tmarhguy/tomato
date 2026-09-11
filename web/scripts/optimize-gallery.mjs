@@ -19,12 +19,18 @@ const web = resolve(here, "..");
 const galleryHtml = join(web, "gallery.html");
 const widths = [128, 640, 1280];
 
+/** Already-built responsive gallery variants — do not re-encode into gallery/gallery/. */
+const GALLERY_VARIANT = /^assets\/gallery\/.+\-\d+w\.(webp|jpe?g|jpg|png)$/i;
+
 function collectSources(html) {
   const paths = new Set();
   const re = /data-(?:src|thumb|poster)="(assets\/[^"]+\.(?:webp|jpe?g|jpg|png))"/gi;
   let m;
   while ((m = re.exec(html))) {
-    if (!m[1].endsWith(".mp4")) paths.add(m[1]);
+    const p = m[1];
+    if (p.endsWith(".mp4")) continue;
+    if (GALLERY_VARIANT.test(p)) continue;
+    paths.add(p);
   }
   return [...paths].sort();
 }

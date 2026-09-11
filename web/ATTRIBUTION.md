@@ -13,6 +13,7 @@ Figures are Tomato’s own work, ornaments drawn for the paper, or a public-doma
 | `assets/compiler/opcode-sweep-fpga.mp4` | Same FSM on Artix‑7 — H.264 from `fpga_opcode_sweep.mp4` |
 | `assets/compiler/fpga-terminal-program.mp4` | Open-source FPGA build — Yosys → nextpnr → bitstream (`media/compiler/fpga_terminal_program.mp4`) |
 | `assets/compiler/fpga-terminal-program.webp` | Poster still for the terminal build clip |
+| `assets/gallery/compiler/fpga-terminal-program-{128,640,1280}w.webp` | Responsive gallery posters for the same terminal clip (`gallery.html` · Beyond Vivado) |
 | `assets/compiler/opcode-sweep-sim.webp` | Poster still for the simulation sweep |
 | `assets/assembly/digikey-box.webp` | DigiKey parts box, 17 Aug 2026 — cropped to the branded face |
 | `assets/assembly/work-setup.mp4` | Soldering lights on the loop, interleaved with board-test stills (3s / 2s) |
