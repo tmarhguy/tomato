@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * This is the machine, not the board. Everything that only exists because the
  * FPGA has pins — pixel timing, glyph ROM, 7-seg multiplexing, button
@@ -24,7 +24,7 @@
  * Board top: rtl/board/nexys_top.v.
  */
 
-module main (
+module main #(parameter CPU_HZ = 6250000) (
     input         clk,
     input         reset,
     input  [7:0]  kb_data,     // PS/2 / keypad byte (lane IN / MMIO)
@@ -78,7 +78,17 @@ module main (
 
     // Key is consumed by a load of MMIO word 0 or by the IN opcode. The keypad
     // drops kb_ready on this strobe so one press yields exactly one keycode.
-    assign kb_rd = exec & ((cmemrd & kb_hit & ~memaddr[0]) | (opcode == 9'h0C8));
+    assign kb_rd = exec & ((cmemrd & kb_hit & (memaddr[1:0] == 0)) | (opcode == 9'h0C8));
+
+    // Millisecond clock for OS delays; timer reads never consume a key.
+    localparam MS_CYCLES = CPU_HZ / 1000;
+    reg [31:0] ms_div, milliseconds;
+    always @(posedge clk) begin
+        if (reset) begin ms_div <= 0; milliseconds <= 0; end
+        else if (ms_div == MS_CYCLES-1) begin
+            ms_div <= 0; milliseconds <= milliseconds + 1'b1;
+        end else ms_div <= ms_div + 1'b1;
+    end
 
     // OUT opcode: latch peripheral byte (board UART/LED glue — same spirit as VGA MMIO)
     always @(posedge clk) begin
@@ -255,7 +265,9 @@ module main (
     end
     // MMIO [21:19]==111: word0 = kb data, word1 = {ready}
     assign memram = kb_hit
-                  ? (memaddr[0] ? {31'b0, kb_ready} : {24'b0, kb_data})
+                  ? (memaddr[1:0] == 0 ? {24'b0, kb_data} :
+                     memaddr[1:0] == 1 ? {31'b0, kb_ready} :
+                     memaddr[1:0] == 2 ? milliseconds : CPU_HZ)
                   : dread;
 
     alu alu0 (
