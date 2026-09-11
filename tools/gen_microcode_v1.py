@@ -36,6 +36,8 @@ ROM_FILES = {
 
 # Dual-LUT encoding for FPGA (docs/alu/alu-32b). Third value = csel.
 DUAL = {
+    "MASKADD": (0xAA, 0xC0, 0),  # A + (B & C), three register operands
+    "XORAND":  (0x96, 0x80, 0),  # (A ^ B ^ C) + (A & B & C)
     "ADD":   (0xAA, 0xCC, 0),
     "ADDI":  (0xAA, 0xCC, 0),
     "ADC":   (0xAA, 0xCC, 4),   # + carry flag
@@ -198,6 +200,16 @@ def burn_core_rows():
             operation=name, why=why, ir_imm_sel="1",
             reg_we="1", flags_we="0" if name == "MOV" else "1",
             cycles="1", encoding="reg_reg",
+        ))
+    for addr, name, expression in [
+        (0x08, "MASKADD", "rd = rA + (rB & rC)"),
+        (0x09, "XORAND", "rd = (rA ^ rB ^ rC) + (rA & rB & rC)"),
+    ]:
+        add(base_row(
+            rom_addr=f"0x{addr:02X}", region="alu-reg", mnemonic=name,
+            group="alu-reg", status="burn", semantic_op=name,
+            operation=expression, why="compound three-input ALU", ir_imm_sel="1",
+            reg_we="1", flags_we="1", cycles="1", encoding="reg_reg",
         ))
     add(base_row(
         rom_addr="0x07", region="alu-reg", mnemonic="CMP", group="alu-reg",
