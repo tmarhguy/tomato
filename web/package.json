@@ -8,19 +8,22 @@
     "serve": "node scripts/serve.mjs",
     "serve:plain": "echo 'WARNING: plain Python server has no cache headers or gzip — use npm run serve for audits.' && python3 -m http.server 8080",
     "perf": "node scripts/lighthouse-audit.mjs",
+    "check-copy": "node scripts/check-copy.mjs",
     "optimize-pcb": "node scripts/optimize-pcb.mjs",
     "optimize-gallery": "node scripts/optimize-gallery.mjs",
     "optimize-assembly": "node scripts/optimize-assembly.mjs",
     "optimize-fpga-terminal": "node scripts/optimize-fpga-terminal.mjs",
     "apply-seo": "node scripts/apply-seo.mjs",
-    "apply-vercel": "node scripts/apply-vercel.mjs"
+    "apply-vercel": "node scripts/apply-vercel.mjs",
+    "build-isa": "node scripts/build-isa.mjs"
   },
   "devDependencies": {
     "@gltf-transform/core": "^4.2.1",
     "@gltf-transform/extensions": "^4.2.1",
     "@gltf-transform/functions": "^4.2.1",
     "draco3dgltf": "^1.5.7",
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.3",
+    "write-good": "^1.0.8"
   },
   "engines": {
     "node": ">=18"
