@@ -56,4 +56,4 @@ Figures are Tomato’s own work, ornaments drawn for the paper, or a public-doma
 | `assets/plates/mouser-pmod-2.jpg` | Mouser checkout summary for the same PMOD order |
 | `assets/engravings/eniac-penn.jpg` | ENIAC at the Moore School, 1946. U.S. Army Photo, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Classic_shot_of_the_ENIAC.jpg) |
 
-PCB, schematic, and simulation figures are original Tomato / Tyrone Marhguy work, licensed with the rest of the repository (CERN-OHL-P-2.0).
+PCB, schematic, and simulation figures are original Tomato / Tyrone Marhguy work, licensed with the rest of the repository (Apache-2.0 WITH SHL-2.1).

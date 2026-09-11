@@ -91,6 +91,22 @@ The journal takes [`docs/log/`](../docs/log/) and typesets it. It runs to **34 d
 
 [`architecture.html`](https://tomato.tmarhguy.com/architecture.html), [`isa.html`](https://tomato.tmarhguy.com/isa.html), and [`software.html`](https://tomato.tmarhguy.com/software.html) cover the datapath, the ROM plus assembler vocabulary, and Tomato OS on HDMI. Source: [hardware/fpga/core](../hardware/fpga/core/README.md) · [software/os/tomato_os.s](../software/os/tomato_os.s).
 
+### Tomato OS on the glass
+
+Desktop v1.2 runs on the Nexys with a Ghana wallpaper, twelve apps, Sudoku, and a real HDMI capture path—not a phone pointed at the monitor. Live sheet: [`os.html`](https://tomato.tmarhguy.com/os.html). Dispatches: [wallpaper](https://tomato.tmarhguy.com/journal/wallpaper-polish.html) · [Sudoku](https://tomato.tmarhguy.com/journal/sudoku.html) · [HDMI capture](https://tomato.tmarhguy.com/journal/hdmi-captured.html).
+
+<p align="center">
+  <img src="assets/os/desktop-home.webp" alt="Tomato OS Desktop v1.2 with Ghana wallpaper on the FPGA" width="70%" />
+</p>
+<p align="center"><em>Desktop v1.2 · wallpaper on the FPGA</em></p>
+
+<p align="center">
+  <img src="assets/os/sudoku-on-tomato.webp" alt="Sudoku running on Tomato OS" width="34%" />
+  &nbsp;
+  <img src="assets/os/hdmi-capture.webp" alt="Clean HDMI capture of Tomato OS" width="34%" />
+</p>
+<p align="center"><em>Sudoku on glass · HDMI capture path</em></p>
+
 ---
 
 ## Repository Map

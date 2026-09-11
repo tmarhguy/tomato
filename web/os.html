@@ -26,11 +26,12 @@
 
 <link href="css/magazine.css" rel="stylesheet"/>
 <link href="css/site.css?v=35" rel="stylesheet"/>
-<link href="css/brand.css?v=252" rel="stylesheet"/>
+<link href="css/brand.css?v=253" rel="stylesheet"/>
 <link rel="stylesheet" href="css/navigation.css?v=250" />
 <script src="js/navigation.js?v=250" defer></script>
 <!-- tomato-seo -->
-  <meta name="description" content="Tomato OS boots on the FPGA computer, draws the menu, reads the controls, and runs games. I wrote it in Tomato’s own assembly language. These recordings show the hardware and software working together." />
+  <meta name="description" content="Tomato OS boots on the FPGA computer with a wallpapered Desktop v1.2, draws the menu, reads the controls, and runs games including Sudoku. Written in Tomato assembly; HDMI captures show the stream." />
+  <meta property="og:description" content="Tomato OS boots on the FPGA computer with a wallpapered Desktop v1.2, draws the menu, reads the controls, and runs games including Sudoku. Written in Tomato assembly; HDMI captures show the stream." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato OS, HDMI desktop, 80x60 framebuffer, Snake, Tetris, tomato_os.s, tile RAM, processor, operating, system, tomato, boots, draws, reads, controls, games, wrote" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -38,30 +39,29 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
   <meta property="og:title" content="My processor. My operating system — Tomato" />
-  <meta property="og:description" content="Tomato OS boots on the FPGA computer, draws the menu, reads the controls, and runs games. I wrote it in Tomato’s own assembly language. These recordings show the hardware and software working together." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/os.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/os.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/gallery/os/main-menu-screen-1280w.webp" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/gallery/os/desktop-home-1280w.webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
+  <meta property="og:image:alt" content="Tomato OS Desktop v1.2 with wallpaper" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="My processor. My operating system — Tomato" />
-  <meta name="twitter:description" content="Tomato OS boots on the FPGA computer, draws the menu, reads the controls, and runs games. I wrote it in Tomato’s own assembly language. These recordings show the hardware and software working together." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/gallery/os/main-menu-screen-1280w.webp" />
-  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="Tomato OS boots on the FPGA computer, draws the wallpapered desktop, reads the controls, and runs games — including Sudoku." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/gallery/os/desktop-home-1280w.webp" />
+  <meta name="twitter:image:alt" content="Tomato OS Desktop v1.2 with wallpaper" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "WebPage",
   "@id": "https://tomato.tmarhguy.com/os.html#webpage",
   "url": "https://tomato.tmarhguy.com/os.html",
   "name": "My processor. My operating system — Tomato",
-  "description": "Tomato OS boots on the FPGA computer, draws the menu, reads the controls, and runs games. I wrote it in Tomato’s own assembly language. These recordings show the hardware and software working together.",
+  "description": "Tomato OS boots on the FPGA computer with a wallpapered Desktop v1.2, draws the menu, reads the controls, and runs games including Sudoku. Written in Tomato assembly; HDMI captures show the stream.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -71,17 +71,17 @@
 </head>
 <body class="project-document">
 <div class="page project-page project-os"><a class="project-skip" href="#main">Skip to content</a>
-<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
 <main class="project-main" id="main">
 <nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="index.html">Home</a></nav><section aria-labelledby="os-title" class="project-hero project-hero-split">
 <div class="project-hero-media">
-<img alt="Tomato OS main menu on HDMI — dual-pane desktop with MAIN MENU and THE MACHINE cards." decoding="async" fetchpriority="high" height="720" sizes="(max-width: 980px) 100vw, 52vw" src="assets/gallery/os/main-menu-screen-1280w.webp" srcset="assets/gallery/os/main-menu-screen-640w.webp 640w, assets/gallery/os/main-menu-screen-1280w.webp 1280w" width="1280"/>
+<img alt="Tomato OS Desktop v1.2 with Ghana wallpaper on the FPGA" decoding="async" fetchpriority="high" height="720" sizes="(max-width: 980px) 100vw, 52vw" src="assets/gallery/os/desktop-home-1280w.webp" srcset="assets/gallery/os/desktop-home-640w.webp 640w, assets/gallery/os/desktop-home-1280w.webp 1280w" width="1280"/>
 </div>
 <div class="project-hero-copy">
 <p class="kicker">Tomato OS</p>
 <h1 class="project-title" id="os-title">My processor. My operating system.</h1>
-<p class="deck">Tomato OS boots on the FPGA computer, draws the menu, reads the controls, and runs games. I wrote it in Tomato’s own assembly language. These recordings show the hardware and software working together.</p>
-<p class="byline">Nexys A7 · 12-bit DVI PMOD · five-button D-pad · <a href="journal/tomato-works.html">first HDMI boot</a> · <a href="journal/one-press.html">one press, one key</a></p>
+<p class="deck">Tomato OS boots on the FPGA computer, draws the wallpapered desktop, reads the controls, and runs games — including Sudoku. I wrote it in Tomato’s own assembly language. These captures are the HDMI stream, not a phone pointed at a monitor.</p>
+<p class="byline">Nexys A7 · Desktop v1.2 · <a href="journal/wallpaper-polish.html">wallpaper</a> · <a href="journal/sudoku.html">Sudoku</a> · <a href="journal/hdmi-captured.html">HDMI capture</a> · <a href="journal/one-press.html">one press, one key</a></p>
 <nav aria-label="Jump" class="site-hero__actions">
 <a class="is-primary" href="#controls">Controls</a>
 <a href="#menu">Menu</a>
@@ -96,15 +96,29 @@
 <section class="section">
 <div class="site-prose">
 <figure class="plate plate--ink">
+<img alt="Tomato OS desktop home with wallpaper" decoding="async" height="720" loading="lazy" sizes="(max-width: 980px) 100vw, 720px" src="assets/gallery/os/desktop-home-1280w.webp" srcset="assets/gallery/os/desktop-home-640w.webp 640w, assets/gallery/os/desktop-home-1280w.webp 1280w" width="1280"/>
+<figcaption>Desktop v1.2 · Ghana wallpaper under the glass UI · <a href="journal/wallpaper-polish.html">dispatch</a></figcaption>
+</figure>
+<figure class="plate plate--ink">
 <video aria-label="Tomato OS menu and games over HDMI" controls="" height="720" loop="" muted="" playsinline="" poster="assets/os/hdmi-demo-poster.jpg" preload="metadata" webkit-playsinline="" width="1280">
 <source src="assets/os/hdmi-demo-games-ui.mp4" type="video/mp4"/>
 <source src="assets/os/hdmi-demo-games-ui.mov" type="video/quicktime"/>
 </video>
 <figcaption>Tomato OS on glass · 640×480 over DVI · CPU-painted tiles · scanout reads framebuffer RAM</figcaption>
 </figure>
-<p class="">Verification proves the ALU. Tomato OS proves the rest of the machine — keypad MMIO, tile RAM, HDMI timing, menu loop — on hardware someone can watch. It is the stress test for pseudos, string layout, and the register file at scale (<a href="journal/register-upgrade.html">32,768 GPR</a> backed by 15-bit SRAM). The CPU writes an 80×60 character field; a separate scanout block reads it and drives the monitor. No GPU — games are loops in asm.</p>
+<p class="">Verification proves the ALU. Tomato OS proves the rest of the machine — keypad MMIO, tile RAM, HDMI timing, menu loop — on hardware someone can watch. It is the stress test for pseudos, string layout, and the register file at scale (<a href="journal/register-upgrade.html">32,768 GPR</a> backed by 15-bit SRAM). The CPU writes an 80×60 character field over a bitmap wallpaper; a separate scanout block reads it and drives the monitor. No GPU — games are loops in asm.</p>
+<div class="two-up">
+<figure class="plate">
+<img alt="Sudoku on Tomato OS" decoding="async" height="720" loading="lazy" sizes="(max-width: 980px) 100vw, 45vw" src="assets/gallery/os/sudoku-on-tomato-1280w.webp" srcset="assets/gallery/os/sudoku-on-tomato-640w.webp 640w, assets/gallery/os/sudoku-on-tomato-1280w.webp 1280w" width="1280"/>
+<figcaption>Sudoku · arrows move · Enter cycles 1–9 · <a href="journal/sudoku.html">dispatch</a></figcaption>
+</figure>
+<figure class="plate">
+<img alt="Clean HDMI capture path" decoding="async" height="720" loading="lazy" sizes="(max-width: 980px) 100vw, 45vw" src="assets/gallery/os/hdmi-capture-1280w.webp" srcset="assets/gallery/os/hdmi-capture-640w.webp 640w, assets/gallery/os/hdmi-capture-1280w.webp 1280w" width="1280"/>
+<figcaption>HDMI capture · OBS · not a camera of the screen · <a href="journal/hdmi-captured.html">dispatch</a></figcaption>
+</figure>
+</div>
 <h2 id="controls">Controls</h2>
-<p>Five Nexys buttons wired as a D-pad through <span class="mono">rtl/board/keypad.v</span>. Center (<span class="mono">N17</span>) is Enter. One physical press emits one key event — after fixing a bench that counted hundreds of repeats from a single push (<a href="journal/one-press.html">dispatch</a>).</p>
+<p>Five Nexys buttons wired as a D-pad through <span class="mono">rtl/board/keypad.v</span>. Center (<span class="mono">N17</span>) is Enter. One physical press emits one key event — after fixing a bench that counted hundreds of repeats from a single push (<a href="journal/one-press.html">dispatch</a>). In Sudoku, Enter cycles the digit <span class="mono">1…9</span> then blank.</p>
 <div class="table-wrap">
 <table>
 <thead>
@@ -112,35 +126,38 @@
 </thead>
 <tbody>
 <tr><td>Up / Down</td><td class="mono">0x1E / 0x1F</td><td>Move menu highlight</td></tr>
-<tr><td>Center</td><td class="mono">0x0D</td><td>Select · Enter screen</td></tr>
+<tr><td>Center</td><td class="mono">0x0D</td><td>Select · Enter screen · cycle digits in Sudoku</td></tr>
 <tr><td>Left</td><td class="mono">0x11</td><td>Back to menu</td></tr>
-<tr><td>Left / Right</td><td class="mono">0x11 / 0x10</td><td>Steer in Snake and Tetris</td></tr>
+<tr><td>Left / Right</td><td class="mono">0x11 / 0x10</td><td>Steer in Snake, Tetris, and Racer</td></tr>
 </tbody>
 </table>
 </div>
 <p>Keyboard MMIO lives at <span class="mono">0x780000</span>: word 0 is the keycode (reading consumes it), word 1 is the ready flag. The Nexys 7-segment display follows the last nonzero writeback or store — so it is not stuck at zero while the shell waits for a key.</p>
 <h2 id="menu">Main menu</h2>
-<p>Boot splash runs once (gold mark, <strong>TOMATO OS v1.0</strong>, progress bar). Then the desktop: menu card on the left, machine card on the right. Nine entries — each dispatches through a jump table, so adding a screen is one row in the table.</p>
+<p>Boot splash runs once. Then Desktop v1.2: applications on the left, preview and credits on the right. Twelve entries — each dispatches through a jump table, so adding a screen is one row in the table.</p>
 <div class="table-wrap">
 <table>
 <thead>
 <tr><th>Entry</th><th>What it does</th></tr>
 </thead>
 <tbody>
-<tr><td>System info</td><td>What is Tomato — quirks table (name | machine), same facts as the architecture paper</td></tr>
+<tr><td>System info</td><td>What is Tomato — quirks table</td></tr>
 <tr><td>Palette</td><td>16-color swatch chart for the tile attribute field</td></tr>
 <tr><td>Font chart</td><td>CP437-ish glyph grid — every drawable character</td></tr>
 <tr><td>Keypad test</td><td>Live keycodes on screen — bench tool for the D-pad</td></tr>
 <tr><td>Fibonacci</td><td>Running integers; 7-seg tracks the result</td></tr>
 <tr><td>Snake</td><td>Tile paint, timing, keypad input</td></tr>
 <tr><td>Tetris</td><td>Board in low RAM · piece rotation · line clears</td></tr>
-<tr><td>About Tomato</td><td>Credits, Penn Engineering, site link</td></tr>
+<tr><td>About Tomato</td><td>Credits, Penn Engineering</td></tr>
 <tr><td>Memory map</td><td>Bus windows the CPU can name</td></tr>
+<tr><td>Sudoku</td><td>Arrows move · Enter cycles 1–9 · gold clues fixed</td></tr>
+<tr><td>ALU Studio</td><td><span class="mono">MASKADD</span> / <span class="mono">XORAND</span> vs reference sequences</td></tr>
+<tr><td>Racer</td><td>Steer through traffic</td></tr>
 </tbody>
 </table>
 </div>
 <h2 id="display">Display contract</h2>
-<p>Framebuffer window at <span class="mono">0x300000</span> — 80×60 cells, each an 8×8 pixel tile. One word per cell (<span class="mono">videoout.v</span>):</p>
+<p>Framebuffer window at <span class="mono">0x300000</span> — 80×60 cells, each an 8×8 pixel tile, composited over the Ghana wallpaper ROM. One word per cell (<span class="mono">videoout.v</span>):</p>
 <ul>
 <li><span class="mono">[7:0]</span> glyph — CP437-ish code (keycodes can be drawn directly)</li>
 <li><span class="mono">[11:8]</span> foreground palette index</li>
@@ -240,10 +257,10 @@
 </div>
 </div>
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a aria-current="page" href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a aria-current="page" href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script src="js/arch-map.js" type="module"></script>
-<script defer="" src="js/mast.js?v=240"></script>
+<script defer="" src="js/mast.js?v=241"></script>
 <!-- tomato-vercel -->
 <script defer="" src="js/vercel-analytics.js"></script>
 <script defer="" src="js/vercel-speed-insights.js"></script>
