@@ -7,7 +7,7 @@
  * Target   : simulation (compile with rtl/board/videoout.v + font_rom.v)
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * Covers the three things the scanout can get wrong and the monitor cannot
  * tell you about: the cell address arithmetic, the glyph/attribute decode,
@@ -34,6 +34,7 @@ module videoout_tb;
 
     integer i, ink_pixels, lit_rows;
     reg [9:0] h_lo, h_hi, v_lo;
+    reg [11:0] expected_paper;
 
     initial begin
         tick; tick;
@@ -94,6 +95,29 @@ module videoout_tb;
             $display("FAIL: glyph 0x7C rendered %0d/8 ink pixels", ink_pixels);
             $finish(1);
         end
+
+        // Bitmap origin, scaling and glass must align with glyphs in the
+        // same three-clock pipeline. Test edges and distant image locations.
+        for (i=0; i<12; i=i+1) begin
+            uut.fh = (i==11) ? 638 : i*52;
+            uut.fv = (i==11) ? 478 : i*34;
+            expected_paper = uut.wallpaper[(uut.fv/2)*320+uut.fh/2];
+            tile_data = 32'h00010f20;
+            repeat (3) tick;
+            if ({r,g,b} !== expected_paper)
+                $fatal(1,"bitmap alignment pixel %0d got %h want %h",i,{r,g,b},expected_paper);
+            uut.fh = (i==11) ? 638 : i*52;
+            uut.fv = (i==11) ? 478 : i*34;
+            tile_data = 32'h00030f20;
+            repeat (3) tick;
+            if ({r,g,b} !== {2'b0,expected_paper[11:10],2'b0,expected_paper[7:6],2'b0,expected_paper[3:2]})
+                $fatal(1,"glass pixel mismatch");
+        end
+        // Full block remains foreground even over wallpaper.
+        uut.fh=20; uut.fv=20;
+        tile_data=32'h00070fdb;
+        repeat (3) tick;
+        if ({r,g,b} !== 12'hfff) $fatal(1,"large foreground lost over bitmap");
 
         // ---- syncs are active low and land in the right window ------------
         uut.fh = 10'd660; uut.fv = 10'd0;   // inside H sync [656, 752)
