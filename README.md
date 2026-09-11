@@ -61,6 +61,7 @@ buttons control the interface. Plates sit with the PCB hero above; the full walk
 | Layer     | What it is                                                | Where                                                        |
 | --------- | --------------------------------------------------------- | ------------------------------------------------------------ |
 | CPU       | Multi-cycle Von Neumann core, 6.25 MHz on Artix-7          | [hardware/fpga/core/rtl/](hardware/fpga/core/rtl/)            |
+| Registers | 32,768 × 32-bit GPR (15-bit SRAM depth; `SETBANK2` superbank) | [regs.v](hardware/fpga/core/rtl/regs.v) · [register upgrade](https://tomato.tmarhguy.com/journal/register-upgrade.html) |
 | ISA       | 52 burned opcodes out of 512 ROM rows                      | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv)              |
 | Vocabulary| 19 pseudo-instructions that expand into burned opcodes      | [docs/isa/tomato.v1.pseudo.csv](docs/isa/tomato.v1.pseudo.csv) |
 | Assembler | Two-pass, driven by those CSVs                             | [software/assembler.py](software/assembler.py)                |
@@ -121,9 +122,9 @@ Typical field packing (ALU register ops):
 | `rA`   | 5    | `[17:13]` | ALU operand A                                   |
 | `rB`   | 5    | `[12:8]`  | ALU operand B                                   |
 | `rC`   | 5    | `[7:3]`   | ALU operand C                                   |
-| `BANK` | 3    | `[2:0]`   | Bank select (8 banks → 32 GPR × 8 = 256 regs) |
+| `BANK` | 3    | `[2:0]`   | Primary bank in the word (8 banks → 256 regs visible without changing the superbank latch) |
 
-Each operand is **5 + 3b bank** in address terms: a 5-bit GPR index within the bank selected by `BANK[2:0]`.
+Each operand is **5 + 3b bank** in the instruction word, plus a **7-bit superbank latch** outside the word: physical address `{superbank[6:0], BANK[2:0], reg[4:0]}` (15 bits). `SETBANK2` updates the latch; ordinary ops keep the 32-bit encoding.
 
 ```
 [31:23]  opcode
@@ -153,7 +154,7 @@ See [opcode-map.csv](docs/opcode-map.csv) for mnemonic layout and [Load Store Pi
 
 ### Register file
 
-**32 GPR × 8 banks = 256** addressable registers. Not the full theoretical address space the LUT catalog could name — enough for real programs and modular board bring-up without widening the datapath.
+**32,768 × 32-bit GPR locations** on the full 15-bit address depth of the `AS6C62256` SRAMs (3R1W). The instruction word still names a **256-register window** (`register:5` + `bank:3`); the upper seven bits live in a latched **superbank** changed by `SETBANK2`. Path: 32 → 256 → 32,768 — see the [register-upgrade dispatch](https://tomato.tmarhguy.com/journal/register-upgrade.html).
 
 ### Datapath and control
 
@@ -291,19 +292,20 @@ Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.d
 
 ## Project status
 
-**As of July 2026**
+**As of September 2026**
 
 | Area                          | Status                | Notes                                                                             |
 | ----------------------------- | --------------------- | --------------------------------------------------------------------------------- |
-| Architecture                  | **32-bit**      | See[Falling back to 32b](<docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md>) |
-| ALU PCB (`07_alu`)          | Populating            | [First phase of assembly](<docs/log/2026-08-18 - First Phase of Assembly.md>)      |
-| Opcode ROM                    | 512 rows (planned)    | Down from 1024-row budget                                                         |
-| Register file                 | 32 GPR × 8 banks     | 256 addressable registers                                                         |
+| Architecture                  | **32-bit**      | Fell back from a 40b word; see [Falling back to 32b](<docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md>) |
+| ALU PCB (`07_alu`)          | Populating / lit      | [First lights](<docs/log/2026-08-21%20-%20First%20Lights%20and%20Flux.md>) · [assembly](<docs/log/2026-08-18%20-%20First%20Phase%20of%20Assembly.md>) |
+| Opcode ROM                    | 512 rows · **52 burned** | Practical ISA; ALU config space is larger — [ISA README](docs/isa/README.md) |
+| Register file                 | **32,768 GPR** (3R1W) | 15-bit `AS6C62256` depth; 256-reg window + `SETBANK2` superbank |
+| FPGA core + Tomato OS         | Boots on Nexys A7     | Desktop v1.2, wallpaper, Sudoku, HDMI — [It boots](#it-boots) |
 | `main.dig` + control boards | In progress           | Modular decode on bench                                                           |
-| ALU verification              | Passing on 32b export | [verification/](verification/)                                                     |
+| ALU verification              | Passing on 32b export | ALU-only sign-off — [verification/](verification/)                                                     |
 | ALU ASIC characterization     | Sky130 HD mapped      | [6531 µm², 512 cells, ~210 MHz est.](verification/synthesis/README.md)           |
 | Peripheral PCBs               | In design             | Register, memory, PC, data bus                                                    |
-| Firmware / software           | Not started           | README stubs only                                                                 |
+| Firmware / software           | Tomato OS on FPGA     | Assembler + OS in [software/](software/)                                          |
 
 **Bring-up direction:** Build peripherals and modular control boards — not a throwaway FSM that becomes Tomato anyway. The ALU PCB can be exercised through `alu-display-control` and simulation vectors while fab runs ([lingering catch](<docs/log/2026-07-31%20-%20The%20lingering%20thoughts.md>)).
 
@@ -394,8 +396,7 @@ Tomato is a solo hardware architecture project: discrete-logic CPU design, KiCad
 
 ### September 2026 FPGA / OS update
 
-The build retains 384 KiB of program/data RAM (6× the earlier 64 KiB).
-After a blank screen on hardware at 100 MHz, the board default is restored to
+The build retains 384 KiB of program/data RAM (6× the earlier 64 KiB) and a **32,768-location** register file on the full 15-bit SRAM depth (`SETBANK2` superbank; ordinary instructions still see a 256-reg window). After a blank screen on hardware at 100 MHz, the board default is restored to
 6.25 MHz (`CPU_DIV_LOG2=4`). The earlier 100.94 MHz timing report did not
 establish reliable operation on the physical board. Tomato OS v3 adds the Ghana wallpaper, Sudoku, restored Racer and
 ALU Studio. A millisecond timer keeps game speed independent of CPU speed.

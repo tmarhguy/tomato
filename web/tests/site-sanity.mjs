@@ -237,9 +237,10 @@ test("primary nav present on every page", () => {
       continue;
     }
     if (label === "index.html") {
-      assert.match(html, /aria-label="Primary"/);
+      assert.match(html, /aria-label="Site"/);
       assert.match(html, /aria-label="All project pages"/);
       assert.match(html, /js\/landing\.js/);
+      assert.doesNotMatch(html, /class="front-paths"/);
     } else {
       assert.match(html, /project-primary/, `${label}: static primary navigation`);
       assert.match(html, /js\/mast\.js/, `${label}: shared interactions`);
@@ -320,8 +321,8 @@ test("3D viewer page is the light 07_alu tour", () => {
   const index = readFileSync(join(WEB, "index.html"), "utf8");
   const board = readFileSync(join(WEB, "board.html"), "utf8");
   assert.match(index, /viewer\.html/, "index.html: Tour opens viewer");
-  assert.match(index, /landing-hero__paths[\s\S]*is-tour[\s\S]*viewer\.html/, "index.html: Tour in hero paths");
-  assert.match(index, /landing-hero__paths[\s\S]*architecture\.html/, "index.html: Architecture in hero paths");
+  assert.match(index, /site-menu[\s\S]*viewer\.html/, "index.html: Tour in all-pages menu");
+  assert.match(index, /front-links[\s\S]*architecture\.html/, "index.html: Architecture in site links");
   assert.match(index, /href="#what-is-tomato"/, "index.html: introduction is reachable");
   assert.match(board, /viewer\.html/, "board.html: Tour opens viewer");
   assert.match(board, /class=["']bench-tour["']/, "board.html: Tour CTA on the board");
@@ -384,17 +385,19 @@ test("CSS has brand tokens", () => {
 test("gallery ships responsive WebP variants and LCP preload", () => {
   const html = readFileSync(join(WEB, "gallery.html"), "utf8");
   assert.match(html, /fetchpriority="high"/);
-  assert.match(html, /assets\/os\/hdmi-demo-poster\.jpg/);
+  assert.match(html, /assets\/gallery\/os\/desktop-home-1280w\.webp/);
   assert.match(html, /hdmi-demo-games-ui\.mp4/);
   assert.ok(existsSync(join(WEB, "assets/os/hdmi-demo-games-ui.mp4")));
   assert.ok(existsSync(join(WEB, "assets/os/hdmi-demo-poster.jpg")));
+  assert.ok(existsSync(join(WEB, "assets/gallery/os/desktop-home-1280w.webp")));
+  assert.ok(existsSync(join(WEB, "assets/gallery/os/desktop-home-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/placing-and-soldering-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-640w.webp")));
-  // First slide is Tomato OS on HDMI — latest story lead
+  // First slide is Desktop v1.2 with wallpaper — Sep 11 lead
   const slides = html.slice(html.indexOf('class="gallery-slides"'));
   const firstSrc = slides.match(/data-src="([^"]+)"/);
-  assert.equal(firstSrc && firstSrc[1], "assets/os/hdmi-demo-games-ui.mp4");
+  assert.equal(firstSrc && firstSrc[1], "assets/gallery/os/desktop-home-1280w.webp");
   const js = readFileSync(join(WEB, "js/gallery.js"), "utf8");
   assert.match(js, /galleryVariant/);
   assert.match(js, /fetchPriority/);
@@ -734,8 +737,7 @@ function get(url) {
  assert.match(html, />FAQ</);
  }
  const home = readFileSync(join(WEB, "index.html"), "utf8");
- assert.match(home, /class="front-links"[\s\S]*?>FAQ</);
- assert.match(home, /class="hero-actions[\s\S]*?href="#questions">FAQ</);
+ assert.match(home, /class="front-links"[\s\S]*?href="faq\.html">FAQ</);
  assert.match(home, /id="questions"/);
  assert.match(home, /class="faq-home"/);
  assert.equal((home.match(/<div class="faq-home">[\s\S]*?<\/div>/)[0].match(/<details>/g) || []).length, 6);

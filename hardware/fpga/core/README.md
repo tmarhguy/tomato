@@ -25,22 +25,21 @@ The whole Tomato32 CPU on a **Nexys A7-100T**, running **Tomato OS** on a monito
 [Tomato OS](../../../software/os/tomato_os.s) paints an 80×60 text field and a menu you drive with the Nexys D-pad. **N17 (center) is Enter** — it opens the highlighted entry. Up/down move the highlight; left goes back; left/right steer in the games.
 
 ```
- TOMATO OS  v1.0                            Designed by Tyrone Marhguy
- dual-LUT3 ALU  -  524288 ops  -  256 GPR 3R1W              READY
+ TOMATO OS  Desktop v1.2                    Designed by Tyrone Marhguy
+ dual-LUT3 ALU  -  52 burns / 512 ROM  -  32768 GPR 3R1W     READY
  ┌ MAIN MENU ─────────────────┐  ┌ THE MACHINE ──────────────┐
  │ ▶ System info              │  │ Designed by               │
- │   Palette                  │  │ TYRONE MARHGUY            │
- │   Font chart               │  │ Penn Engineering  2028    │
- │   Keypad test              │  │                           │
- │   Fibonacci                │  │ dual-LUT3 ALU, 524288 ops │
- │   Snake                    │  │ 256 GPR, 8 banks, 3R1W    │
- │   Tetris                   │  │ 512-row modular microcode │
- │   About Tomato             │  └───────────────────────────┘
- │   Memory map               │
- └────────────────────────────┘
+ │   … twelve apps            │  │ TYRONE MARHGUY            │
+ │   Sudoku · Snake · Tetris  │  │ Penn Engineering  2028    │
+ │   Racer · ALU Studio       │  │                           │
+ │   About Tomato             │  │ dual-LUT3 · 52 burned ops │
+ │                            │  │ 32768 GPR · SETBANK2      │
+ │                            │  │ 512-row modular microcode │
+ └────────────────────────────┘  └───────────────────────────┘
  ↑ ↓ move    ENTER select    ← back
 ```
 
+The on-screen copy tracks Desktop v1.2; the register file is **32,768 × 32-bit** locations (15-bit `AS6C62256` depth). Ordinary instructions name a 256-register window; `SETBANK2` latches the 7-bit superbank.
 A boot splash (gold mark, **TOMATO OS v1.0**, progress bar) runs once before this desktop. System info is the spec sheet. About is signed. Fibonacci / Snake / Tetris play from the D-pad. The Nexys 7-seg follows the last nonzero writeback (or store), so it is not stuck at zero while the shell waits for a key.
 
 Every screen is drawn by the CPU storing words into the framebuffer window. Nothing about the display is hardwired into the machine — the scanout just reads tile RAM.
