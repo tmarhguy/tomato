@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html class="project-document" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+<title>When assembly is still too high-level for Tomato — The Tomato</title>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="../css/magazine.css" rel="stylesheet"/>
+<link href="../css/site.css?v=34" rel="stylesheet"/>
+<link href="../css/brand.css?v=252" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/navigation.css?v=250" />
+<script src="../js/navigation.js?v=250" defer></script>
+<link rel="stylesheet" href="../css/journal-article.css?v=8"/>
+<!-- tomato-seo -->
+  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, When, assembly, is, tomato, 32-bit" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="author" type="text/plain" href="../humans.txt" />
+  <meta property="og:title" content="When assembly is still too high-level for Tomato — The Tomato" />
+  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/assembly-barrier.html" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/journal/assembly-barrier.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
+  <meta name="twitter:title" content="When assembly is still too high-level for Tomato — The Tomato" />
+  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "https://tomato.tmarhguy.com/journal/assembly-barrier.html#webpage",
+  "url": "https://tomato.tmarhguy.com/journal/assembly-barrier.html",
+  "name": "When assembly is still too high-level for Tomato — The Tomato",
+  "description": "The Tomato 32-bit CPU",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US",
+  "headline": "When assembly is still too high-level for Tomato",
+  "author": {
+    "@type": "Person",
+    "name": "Tyrone Marhguy"
+  },
+  "datePublished": "11 September 2026"
+}</script>
+  <!-- /tomato-seo -->
+</head>
+<body class="project-document">
+<div class="page project-page project-article journal-redesign"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<main data-journal-kind="engineering" class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../journal.html">Journal</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
+<p class="kicker">Dispatch · ISA</p>
+<h1 class="project-title" id="page-title">When assembly is still too high-level for Tomato</h1>
+<p class="deck">Growing past 52 burns: if the Dual-LUT can evaluate f+g+cin in one cycle, named mnemonics can hide the machine.</p>
+<p class="byline">11 September 2026 · from the log</p>
+</div>
+</section><aside class="journal-decision" aria-label="The entry at a glance"><div><span>The starting point</span><p>52 named burns</p></div><div><span>The move</span><p>Ask what the datapath can express</p></div><div><span>The result or direction</span><p>Expose native computation, not only familiar ops</p></div></aside>
+<section class="section section--journal">
+<div class="site-prose wrap">
+
+<p>I’m expanding Tomato’s ISA beyond its current 52 burned opcodes, and one idea keeps becoming more important: <strong>the lower I go, the more of the machine I can actually see.</strong></p>
+<p>If I understand exactly what the hardware can do in one cycle, I can design algorithms around its natural operations instead of forcing the machine to imitate conventional instruction sets.</p>
+<p>That matters on Tomato because the execution unit can evaluate operations of the form <code>f(a, b, c) + g(a, b, c) + cin</code> in <strong>one cycle</strong>.</p>
+<p>A compiler—or a programmer writing ordinary assembly—may see an XOR3 combined with an unusual Boolean plane and break it into several familiar instructions. Tomato may already perform that entire expression directly.</p>
+<p>That exposes an interesting problem: <strong>assembly itself can become an abstraction barrier.</strong> Mnemonics name what people already decided was useful. There is no natural name for every function the Dual-LUT can express—nor should there necessarily be. Restricting access to only the operations we know how to name leaves part of the machine unexplored.</p>
+<p>So instead of asking what instructions Tomato should have, I want the more direct question: <strong>what is the most direct way to expose the computation the hardware is already capable of?</strong> If the doors and the keys already exist, why add another locked door between them? That is the direction as the ISA grows toward the rest of the 512-row ROM.</p>
+<p>Authority: <a href="../isa.html">Tomato ISA</a> · <span class="mono">docs/isa/tomato.v1.csv</span>.</p>
+
+</div>
+<div class="wrap">
+<nav class="pager">
+<a href="register-upgrade.html"><span class="dir">Previous</span><span class="to">Register Upgrade</span></a>
+<a class="next" href="wallpaper-polish.html"><span class="dir">Next</span><span class="to">Wallpaper, Polish, and the Rest</span></a>
+</nav>
+</div>
+</section>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script defer="" src="../js/mast.js?v=241"></script>
+<!-- tomato-vercel -->
+<script defer="" src="../js/vercel-analytics.js"></script>
+<script defer="" src="../js/vercel-speed-insights.js"></script>
+<!-- /tomato-vercel -->
+</body>
+</html>
