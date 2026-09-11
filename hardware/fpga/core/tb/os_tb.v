@@ -7,7 +7,7 @@
  * Target   : simulation (cwd = hardware/fpga/core)
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * Boots the OS image, feeds it keystrokes through the keyboard MMIO exactly
  * the way rtl/board/keypad.v does, and prints the framebuffer as text. A
@@ -33,7 +33,7 @@ module os_tb;
 
     always #5 clk = ~clk;
 
-    main uut (
+    main #(.CPU_HZ(1000000)) uut (
         .clk(clk), .reset(reset),
         .kb_data(kb_data), .kb_ready(kb_ready), .kb_rd(kb_rd),
         .io_out(io_out), .disp_value(disp_value), .halted(halted),
@@ -110,7 +110,8 @@ module os_tb;
         end
     endfunction
 
-    integer k, nkeys, settle, want_dump, drawn;
+    integer k, nkeys, settle, want_dump, drawn, frame_fd, frame_i;
+    reg [1023:0] frame_path;
     reg [8*64-1:0] prog;
     reg [1023:0]   path;
     reg [8*32-1:0] keys_arg;
@@ -187,27 +188,42 @@ module os_tb;
             dump_screen;
             $finish(1);
         end
-        // Menu contract: enter selects, and the three games have to be on it.
-        if (uut.vga0.lo[5*80 + 8][7:0] !== "S" ||
-            uut.vga0.lo[9*80 + 8][7:0] !== "F" ||
-            uut.vga0.lo[10*80 + 8][7:0] !== "S" ||
-            uut.vga0.lo[10*80 + 9][7:0] !== "n" ||
-            uut.vga0.lo[11*80 + 8][7:0] !== "T") begin
-            $display("FAIL: menu missing System/Fibonacci/Snake/Tetris");
-            dump_screen;
-            $finish(1);
-        end
-        // Title bar: TOMATO OS v1.0, Designed by Tyrone Marhguy
-        if (uut.vga0.lo[0*80 + 2][7:0] !== "T" ||
-            uut.vga0.lo[0*80 + 13][7:0] !== "v" ||
-            uut.vga0.lo[0*80 + 54][7:0] !== "D" ||
-            uut.vga0.lo[6*80 + 42][7:0] !== "T") begin
-            $display("FAIL: TOMATO OS v1.0 / Designed by missing from chrome");
-            dump_screen;
-            $finish(1);
-        end
+        // Native launcher and bitmap/large-type attributes.
+        if (uut.vga0.lo[15*80+9][7:0] !== "S" ||
+            uut.vga0.lo[30*80+9][7:0] !== "S" ||
+            uut.vga0.lo[33*80+9][7:0] !== "T" ||
+            uut.vga0.lo[42*80+9][7:0] !== "S" ||
+            uut.vga0.lo[45*80+9][7:0] !== "A" ||
+            uut.vga0.hi[5*80+4][4:0] !== 5'b00111)
+            $fatal(1, "workspace apps or large glass heading missing");
         $display("boot: %0d cells painted", drawn);
         if (want_dump) dump_screen;
+        if (!$test$plusargs("NO_NAV_CHECK")) begin
+        press(8'h1E); repeat (settle) tick;
+        if (uut.regs0.mem[20] !== 11 || uut.vga0.lo[48*80+9][7:0] !== "R")
+            $fatal(1,"Racer missing at end of launcher");
+        press(8'h1E); repeat (settle) tick;
+        if (uut.regs0.mem[20] !== 10 ||
+            uut.vga0.lo[45*80+9][15:8] !== 8'hf0 ||
+            uut.vga0.lo[45*80+39][7:0] !== "A")
+            $fatal(1, "focus wrap/preview mismatch");
+        press(8'h10); repeat (settle) tick;
+        // ALU Studio opens from RIGHT; wallpaper bit stays set under the UI.
+        if (uut.vga0.lo[9*80+8][7:0] !== "A" || uut.vga0.hi[20*80+40][0] !== 1'b1)
+            $fatal(1, "RIGHT ALU Studio title=%h background=%h PC=%h", uut.vga0.lo[9*80+8], uut.vga0.hi[20*80+40], uut.pc0.pc);
+        press(8'h11); repeat (settle) tick;
+        if (uut.regs0.mem[20] !== 10 || uut.vga0.lo[45*80+39][7:0] !== "A")
+            $fatal(1, "return failed to retain focus");
+        press(8'h1F); repeat (settle) tick;
+        press(8'h1F); repeat (settle) tick;
+        if (uut.regs0.mem[20] !== 0 ||
+            uut.vga0.lo[15*80+9][15:8] !== 8'hf0 ||
+            uut.vga0.lo[45*80+9][15:8] !== 8'h0f ||
+            uut.vga0.lo[45*80+39][7:0] !== "S")
+            $fatal(1, "down wrap left stale selection/preview");
+        $display("workspace: bitmap, typography, wrap, ALU Studio, return pass");
+
+        end
 
         for (k = 0; k < nkeys; k = k + 1) begin
             press(keys[k]);
@@ -221,6 +237,14 @@ module os_tb;
             $finish(1);
         end
 
+        // Exact tile dump for the host renderer; no approximated mockup.
+        if ($value$plusargs("FRAME=%s", frame_path)) begin
+            frame_fd = $fopen(frame_path, "w");
+            if (!frame_fd) $fatal(1, "cannot write FRAME");
+            for (frame_i = 0; frame_i < 4800; frame_i = frame_i + 1)
+                $fdisplay(frame_fd, "%08h", {uut.vga0.hi[frame_i], uut.vga0.lo[frame_i]});
+            $fclose(frame_fd);
+        end
         $display("PASS: tomato_os");
         $finish;
     end
