@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html class="project-document" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+<title>Of Course Tomato Needs Sudoku — The Tomato</title>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="../css/magazine.css" rel="stylesheet"/>
+<link href="../css/site.css?v=34" rel="stylesheet"/>
+<link href="../css/brand.css?v=253" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/navigation.css?v=250" />
+<script src="../js/navigation.js?v=250" defer></script>
+<link rel="stylesheet" href="../css/journal-article.css?v=8"/>
+<!-- tomato-seo -->
+  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Of, Course, Tomato, tomato, 32-bit" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="author" type="text/plain" href="../humans.txt" />
+  <meta property="og:title" content="Of Course Tomato Needs Sudoku — The Tomato" />
+  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/sudoku.html" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/journal/sudoku.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/gallery/os/sudoku-on-tomato-1280w.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sudoku on Tomato OS" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
+  <meta name="twitter:title" content="Of Course Tomato Needs Sudoku — The Tomato" />
+  <meta name="twitter:description" content="Sudoku on Tomato with arrows and a digit-cycle button." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/gallery/os/sudoku-on-tomato-1280w.webp" />
+  <meta name="twitter:image:alt" content="Sudoku on Tomato OS" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "https://tomato.tmarhguy.com/journal/sudoku.html#webpage",
+  "url": "https://tomato.tmarhguy.com/journal/sudoku.html",
+  "name": "Of Course Tomato Needs Sudoku — The Tomato",
+  "description": "The Tomato 32-bit CPU",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US",
+  "headline": "Of Course Tomato Needs Sudoku",
+  "author": {
+    "@type": "Person",
+    "name": "Tyrone Marhguy"
+  },
+  "datePublished": "11 September 2026"
+}</script>
+  <!-- /tomato-seo -->
+</head>
+<body class="project-document">
+<div class="page project-page project-article journal-redesign"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<main data-journal-kind="software" class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../journal.html">Journal</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
+<p class="kicker">Dispatch · Tomato OS</p>
+<h1 class="project-title" id="page-title">Of Course Tomato Needs Sudoku</h1>
+<p class="deck">A puzzle book is always within arm’s reach. Tomato gets Sudoku—with arrow keys and a digit-cycle button, without waiting on the full keyboard matrix.</p>
+<p class="byline">11 September 2026 · from the log</p>
+</div>
+</section><aside class="journal-decision" aria-label="The entry at a glance"><div><span>The starting point</span><p>Sudoku wants a full keypad</p></div><div><span>The move</span><p>Reuse arrows + cycle 1–9</p></div><div><span>The result or direction</span><p>Ship the game before the matrix</p></div></aside>
+<section class="section section--journal">
+<div class="site-prose wrap">
+
+<p>I have been the biggest fan of Sudoku. Almost always a puzzle book lies on my table, next to my table, in my bag, or somewhere close enough that stretching my arm would reach it.</p>
+<p>So it only makes sense to build <strong>Sudoku into Tomato</strong>.</p>
+<div class="two-up">
+<figure class="plate">
+<img alt="Sudoku puzzle book on the desk" decoding="async" height="900" loading="lazy" sizes="(max-width: 980px) 100vw, 45vw" src="../assets/gallery/os/sudoku-book-1280w.webp" srcset="../assets/gallery/os/sudoku-book-640w.webp 640w, ../assets/gallery/os/sudoku-book-1280w.webp 1280w" width="1280"/>
+<figcaption class="plate-cap"><span>Fig. 1 — Always nearby</span><span>The book on the bench</span></figcaption>
+</figure>
+<figure class="plate">
+<img alt="Sudoku running on Tomato OS over HDMI" decoding="async" height="720" loading="lazy" sizes="(max-width: 980px) 100vw, 45vw" src="../assets/gallery/os/sudoku-on-tomato-1280w.webp" srcset="../assets/gallery/os/sudoku-on-tomato-640w.webp 640w, ../assets/gallery/os/sudoku-on-tomato-1280w.webp 1280w" width="1280"/>
+<figcaption class="plate-cap"><span>Fig. 2 — On Tomato</span><span>Arrows · digit cycle</span></figcaption>
+</figure>
+</div>
+<p>I hesitated earlier because I had not finished soldering the keyboard matrix onto the FPGA PMOD for extended controls. Sudoku obviously wants more than four arrow buttons.</p>
+<p>But the problem was larger than it needed to be. I already have the arrow keys to move around the board. Another button can <strong>cycle through 1 to 9</strong>. Together, that is enough to play.</p>
+<figure class="plate">
+<img alt="Solved Sudoku page from the puzzle book" decoding="async" height="900" loading="lazy" sizes="(max-width: 980px) 100vw, 720px" src="../assets/gallery/os/sudoku-book-solved-1280w.webp" srcset="../assets/gallery/os/sudoku-book-solved-640w.webp 640w, ../assets/gallery/os/sudoku-book-solved-1280w.webp 1280w" width="1280"/>
+<figcaption class="plate-cap"><span>Fig. 3 — The habit</span><span>Solved page · same desk</span></figcaption>
+</figure>
+<p><strong>Sometimes a hardware limitation is not actually a blocker. It just changes the interface.</strong> The full matrix still comes. The game does not have to wait for it.</p>
+
+</div>
+<div class="wrap">
+<nav class="pager">
+<a href="wallpaper-polish.html"><span class="dir">Previous</span><span class="to">Wallpaper, Polish, and the Rest</span></a>
+<a class="next" href="hdmi-captured.html"><span class="dir">Next</span><span class="to">HDMI, Properly Captured</span></a>
+</nav>
+</div>
+</section>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script defer="" src="../js/mast.js?v=241"></script>
+<!-- tomato-vercel -->
+<script defer="" src="../js/vercel-analytics.js"></script>
+<script defer="" src="../js/vercel-speed-insights.js"></script>
+<!-- /tomato-vercel -->
+</body>
+</html>
