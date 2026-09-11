@@ -26,12 +26,12 @@ module burn_boot_tb;
         .tile_rclk(clk), .tile_raddr(tile_raddr), .tile_rdata(tile_rdata)
     );
 
-    // draw_desktop puts s_title at column 2 of row 0 in white-on-tomato, and
-    // the " MAIN MENU " heading at column 6 of row 3 in gold-on-black.
-    localparam TITLE_AT = 0 * 80 + 2;   // 'T' of TOMATO, attr 0x4F
-    localparam MENU_AT  = 3 * 80 + 7;   // 'M' of MAIN,   attr 0x0E
-    localparam TITLE_W  = 32'h00004F54;
-    localparam MENU_W   = 32'h00000E4D;
+    // shell_desktop: large 'T' of TOMATO at (4,5); 'A' of APPLICATIONS at (5,12).
+    // Theme words carry wallpaper/glass bits (and LUI rd-in-imm residue).
+    localparam TITLE_AT = 5 * 80 + 4;
+    localparam MENU_AT  = 12 * 80 + 5;
+    localparam TITLE_W  = 32'he8070f54;
+    localparam MENU_W   = 32'hd8030741;
     localparam MAXCYC   = 4000000;
 
     integer k, ready;
@@ -46,13 +46,21 @@ module burn_boot_tb;
 
     initial begin
         $display("burn_boot: checking burned dmem[0]=%h (expect nonzero OS word)", uut.dmem[0]);
-        if (uut.dmem[0] === 32'h0) begin
+        if (uut.dmem[0] === 32'h0 || uut.dmem[0] === 32'bx) begin
             $display("FAIL: dmem burn empty — run: make burn");
             $finish(1);
         end
 
+        // Burn file only sets image words; the rest power up as X in sim.
+        // Hardware BRAM is zero — clear X so stack/heap reads match silicon.
+        for (k = 0; k < 98304; k = k + 1)
+            if (uut.dmem[k] === 32'bx) uut.dmem[k] = 32'h0;
         for (k = 0; k < 256; k = k + 1) uut.regs0.mem[k] = 32'h0;
         uut.regs0.bank = 3'd0;
+        for (k = 0; k < 8192; k = k + 1) begin
+            uut.vga0.lo[k] = 16'h0;
+            uut.vga0.hi[k] = 16'h0;
+        end
 
         repeat (2) @(posedge clk);
         reset = 0;
@@ -66,7 +74,7 @@ module burn_boot_tb;
                 $display("burn_boot: ... %0d cycles", k);
                 $fflush;
             end
-            if (tile(TITLE_AT) === TITLE_W && tile(MENU_AT) === MENU_W)
+            if ((tile(TITLE_AT) & 32'h007fffff) === (TITLE_W & 32'h007fffff) && (tile(MENU_AT) & 32'h007fffff) === (MENU_W & 32'h007fffff))
                 ready = 1;
         end
 
