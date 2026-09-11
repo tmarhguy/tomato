@@ -14,24 +14,48 @@ function syncBoardPoster() {
 }
 function reflectTheme() {
   const light = document.documentElement.dataset.theme === 'light';
-  themeButton.textContent = light ? 'Dark mode' : 'Light mode';
-  themeButton.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
-  document.querySelector('.wordmark img').src = light ? 'assets/mark.svg' : 'assets/mark-dark.svg';
-  document.querySelector('meta[name="theme-color"]').content = light ? '#f5f5f0' : '#050505';
+  if (themeButton) {
+    themeButton.hidden = false;
+    themeButton.textContent = light ? 'Dark mode' : 'Light mode';
+    themeButton.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
+  }
+  const mark = document.querySelector('.wordmark img');
+  if (mark) mark.src = light ? 'assets/mark.svg' : 'assets/mark-dark.svg';
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.content = light ? '#f5f5f0' : '#050505';
   syncBoardPoster();
+}
+function applyTheme(mode) {
+  document.documentElement.dataset.theme = mode;
+  document.documentElement.style.colorScheme = mode;
+  try { localStorage.setItem('tomato.theme', mode); } catch { /* Theme works without storage. */ }
+  reflectTheme();
+  document.dispatchEvent(new CustomEvent('tomato:theme', { detail: { mode } }));
 }
 if (themeButton) {
   themeButton.hidden = false;
   reflectTheme();
   themeButton.addEventListener('click', () => {
     const mode = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
-    document.documentElement.dataset.theme = mode;
-    document.documentElement.style.colorScheme = mode;
-    try { localStorage.setItem('tomato.theme', mode); } catch { /* Theme works without storage. */ }
-    reflectTheme();
-    document.dispatchEvent(new CustomEvent('tomato:theme', { detail: { mode } }));
+    applyTheme(mode);
   });
 }
+try {
+  const scheme = matchMedia('(prefers-color-scheme: dark)');
+  const onSystem = (event) => {
+    applyTheme(event.matches ? 'dark' : 'light');
+  };
+  if (scheme.addEventListener) scheme.addEventListener('change', onSystem);
+  else if (scheme.addListener) scheme.addListener(onSystem);
+} catch { /* matchMedia optional */ }
+window.addEventListener('storage', (event) => {
+  if (event.key !== 'tomato.theme') return;
+  if (event.newValue === 'dark' || event.newValue === 'light') {
+    document.documentElement.dataset.theme = event.newValue;
+    document.documentElement.style.colorScheme = event.newValue;
+    reflectTheme();
+  }
+});
 
 function nibbleBinary(value) {
   const bits = (value & 255).toString(2).padStart(8, '0');
@@ -205,7 +229,7 @@ if (loadButton && canvas) {
     const stage = canvas.parentElement;
     stage.setAttribute('aria-busy', 'true');
     try {
-      const { mountBench } = await import('./bench.js?v=221');
+      const { mountBench } = await import('./bench.js?v=223');
       canvas.hidden = false;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       // Spin on first load; halt on drag; camera home + resume after 15s idle.
@@ -214,12 +238,6 @@ if (loadButton && canvas) {
       document.querySelector('.bench-tools').hidden = false;
       loadButton.hidden = true;
       feedback.textContent = '';
-      const spin = document.querySelector('[data-bench="spin"]');
-      const labelSpin = () => {
-        spin.textContent = spin.classList.contains('is-on') ? 'Pause' : 'Resume';
-      };
-      labelSpin();
-      new MutationObserver(labelSpin).observe(spin, { attributes: true, attributeFilter: ['class'] });
 
     } catch (error) {
       canvas.hidden = true;

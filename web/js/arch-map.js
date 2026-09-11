@@ -114,10 +114,10 @@
     {
       title: "Opcode & ISA",
       items: [
-        { path: "isa.html", label: "ISA reference" },
+        { path: "isa.html", label: "Tomato ISA" },
+        { path: "isa.html", hash: "rom", label: "ROM map" },
+        { path: "isa.html", hash: "catalog", label: "Burned opcodes" },
         { path: "isa.html", hash: "usage", label: "How you use it" },
-        { path: "isa.html", hash: "files", label: "Authority files" },
-        { path: "isa.html", hash: "profiles", label: "ROM at a glance" },
         { path: "journal/isa-as-a-wire.html", label: "ISA as a Wire" },
         { path: "software.html", hash: "stack", label: "Pseudos & assembler" },
       ],

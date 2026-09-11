@@ -87,11 +87,12 @@ body.project-document::before, body.project-document::after { display:none; }
 .project-page pre { max-width:100%; overflow:auto; font:.875rem/1.65 var(--site-mono); padding:1.25rem; margin:1.5rem 0; background:var(--wash); border:1px solid var(--rule); }
 .project-page code, .project-page .mono { font-family:var(--site-mono); }
 .project-page .site-prose p, .project-page .body-copy p, .project-page td { overflow-wrap:anywhere; }
-.project-page .plate, .project-page .figure { margin:1.5rem 0; padding:0; border:1px solid var(--rule); background:var(--wash); border-radius:0; box-shadow:none; }
-.project-page .plate > img, .project-page .figure > img, .project-page .plate > video, .project-page .figure > video { display:block; width:100%; max-height:35rem; object-fit:contain; }
+.project-page .plate, .project-page .figure { margin:1.5rem auto; padding:0; border:1px solid var(--rule); background:var(--wash); border-radius:0; box-shadow:none; max-width:70%; }
+.project-page .plate > img, .project-page .figure > img, .project-page .plate > video, .project-page .figure > video { display:block; width:100%; max-height:28rem; object-fit:contain; }
 .project-page .plate-cap, .project-page figcaption { padding:.75rem 1rem; color:var(--muted); font:.75rem/1.6 var(--site-mono); letter-spacing:0; text-transform:none; }
-.project-page .two-up { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; padding:0; margin:1.5rem 0; }
-.project-page .two-up > * { min-width:0; }
+.project-page .two-up { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; padding:0; margin:1.5rem auto; max-width:70%; }
+.project-page .two-up > * { min-width:0; max-width:none; }
+.project-page .two-up .plate, .project-page .two-up .figure { max-width:none; margin:0; }
 .project-page .callout, .project-page .axiom, .project-page .faq-gpr { padding:1.5rem; border:1px solid var(--rule); border-radius:0; background:var(--wash); margin:1.5rem 0; }
 .project-page .callout-formula, .project-page .site-formula { overflow-wrap:anywhere; }
 .project-page .brand-map { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border:1px solid var(--rule); margin-bottom:3.5rem; background:var(--wash); }

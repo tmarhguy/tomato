@@ -188,7 +188,7 @@
       .slice(0, 8)
       .map((k) => `<li>${esc(k)}</li>`)
       .join("");
-    const license = meta.license ? meta.license.spdx_id || meta.license.name : "CERN-OHL-P-2.0";
+    const license = meta.license ? meta.license.spdx_id || meta.license.name : "Apache-2.0 WITH SHL-2.1";
     return `<aside>
       <div class="forge-side">
         <h3>About</h3>

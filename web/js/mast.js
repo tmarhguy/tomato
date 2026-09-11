@@ -555,14 +555,22 @@
   window.addEventListener("load", queueShellHeight, { once: true });
 
   const scheme = typeof matchMedia === "function" ? matchMedia("(prefers-color-scheme: dark)") : null;
-  function onSystem() {
-    try { localStorage.removeItem(KEY); } catch {}
-    paint();
+  function onSystem(event) {
+    // Phone / OS appearance toggle should drive the site the same way the in-page control does.
+    const mode = event && typeof event.matches === "boolean"
+      ? (event.matches ? "dark" : "light")
+      : systemMode();
+    set(mode);
   }
   if (scheme) {
     if (scheme.addEventListener) scheme.addEventListener("change", onSystem);
     else if (scheme.addListener) scheme.addListener(onSystem);
   }
+  window.addEventListener("storage", (event) => {
+    if (event.key !== KEY) return;
+    if (event.newValue === "dark" || event.newValue === "light") apply(event.newValue);
+    else paint();
+  });
   document.addEventListener("visibilitychange", () => {
     if (!document.hidden) paint();
   });

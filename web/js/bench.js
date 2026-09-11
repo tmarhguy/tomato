@@ -293,7 +293,7 @@ export async function mountBench(canvas, opts) {
 
   const viewCycle = [
     { id: "top", label: "Top" },
-    { id: "iso", label: "Isometric" },
+    { id: "iso", label: "Iso" },
     { id: "side", label: "Side" },
     { id: "copper", label: "Bottom" },
   ];
@@ -301,7 +301,7 @@ export async function mountBench(canvas, opts) {
   function syncSpin() {
     const btn = canvas.closest(".bench")?.querySelector('[data-bench="spin"]');
     if (btn) {
-      btn.textContent = controls.autoRotate ? "Hold" : "Turn";
+      btn.textContent = controls.autoRotate ? "Pause" : "Resume";
       btn.classList.toggle("is-on", controls.autoRotate);
     }
   }
@@ -311,16 +311,16 @@ export async function mountBench(canvas, opts) {
       const name = btn.getAttribute("data-bench");
       if (name === "spin" || name === "grid") return;
       if (name === "view") {
-        const idx = viewCycle.findIndex((v) => v.id === currentView);
-        const entry = idx >= 0 ? viewCycle[idx] : null;
+        const displayId = currentView === "reset" || currentView === "front" ? "iso" : currentView;
+        const idx = viewCycle.findIndex((v) => v.id === displayId);
+        const entry = idx >= 0 ? viewCycle[idx] : viewCycle[1];
         const next = viewCycle[(idx >= 0 ? idx + 1 : 0) % viewCycle.length];
-        btn.textContent = entry ? entry.label : "View";
-        btn.classList.toggle("is-on", idx >= 0);
+        btn.textContent = entry.label;
+        const atHome = displayId === "iso";
+        btn.classList.toggle("is-on", !atHome);
         btn.setAttribute(
           "aria-label",
-          entry
-            ? `Camera view ${entry.label}. Click for ${next.label}`
-            : `Cycle camera views. Click for ${next.label}`
+          `Camera: ${entry.label}. Click for ${next.label}`
         );
         return;
       }
