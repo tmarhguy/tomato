@@ -68,7 +68,7 @@
 </head>
 <body class="project-document">
 <div class="page project-page project-about"><a class="project-skip" href="#main">Skip to content</a>
-<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
 <main class="project-main" id="main">
 <nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="index.html">Home</a></nav><section aria-labelledby="about-title" class="project-hero project-hero-split">
 <div class="project-hero-media">
@@ -77,7 +77,7 @@
 <div class="project-hero-copy">
 <p class="kicker">About me</p>
 <h1 class="project-title" id="about-title">I’m Tyrone Marhguy.</h1>
-<p class="deck">I’m a Computer Engineering student at the University of Pennsylvania, Class of 2028. I started with an 8-bit ALU and kept building toward a computer whose hardware and software I could understand myself.</p>
+<p class="deck">I build computers from first principles. I’m a Computer Engineering student at the University of Pennsylvania, Class of 2028, focused on computer architecture, RTL, and verification. Tomato is my independent 32-bit computer project—from the architecture and FPGA implementation to its assembler, operating system, and discrete hardware.</p>
 <p class="byline">Ghana → Philadelphia</p>
 <nav aria-label="Elsewhere" class="site-hero__actions">
 <a class="is-primary" href="https://tmarhguy.com">tmarhguy.com</a>
@@ -119,10 +119,10 @@
 </figure>
 </article>
 <h2>The work</h2>
-<p><strong>I build computer systems from discrete MOSFETs through full ASIC tapeout.</strong> Computer
+<p><strong>I build computer systems across discrete logic, processor architecture, RTL, and verification.</strong> Computer
             Engineering at the <a href="https://www.upenn.edu">University of Pennsylvania</a> — architecture, RTL, and
             verification. I work where hardware meets software: boards, SystemVerilog, and the constrained-random
-            environments that prove them.</p>
+            environments that test them.</p>
 <p><strong>Currently:</strong> Hardware Research Engineer (Fall 2026) at <a href="https://penntoday.upenn.edu/news/penn-student-develops-way-computer-chips-run-more-efficiently">Fluid
               Silicon</a> (RTL &amp; emulation, <a href="https://pennovation.upenn.edu">Pennovation</a>) and Software
             Engineer at <a href="https://www.aragorn.ai/">Aragorn AI</a>. <strong>Previously:</strong> Hardware &amp;
@@ -185,7 +185,7 @@
 <tbody>
 <tr>
 <td><a href="index.html">Tomato</a> · <a href="source.html">GitHub</a></td>
-<td>Custom 32-bit CPU · discrete logic through PCB tapeout · this paper</td>
+<td>Custom 32-bit CPU · discrete logic through PCB fabrication · this paper</td>
 </tr>
 <tr>
 <td><a href="https://github.com/tmarhguy/64b-sram">16×4 SRAM</a></td>
@@ -209,7 +209,7 @@
 </tr>
 <tr>
 <td><a href="https://alu.tmarhguy.com">8-bit transistor ALU</a></td>
-<td>3,488 MOSFETs · 1.24M+ automated test vectors · the origin board</td>
+<td>3,488 total transistors: 624 discrete MOSFETs + 2,864 inside 74HC logic · 1.24M+ automated test vectors</td>
 </tr>
 </tbody>
 </table>
@@ -345,9 +345,9 @@
 </div>
 </section>
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a aria-current="page" href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a aria-current="page" href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer="" src="js/mast.js?v=240"></script>
+<script defer="" src="js/mast.js?v=241"></script>
 <!-- tomato-vercel -->
 <script defer="" src="js/vercel-analytics.js"></script>
 <script defer="" src="js/vercel-speed-insights.js"></script>
