@@ -7,7 +7,7 @@
  * Target   : Artix-7 / synthesizable Verilog-2001
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * 640x480@60 from a real 25 MHz pixel clock (one pixel per clock — same
  * timing hdmi_test proved on the glass). 80x60 grid of 8x8 cells.
@@ -91,6 +91,17 @@ module videoout (
         vs_s1  <= f_vs;
     end
 
+    // 320x240 RGB444 image, doubled to 640x480. Separate from CPU RAM.
+    (* rom_style = "block" *) reg [11:0] wallpaper [0:76799];
+    initial $readmemh("rtl/board/wallpaper.mem", wallpaper);
+    wire [16:0] wallpaper_addr = {fv[9:1], 8'b0} +
+                                      {2'b0, fv[9:1], 6'b0} + {8'b0, fh[9:1]};
+    reg [11:0] paper_s1, paper_s2;
+    always @(posedge pix_clk) begin
+        paper_s1 <= wallpaper[f_de ? wallpaper_addr : 17'd0];
+        paper_s2 <= paper_s1;
+    end
+
     wire [7:0] glyph = tile_data[7:0];
     wire [3:0] fg    = tile_data[11:8];
     wire [3:0] bg    = tile_data[15:12];
@@ -99,17 +110,19 @@ module videoout (
     wire [7:0] font_data;
     font_rom font (
         .clk  (pix_clk),
-        .addr ({glyph, row_s1}),
+        .addr ({glyph, tile_data[18] ? {tile_data[20], row_s1[2:1]} : row_s1}),
         .data (font_data)
     );
 
     // ---- stage 2: font_data valid --------------------------------------------
     reg [2:0] col_s2;
     reg [3:0] fg_s2, bg_s2, solid_s2;
-    reg       is_solid_s2;
+    reg       is_solid_s2, wallpaper_s2, glass_s2;
     reg       de_s2, hs_s2, vs_s2;
     always @(posedge pix_clk) begin
-        col_s2      <= col_s1;
+        col_s2      <= tile_data[18] ? {tile_data[19], col_s1[2:1]} : col_s1;
+        wallpaper_s2 <= tile_data[16];
+        glass_s2 <= tile_data[17];
         fg_s2       <= fg;
         bg_s2       <= bg;
         solid_s2    <= tile_data[3:0];
@@ -146,10 +159,13 @@ module videoout (
         endcase
     end
 
+    wire use_paper = wallpaper_s2 && !ink;
+    wire [11:0] backdrop = glass_s2 ?
+        {2'b0,paper_s2[11:10],2'b0,paper_s2[7:6],2'b0,paper_s2[3:2]} : paper_s2;
     always @(posedge pix_clk) begin
-        r  <= de_s2 ? pr : 4'h0;
-        g  <= de_s2 ? pg : 4'h0;
-        b  <= de_s2 ? pb : 4'h0;
+        r  <= de_s2 ? (use_paper ? backdrop[11:8] : pr) : 4'h0;
+        g  <= de_s2 ? (use_paper ? backdrop[7:4] : pg) : 4'h0;
+        b  <= de_s2 ? (use_paper ? backdrop[3:0] : pb) : 4'h0;
         de <= de_s2;
         hs <= hs_s2;
         vs <= vs_s2;
