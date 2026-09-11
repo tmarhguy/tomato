@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html class="project-document" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+<title>Wallpaper, Polish, and the Rest of the Computer — The Tomato</title>
+<link href="../assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="../css/magazine.css" rel="stylesheet"/>
+<link href="../css/site.css?v=34" rel="stylesheet"/>
+<link href="../css/brand.css?v=253" rel="stylesheet"/>
+<link rel="stylesheet" href="../css/navigation.css?v=250" />
+<script src="../js/navigation.js?v=250" defer></script>
+<link rel="stylesheet" href="../css/journal-article.css?v=8"/>
+<!-- tomato-seo -->
+  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Wallpaper,, Polish,, and, tomato, 32-bit" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <link rel="author" type="text/plain" href="../humans.txt" />
+  <meta property="og:title" content="Wallpaper, Polish, and the Rest of the Computer — The Tomato" />
+  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/journal/wallpaper-polish.html" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/journal/wallpaper-polish.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/gallery/os/desktop-home-1280w.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Tomato OS Desktop v1.2 with wallpaper" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
+  <meta name="twitter:title" content="Wallpaper, Polish, and the Rest of the Computer — The Tomato" />
+  <meta name="twitter:description" content="Fall semester, TomatoOS wallpaper, and locking a stable desktop cut." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/gallery/os/desktop-home-1280w.webp" />
+  <meta name="twitter:image:alt" content="Tomato OS Desktop v1.2 with wallpaper" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "https://tomato.tmarhguy.com/journal/wallpaper-polish.html#webpage",
+  "url": "https://tomato.tmarhguy.com/journal/wallpaper-polish.html",
+  "name": "Wallpaper, Polish, and the Rest of the Computer — The Tomato",
+  "description": "The Tomato 32-bit CPU",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US",
+  "headline": "Wallpaper, Polish, and the Rest of the Computer",
+  "author": {
+    "@type": "Person",
+    "name": "Tyrone Marhguy"
+  },
+  "datePublished": "11 September 2026"
+}</script>
+  <!-- /tomato-seo -->
+</head>
+<body class="project-document">
+<div class="page project-page project-article journal-redesign"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<main data-journal-kind="software" class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../journal.html">Journal</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
+<div class="project-hero-copy">
+<p class="kicker">Dispatch · Tomato OS</p>
+<h1 class="project-title" id="page-title">Wallpaper, Polish, and the Rest of the Computer</h1>
+<p class="deck">Fall semester, five-and-a-half hard classes, and still polishing TomatoOS—wallpaper, apps, and a website that finally feels balanced.</p>
+<p class="byline">11 September 2026 · from the log</p>
+</div>
+</section><aside class="journal-decision" aria-label="The entry at a glance"><div><span>The starting point</span><p>Deep in the weeds of my own stack</p></div><div><span>The move</span><p>Polish OS + site for first readers</p></div><div><span>The result or direction</span><p>Desktop with wallpaper; lock a stable OS cut</p></div></aside>
+<section class="section section--journal">
+<div class="site-prose wrap">
+
+<p>The fall semester started with a hard slate: ESE 5700, CIS 5710, ESE 5800, CIS 1912, EAS 2030—mostly master’s-level technical courses—plus campus work and early midterms. Working on Tomato beside that means cutting into sleep. I choose it anyway. <strong>Passion and obsession keep clearing the hurdles.</strong></p>
+<p>Since the last pushes I have worked on making the website smoother and less overwhelming for a first visit. I have gone so deep—from transistor-level thinking up to writing raw hex by hand—that it would be stranger if <em>I</em> got lost in my own copy. The site now sits somewhere between the skeptical engineer and the curious non-engineer.</p>
+<figure class="plate">
+<img alt="Tomato OS desktop home screen with wallpaper on the FPGA" decoding="async" height="720" loading="lazy" sizes="(max-width: 980px) 100vw, 720px" src="../assets/gallery/os/desktop-home-1280w.webp" srcset="../assets/gallery/os/desktop-home-640w.webp 640w, ../assets/gallery/os/desktop-home-1280w.webp 1280w" width="1280"/>
+<figcaption class="plate-cap"><span>Fig. 1 — Desktop</span><span>Wallpaper · TomatoOS on FPGA</span></figcaption>
+</figure>
+<p>What fascinates me more: the hardware was only a fragment. Change the architecture and you reinvent the ISA, the assembler, the software, the OS, and the apps on top. That toolchain is what I have been optimizing. TomatoOS now has applications, lists, graphics, input, and a <strong>wallpaper</strong>. It is becoming what I imagined when I first learned people build computers from scratch.</p>
+<p>I will lock in the now ~2,987 lines of TomatoOS as a stable cut, push it, and keep building on top.</p>
+
+</div>
+<div class="wrap">
+<nav class="pager">
+<a href="assembly-barrier.html"><span class="dir">Previous</span><span class="to">When assembly is still too high-level</span></a>
+<a class="next" href="sudoku.html"><span class="dir">Next</span><span class="to">Of Course Tomato Needs Sudoku</span></a>
+</nav>
+</div>
+</section>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script defer="" src="../js/mast.js?v=241"></script>
+<!-- tomato-vercel -->
+<script defer="" src="../js/vercel-analytics.js"></script>
+<script defer="" src="../js/vercel-speed-insights.js"></script>
+<!-- /tomato-vercel -->
+</body>
+</html>
