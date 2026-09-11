@@ -1,3 +1,4 @@
+.DEFAULT_GOAL := all
 # Tomato core — Icarus simulation, burn packaging, and the open-source bitstream
 #
 #   make test                     unit + program regression (Icarus)
@@ -34,7 +35,7 @@ PROG_MEM := tb/mem/counter.mem tb/mem/fib.mem tb/mem/collatz.mem tb/mem/call.mem
 	tb/mem/ecall.mem tb/mem/io.mem tb/mem/softops.mem tb/mem/kb_mmio.mem
 
 TBS := shift lane wb bus sp regs ir pc vga muldiv alu control hex videoout keypad main counter fidelity \
-	kb_io burn_boot
+	kb_io burn_boot compound exhibit
 
 # ---- open-source bitstream flow ---------------------------------------------
 TOP        := nexys_top
@@ -59,7 +60,7 @@ all: test
 include ../common.mk
 
 # main.v / control.v `include rtl/burn/*.vh — yosys must re-run when burn changes.
-$(JSON): $(BURN)
+$(JSON): $(BURN) rtl/board/wallpaper.mem
 
 $(SIM):
 	mkdir -p $(SIM)
@@ -155,7 +156,7 @@ $(SIM)/control_tb.vvp: rtl/control.v tb/control_tb.v | $(SIM)
 $(SIM)/hex_tb.vvp: rtl/board/hex.v tb/hex_tb.v | $(SIM)
 	$(IVERILOG) -o $@ rtl/board/hex.v tb/hex_tb.v
 
-$(SIM)/videoout_tb.vvp: rtl/board/videoout.v rtl/board/font_rom.v tb/videoout_tb.v | $(SIM)
+$(SIM)/videoout_tb.vvp: rtl/board/videoout.v rtl/board/font_rom.v tb/videoout_tb.v rtl/board/wallpaper.mem | $(SIM)
 	$(IVERILOG) -o $@ rtl/board/videoout.v rtl/board/font_rom.v tb/videoout_tb.v
 
 $(SIM)/keypad_tb.vvp: rtl/board/keypad.v tb/keypad_tb.v | $(SIM)
@@ -260,6 +261,8 @@ test: burn-check $(foreach t,$(TBS),$(SIM)/$(t)_tb.vvp) $(SIM)/prog_tb.vvp $(SIM
 	@echo "=== games ==="
 	@$(VVP) $(SIM)/games_tb.vvp | tee $(SIM)/games_tb.log
 	@grep -q '^PASS:' $(SIM)/games_tb.log
+	$(call RUN_TB,compound)
+	$(call RUN_TB,exhibit)
 	@echo "All Tomato core tests passed (units + programs + OS + games)."
 
 progs: $(SIM)/prog_tb.vvp
@@ -305,3 +308,8 @@ clean: clean-fpga
 	rm -rf $(SIM)
 	rm -f tb/mem/fib.mem tb/mem/collatz.mem tb/mem/call.mem tb/mem/bytes.mem
 	rm -f tb/mem/ecall.mem tb/mem/io.mem tb/mem/softops.mem tb/mem/kb_mmio.mem
+
+$(SIM)/compound_tb.vvp: $(RTL) tb/compound_tb.v | $(SIM)
+	$(IVERILOG) -o $@ $(RTL) tb/compound_tb.v
+$(SIM)/exhibit_tb.vvp: $(RTL) tb/exhibit_tb.v tb/mem/tomato_os.mem | $(SIM)
+	$(IVERILOG) -o $@ $(RTL) tb/exhibit_tb.v
