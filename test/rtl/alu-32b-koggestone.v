@@ -1,5 +1,5 @@
 // Copyright (c) 2025-2026 Tyrone Marhguy
-// SPDX-License-Identifier: CERN-OHL-P-2.0
+// SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
 // Tomato ALU datapath: dual LUT3 planes + Kogge-Stone 32b add (same principle, fastest carry).
 
 `default_nettype none

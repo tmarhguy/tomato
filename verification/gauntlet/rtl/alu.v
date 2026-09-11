@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * From alu-32b-final.dig. out = f(a,b,c) + g(a,b,c) + cin.
  * csr: [0]Z [1]~Z [2]N [3]C [4]V [5]LT [6]GT [7]GTE

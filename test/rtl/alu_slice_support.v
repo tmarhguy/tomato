@@ -1,5 +1,5 @@
 // Copyright (c) 2025-2026 Tyrone Marhguy
-// SPDX-License-Identifier: CERN-OHL-P-2.0
+// SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
 // LUT3 mux + 1b programmable slice (from Tomato alu-32b-final export)
 
 `default_nettype none

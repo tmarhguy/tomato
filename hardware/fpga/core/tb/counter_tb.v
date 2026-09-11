@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * Counts r1 from 0 → 10, HALT. The display latch holds the last register
  * writeback (=10) and presents it on disp_value for the board's 7-seg driver.

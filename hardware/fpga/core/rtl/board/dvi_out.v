@@ -7,7 +7,7 @@
  * Target   : Artix-7 / synthesizable Verilog-2001
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * Lifted verbatim in spirit from hardware/fpga/hdmi_test — the arrangement
  * that actually lit a monitor: every payload bit registered on the pixel

@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * 24-bit word addresses (matches PC / dmem index).
  * sp_op: 0=nop, 1=+1, 2=-1, 3=ALU load. Reset = 0x3E00 (top of 16K dmem).

@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * [31:23] opcode [22:18] rd [17:13] rA [12:8] rB [7:3] rC [2:0] bank
  *

@@ -8,7 +8,7 @@
  * Glyphs 0x20-0x7E: font8x8_basic (public domain). 0x07-0x1F and 0xB0-0xDF:
  * the CP437 arrows, shades and box rule Tomato OS draws its chrome with.
  *
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  */
 module font_rom (
     input             clk,

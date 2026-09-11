@@ -8,7 +8,7 @@
  * ISA      : docs/isa/tomato.v1.csv
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * States: FETCH, EXECUTE, MEM_WAIT. cycles=1 → F+E; cycles=2 → F+E+M.
  * HALT/EBREAK sticky until reset. ECALL → trap @ 0x100 with link save.
