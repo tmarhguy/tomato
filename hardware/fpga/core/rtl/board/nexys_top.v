@@ -7,7 +7,7 @@
  * Target   : Artix-7 xc7a100tcsg324-1
  *
  * Copyright (c) 2025-2026 Tyrone Marhguy
- * SPDX-License-Identifier: CERN-OHL-P-2.0
+ * SPDX-License-Identifier: Apache-2.0 WITH SHL-2.1
  *
  * Video leaves on the 12-bit DVI PMOD across JC + JD, not the board's own VGA
  * bank. The dedicated VGA header only ever reached a monitor through a passive
@@ -79,7 +79,9 @@ module nexys_top #(
     wire [7:0] kb_data;
     wire       kb_ready, kb_rd;
 
-    keypad #(.SAMPLE(16)) keypad0 (
+    // Defaults: SAMPLE=13, STABLE_N=12 → ~16 ms integrating debounce @ 6.25 MHz,
+    // with a one-clock press edge (commit 99ba9e1 / "One Press, One Key").
+    keypad keypad0 (
         .clk      (cpu_clk),
         .reset    (cpu_reset),
         .btnu     (btnu),
