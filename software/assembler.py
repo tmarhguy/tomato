@@ -400,6 +400,12 @@ def assemble(src: str, ops: dict) -> list[int]:
                 rd, rb = parse_reg(operands[0]), parse_reg(operands[1])
                 words[addr] = enc_r(op, rd, 0, rb)
 
+            elif mnem in {"MASKADD", "XORAND"}:
+                if len(operands) != 4:
+                    raise ValueError(f"{mnem} rd, rA, rB, rC")
+                rd, ra, rb, rc = map(parse_reg, operands)
+                words[addr] = enc_r(op, rd, ra, rb, rc)
+
             elif mnem in RRR:
                 if mnem == "CMP":
                     if len(operands) == 2:
