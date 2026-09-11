@@ -12,6 +12,9 @@ My research points to a completely open-source (FOSS) stack tailored for the Nex
 
 `openXC7`'s Nix flake is Linux-only, so on the Mac the same stack is assembled from OSS CAD Suite (`yosys`, `openFPGALoader`), nixpkgs (`nextpnr-xilinx`, `bbasm`), and a local Project X-Ray bitgen build (`fasm2frames`, `xc7frames2bit`). The `hdmi_test` Makefile and `scripts/env.sh` wire that together.
 
+<p align="center"><img src="../../web/assets/compiler/fpga-terminal-program.webp" alt="Terminal: Yosys, nextpnr, and bitstream generation without Vivado" width="70%" /></p>
+<p align="center"><em>Open-source stack on the Mac · Yosys · nextpnr · bitstream · ~21&nbsp;s · <a href="https://tomato.tmarhguy.com/journal/ditching-vivado.html">dispatch</a> · <a href="https://tomato.tmarhguy.com/gallery.html">gallery</a></em></p>
+
 Going forward, I plan to transition away from Vivado on my laptop and handle all future synthesis natively on my Mac using this open-source stack. Once I figure out the exact `Makefile` wiring to compile the entire Tomato core, the build-to-flash loop should drop from painful minutes down to mere seconds!
 
 Vivado was very useful for helping me build an intuition of the synthesis, implementation, and bitstream cycle. It helped me visualize the nets and understand why a constraint file is needed for standards like LVCMOS33.
