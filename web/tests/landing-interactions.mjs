@@ -9,7 +9,7 @@ import { aluEval, hex, lutInfo, lutShort } from '../js/alu.js';
 
 const web = fileURLToPath(new URL('..', import.meta.url));
 const source = readFileSync(new URL('../js/landing.js', import.meta.url), 'utf8')
-  .replace(/import \{[^}]+\} from '\.\/alu\.js';/, '');
+  .replace(/import \{[^}]+\} from '\.\/alu\.js(\?v=[0-9a-f]+)?';/, '');
 
 function harness({ savedTheme = 'dark', storageBlocked = false, media = false, reducedMotion = false } = {}) {
   const nodes = new Map();

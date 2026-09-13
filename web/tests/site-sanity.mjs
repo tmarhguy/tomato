@@ -386,18 +386,29 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
   const html = readFileSync(join(WEB, "gallery.html"), "utf8");
   assert.match(html, /fetchpriority="high"/);
   assert.match(html, /assets\/gallery\/os\/desktop-home-1280w\.webp/);
-  assert.match(html, /hdmi-demo-games-ui\.mp4/);
-  assert.ok(existsSync(join(WEB, "assets/os/hdmi-demo-games-ui.mp4")));
-  assert.ok(existsSync(join(WEB, "assets/os/hdmi-demo-poster.jpg")));
+  assert.match(html, /tomato-demo-os\.mp4/);
+  assert.ok(existsSync(join(WEB, "assets/os/tomato-demo-os.mp4")));
+  assert.ok(existsSync(join(WEB, "assets/os/tomato-demo-os-poster.jpg")));
+  assert.ok(existsSync(join(WEB, "assets/gallery/os/tomato-demo-os-poster-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/os/desktop-home-1280w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/os/desktop-home-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/placing-and-soldering-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-640w.webp")));
-  // First slide is Desktop v1.2 with wallpaper — Sep 11 lead
+  // First slide is the full OS demo (video); solder station second — Sep 12 order
   const slides = html.slice(html.indexOf('class="gallery-slides"'));
   const firstSrc = slides.match(/data-src="([^"]+)"/);
-  assert.equal(firstSrc && firstSrc[1], "assets/gallery/os/desktop-home-1280w.webp");
+  assert.equal(firstSrc && firstSrc[1], "assets/os/tomato-demo-os.mp4");
+  const order = ["os-demo", "solder-station", "desktop-home", "desktop-menu-v12", "system-info", "sudoku-v3", "alu-studio"]
+    .map((slug) => slides.indexOf(`data-slug="${slug}"`));
+  assert.ok(order.every((i) => i >= 0), "gallery missing an opening slide");
+  assert.deepEqual([...order].sort((a, b) => a - b), order, "gallery opening order drifted");
+  for (const name of ["desktop-menu-v12", "system-info-screen", "sudoku-screen", "alu-studio-screen"]) {
+    assert.ok(existsSync(join(WEB, `assets/gallery/os/${name}-1280w.webp`)), `missing 1280w variant: ${name}`);
+    assert.ok(existsSync(join(WEB, `assets/gallery/os/${name}-640w.webp`)), `missing 640w variant: ${name}`);
+  }
+  assert.match(slides, /data-slug="os-demo"/);
+  assert.match(slides, /data-src="assets\/os\/tomato-demo-os\.mp4"/);
   const js = readFileSync(join(WEB, "js/gallery.js"), "utf8");
   assert.match(js, /galleryVariant/);
   assert.match(js, /fetchPriority/);
@@ -451,7 +462,8 @@ test("homepage loads the interactive board progressively with a fallback", () =>
   assert.match(html, /fetchpriority="high"/);
   assert.match(js, /mountBench/);
   assert.match(js, /syncBoardPoster/);
-  assert.match(js, /idleResetMs: reducedMotion \? 0 : 15000/);
+  assert.doesNotMatch(js, /idleResetMs/);
+  assert.doesNotMatch(js, /15000/);
   assert.match(js, /Retry 3D view/);
   assert.ok(html.indexOf('class="hero-board bench"') < html.indexOf('class="hero-copy"'));
 });
@@ -691,8 +703,8 @@ test("pages ship Vercel analytics + speed insights loaders", () => {
     assert.match(html, /vercel-analytics\.js/);
     assert.match(html, /vercel-speed-insights\.js/);
   }
-  assert.match(index, /src="js\/vercel-analytics\.js"/);
-  assert.match(journal, /src="\.\.\/js\/vercel-analytics\.js"/);
+  assert.match(index, /src="js\/vercel-analytics\.js(\?v=[0-9a-f]+)?"/);
+  assert.match(journal, /src="\.\.\/js\/vercel-analytics\.js(\?v=[0-9a-f]+)?"/);
   const analytics = readFileSync(join(WEB, "js/vercel-analytics.js"), "utf8");
   const speed = readFileSync(join(WEB, "js/vercel-speed-insights.js"), "utf8");
   assert.match(analytics, /\/_vercel\/insights\/script\.js/);

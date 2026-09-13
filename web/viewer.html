@@ -8,7 +8,7 @@
   <style>html,body{background:#050505;margin:0}</style>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link rel="stylesheet" href="css/viewer.css?v=220" />
+  <link rel="stylesheet" href="css/viewer.css?v=ade632ba" />
   <script type="importmap">
   {
     "imports": {
@@ -60,27 +60,31 @@
 <body>
   <main id="full-screen-viewer">
     <h1 class="vh">Tomato 07_alu — 3D viewer</h1>
-    <a class="back" href="index.html">Tomato</a>
-    <canvas id="viewer-canvas" aria-label="Interactive 3D view of Tomato 07_alu."></canvas>
-    <div class="hud">
-      <button type="button" class="chip" id="legend-btn" aria-expanded="false">Controls</button>
+    <header class="topbar">
+      <div class="topbar-row topbar-row--primary">
+        <a class="back" href="index.html">Tomato</a>
+        <p class="badge">REAL PCB MODEL</p>
+        <div class="hud">
+          <button type="button" class="chip" id="legend-btn" aria-expanded="false">Controls</button>
 
-      <div class="legend legend--desk" id="legend" hidden>
-        <p><span>Orbit</span><kbd>Drag</kbd></p>
-        <p><span>Zoom</span><kbd>Scroll</kbd></p>
-        <p><span>Pan</span><kbd>Right-drag</kbd></p>
-        <p><span>Spin</span><kbd>Space</kbd></p>
-        <p><span>Top Iso Side Bottom</span><kbd>1 2 3 4</kbd></p>
-        <p><span>Reset</span><kbd>R</kbd></p>
-        <p><span>Tour</span><kbd>I</kbd></p>
-      </div>
-      <div class="legend legend--hand" id="legend-hand" hidden>
-        <p><span>Orbit</span><kbd>1 finger</kbd></p>
-        <p><span>Zoom</span><kbd>Pinch</kbd></p>
-        <p><span>Pan</span><kbd>2 fingers</kbd></p>
-        <p><span>Spin</span><kbd>Tap</kbd></p>
-        <p><span>Reset</span><kbd>Double-tap</kbd></p>
-        <p><span>Zoom in</span><kbd>Triple-tap</kbd></p>
+          <div class="legend legend--desk" id="legend" hidden>
+            <p><span>Orbit</span><kbd>Drag</kbd></p>
+            <p><span>Zoom</span><kbd>Scroll</kbd></p>
+            <p><span>Pan</span><kbd>Right-drag</kbd></p>
+            <p><span>Spin</span><kbd>Space</kbd></p>
+            <p><span>Top Iso Side Bottom</span><kbd>1 2 3 4</kbd></p>
+            <p><span>Reset</span><kbd>R</kbd></p>
+            <p><span>Tour</span><kbd>I</kbd></p>
+          </div>
+          <div class="legend legend--hand" id="legend-hand" hidden>
+            <p><span>Orbit</span><kbd>1 finger</kbd></p>
+            <p><span>Zoom</span><kbd>Pinch</kbd></p>
+            <p><span>Pan</span><kbd>2 fingers</kbd></p>
+            <p><span>Spin</span><kbd>Tap</kbd></p>
+            <p><span>Reset</span><kbd>Double-tap</kbd></p>
+            <p><span>Zoom in</span><kbd>Triple-tap</kbd></p>
+          </div>
+        </div>
       </div>
       <div class="view-bar" id="view-bar">
         <button type="button" data-view="spin" class="is-on">Hold</button>
@@ -89,12 +93,12 @@
         <button type="button" data-view="bottom">Bottom</button>
         <button type="button" data-view="reset">Reset</button>
       </div>
-    </div>
+    </header>
+    <canvas id="viewer-canvas" aria-label="Interactive 3D view of Tomato 07_alu."></canvas>
     <button type="button" class="immerse" id="immerse" aria-label="Start the board tour">
       <i></i>
       <span>Tour&nbsp;<span class="tour-text">the board</span></span>
     </button>
-    <p class="badge">REAL PCB MODEL</p>
     <p class="tour-line" id="tour-line" hidden aria-live="polite">
       <span class="tour-kicker" id="tour-kicker"></span>
       <span class="tour-caption" id="tour-caption"></span>
@@ -108,10 +112,10 @@
       <p id="boot-text">Loading…</p>
     </div>
   </main>
-  <script type="module" src="js/viewer.js"></script>
+  <script type="module" src="js/viewer.js?v=b07fa886"></script>
 <!-- tomato-vercel -->
-  <script src="js/vercel-analytics.js" defer></script>
-  <script src="js/vercel-speed-insights.js" defer></script>
+  <script src="js/vercel-analytics.js?v=c08440a3" defer></script>
+  <script src="js/vercel-speed-insights.js?v=0d39aa70" defer></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

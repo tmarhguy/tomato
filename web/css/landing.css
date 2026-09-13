@@ -96,11 +96,14 @@ h3 { font-size: 1.55rem; line-height: 1.2; font-weight: 500; letter-spacing: -.0
 .theme-toggle { background: transparent; color: var(--muted); border: 1px solid var(--line); padding: .55rem .75rem; font-size: .8125rem; min-height: 44px; }
 .theme-toggle:hover { color: var(--text); border-color: var(--muted); }
 
-/* First viewport: board fills leftover space; hero copy stays on-screen under it. */
+/* First viewport: board fills leftover space; hero copy stays on-screen under it.
+   Hero is at least one viewport tall so 01 / What is Tomato starts below the fold.
+   svh (not dvh): locked at load size, never resizes as the URL bar shows/hides. */
 .hero {
   display: grid;
-  grid-template-rows: minmax(min-content, 1fr) auto;
-  min-height: calc(100dvh - var(--front-nav-height, 4.25rem));
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: calc(100vh - var(--front-nav-height, 4.25rem));
+  min-height: calc(100svh - var(--front-nav-height, 4.25rem));
 }
 .hero-stage, .hero-board { min-height: 0; display: flex; flex-direction: column; }
 .hero-board { flex: 1 1 0; width: 100%; margin: 0; }
@@ -125,12 +128,27 @@ h3 { font-size: 1.55rem; line-height: 1.2; font-weight: 500; letter-spacing: -.0
   height: 0;
   background: #050505;
   overflow: hidden;
+  /* Board-first: every gesture inside the stage drives the 3D board.
+     Page scroll starts outside the stage. */
+  touch-action: none;
+  overscroll-behavior: contain;
 }
 html[data-theme=light] .bench-stage { background: #f4f0e6; }
-.board-image { width: 100%; height: 100%; object-fit: contain; }
-.hero-board .bench-stage { border-block: 1px solid var(--line); }
-#front-bench { width: 100%; height: 100%; position: absolute; inset: 0; opacity: 0; }
+.board-image { width: 100%; height: 100%; object-fit: contain; background: inherit; }
+.hero-board .bench-stage { border-block: 1px solid var(--line); touch-action: none; overscroll-behavior: contain; }
+#front-bench {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: transparent;
+  transform: translateZ(0);
+  touch-action: none;
+}
 .bench-stage.is-ready #front-bench { opacity: 1; }
+/* Poster stays hidden once the GLB is ready so scroll/resize never flashes
+   the static image over the live canvas. Print restores it (see @media print). */
 .bench-stage.is-ready .board-image { visibility: hidden; }
 .board-chrome {
   flex: 0 0 auto;
@@ -138,7 +156,9 @@ html[data-theme=light] .bench-stage { background: #f4f0e6; }
   flex-wrap: wrap;
   align-items: center;
   gap: .55rem 1rem;
-  padding-block: .45rem;
+  padding-block: .35rem;
+  position: relative;
+  z-index: 3;
 }
 .board-caption-text { margin: 0; font-size: .75rem; color: var(--muted); }
 .board-load { background: transparent; border: none; color: var(--text); font-size: .8125rem; min-height: 44px; padding: 0; }
@@ -149,8 +169,116 @@ html[data-theme=light] .bench-stage { background: #f4f0e6; }
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: .55rem .85rem;
+  gap: .55rem .6rem;
   margin-left: auto;
+}
+/* Collapsed viewer controls: one neutral pill; the Tour link stays the single accent. */
+.viewer-controls { position: relative; }
+.viewer-controls > summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  min-height: 40px;
+  padding: .45rem .9rem;
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  background: transparent;
+  user-select: none;
+}
+.viewer-controls > summary::-webkit-details-marker { display: none; }
+.viewer-controls > summary::after {
+  content: "+";
+  font: 1rem/1 var(--mono);
+  color: var(--muted);
+}
+.viewer-controls[open] > summary::after { content: "−"; }
+.viewer-controls > summary:hover { color: var(--text); border-color: var(--text); }
+.viewer-controls[open] > summary {
+  color: var(--text);
+  border-color: var(--text);
+  background: var(--surface);
+}
+.viewer-controls-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + .5rem);
+  z-index: 10;
+  width: min(18rem, calc(100vw - 2.5rem));
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: .55rem;
+  box-shadow: 0 12px 32px rgb(0 0 0 / .35);
+}
+/* Compact redesign: one row of views, one row of actions, single hairline
+   between them. No accent inside the panel — Tour stays the only accent. */
+.viewer-controls-panel .bench-tools {
+  display: grid;
+  gap: .35rem;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.viewer-controls-panel .bench-views { grid-template-columns: repeat(4, 1fr); }
+.viewer-controls-panel .bench-actions {
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: .5rem;
+  padding-top: .5rem;
+  border-top: 1px solid var(--line);
+}
+.viewer-controls-panel .bench-tools button {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  min-height: 38px;
+  justify-content: center;
+  padding: .4rem .2rem;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.viewer-controls-panel .bench-tools button + button {
+  border-left: 1px solid var(--line);
+}
+.viewer-controls-panel .bench-tools button:hover {
+  border-color: var(--text);
+  background: transparent;
+  color: var(--text);
+}
+.viewer-controls-panel .bench-tools button.is-on {
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+.viewer-hint {
+  margin: .5rem 0 0;
+  font-size: .7rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.viewer-hint-hand { display: none; }
+.board-tour {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: .45rem 1rem;
+  background: var(--accent);
+  color: var(--accent-ink, #fff);
+  text-decoration: none;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.board-tour:hover {
+  color: var(--accent-ink, #fff);
+  background: color-mix(in srgb, var(--accent) 88%, #000);
 }
 .bench-tools {
   display: flex;
@@ -211,7 +339,7 @@ html[data-theme=light] .bench-stage { background: #f4f0e6; }
   z-index: 2;
   background: var(--bg);
   border-top: 1px solid var(--line);
-  padding: .85rem 0 1rem;
+  padding: 1.35rem 0 1.05rem;
 }
 .hero-bar::before {
   content: "";
@@ -227,15 +355,18 @@ html[data-theme=light] .bench-stage { background: #f4f0e6; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .85rem;
+  justify-content: center;
+  gap: .7rem;
   text-align: center;
 }
 .hero-copy {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .65rem;
+  justify-content: center;
+  gap: .7rem;
   width: 100%;
+  padding-block: .3rem;
 }
 h1 {
   margin: 0;
@@ -253,7 +384,7 @@ h1 {
   align-items: baseline;
   gap: .45rem .75rem;
   margin: 0;
-  padding-top: .55rem;
+  padding-top: .45rem;
   border-top: 1px solid var(--line);
   width: min(36rem, 100%);
   font: 500 .78rem/1.5 var(--mono);
@@ -530,10 +661,37 @@ h1 {
   .board-meta { grid-template-columns: 1fr auto; align-items: start; }
   .board-meta__lot { grid-column: 1 / -1; order: 3; }
   .hero-deck { max-width: 32rem; font-size: 1.0625rem; margin-top: 0; }
-  .board-chrome { padding-block: .35rem; justify-content: center; }
-  .board-caption-text { width: 100%; text-align: center; }
-  .board-chrome__end { margin-left: 0; width: 100%; justify-content: center; }
-  .bench-tools { justify-content: center; }
+  /* Mobile hero: fill the viewport too, so 01 never peeks in on load.
+     Board stretches to take leftover space; copy sits at the bottom.
+     svh only — dvh would resize the board as the URL bar shows/hides. */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - var(--front-nav-height, 4.25rem));
+    min-height: calc(100svh - var(--front-nav-height, 4.25rem));
+  }
+  .hero-stage { flex: 1 1 0; display: flex; min-height: 0; }
+  .hero-board { flex: 1 1 0; display: flex; flex-direction: column; min-height: 0; }
+  .hero-board .bench-stage {
+    flex: 1 1 0;
+    height: auto;
+    min-height: 18rem;
+    max-height: 66vh;
+    max-height: 66svh;
+  }
+  .board-chrome { padding-block: .45rem; justify-content: center; text-align: center; gap: .55rem; }
+  .board-caption-text { width: 100%; flex: 1 1 100%; text-align: center; font-size: .72rem; }
+  .board-chrome__end { margin: 0 auto; width: 100%; justify-content: center; }
+  .viewer-controls { position: static; }
+  /* Centered on the page (anchored to .board-chrome), not under the button,
+     so the panel never clips at viewport edges. */
+  .viewer-controls-panel {
+    left: 50%;
+    right: auto;
+    top: calc(100% + .5rem);
+    width: min(18rem, calc(100vw - 2.5rem));
+    transform: translateX(-50%);
+  }
   .status-strip { display: grid; grid-template-columns: 1fr 1fr; font-size: .8125rem; gap: 1rem; }
   .section-space { padding-block: 3.5rem; }
   .section-label { margin-bottom: 2rem; }
@@ -706,12 +864,17 @@ h1 {
   .instruction-flow > li + li { border-left: 0; border-top: 1px solid var(--line); }
 }
 
+@media (pointer: coarse) {
+  .viewer-hint-desk { display: none; }
+  .viewer-hint-hand { display: inline; }
+}
+
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 @media print {
   :root { --bg: #fff; --surface: #fff; --text: #000; --muted: #444; --line: #ccc; --accent: #a32010; }
   .frame { width: 100%; }
   .section-space { padding-block: 2rem; }
-  .front-links, .front-paths, .theme-toggle, .bench-tools, #load-board, .footer-nav { display: none !important; }
+  .front-links, .front-paths, .theme-toggle, .bench-tools, .viewer-controls, .board-tour, #load-board, .footer-nav { display: none !important; }
   .hero-copy, .intro-grid, .difference-grid, .register-grid, .builder-grid, .proof-row { grid-template-columns: 1fr 1fr; gap: 2rem; }
   .bench-stage.is-ready .board-image { visibility: visible; }
   #front-bench { display: none; }
@@ -1000,17 +1163,18 @@ h1 {
 
 /* A compact map of the computer, with optional engineering detail below. */
 .tomato-overview .overview-heading{margin-bottom:2rem;max-width:46rem}
-.overview-system{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem;padding:0;margin:0;border-block:1px solid var(--line)}
-.overview-system li{min-width:0}.overview-system a{display:flex;flex-direction:column;gap:.65rem;padding:1.6rem 0;text-decoration:none}
-.overview-system strong{font-size:1.1rem;line-height:1.4}.overview-system a>span:last-child{color:var(--muted);font-size:.9rem;line-height:1.6}
-.overview-system a:hover strong{text-decoration:underline;text-underline-offset:.25em}
+/* What is Tomato: a quick inline summary. Mobile-sized type, links never underline. */
+.overview-bullets{list-style:none;margin:0 0 1.25rem;padding:0;max-width:56rem}
+.overview-bullets li{padding:.35rem 0;font-size:1rem;line-height:1.6}
+.overview-bullets a{color:var(--muted);text-decoration:none}
+.overview-bullets a strong{color:var(--text);font-weight:600}
+.overview-bullets a:hover,.overview-bullets a:hover strong{text-decoration:none}
+.overview-bullets code{font-size:.85em}
+@media(min-width:760px){.overview-bullets li{font-size:1.05rem}}
 .overview-bottom{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.4rem}.overview-bottom p{font-size:1rem;margin:0;color:var(--muted)}
 .home-depth{border-block:1px solid var(--line);margin-top:2rem;padding:1rem 0}.home-depth summary{cursor:pointer;font-size:1rem;line-height:1.5}.home-depth[open]>summary{margin-bottom:1.5rem}.home-depth .polymorphic-panel{margin:0}.home-depth .architecture-figure{margin-top:0}
-@media(max-width:650px){.overview-system{grid-template-columns:1fr;gap:0}.overview-system li+li{border-top:1px solid var(--line)}.overview-system a{padding:1.2rem 0;gap:.4rem}.overview-bottom{display:block}.overview-bottom .text-link{margin-top:.7rem}}
+@media(max-width:650px){.overview-bottom{display:block}.overview-bottom .text-link{margin-top:.7rem}}
 
 .tomato-overview .overview-heading{margin-bottom:1.5rem}
 .overview-heading>p{font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.5;margin:1rem 0 0}.overview-heading>p strong{font-weight:500}
-.overview-bullets{padding-left:1.2rem;margin:0 0 1.5rem;max-width:42rem}.overview-bullets li{padding:.25rem 0;font-size:1.05rem;line-height:1.6}.overview-bullets li::marker{color:var(--accent)}
 .tomato-overview .overview-bottom{border-top:1px solid var(--line);padding-top:1rem}
-
-.overview-bullets{max-width:52rem}.overview-bullets a{text-decoration:none;color:var(--muted)}.overview-bullets a strong{color:var(--text);font-weight:600}.overview-bullets a:hover strong{text-decoration:underline;text-underline-offset:.2em}

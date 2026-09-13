@@ -67,11 +67,54 @@ body.is-ready #viewer-canvas {
   font-size: 0.75rem;
 }
 
-.back {
+/* Top bar: row 1 = Tomato / REAL PCB MODEL / Controls evenly across width;
+   row 2 = view pills centered. Bar ignores pointer input so board drags
+   pass everywhere except on the pills themselves. */
+.topbar {
   position: fixed;
-  top: 1rem;
-  left: 1rem;
+  top: max(0.65rem, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.45rem;
+  width: calc(100vw - 1.3rem);
+  pointer-events: none;
+}
+
+.topbar-row--primary {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.topbar-row--primary .back {
+  justify-self: start;
+}
+
+.topbar-row--primary .badge {
+  justify-self: center;
+}
+
+.topbar-row--primary .hud {
+  justify-self: end;
+}
+
+.topbar .view-bar {
+  align-self: center;
+  justify-content: center;
+}
+
+.topbar .back,
+.topbar .hud,
+.topbar .view-bar { pointer-events: auto; }
+
+.back {
   padding: 0.4rem 0.8rem;
   border-radius: 0.5rem;
   color: var(--fg);
@@ -83,14 +126,10 @@ body.is-ready #viewer-canvas {
 .back:hover { background: rgba(255, 255, 255, 0.08); }
 
 .hud {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  z-index: 5;
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.45rem;
+  align-items: center;
 }
 
 .chip,
@@ -115,14 +154,11 @@ body.is-ready #viewer-canvas {
   font-family: ui-monospace, Menlo, monospace;
 }
 
-.chip-hand { display: none; }
-
 .view-bar {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 0.35rem;
-  max-width: 16rem;
 }
 
 .view-bar button {
@@ -152,12 +188,16 @@ body.is-ready #viewer-canvas {
 .legend--hand { display: none; }
 
 .legend {
-  margin-top: 0.5rem;
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  z-index: 6;
   min-width: 13rem;
   padding: 0.7rem 0.85rem;
   border-radius: 0.75rem;
   background: rgba(10, 10, 10, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
 }
 
 .legend p {
@@ -223,10 +263,6 @@ body.is-ready #viewer-canvas {
 }
 
 .badge {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  z-index: 5;
   display: flex;
   align-items: center;
   gap: 0.45rem;
@@ -239,12 +275,11 @@ body.is-ready #viewer-canvas {
   letter-spacing: 0.08em;
   font-family: ui-monospace, Menlo, monospace;
   color: var(--cream);
+  white-space: nowrap;
 }
 
-body.is-playing .back,
-body.is-playing .immerse,
-body.is-playing .hud,
-body.is-playing .badge { display: none; }
+body.is-playing .topbar,
+body.is-playing .immerse { display: none; }
 
 .tour-line {
   position: fixed;
@@ -352,44 +387,13 @@ body.is-playing .badge { display: none; }
 
 @media (max-width: 860px), (pointer: coarse) {
   .badge {
-    display: flex;
-    top: 4.25rem;
-    right: 0.65rem;
-    bottom: auto;
-    left: auto;
     font-size: 9px;
     padding: 0.28rem 0.55rem;
   }
-  .chip-desk,
   .legend--desk { display: none !important; }
   .legend--hand:not([hidden]) { display: block; }
-  .view-bar {
-    flex-wrap: wrap;
-    max-width: none;
-    justify-content: flex-end;
-  }
-  .back {
-    top: 0.65rem;
-    left: 0.65rem;
-  }
-  .hud {
-    top: 0.65rem;
-    left: 4.4rem;
-    right: 0.65rem;
-    bottom: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 0.3rem;
-  }
-  .legend {
-    position: absolute;
-    top: calc(100% + 0.35rem);
-    right: 0;
-    margin-top: 0;
-    z-index: 6;
-  }
+  .chip,
+  .view-bar button { min-height: 36px; }
 }
 
 @media (max-width: 720px) {
