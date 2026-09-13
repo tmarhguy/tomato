@@ -5,7 +5,7 @@ It gets exciting because it is running on over **2,300 lines of assembly code** 
 
 ![TomatoOS Main Menu](../../web/assets/os/main-menu-screen.jpg)
 
-<video src="../../web/assets/os/hdmi-demo-games-ui.mov" controls="controls" width="800"></video>
+<video src="../../web/assets/os/tomato-demo-os.mp4" controls="controls" width="800"></video>
 
 I have ported games like Tetris, Racer, Snake, an About Me page, and Fibonacci. I will add more features like Ping Pong, Tribonacci, Space Shooters, and more!
 
