@@ -24,21 +24,36 @@ VECTORS_10B   ?= 10000000000
 VECTORS_130B  ?= 130000000000
 SEED          ?= 1
 
-.PHONY: all help sync check-sync formal formal_1b formal_8b formal_32b \
-        build build8 build32 smoke core10b slice130b claim clean results-dir
+.PHONY: all help sync check-sync check-tools formal formal_1b formal_8b formal_32b \
+        build build8 build32 smoke run_10b run_130b core10b slice130b claim clean results-dir
 
 all: formal smoke
 
 help:
 	@echo "Tomato ALU gauntlet (FPGA dual-LUT copy — does not touch core/)"
+	@echo ""
 	@echo "  make sync          copy alu.v from hardware/fpga/core"
 	@echo "  make check-sync    assert copy matches core"
-	@echo "  make formal        SymbiYosys prove 1b + 8b + 32b"
-	@echo "  make smoke         Verilator 1e6 vectors (8b + 32b)"
-	@echo "  make core10b       Verilator 10e9 on alu8b (ALU core)"
-	@echo "  make slice130b     Verilator 130e9 on alu (32-bit slice)"
-	@echo "  make claim         formal + core10b + slice130b"
+	@echo "  make check-tools   assert required tools are on PATH"
+	@echo "  make formal        SymbiYosys prove 1b + 8b + 32b (needs sby + solvers)"
+	@echo "  make smoke         Verilator smoke: 1e6 vectors on 8b + 32b (~1 min)"
+	@echo "  make run_10b       Verilator 10e9 vectors on alu8b (8-bit, ~7 min)"
+	@echo "  make run_130b      Verilator 130e9 vectors on alu (32-bit, ~2-3 h)"
+	@echo "  make claim         formal + run_10b + run_130b -> results/CLAIM.txt"
 	@echo "  make clean         remove obj/ and formal run dirs"
+	@echo ""
+	@echo "Overrides: VECTORS_SMOKE= N (default 1000000)"
+	@echo "           VECTORS_10B=   N (default 10000000000)"
+	@echo "           VECTORS_130B=  N (default 130000000000)"
+	@echo "           SEED=          N (default 1; fixed seed => reproducible)"
+	@echo "           GAUNTLET_PROGRESS_EVERY=N (status line every N vectors; default 1e9)"
+	@echo "Examples:"
+	@echo "  make smoke VECTORS_SMOKE=100000      # short smoke"
+	@echo "  make run_130b VECTORS_130B=100000000 # 1e8 pilot before the full run"
+	@echo "  GAUNTLET_PROGRESS_EVERY=100000000 make run_130b   # ~10x chattier log"
+	@echo "Watch a long run: tail -f results/slice_130b.txt   # 10B: results/core_10b.txt"
+	@echo ""
+	@echo "Legacy aliases: core10b (= run_10b), slice130b (= run_130b)."
 
 sync:
 	@mkdir -p $(RTL)
@@ -51,13 +66,19 @@ check-sync:
 	@diff -q $(CORE_ALU) $(RTL)/alu.v
 	@echo "OK: gauntlet rtl/alu.v matches hardware/fpga/core/rtl/alu.v"
 
-formal_1b:
+# Fail fast with the install pointer instead of a cryptic mid-recipe error.
+check-tools:
+	@command -v $(SBY) >/dev/null || { echo "missing $(SBY) — install SymbiYosys (OSS CAD Suite: make setup in hardware/fpga/core, or brew install symbiyosys)"; exit 1; }
+	@command -v $(VERILATOR) >/dev/null || { echo "missing $(VERILATOR) — install Verilator (OSS CAD Suite, or brew install verilator)"; exit 1; }
+	@echo "OK: $(SBY) + $(VERILATOR) on PATH"
+
+formal_1b: check-tools
 	cd $(FORMAL) && $(SBY) -f alu1b_verify.sby
 
-formal_8b:
+formal_8b: check-tools
 	cd $(FORMAL) && $(SBY) -f alu8b_verify.sby
 
-formal_32b:
+formal_32b: check-tools
 	cd $(FORMAL) && $(SBY) -f alu32_verify.sby
 	cd $(FORMAL) && $(SBY) -f alu32_top_verify.sby
 
@@ -94,27 +115,38 @@ build8: $(OBJ)/alu8/alu8_gauntlet
 build32: $(OBJ)/alu32/alu_gauntlet
 build: build8 build32
 
-smoke: check-sync build results-dir
+smoke: check-sync check-tools build results-dir
 	$(OBJ)/alu8/alu8_gauntlet $(VECTORS_SMOKE) $(SEED) | tee $(RESULTS)/smoke_8b.txt
 	$(OBJ)/alu32/alu_gauntlet $(VECTORS_SMOKE) $(SEED) | tee $(RESULTS)/smoke_32b.txt
 	@echo "=== GAUNTLET SMOKE PASS ==="
 
-core10b: check-sync build8 results-dir
+# Canonical long runs. 8b first (fast, ~25 Mvec/s), then 32b (~13-16 Mvec/s).
+run_10b: check-sync check-tools build8 results-dir
 	$(OBJ)/alu8/alu8_gauntlet $(VECTORS_10B) $(SEED) | tee $(RESULTS)/core_10b.txt
 	@grep -q '^PASS alu8b' $(RESULTS)/core_10b.txt
 	@echo "=== 10B ALU-CORE PASS ==="
 
-slice130b: check-sync build32 results-dir
+run_130b: check-sync check-tools build32 results-dir
 	$(OBJ)/alu32/alu_gauntlet $(VECTORS_130B) $(SEED) | tee $(RESULTS)/slice_130b.txt
 	@grep -q '^PASS alu32' $(RESULTS)/slice_130b.txt
 	@echo "=== 130B 32-BIT SLICE PASS ==="
 
-claim: formal core10b slice130b
-	@echo "directed=1048576+ (8b) / low-byte+lut (32b)" > $(RESULTS)/CLAIM.txt
-	@echo "core10b=$(VECTORS_10B)" >> $(RESULTS)/CLAIM.txt
-	@echo "slice130b=$(VECTORS_130B)" >> $(RESULTS)/CLAIM.txt
-	@echo "formal=alu1b+alu8b+alu32 PASS" >> $(RESULTS)/CLAIM.txt
-	@echo "dut=verification/gauntlet/rtl/alu.v (copy of fpga/core)" >> $(RESULTS)/CLAIM.txt
+# Legacy aliases (prefer run_10b / run_130b in docs and CI).
+core10b: run_10b
+slice130b: run_130b
+
+claim: formal run_10b run_130b
+	@{ \
+	  echo "# Tomato ALU gauntlet claim — $(shell date -u +%Y-%m-%dT%H:%M:%SZ)"; \
+	  echo "dut=verification/gauntlet/rtl/alu.v (copy of fpga/core)"; \
+	  echo "dut_sha256=$$(shasum -a 256 $(RTL)/alu.v | cut -d' ' -f1)"; \
+	  echo "git_rev=$$(git -C $(ROOT) rev-parse --short HEAD 2>/dev/null || echo unknown)"; \
+	  echo "seed=$(SEED)"; \
+	  echo "directed=1048576+ (8b) / low-byte+lut (32b)"; \
+	  echo "run_10b_vectors=$(VECTORS_10B)"; \
+	  echo "run_130b_vectors=$(VECTORS_130B)"; \
+	  echo "formal=alu1b+alu8b+alu32 PASS"; \
+	} > $(RESULTS)/CLAIM.txt
 	@echo "=== DONE: formal + 10B + 130B ==="
 	@cat $(RESULTS)/CLAIM.txt
 

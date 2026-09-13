@@ -102,8 +102,21 @@ int main(int argc, char** argv) {
     if (n < directed)
         n = directed;
 
+    // Progress cadence (vectors between status lines). Override with
+    // GAUNTLET_PROGRESS_EVERY=N — e.g. 100000000 for ~10x chattier logs.
+    uint64_t progress_every = 1000000000ull;
+    if (const char* pe = std::getenv("GAUNTLET_PROGRESS_EVERY"))
+        progress_every = std::strtoull(pe, nullptr, 0);
+    if (progress_every == 0)
+        progress_every = 1000000000ull;
+
+    std::printf("alu32 start: target=%" PRIu64 " directed=%" PRIu64
+                " seed=0x%" PRIx64 " progress_every=%" PRIu64 "\n",
+                n, directed, seed, progress_every);
+    std::fflush(stdout);
+
     uint64_t state = seed ? seed : 1;
-    uint64_t next_report = directed + 1000000000ull;
+    uint64_t next_report = directed + progress_every;
 
     while (checked < n) {
         uint64_t r0 = xs64(state);
@@ -152,7 +165,7 @@ int main(int argc, char** argv) {
             std::printf("progress %" PRIu64 " / %" PRIu64 "  (%.3f Gvec/s)\n",
                         checked, n, rate / 1e9);
             std::fflush(stdout);
-            next_report += 1000000000ull;
+            next_report += progress_every;
         }
     }
 
