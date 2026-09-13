@@ -26,16 +26,16 @@
     }
   </script>
 <link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="css/landing.css?v=303" rel="stylesheet"/>
+<link href="css/landing.css?v=b1f89079" rel="stylesheet"/>
 <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }
   </script>
 <link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/>
-<link href="js/bench.js?v=223" rel="modulepreload"/>
+<link href="js/bench.js?v=29899518" rel="modulepreload"/>
 <link crossorigin="" href="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" rel="modulepreload"/>
 <link as="fetch" crossorigin="anonymous" href="assets/pcb/alu.glb" rel="preload" type="model/gltf-binary"/>
-<link href="css/navigation.css?v=251" rel="stylesheet"/>
-<script defer="" src="js/navigation.js?v=251"></script>
+<link href="css/navigation.css?v=4247b616" rel="stylesheet"/>
+<script defer="" src="js/navigation.js?v=c3d656fc"></script>
 <!-- tomato-seo -->
   <meta name="description" content="My custom 32-bit Dual-LUT computer: the ALU rewires with each instruction. Tomato OS runs on Artix-7 FPGA; I’m building the same machine in discrete 74xx logic." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, polymorphic CPU, LUT3 adder, 524288 ALU configurations, 32768 registers, immediate box, 130 billion test vectors, Tomato OS, discrete 74xx, expressiveness per cycle, tomato.tmarhguy.com, Tomato, 32-bit, dual-lut, discrete" />
@@ -129,14 +129,22 @@
 <canvas aria-label="Interactive 3D model of Tomato’s ALU board" hidden="" id="front-bench"></canvas>
 </div>
 <div class="board-chrome frame">
-<p class="board-caption-text">Drag to explore the board</p>
+<p class="board-caption-text" id="board-hint">Drag to explore</p>
 <button class="board-load" hidden="" id="load-board" type="button">Retry interactive view</button>
 <div class="board-chrome__end">
-<div class="bench-tools" hidden="" role="group" aria-label="Board viewer controls"><button aria-label="Cycle camera views" data-bench="view" type="button">Iso</button><button data-bench="reset" type="button">Reset</button><button data-bench="spin" type="button">Pause</button><button aria-pressed="true" class="is-on" data-bench="grid" type="button">Grid</button><a class="is-tour" href="viewer.html">Tour the board</a></div>
+<details class="viewer-controls" id="viewer-controls">
+<summary aria-label="Open board viewer controls">Controls</summary>
+<div class="viewer-controls-panel">
+<div class="bench-tools bench-views" role="group" aria-label="Camera views"><button data-bench="iso" type="button">Iso</button><button data-bench="top" type="button">Top</button><button data-bench="side" type="button">Side</button><button data-bench="copper" type="button">Bottom</button></div>
+<div class="bench-tools bench-actions" role="group" aria-label="Display actions"><button data-bench="reset" type="button">Reset</button><button data-bench="spin" type="button">Pause</button><button aria-pressed="true" class="is-on" data-bench="grid" type="button">Grid</button></div>
+<p class="viewer-hint"><span class="viewer-hint-desk">Drag to orbit · scroll to zoom · 1–4 views</span><span class="viewer-hint-hand">Drag to orbit · pinch to zoom</span></p>
+</div>
+</details>
+<a class="board-tour" href="viewer.html">Tour the board</a>
 </div>
 </div>
 <noscript><p class="board-feedback frame">Enable JavaScript to rotate the board, or <a href="viewer.html">open the full 3D tour</a>.</p></noscript>
-<p class="board-feedback frame" hidden="" id="board-feedback" role="status">Loading the interactive board…</p>
+<p class="board-feedback frame" hidden="" id="board-feedback" role="status"></p>
 </figure>
 </div>
 <div class="hero-bar">
@@ -168,10 +176,10 @@
 <section aria-labelledby="running-title" class="running section-space" id="running">
 <div class="frame"><div class="section-label"><span>02 / THE PROOF YOU CAN SEE</span><span>Recorded on the FPGA prototype</span></div>
 <div class="running-layout">
-<figure class="os-demo"><a aria-label="Open a larger Tomato OS recording" class="media-expand" href="assets/os/hdmi-demo-games-ui.mp4" id="os-expand"><video aria-label="Tomato OS preview at twice normal speed" id="os-preview" loop="" muted="" playsinline="" poster="assets/os/main-menu-screen.jpg" preload="metadata"><source src="assets/os/hdmi-demo-games-ui.mp4" type="video/mp4"/></video><span class="media-expand-label">OPEN LARGER</span></a><figcaption>Nexys A7-100T · Artix-7 · HDMI</figcaption><button class="preview-toggle" hidden="" id="os-preview-toggle" type="button">Pause preview</button></figure>
+<figure class="os-demo"><a aria-label="Open a larger Tomato OS recording" class="media-expand" href="assets/os/tomato-demo-os.mp4" id="os-expand"><video aria-label="Tomato OS preview at twice normal speed" id="os-preview" loop="" muted="" playsinline="" poster="assets/os/tomato-demo-os-poster.jpg" preload="metadata"><source src="assets/os/tomato-demo-os.mp4" type="video/mp4"/></video><span class="media-expand-label">OPEN LARGER</span></a><figcaption>Nexys A7-100T · Artix-7 · HDMI</figcaption><button class="preview-toggle" hidden="" id="os-preview-toggle" type="button">Pause preview</button></figure>
 <div class="running-copy"><h2 id="running-title">Tomato works—it boots its OS<br/>to run <em>Tetris, Snake, and more.</em></h2><p>I wrote Tomato OS in the assembly language I designed for this machine. It draws the menu, reads the controls, and runs Snake, Tetris, Racer, and Fibonacci.</p><div class="builder-links"><a class="text-link" href="os.html">Meet Tomato OS</a><a class="text-link" href="software.html">Read the software story</a></div></div>
 </div></div>
-<dialog aria-labelledby="os-dialog-title" class="media-dialog" id="os-dialog"><div class="media-dialog-heading"><h2 id="os-dialog-title">Tomato OS · hardware recording</h2><button aria-label="Close video" id="os-close" type="button">Close ×</button></div><video controls="" id="os-full-video" playsinline="" poster="assets/os/main-menu-screen.jpg" preload="none"><source src="assets/os/hdmi-demo-games-ui.mp4" type="video/mp4"/></video></dialog>
+<dialog aria-labelledby="os-dialog-title" class="media-dialog" id="os-dialog"><div class="media-dialog-heading"><h2 id="os-dialog-title">Tomato OS · hardware recording</h2><button aria-label="Close video" id="os-close" type="button">Close ×</button></div><video controls="" id="os-full-video" playsinline="" poster="assets/os/tomato-demo-os-poster.jpg" preload="none"><source src="assets/os/tomato-demo-os.mp4" type="video/mp4"/></video></dialog>
 </section>
 <section aria-labelledby="status-title" class="bench-status section-space" id="status">
 <div class="frame">
@@ -337,10 +345,10 @@ OR out, t1, t2</code></p><p><strong>Tomato · 2 ALU evaluations</strong><code>1.
 <section aria-labelledby="explore-title" class="explore frame section-space" id="engineering"><div class="section-label"><span>09 / OPEN THE WORK</span><span>Schematics, software, and the decisions in between</span></div><h2 id="explore-title">Go as deep as you like.</h2><div class="explore-grid"><a href="architecture.html"><span>01</span><h3>Understand the design</h3><p>Datapath, instruction format, and the decisions that shape the machine.</p></a><a href="playground.html"><span>02</span><h3>Experiment with the logic</h3><p>Change inputs, program the truth tables, and trace the result.</p></a><a href="faq.html"><span>03</span><h3>Ask why it looks this way</h3><p>Two LUTs, three inputs, verification, and the hardware compiler—answered plainly.</p></a><a href="journal.html"><span>04</span><h3>Follow the build</h3><p>The breakthroughs, soldering sessions, wrong turns, and next steps.</p></a><a href="source.html"><span>05</span><h3>Read the source</h3><p>Logic schematics, board layouts, test harnesses, and assembly.</p></a></div></section>
 </main>
 <footer class="front-footer frame"><div class="footer-top"><a class="footer-logo" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a class="text-link" href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="footer-nav"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html#compiler">Opcode compiler</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato" rel="noopener noreferrer" target="_blank">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
-<script src="js/landing.js?v=253" type="module"></script>
+<script src="js/landing.js?v=c7c2c24d" type="module"></script>
 <!-- tomato-vercel -->
-<script defer="" src="js/vercel-analytics.js"></script>
-<script defer="" src="js/vercel-speed-insights.js"></script>
+<script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
+<script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

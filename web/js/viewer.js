@@ -7,7 +7,7 @@ import {
   lightPcbScene,
   loadFittedPcb,
   studioEnv,
-} from "./pcb-look.js";
+} from "./pcb-look.js?v=46400643";
 
 const GLB = "assets/pcb/alu.glb";
 const IN_S = 1;

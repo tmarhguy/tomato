@@ -3,8 +3,15 @@
 Replays **476 test vectors** extracted from three Digital-exported testbenches. Compares DUT output against the unified golden in `alu_ref.v` (same model as formal equiv + UVM).
 
 ```bash
-make directed    # runs generate first, then iverilog + vvp
+make directed    # builds run_extracted_tb.v via generate.py if missing, then iverilog + vvp
+make generate    # force-reextract (after editing a source TB)
 ```
+
+---
+
+## Stimulus vs check
+
+All **482** pattern rows are *applied* in source order — including the 6 flag-only rows whose expected-Out is `x` (they advance the flag latches, exactly as the Digital benches do). The **476** rows with a known expected-Out are *checked* against `alu_predict_out()`.
 
 ---
 
@@ -46,16 +53,18 @@ Digital module names contain spaces — **Icarus cannot compile them directly**.
 
 ---
 
-## Compare policy
+## Timing and carry policy
 
-Every vector is checked against `alu_predict_out()`:
+The TB drives each vector with `clk = 0`, settles, then pulses the clock once so `FLAG_WE` latches exactly once per vector (the pattern `CLK` bit itself is ignored). `Out` is sampled after the edge.
+
+Every checked vector is compared against `alu_predict_out()`:
 
 ```verilog
-exp0 = alu_predict_out(A, B, C, Opcode, control, csel, 1'b0);
+exp0 = alu_predict_out(A, B, C, Opcode, control, csel, csr_flag[4]);
 // if mismatch and csel==2'b10, retry with flag_c=1
 ```
 
-No opcode or `csel` skips. Six source vectors with `x` in the expected-out field are omitted at extract time (flag-only stimulus).
+`flag_c` for carry-fed logic (`csel == 2'b10`) is the live latch bit the DUT itself reports — no opcode or `csel` skips. Six source vectors with `x` in the expected-out field are applied but not checked (flag-only stimulus).
 
 ---
 

@@ -201,6 +201,8 @@ Per bit-slice there are **524,288** theoretical `(lutA, lutB, csel)` combination
 
 **Policy:** Digital `.dig` schematics are editable source. Exported Verilog in `verification/rtl/` is **read-only** — copy from Digital, then run sign-off.
 
+**No Digital install?** `make test` from the repo root (or `make test` in `verification/`) runs the zero-provisioning open tier — vector extraction, formal inventory, and the FPGA ALU proofs — with no exports or licenses. Full sign-off is `make signoff` after the export step above.
+
 ---
 
 ## Repository map

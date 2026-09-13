@@ -1,5 +1,5 @@
 /** Front page: progressive enhancement, with the same ALU model as the playground. */
-import { aluEval, hex, lutInfo, lutShort } from './alu.js';
+import { aluEval, hex, lutInfo, lutShort } from './alu.js?v=d026bffa';
 
 const themeButton = document.querySelector('[data-theme-toggle]');
 function syncBoardPoster() {
@@ -217,40 +217,53 @@ if (immediateControl) {
   updateImmediate(immediateControl.value);
 }
 
-// The board leads the page. Keep its image visible until the interactive model is ready.
+// The board leads the page. The poster image is the fallback; there is no
+// loading text so Controls + Tour never shift. They stay in place always.
 const loadButton = document.getElementById('load-board');
 const canvas = document.getElementById('front-bench');
 const feedback = document.getElementById('board-feedback');
+const viewerControls = document.getElementById('viewer-controls');
 if (loadButton && canvas) {
+  // The Controls disclosure is always visible so its position never shifts.
+  // It stays open when picking views — only an explicit minimize
+  // (summary toggle or Escape) closes it. Board drags never dismiss it.
+  if (viewerControls) {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && viewerControls.open) viewerControls.open = false;
+    });
+  }
   async function loadBoard() {
     loadButton.disabled = true;
-    feedback.hidden = false;
-    feedback.textContent = 'Loading the interactive board…';
     const stage = canvas.parentElement;
-    stage.setAttribute('aria-busy', 'true');
     try {
-      const { mountBench } = await import('./bench.js?v=223');
+      const { mountBench } = await import('./bench.js?v=29899518');
       canvas.hidden = false;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      // Spin on first load; halt on drag; camera home + resume after 15s idle.
-      await mountBench(canvas, { glb: 'assets/pcb/alu.glb', autoRotate: !reducedMotion, idleResetMs: reducedMotion ? 0 : 15000 });
+      // Spin on first load; halt on drag; the board never auto-resets.
+      // hud:false — the hero chrome owns its single Controls disclosure.
+      // scrollFriendly:false — every gesture inside the board box drives the
+      // board, never the page. Users scroll from outside the stage.
+      await mountBench(canvas, { glb: 'assets/pcb/alu.glb', autoRotate: !reducedMotion, hud: false, scrollFriendly: false });
       canvas.tabIndex = 0;
-      document.querySelector('.bench-tools').hidden = false;
       loadButton.hidden = true;
-      feedback.textContent = '';
+      if (feedback) {
+        feedback.hidden = true;
+        feedback.textContent = '';
+      }
 
     } catch (error) {
       canvas.hidden = true;
       stage.classList.remove('is-ready');
       stage.querySelectorAll('.bench-hud, .bench-mark-wrap').forEach((node) => node.remove());
       stage.style.touchAction = 'auto';
-      feedback.textContent = 'The interactive model could not load. The board image is still available; you can also open the full 3D tour.';
+      if (feedback) {
+        feedback.hidden = false;
+        feedback.textContent = 'The interactive model could not load. The board image is still available; you can also open the full 3D tour.';
+      }
       loadButton.hidden = false;
       loadButton.disabled = false;
       loadButton.textContent = 'Retry 3D view';
       console.warn('Tomato board preview unavailable:', error);
-    } finally {
-      stage.removeAttribute('aria-busy');
     }
   }
   loadButton.addEventListener('click', loadBoard);

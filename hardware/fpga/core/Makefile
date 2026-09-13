@@ -1,15 +1,18 @@
 .DEFAULT_GOAL := all
 # Tomato core — Icarus simulation, burn packaging, and the open-source bitstream
 #
-#   make test                     unit + program regression (Icarus)
+#   make test                     unit + program regression (Icarus, no nix needed)
 #   make os                       boot Tomato OS in sim and dump the screen
 #   make burn BOOT=tomato_os      pack microcode + dmem image into rtl/burn/
-#   ../scripts/env.sh make fpga   yosys → nextpnr-xilinx → prjxray → .bit
-#   ../scripts/env.sh make program
+#   make fpga                     yosys → nextpnr-xilinx → prjxray → .bit
+#   make program                  flash the board (builds the bit if stale)
+#
+# The fpga targets auto-enter the toolchain via ../scripts/env.sh when the nix
+# shell is not already active — no NIX_CONFIG export or `nix shell` needed.
+# From the repo root the same builds are `make fpga` / `make fpga-program`.
 #
 # rtl/       the machine — faithful to the Digital sheet (hardware/verilog/main.v)
 # rtl/board/ the FPGA harness — pixel timing, glyph ROM, keypad, 7-seg, DVI PMOD
-export PATH := $(HOME)/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$(PATH)
 
 # -I rtl        → `include "burn/..." resolves for control.v / main.v
 # -DTOMATO_SIM  → leave dmem empty so TBs can $readmemh their own programs,
@@ -79,7 +82,7 @@ pack-isa lean-isa:
 burn: microcode tb/mem/tomato_os.mem
 	$(GENBURN) --boot $(BOOT)
 	@echo "FPGA burn ready: boot=$(BOOT)"
-	@echo "Next: ../scripts/env.sh make fpga program   (re-synth — burn is baked into the .bit)"
+	@echo "Next: make fpga program   (re-synth — burn is baked into the .bit)"
 
 burn-check: microcode
 	$(GENMC) --check

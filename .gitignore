@@ -45,6 +45,10 @@ hardware/fpga/**/*.bit
 !verification/directed/alu_32b_dut_wrap.v
 !verification/directed/alu-32b-final*_tb.v
 
+# Verification — Digital-export DUT netlists, provisioned locally per
+# verification/rtl/README.md (never committed; keeps git status clean).
+verification/rtl/*.v
+
 # Verification — build artifacts (make clean)
 verification/work/
 verification/results/

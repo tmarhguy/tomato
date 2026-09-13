@@ -1,0 +1,56 @@
+name: verify
+
+# Fast open-source verification tier: vector extraction, property inventory,
+# Verilator gauntlet smoke, and the 1-bit SymbiYosys proof (z3 engine).
+# Long runs (10B/130B, full formal, UVM) stay local — see verification/README.md.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "verification/**"
+      - "hardware/fpga/core/rtl/alu.v"
+      - ".github/workflows/verify.yml"
+  pull_request:
+    paths:
+      - "verification/**"
+      - "hardware/fpga/core/rtl/alu.v"
+      - ".github/workflows/verify.yml"
+  workflow_dispatch:
+
+jobs:
+  vectors:
+    name: vectors + inventory (python3 only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract vectors + recount formal inventory
+        run: make -C verification generate formal_inventory
+
+  gauntlet-smoke:
+    name: gauntlet smoke (Verilator 1e5)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Verilator
+        run: sudo apt-get update && sudo apt-get install -y verilator
+      - name: Gauntlet sync check + smoke
+        run: make -C verification/gauntlet check-sync smoke VECTORS_SMOKE=100000
+
+  gauntlet-formal-1b:
+    name: gauntlet formal 1b (sby + z3)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install SymbiYosys + solvers
+        # NOTE: there is no `symbiyosys` package on PyPI — sby installs from
+        # source (https://github.com/YosysHQ/sby, `sudo make install` copies
+        # the scripts; only yosys + python3-click are prerequisites here).
+        run: |
+          sudo apt-get update && sudo apt-get install -y yosys yosys-abc z3 python3-click git make
+          git clone --depth 1 https://github.com/YosysHQ/sby.git /tmp/sby
+          sudo make -C /tmp/sby install
+          sby --version
+          yosys -V
+      - name: Prove alu1b
+        run: make -C verification/gauntlet check-sync formal_1b

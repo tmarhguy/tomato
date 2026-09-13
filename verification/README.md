@@ -51,11 +51,11 @@ Layered sign-off for the **Tomato dual-LUT 32-bit ALU**: independent 3-input LUT
 | U | Questa UVM | 1b + 8b + 32b | **Requires Questa** | scoreboard uses full golden |
 
 ```bash
-make signoff        # fast CI (~35 s): spot formal + directed + lint
+make signoff        # fast local sign-off (~35 s): spot formal + directed + lint
 make signoff_full   # adds formal_32b_equiv end-to-end comb proof
 ```
 
-From repo root: `make test` runs `make -C verification signoff`.
+From repo root: `make test` runs the zero-provisioning open tier, `make signoff` the strict sign-off above.
 
 ---
 
@@ -80,12 +80,23 @@ From repo root: `make test` runs `make -C verification signoff`.
 ```bash
 cd verification
 
+# Tier 1 — no Digital exports, no Questa (~30 s + gauntlet formal):
+# Needs python3 + sby/solvers (OSS CAD Suite on PATH — see gauntlet/README.md).
+make test               # vectors + inventory + gauntlet formal (1b/8b/32b)
+
+# Tier 2 — full sign-off. One-time provisioning first (local-only, gitignored):
+#   Digital → open hardware/digital/modules/alu-{1b,8b,32b}-final.dig →
+#   Export Verilog → save as rtl/alu-{1b,8b,32b}-final.v (see rtl/README.md).
+#   (The committed synthesis/rtl/alu-32b-final.v copy has a different
+#   top-level port map — do not substitute it.)
+#   Every strict target checks this first and tells you if it is missing.
+
 # No commercial simulator license required
-make signoff              # fast CI (~35 s)
+make signoff              # fast local sign-off (~35 s)
 make signoff_full         # + 32b equiv prove (~3 min)
 make formal_32b_equiv     # full comb proof (~74 s)
 make directed             # 476 vectors (Icarus)
-make generate             # regenerate op table + vectors (when scripts/generate.py present)
+make generate             # re-extract vectors from the Digital TBs
 
 # Questa required (vlog/vsim on PATH)
 make uvm_1b_exhaustive
@@ -93,15 +104,23 @@ make uvm_8b_full
 make uvm_32b_regression   # directed + ops91 + edge + flag + 10k random
 make uvm_regression       # 1b exhaustive + 8b full + 32b regression
 
+# FPGA ALU gauntlet (Verilator + SymbiYosys on hardware/fpga/core copy)
+make gauntlet_smoke        # 1e6 vectors each, ~1 min
+make gauntlet_10b          # 10e9 on 8b slice, ~7 min
+make gauntlet_130b         # 130e9 on 32b ALU, ~2-3 h
+make gauntlet_claim        # formal + 10B + 130B → gauntlet/results/CLAIM.txt
+# Pilot before the full run: make gauntlet_130b VECTORS_130B=100000000 SEED=7
+# Full reference: [gauntlet/README.md](gauntlet/README.md)
+
 # Sky130 synthesis characterization
 make synth                # see synthesis/README.md
 ```
 
-**Dependencies (local sign-off):** `python3`, `yosys`, `symbiyosys` (`sby`), `z3`, `iverilog`, `verilator`.
+**Dependencies (local sign-off):** `python3`, `yosys`, `symbiyosys` (`sby`), `z3`, `iverilog`, `verilator` — plus the `rtl/` netlists above for the strict tier. `make help` lists every target; anything missing fails fast with the exact fix. (Gauntlet proofs reuse the FPGA OSS CAD Suite solvers already in `hardware/fpga/.tools/`.)
 
-**UVM:** [Questa Intel FPGA Starter](https://www.intel.com/content/www/us/en/software-kit/750666/intel-quartus-prime-lite-edition-design-software-version-23-1-for-windows.html) or equivalent with `vlog`/`vsim`.
+**UVM:** [Questa Intel FPGA Starter](https://www.intel.com/content/www/us/en/software-kit/750666/intel-quartus-prime-lite-edition-design-software-version-23-1-for-windows.html) or equivalent with `vlog`/`vsim`. `uvm_*` targets check for them first and stop with a pointer if absent.
 
-**Before first run:** copy Digital-export netlists (`alu-1b-final.v`, `alu-8b-final.v`, `alu-32b-final.v`) into `rtl/` — see [rtl/README.md](rtl/README.md). The synthesis tree also holds a current `alu-32b-final.v` copy under `synthesis/rtl/`.
+**Before first run:** provision the Digital-export netlists (`alu-1b-final.v`, `alu-8b-final.v`, `alu-32b-final.v`) into `rtl/` — see [rtl/README.md](rtl/README.md). `rtl/` holds only local, gitignored copies.
 
 ---
 
@@ -110,7 +129,7 @@ make synth                # see synthesis/README.md
 ```
 verification/
 ├── README.md           ← you are here
-├── Makefile            ← all targets (signoff, formal, UVM, synth)
+├── Makefile            ← targets (`test` open tier; `signoff`, formal, UVM, synth)
 ├── rtl/                → [rtl/README.md](rtl/README.md) — Digital-export DUT netlists
 ├── formal/             → [formal/README.md](formal/README.md)
 ├── directed/           → [directed/README.md](directed/README.md)
@@ -121,7 +140,7 @@ verification/
 │   ├── alu_1b/         → [uvm/alu_1b/README.md](uvm/alu_1b/README.md)
 │   ├── alu_8b/         → [uvm/alu_8b/README.md](uvm/alu_8b/README.md)
 │   └── alu_32b/        → [uvm/alu_32b/README.md](uvm/alu_32b/README.md)
-└── scripts/            → generate.py (vector + op table codegen, when present)
+└── scripts/            → generate.py (Digital-TB vector extractor → directed/run_extracted_tb.v)
 ```
 
 Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, `formal/alu_*_verify/`, `directed/run_extracted_tb.v`, `synthesis/reports/`, `test/reports/`.
@@ -134,6 +153,7 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 
 | Metric | Target | Command |
 |--------|--------|---------|
+| Open tier (no DUT) | vectors + inventory + gauntlet formal PASS | `make test` (= `signoff_open`) |
 | Formal 1b LUT + G/P | PASS (prove) | `make formal_1b` |
 | Formal 8b per-bit | PASS (prove) | `make formal_8b` |
 | Formal 32b equiv | PASS (all inputs) | `make formal_32b_equiv` |
@@ -141,6 +161,9 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 | Formal 32b flags | PASS (cover) | `make formal_32b_flags` |
 | Formal inventory | **5/5 jobs**; **19 assert + 20 cover** (40+48 elaborated) | `make formal_inventory` → [formal/PROPERTY_INVENTORY.md](formal/PROPERTY_INVENTORY.md) |
 | Directed vectors | 476/476 pass vs ALU golden | `make directed` |
+| FPGA ALU smoke | Verilator 1e6 on 8b + 32b | `make gauntlet_smoke` → [gauntlet/](gauntlet/) |
+| FPGA ALU 10B | Verilator 10e9 on 8b slice (~7 min) | `make gauntlet_10b` |
+| FPGA ALU 130B | Verilator 130e9 on 32b ALU (~2–3 h) | `make gauntlet_130b` |
 | FPGA ALU (core copy) | SymbiYosys 1b+8b+32b; Verilator 10B / 130B | `make gauntlet_claim` → [gauntlet/](gauntlet/) |
 | Lint | 0 errors | `make lint` |
 | UVM `op91_cp` | Covergroup over **91 ALU control-table rows** (not 512 CPU opcodes, not toggle/branch %) | `make uvm_32b_ops91` (Questa) |
@@ -159,7 +182,7 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 | `csel==2'b10` carry-fed logic | **Closed** — unified ripple-LUT golden; `Flag_C` primary input in formal |
 | Directed 476 vectors | PASS vs golden; many vectors exercise modes beyond the 91 named rows |
 | Sequential `CSR_FLAG` prove | **Cover + UVM** — SMT latch prove not feasible; use `alu_32b_flag_test` |
-| UVM in CI | Questa not wired in GitHub Actions yet |
+| UVM in CI | `verify.yml` runs vectors + inventory + gauntlet smoke + formal 1b; UVM needs Questa (local only) |
 
 ---
 
@@ -172,4 +195,4 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 | Kogge-Stone benchmark | [test/README.md](../test/README.md) |
 | 91-op control map (authority) | [docs/alu/alu-1b/alu_control_map.tex](../docs/alu/alu-1b/alu_control_map.tex) |
 | Digital source schematic | [alu-32b-final.dig](../hardware/digital/modules/alu-32b-final.dig) |
-| Root shortcut | `make test` → `make -C verification signoff` |
+| Root shortcut | `make test` → open tier · `make signoff` → strict sign-off |

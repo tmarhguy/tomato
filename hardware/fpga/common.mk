@@ -17,9 +17,42 @@
 #   nixpkgs        → nextpnr-xilinx, bbasm, prjxray-db + site metadata
 #   local build    → xc7frames2bit, fasm2frames
 #
-# scripts/env.sh layers all three onto PATH; always build through it.
+# scripts/env.sh layers all three onto PATH. FPGA targets auto-enter it when
+# nextpnr-xilinx is missing, so a bare `make fpga` / `make program` just works.
 
 FPGA_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+
+# nix on stock macOS ships with `nix-command` + `flakes` off; carry the flag on
+# every invocation so no NIX_CONFIG export or nix.conf edit is ever needed.
+NIX ?= nix --extra-experimental-features 'nix-command flakes'
+# Make sure the nix binaries resolve even from a bare shell.
+export PATH := $(HOME)/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$(PATH)
+
+# Lowest-friction entry: a bare `make fpga` / `make program` inside core/ or
+# hdmi_test/ re-enters through scripts/env.sh when nextpnr-xilinx is missing
+# (i.e. outside the nix shell). env.sh exports TOMATO_FPGA_ENV=1, so the child
+# make takes the real recipes below exactly once. Sim-only targets
+# (test, os, burn, clean, ...) never wrap and stay nix-free.
+# hdmi_test sets ALL_NEEDS_FPGA := 1 before including this file because its
+# default `all` builds the bitstream; core's `all` is sim-only.
+ALL_NEEDS_FPGA ?= 0
+_FPGA_WRAP_MATCH := fpga synth chipdb pnr bit program
+ifeq ($(ALL_NEEDS_FPGA),1)
+_FPGA_WRAP_MATCH += all
+endif
+ifndef TOMATO_FPGA_ENV
+ifeq (,$(shell command -v nextpnr-xilinx 2>/dev/null))
+_FPGA_WRAP_GOALS := $(filter $(_FPGA_WRAP_MATCH),$(MAKECMDGOALS))
+ifeq ($(MAKECMDGOALS),)
+ifeq ($(ALL_NEEDS_FPGA),1)
+_FPGA_WRAP_GOALS := __default_fpga__
+endif
+endif
+ifneq ($(_FPGA_WRAP_GOALS),)
+_FPGA_AUTO_WRAP := 1
+endif
+endif
+endif
 
 PART     ?= xc7a100tcsg324-1
 FAMILY   ?= artix7
@@ -53,7 +86,9 @@ YOSYS_READ := $(YOSYS_LANG) $(foreach d,$(YOSYS_DEFS),-D$(d)) $(foreach i,$(YOSY
 
 .PHONY: fpga setup synth pnr bit chipdb program clean-fpga distclean check-tools
 
+ifndef _FPGA_AUTO_WRAP
 fpga: $(BIT)
+endif
 
 check-tools:
 	@command -v yosys >/dev/null || { echo "missing yosys — run: make setup"; exit 1; }
@@ -65,10 +100,11 @@ check-tools:
 setup:
 	@chmod +x $(SCRIPTS)/*.sh
 	@$(SCRIPTS)/setup-oss-cad.sh
-	@nix shell nixpkgs#cmake nixpkgs#ninja --command $(SCRIPTS)/setup-prjxray-tools.sh
+	@$(NIX) shell nixpkgs#cmake nixpkgs#ninja --command $(SCRIPTS)/setup-prjxray-tools.sh
 	@echo
-	@echo "Toolchain ready. Build with:  $(SCRIPTS)/env.sh make"
+	@echo "Toolchain ready. Build with:  make fpga  (or $(SCRIPTS)/env.sh make)"
 
+ifndef _FPGA_AUTO_WRAP
 chipdb: $(CHIPDB)
 
 # One-time per part; a few minutes and ~GBs of RAM, then cached in build/.
@@ -124,6 +160,8 @@ $(BIT): $(FASM)
 program: $(BIT)
 	openFPGALoader -b nexys_a7_100 $(BIT)
 
+endif # _FPGA_AUTO_WRAP
+
 $(BUILD) $(BUILD)/chipdb:
 	@mkdir -p $@
 
@@ -133,3 +171,20 @@ clean-fpga:
 # Blows away the ~2.7 GB shared toolchain, not just this project.
 distclean: clean-fpga
 	rm -rf $(TOOLS)
+
+# --- auto-wrap forwarding (only defined when _FPGA_AUTO_WRAP is set) --------
+# Each requested FPGA target re-enters through env.sh exactly once; the child
+# make sees TOMATO_FPGA_ENV=1 and takes the real recipes above. A bare `make`
+# in hdmi_test (whose default builds the bitstream) lands on _fpga_env.
+ifdef _FPGA_AUTO_WRAP
+_FPGA_FWD := $(filter $(_FPGA_WRAP_MATCH),$(MAKECMDGOALS))
+.PHONY: _fpga_env $(_FPGA_FWD)
+_fpga_env:
+	@$(SCRIPTS)/env.sh $(MAKE)
+ifneq ($(_FPGA_FWD),)
+$(_FPGA_FWD):
+	@$(SCRIPTS)/env.sh $(MAKE) $@
+else
+.DEFAULT_GOAL := _fpga_env
+endif
+endif
