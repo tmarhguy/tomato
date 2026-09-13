@@ -21,10 +21,12 @@ do not edit `core/` from here. Every run asserts the copy matches core first
 | Tool | Needed for | Install |
 |------|------------|---------|
 | `verilator` | `smoke`, `run_10b`, `run_130b` | OSS CAD Suite (`make setup` in `hardware/fpga/core`) or `brew install verilator` |
-| `sby` + solvers | `formal` | Same suite (`z3` for 1b, `bitwuzla` for 8b/32b ride along in `hardware/fpga/.tools/oss-cad-suite/bin`), or `brew install symbiyosys` |
+| `sby` + solvers | `formal` | Same suite (`z3` for 1b, `bitwuzla` for 8b/32b ride along in `hardware/fpga/.tools/oss-cad-suite/bin`), or `brew install sby` |
 | C++ toolchain | Verilator build | Xcode CLT / `build-essential` |
 
-`make check-tools` asserts `sby` + `verilator` are on `PATH` with the fix.
+`make check-tools` asserts `sby` + `yosys` + `verilator` are on `PATH` with the fix
+(`check-tools-sby` / `check-tools-verilator` check each side alone — smoke and the
+long Verilator runs don't require `sby`, formal doesn't require `verilator`).
 The gauntlet Makefile prepends `hardware/fpga/.tools/oss-cad-suite/bin` to `PATH`,
 so a provisioned FPGA checkout works with no extra setup.
 

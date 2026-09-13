@@ -24,7 +24,7 @@ VECTORS_10B   ?= 10000000000
 VECTORS_130B  ?= 130000000000
 SEED          ?= 1
 
-.PHONY: all help sync check-sync check-tools formal formal_1b formal_8b formal_32b \
+.PHONY: all help sync check-sync check-tools check-tools-sby check-tools-verilator formal formal_1b formal_8b formal_32b \
         build build8 build32 smoke run_10b run_130b core10b slice130b claim clean results-dir
 
 all: formal smoke
@@ -34,7 +34,9 @@ help:
 	@echo ""
 	@echo "  make sync          copy alu.v from hardware/fpga/core"
 	@echo "  make check-sync    assert copy matches core"
-	@echo "  make check-tools   assert required tools are on PATH"
+	@echo "  make check-tools   assert sby + yosys + verilator are on PATH"
+	@echo "  make check-tools-sby        assert sby + yosys (formal only)"
+	@echo "  make check-tools-verilator  assert verilator (smoke / long runs only)"
 	@echo "  make formal        SymbiYosys prove 1b + 8b + 32b (needs sby + solvers)"
 	@echo "  make smoke         Verilator smoke: 1e6 vectors on 8b + 32b (~1 min)"
 	@echo "  make run_10b       Verilator 10e9 vectors on alu8b (8-bit, ~7 min)"
@@ -67,18 +69,27 @@ check-sync:
 	@echo "OK: gauntlet rtl/alu.v matches hardware/fpga/core/rtl/alu.v"
 
 # Fail fast with the install pointer instead of a cryptic mid-recipe error.
-check-tools:
-	@command -v $(SBY) >/dev/null || { echo "missing $(SBY) — install SymbiYosys (OSS CAD Suite: make setup in hardware/fpga/core, or brew install symbiyosys)"; exit 1; }
+# Split targets so Verilator-only runs (smoke/run_10b/run_130b) don't require
+# sby, and formal-only runs don't require Verilator. check-tools = both.
+check-tools-sby:
+	@command -v $(SBY) >/dev/null || { echo "missing $(SBY) — install SymbiYosys (OSS CAD Suite: make setup in hardware/fpga/core, or brew install sby)"; exit 1; }
+	@command -v yosys >/dev/null || { echo "missing yosys — install Yosys (OSS CAD Suite, or brew install yosys)"; exit 1; }
+	@echo "OK: $(SBY) + yosys on PATH"
+
+check-tools-verilator:
 	@command -v $(VERILATOR) >/dev/null || { echo "missing $(VERILATOR) — install Verilator (OSS CAD Suite, or brew install verilator)"; exit 1; }
+	@echo "OK: $(VERILATOR) on PATH"
+
+check-tools: check-tools-sby check-tools-verilator
 	@echo "OK: $(SBY) + $(VERILATOR) on PATH"
 
-formal_1b: check-tools
+formal_1b: check-tools-sby
 	cd $(FORMAL) && $(SBY) -f alu1b_verify.sby
 
-formal_8b: check-tools
+formal_8b: check-tools-sby
 	cd $(FORMAL) && $(SBY) -f alu8b_verify.sby
 
-formal_32b: check-tools
+formal_32b: check-tools-sby
 	cd $(FORMAL) && $(SBY) -f alu32_verify.sby
 	cd $(FORMAL) && $(SBY) -f alu32_top_verify.sby
 
@@ -115,18 +126,18 @@ build8: $(OBJ)/alu8/alu8_gauntlet
 build32: $(OBJ)/alu32/alu_gauntlet
 build: build8 build32
 
-smoke: check-sync check-tools build results-dir
+smoke: check-sync check-tools-verilator build results-dir
 	$(OBJ)/alu8/alu8_gauntlet $(VECTORS_SMOKE) $(SEED) | tee $(RESULTS)/smoke_8b.txt
 	$(OBJ)/alu32/alu_gauntlet $(VECTORS_SMOKE) $(SEED) | tee $(RESULTS)/smoke_32b.txt
 	@echo "=== GAUNTLET SMOKE PASS ==="
 
 # Canonical long runs. 8b first (fast, ~25 Mvec/s), then 32b (~13-16 Mvec/s).
-run_10b: check-sync check-tools build8 results-dir
+run_10b: check-sync check-tools-verilator build8 results-dir
 	$(OBJ)/alu8/alu8_gauntlet $(VECTORS_10B) $(SEED) | tee $(RESULTS)/core_10b.txt
 	@grep -q '^PASS alu8b' $(RESULTS)/core_10b.txt
 	@echo "=== 10B ALU-CORE PASS ==="
 
-run_130b: check-sync check-tools build32 results-dir
+run_130b: check-sync check-tools-verilator build32 results-dir
 	$(OBJ)/alu32/alu_gauntlet $(VECTORS_130B) $(SEED) | tee $(RESULTS)/slice_130b.txt
 	@grep -q '^PASS alu32' $(RESULTS)/slice_130b.txt
 	@echo "=== 130B 32-BIT SLICE PASS ==="

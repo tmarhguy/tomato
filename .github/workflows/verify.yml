@@ -43,8 +43,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install SymbiYosys + solvers
+        # NOTE: there is no `symbiyosys` package on PyPI — sby installs from
+        # source (https://github.com/YosysHQ/sby, `sudo make install` copies
+        # the scripts; only yosys + python3-click are prerequisites here).
         run: |
-          sudo apt-get update && sudo apt-get install -y yosys z3
-          pip install symbiyosys
+          sudo apt-get update && sudo apt-get install -y yosys yosys-abc z3 python3-click git make
+          git clone --depth 1 https://github.com/YosysHQ/sby.git /tmp/sby
+          sudo make -C /tmp/sby install
+          sby --version
+          yosys -V
       - name: Prove alu1b
         run: make -C verification/gauntlet check-sync formal_1b
