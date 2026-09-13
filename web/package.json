@@ -4,6 +4,7 @@
   "type": "module",
   "description": "Static broadsheet for The Tomato — live at tomato.tmarhguy.com",
   "scripts": {
+    "start": "node scripts/serve.mjs",
     "test": "node --test tests/*.mjs",
     "serve": "node scripts/serve.mjs",
     "serve:plain": "echo 'WARNING: plain Python server has no cache headers or gzip — use npm run serve for audits.' && python3 -m http.server 8080",
@@ -15,6 +16,7 @@
     "optimize-fpga-terminal": "node scripts/optimize-fpga-terminal.mjs",
     "apply-seo": "node scripts/apply-seo.mjs",
     "apply-vercel": "node scripts/apply-vercel.mjs",
+    "hash:assets": "node scripts/hash-assets.mjs",
     "build-isa": "node scripts/build-isa.mjs"
   },
   "devDependencies": {

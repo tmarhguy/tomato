@@ -1,8 +1,7 @@
 /* 07_alu playground — lighting and materials match the 8-bit ALU site. */
 import * as THREE from "three";
-import { createBenchIdle } from "./bench-idle.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { lightPcbScene, loadFittedPcb, studioEnv } from "./pcb-look.js";
+import { lightPcbScene, loadFittedPcb, studioEnv } from "./pcb-look.js?v=46400643";
 
 function easeInOutCubic(u) {
   return u < 0.5 ? 4 * u * u * u : 1 - (-2 * u + 2) ** 3 / 2;
@@ -101,9 +100,10 @@ function injectHud(stage) {
   stage.append(hud, markWrap);
 }
 
-export async function mountBench(canvas, opts) {
+export async function mountBench(canvas, opts = {}) {
   const stage = canvas.parentElement;
-  if (stage) injectHud(stage);
+  const wantHud = opts.hud !== false;
+  if (stage && wantHud) injectHud(stage);
 
   const scene = new THREE.Scene();
 
@@ -115,7 +115,9 @@ export async function mountBench(canvas, opts) {
   });
   syncStageBackground(scene, renderer);
   const mobile = isCoarsePointer();
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  // Phones drive high-refresh (120Hz) small GPUs: cap backing store at 1.5x
+  // so every finger move renders on time instead of queueing behind fill load.
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.5 : 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 0.92;
@@ -130,7 +132,7 @@ export async function mountBench(canvas, opts) {
   controls.dampingFactor = mobile ? 0.12 : 0.08;
   controls.autoRotate = opts.autoRotate !== false;
   controls.autoRotateSpeed = mobile ? -1.4 : -2.66;
-  controls.rotateSpeed = mobile ? 0.65 : 0.9;
+  controls.rotateSpeed = mobile ? 1.0 : 0.9;
   controls.zoomSpeed = mobile ? 0.85 : 1.05;
   controls.panSpeed = mobile ? 0.55 : 0.85;
   controls.zoomToCursor = !mobile;
@@ -144,12 +146,21 @@ export async function mountBench(canvas, opts) {
   controls.touches.ONE = THREE.TOUCH.ROTATE;
   controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
 
+  // Board-first: every touch inside the stage drives OrbitControls.
+  // `touch-action: none` stops the browser from stealing vertical drags
+  // as page scrolls. Page scroll starts outside the stage.
+  // scrollFriendly:true remains as an opt-in escape hatch, otherwise none.
+  const scrollFriendly = opts.scrollFriendly === true;
+  const touchMode = scrollFriendly && mobile ? "pan-y" : "none";
   if (stage) {
-    stage.style.touchAction = "none";
+    stage.style.touchAction = touchMode;
+    stage.style.overscrollBehavior = "contain";
     stage.style.userSelect = "none";
     stage.style.webkitUserSelect = "none";
+    if (scrollFriendly && mobile) stage.classList.add("is-scroll-friendly");
+    else stage.classList.remove("is-scroll-friendly");
   }
-  canvas.style.touchAction = "none";
+  canvas.style.touchAction = touchMode;
   canvas.style.userSelect = "none";
   canvas.style.webkitUserSelect = "none";
   canvas.style.webkitTouchCallout = "none";
@@ -157,7 +168,6 @@ export async function mountBench(canvas, opts) {
   let maxDim = 10;
   const look = new THREE.Vector3();
   let anim = null;
-  let resumeAfterReset = false;
   let hovered = false;
   let onScreen = false;
   let pageVisible = true;
@@ -165,7 +175,7 @@ export async function mountBench(canvas, opts) {
   const isLive = () => onScreen && pageVisible;
 
   const compact = isHand();
-  const pull = compact ? 1.32 : 1;
+  const pull = compact ? 0.85 : 1;
 
   const views = {
     reset() {
@@ -219,7 +229,6 @@ export async function mountBench(canvas, opts) {
   };
 
   function go(name, ms = 800) {
-    resumeAfterReset = false;
     controls.autoRotate = false;
     syncSpin();
     const v = views[name]?.();
@@ -245,6 +254,7 @@ export async function mountBench(canvas, opts) {
 
   let viewW = 0;
   let viewH = 0;
+  let sceneReady = false;
   function resize() {
     const w = canvas.clientWidth | 0;
     const h = canvas.clientHeight | 0;
@@ -255,6 +265,12 @@ export async function mountBench(canvas, opts) {
     camera.updateProjectionMatrix();
     renderer.setSize(w, h, false);
     lastInput = performance.now();
+    // Mobile URL-bar show/hide resizes the stage while idle. Re-render at once
+    // so the canvas never flashes a stretched or blank frame mid-scroll.
+    if (sceneReady) {
+      controls.update();
+      renderer.render(scene, camera);
+    }
   }
 
   const ro = new ResizeObserver(resize);
@@ -287,6 +303,7 @@ export async function mountBench(canvas, opts) {
   controls.update();
   renderer.render(scene, camera);
 
+  sceneReady = true;
   stage?.classList.add("is-ready");
 
   let currentView = "reset";
@@ -369,13 +386,6 @@ export async function mountBench(canvas, opts) {
     }
   }
 
-  const idle = createBenchIdle({
-    delayMs: opts.idleResetMs || 0,
-    onIdle() {
-      go("reset", 1000);
-      resumeAfterReset = true;
-    },
-  });
   let raf = 0;
   controls.addEventListener("change", () => {
     lastInput = performance.now();
@@ -397,11 +407,6 @@ export async function mountBench(canvas, opts) {
       camera.updateProjectionMatrix();
       if (u >= 1) {
         anim = null;
-        if (resumeAfterReset) {
-          resumeAfterReset = false;
-          controls.autoRotate = true;
-          syncSpin();
-        }
       }
     }
 
@@ -414,7 +419,6 @@ export async function mountBench(canvas, opts) {
   const io = new IntersectionObserver(
     ([entry]) => {
       onScreen = entry.isIntersecting;
-      idle.setActive(isLive());
     },
     { threshold: 0.08 }
   );
@@ -422,12 +426,10 @@ export async function mountBench(canvas, opts) {
 
   function onVis() {
     pageVisible = !document.hidden;
-    idle.setActive(isLive());
   }
   document.addEventListener("visibilitychange", onVis);
 
   function haltSpin() {
-    resumeAfterReset = false;
     anim = null;
     lastInput = performance.now();
     currentView = "";
@@ -437,15 +439,8 @@ export async function mountBench(canvas, opts) {
     syncSpin();
   }
 
-  const blockScroll = (e) => {
-    if (e.target.closest(".bench-hud, .bench-mark-wrap, .bench-tools, button, a")) return;
-    if (e.cancelable) e.preventDefault();
-  };
-
-  if (stage) {
-    stage.addEventListener("touchstart", blockScroll, { passive: false });
-    stage.addEventListener("touchmove", blockScroll, { passive: false });
-  }
+  // touch-action:none already routes every gesture to OrbitControls;
+  // no manual preventDefault needed, so pinch/orbit never fights the page.
 
   canvas.addEventListener("pointerenter", () => {
     hovered = true;
@@ -455,14 +450,6 @@ export async function mountBench(canvas, opts) {
     hovered = false;
   });
   controls.addEventListener("start", haltSpin);
-  controls.addEventListener("start", idle.begin);
-  controls.addEventListener("end", idle.end);
-  const noteActivity = () => {
-    resumeAfterReset = false;
-    idle.activity();
-  };
-  root.addEventListener("pointerdown", noteActivity, { capture: true });
-  root.addEventListener("wheel", noteActivity, { capture: true, passive: true });
   let ptrDownX = 0, ptrDownY = 0, ptrDownTime = 0;
   let wasSpinning = false;
   let tapTimer = 0;
@@ -536,7 +523,6 @@ export async function mountBench(canvas, opts) {
   }
 
   function act(name) {
-    noteActivity();
     if (name === "reset") go("reset");
     if (name === "front") go("front");
     if (name === "copper") go("copper");
@@ -556,7 +542,6 @@ export async function mountBench(canvas, opts) {
     if (name === "spin") {
       anim = null;
       controls.autoRotate = !controls.autoRotate;
-      idle.hold(!controls.autoRotate);
       syncSpin();
     }
     if (name === "grid") {
@@ -606,7 +591,6 @@ export async function mountBench(canvas, opts) {
     if (!hovered && document.activeElement !== canvas) return;
     if (e.target.closest("input, textarea, select, button, a")) return;
     const k = e.key.toLowerCase();
-    if ([" ", "1", "2", "3", "4", "r", "i", "g", "arrowleft", "arrowright", "=", "+", "-", "_"].includes(k)) noteActivity();
     if (k === " ") {
       e.preventDefault();
       act("spin");
@@ -670,19 +654,12 @@ export async function mountBench(canvas, opts) {
       return controls.autoRotate;
     },
     dispose() {
-      idle.dispose();
-      root.removeEventListener("pointerdown", noteActivity, true);
-      root.removeEventListener("wheel", noteActivity, true);
       cancelAnimationFrame(raf);
       themeObs.disconnect();
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVis);
       window.removeEventListener("keydown", onKey);
-      if (stage) {
-        stage.removeEventListener("touchstart", blockScroll);
-        stage.removeEventListener("touchmove", blockScroll);
-      }
       controls.dispose();
       renderer.dispose();
     },

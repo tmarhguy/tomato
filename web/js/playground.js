@@ -12,7 +12,7 @@ import {
   lutShort,
   matchProgram,
   parseIntWord,
-} from "./alu.js";
+} from "./alu.js?v=d026bffa";
 
 const WIDTH = 8;
 const MASK = 0xff;

@@ -3917,7 +3917,7 @@ details[open] .arch-map__burger span:nth-child(3) {
     height: min(58vh, 28rem);
     min-height: 18rem;
     touch-action: none;
-    overscroll-behavior: none;
+    overscroll-behavior: contain;
   }
   .bench-tools:not(.landing-bench-tools) {
     order: 2;
@@ -4564,25 +4564,6 @@ html.has-site-shell[data-theme=light] .forge-btn:not(.forge-btn--ghost):not(.for
   border-bottom: 1px solid var(--rule);
   touch-action: none;
   overscroll-behavior: contain;
-}
-
-.bench-stage::after {
-  content: "Loading the board…";
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-family: var(--gothic);
-  font-size: .68rem;
-  font-weight: 700;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: #f4f0e6;
-  pointer-events: none;
-}
-
-.bench-stage.is-ready::after {
-  display: none;
 }
 
 .bench-stage canvas {

@@ -3,6 +3,7 @@
  * Local static server with production-like Cache-Control + gzip for text assets.
  */
 import { createServer } from "node:http";
+import { networkInterfaces } from "node:os";
 import { readFileSync, statSync, existsSync } from "node:fs";
 import { join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -34,8 +35,10 @@ const GZIP = new Set([".html", ".css", ".js", ".json", ".svg", ".xml", ".txt"]);
 
 function cacheFor(path) {
   if (path.startsWith("/assets/")) return "public, max-age=2592000, stale-while-revalidate=86400";
+  // CSS/JS URLs are content-hashed (?v=<sha>), so they are immutable:
+  // the URL changes if and only if the bytes change.
   if (path.startsWith("/css/") || path.startsWith("/js/")) {
-    return "public, max-age=86400, stale-while-revalidate=86400";
+    return "public, max-age=31536000, immutable";
   }
   if (path.endsWith(".html")) return "public, max-age=0, must-revalidate";
   return "public, max-age=3600";
@@ -81,5 +84,18 @@ const server = createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`tomato web @ http://localhost:${PORT}/ (cache + gzip)`);
+  for (const ip of localIPs()) {
+    console.log(`tomato web @ http://${ip}:${PORT}/ (lan)`);
+  }
   console.log("Use this server for Lighthouse — not python -m http.server (no cache/compression).");
 });
+
+function localIPs() {
+  const out = [];
+  for (const addrs of Object.values(networkInterfaces())) {
+    for (const a of addrs || []) {
+      if (a.family === "IPv4" && !a.internal) out.push(a.address);
+    }
+  }
+  return out;
+}
