@@ -87,12 +87,14 @@ One-time, from `hardware/fpga/core`:
 make setup     # OSS CAD Suite + Project X-Ray bitgen → ../.tools (~2.7 GB, gitignored)
 ```
 
-Then always through `env.sh`, which layers the three tool sources onto `PATH`:
+Then build directly — FPGA targets auto-enter the toolchain, so no `nix shell`, `NIX_CONFIG` export, or `env.sh` prefix is needed:
 
 ```bash
-../scripts/env.sh make fpga      # yosys → nextpnr → prjxray → build/nexys_top.bit
-../scripts/env.sh make program   # flash the board
+make fpga        # yosys → nextpnr → prjxray → build/nexys_top.bit
+make program     # flash the board
 ```
+
+(From the repo root: `make fpga` / `make fpga-program`.)
 
 The first build also generates the **chipdb** for the part (several minutes, a few GB of RAM), cached in `build/chipdb/` afterwards. Steady-state rebuilds are a few minutes.
 

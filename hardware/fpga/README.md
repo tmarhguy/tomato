@@ -74,13 +74,22 @@ Downloads the OSS CAD Suite (~500 MB) and builds the Project X-Ray bitgen tools 
 
 ## Build and flash
 
-Always go through `env.sh`:
+From the repo root — no `cd`, no wrapper prefix, no nix setup:
+
+```bash
+make fpga          # synth → P&R → bit (auto-enters the toolchain)
+make fpga-program  # flash the board
+```
+
+Or inside a project directory, where bare targets auto-enter the same way:
 
 ```bash
 cd hardware/fpga/core
-../scripts/env.sh make          # synth → P&R → bit
-../scripts/env.sh make program  # flash the board
+make               # synth → P&R → bit
+make program       # flash the board
 ```
+
+`../scripts/env.sh make program` still works — it is what the auto-enter calls under the hood, and what to use from inside an already-active nix shell.
 
 The first build for a part also generates the **chipdb** (`build/chipdb/chipdb.bin`) — several minutes and a few GB of RAM, cached afterwards. `hdmi_test` rebuilds in about 14 seconds after that; the full CPU takes a few minutes.
 

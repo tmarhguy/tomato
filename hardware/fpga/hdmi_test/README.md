@@ -61,26 +61,27 @@ once for both projects.
 
 ## Build and flash
 
-Always go through `../scripts/env.sh`, which layers the three tool sources onto
-`PATH` and drops into the nix shell for `nextpnr-xilinx`:
+Build directly — FPGA targets auto-enter the toolchain (`../scripts/env.sh` + nix shell) when it is not already active, so no `NIX_CONFIG` export is needed:
 
 ```bash
-../scripts/env.sh make          # synth → P&R → bit
-../scripts/env.sh make program  # flash the board
+make          # synth → P&R → bit
+make program  # flash the board
 ```
+
+(From the repo root: `make hdmi` / `make hdmi-program`.)
 
 The first build also generates the **chipdb** for `xc7a100tcsg324-1`. That step
 takes several minutes and a few GB of RAM, but it is cached in
 `build/chipdb/chipdb.bin` and reused by every later build.
 
-Individual stages:
+Individual stages (same auto-enter):
 
 ```bash
-../scripts/env.sh make synth    # build/main.json
-../scripts/env.sh make chipdb   # build/chipdb/chipdb.bin
-../scripts/env.sh make pnr      # build/main.fasm
-../scripts/env.sh make bit      # build/main.bit
-../scripts/env.sh make clean    # drop build/, keep ../.tools/
+make synth    # build/main.json
+make chipdb   # build/chipdb/chipdb.bin
+make pnr      # build/main.fasm
+make bit      # build/main.bit
+make clean    # drop build/, keep ../.tools/
 ```
 
 ## Expected result
