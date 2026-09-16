@@ -9,7 +9,7 @@
  * and the FPGA remain ground truth; web/tests/tomato-emu.mjs replays
  * scripted sessions through the same core file this page loads.
  */
-import { Tomato, loadImage } from "./tomato-cpu.js?v=18fd36d9";
+import { Tomato, loadImage } from "./tomato-cpu.js?v=47cc72f7";
 import { paintDirty, paintFull } from "./tomato-screen.js?v=a9760af7";
 
 const BOOT_INSTR = 200000;
