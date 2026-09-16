@@ -2,7 +2,7 @@
 
 <p align="center"><strong>512-row opcode ROM · assembler vocabulary · parametric maps.</strong></p>
 
-![ROM](https://img.shields.io/badge/ROM-512%20rows-2563EB) ![Burn](https://img.shields.io/badge/Burn-52%20opcodes-DC2626)
+![ROM](https://img.shields.io/badge/ROM-512%20rows-2563EB) ![Burn](https://img.shields.io/badge/Burn-61%20opcodes-DC2626)
 
 **Burn authority:** [`tomato.v1.csv`](tomato.v1.csv) — the microcode ROM.  
 **Assembler vocabulary:** [`tomato.v1.pseudo.csv`](tomato.v1.pseudo.csv) — mnemonics that expand into burns (no new ROM rows).
@@ -39,7 +39,7 @@ python3 software/assembler.py --selftest       # vocabulary vs burns
 
 ## Locked decisions
 
-- **Not a ~20-opcode lean map.** v1 ships **52 burned opcodes** (instruction set proper; idle `NOP` at row 0 sits beside them in the ROM). Unused rows are `status=nop` (no growth phantoms). The Dual-LUT **configuration space** (`256 × 256 × 8` carry selects) is much larger; that is not “524,288 installed instructions.”
+- **Not a ~20-opcode lean map.** v1 ships **61 burned opcodes** (instruction set proper; idle `NOP` at row 0 sits beside them in the ROM). Unused rows are `status=nop` (no growth phantoms). The Dual-LUT **configuration space** (`256 × 256 × 8` carry selects) is much larger; that is not “524,288 installed instructions.”
 - **Register file is 32,768 × 32-bit.** Address = `{superbank:7, bank:3, register:5}` on `AS6C62256` depth. The instruction word still carries only `bank:3` + `register:5` (a 256-reg window); `SETBANK2` updates the latched superbank. See the [register-upgrade dispatch](https://tomato.tmarhguy.com/journal/register-upgrade.html).
 - **No tile VPU.** Display is CPU-painted tile RAM + independent VGA scanout (`software/os/DISPLAY.md`). Games stay software; a future rect blitter is optional.
 - **ISA is a first-class input.** Overlay word + immediate box + dual-LUT absorb foreign encodings as maps onto muxes. Casual family count ~37 (CSV has more rows). See [ISA as a Wire](../log/2026-08-15%20-%20ISA%20as%20a%20Wire.md). Maps cover compute, shift, and register-access; not x86 segmentation or ARM TrustZone.
