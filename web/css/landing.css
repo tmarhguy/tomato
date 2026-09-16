@@ -1178,3 +1178,23 @@ h1 {
 .tomato-overview .overview-heading{margin-bottom:1.5rem}
 .overview-heading>p{font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.5;margin:1rem 0 0}.overview-heading>p strong{font-weight:500}
 .tomato-overview .overview-bottom{border-top:1px solid var(--line);padding-top:1rem}
+
+/* The software and connected world belong beside the hardware. */
+.ecosystem { scroll-margin-top: 2rem; }
+.ecosystem-heading { display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:end;margin:2rem 0; }
+.ecosystem-heading h2 { font-size:clamp(2rem,4.5vw,4.4rem);line-height:1.08;letter-spacing:-.045em;margin:0; }
+.ecosystem-heading h2 em { font-style:normal;color:var(--green); }
+.ecosystem-heading p { color:var(--muted);max-width:44rem;margin:0; }
+.ecosystem-links { display:flex;flex-wrap:wrap;gap:1rem 2rem;margin-top:1.8rem;font-weight:600; }
+.ecosystem-links a { text-decoration:underline;text-decoration-thickness:1px; }
+.hero-entry { margin:1rem 0; }
+.ecosystem-cards { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;overflow:hidden; }
+.ecosystem-cards article { padding:1.8rem;background:var(--surface);min-width:0; }
+.ecosystem-cards article+article { border-left:1px solid var(--line); }
+.ecosystem-cards h3 { font-size:1.55rem;line-height:1.2;margin:1.2rem 0; }
+.ecosystem-cards p { color:var(--muted); }
+.ecosystem-cards small { display:block;color:var(--muted);line-height:1.5;margin-top:1rem; }
+.ecosystem-cards a { text-decoration:underline; }
+.eco-tag { font: .7rem/1.5 var(--mono);letter-spacing:.06em;color:var(--green); }
+.ecosystem-cards code { overflow-wrap:anywhere; }
+@media(max-width:760px) { .ecosystem-heading,.ecosystem-cards { grid-template-columns:1fr;gap:1rem; } .ecosystem-cards { gap:0; } .ecosystem-cards article+article { border-left:0;border-top:1px solid var(--line); } .hero-entry { gap:.85rem 1.2rem; } .ecosystem-links a { min-height:44px; display:inline-flex; align-items:center; } }
