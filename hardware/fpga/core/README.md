@@ -1,10 +1,13 @@
-# Tomato FPGA — the machine (`core`)
+# Tomato FPGA core
 
-The whole Tomato32 CPU on a **Nexys A7-100T**, running **Tomato OS** on a monitor over the 12-bit DVI PMOD, driven by the board's five D-pad buttons. Built end to end with open-source tools — no Vivado.
+The complete Tomato 32-bit machine on a **Nexys A7-100T**, capable of running
+Tomato OS on a monitor and taking input from the board's five buttons. The
+default build is open source; an optional Linux Vivado batch target is also
+available.
 
 **Part:** `xc7a100tcsg324-1` · **Top:** [`nexys_top`](rtl/board/nexys_top.v) · **Flow:** Yosys → nextpnr-xilinx → Project X-Ray → openFPGALoader
 
-**Project map:** [FPGA README](../README.md) · [hdmi_test/](../hdmi_test/) — the DVI bring-up this reuses · [Tomato OS source](../../../software/os/tomato_os.s) · [ISA](../../../docs/isa/tomato.v1.csv)
+**Project map:** [FPGA README](../README.md) · [architecture](../../../docs/architecture.md) · [Tomato OS](../../../software/os/README.md) · [ISA](../../../docs/isa/README.md) · [current status](../../../docs/status.md)
 
 ---
 
@@ -22,25 +25,19 @@ The whole Tomato32 CPU on a **Nexys A7-100T**, running **Tomato OS** on a monito
 
 ## What is on the screen
 
-[Tomato OS](../../../software/os/tomato_os.s) paints an 80×60 text field and a menu you drive with the Nexys D-pad. **N17 (center) is Enter** — it opens the highlighted entry. Up/down move the highlight; left goes back; left/right steer in the games.
+[Tomato OS](../../../software/os/README.md) paints an 80×60 text field and a
+menu driven by the Nexys D-pad. **N17 (center) is Enter**; up/down move the
+highlight, left returns, and left/right steer where an application uses them.
 
-```
- TOMATO OS  Desktop v1.2                    Designed by Tyrone Marhguy
- dual-LUT3 ALU  -  52 burns / 512 ROM  -  32768 GPR 3R1W     READY
- ┌ MAIN MENU ─────────────────┐  ┌ THE MACHINE ──────────────┐
- │ ▶ System info              │  │ Designed by               │
- │   … twelve apps            │  │ TYRONE MARHGUY            │
- │   Sudoku · Snake · Tetris  │  │ Penn Engineering  2028    │
- │   Racer · ALU Studio       │  │                           │
- │   About Tomato             │  │ dual-LUT3 · 52 burned ops │
- │                            │  │ 32768 GPR · SETBANK2      │
- │                            │  │ 512-row modular microcode │
- └────────────────────────────┘  └───────────────────────────┘
- ↑ ↓ move    ENTER select    ← back
-```
+The current assembly identifies **TOMATO OS v3.0** and declares **14 menu
+entries**. Desktop v1.2 is the workspace UI revision. The current FPGA register
+file is **256 × 32-bit**, arranged as eight banks of 32 with `r0` hardwired to
+zero. The ISA has **61 instructions plus NOP, 62 burned rows** in its 512-row
+control ROM.
 
-The on-screen copy tracks Desktop v1.2; the register file is **32,768 × 32-bit** locations (15-bit `AS6C62256` depth). Ordinary instructions name a 256-register window; `SETBANK2` latches the 7-bit superbank.
-A boot splash (gold mark, **TOMATO OS v1.0**, progress bar) runs once before this desktop. System info is the spec sheet. About is signed. Fibonacci / Snake / Tetris play from the D-pad. The Nexys 7-seg follows the last nonzero writeback (or store), so it is not stuck at zero while the shell waits for a key.
+Historical screenshots and journal entries may display older versions, entry
+counts, burn counts, or register designs. They do not override current assembly,
+RTL, and ISA contracts.
 
 Every screen is drawn by the CPU storing words into the framebuffer window. Nothing about the display is hardwired into the machine — the scanout just reads tile RAM.
 
@@ -66,7 +63,7 @@ core/
 │   └── burn/           generated: microcode + boot image as literal Verilog
 ├── rtl/board/          the harness — only because this board has pins
 │   ├── nexys_top.v     clocks, resets, pin map
-│   ├── videoout.v      640×480@60 text-mode scanout
+│   ├── videoout.v      640×480 nominal-60-Hz text scanout (~59.5 Hz)
 │   ├── font_rom.v      generated: 8×8 glyphs
 │   ├── dvi_out.v       12-bit DVI PMOD output stage
 │   ├── keypad.v        five buttons → debounced keycodes
@@ -87,7 +84,7 @@ One-time, from `hardware/fpga/core`:
 make setup     # OSS CAD Suite + Project X-Ray bitgen → ../.tools (~2.7 GB, gitignored)
 ```
 
-Then build directly — FPGA targets auto-enter the toolchain, so no `nix shell`, `NIX_CONFIG` export, or `env.sh` prefix is needed:
+Then build directly. FPGA targets auto-enter the default open-source toolchain:
 
 ```bash
 make fpga        # yosys → nextpnr → prjxray → build/nexys_top.bit
@@ -97,6 +94,10 @@ make program     # flash the board
 (From the repo root: `make fpga` / `make fpga-program`.)
 
 The first build also generates the **chipdb** for the part (several minutes, a few GB of RAM), cached in `build/chipdb/` afterwards. Steady-state rebuilds are a few minutes.
+
+An optional Linux-only `make vivado` target performs batch synthesis and
+implementation for the same part. A successful build from either flow is not
+evidence that a board is currently programmed.
 
 Changed the OS or the microcode? Re-burn before synthesising — both are compiled into the RTL as literal Verilog, not loaded from a file at runtime:
 
@@ -152,7 +153,9 @@ A tile whose `[15:8]` is zero is a legacy solid-colour cell, so the old 4-bit-in
 
 ## Results
 
-Post-route, from `nextpnr-xilinx` on `xc7a100tcsg324-1`:
+Recorded post-route results from a prior `nextpnr-xilinx` run on
+`xc7a100tcsg324-1` follow. The raw log is not checked in, so these are an
+evidence note rather than a currently reproducible report:
 
 | Resource | Used | Part | % |
 |----------|------|------|---|
@@ -168,7 +171,11 @@ Post-route, from `nextpnr-xilinx` on `xc7a100tcsg324-1`:
 | `cpu_clk` | 6.25 MHz (100/16) | 104.18 MHz | 16× |
 | `pix_clk` | 25 MHz (100/4) | 189.93 MHz | 7.6× |
 
-The CPU divider is `CPU_DIV_LOG2` on `nexys_top`; at 6.25 MHz the OS paints its desktop in about 11 ms.
+The CPU divider is `CPU_DIV_LOG2` on `nexys_top`. Applying the Icarus cycle
+count to the default 6.25 MHz CPU clock projects about 11 ms to paint the OS
+desktop; that is not a wall-clock FPGA measurement. The configured 90 MHz
+nextpnr value is a place-and-route timing target, not the CPU runtime frequency,
+measured Fmax, or instruction rate.
 
 ---
 

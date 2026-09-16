@@ -1,26 +1,55 @@
-# Tomato — Hardware
+# Tomato hardware
 
-<p align="center"><strong>Digital schematics · KiCad lots · FPGA · exported Verilog.</strong></p>
-
-![Logic](https://img.shields.io/badge/Logic-74xx%20Discrete-EAB308) ![FPGA](https://img.shields.io/badge/FPGA-Nexys%20A7-2ea043)
-
-Where the machine lives in copper and fabric. Digital `.dig` files are the editable logic source. KiCad is the PCB. FPGA is the running CPU on a monitor. Exported Verilog is read-only.
-
-**Project map:** [Root README](../README.md) · [Digital](digital/README.md) · [KiCad](kicad/README.md) · [FPGA](fpga/README.md) · [Verilog policy](verilog/README.md)
+Tomato's architecture appears in editable schematics, physical PCB work, and a
+complete FPGA implementation. These layers share a design, but they prove
+different things.
 
 <p align="center">
-  <img src="../web/assets/pcb/immersion_black.webp" alt="Tomato Dual-LUT ALU in the round" width="48%" />
-  <img src="../web/assets/assembly/fpga-board-pmod.webp" alt="Nexys A7 with DVI PMOD" width="48%" />
+  <img src="../web/assets/pcb/immersion_black.webp" alt="Tomato Dual-LUT ALU PCB" width="48%">
+  <img src="../web/assets/assembly/fpga-board-pmod.webp" alt="Nexys A7 used by the complete FPGA Tomato machine" width="48%">
 </p>
-<p align="center"><em>Copper &amp; fabric · Lot 07 · Nexys A7</em></p>
+<p align="center"><em>Discrete ALU work at left; complete FPGA machine at right.</em></p>
 
-| Path | Role | Authority |
-|------|------|-----------|
-| [`digital/`](digital/) | GUI + headless Digital schematics | Editable source of truth |
-| [`kicad/`](kicad/) | Numbered PCB lots `01`–`08` | Fab / assembly |
-| [`fpga/`](fpga/) | Nexys A7 — Tomato OS on HDMI | Open-source Yosys flow |
-| [`verilog/`](verilog/) | Digital export policy | **Do not hand-edit** |
+## Current scope
 
-**Policy:** Edit Digital → export → copy into `verification/rtl/` or FPGA trees as needed. Never treat export folders as design source.
+- The physically assembled discrete hardware is a **Dual-LUT ALU slice**, not
+  a complete discrete computer.
+- The complete machine capable of booting Tomato OS is **FPGA Tomato** on the
+  Nexys A7-100T.
+- Digital schematics remain the editable architectural source for the discrete
+  design.
+- Exported Verilog is a derivative and must not be hand-edited as design source.
 
-**Running machine:** [`fpga/README.md`](fpga/README.md) — CPU + Tomato OS, no Vivado.
+## Directory map
+
+| Path | Role | Authority/evidence |
+|---|---|---|
+| [`digital/`](digital/) | Digital schematics and simulation | Editable architecture source |
+| [`kicad/`](kicad/) | Numbered board designs and assembly documentation | Physical design and pictured build evidence |
+| [`fpga/`](fpga/) | Complete Nexys A7 machine, board harness, and tests | Current FPGA implementation |
+| [`verilog/`](verilog/) | Digital export policy and netlists | Generated/read-only derivatives |
+
+The current FPGA implementation has a **256 × 32-bit** register file and uses
+**61 instructions plus NOP, 62 burned rows**. Older hardware notes may describe
+different register or ISA designs; use
+[`../docs/status.md`](../docs/status.md) for current facts.
+
+## Workflow boundaries
+
+For discrete logic, edit Digital sources, export Verilog, then copy the export
+to the relevant verification/implementation tree and run the appropriate
+checks. For PCB work, KiCad sources and assembly records establish design and
+physical scope.
+
+For FPGA work, the default build uses Yosys, nextpnr-xilinx, and Project X-Ray.
+An optional Linux Vivado batch target also exists. A successful build is not
+proof that a board is currently programmed.
+
+## Continue
+
+- [Architecture guide](../docs/architecture.md)
+- [Digital guide](digital/README.md)
+- [KiCad guide](kicad/README.md)
+- [FPGA guide](fpga/README.md)
+- [FPGA core guide](fpga/core/README.md)
+- [Documentation authority](../docs/documentation-policy.md)

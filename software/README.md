@@ -1,12 +1,12 @@
-# Tomato — Software
+# Tomato software
 
-<p align="center"><strong>Assembler, vocabulary, and Tomato OS — every word a row of the ISA.</strong></p>
+This directory contains Tomato's two-pass assembler, assembly test programs,
+and TOMATO OS v3.0. Machine instructions come from
+[`docs/isa/tomato.v1.csv`](../docs/isa/tomato.v1.csv); assembler-only
+vocabulary comes from
+[`docs/isa/tomato.v1.pseudo.csv`](../docs/isa/tomato.v1.pseudo.csv).
 
-![Layer](https://img.shields.io/badge/Layer-Assembler%20%2B%20OS-2563EB) ![Authority](https://img.shields.io/badge/Authority-tomato.v1%20CSVs-011F5B)
-
-Everything Tomato runs on itself: the assembler, the operating system, and the demo programs the testbenches check. Nothing here is cross-compiled — every word in these images is an opcode from [`docs/isa/tomato.v1.csv`](../docs/isa/tomato.v1.csv).
-
-**Project map:** [Root README](../README.md) · [ISA](../docs/isa/README.md) · [FPGA core](../hardware/fpga/core/README.md) · Paper: [software.html](https://tomato.tmarhguy.com/software.html)
+**Project map:** [root README](../README.md) · [ISA](../docs/isa/README.md) · [Tomato OS](os/README.md) · [FPGA core](../hardware/fpga/core/README.md)
 
 <p align="center">
   <img src="../web/assets/os/main-menu-screen.jpg" alt="Tomato OS main menu on HDMI" width="48%" />
@@ -17,7 +17,7 @@ Everything Tomato runs on itself: the assembler, the operating system, and the d
 | Path | What |
 |------|------|
 | `assembler.py` | Two-pass assembler; the ISA CSVs are its only opcode source |
-| `os/tomato_os.s` | Tomato OS — desktop, menu, six screens, four games |
+| `os/` | Tomato OS v3.0, its 14 entries, Envelop client, and bounded executor |
 | `asm/` | Small programs, each with a value a testbench asserts on |
 
 ---
@@ -49,8 +49,8 @@ The assembler holds no opcode table of its own. It reads both CSVs at startup, s
 
 | File | Holds |
 |------|-------|
-| [`tomato.v1.csv`](../docs/isa/tomato.v1.csv) | The 512 microcode ROM rows. 52 opcodes are burned; the rest are empty. |
-| [`tomato.v1.pseudo.csv`](../docs/isa/tomato.v1.pseudo.csv) | 19 pseudo-instructions, each expanding into already-burned opcodes |
+| [`tomato.v1.csv`](../docs/isa/tomato.v1.csv) | The 512-row control ROM: **61 instructions plus NOP, 62 burned rows** |
+| [`tomato.v1.pseudo.csv`](../docs/isa/tomato.v1.pseudo.csv) | Pseudo-instructions that expand into already-burned instructions |
 
 Check the second one against the first at any time:
 
@@ -112,7 +112,15 @@ The CPU has only `BEQ` / `BNE` / `BLT` / `BGE`, and the compare that feeds them 
 
 ## Tomato OS
 
-`os/tomato_os.s` is the whole shell: boot splash, an 80×60 text desktop, a six-entry menu, and the screens behind it. See [hardware/fpga/core/README.md](../hardware/fpga/core/README.md) for what is on the screen and how the memory map is laid out.
+The OS sources identify **TOMATO OS v3.0** and declare **14 menu entries**.
+Desktop v1.2 is the workspace UI revision, not the OS version. The image links
+`tomato_os.s`, the Tomato-side Envelop client and setup records, and the bounded
+remote executor.
+
+See [`os/README.md`](os/README.md) for the menu, source boundaries, and focused
+checks. Envelop's user clients, backend, and nearby bridge live in the separate
+Envelop project; their source or deployment status cannot be inferred from the
+machine-side assembly here.
 
 ---
 
