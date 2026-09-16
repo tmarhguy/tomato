@@ -23,7 +23,8 @@ module burn_boot_tb;
         .clk(clk), .reset(reset),
         .kb_data(kb_data), .kb_ready(kb_ready), .kb_rd(kb_rd),
         .io_out(io_out), .disp_value(disp_value), .halted(halted),
-        .tile_rclk(clk), .tile_raddr(tile_raddr), .tile_rdata(tile_rdata)
+        .tile_rclk(clk), .tile_raddr(tile_raddr), .tile_rdata(tile_rdata),
+        .ble_rdata(32'd0)
     );
 
     // shell_desktop: large 'T' of TOMATO at (4,5); 'A' of APPLICATIONS at (5,12).

@@ -5,7 +5,7 @@ module exhibit_tb;
     reg kb_ready=0;
     wire kb_rd,halted;
     main #(.CPU_HZ(1000000)) uut(.clk(clk),.reset(reset),.kb_data(kb_data),.kb_ready(kb_ready),
-        .kb_rd(kb_rd),.halted(halted),.tile_rclk(clk),.tile_raddr(13'd0));
+        .kb_rd(kb_rd),.halted(halted),.tile_rclk(clk),.tile_raddr(13'd0),.ble_rdata(32'd0));
     always #5 clk=~clk;
     always @(posedge clk) if(kb_rd) kb_ready<=0;
     task tick;begin @(posedge clk);#1;end endtask
