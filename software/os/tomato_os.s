@@ -149,49 +149,9 @@ si_done:
             JAL     r16, wait_back
             JMP     main_loop
 
-; ---- palette ---------------------------------------------------------------
+; ---- Tribonacci (replaces the Palette launcher entry) -----------------------
 screen_palette:
-            LA      r4, s_palette
-            JAL     r16, screen_frame
-
-            ADDI    r1, r0, 6
-            ADDI    r2, r0, 8
-            MOV     r5, r26
-            LA      r4, s_pal_h1
-            JAL     r16, puts
-
-            ZERO    r18                 ; palette index
-pal_row:
-            ADDI    r6, r0, 16
-            CMP     r18, r6
-            BGE     pal_done
-
-            ; index label, two hex digits (blank row between each swatch)
-            ADDI    r1, r0, 8
-            ADDI    r2, r0, 10
-            ADD     r2, r2, r18
-            ADD     r2, r2, r18         ; y = 10 + index*2
-            MOV     r3, r18
-            MOV     r5, r27
-            JAL     r16, puthex2
-
-            ; swatch: a run of full blocks drawn in the palette colour
-            ADDI    r6, r0, 8
-            LSL     r5, r18, r6         ; fg = index
-            ADDI    r3, r0, 0xDB
-            OR      r3, r3, r5
-            ADDI    r1, r0, 12
-            ADDI    r2, r0, 10
-            ADD     r2, r2, r18
-            ADD     r2, r2, r18         ; y = 10 + index*2
-            ADDI    r4, r0, 24
-            JAL     r16, fill
-
-            ADDI    r18, r18, 1
-            JMP     pal_row
-pal_done:
-            JAL     r16, wait_back
-            JMP     main_loop
+            JMP screen_tribonacci
 
 ; ---- font chart ------------------------------------------------------------
 screen_font:
@@ -890,16 +850,16 @@ tt_zero_done:
             ZERO    r21
             JAL     r16, tt_lines
 
-            ADDI    r1, r0, 33
+            ADDI    r1, r0, 33          ; centered 14-character prompt in 20 cells
             ADDI    r2, r0, 25
             MOV     r5, r26
             LA      r4, s_start
             JAL     r16, puts
             JAL     r16, seed_wait
-            ADDI    r1, r0, 33
+            ADDI    r1, r0, 30
             ADDI    r2, r0, 25
             MOV     r3, r24
-            ADDI    r4, r0, 24
+            ADDI    r4, r0, 20
             JAL     r16, fill
 
             JAL     r16, tt_spawn
@@ -1403,13 +1363,13 @@ game_over:
             ADDI    r1, r0, 24
             ADDI    r2, r0, 26
             ADDI    r3, r0, 32
-            ADDI    r4, r0, 6
+            ADDI    r4, r0, 7
             MOV     r5, r26
             JAL     r16, box
 
             ADDI    r18, r0, 27
 go_wipe:
-            ADDI    r11, r0, 31
+            ADDI    r11, r0, 32
             CMP     r18, r11
             BGE     go_text
             ADDI    r1, r0, 25
@@ -1427,7 +1387,7 @@ go_text:
             LW      r4, r11, 0
             JAL     r16, puts
             ADDI    r1, r0, 26
-            ADDI    r2, r0, 29
+            ADDI    r2, r0, 30
             MOV     r5, r24
             LA      r4, s_again
             JAL     r16, puts
@@ -1699,7 +1659,7 @@ s_keys:     .asciz "\x1e \x1f move    ENTER select    \x11 back"
 s_back:     .asciz "\x11 back"
 s_menu_hd:  .asciz " MAIN MENU "
 s_card_hd:  .asciz " THE MACHINE "
-s_start:    .asciz "press a button to start"
+s_start:    .asciz "press to start"
 s_again:    .asciz "ENTER play again    \x11 menu"
 
 s_sp_name:  .asciz "TOMATO OS"
@@ -1707,15 +1667,15 @@ s_sp_tag:   .asciz "v3.0"
 s_sp_ld:    .asciz "bringing the machine up"
 
 menu_items: .word m_sysinfo, m_palette, m_font, m_keypad
-            .word m_fib, m_snake, m_tetris, m_about, m_map, m_sudoku, m_lab, m_racer
+            .word m_fib, m_snake, m_tetris, m_about, m_map, m_sudoku, m_lab, m_racer, m_compiler, env_title
 menu_targets:
             .word screen_sysinfo, screen_palette, screen_font, screen_keypad
             .word screen_fib, screen_snake, screen_tetris, screen_about
-            .word screen_map, screen_sudoku, screen_lab, screen_racer
-n_menu:     .word 12
+            .word screen_map, screen_sudoku, screen_lab, screen_racer, screen_compiler, screen_envelop
+n_menu:     .word 14
 
 m_sysinfo:  .asciz "System info"
-m_palette:  .asciz "Palette"
+m_palette:  .asciz "Tribonacci"
 m_font:     .asciz "Font chart"
 m_keypad:   .asciz "Keypad test"
 m_fib:      .asciz "Fibonacci"
@@ -1726,13 +1686,14 @@ m_map:      .asciz "Memory map"
 m_sudoku:   .asciz "Sudoku"
 m_lab:      .asciz "ALU Studio"
 m_racer: .asciz "Racer"
+m_compiler: .asciz "Compiler"
 su_saved: .word 0
 su_conflict_ptr: .word su_conflict_text
 rc_title_p: .word rc_title
 rc_keys_p: .word rc_keys
 rc_crash_p: .word rc_crash
 rc_score_p: .word rc_score
-s_penn:     .asciz "University of Pennsylvania"
+s_penn:     .asciz "Pennsylvania"
 
 s_map:      .asciz " MEMORY MAP "
 s_map_h1:   .asciz "Every bus the CPU can name"
@@ -1757,8 +1718,8 @@ si_7:       .asciz "Immediate box      imm8, imm12, imm13, imm16, LUI"
 si_8:       .asciz "Barrel shifter     LSL / LSR / ASR / ROR, amount = B[4:0]"
 si_9:       .asciz "Designed by        Tyrone Marhguy, Penn Engineering 2028"
 
-s_palette:  .asciz " PALETTE "
-s_pal_h1:   .asciz "Sixteen indices, as the scanout resolves them"
+s_palette:  .asciz " TRIBONACCI "
+s_pal_h1:   .asciz "T(n) = T(n-1) + T(n-2) + T(n-3)"
 
 s_font:     .asciz " FONT CHART "
 s_font_h1:  .asciz "All 256 glyph slots; blanks are unpopulated"
@@ -1806,15 +1767,15 @@ c_7:        .asciz "512-row modular microcode"
 
 s_about:    .asciz " ABOUT "
 ab_body:    .word ab_1, ab_2, ab_3, ab_4, ab_5, ab_6, ab_7, ab_8, ab_9, 0
-ab_1:       .asciz "A 32-bit computer built from 74xx discrete logic,"
-ab_2:       .asciz "simulated in Digital, cloned to Verilog, and carried"
-ab_3:       .asciz "here on an FPGA while the copper is still under the iron."
+ab_1:       .asciz "A 32-bit computer built from 74xx logic."
+ab_2:       .asciz "Simulated in Digital and cloned to Verilog."
+ab_3:       .asciz "Running on FPGA while copper is under the iron."
 ab_4:       .asciz ""
-ab_5:       .asciz "Dual-LUT3 ALU. Two planes per bit. 524288 operations."
-ab_6:       .asciz "256 GPRs, 3R1W. Immediate box. Eight microcode planes."
-ab_7:       .asciz "Dark silicon: 512 burned rows. The plane knows more."
-ab_8:       .asciz "Write-back mux: 9 ns tri-state vs 52 ns cascading 151."
-ab_9:       .asciz "Byte-lane memory. Overlay word. This is Tomato ISA v1."
+ab_5:       .asciz "Dual-LUT3 ALU: 524288 operations."
+ab_6:       .asciz "256 GPRs, 3R1W; eight microcode planes."
+ab_7:       .asciz "512 burned microcode rows."
+ab_8:       .asciz "Write-back mux: 9 ns tri-state."
+ab_9:       .asciz "Byte-lane memory. Tomato ISA v1."
 
 ; ---- tunables --------------------------------------------------------------
 ; Milliseconds per input slice; eight slices make one world step.
@@ -1830,6 +1791,9 @@ tune_boot:  .word 20
 v_seed:     .word 0x2545F491
 v_capt:     .word 0
 dec_buf:    .space 12
+            .org 0xE18
+comp_expect: .word 0xBC
+comp_cinbit: .word 0
 
             .org 0xE20
 tt_row:     .space 20           ; one 10-bit occupancy mask per board row
@@ -2736,8 +2700,10 @@ su_givens: .word 5, 3, 0, 0, 7, 0, 0, 0, 0, 6, 0, 0, 1, 9, 5, 0, 0, 0, 0, 9, 8, 
             .word ws_app_9_0, ws_app_9_1, 0, 0
             .word ws_app_10_0, ws_app_10_1, 0, 0
             .word racer_desc1, racer_desc2, 0, 0
+            .word comp_desc1, comp_desc2, 0, 0
+            .word env_desc1, env_desc2, 0, 0
             .org 0x3040
-            .word ws_brand, ws_edition, ws_home, ws_apps, ws_ghana, ws_place, ws_preview, ws_open, ws_footer, ws_studio, ws_gallery, ws_gallery_note, ws_gallery_back, ws_su_title, ws_su_head, ws_su_sub, ws_su_keys, ws_su_clues, ws_su_enter, ws_su_blank, ws_su_actions, ws_su_back, ws_su_reset, ws_su_count, ws_su_solved, ws_lab_title, ws_lab_head, ws_lab_sub, ws_lab_keys, ws_lab_input, ws_lab_mask, ws_lab_xor, ws_lab_result, ws_lab_ref, ws_lab_match, ws_lab_fail, ws_lab_rv2, ws_lab_rv5, ws_lab_note, ws_lab_path, ws_su_help
+            .word ws_brand, ws_edition, ws_home, ws_apps, ws_ghana, ws_place, ws_preview, ws_open, ws_footer, ws_studio, ws_gallery, ws_gallery_note, ws_gallery_back, ws_su_title, ws_su_head, ws_su_sub, ws_su_keys, ws_su_clues, ws_su_enter, ws_su_blank, ws_su_actions, ws_su_back, ws_su_reset, ws_su_count, ws_su_solved, ws_lab_title, ws_lab_head, ws_lab_sub, ws_lab_keys, ws_lab_input, ws_lab_mask, ws_lab_xor, ws_lab_result, ws_lab_ref, ws_lab_match, ws_lab_fail, ws_lab_rv2, ws_lab_rv5, ws_lab_note, ws_lab_path, ws_su_help, comp_title, comp_keys, comp_head, comp_sub, comp_hex, comp_idle, comp_hit, comp_miss, comp_luta, comp_lutb, comp_la, comp_lb, comp_lc, comp_cin, comp_le, comp_hold_s, comp_rst_s, comp_out, comp_held
             .org 0x3100
 ws_brand: .asciz "TOMATO OS"
 ws_edition: .asciz "Ghana Edition"
@@ -2782,8 +2748,8 @@ ws_lab_path: .asciz "F(A,B,C) + G(A,B,C) -> 32-bit sum"
 ws_su_help: .asciz "Arrows select a cell."
 ws_app_0_0: .asciz "Inside the running architecture."
 ws_app_0_1: .asciz "Registers, logic and control."
-ws_app_1_0: .asciz "Sixteen colors. Every combination."
-ws_app_1_1: .asciz "A display test on real hardware."
+ws_app_1_0: .asciz "Three terms become the next."
+ws_app_1_1: .asciz "Explore Tribonacci, one step at a time."
 ws_app_2_0: .asciz "The building blocks of this UI."
 ws_app_2_1: .asciz "Letters, symbols and drawing glyphs."
 ws_app_3_0: .asciz "One press. One event."
@@ -2805,11 +2771,19 @@ ws_app_10_1: .asciz "Execute and check custom opcodes."
 su_conflict_text: .asciz "Conflict in this cell."
 racer_desc1: .asciz "Racer / steer through traffic."
 racer_desc2: .asciz "LEFT/RIGHT steer. ENTER exits."
+comp_desc1: .asciz "Counter FSM. Sweep Dual-LUT programs."
+comp_desc2: .asciz "Hold opcodes. Toggle A,B,C. Reset counter."
 
 rc_title: .asciz " RACER "
 rc_keys: .asciz "LEFT/RIGHT steer   UP advances traffic   ENTER exits"
 rc_crash: .asciz "CRASH"
 rc_score: .asciz "CARS PASSED"
+            .org 0x3900
+env_title: .asciz "Envelop"
+            .org 0x3910
+env_desc1: .asciz "Contacts and BLE chat."
+            .org 0x3930
+env_desc2: .asciz "Your phone bridges Tomato to Envelop."
             .org 0x1800
 screen_racer:
             LA r4, rc_title_p
@@ -2818,11 +2792,13 @@ screen_racer:
             LA r4, rc_keys_p
             LW r4, r4, 0
             JAL r16, footer
-            ADDI r28, r0, 1
+            ADDI r28, r0, 2
             ZERO r29
             ADDI r30, r0, 15
             ZERO r31
             ZERO r21
+            ADDI r22, r0, 3
+            ADDI r7, r0, 30
 rc_redraw:
             JAL r16, rc_draw
 rc_wait:
@@ -2841,7 +2817,7 @@ rc_wait:
             CMP r1, r6
             BEQ rc_step
             ADDI r21, r21, 1
-            ADDI r6, r0, 8
+            ADDI r6, r0, 5
             CMP r21, r6
             BLT rc_wait
             JMP rc_step
@@ -2851,7 +2827,7 @@ rc_left:
             ADDI r28, r28, -1
             JMP rc_collision
 rc_right:
-            ADDI r6, r0, 2
+            ADDI r6, r0, 4
             CMP r28, r6
             BGE rc_wait
             ADDI r28, r28, 1
@@ -2861,7 +2837,7 @@ rc_step:
             ADDI r30, r30, 1
             ADDI r6, r0, 46
             CMP r30, r6
-            BLT rc_collision
+            BLT rc_second
             ADDI r31, r31, 1
             ADDI r30, r0, 15
             LA r11, v_seed
@@ -2876,17 +2852,38 @@ rc_step:
             LSL r13, r12, r6
             XOR r12, r12, r13
             SW r12, r11, 0
-            ADDI r6, r0, 3
+            ADDI r6, r0, 5
             REMU r29, r12, r6
+rc_second:
+            ADDI r7, r7, 1
+            ADDI r6, r0, 46
+            CMP r7, r6
+            BLT rc_collision
+            ADDI r7, r0, 15
+            ADDI r31, r31, 1
+            ADDI r22, r29, 2
+            ADDI r6, r0, 5
+            REMU r22, r22, r6
 rc_collision:
             ADDI r6, r0, 40
             CMP r30, r6
-            BLT rc_redraw
+            BLT rc_collision_second
             ADDI r6, r0, 45
             CMP r30, r6
-            BGE rc_redraw
+            BGE rc_collision_second
             CMP r28, r29
+            BNE rc_collision_second
+            JMP rc_crash_now
+rc_collision_second:
+            ADDI r6, r0, 40
+            CMP r7, r6
+            BLT rc_redraw
+            ADDI r6, r0, 45
+            CMP r7, r6
+            BGE rc_redraw
+            CMP r28, r22
             BNE rc_redraw
+rc_crash_now:
             LA r4, rc_crash_p
             LW r4, r4, 0
             JAL r16, game_over
@@ -2895,10 +2892,10 @@ rc_collision:
             JMP main_loop
 rc_draw:
             MOV r17, r16
-            ADDI r1, r0, 25
+            ADDI r1, r0, 10
             ADDI r2, r0, 14
             ADDI r3, r0, 1
-            ADDI r4, r0, 27
+            ADDI r4, r0, 40
             ADDI r5, r0, 34
             JAL r16, ui_rect
             ADDI r18, r0, 15
@@ -2906,33 +2903,39 @@ rc_draw:
             REMU r19, r30, r6
             ADD r18, r18, r19
 rc_marks:
-            ADDI r1, r0, 33
+            ADDI r19, r0, 18
+rc_mark_lane:
+            MOV r1, r19
             MOV r2, r18
             ADDI r3, r0, 7
             ADDI r4, r0, 1
             ADDI r5, r0, 2
             JAL r16, ui_rect
-            ADDI r1, r0, 42
-            MOV r2, r18
-            ADDI r3, r0, 7
-            ADDI r4, r0, 1
-            ADDI r5, r0, 2
-            JAL r16, ui_rect
+            ADDI r19, r19, 8
+            ADDI r6, r0, 43
+            CMP r19, r6
+            BLT rc_mark_lane
             ADDI r18, r18, 4
             ADDI r6, r0, 45
             CMP r18, r6
             BLT rc_marks
             ADDI r6, r0, 8
             MUL r1, r28, r6
-            ADDI r1, r1, 27
+            ADDI r1, r1, 12
             ADDI r2, r0, 42
             ADDI r3, r0, 11
             JAL r16, rc_car
             ADDI r6, r0, 8
             MUL r1, r29, r6
-            ADDI r1, r1, 27
+            ADDI r1, r1, 12
             MOV r2, r30
             ADDI r3, r0, 12
+            JAL r16, rc_car
+            ADDI r6, r0, 8
+            MUL r1, r22, r6
+            ADDI r1, r1, 12
+            MOV r2, r7
+            ADDI r3, r0, 14
             JAL r16, rc_car
             ADDI r1, r0, 55
             ADDI r2, r0, 17
@@ -2980,3 +2983,571 @@ rc_car_col:
             SW r12, r15, 2
             SW r12, r15, 3
             JR r16
+
+; Envelop firmware is linked from envelop_lite.s by the OS build target.
+screen_envelop:
+            JMP en_entry
+
+; App code lives outside the tightly packed low-address OS region.
+.org 0x2600
+screen_tribonacci:
+    LA r4,s_palette
+    JAL r16,screen_frame
+    LUI r4,3
+    ADDI r4,r4,0xfa0
+    JAL r16,footer
+    ADDI r1,r0,8
+    ADDI r2,r0,9
+    MOV r5,r26
+    LA r4,s_pal_h1
+    JAL r16,puts
+    ZERO r18
+trib_draw:
+    ADDI r1,r0,8
+    ADDI r2,r0,13
+    MOV r3,r24
+    ADDI r4,r0,60
+    JAL r16,fill
+    ADDI r1,r0,8
+    ADDI r2,r0,13
+    MOV r5,r26
+    LA r4,s_fib_n
+    JAL r16,puts
+    ADDI r1,r0,12
+    ADDI r2,r0,13
+    MOV r3,r18
+    MOV r5,r24
+    JAL r16,putdec
+    ADDI r1,r0,8
+    ADDI r2,r0,16
+    MOV r3,r24
+    ADDI r4,r0,60
+    JAL r16,fill
+    MOV r3,r18
+    JAL r16,trib_of
+    MOV r3,r1
+    ADDI r1,r0,8
+    ADDI r2,r0,16
+    MOV r5,r26
+    JAL r16,putdec
+    ADDI r1,r0,8
+    ADDI r2,r0,20
+    LUI r4,3
+    ADDI r4,r4,0xf60
+    MOV r5,r27
+    JAL r16,puts
+trib_key:
+    JAL r16,getkey
+    ADDI r11,r0,17
+    CMP r1,r11
+    BEQ main_loop
+    ADDI r11,r0,13
+    CMP r1,r11
+    BEQ trib_reset
+    ADDI r11,r0,31
+    CMP r1,r11
+    BEQ trib_down
+    ADDI r11,r0,30
+    CMP r1,r11
+    BEQ trib_up
+    ADDI r11,r0,16
+    CMP r1,r11
+    BNE trib_key
+    ADDI r18,r18,9
+trib_up:
+    ADDI r18,r18,1
+    ADDI r11,r0,38
+    CMP r18,r11
+    BLT trib_draw
+    MOV r18,r11
+    JMP trib_draw
+trib_down:
+    CMP r18,r0
+    BEQ trib_draw
+    ADDI r18,r18,-1
+    JMP trib_draw
+trib_reset:
+    ZERO r18
+    JMP trib_draw
+; r3=n -> r1=T(n), seeds 0,0,1; T(38) fits signed 32-bit, T(39) does not.
+trib_of:
+    ZERO r11
+    ZERO r12
+    ADDI r13,r0,1
+trib_calc:
+    CMP r3,r0
+    BEQ trib_result
+    ADD r14,r11,r12
+    ADD r14,r14,r13
+    MOV r11,r12
+    MOV r12,r13
+    MOV r13,r14
+    ADDI r3,r3,-1
+    JMP trib_calc
+trib_result:
+    MOV r1,r11
+    JR r16
+
+.org 0x2200
+; puthex8: 32-bit r3 as eight hex digits at (r1,r2), attribute r5.
+puthex8:
+            MUL     r11, r2, r10
+            ADD     r11, r11, r1
+            ADD     r11, r11, r8
+            ADDI    r14, r0, 28
+ph8_loop:
+            LSR     r12, r3, r14
+            ADDI    r15, r0, 15
+            AND     r12, r12, r15
+            ADDI    r13, r0, 10
+            CMP     r12, r13
+            BLT     ph8_dec
+            ADDI    r12, r12, 55
+            JMP     ph8_out
+ph8_dec:
+            ADDI    r12, r12, 48
+ph8_out:
+            OR      r12, r12, r5
+            SW      r12, r11, 0
+            ADDI    r11, r11, 1
+            ADDI    r14, r14, -4
+            CMP     r14, r0
+            BGE     ph8_loop
+            JR      r16
+
+; 2x glyphs: write ASCII digits into dec_buf, then ui_large at (r1,r2).
+puthex8_large:
+            MOV     r6, r16
+            LA      r11, dec_buf
+            ADDI    r14, r0, 28
+ph8l_loop:
+            LSR     r12, r3, r14
+            ADDI    r15, r0, 15
+            AND     r12, r12, r15
+            ADDI    r13, r0, 10
+            CMP     r12, r13
+            BLT     ph8l_dec
+            ADDI    r12, r12, 55
+            JMP     ph8l_store
+ph8l_dec:
+            ADDI    r12, r12, 48
+ph8l_store:
+            SW      r12, r11, 0
+            ADDI    r11, r11, 1
+            ADDI    r14, r14, -4
+            CMP     r14, r0
+            BGE     ph8l_loop
+            SW      r0, r11, 0
+            LA      r4, dec_buf
+            JAL     r16, ui_large
+            MOV     r16, r6
+            JR      r16
+
+puthex2_large:
+            MOV     r6, r16
+            LA      r11, dec_buf
+            ADDI    r14, r0, 4
+ph2l_loop:
+            LSR     r12, r3, r14
+            ADDI    r15, r0, 15
+            AND     r12, r12, r15
+            ADDI    r13, r0, 10
+            CMP     r12, r13
+            BLT     ph2l_dec
+            ADDI    r12, r12, 55
+            JMP     ph2l_store
+ph2l_dec:
+            ADDI    r12, r12, 48
+ph2l_store:
+            SW      r12, r11, 0
+            ADDI    r11, r11, 1
+            ADDI    r14, r14, -4
+            CMP     r14, r0
+            BGE     ph2l_loop
+            SW      r0, r11, 0
+            LA      r4, dec_buf
+            JAL     r16, ui_large
+            MOV     r16, r6
+            JR      r16
+
+screen_compiler:
+            LUI     r4, 3
+            LW      r4, r4, 105
+            JAL     r16, screen_frame
+            LUI     r4, 3
+            LW      r4, r4, 106
+            JAL     r16, footer
+            ADDI    r28, r0, 0x89
+            ADDI    r29, r0, 0x33
+            ADDI    r30, r0, 0x22
+            LA      r6, comp_expect
+            ADDI    r7, r0, 0xBC
+            SW      r7, r6, 0
+            LA      r6, comp_cinbit
+            SW      r0, r6, 0
+            ZERO    r31
+            ZERO    r21
+            ADDI    r7, r9, 0x80
+            ADDI    r4, r0, 4
+            SW      r4, r7, 5
+            JAL     r16, comp_push
+comp_redraw:
+            JAL     r16, comp_draw
+comp_wait:
+            JAL     r16, getkey
+            ADDI    r6, r0, 0x0D
+            CMP     r1, r6
+            BEQ     comp_go
+            ADDI    r6, r0, 0x11
+            CMP     r1, r6
+            BEQ     comp_left
+            ADDI    r6, r0, 0x10
+            CMP     r1, r6
+            BEQ     comp_right
+            ADDI    r6, r0, 0x1E
+            CMP     r1, r6
+            BEQ     comp_up
+            ADDI    r6, r0, 0x1F
+            CMP     r1, r6
+            BNE     comp_wait
+            JAL     r16, comp_read
+            ADDI    r1, r1, -1
+            JAL     r16, comp_write
+            JMP     comp_redraw
+comp_up:
+            JAL     r16, comp_read
+            ADDI    r1, r1, 1
+            JAL     r16, comp_write
+            JMP     comp_redraw
+comp_left:
+            CMP     r31, r0
+            BEQ     main_loop
+            ADDI    r31, r31, -1
+            JMP     comp_redraw
+comp_right:
+            ADDI    r31, r31, 1
+            ADDI    r6, r0, 7
+            CMP     r31, r6
+            BLT     comp_redraw
+            ADDI    r31, r0, 6
+            JMP     comp_redraw
+comp_go:
+            ADDI    r6, r0, 5
+            CMP     r31, r6
+            BEQ     comp_hold
+            ADDI    r6, r0, 6
+            CMP     r31, r6
+            BEQ     comp_rst
+            JAL     r16, comp_push
+            ADDI    r7, r9, 0x80
+            ADDI    r4, r0, 1
+            SW      r4, r7, 5
+comp_poll:
+            LW      r4, r7, 6
+            ADDI    r6, r0, 1
+            AND     r6, r4, r6
+            CMP     r6, r0
+            BNE     comp_poll
+            ADDI    r21, r0, 1
+            JMP     comp_redraw
+comp_hold:
+            JAL     r16, comp_push
+            ADDI    r7, r9, 0x80
+            ADDI    r4, r0, 2
+            SW      r4, r7, 5
+            JMP     comp_redraw
+comp_rst:
+            ADDI    r7, r9, 0x80
+            ADDI    r4, r0, 4
+            SW      r4, r7, 5
+            ZERO    r21
+            JAL     r16, comp_push
+            JMP     comp_redraw
+
+comp_push:
+            ADDI    r7, r9, 0x80
+            SW      r28, r7, 0
+            SW      r29, r7, 1
+            SW      r30, r7, 2
+            LA      r6, comp_cinbit
+            LW      r4, r6, 0
+            SW      r4, r7, 3
+            LA      r6, comp_expect
+            LW      r4, r6, 0
+            SW      r4, r7, 4
+            JR      r16
+
+; r31 = field. Returns value in r1.
+comp_read:
+            CMP     r31, r0
+            BNE     cr_b
+            MOV     r1, r28
+            JR      r16
+cr_b:
+            ADDI    r6, r0, 1
+            CMP     r31, r6
+            BNE     cr_c
+            MOV     r1, r29
+            JR      r16
+cr_c:
+            ADDI    r6, r0, 2
+            CMP     r31, r6
+            BNE     cr_cin
+            MOV     r1, r30
+            JR      r16
+cr_cin:
+            ADDI    r6, r0, 3
+            CMP     r31, r6
+            BNE     cr_e
+            LA      r6, comp_cinbit
+            LW      r1, r6, 0
+            JR      r16
+cr_e:
+            ADDI    r6, r0, 4
+            CMP     r31, r6
+            BNE     cr_zero
+            LA      r6, comp_expect
+            LW      r1, r6, 0
+            JR      r16
+cr_zero:
+            ZERO    r1
+            JR      r16
+
+comp_write:
+            CMP     r31, r0
+            BNE     cw_b
+            MOV     r28, r1
+            JMP     cw_sync
+cw_b:
+            ADDI    r6, r0, 1
+            CMP     r31, r6
+            BNE     cw_c
+            MOV     r29, r1
+            JMP     cw_sync
+cw_c:
+            ADDI    r6, r0, 2
+            CMP     r31, r6
+            BNE     cw_cin
+            MOV     r30, r1
+            JMP     cw_sync
+cw_cin:
+            ADDI    r6, r0, 3
+            CMP     r31, r6
+            BNE     cw_e
+            ADDI    r6, r0, 1
+            AND     r1, r1, r6
+            LA      r6, comp_cinbit
+            SW      r1, r6, 0
+            JMP     cw_sync
+cw_e:
+            ADDI    r6, r0, 4
+            CMP     r31, r6
+            BNE     cw_skip
+            LA      r6, comp_expect
+            SW      r1, r6, 0
+cw_sync:
+            MOV     r19, r16
+            JAL     r16, comp_push
+            MOV     r16, r19
+cw_skip:
+            JR      r16
+
+comp_draw:
+            MOV     r17, r16
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 8
+            MOV     r5, r26
+            LUI     r4, 3
+            LW      r4, r4, 107
+            JAL     r16, ui_large
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 11
+            MOV     r5, r27
+            LUI     r4, 3
+            LW      r4, r4, 108
+            JAL     r16, ui_large
+            ZERO    r18
+cd_fields:
+            ADDI    r6, r0, 7
+            CMP     r18, r6
+            BGE     cd_status
+            ADDI    r6, r0, 5
+            CMP     r18, r6
+            BGE     cd_act
+            ADDI    r6, r0, 3
+            MUL     r2, r18, r6
+            ADDI    r2, r2, 14
+            ADDI    r1, r0, 6
+            MOV     r3, r24
+            ADDI    r4, r0, 36
+            JAL     r16, fill
+            ADDI    r2, r2, 1
+            ADDI    r1, r0, 6
+            MOV     r3, r24
+            ADDI    r4, r0, 36
+            JAL     r16, fill
+            ADDI    r2, r2, -1
+            MOV     r5, r24
+            CMP     r18, r31
+            BNE     cd_lab
+            MOV     r5, r23
+cd_lab:
+            ADDI    r1, r0, 6
+            LUI     r4, 3
+            ADD     r4, r4, r18
+            LW      r4, r4, 115
+            JAL     r16, ui_large
+            ADDI    r1, r0, 16
+            LUI     r4, 3
+            LW      r4, r4, 109
+            JAL     r16, ui_large
+            MOV     r19, r31
+            MOV     r31, r18
+            JAL     r16, comp_read
+            MOV     r31, r19
+            MOV     r3, r1
+            ADDI    r1, r0, 20
+            JAL     r16, puthex8_large
+            JMP     cd_next
+cd_act:
+            ADDI    r2, r0, 14
+            ADDI    r6, r0, 5
+            CMP     r18, r6
+            BEQ     cd_act_y
+            ADDI    r2, r0, 18
+cd_act_y:
+            ADDI    r1, r0, 48
+            MOV     r3, r24
+            ADDI    r4, r0, 12
+            JAL     r16, fill
+            ADDI    r2, r2, 1
+            ADDI    r1, r0, 48
+            MOV     r3, r24
+            ADDI    r4, r0, 12
+            JAL     r16, fill
+            ADDI    r2, r2, -1
+            MOV     r5, r24
+            CMP     r18, r31
+            BNE     cd_act_lab
+            MOV     r5, r23
+cd_act_lab:
+            ADDI    r1, r0, 48
+            LUI     r4, 3
+            ADD     r4, r4, r18
+            LW      r4, r4, 115
+            JAL     r16, ui_large
+cd_next:
+            ADDI    r18, r18, 1
+            JMP     cd_fields
+cd_status:
+            ADDI    r7, r9, 0x80
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 30
+            MOV     r5, r26
+            LUI     r4, 3
+            LW      r4, r4, 122
+            JAL     r16, ui_large
+            LW      r3, r7, 5
+            ADDI    r1, r0, 18
+            JAL     r16, puthex8_large
+            LW      r18, r7, 7
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 33
+            MOV     r5, r24
+            LUI     r4, 3
+            LW      r4, r4, 113
+            JAL     r16, ui_large
+            ADDI    r15, r0, 255
+            AND     r3, r18, r15
+            ADDI    r1, r0, 20
+            JAL     r16, puthex2_large
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 36
+            MOV     r5, r24
+            LUI     r4, 3
+            LW      r4, r4, 114
+            JAL     r16, ui_large
+            ADDI    r14, r0, 8
+            LSR     r3, r18, r14
+            AND     r3, r3, r15
+            ADDI    r1, r0, 20
+            JAL     r16, puthex2_large
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 39
+            MOV     r3, r24
+            ADDI    r4, r0, 40
+            JAL     r16, fill
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 40
+            MOV     r3, r24
+            ADDI    r4, r0, 40
+            JAL     r16, fill
+            LW      r4, r7, 6
+            ADDI    r6, r0, 8
+            AND     r6, r4, r6
+            CMP     r6, r0
+            BNE     cd_held
+            CMP     r21, r0
+            BNE     cd_ran
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 39
+            MOV     r5, r27
+            LUI     r4, 3
+            LW      r4, r4, 110
+            JAL     r16, ui_large
+            JMP     cd_done
+cd_held:
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 39
+            MOV     r5, r26
+            LUI     r4, 3
+            LW      r4, r4, 123
+            JAL     r16, ui_large
+            JMP     cd_done
+cd_ran:
+            ADDI    r6, r0, 2
+            AND     r6, r4, r6
+            CMP     r6, r0
+            BEQ     cd_miss
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 39
+            MOV     r5, r26
+            LUI     r4, 3
+            LW      r4, r4, 111
+            JAL     r16, ui_large
+            JMP     cd_done
+cd_miss:
+            ADDI    r1, r0, 6
+            ADDI    r2, r0, 39
+            MOV     r5, r24
+            LUI     r4, 3
+            LW      r4, r4, 112
+            JAL     r16, ui_large
+cd_done:
+            MOV     r16, r17
+            JR      r16
+
+comp_title: .asciz "COMPILER"
+comp_keys:  .asciz "ENTER sweep/hold/reset"
+comp_head:  .asciz "Compiler"
+comp_sub:   .asciz "1-bit cin"
+comp_hex:   .asciz "0x"
+comp_idle:  .asciz "sweep"
+comp_hit:   .asciz "LATCHED"
+comp_miss:  .asciz "MISS"
+comp_luta:  .asciz "lutA"
+comp_lutb:  .asciz "lutB"
+comp_la:    .asciz "A"
+comp_lb:    .asciz "B"
+comp_lc:    .asciz "C"
+comp_cin:   .asciz "cin"
+comp_le:    .asciz "exp"
+comp_hold_s: .asciz "HOLD"
+comp_rst_s:  .asciz "RESET"
+comp_out:   .asciz "out "
+comp_held:  .asciz "HELD"
+
+.org 0x3f60
+.asciz "Seeds: 0, 0, 1. Range: n=0..38 (32-bit)."
+.org 0x3fa0
+.asciz "UP next  DOWN previous  RIGHT +10  ENTER reset  LEFT exit"
