@@ -23,7 +23,8 @@ module games_tb;
         .clk(clk), .reset(reset),
         .kb_data(kb_data), .kb_ready(kb_ready), .kb_rd(kb_rd),
         .io_out(io_out), .disp_value(disp_value), .halted(halted),
-        .tile_rclk(clk), .tile_raddr(tile_raddr), .tile_rdata(tile_rdata)
+        .tile_rclk(clk), .tile_raddr(tile_raddr), .tile_rdata(tile_rdata),
+        .ble_rdata(32'd0)
     );
 
     task tick; begin @(posedge clk); #1; end endtask
@@ -250,7 +251,7 @@ module games_tb;
         press(8'h1F);
         press(8'h0D);
         wait_str(7, 6, "SNAKE", 5, "snake title");
-        wait_str(24, 23, "press a but", 11, "snake start prompt");
+        wait_str(24, 23, "press to sta", 11, "snake start prompt");
         press(8'h10);                    // start (already heading right)
         n = 0;
         count_glyph(db0, 20, 14, 59, 33, 8'hDB);
@@ -283,7 +284,7 @@ module games_tb;
         press(8'h1F);
         press(8'h0D);
         wait_str(7, 6, "TETRIS", 6, "tetris title");
-        wait_str(33, 25, "press a but", 11, "tetris start prompt");
+        wait_str(33, 25, "press to sta", 11, "tetris start prompt");
         press(8'h10);
         n = 0;
         count_glyph(db0, 30, 16, 49, 35, 8'hDB);
