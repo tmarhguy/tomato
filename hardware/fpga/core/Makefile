@@ -1,4 +1,16 @@
 .DEFAULT_GOAL := all
+.PHONY: virtual
+virtual:
+	python3 $(ROOT)/tools/virtual_tomato.py
+.PHONY: remote-test
+remote-test:
+	python3 $(ROOT)/tools/test_remote_compute.py
+	python3 $(ROOT)/tools/test_envelop.py
+	python3 $(ROOT)/tools/test_virtual_tomato.py
+.PHONY: envelop-preview
+envelop-preview:
+	python3 $(ROOT)/tools/test_envelop.py
+	python3 $(ROOT)/tools/render_envelop.py $(SIM)/envelop_frame.mem -o $(SIM)/envelop.png
 # Tomato core — Icarus simulation, burn packaging, and the open-source bitstream
 #
 #   make test                     unit + program regression (Icarus, no nix needed)
@@ -37,8 +49,15 @@ OS_SRC  := $(ROOT)/software/os
 PROG_MEM := tb/mem/counter.mem tb/mem/fib.mem tb/mem/collatz.mem tb/mem/call.mem tb/mem/bytes.mem \
 	tb/mem/ecall.mem tb/mem/io.mem tb/mem/softops.mem tb/mem/kb_mmio.mem
 
-TBS := shift lane wb bus sp regs ir pc vga muldiv alu control hex videoout keypad main counter fidelity \
+TBS := shift lane wb bus sp regs ir pc vga muldiv alu compiler control hex videoout keypad main counter fidelity \
 	kb_io burn_boot compound exhibit
+
+.PHONY: nrf-idle-test
+nrf-idle-test: $(SIM)/nrf8001_idle_tb.vvp
+	$(VVP) $<
+
+$(SIM)/nrf8001_idle_tb.vvp: rtl/nrf8001_idle.v tb/nrf8001_idle_tb.v | $(SIM)
+	$(IVERILOG) -g2012 -s nrf8001_idle_tb -o $@ $^
 
 # ---- open-source bitstream flow ---------------------------------------------
 TOP        := nexys_top
@@ -89,8 +108,9 @@ burn-check: microcode
 
 asm: $(PROG_MEM) tb/mem/tomato_os.mem
 
-tb/mem/tomato_os.mem: $(OS_SRC)/tomato_os.s
-	$(ASM) $< -o $@
+tb/mem/tomato_os.mem: $(OS_SRC)/tomato_os.s $(OS_SRC)/envelop_lite.s $(OS_SRC)/envelop_setup.s $(OS_SRC)/remote_exec.s $(ROOT)/software/assembler.py | $(SIM)
+	cat $(filter %.s,$^) > $(SIM)/tomato_os_all.s
+	$(ASM) $(SIM)/tomato_os_all.s --strict-layout --max-words 16384 -o $@
 
 tb/mem/counter.mem: $(ASM_SRC)/counter.s
 	$(ASM) $< -o $@
@@ -152,6 +172,9 @@ $(SIM)/muldiv_tb.vvp: rtl/shift.v rtl/muldiv.v tb/muldiv_tb.v | $(SIM)
 
 $(SIM)/alu_tb.vvp: rtl/alu.v tb/alu_tb.v | $(SIM)
 	$(IVERILOG) -o $@ rtl/alu.v tb/alu_tb.v
+
+$(SIM)/compiler_tb.vvp: rtl/alu.v rtl/compiler_fsm.v tb/compiler_tb.v | $(SIM)
+	$(IVERILOG) -o $@ rtl/alu.v rtl/compiler_fsm.v tb/compiler_tb.v
 
 $(SIM)/control_tb.vvp: rtl/control.v tb/control_tb.v | $(SIM)
 	$(IVERILOG) -o $@ rtl/control.v tb/control_tb.v
@@ -222,6 +245,7 @@ test: burn-check $(foreach t,$(TBS),$(SIM)/$(t)_tb.vvp) $(SIM)/prog_tb.vvp $(SIM
 	$(call RUN_TB,vga)
 	$(call RUN_TB,muldiv)
 	$(call RUN_TB,alu)
+	$(call RUN_TB,compiler)
 	$(call RUN_TB,control)
 	$(call RUN_TB,hex)
 	$(call RUN_TB,videoout)
@@ -316,3 +340,18 @@ $(SIM)/compound_tb.vvp: $(RTL) tb/compound_tb.v | $(SIM)
 	$(IVERILOG) -o $@ $(RTL) tb/compound_tb.v
 $(SIM)/exhibit_tb.vvp: $(RTL) tb/exhibit_tb.v tb/mem/tomato_os.mem | $(SIM)
 	$(IVERILOG) -o $@ $(RTL) tb/exhibit_tb.v
+
+# ---- Vivado fast flow (Linux only, Vivado ML Standard) ----------------------
+# Multithreaded synth+impl for the same part; ~10 min vs ~1h+ open flow.
+# Vivado does not run on macOS — copy the repo to a Linux box/VM first.
+# Refresh burn before building: `make burn BOOT=tomato_os` (burn is baked in).
+VIVADO_BUILD := build/vivado
+.PHONY: vivado vivado-program
+vivado: burn
+	@mkdir -p $(VIVADO_BUILD)
+	vivado -mode batch -nojournal -nolog -notrace -source vivado.tcl | tee $(VIVADO_BUILD)/vivado.log
+	@sha256sum $(VIVADO_BUILD)/nexys_top.bit | tee $(VIVADO_BUILD)/nexys_top.bit.sha256
+
+vivado-program: $(VIVADO_BUILD)/nexys_top.bit
+	openFPGALoader -b nexys_a7_100 $(VIVADO_BUILD)/nexys_top.bit
+
