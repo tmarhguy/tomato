@@ -235,12 +235,15 @@ def tokenize_line(line: str):
     return label, parts[0].upper(), parts[1:]
 
 
-def assemble(src: str, ops: dict) -> list[int]:
+def assemble(src: str, ops: dict, *, symbols: dict | None = None,
+             strict_layout: bool = False, max_words: int | None = None,
+             regions: list | None = None) -> list[int]:
     """Assemble to a dense word image (NOP-filled holes from .org)."""
     pseudos = load_pseudos(ops)
     lines = src.splitlines()
     labels: dict[str, int] = {}
     items = []  # (line_no, mnem, operands, addr)
+    reservations = []  # (line, start, end); .space is live RAM, not a free hole
     pc = 0
     for i, raw in enumerate(lines, 1):
         s = raw.strip()
@@ -299,6 +302,7 @@ def assemble(src: str, ops: dict) -> list[int]:
                 n = parse_imm(operands[0], 24, signed=False)
             except ValueError as e:
                 raise AsmError(i, str(e)) from e
+            reservations.append((i, pc, pc + n))
             pc += n
             continue
         if mnem in pseudos:
@@ -323,10 +327,28 @@ def assemble(src: str, ops: dict) -> list[int]:
         items.append((i, mnem, operands, pc))
         pc += 1
 
+    if regions is not None:
+        regions.extend((start, end) for _, start, end in reservations)
+        regions.extend((addr, addr + 1) for _, _, _, addr in items)
+    if strict_layout or max_words is not None:
+        ranges = reservations + [(line, addr, addr + 1) for line, _, _, addr in items]
+        previous = None
+        for line, start, end in sorted(ranges, key=lambda r: (r[1], r[2])):
+            if start == end:
+                continue
+            if max_words is not None and end > max_words:
+                raise AsmError(line, f"RAM region ends at 0x{end:x}, exceeds {max_words} words")
+            if strict_layout and previous is not None and start < previous[2]:
+                raise AsmError(line, f"memory overlap at 0x{start:x} with line {previous[0]}")
+            previous = (line, start, end)
+
+    if symbols is not None:
+        symbols.update(labels)
+
     RRR = {
         "ADD", "SUB", "AND", "OR", "XOR", "CMP", "LSL", "LSR", "ASR", "ROR",
         "MUL", "MULH", "MULHU", "DIV", "DIVU", "REM", "REMU",
-        "NAND", "NOR", "XNOR", "ADC", "SBC",
+        "NAND", "NOR", "XNOR", "ADC", "SBC", "RSB", "ANDN", "ORN",
     }
     RR_MOV = {"MOV", "MVN"}
     R_UNARY = {"ZERO", "ONE", "ALLONES", "INC", "DEC", "NOT", "NEG", "MOVA"}
@@ -400,7 +422,7 @@ def assemble(src: str, ops: dict) -> list[int]:
                 rd, rb = parse_reg(operands[0]), parse_reg(operands[1])
                 words[addr] = enc_r(op, rd, 0, rb)
 
-            elif mnem in {"MASKADD", "XORAND"}:
+            elif mnem in {"MASKADD", "XORAND", "CSEL", "ANDADD", "ORADD", "XORADD"}:
                 if len(operands) != 4:
                     raise ValueError(f"{mnem} rd, rA, rB, rC")
                 rd, ra, rb, rc = map(parse_reg, operands)
@@ -572,6 +594,8 @@ def main() -> int:
     ap.add_argument("source", type=Path, nargs="?", help=".s assembly file")
     ap.add_argument("-o", "--output", type=Path, help="output .mem or .hex")
     ap.add_argument("--list", action="store_true", help="print listing to stdout")
+    ap.add_argument("--strict-layout", action="store_true", help="reject overlapping code/data/reserved RAM")
+    ap.add_argument("--max-words", type=int, help="maximum addressable RAM words, including reserved arrays")
     ap.add_argument(
         "--selftest",
         action="store_true",
@@ -587,7 +611,7 @@ def main() -> int:
         ap.error("source is required unless --selftest")
     src = args.source.read_text()
     try:
-        words = assemble(src, ops)
+        words = assemble(src, ops, strict_layout=args.strict_layout, max_words=args.max_words)
     except AsmError as e:
         print(f"asm: {e}", file=sys.stderr)
         return 1
