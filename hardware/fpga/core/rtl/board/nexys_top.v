@@ -47,7 +47,14 @@ module nexys_top #(
     output        dvi_hs,
     output        dvi_vs,
     output        dvi_de,
-    output        dvi_clk
+    output        dvi_clk,
+    input         ble_rdy_n,
+    input         ble_act,
+    output        ble_rst_n,
+    output        ble_sck,
+    input         ble_miso,
+    output        ble_mosi,
+    output        ble_req_n
 );
     wire por_reset = ~cpu_resetn;
 
@@ -100,6 +107,10 @@ module nexys_top #(
     wire        halted;
     wire [12:0] tile_raddr;
     wire [31:0] tile_rdata;
+    wire [6:0] ble_addr;
+    wire ble_wr;
+    wire [7:0] ble_wdata;
+    wire [31:0] ble_rdata;
 
     main cpu (
         .clk        (cpu_clk),
@@ -112,7 +123,20 @@ module nexys_top #(
         .halted     (halted),
         .tile_rclk  (pix_clk),
         .tile_raddr (tile_raddr),
-        .tile_rdata (tile_rdata)
+        .tile_rdata (tile_rdata),
+        .ble_addr(ble_addr), .ble_wr(ble_wr),
+        .ble_wdata(ble_wdata), .ble_rdata(ble_rdata)
+    );
+
+    // The CPU handles ACI setup and Envelop framing in existing program RAM.
+    nrf8001_aci radio (
+        .clk   (cpu_clk),
+        .reset (cpu_reset),
+        .rst_n (ble_rst_n),
+        .req_n (ble_req_n),
+        .sck   (ble_sck),
+        .mosi  (ble_mosi), .rdy_n(ble_rdy_n), .miso(ble_miso),
+        .addr(ble_addr), .wr(ble_wr), .wdata(ble_wdata), .rdata(ble_rdata)
     );
 
     // ---- scanout ----------------------------------------------------------
