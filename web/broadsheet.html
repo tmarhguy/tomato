@@ -5,7 +5,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <title>The Tomato — A Homebrew 32-bit CPU from Discrete Logic</title>
-<meta content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." name="description"/>
+<meta content="Tomato: 256 × 32-bit FPGA registers, Dual-LUT ALU copper, Tomato OS v3.0, and an in-progress discrete machine." name="description"/>
 <meta content="#050505" name="theme-color"/>
 <script>
     (function () {
@@ -37,25 +37,26 @@
   }
   </script>
 <meta content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" property="og:title"/>
-<meta content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." property="og:description"/>
+<meta content="Tomato: 256 × 32-bit FPGA registers, Dual-LUT ALU copper, Tomato OS v3.0, and an in-progress discrete machine." property="og:description"/>
 <meta content="website" property="og:type"/>
 <meta content="https://tomato.tmarhguy.com/" property="og:url"/>
 <link href="https://tomato.tmarhguy.com/broadsheet.html" rel="canonical"/>
 <meta content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" property="og:image"/>
+<meta content="KiCad render of the Tomato Dual-LUT ALU board" property="og:image:alt"/>
 <meta content="The Tomato 32-bit CPU" property="og:site_name"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="@tmarhguy" name="twitter:site"/>
 <meta content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" name="twitter:title"/>
-<meta content="Tomato: 32,768 GPR via banked SRAM, Dual-LUT copper, ISA and OS — discrete 32-bit machine." name="twitter:description"/>
+<meta content="Tomato: 256 × 32-bit FPGA registers, Dual-LUT ALU copper, Tomato OS v3.0, and an in-progress discrete machine." name="twitter:description"/>
 <meta content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" name="twitter:image"/>
 <meta content="Tyrone Marhguy" name="author"/>
 <link href="css/brand.css?v=7700e16c" rel="stylesheet"/>
-<link rel="stylesheet" href="css/navigation.css?v=4247b616" />
+<link rel="stylesheet" href="css/navigation.css?v=224d88a5" />
 <script src="js/navigation.js?v=c3d656fc" defer></script>
 </head>
 <body class="project-document">
 <div class="page project-page project-broadsheet"><a class="project-skip" href="#main">Skip to content</a>
-<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Message Tomato</a><a href="architecture.html">Engineering</a><a href="journal.html">Journal</a><a href="gallery.html">Gallery</a><a href="status.html">Status</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
 <main class="project-main" id="main">
 <section class="section section--hero">
 <div class="wrap lead-grid">
@@ -63,7 +64,7 @@
 <div class="lead-hed">
 <p class="kicker">The machine</p>
 <h2 class="headline">A discrete <span style="color: var(--red);">32-bit polymorphic</span> CPU.</h2>
-<p class="deck"><strong>32,768 GPR</strong> on discrete SRAM — primary bank in the word, secondary bank in a latch.
+<p class="deck"><strong>256 × 32-bit registers</strong> in current FPGA RTL — eight banks of 32, with r0 fixed to zero.
                 Dual-LUT copper underneath —
                 <strong>10 billion</strong> Verilator vectors on the byte slice,
                 <strong>130 billion</strong> on the 32-bit ALU,
@@ -74,8 +75,8 @@
 <ul aria-label="Tomato in six facts" class="pitch">
 <li><strong>32-bit</strong><span>homebrew CPU</span></li>
 <li><strong>74xx</strong><span>discrete copper</span></li>
-<li><strong>524,288</strong><span>ALU operations</span></li>
-<li><strong>32,768 GPR</strong><span><a href="journal/register-upgrade.html">banked SRAM</a></span></li>
+<li><strong>524,288</strong><span>ALU configurations</span></li>
+<li><strong>256 FPGA registers</strong><span>current RTL · eight banks</span></li>
 <li><strong>ISA</strong><span>512-row ROM</span></li>
 <li><strong>Tomato OS</strong><span>~2.3k asm lines</span></li>
 </ul>
@@ -165,7 +166,7 @@
                 mask-and-add: <code>A + (B AND C)</code>. Cryptographic acceleration:
                 <code>A + ((A AND B) XOR (NOT A AND C))</code>—SHA-256 Choose—in <strong>one cycle</strong>.
               </p>
-<p>The rest of this paper is optional. The facts that do not move sit in the table below: <a href="journal/register-upgrade.html"><strong>32,768 GPR</strong></a>,
+<p>The rest of this paper is optional. The facts that do not move sit in the table below: <strong>256 × 32-bit FPGA registers</strong>,
                 parametric ISA, hardware opcode compiler, formal sign-off. The copper is lot 07.
                 <a href="software.html">Tomato OS</a> paints the desktop — each glyph a native opcode.</p>
 </div>
@@ -183,12 +184,12 @@
 <article class="faq-gpr faq-gpr--panel">
 <header class="faq-gpr__hed">
 <p class="exhibit-label">The question everyone asks</p>
-<h2 class="faq-gpr__title">Why 32,768 GPR?</h2>
+<h2 class="faq-gpr__title">Earlier proposal: 32,768 registers</h2>
 </header>
 <div class="faq-gpr__body">
-<p class="faq-gpr__lead">Tomato exposes <strong>32,768 32-bit GPR locations</strong> because the selected discrete SRAMs (<span class="mono">AS6C62256-55PCN</span>, 32K × 8) already provide a full <strong>15-bit address space</strong>.</p>
-<p>The chips, buses, and mirrored 3R1W structure are already in the design — exposing anything less would leave usable address depth disconnected.</p>
-<p class="faq-gpr__punch">That is <strong>half</strong> the 65,536 × 32-bit physical register file in a single NVIDIA Blackwell SM.</p>
+<p class="faq-gpr__lead"><strong>Current FPGA RTL exposes 256 × 32-bit registers</strong> in eight banks, with r0 hardwired to zero. The earlier discrete-board proposal below explored 32,768 locations because the selected SRAMs (<span class="mono">AS6C62256-55PCN</span>, 32K × 8) provide a full <strong>15-bit address space</strong>.</p>
+<p>The comparison is retained as design history. It does not describe the register file running in the current FPGA machine.</p>
+<p class="faq-gpr__punch">Proposal capacity only: <strong>half</strong> the 65,536 × 32-bit physical register file in a single NVIDIA Blackwell SM.</p>
 </div>
 <aside aria-label="At a glance" class="faq-gpr__aside">
 <dl class="faq-gpr__facts">
@@ -210,9 +211,9 @@
 <article>
 <p class="kicker">Latest dispatch · 29 August 2026</p>
 <h2 class="headline">Register Upgrade</h2>
-<p class="deck"><strong>32,768 GPR</strong> — full 15-bit SRAM depth via primary bank and a latched superbank. Same instruction width. <a href="journal/register-upgrade.html">Read why</a></p>
+<p class="deck"><strong>Current FPGA RTL: 256 × 32-bit registers</strong> in eight banks. The larger SRAM superbank proposal remains in the dated journal.</p>
 <p class="byline">From the log · Register file · <a href="journal/register-upgrade.html">full entry</a></p>
-<p class="">The discrete AS6C62256 SRAMs already bring <strong>15 address bits</strong>. Tomato exposes all of them as <strong>32,768 GPR</strong> — half a Blackwell SM. Leaving pins disconnected would be the waste.</p>
+<p class="">A dated discrete-board proposal uses the full AS6C62256 depth. It is not the current FPGA implementation, which has 256 × 32-bit registers and r0 fixed to zero.</p>
 <p>Earlier: <a href="journal/tomato-works.html">Tomato works beautifully!</a>, One Press, One Key, and <a href="journal/pixels-on-glass.html">HDMI color bars</a>. The vault has thirty-four dispatches now.</p>
 </article>
 <figure class="plate plate--ink plate--dispatch-sum">
@@ -283,14 +284,14 @@
 </tr>
 <tr>
 <td>Polymorphic ALU</td>
-<td>Dual 8-bit LUT programs. <strong>524,288</strong> ops with carry-select</td>
+<td>Dual 8-bit LUT programs. <strong>524,288</strong> configurations with carry-select</td>
 </tr>
 <tr>
 <td>3R-1W register file</td>
 <td>Three reads, one write on execute</td>
 </tr>
 <tr>
-<td><a href="journal/register-upgrade.html">32,768 GPR</a></td>
+<td>256 × 32-bit in current FPGA RTL</td>
 <td>15-bit <span class="mono">AS6C62256</span> depth. Half a Blackwell SM's 65,536×32 physical file — one context</td>
 </tr>
 <tr>
@@ -376,7 +377,7 @@
                 manufacturability and brutal time constraints.(Someday, <strong>I will lay them out as raw transistors,
                   just as I always intended.</strong> ) But even in its current form, Tomato has outgrown its ALU roots.
                 It has taken on multiple shapes: <strong>8‑bit</strong>, <strong>32‑bit</strong>, even
-                <strong>40‑bit</strong> variants—it accommodates a <strong>quirky 3‑Read‑1‑Write <a href="journal/register-upgrade.html">32,768 GPR</a> register file</strong> I designed for it and the very‑long instruction word
+                <strong>40‑bit</strong> variants—it accommodates a <strong>banked 3‑Read‑1‑Write register-file design</strong> I explored for it and the very‑long instruction word
                 (<strong>VLIW</strong>) architecture it somehow demands.
               </p>
 </article>
@@ -576,7 +577,7 @@
 </div>
 </section>
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script type="module">
     const bench = document.getElementById("bench");

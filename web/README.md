@@ -118,6 +118,7 @@ web/
 ├── isa.html                # 512-row ROM & Mnemonic logic
 ├── software.html           # Assembler, Tomato OS, stack
 ├── playground.html         # Dual-LUT Emulator
+├── virtual.html            # Tomato OS in your browser (functional emulator)
 ├── journal.html            # Log Index
 ├── journal/*.html          # Typeset design logs (30)
 ├── boards.html             # Lots 01–08 tracking
@@ -131,6 +132,8 @@ web/
 ├── css/magazine.css        # The core broadsheet stylesheet
 ├── css/viewer.css          # Black studio lighting
 ├── js/                     # Engine: bench, viewer, alu emulator, forge
+├── js/tomato-cpu.js        # Functional CPU core (DOM-free, Node-tested)
+├── data/tomato-os.bin      # Repacked firmware image (tools/build_web_image.py)
 ├── assets/pcb/alu.glb      # Draco 07_alu (1.26 MB, 9 meshes)
 ├── tests/                  # Custom sanity + emulator test suite
 └── ATTRIBUTION.md
