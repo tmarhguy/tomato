@@ -23,7 +23,7 @@ jobs:
     name: vectors + inventory (python3 only)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Extract vectors + recount formal inventory
         run: make -C verification generate formal_inventory
 
@@ -31,7 +31,7 @@ jobs:
     name: gauntlet smoke (Verilator 1e5)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Install Verilator
         run: sudo apt-get update && sudo apt-get install -y verilator
       - name: Gauntlet sync check + smoke
@@ -41,7 +41,7 @@ jobs:
     name: gauntlet formal 1b (sby + z3)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Install SymbiYosys + solvers
         # NOTE: there is no `symbiyosys` package on PyPI — sby installs from
         # source (https://github.com/YosysHQ/sby, `sudo make install` copies
