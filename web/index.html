@@ -26,7 +26,7 @@
     }
   </script>
 <link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="css/landing.css?v=7a745185" rel="stylesheet"/>
+<link href="css/landing.css?v=52582aa3" rel="stylesheet"/>
 <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }
   </script>
@@ -35,21 +35,21 @@
 <link crossorigin="" href="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" rel="modulepreload"/>
 <link as="fetch" crossorigin="anonymous" href="assets/pcb/alu.glb" rel="preload" type="model/gltf-binary"/>
 <link href="css/navigation.css?v=224d88a5" rel="stylesheet"/>
-<link href="css/virtual.css?v=92806e61" rel="stylesheet"/>
+<link href="css/virtual.css?v=191d2ca8" rel="stylesheet"/>
 <script defer="" src="js/navigation.js?v=c3d656fc"></script>
 <!-- tomato-seo -->
-  <meta name="description" content="My custom 32-bit Dual-LUT computer: the ALU rewires with each instruction. Tomato OS runs on Artix-7 FPGA; I’m building the same machine in discrete 74xx logic." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, polymorphic CPU, LUT3 adder, 524288 ALU configurations, 32768 registers, immediate box, 130 billion test vectors, Tomato OS, discrete 74xx, expressiveness per cycle, tomato.tmarhguy.com, Tomato, 32-bit, dual-lut, discrete" />
+  <meta name="description" content="Tomato is a custom 32-bit architecture: a complete FPGA computer and Tomato OS, a browser emulator, a physically built discrete ALU slice, and Envelop messaging." />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, Dual-LUT ALU, FPGA computer, Nexys A7, Tomato OS, Envelop, browser emulator, discrete 74xx ALU" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
   <meta property="og:title" content="Tomato — A computer whose logic changes with each instruction" />
-  <meta property="og:description" content="My custom 32-bit Dual-LUT computer: the ALU rewires with each instruction. Tomato OS runs on Artix-7 FPGA; I’m building the same machine in discrete 74xx logic." />
+  <meta property="og:description" content="Tomato is a custom 32-bit architecture: a complete FPGA computer and Tomato OS, a browser emulator, a physically built discrete ALU slice, and Envelop messaging." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com" />
-  <link rel="canonical" href="https://tomato.tmarhguy.com" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -60,7 +60,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Tomato — A computer whose logic changes with each instruction" />
-  <meta name="twitter:description" content="My custom 32-bit Dual-LUT computer: the ALU rewires with each instruction. Tomato OS runs on Artix-7 FPGA; I’m building the same machine in discrete 74xx logic." />
+  <meta name="twitter:description" content="Tomato is a custom 32-bit architecture: a complete FPGA computer and Tomato OS, a browser emulator, a physically built discrete ALU slice, and Envelop messaging." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="KiCad render of the Tomato ALU circuit board" />
   <script type="application/ld+json">{
@@ -76,7 +76,7 @@
         "Tomato 32-bit CPU",
         "Tomato CPU"
       ],
-      "description": "A computer whose logic changes with each instruction—custom 32-bit Dual-LUT CPU on FPGA and discrete 74xx, with Tomato OS and formal verification.",
+      "description": "A custom 32-bit architecture with a complete FPGA machine, Tomato OS, a browser emulator, a physically built discrete ALU slice, and Envelop messaging.",
       "publisher": {
         "@type": "Person",
         "name": "Tyrone Marhguy",
@@ -88,7 +88,7 @@
       "@id": "https://tomato.tmarhguy.com#webpage",
       "url": "https://tomato.tmarhguy.com",
       "name": "Tomato — A computer whose logic changes with each instruction",
-      "description": "My custom 32-bit Dual-LUT computer: the ALU rewires with each instruction. Tomato OS runs on Artix-7 FPGA; I’m building the same machine in discrete 74xx logic.",
+      "description": "Play Tomato OS in a browser or message Tomato with Envelop. The complete computer runs on FPGA; the physical discrete build currently proves an ALU slice.",
       "isPartOf": {
         "@id": "https://tomato.tmarhguy.com/#website"
       },
@@ -96,7 +96,7 @@
       "about": {
         "@type": "Thing",
         "name": "Tomato homebrew 32-bit CPU",
-        "description": "A computer whose logic changes with each instruction—custom 32-bit Dual-LUT CPU on FPGA and discrete 74xx, with Tomato OS and formal verification."
+        "description": "A custom 32-bit architecture with explicit FPGA, physical ALU, browser-emulator, and messaging provenance."
       }
     }
   ]
@@ -109,7 +109,7 @@
 <a aria-label="Tomato home" class="wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a>
 <nav aria-label="Site" class="front-links">
 <a href="#virtual-world">Play Tomato</a>
-<a href="#envelop">Envelop</a>
+<a href="envelop.html">Message Tomato</a>
 <a href="compute.html">Compute</a>
 <a href="#what-is-tomato">The idea</a>
 <a href="architecture.html">Engineering</a>
@@ -117,7 +117,7 @@
 <a href="faq.html">FAQ</a>
 </nav>
 <button aria-label="Switch to light theme" class="theme-toggle" data-theme-toggle="" hidden="" type="button">Light mode</button>
-<details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="virtual.html">Virtual Tomato</a><a href="#envelop">Envelop</a><a href="https://tmarhguy.github.io/envelop/chat/">Envelop chat</a><a href="compute.html">Compute</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="virtual.html">Virtual Tomato</a><a href="envelop.html">Message Tomato</a><a href="https://tmarhguy.github.io/envelop/chat/">Envelop chat</a><a href="compute.html">Compute</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
 <main id="main">
 <section aria-labelledby="hero-title" class="hero">
 <div class="hero-stage">
@@ -156,50 +156,20 @@
 <div class="hero-copy">
 <h1 id="hero-title">A computer whose logic<br/><em>changes with each instruction.</em></h1>
 <p class="hero-pitch">I designed the 32-bit processor, built the computer around it, and wrote the operating system it runs in my dorm.</p>
-<div class="ecosystem-links hero-entry"><a href="#virtual-world">▶ Play Tomato OS</a><a href="https://tmarhguy.github.io/envelop/">Text Tomato with Envelop →</a><a href="compute.html">Ask it to compute →</a></div>
+<nav class="hero-journeys" aria-label="Ways to experience Tomato"><a class="hero-journey-primary" href="#virtual-world"><strong>Play Tomato OS</strong><span>Already booted below</span></a><a href="envelop.html"><strong>Message</strong><span>With Envelop</span></a><a href="compute.html"><strong>Compute</strong><span>See what ran</span></a></nav>
 <p class="hero-hook"><a href="#the-difference"><strong>524,288</strong> ALU configurations</a><span aria-hidden="true">·</span><a href="#running"><strong>Tomato OS</strong> running on FPGA</a></p>
 </div>
 </div>
 </div>
-</section>
-<section class="frame section-space ecosystem" id="virtual-world" aria-labelledby="virtual-title">
-<div class="section-label"><span>PLAY THE COMPUTER</span><span>No install · keyboard or touch</span></div>
-<div class="ecosystem-heading"><h2 id="virtual-title">The computer is real.<br/><em>Try its world right here.</em></h2><p>Boot Tomato OS, open the apps, steer Racer, stack Tetris blocks, or explore Envelop. The menu and pixels come from Tomato instructions, running in a browser CPU emulator. When you are ready for real execution, <a href="compute.html">the compute preview</a> shows how Envelop turns a question into a program Tomato runs.</p></div>
-<figure class="vt-embed" id="vt-embed">
-<div class="vt-embed-grid">
-<div class="vt-embed-stage">
-<canvas aria-label="Playable Tomato OS. Press play, then use arrow keys and Enter." class="vt-embed-screen" height="480" id="vt-embed-screen" tabindex="0" width="640"></canvas>
-<button class="vt-embed-play" id="vt-embed-play" type="button"><span class="vt-embed-playbtn">▶ Run Tomato OS</span><small>Boots the shipped firmware in your browser · no install</small></button>
-</div>
-<div class="vt-embed-side">
-<p class="vt-embed-status" id="vt-embed-status" role="status">Press play — nothing loads until you do.</p>
-<div aria-label="Controller" class="vt-embed-keys" role="group"><button aria-label="Up" class="vt-up" data-key="30" type="button">↑</button><button aria-label="Left" class="vt-left" data-key="17" type="button">←</button><button aria-label="Enter" data-key="13" type="button">●</button><button aria-label="Right" data-key="16" type="button">→</button><button aria-label="Down" class="vt-bottom" data-key="31" type="button">↓</button></div>
-<p class="vt-embed-hint">Arrows + Enter work when the screen has focus.</p>
-<a class="text-link" href="virtual.html">Open full screen + demo chat</a>
-</div>
-</div>
- <figcaption>Browser CPU emulator · current OS assembly · simulated peripherals · <a href="compute.html">local RTL compute is a separate preview</a></figcaption>
- </figure>
- <div class="ecosystem-links"><a href="virtual.html">Explore the full Virtual Tomato →</a><a href="compute.html">How Envelop × Tomato compute works →</a><a href="#envelop">Meet its messenger →</a><a href="os.html">Inside the operating system →</a></div>
-</section>
-<section class="frame section-space ecosystem" id="envelop" aria-labelledby="envelop-title">
-<div class="section-label"><span>TOMATO × ENVELOP</span><span>A computer you can message</span></div>
-<div class="ecosystem-heading"><h2 id="envelop-title">From a dorm room<br/><em>to a conversation.</em></h2><p>Envelop connects people and Tomato. A Mac bridge carries messages between the Internet and the FPGA over Bluetooth. Tomato draws the chat, receives your words, and sends its own replies.</p></div>
-<div class="ecosystem-cards">
-<article><span class="eco-tag">WORKING · HARDWARE CHAT</span><h3>Say hello to Tomato.</h3><p>A contact list. Yellow incoming messages. Green replies. The OS runs the conversation on the FPGA; Envelop brings it to the web. If the bridge is offline your note waits — it is never faked.</p><a href="https://tmarhguy.github.io/envelop/chat/">Open Envelop chat →</a><small>Hardware delivery needs its nearby bridge online. Offline? Web chat offers in-browser Virtual Tomato.</small></article>
-<article><span class="eco-tag">TRY NOW · BROWSER</span><h3>A whole OS to explore.</h3><p>Five buttons control the same assembly-built interface. On the full virtual board, connect a simulated phone and exchange messages with Tomato.</p><a href="virtual.html">Play with the demo phone →</a><small>Local simulation; no Bluetooth or Internet messages. Nothing loads until you press Play.</small></article>
-<article><span class="eco-tag">TESTED · LOCAL COMPUTE PREVIEW</span><h3>Ask. Compile. Execute.</h3><p>Envelop turns a supported expression into a program. Tomato executes it. The Mac app tries hardware first, then asks <strong>Use Virtual Tomato / Cancel</strong> — Cancel runs nothing. Every answer names its target.</p><code>(57 + 19) &amp; 0x3F → 12</code><a href="compute.html">Read the compute preview guide →</a><small>Verified on CPU RTL (12 / 0x0000000C). Virtual results are never replayed on hardware. Timeout means no confirmed result.</small></article>
-</div>
-<div class="ecosystem-links"><a href="https://tmarhguy.github.io/envelop/">Discover Envelop →</a><a href="compute.html">Read the compute preview guide →</a></div>
 </section>
 <section aria-labelledby="intro-title" class="intro frame section-space tomato-overview" id="what-is-tomato">
 <div class="section-label"><span>01 / WHAT IS TOMATO?</span><span>Processor · software · hardware</span></div>
 <div class="overview-heading"><h2 id="intro-title">What is Tomato?</h2><p>A <strong>32-bit computer I designed from the processor up in my dorm, during sophomore year.</strong></p></div>
 <ul class="overview-bullets">
 <li><a href="#the-difference"><strong>Dual-LUT3 ALU · 524,288 configurations</strong> — <code>f(A,B,C) + g(A,B,C) + Cin</code> in one cycle.</a></li>
-<li><a href="isa.html"><strong>52 mapped instructions</strong> — from 512 opcode slots; more still landing.</a></li>
+<li><a href="isa.html"><strong>61 instructions plus NOP</strong> — 62 burned rows in a 512-row control ROM.</a></li>
 <li><a href="#the-difference"><strong>Three-source datapath</strong> — compound Boolean and arithmetic without intermediate steps.</a></li>
-<li><a href="#why-32768"><strong>32,768 × 32-bit registers</strong> — banked file, three reads, one write.</a></li>
+<li><a href="architecture.html#register-file"><strong>256 × 32-bit FPGA registers</strong> — eight banks of 32; r0 is hardwired to zero.</a></li>
 <li><a href="#immediate-box"><strong>16-format immediate box</strong> — <code>imm7</code>/<code>imm12</code>-style widths for native ISA remaps.</a></li>
 <li><a href="#control"><strong>Distributed control</strong> — local ROMs beside the units they drive.</a></li>
 <li><a href="os.html"><strong>Assembler + Tomato OS on FPGA</strong> — graphics, games, video, and input on my CPU.</a></li>
@@ -207,6 +177,37 @@
 <li><a href="verification.html"><strong>130 billion ALU test vectors</strong> — simulation and formal checks at 1, 8, and 32 bits.</a></li>
 </ul>
 <div class="overview-bottom"><p>Its logic can change with each instruction.</p><a class="text-link" href="#the-difference">See how it works</a></div>
+</section>
+<section class="ecosystem-console frame" id="virtual-world" aria-labelledby="virtual-title">
+<div class="ecosystem-machine">
+<div class="section-label"><span>PLAY TOMATO</span><span>Virtual Tomato · keyboard or touch</span></div>
+<div class="ecosystem-console-heading"><div><p class="eco-tag">SHIPPED TOMATO OS APP</p><h2 id="virtual-title">The Compiler is already running.</h2></div><p>The real OS image boots directly into its Dual-LUT Compiler demo here. The operands, expected result, live output, and discovered LUT configuration are drawn by Tomato instructions—not by a mock overlay.</p></div>
+<figure class="vt-embed" id="vt-embed">
+<div class="vt-embed-grid">
+<div class="vt-embed-stage">
+<canvas aria-label="Playable Tomato OS. Use arrow keys and Enter when the screen has focus." class="vt-embed-screen" height="480" id="vt-embed-screen" tabindex="0" width="640"></canvas>
+<button class="vt-embed-play" hidden id="vt-embed-play" type="button"><span class="vt-embed-playbtn">Retry Tomato OS</span></button>
+</div>
+<div class="vt-embed-side">
+<p class="vt-embed-status" id="vt-embed-status" role="status" aria-live="polite">Loading Tomato OS…</p>
+<div aria-label="Controller" class="vt-embed-keys" role="group"><button aria-label="Up" class="vt-up" data-key="30" type="button">↑</button><button aria-label="Left" class="vt-left" data-key="17" type="button">←</button><button aria-label="Enter" data-key="13" type="button">●</button><button aria-label="Right" data-key="16" type="button">→</button><button aria-label="Down" class="vt-bottom" data-key="31" type="button">↓</button></div>
+<p class="vt-embed-hint">Change the selected value with ↑/↓, move with ←/→, and press ● to sweep, hold, or reset.</p>
+<a class="text-link" href="virtual.html">Open full screen + demo chat</a>
+</div>
+</div>
+ <figcaption>Current Tomato OS assembly in the browser CPU emulator · deterministic Compiler boot · simulated peripherals · not an FPGA result</figcaption>
+ </figure>
+<nav class="ecosystem-console-links" aria-label="Explore Tomato OS"><a href="virtual.html">Full Virtual Tomato</a><a href="os.html">Inside Tomato OS</a><a href="compute.html">Compute provenance</a></nav>
+</div>
+<aside class="ecosystem-message" id="envelop" aria-labelledby="envelop-title">
+<p class="eco-tag">TOMATO × ENVELOP</p>
+<h2 id="envelop-title">Message the machine.</h2>
+<p>Envelop ships inside Tomato OS. Its browser messenger queues traffic for a nearby verified bridge; only a completed hardware job earns a Hardware Tomato label.</p>
+<figure><img src="assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp" width="1440" height="1000" loading="lazy" decoding="async" alt="Envelop open inside Tomato OS in the desktop Virtual Tomato browser emulator, with simulated phone controls"/><figcaption>Virtual Tomato · simulated phone · bridge offline</figcaption></figure>
+<a class="button button-red" href="https://tmarhguy.github.io/envelop/chat/">Open Envelop chat</a>
+<a class="text-link" href="envelop.html">How messages reach Tomato</a>
+<small>Hardware may be offline. Messages wait; ambiguous outcomes are never replayed virtually.</small>
+</aside>
 </section>
 <section aria-labelledby="running-title" class="running section-space" id="running">
 <div class="frame"><div class="section-label"><span>02 / THE PROOF YOU CAN SEE</span><span>Recorded on the FPGA prototype</span></div>
@@ -220,35 +221,19 @@
 </section>
 <section aria-labelledby="status-title" class="bench-status section-space" id="status">
 <div class="frame">
-<div class="section-label"><span>03 / STATUS · ON THE BENCH</span><span>Lot 07 · reconfigurable ALU slice</span></div>
+<div class="section-label"><span>03 / PHYSICAL PROOF</span><span>Lot 07 · discrete 8-bit ALU slice</span></div>
 <div class="bench-status-layout">
 <div class="bench-status-copy">
-<h2 id="status-title">The central ALU is designed,<br/>fabricated, and <em>routed.</em></h2>
-<p>This is an 8-bit slice—Tomato’s ALU. The reconfigurable Dual-LUT core is on copper. Everything else on the board is there to test that ALU while I experiment with unconventional architectures from the ground up.</p>
-<div class="builder-links"><a class="text-link" href="status.html">What exists today</a><a class="text-link" href="gallery.html">Open the gallery</a><a class="text-link" href="boards/07-alu.html">Lot 07 board notes</a></div>
+<h2 id="status-title">The discrete 8-bit ALU slice is<br/><em>assembled and under bench test.</em></h2>
+<p>This Lot 07 board is a physical slice of Tomato’s Dual-LUT ALU. It is not the complete discrete computer; the complete working Tomato computer currently runs on the Nexys A7 FPGA.</p>
+<div class="builder-links"><a class="text-link" href="status.html">See the full evidence boundary</a></div>
 </div>
-<div class="bench-status-media" aria-label="Physical ALU board and assembly clip">
+<div class="bench-status-media" aria-label="Physical Tomato ALU slice">
 <figure class="bench-status-still">
 <div class="bench-still-frame">
 <img alt="Half-soldered Tomato 07_alu board held next to its Digital simulation" decoding="async" height="1120" loading="lazy" sizes="(max-width: 700px) 92vw, 28vw" src="assets/gallery/assembly/half-soldered-plate-1280w.webp" srcset="assets/gallery/assembly/half-soldered-plate-640w.webp 640w, assets/gallery/assembly/half-soldered-plate-1280w.webp 1280w" width="1120"/>
 </div>
-<figcaption><span class="bench-meta-chapter">Arrival &amp; Assembly · 18 Aug 2026</span><strong>Half-soldered, next to Digital</strong><span>07_alu · first population · CELL 0 / CELL 1</span></figcaption>
-</figure>
-<figure class="bench-status-clip">
-<div class="bench-clip-frame">
-<video aria-label="Soldering lights on the loop — Tomato 07_alu on the bench" autoplay="" controls="" data-auto-preview="" loop="" muted="" playsinline="" poster="assets/assembly/work-setup.webp" preload="metadata" width="960" height="738">
-<source src="assets/assembly/work-setup.mp4" type="video/mp4"/>
-</video>
-</div>
-<figcaption>
-<span class="bench-meta-chapter">Arrival &amp; Assembly · 23 Aug 2026</span>
-<strong>Soldering lights on the loop</strong>
-<span>07_alu · bench · board cutaways</span>
-<dl class="bench-clip-facts">
-<div><dt>View</dt><dd>Bench · landscape</dd></div>
-<div><dt>Clip</dt><dd>~45 s · 3s / 2s still</dd></div>
-</dl>
-</figcaption>
+<figcaption><strong>Physical Lot 07 ALU slice</strong><span>Discrete 74ACT logic on copper · assembly record, 18 Aug 2026</span></figcaption>
 </figure>
 </div>
 </div>
@@ -292,15 +277,8 @@
 <figure class="polymorphic-map poly-exhibit"><figcaption>One instruction configures all four</figcaption><div class="poly-control"><span>9-bit opcode</span><strong>Instruction ROM</strong><span>Control word ↓</span></div><div class="poly-branches"><div class="poly-branch poly-branch--alu"><span class="poly-label">01 / The operation</span><strong>Two truth tables.<br/>One adder.</strong><code>f(A,B,C) + g(A,B,C) + cin</code><p>Arithmetic, Boolean logic, or both in the same evaluation.</p></div><div class="poly-branch"><span class="poly-label">02 / The inputs</span><strong>Choose the operands</strong><p>Register values and immediate sources feed the computation.</p></div><div class="poly-branch"><span class="poly-label">03 / The instruction bits</span><strong>Interpret the immediate</strong><p>Sixteen selections construct signed, unsigned, and other forms.</p></div><div class="poly-branch"><span class="poly-label">04 / The result</span><strong>Write back. Set flags. Continue.</strong><p>Controls select where the result goes and how execution proceeds.</p></div></div><a class="text-link" href="architecture.html">Explore the complete architecture</a></figure>
 </article></details>
 </section>
-<section aria-labelledby="compiler-title" class="frame section-space hardware-compiler" id="hardware-compiler"><div class="section-label"><span>COUNTER FSM</span><span>Latch a matching opcode</span></div><div class="compiler-layout"><div><h2 id="compiler-title"><span class="compiler-title-lead">Hardware-level compiler</span>Find the operation once.<br/><em>Reuse it in one ALU pass.</em></h2><div class="prose"><p>A counter FSM that acts as a primitive hardware compiler. At about 1–10 MHz it brute-forces the ALU’s 65,536 Dual-LUT configurations in milliseconds.</p><p>You supply fixed inputs and a target output. The FSM sweeps opcode space, freezes on a match, and latches that opcode—so I can reuse exotic single-cycle operations that would otherwise take many instructions.</p><p class="compiler-scope">A match is still a candidate to verify—yes, but the search is nearly instant at intended frequencies.</p></div><a class="text-link" href="playground.html#compiler">Explore the hardware compiler</a></div><div class="compiler-media-pair"><figure><div class="compiler-frame"><video aria-label="Hardware compiler in Digital simulation" autoplay="" controls="" data-auto-preview="" loop="" muted="" playsinline="" poster="assets/compiler/opcode-sweep-sim.webp" preload="metadata"><source src="assets/compiler/opcode-sweep-sim.mp4" type="video/mp4"/></video></div><figcaption>Digital simulation · follow the search through the circuit.</figcaption></figure><figure><div class="compiler-frame"><video aria-label="Hardware compiler running on FPGA" autoplay="" controls="" data-auto-preview="" loop="" muted="" playsinline="" poster="assets/compiler/opcode-sweep-fpga.webp" preload="metadata"><source src="assets/compiler/opcode-sweep-fpga.mp4" type="video/mp4"/></video></div><figcaption>FPGA · the same search running in hardware.</figcaption></figure><p>Recordings show the sweep in Digital and on the Artix-7.</p></div></div><ol class="compiler-flow"><li><span>01 / SPECIFY</span><strong>Inputs + desired output</strong></li><li><span>02 / SWEEP</span><strong>Counter tries F × G opcodes</strong></li><li><span>03 / MATCH</span><strong>Freeze and latch the opcode</strong></li><li><span>04 / VERIFY</span><strong>Check more inputs and the function</strong></li></ol></section>
+<section aria-labelledby="compiler-title" class="frame section-space hardware-compiler" id="hardware-compiler"><div class="section-label"><span>COUNTER FSM</span><span>Latch a matching opcode</span></div><div class="compiler-layout"><div><h2 id="compiler-title"><span class="compiler-title-lead">Hardware-level compiler</span>Find the operation once.<br/><em>Reuse it in one ALU pass.</em></h2><div class="prose"><p>A counter FSM that acts as a primitive hardware compiler. It tests one of the ALU’s 65,536 Dual-LUT configurations per CPU clock; on the default 6.25 MHz FPGA CPU, a full sweep takes at most about 10.5 ms.</p><p>You supply fixed inputs and a target output. The FSM sweeps opcode space, freezes on a match, and latches that opcode—so I can reuse exotic single-cycle operations that would otherwise take many instructions.</p><p class="compiler-scope">A match is still a candidate to verify; sweep time scales directly with the CPU clock.</p></div><a class="text-link" href="playground.html#compiler">Explore the hardware compiler</a></div><div class="compiler-media-pair"><figure><div class="compiler-frame"><video aria-label="Hardware compiler in Digital simulation" autoplay="" controls="" data-auto-preview="" loop="" muted="" playsinline="" poster="assets/compiler/opcode-sweep-sim.webp" preload="metadata"><source src="assets/compiler/opcode-sweep-sim.mp4" type="video/mp4"/></video></div><figcaption>Digital simulation · follow the search through the circuit.</figcaption></figure><figure><div class="compiler-frame"><video aria-label="Hardware compiler running on FPGA" autoplay="" controls="" data-auto-preview="" loop="" muted="" playsinline="" poster="assets/compiler/opcode-sweep-fpga.webp" preload="metadata"><source src="assets/compiler/opcode-sweep-fpga.mp4" type="video/mp4"/></video></div><figcaption>FPGA · the same search running in hardware.</figcaption></figure><p>Recordings show the sweep in Digital and on the Artix-7.</p></div></div><ol class="compiler-flow"><li><span>01 / SPECIFY</span><strong>Inputs + desired output</strong></li><li><span>02 / SWEEP</span><strong>Counter tries F × G opcodes</strong></li><li><span>03 / MATCH</span><strong>Freeze and latch the opcode</strong></li><li><span>04 / VERIFY</span><strong>Check more inputs and the function</strong></li></ol></section>
 
-<section aria-labelledby="register-title" class="registers section-space" id="why-32768"><div class="frame">
-<div class="section-label"><span>05 / ROOM TO THINK</span><span>32,768 × 32-BIT REGISTER FILE</span></div>
-<div class="register-grid"><div><p class="eyebrow">Ordinary memory chips. Unusual scale.</p><h2 id="register-title">Half the register<br/>capacity of one<br/><em>NVIDIA Blackwell SM.</em></h2><p class="register-deck">32,768 register locations. Built into my own computer architecture.</p><div class="prose"><p><strong>Registers are a processor’s working storage:</strong> places to keep the numbers it is using right now. I gave Tomato room for 32,768 values, each 32 bits wide, by using the full 15-bit address depth of its <strong>AS6C62256</strong> SRAM chips (32K × 8).</p><p>For perspective: <strong><a href="https://docs.riscv.org/reference/isa/v20260120/unpriv/rv32.html">RISC-V RV32I</a></strong> exposes 32 architectural integer registers, including x0, which is fixed at zero. One <strong>streaming multiprocessor (SM)</strong> inside an NVIDIA Blackwell GPU has 65,536 32-bit registers. Tomato sits between those worlds—banked storage on a homebrew CPU, not a GPU.</p></div></div>
-<div aria-label="Register storage capacity: RISC-V RV32I, 32 general-purpose registers; Tomato, 32,768 32-bit locations; one NVIDIA Blackwell SM, 65,536 32-bit registers. Capacity comparison only." class="register-chart" role="img"><div class="chart-heading"><span>32-BIT REGISTER LOCATIONS</span><span>CAPACITY</span></div><div class="chart-row chart-row-riscv"><div><span>RISC-V RV32I · GPRs</span><strong>32</strong></div><div class="bar-track"><span class="bar bar-riscv"></span></div><small>128 B · 32 architectural registers; x0 is fixed at zero</small></div><div class="chart-row chart-row-tomato"><div><span>Tomato · register file</span><strong>32,768</strong></div><div class="bar-track"><span class="bar bar-tomato"></span></div><small>128 KiB · 32,768 locations × 4 bytes · 1,024× RV32I</small></div><div class="chart-row"><div><span>NVIDIA Blackwell · one SM</span><strong>65,536</strong></div><div class="bar-track"><span class="bar bar-blackwell"></span></div><small>256 KiB · one processing block within the GPU</small></div><p class="comparison-note">This compares storage capacity only. A GPU shares registers across many threads; RISC-V counts architectural GPRs; Tomato uses banked SRAM. It does not imply comparable speed, bandwidth, or AI performance.</p></div></div>
-<figure aria-labelledby="address-title" class="address-figure"><figcaption class="diagram-heading"><h3 id="address-title">How I address all 32,768 locations.</h3><p>Three fields combine into one 15-bit address.</p></figcaption><div aria-label="7 superbank bits select one of 128 superbanks; 3 bank bits select one of 8 banks; 5 register bits select one of 32 registers. 128 times 8 times 32 equals 32,768 locations." class="address-fields" role="img"><div><span>7 BITS</span><strong>Superbank</strong><small>128 groups</small></div><div><span>3 BITS</span><strong>Bank</strong><small>8 banks per group</small></div><div><span>5 BITS</span><strong>Register</strong><small>32 names per bank</small></div></div><p class="diagram-caption"><code>128 × 8 × 32 = 32,768</code><span>Banking keeps the instruction word at 32 bits. The superbank is held in a latch.</span></p></figure>
-<div class="register-sources"><p>The <span class="mono">AS6C62256</span> chips give me 15 address bits. I use all of them.</p><a href="journal/register-upgrade.html">Why I chose 32,768 registers</a><a href="https://docs.nvidia.com/cuda/blackwell-tuning-guide/index.html#occupancy" rel="noopener noreferrer" target="_blank">NVIDIA’s register specification</a></div>
-</div></section>
 <section class="frame section-space compound-comparison" id="compound-work"><div class="section-label"><span>WHERE THE DATAPATH MAKES A DIFFERENCE</span><span>Base RV32I vs Tomato Dual-LUT</span></div><div class="section-heading"><h2>If I can’t win on frequency,<br/><em>I want to win on expressiveness.</em></h2><p>A discrete machine may not chase GHz clocks—but it can pack more useful work into each cycle. Tomato’s Dual-LUT path turns compound Boolean and arithmetic into fewer ALU passes: more done per instruction, fewer steps for the same job. The examples below show where that pays off—and where base RV32I is more direct.</p></div><div class="comparison-takeaways"><p><strong>1 vs 1</strong><span>Addition · a tie</span></p><p><strong>1 vs 2</strong><span>Signed comparison · RV32I advantage</span></p><p><strong>8 vs 2</strong><span>Two-stage vote · Tomato advantage</span></p></div><figure class="compound-trend"><figcaption><span class="rv-key">RISC-V RV32I · instructions</span><span class="tomato-key">Tomato · ALU evaluations</span></figcaption><div class="compound-chart-scroll" tabindex="0" role="region" aria-label="Operation comparison chart; scroll horizontally on small screens"><svg viewBox="0 0 1060 365" role="img" aria-labelledby="compound-chart-title compound-chart-desc"><title id="compound-chart-title">Operation counts: ties, a RISC-V advantage, and compound-work advantages for Tomato.</title><desc id="compound-chart-desc">Vertical axis starts at zero. Each expression has one point per architecture. Exact sequences and counts appear in the expandable rows below.</desc><text x="48" y="30" class="axis-title">Operation count · lower is fewer</text><line class="chart-grid" x1="60" x2="1010" y1="295" y2="295"/><text x="45" y="299" text-anchor="end">0</text><line class="chart-grid" x1="60" x2="1010" y1="267" y2="267"/><text x="45" y="271" text-anchor="end">1</text><line class="chart-grid" x1="60" x2="1010" y1="239" y2="239"/><text x="45" y="243" text-anchor="end">2</text><line class="chart-grid" x1="60" x2="1010" y1="211" y2="211"/><text x="45" y="215" text-anchor="end">3</text><line class="chart-grid" x1="60" x2="1010" y1="183" y2="183"/><text x="45" y="187" text-anchor="end">4</text><line class="chart-grid" x1="60" x2="1010" y1="155" y2="155"/><text x="45" y="159" text-anchor="end">5</text><line class="chart-grid" x1="60" x2="1010" y1="127" y2="127"/><text x="45" y="131" text-anchor="end">6</text><line class="chart-grid" x1="60" x2="1010" y1="99" y2="99"/><text x="45" y="103" text-anchor="end">7</text><line class="chart-grid" x1="60" x2="1010" y1="71" y2="71"/><text x="45" y="75" text-anchor="end">8</text><polyline class="rv-line" points="85,267 184,267 283,239 382,239 481,211 580,183 679,155 778,127 877,127 976,71"/><circle class="rv-dot" cx="85" cy="267" r="5"/><text x="85" y="253" text-anchor="middle">1</text><circle class="rv-dot" cx="184" cy="267" r="5"/><text x="184" y="288" text-anchor="middle">1</text><circle class="rv-dot" cx="283" cy="239" r="5"/><text x="283" y="225" text-anchor="middle">2</text><circle class="rv-dot" cx="382" cy="239" r="5"/><text x="382" y="225" text-anchor="middle">2</text><circle class="rv-dot" cx="481" cy="211" r="5"/><text x="481" y="197" text-anchor="middle">3</text><circle class="rv-dot" cx="580" cy="183" r="5"/><text x="580" y="169" text-anchor="middle">4</text><circle class="rv-dot" cx="679" cy="155" r="5"/><text x="679" y="141" text-anchor="middle">5</text><circle class="rv-dot" cx="778" cy="127" r="5"/><text x="778" y="113" text-anchor="middle">6</text><circle class="rv-dot" cx="877" cy="127" r="5"/><text x="877" y="113" text-anchor="middle">6</text><circle class="rv-dot" cx="976" cy="71" r="5"/><text x="976" y="57" text-anchor="middle">8</text><polyline class="tomato-line" points="85,267 184,239 283,267 382,267 481,267 580,267 679,267 778,239 877,239 976,239"/><circle class="tomato-dot" cx="85" cy="267" r="5"/><text x="85" y="288" text-anchor="middle">1</text><circle class="tomato-dot" cx="184" cy="239" r="5"/><text x="184" y="225" text-anchor="middle">2</text><circle class="tomato-dot" cx="283" cy="267" r="5"/><text x="283" y="288" text-anchor="middle">1</text><circle class="tomato-dot" cx="382" cy="267" r="5"/><text x="382" y="288" text-anchor="middle">1</text><circle class="tomato-dot" cx="481" cy="267" r="5"/><text x="481" y="288" text-anchor="middle">1</text><circle class="tomato-dot" cx="580" cy="267" r="5"/><text x="580" y="288" text-anchor="middle">1</text><circle class="tomato-dot" cx="679" cy="267" r="5"/><text x="679" y="288" text-anchor="middle">1</text><circle class="tomato-dot" cx="778" cy="239" r="5"/><text x="778" y="260" text-anchor="middle">2</text><circle class="tomato-dot" cx="877" cy="239" r="5"/><text x="877" y="260" text-anchor="middle">2</text><circle class="tomato-dot" cx="976" cy="239" r="5"/><text x="976" y="260" text-anchor="middle">2</text><text class="expression-label" x="85" y="325" text-anchor="middle"><tspan x="85" dy="0">Add</tspan></text><text class="expression-label" x="184" y="325" text-anchor="middle"><tspan x="184" dy="0">Signed</tspan><tspan x="184" dy="15">less-than</tspan></text><text class="expression-label" x="283" y="325" text-anchor="middle"><tspan x="283" dy="0">Mask</tspan><tspan x="283" dy="15">+ add</tspan></text><text class="expression-label" x="382" y="325" text-anchor="middle"><tspan x="382" dy="0">Mask</tspan><tspan x="382" dy="15">− subtract</tspan></text><text class="expression-label" x="481" y="325" text-anchor="middle"><tspan x="481" dy="0">Choose</tspan></text><text class="expression-label" x="580" y="325" text-anchor="middle"><tspan x="580" dy="0">Majority</tspan></text><text class="expression-label" x="679" y="325" text-anchor="middle"><tspan x="679" dy="0">XOR3</tspan><tspan x="679" dy="15">+ AND3</tspan></text><text class="expression-label" x="778" y="325" text-anchor="middle"><tspan x="778" dy="0">Two</tspan><tspan x="778" dy="15">selections</tspan></text><text class="expression-label" x="877" y="325" text-anchor="middle"><tspan x="877" dy="0">Vote, mask</tspan><tspan x="877" dy="15">+ add</tspan></text><text class="expression-label" x="976" y="325" text-anchor="middle"><tspan x="976" dy="0">Two-stage</tspan><tspan x="976" dy="15">vote</tspan></text></svg></div><p class="chart-reading-note">Expressions run left to right. Lines connect discrete examples; this is not a scaling or timing curve.</p></figure><div class="compound-compact"><div class="compound-columns"><span>Expression · expand for the steps</span><span>RV32I / Tomato</span></div><details class="compound-row" data-comparison="add"><summary><span><small>01</small>Add</span><span><b class="rv-count">1</b><i>/</i><b class="tomato-count">1</b></span></summary><div class="compound-row-body"><code>A + B</code><div><p><strong>RV32I · 1 instruction</strong><code>ADD out, A, B</code></p><p><strong>Tomato · 1 ALU evaluation</strong><code>1. (A, B, C) → out
    F=0xAA; G=0xCC; carry=0</code></p></div><p class="sequence-explanation">A tie: ordinary addition needs one step on each datapath.</p></div></details><details class="compound-row" data-comparison="slt"><summary><span><small>02</small>Signed less-than</span><span><b class="rv-count">1</b><i>/</i><b class="tomato-count">2</b></span></summary><div class="compound-row-body"><code>out = signed(A) &lt; signed(B) ? 1 : 0</code><div><p><strong>RV32I · 1 instruction</strong><code>SLT out, A, B</code></p><p><strong>Tomato · 2 ALU evaluations</strong><code>1. (A, B, C) → discard
    F=0xAA; G=0x33; carry=1; latch flags
@@ -374,16 +352,16 @@ OR out, t1, t2</code></p><p><strong>Tomato · 2 ALU evaluations</strong><code>1.
 <details><summary>Why three inputs—not two or four?</summary><p>Two felt too close to a 74181. Four blows up the lookup hardware. Three keeps each truth table at eight entries while still fitting <code>A + (B AND C)</code> in one evaluation. <a href="faq.html#design-3">More</a></p></details>
 <details><summary>What actually happens in the ALU?</summary><p>Inputs feed two lookup planes; their outputs go straight into the adder: <code>f(A,B,C) + g(A,B,C) + cin</code>. There is no final mux choosing between separate logic and arithmetic results. <a href="faq.html#design-4">More</a></p></details>
 <details><summary>Are there really 524,288 different operations?</summary><p>256 × 256 × 8 carry sources = 524,288 control settings. Many implement the same function. That is control space—not 524,288 unique instructions in the ROM. <a href="faq.html#design-5">More</a></p></details>
-<details><summary>What is the hardware compiler?</summary><p>A counter FSM that brute-forces 65,536 Dual-LUT configs at about 1–10 MHz, freezes on a match, and latches that opcode for reuse. A match is still a candidate to verify. <a href="faq.html#proof-3">More</a></p></details>
+<details><summary>What is the hardware compiler?</summary><p>A counter FSM tests one Dual-LUT configuration per CPU clock. On the default 6.25 MHz FPGA CPU, a 65,536-configuration sweep takes at most about 10.5 ms before it freezes on a match or finishes. A match is still a candidate to verify. <a href="faq.html#proof-3">More</a></p></details>
 <details><summary>Has the entire CPU been formally verified?</summary><p>Not yet. The ALU has simulation and formal checks. The whole CPU has Verilog simulation and software running on FPGA—different evidence. ALU proofs are not a proof of the complete computer. <a href="faq.html#proof-1">More</a></p></details>
 </div>
 <a class="text-link" href="faq.html">All questions on the FAQ page</a>
 </section>
 <section aria-labelledby="explore-title" class="explore frame section-space" id="engineering"><div class="section-label"><span>09 / OPEN THE WORK</span><span>Schematics, software, and the decisions in between</span></div><h2 id="explore-title">Go as deep as you like.</h2><div class="explore-grid"><a href="architecture.html"><span>01</span><h3>Understand the design</h3><p>Datapath, instruction format, and the decisions that shape the machine.</p></a><a href="playground.html"><span>02</span><h3>Experiment with the logic</h3><p>Change inputs, program the truth tables, and trace the result.</p></a><a href="faq.html"><span>03</span><h3>Ask why it looks this way</h3><p>Two LUTs, three inputs, verification, and the hardware compiler—answered plainly.</p></a><a href="journal.html"><span>04</span><h3>Follow the build</h3><p>The breakthroughs, soldering sessions, wrong turns, and next steps.</p></a><a href="source.html"><span>05</span><h3>Read the source</h3><p>Logic schematics, board layouts, test harnesses, and assembly.</p></a></div></section>
 </main>
-<footer class="front-footer frame"><div class="footer-top"><a class="footer-logo" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a class="text-link" href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="footer-nav"><a href="virtual.html">Virtual Tomato</a><a href="index.html#envelop">Envelop</a><a href="compute.html">Compute</a><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html#compiler">Opcode compiler</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato" rel="noopener noreferrer" target="_blank">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="front-footer frame"><div class="footer-top"><a class="footer-logo" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a class="text-link" href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="footer-nav"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato" rel="noopener noreferrer" target="_blank">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 <script src="js/landing.js?v=c7c2c24d" type="module"></script>
-<script src="js/virtual-embed.js?v=ccfdb59d" type="module"></script>
+<script src="js/virtual-embed.js?v=6029f68e" type="module"></script>
 <!-- tomato-vercel -->
 <script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>

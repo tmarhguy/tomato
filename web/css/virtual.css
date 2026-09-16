@@ -47,6 +47,9 @@ width:min(100%, max(20rem, calc((100svh - 18rem) * 4 / 3)));}
 .vt-panel{max-height:calc(100svh - 18rem);overflow:auto}
 .vt-hide-ui .vt-layout{grid-template-columns:minmax(0,1fr)}
 .vt-hide-ui .vt-panel{display:none}
+.vt-proof{max-width:64rem;margin:2.5rem auto 0}
+.vt-proof img{display:block;width:100%;height:auto;max-height:46rem;object-fit:contain;object-position:top center;border:1px solid var(--rule);border-radius:var(--site-r-frame);background:var(--wash)}
+.vt-proof figcaption{margin-top:.65rem;color:var(--muted);font-size:.82rem;line-height:1.5}
 .vt-about{margin-top:1.5rem}
 .vt-about summary{cursor:pointer;font-family:var(--site-ui);font-size:.85rem;font-weight:700;letter-spacing:.04em;color:var(--ink)}
 .vt-about summary:focus-visible{outline:2px solid var(--red);outline-offset:2px}
@@ -69,8 +72,8 @@ width:min(100%, max(20rem, calc((100svh - 18rem) * 4 / 3)));}
 .vt-embed-play[hidden]{display:none}
 .vt-embed-play .vt-embed-playbtn{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:.7rem 1.4rem;border:1px solid var(--red);border-radius:999px;background:var(--red);color:var(--bg);font-weight:700;font-size:.95rem;letter-spacing:.02em}
 .vt-embed-play small{font-size:.8rem;opacity:.85}
-figure.vt-embed div.vt-embed-keys{display:grid;grid-template-columns:repeat(3,2.5rem);gap:.4rem;justify-content:start;margin:.8rem 0}
-figure.vt-embed div.vt-embed-keys > button{flex:none;min-width:0;width:2.5rem;padding:.45rem 0;border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);color:var(--ink);font-family:var(--site-ui);font-size:.85rem;font-weight:700;cursor:pointer}
+figure.vt-embed div.vt-embed-keys{display:grid;grid-template-columns:repeat(3,2.75rem);gap:.4rem;justify-content:start;margin:.8rem 0}
+figure.vt-embed div.vt-embed-keys > button{flex:none;min-width:44px;min-height:44px;width:2.75rem;padding:.45rem 0;border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);color:var(--ink);font-family:var(--site-ui);font-size:.85rem;font-weight:700;cursor:pointer}
 figure.vt-embed div.vt-embed-keys > button:hover{border-color:var(--dust)}
 figure.vt-embed div.vt-embed-keys > button:active{border-color:var(--red)}
 figure.vt-embed div.vt-embed-keys > button:focus-visible{outline:2px solid var(--red);outline-offset:2px}

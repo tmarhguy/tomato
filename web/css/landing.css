@@ -890,7 +890,28 @@ h1 {
 #logic-choices label { min-width: 0; padding: .45rem .5rem; font-size: .8125rem; }
 #logic-choices input { flex-shrink: 0; }
 @media(max-width:760px) {
-  .hero { --front-nav-height: 7.5rem; }
+  /* The mobile browser's usable height can be much shorter than the physical
+     screen once Chrome's bars and the keyboard are present. Keep the opening
+     in normal document flow: the previous viewport-locked flex hero allocated
+     less space than the board's 18rem minimum, so the board controls painted
+     over the headline and CTAs on a real 360px-wide phone. */
+  .hero {
+    display: block;
+    min-height: 0;
+  }
+  .hero-stage,
+  .hero-board {
+    display: block;
+    min-height: 0;
+  }
+  .hero-board .bench-stage {
+    height: clamp(15rem, 42svh, 22rem);
+    min-height: 0;
+    max-height: none;
+  }
+  .board-chrome {
+    min-height: 4.25rem;
+  }
   .logic-operands { grid-template-columns: repeat(3,minmax(0,1fr)); gap:.4rem; }
   .logic-operands label { padding:.5rem; }
   .logic-operands code { font-size:.75rem; overflow-wrap:anywhere; }
@@ -920,10 +941,11 @@ h1 {
 .bench-status-copy > p { color:var(--muted); font-size:1rem; line-height:1.75; margin-block:1.25rem; max-width:38rem; }
 .bench-status-media {
   display: grid;
-  /* Column widths ∝ aspect ratios → same frame height, native ratios. */
-  grid-template-columns: minmax(0, 738fr) minmax(0, 960fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   min-width: 0;
+  max-width: 32rem;
+  justify-self: end;
   align-items: start;
 }
 .bench-status-media figure { margin:0; min-width:0; display:flex; flex-direction:column; }
@@ -1181,10 +1203,21 @@ h1 {
 
 /* The software and connected world belong beside the hardware. */
 .ecosystem { scroll-margin-top: 2rem; }
+.ecosystem-pair { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;padding-bottom:clamp(3rem,7vw,6rem); }
+.ecosystem-pair > .ecosystem { width:100%;margin:0;padding:clamp(1.5rem,3vw,2.5rem);border:1px solid var(--line);border-radius:14px;background:var(--surface);min-width:0; }
+.ecosystem-pair .ecosystem-heading { grid-template-columns:1fr;gap:1rem;align-items:start; }
+.ecosystem-pair .ecosystem-heading h2 { font-size:clamp(2rem,3.5vw,3.25rem); }
+.ecosystem-pair .vt-embed-grid { grid-template-columns:1fr; }
+.ecosystem-pair .ecosystem-cards { grid-template-columns:1fr; }
+.ecosystem-pair .ecosystem-cards article+article { border-left:0;border-top:1px solid var(--line); }
+.ecosystem-pair .ecosystem-proof img { max-height:32rem; }
 .ecosystem-heading { display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:end;margin:2rem 0; }
 .ecosystem-heading h2 { font-size:clamp(2rem,4.5vw,4.4rem);line-height:1.08;letter-spacing:-.045em;margin:0; }
 .ecosystem-heading h2 em { font-style:normal;color:var(--green); }
 .ecosystem-heading p { color:var(--muted);max-width:44rem;margin:0; }
+.ecosystem-proof { margin:2rem 0; }
+.ecosystem-proof img { display:block;width:100%;height:auto;max-height:46rem;object-fit:contain;object-position:top center;border:1px solid var(--line);border-radius:12px;background:var(--surface); }
+.ecosystem-proof figcaption { margin-top:.65rem;color:var(--muted);font-size:.82rem;line-height:1.5; }
 .ecosystem-links { display:flex;flex-wrap:wrap;gap:1rem 2rem;margin-top:1.8rem;font-weight:600; }
 .ecosystem-links a { text-decoration:underline;text-decoration-thickness:1px; }
 .hero-entry { margin:1rem 0; }
@@ -1197,4 +1230,116 @@ h1 {
 .ecosystem-cards a { text-decoration:underline; }
 .eco-tag { font: .7rem/1.5 var(--mono);letter-spacing:.06em;color:var(--green); }
 .ecosystem-cards code { overflow-wrap:anywhere; }
-@media(max-width:760px) { .ecosystem-heading,.ecosystem-cards { grid-template-columns:1fr;gap:1rem; } .ecosystem-cards { gap:0; } .ecosystem-cards article+article { border-left:0;border-top:1px solid var(--line); } .hero-entry { gap:.85rem 1.2rem; } .ecosystem-links a { min-height:44px; display:inline-flex; align-items:center; } }
+@media(max-width:760px) { .ecosystem-pair { grid-template-columns:1fr; } .ecosystem-heading,.ecosystem-cards { grid-template-columns:1fr;gap:1rem; } .ecosystem-cards { gap:0; } .ecosystem-cards article+article { border-left:0;border-top:1px solid var(--line); } .hero-entry { gap:.85rem 1.2rem; } .ecosystem-links a { min-height:44px; display:inline-flex; align-items:center; } }
+
+/* Homepage journeys stay secondary to the physical board. */
+.hero-journeys {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr;
+  width: min(40rem, 100%);
+  margin: .35rem 0;
+  border: 1px solid var(--line);
+}
+.hero-journeys a {
+  min-width: 0;
+  min-height: 48px;
+  padding: .55rem .8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  text-align: left;
+}
+.hero-journeys a + a { border-left: 1px solid var(--line); }
+.hero-journeys strong { font-size: .875rem; line-height: 1.25; }
+.hero-journeys span { color: var(--muted); font-size: .7rem; line-height: 1.35; }
+.hero-journeys a:hover strong { color: var(--accent); }
+.hero-journeys .hero-journey-primary { background: var(--accent); color: var(--accent-ink); }
+.hero-journeys .hero-journey-primary span { color: inherit; opacity: .75; }
+.hero-journeys .hero-journey-primary:hover strong { color: inherit; }
+
+/* One focused OS console with a compact Envelop companion. */
+.ecosystem-console {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(16rem, .72fr);
+  gap: 1.25rem;
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+.ecosystem-machine,
+.ecosystem-message {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+.ecosystem-console-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, .85fr);
+  gap: 1.5rem;
+  align-items: end;
+}
+.ecosystem-console-heading h2,
+.ecosystem-message h2 {
+  margin-top: .45rem;
+  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  line-height: 1.08;
+}
+.ecosystem-console-heading > p,
+.ecosystem-message > p { color: var(--muted); }
+.ecosystem-machine .vt-embed {
+  max-width: none;
+  margin-top: 1.5rem;
+}
+.ecosystem-console-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.4rem;
+  margin-top: 1.25rem;
+}
+.ecosystem-console-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: .875rem;
+}
+.ecosystem-message { align-self: start; }
+.ecosystem-message > p { margin: 1rem 0; }
+.ecosystem-message figure { margin: 1.25rem 0; }
+.ecosystem-message img {
+  width: 100%;
+  height: clamp(11rem, 18vw, 14rem);
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.ecosystem-message figcaption,
+.ecosystem-message small {
+  display: block;
+  color: var(--muted);
+  font-size: .75rem;
+  line-height: 1.55;
+}
+.ecosystem-message figcaption { margin-top: .5rem; }
+.ecosystem-message .button { width: 100%; margin-bottom: .5rem; }
+.ecosystem-message small { margin-top: 1rem; }
+@media (max-width: 900px) {
+  .ecosystem-console { grid-template-columns: 1fr; }
+  .ecosystem-message {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(12rem, .7fr);
+    gap: .5rem 1.5rem;
+    align-items: start;
+  }
+  .ecosystem-message > * { grid-column: 1; }
+  .ecosystem-message figure { grid-column: 2; grid-row: 1 / span 6; margin: 0; }
+}
+@media (max-width: 600px) {
+  .hero-journeys a { padding: .55rem .45rem; text-align: center; }
+  .hero-journeys span { display: none; }
+  .ecosystem-console-heading { grid-template-columns: 1fr; gap: .75rem; }
+  .ecosystem-message { display: block; }
+  .ecosystem-message figure { margin: 1rem 0; }
+}

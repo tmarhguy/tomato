@@ -34,6 +34,15 @@ const REQUIRED = [
   "js/alu.js",
   "js/playground.js",
   "playground.html",
+  "virtual.html",
+  "envelop.html",
+  "js/virtual.js",
+  "js/virtual-embed.js",
+  "js/tomato-cpu.js",
+  "js/tomato-screen.js",
+  "css/virtual.css",
+  "data/tomato-os.bin",
+  "data/tomato-os.json",
   "assets/favicon.svg",
   "assets/mark.svg",
   "assets/mark-dark.svg",
@@ -93,6 +102,9 @@ const NAV = [
   "isa.html",
   "software.html",
   "os.html",
+  "envelop.html",
+  "compute.html",
+  "status.html",
   "playground.html",
   "journal.html",
   "boards.html",
@@ -292,6 +304,39 @@ test("playground wires Dual-LUT emulator modules", () => {
   assert.match(html, /id=["']pg-detail["']/);
 });
 
+test("virtual board page boots the shipped firmware image", () => {
+  const html = readFileSync(join(WEB, "virtual.html"), "utf8");
+  assert.match(html, /<script(?=[^>]*type=["']module["'])(?=[^>]*src=["']js\/virtual\.js)[^>]*>/);
+  assert.match(html, /id=["']vt-stage["']/);
+  assert.match(html, /id=["']vt-screen["']/);
+  assert.match(html, /id=["']vt-stats["']/);
+  assert.match(html, /id=["']vt-fullscreen["']/);
+  assert.match(html, /id=["']vt-hide["']/);
+  const ui = readFileSync(join(WEB, "js/virtual.js"), "utf8");
+  assert.match(ui, /from ["']\.\/tomato-cpu\.js(\?[^"']*)?["']/);
+  assert.match(ui, /fetch\(["']data\/tomato-os\.bin["']\)/);
+  const bin = readFileSync(join(WEB, "data/tomato-os.bin"));
+  assert.equal(bin.subarray(0, 4).toString("latin1"), "TOM1");
+  assert.ok(bin.length > 100_000, "web image suspiciously small");
+  assert.ok(bin.length < 1_000_000, "web image too fat for the tab");
+  const manifest = JSON.parse(readFileSync(join(WEB, "data/tomato-os.json"), "utf8"));
+  assert.equal(manifest.image, "data/tomato-os.bin");
+  assert.equal(manifest.bytes, bin.length);
+  for (const rel of Object.keys(manifest.files)) {
+    assert.ok(existsSync(join(WEB, "..", rel)), `web image source missing: ${rel}`);
+  }
+  const home = readFileSync(join(WEB, "index.html"), "utf8");
+  assert.match(home, /virtual\.html/);
+  assert.match(home, /<script(?=[^>]*type=["']module["'])(?=[^>]*src=["']js\/virtual-embed\.js)[^>]*>/);
+  assert.match(home, /id=["']vt-embed["']/);
+  assert.match(home, /id=["']vt-embed-screen["']/);
+  assert.match(home, /id=["']vt-embed-play["']/);
+  assert.match(home, /id=["']vt-embed-status["']/);
+  const embed = readFileSync(join(WEB, "js/virtual-embed.js"), "utf8");
+  assert.match(embed, /from ["']\.\/tomato-cpu\.js(\?[^"']*)?["']/);
+  assert.match(embed, /fetch\(["']data\/tomato-os\.bin["']\)/);
+});
+
 test("3D viewer page is the light 07_alu tour", () => {
   const html = readFileSync(join(WEB, "viewer.html"), "utf8");
   assert.match(html, /type=["']importmap["']/);
@@ -395,11 +440,12 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/placing-and-soldering-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-640w.webp")));
-  // First slide is the full OS demo (video); solder station second — Sep 12 order
+  // First slide is the current Envelop-in-OS browser evidence, explicitly virtual.
   const slides = html.slice(html.indexOf('class="gallery-slides"'));
   const firstSrc = slides.match(/data-src="([^"]+)"/);
-  assert.equal(firstSrc && firstSrc[1], "assets/os/tomato-demo-os.mp4");
-  const order = ["os-demo", "solder-station", "desktop-home", "desktop-menu-v12", "system-info", "sudoku-v3", "alu-studio"]
+  assert.equal(firstSrc && firstSrc[1], "assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp");
+  assert.ok(existsSync(join(WEB, "assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp")));
+  const order = ["envelop-journey", "os-demo", "solder-station", "desktop-home", "desktop-menu-v12", "system-info", "sudoku-v3", "alu-studio"]
     .map((slug) => slides.indexOf(`data-slug="${slug}"`));
   assert.ok(order.every((i) => i >= 0), "gallery missing an opening slide");
   assert.deepEqual([...order].sort((a, b) => a - b), order, "gallery opening order drifted");
@@ -415,28 +461,28 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
   assert.match(js, /deferSrc/);
 });
 
-test("homepage explains register capacity with bounded comparisons", () => {
+test("homepage uses current ISA and register facts", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
-  for (const phrase of ["32,768", "65,536", "storage capacity only", "NVIDIA Blackwell SM", "15 address bits", "RV32I", "x0"]) {
-    assert.ok(html.includes(phrase), `homepage missing register context: ${phrase}`);
+  for (const phrase of ["61 instructions plus NOP", "62 burned rows", "256 × 32-bit FPGA registers", "r0 is hardwired to zero"]) {
+    assert.ok(html.includes(phrase), `homepage missing canonical fact: ${phrase}`);
   }
-  assert.match(html, /journal\/register-upgrade\.html/);
-  assert.match(html, /https:\/\/docs\.nvidia\.com\/cuda\/blackwell-tuning-guide/);
-  const journal = readFileSync(join(WEB, "journal.html"), "utf8");
-  assert.match(journal, /journal\/register-upgrade\.html/);
-  assert.match(journal, /js\/journal-index\.js/);
-  assert.match(journal, /32,768/);
-  assert.match(journal, /journal\/tomato-works\.html/);
-  const upgrade = readFileSync(join(WEB, "journal/register-upgrade.html"), "utf8");
-  assert.match(upgrade, /SETBANK2/);
-  assert.match(upgrade, /AS6C62256/);
-  assert.match(upgrade, /General Purpose Register File/);
-  assert.match(upgrade, /why-32768/);
-  assert.match(upgrade, /Blackwell SM/);
-  assert.match(upgrade, /15-bit address space/);
-  assert.match(upgrade, /waste|disconnected/i);
-  const works = readFileSync(join(WEB, "journal/tomato-works.html"), "utf8");
-  assert.match(works, /register-upgrade\.html/);
+  assert.doesNotMatch(html, /<strong>32,768 × 32-bit registers<\/strong>/);
+});
+
+test("public speed claims distinguish runtime, timing, and emulation", () => {
+  const home = readFileSync(join(WEB, "index.html"), "utf8");
+  const faq = readFileSync(join(WEB, "faq.html"), "utf8");
+  const status = readFileSync(join(WEB, "status.html"), "utf8");
+  const virtual = readFileSync(join(WEB, "virtual.html"), "utf8");
+  assert.match(status, /default CPU clock is 6\.25 MHz; 90 MHz is only the nextpnr timing target/);
+  for (const html of [home, faq]) {
+    assert.match(html, /one .*configuration per CPU clock|one of .*configurations per CPU clock/);
+    assert.match(html, /default 6\.25 MHz FPGA CPU/);
+    assert.match(html, /10\.5 ms/);
+    assert.doesNotMatch(html, /about 1[–-]10(?:&nbsp;|\u00a0|\s)*MHz/i);
+  }
+  assert.match(virtual, /guest timer models a 6\.25 MHz CPU/);
+  assert.match(virtual, /not a 6\.25 MHz or cycle-accurate emulator/);
 });
 
 test("homepage routes compiler evidence to the complete playground", () => {
@@ -662,7 +708,9 @@ test("Vercel build is the web test suite on the web/ folder", () => {
 test("sitemap, robots, and canonical tags ship", () => {
   const sitemap = readFileSync(join(WEB, "sitemap.xml"), "utf8");
   assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/verification\.html<\/loc>/);
-  assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/index\.html<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/envelop\.html<\/loc>/);
+  assert.doesNotMatch(sitemap, /404\.html|index\.html/);
+  assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/<\/loc>/);
   const robots = readFileSync(join(WEB, "robots.txt"), "utf8");
   assert.match(robots, /Sitemap:\s*https:\/\/tomato\.tmarhguy\.com\/sitemap\.xml/);
   const manifest = JSON.parse(readFileSync(join(WEB, "site.webmanifest"), "utf8"));
