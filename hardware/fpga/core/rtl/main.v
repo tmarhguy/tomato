@@ -36,7 +36,11 @@ module main #(parameter CPU_HZ = 6250000) (
     // Tile RAM scanout port — driven by rtl/board/videoout.v
     input         tile_rclk,
     input  [12:0] tile_raddr,
-    output [31:0] tile_rdata
+    output [31:0] tile_rdata,
+    output [6:0] ble_addr,
+    output ble_wr,
+    output [7:0] ble_wdata,
+    input [31:0] ble_rdata
 );
     wire       kb_en = kb_ready;
 
@@ -73,12 +77,26 @@ module main #(parameter CPU_HZ = 6250000) (
 
     wire        vga_hit = (memaddr[21:19] == 3'b110);
     wire        kb_hit  = (memaddr[21:19] == 3'b111);
+    // The nRF8001 ACI controller occupies the keyboard MMIO +0x100 subwindow.
+    wire        ble_hit = kb_hit && memaddr[8];
+    // Dual-LUT compiler counter: keyboard MMIO +0x80, not BLE.
+    wire        compiler_hit = kb_hit && memaddr[7] && !memaddr[8];
+    wire        compiler_wr = exec && cmemwr && compiler_hit;
+    wire [31:0] compiler_rdata;
+    compiler_fsm compiler0 (
+        .clk(clk), .reset(reset), .wr(compiler_wr),
+        .sel(memaddr[2:0]), .wdata(wbdata), .rdata(compiler_rdata)
+    );
+    assign ble_addr = memaddr[6:0];
+    assign ble_wr = exec && cmemwr && ble_hit;
+    assign ble_wdata = wbdata[7:0];
     reg  [7:0]  io_out_r;
     assign io_out = io_out_r;
 
     // Key is consumed by a load of MMIO word 0 or by the IN opcode. The keypad
     // drops kb_ready on this strobe so one press yields exactly one keycode.
-    assign kb_rd = exec & ((cmemrd & kb_hit & (memaddr[1:0] == 0)) | (opcode == 9'h0C8));
+    assign kb_rd = exec & ((cmemrd & kb_hit & ~ble_hit &
+                            (memaddr[1:0] == 0)) | (opcode == 9'h0C8));
 
     // Millisecond clock for OS delays; timer reads never consume a key.
     localparam MS_CYCLES = CPU_HZ / 1000;
@@ -264,7 +282,7 @@ module main #(parameter CPU_HZ = 6250000) (
         if (cmemwr & exec & ~vga_hit & ~kb_hit) dmem[dmema] <= dmerge;
     end
     // MMIO [21:19]==111: word0 = kb data, word1 = {ready}
-    assign memram = kb_hit
+    assign memram = ble_hit ? ble_rdata : compiler_hit ? compiler_rdata : kb_hit
                   ? (memaddr[1:0] == 0 ? {24'b0, kb_data} :
                      memaddr[1:0] == 1 ? {31'b0, kb_ready} :
                      memaddr[1:0] == 2 ? milliseconds : CPU_HZ)
