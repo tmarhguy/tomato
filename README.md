@@ -22,8 +22,9 @@
 
 Tomato is one architecture expressed at several layers:
 
-- a physically built **74xx Dual-LUT ALU slice**;
-- a complete **FPGA Tomato** on the Nexys A7-100T, capable of booting Tomato OS;
+- a fabricated and soldered **8-bit 74xx Dual-LUT ALU slice**;
+- a complete **FPGA Tomato** on the Nexys A7-100T that boots the
+  assembly-written Tomato OS;
 - **TOMATO OS v3.0**, written in Tomato assembly, with 14 menu entries;
 - a functional **Virtual Tomato** ISA emulator in the browser;
 - editable Digital schematics, KiCad boards, RTL, an assembler, and focused verification.
@@ -45,12 +46,14 @@ computer in this repository is the FPGA implementation.
 | Layer | Current, repository-backed statement |
 |---|---|
 | Architecture | 32-bit datapath and instruction word |
-| ALU | Two LUT3 functions feed an adder: `f(a,b,c) + g(a,b,c) + carry` |
+| ALU | Custom three-source Dual-LUT ALU: two LUT3 functions feed an adder, `f(a,b,c) + g(a,b,c) + carry` |
 | ISA | **61 instructions plus NOP, 62 burned rows** in a 512-row control ROM |
 | Registers | **256 × 32-bit**, eight banks of 32; `r0` is hardwired to zero |
 | FPGA | 100 MHz board input; **6.25 MHz** default CPU and 25 MHz pixel clocks; 90 MHz is only the nextpnr timing target |
-| OS | **TOMATO OS v3.0**, with 14 menu entries including Envelop |
+| OS | The complete FPGA computer boots assembly-written **TOMATO OS v3.0**, with 14 menu entries including Envelop |
 | Browser | Functional ISA-level emulation; not cycle-accurate RTL or physical execution |
+| Hardware compiler | Counter FSM searches all **65,536 LUT pairs** for one fixed A/B/C/carry/output example; a hit verifies that example, not a general function |
+| ALU verification | A **130-billion-vector** 32-bit ALU run is recorded and its harness is reproducible; the full run log is not checked in |
 
 For evidence paths and the distinction between source-complete,
 hardware-dependent, and deployed behavior, use
@@ -134,7 +137,9 @@ The intended hardware message path is:
 `person → Envelop web app → backend queue → nearby verified bridge → Envelop in Tomato OS → Tomato CPU → labeled reply`
 
 Source in a repository is not evidence that a bridge is active or that a reply
-ran on hardware. Virtual previews are explicit, separate, and labeled. See
+ran on hardware. Bridge software is available in the separate Envelop project,
+but a nearby authenticated bridge and completed FPGA job require live evidence.
+Virtual previews are explicit, separate, and labeled. See
 [`docs/compute.md`](docs/compute.md) for the current boundary.
 
 ## Repository map
