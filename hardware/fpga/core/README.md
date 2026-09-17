@@ -15,7 +15,7 @@ available.
 
 - [What is on the screen](#what-is-on-the-screen)
 - [Layout: the machine vs the harness](#layout-the-machine-vs-the-harness)
-- [Build and flash](#build-and-flash)
+- [Build and program](#build-and-program)
 - [Simulation](#simulation)
 - [Board contract](#board-contract)
 - [Results](#results)
@@ -30,10 +30,11 @@ menu driven by the Nexys D-pad. **N17 (center) is Enter**; up/down move the
 highlight, left returns, and left/right steer where an application uses them.
 
 The current assembly identifies **TOMATO OS v3.0** and declares **14 menu
-entries**. Desktop v1.2 is the workspace UI revision. The current FPGA register
-file is **256 × 32-bit**, arranged as eight banks of 32 with `r0` hardwired to
-zero. The ISA has **61 instructions plus NOP, 62 burned rows** in its 512-row
-control ROM.
+entries**. Desktop v1.2 is the workspace UI revision. The FPGA RTL declares a
+**256 × 32-bit physical register array** addressed by three bank bits and a
+five-bit register field, with `r0` hardwired to zero. This is an implementation
+and ISA choice, not a documented Artix-7 capacity limit. The ISA has
+**61 instructions plus NOP, 62 burned rows** in its 512-row control ROM.
 
 Historical screenshots and journal entries may display older versions, entry
 counts, burn counts, or register designs. They do not override current assembly,
@@ -76,7 +77,7 @@ core/
 
 ---
 
-## Build and flash
+## Build and program
 
 One-time, from `hardware/fpga/core`:
 
@@ -145,7 +146,9 @@ The four arrow keycodes are also their own CP437 glyphs, so the OS can draw a ke
 |--------|------|----------|
 | dmem | `0x000000` | 16384 × 32, program and stack |
 | framebuffer | `0x300000` | 80×60 tiles: `[7:0]` glyph, `[11:8]` fg, `[15:12]` bg |
-| keyboard | `0x780000` | word 0 = keycode (reading consumes it), word 1 = ready |
+| keyboard/timer | `0x780000` | key data/status plus timer and CPU-frequency words |
+| compiler | `0x780080` | fixed-example Dual-LUT search registers |
+| nRF8001 ACI | `0x780100` | radio mailbox registers |
 
 A tile whose `[15:8]` is zero is a legacy solid-colour cell, so the old 4-bit-index framebuffer still renders.
 

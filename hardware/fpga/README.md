@@ -1,7 +1,8 @@
 # Tomato FPGA
 
 This directory contains the complete Tomato machine for the Digilent Nexys
-A7-100T (`xc7a100tcsg324-1`) and a smaller display bring-up project.
+A7-100T (`xc7a100tcsg324-1`) plus independent display and Ethernet bring-up
+projects.
 
 <p align="center">
   <img src="../../web/assets/assembly/fpga-board-pmod.webp" alt="Nexys A7 used by FPGA Tomato" width="70%">
@@ -13,11 +14,12 @@ A7-100T (`xc7a100tcsg324-1`) and a smaller display bring-up project.
 |---|---|
 | [`core/`](core/) | Complete 32-bit Tomato CPU, Tomato OS, board harness, and Icarus tests |
 | [`hdmi_test/`](hdmi_test/) | Independent 640×480 display/pinout bring-up |
+| [`ethernet_test/`](ethernet_test/) | Experimental LAN8720A RMII/UDP echo bring-up; no Tomato CPU or Internet claim |
 
-The core implements **256 × 32-bit registers**, **61 instructions plus NOP
-(62 burned rows)**, and TOMATO OS v3.0 with 14 menu entries. The CPU runs at
-**6.25 MHz** by default from the board's 100 MHz oscillator; display scanout
-uses 25 MHz.
+The complete machine lives in `core/`. Current register, ISA, OS, and clock
+facts are maintained in [`../../docs/status.md`](../../docs/status.md); the
+bring-up projects are separate designs and do not extend the core's feature
+claims.
 
 The `FREQ_MHZ := 90` build setting is a nextpnr timing target, not the runtime
 CPU frequency and not a hardware-performance claim.
@@ -85,6 +87,8 @@ not evidence of physical execution.
 | [`core/rtl/board/`](core/rtl/board/) | Board clocks, reset, display, buttons, and seven-segment harness |
 | [`core/tb/`](core/tb/) | Unit, program, OS, and integration testbenches |
 | [`core/constr/`](core/constr/) | Nexys A7 constraints |
+| [`hdmi_test/`](hdmi_test/) | Standalone display bring-up |
+| [`ethernet_test/`](ethernet_test/) | Standalone RMII/UDP echo bring-up |
 
 Generated `.tools/`, `build/`, and `sim/` directories are not source
 authorities.

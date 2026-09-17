@@ -1,16 +1,26 @@
 # Tomato — ALU verification
 
-<p align="center"><strong>Formal · directed · UVM sign-off for the dual-LUT ALU.</strong></p>
+<p align="center"><strong>Formal and directed checks, plus an optional UVM harness, for the dual-LUT ALU.</strong></p>
 
-![Status](https://img.shields.io/badge/status-signoff_passing-2ea043) ![Stack](https://img.shields.io/badge/stack-SymbiYosys%20%2B%20UVM-7C3AED)
+![Status](https://img.shields.io/badge/status-recorded_ALU_checks_pass-2ea043) ![Stack](https://img.shields.io/badge/stack-SymbiYosys%20%2B%20UVM-7C3AED)
 
-Layered sign-off for the **Tomato dual-LUT 32-bit ALU**: independent 3-input LUT planes per bit, ripple carry across byte slices, flag latches on the top 8b slice — `out = f(a,b,c) + g(a,b,c) + cin`. Proof runs from the 1-bit programmable-LUT cell up through the exported 32-bit netlist.
+Layered verification for the **Tomato dual-LUT 32-bit ALU**: independent
+3-input LUT planes per bit, ripple carry across byte slices, and flag latches
+on the top 8-bit slice — `out = f(a,b,c) + g(a,b,c) + cin`. Checks run from
+the 1-bit programmable-LUT cell through the exported 32-bit netlist.
 
 **Tools:** SymbiYosys formal (1b → 8b → 32b comb + sequential flag cover), Icarus directed replay of Digital test vectors, Questa UVM with a shared reference model.
 
-**FPGA dual-LUT ALU:** [gauntlet/](gauntlet/) — Verilator **10B** (8b) + **130B** (32b) and SymbiYosys on a copy of [`hardware/fpga/core/rtl/alu.v`](../hardware/fpga/core/rtl/alu.v). `make gauntlet_smoke` · `make gauntlet_claim`.
+**FPGA dual-LUT ALU:** [gauntlet/](gauntlet/) — recorded Verilator **10B**
+(8-bit) and **130B** (32-bit) runs plus SymbiYosys on a copy of
+[`hardware/fpga/core/rtl/alu.v`](../hardware/fpga/core/rtl/alu.v). The harness
+and reproduction targets are checked in; full run logs are not.
+`make gauntlet_smoke` · `make gauntlet_claim`.
 
-**Harness root:** `verification/` · **RTL policy:** Digital exports in `rtl/` are read-only copies — regenerate from [alu-32b-final.dig](../../hardware/digital/modules/alu-32b-final.dig), then re-run sign-off.
+**Harness root:** `verification/` · **RTL policy:** Digital exports in `rtl/`
+are read-only copies — regenerate from
+[alu-32b-final.dig](../hardware/digital/modules/alu-32b-final.dig), then rerun
+the intended verification tier.
 
 **Project map:** [Root README](../README.md) · **ASIC metrics:** [synthesis/README.md](synthesis/README.md) · **Carry benchmark:** [test/README.md](../test/README.md)
 
@@ -24,7 +34,7 @@ Layered sign-off for the **Tomato dual-LUT 32-bit ALU**: independent 3-input LUT
 
 ## Table of Contents
 
-- [Summary (latest run)](#summary-latest-run)
+- [Recorded result](#recorded-result)
 - [What each layer proves](#what-each-layer-proves)
 - [Quick start](#quick-start)
 - [Layout](#layout)
@@ -34,9 +44,12 @@ Layered sign-off for the **Tomato dual-LUT 32-bit ALU**: independent 3-input LUT
 
 ---
 
-## Summary (latest run)
+## Recorded result
 
 **Date:** 2026-06-19 · **Netlist:** `rtl/alu-32b-final.v` (Digital export)
+
+This table records the cited run; it is not a live CI dashboard. UVM rows still
+require a local Questa installation.
 
 | Step | Tool | Scope | Result | Notes |
 |------|------|-------|--------|-------|
@@ -190,7 +203,7 @@ Generated at build time (gitignored in root `.gitignore`): `work/`, `results/`, 
 
 | Doc | Link |
 |-----|------|
-| Tomato architecture | [Root README](../README.md) |
+| Tomato architecture | [docs/architecture.md](../docs/architecture.md) |
 | Synthesis (Sky130 metrics) | [synthesis/README.md](synthesis/README.md) |
 | Kogge-Stone benchmark | [test/README.md](../test/README.md) |
 | 91-op control map (authority) | [docs/alu/alu-1b/alu_control_map.tex](../docs/alu/alu-1b/alu_control_map.tex) |

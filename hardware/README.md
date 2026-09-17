@@ -29,10 +29,9 @@ different things.
 | [`fpga/`](fpga/) | Complete Nexys A7 machine, board harness, and tests | Current FPGA implementation |
 | [`verilog/`](verilog/) | Digital export policy and netlists | Generated/read-only derivatives |
 
-The current FPGA implementation has a **256 × 32-bit** register file and uses
-**61 instructions plus NOP, 62 burned rows**. Older hardware notes may describe
-different register or ISA designs; use
-[`../docs/status.md`](../docs/status.md) for current facts.
+Current register, ISA, OS, and clock facts live in
+[`../docs/status.md`](../docs/status.md). Older hardware notes may describe
+different register or ISA designs and do not override that canonical status.
 
 ## Workflow boundaries
 
