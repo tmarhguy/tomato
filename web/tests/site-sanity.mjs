@@ -481,6 +481,13 @@ test("homepage uses current ISA and register facts", () => {
   assert.doesNotMatch(html, /<strong>32,768 × 32-bit registers<\/strong>/);
 });
 
+test("homepage Virtual Tomato controls suppress double-tap zoom locally", () => {
+  const html = readFileSync(join(WEB, "index.html"), "utf8");
+  const css = readFileSync(join(WEB, "css/virtual.css"), "utf8");
+  assert.match(css, /\.vt-embed-side\s*\{[^}]*touch-action:\s*pan-y/s);
+  assert.doesNotMatch(html, /user-scalable\s*=\s*no|maximum-scale\s*=\s*1/i);
+});
+
 test("public speed claims distinguish runtime, timing, and emulation", () => {
   const home = readFileSync(join(WEB, "index.html"), "utf8");
   const faq = readFileSync(join(WEB, "faq.html"), "utf8");
