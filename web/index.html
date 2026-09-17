@@ -26,7 +26,7 @@
     }
   </script>
 <link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="css/landing.css?v=51ec54c0" rel="stylesheet"/>
+<link href="css/landing.css?v=7c3410c0" rel="stylesheet"/>
 <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }
   </script>
@@ -156,7 +156,7 @@
 <div class="hero-copy">
 <h1 id="hero-title">A computer whose logic<br/><em>changes with each instruction.</em></h1>
 <p class="hero-pitch">I designed the 32-bit processor, built the computer around it, and wrote the operating system it runs in my dorm.</p>
-<nav class="hero-journeys" aria-label="Ways to experience Tomato"><a class="hero-journey-primary" href="#virtual-world"><strong>Play Tomato OS</strong><span>Compiler already running</span></a><a href="envelop.html"><strong>Message the live machine</strong><span>Text Tomato through Envelop</span></a><a href="compute.html"><strong>Understand compute</strong><span>See what ran</span></a></nav>
+<nav class="hero-journeys" aria-label="Ways to experience Tomato"><a class="hero-journey-primary" href="#virtual-world"><strong>Play Tomato OS</strong><span>Start from Home</span></a><a href="envelop.html"><strong>Message Tomato via Envelop</strong><span>Reach the machine in my dorm</span></a></nav>
 <p class="hero-hook"><a href="#the-difference"><strong>524,288</strong> ALU configurations</a><span aria-hidden="true">·</span><a href="#running"><strong>Tomato OS</strong> running on FPGA</a></p>
 </div>
 </div>
@@ -183,7 +183,7 @@
 <div class="meet-tomato-heading"><p class="eco-tag">ONE ARCHITECTURE · THREE WAYS TO EXPERIENCE IT</p><h2 id="meet-title">See the hardware.<br/><em>Run it. Then text it.</em></h2></div>
 <div class="meet-tomato-paths">
 <a href="viewer.html"><span>01 / PHYSICAL</span><strong>Inspect the fabricated ALU.</strong><p>Rotate its faithful KiCad model, then inspect the photographs and build record of the soldered Dual-LUT slice.</p><b>Tour the board →</b></a>
-<a href="#virtual-world"><span>02 / VIRTUAL</span><strong>Use Tomato OS.</strong><p>The same custom ISA runs the shipped OS in your browser. The Compiler is already open with live registers.</p><b>Try the computer →</b></a>
+<a href="#virtual-world"><span>02 / VIRTUAL</span><strong>Use Tomato OS.</strong><p>The same custom ISA runs the shipped OS in your browser. It starts at Home so you can choose what to run.</p><b>Try the computer →</b></a>
 <a href="envelop.html"><span>03 / CONNECTED</span><strong>Text the computer.</strong><p>Envelop can reach the Tomato OS app on the FPGA at my dorm desk when its verified bridge is online—and queues safely when it is away.</p><b>Message the machine →</b></a>
 </div>
 <p class="meet-tomato-boundary">The complete computer runs on FPGA. The physical discrete build currently proves its 8-bit ALU slice. Virtual and physical replies are always labeled.</p>
@@ -191,7 +191,7 @@
 <section class="ecosystem-console frame" id="virtual-world" aria-labelledby="virtual-title">
 <div class="ecosystem-machine">
 <div class="section-label"><span>PLAY TOMATO</span><span>Virtual Tomato · keyboard or touch</span></div>
-<div class="ecosystem-console-heading"><div><p class="eco-tag">SHIPPED TOMATO OS APP</p><h2 id="virtual-title">The Compiler is already running.</h2></div><p>Real OS output: operands, target, result, and discovered LUT values—not a mock overlay.</p></div>
+<div class="ecosystem-console-heading"><div><p class="eco-tag">SHIPPED TOMATO OS</p><h2 id="virtual-title">Start at Home.<br/>Choose what to run.</h2></div><p>This is the real operating-system menu running in the browser CPU emulator—not a mock overlay.</p></div>
 <figure class="vt-embed" id="vt-embed">
 <div class="vt-embed-grid">
 <div class="vt-embed-stage">
@@ -201,11 +201,11 @@
 <div class="vt-embed-side">
 <p class="vt-embed-status" id="vt-embed-status" role="status" aria-live="polite">Loading Tomato OS…</p>
 <div aria-label="Controller" class="vt-embed-keys" role="group"><button aria-label="Up" class="vt-up" data-key="30" type="button">↑</button><button aria-label="Left" class="vt-left" data-key="17" type="button">←</button><button aria-label="Enter" data-key="13" type="button">●</button><button aria-label="Right" data-key="16" type="button">→</button><button aria-label="Down" class="vt-bottom" data-key="31" type="button">↓</button></div>
-<p class="vt-embed-hint">Change the selected value with ↑/↓, move with ←/→, and press ● to sweep, hold, or reset.</p>
+<p class="vt-embed-hint">Move through Home with the arrow controls, then press ● to open the selected app.</p>
 <a class="text-link" href="virtual.html">Open full screen + demo chat</a>
 </div>
 </div>
- <figcaption>Current Tomato OS assembly in the browser CPU emulator · deterministic Compiler boot · simulated peripherals · not an FPGA result</figcaption>
+ <figcaption>Current Tomato OS assembly in the browser CPU emulator · deterministic Home boot · simulated peripherals · not an FPGA result</figcaption>
  </figure>
 <nav class="ecosystem-console-links" aria-label="Explore Tomato OS"><a href="virtual.html">Full Virtual Tomato</a><a href="os.html">Inside Tomato OS</a><a href="compute.html">Compute provenance</a></nav>
 </div>
@@ -213,7 +213,7 @@
 <p class="eco-tag">ONE OF TOMATO OS’S 14 APPS</p>
 <h2 id="envelop-title">Message the machine.</h2>
 <p>This is not a contact named after the project. Envelop is an app running on Tomato OS, so you can open a browser and text the computer itself.</p>
-<figure><img src="assets/gallery/os/desktop-menu-v12-1280w.webp" width="1280" height="720" loading="lazy" decoding="async" alt="Landscape Tomato OS menu captured from the FPGA display path, with Envelop listed among the shipped applications"/><figcaption>Tomato OS on the FPGA · Envelop is the first app</figcaption></figure>
+<figure><img src="assets/gallery/envelop/logs/envelop-browser-chat.webp" width="1024" height="576" loading="lazy" decoding="async" alt="Envelop browser chat showing a short verified conversation with Tomato"/><figcaption>Envelop browser chat · reply provenance stays visible</figcaption></figure>
 <a class="button button-red" href="envelop.html">See how you text a computer</a>
 <a class="text-link" href="https://tmarhguy.github.io/envelop/chat/">Open Envelop chat</a>
 <small>Messages wait when hardware is away. Every reply says whether physical or Virtual Tomato answered.</small>
@@ -370,8 +370,8 @@ OR out, t1, t2</code></p><p><strong>Tomato · 2 ALU evaluations</strong><code>1.
 <section aria-labelledby="explore-title" class="explore frame section-space" id="engineering"><div class="section-label"><span>09 / OPEN THE WORK</span><span>Schematics, software, and the decisions in between</span></div><h2 id="explore-title">Go as deep as you like.</h2><div class="explore-grid"><a href="architecture.html"><span>01</span><h3>Understand the design</h3><p>Datapath, instruction format, and the decisions that shape the machine.</p></a><a href="playground.html"><span>02</span><h3>Experiment with the logic</h3><p>Change inputs, program the truth tables, and trace the result.</p></a><a href="faq.html"><span>03</span><h3>Ask why it looks this way</h3><p>Two LUTs, three inputs, verification, and the hardware compiler—answered plainly.</p></a><a href="journal.html"><span>04</span><h3>Follow the build</h3><p>The breakthroughs, soldering sessions, wrong turns, and next steps.</p></a><a href="source.html"><span>05</span><h3>Read the source</h3><p>Logic schematics, board layouts, test harnesses, and assembly.</p></a></div></section>
 </main>
 <footer class="front-footer frame"><div class="footer-top"><a class="footer-logo" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a class="text-link" href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="footer-nav"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato" rel="noopener noreferrer" target="_blank">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
-<script src="js/landing.js?v=c7c2c24d" type="module"></script>
-<script src="js/virtual-embed.js?v=76702ecd" type="module"></script>
+<script src="js/landing.js?v=1260e298" type="module"></script>
+<script src="js/virtual-embed.js?v=058abed5" type="module"></script>
 <!-- tomato-vercel -->
 <script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>

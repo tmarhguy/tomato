@@ -8,8 +8,6 @@ import { Tomato, loadImage } from "./tomato-cpu.js?v=47cc72f7";
 import { paintDirty, paintFull } from "./tomato-screen.js?v=a9760af7";
 
 const BOOT_INSTR = 200000;
-const UI_SETTLE_INSTR = 52500;
-const COMPILER_SETTLE_INSTR = 220000;
 const FRAME_BUDGET_MS = 8;
 const FRAME_INSTR_CAP = 60000;
 
@@ -32,7 +30,6 @@ if (figure) {
   let steps = 0;
   let running = false;
   let visible = false;
-  let compilerDemo = false;
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }, {threshold: 0}).observe(figure);
   const keyQueue = [];
 
@@ -41,27 +38,7 @@ if (figure) {
   function status() {
     if (!cpu) return;
     if (cpu.halted) statusEl.textContent = `CPU halted · ${steps} steps`;
-    else if (compilerDemo) statusEl.textContent = "Compiler demo · Virtual Tomato · CPU running";
-    else statusEl.textContent = `CPU running · ${steps} steps`;
-  }
-
-  function pressAndSettle(code, instructions = UI_SETTLE_INSTR) {
-    cpu.key(code);
-    cpu.step(instructions);
-    steps += instructions;
-  }
-
-  function openCompilerDemo() {
-    // The launcher starts on System info. Up wraps to Envelop; up once more
-    // selects the shipped Compiler app immediately before it.
-    pressAndSettle(30);
-    pressAndSettle(30);
-    pressAndSettle(13);
-    // Run the app's real sweep with its defaults (A=0x89, B=0x33, C=0x22,
-    // expected=0xBC). The emulator models the same 0x780080 MMIO counter as
-    // compiler_fsm.v, so the screen is OS output rather than an HTML overlay.
-    pressAndSettle(13, COMPILER_SETTLE_INSTR);
-    compilerDemo = true;
+    else statusEl.textContent = `Tomato OS Home · Virtual Tomato · ${steps} steps`;
   }
 
   function frame() {
@@ -110,7 +87,6 @@ if (figure) {
       await new Promise((r) => setTimeout(r, 30));
       cpu.step(BOOT_INSTR);
       steps += BOOT_INSTR;
-      openCompilerDemo();
       paintFull(cpu, image, imgData, ctx);
       play.hidden = true;
       running = true;
