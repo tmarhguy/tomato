@@ -1,8 +1,7 @@
 # Tomato FPGA
 
 This directory contains the complete Tomato machine for the Digilent Nexys
-A7-100T (`xc7a100tcsg324-1`) plus independent display and Ethernet bring-up
-projects.
+A7-100T (`xc7a100tcsg324-1`) plus an independent display bring-up project.
 
 <p align="center">
   <img src="../../web/assets/assembly/fpga-board-pmod.webp" alt="Nexys A7 used by FPGA Tomato" width="70%">
@@ -14,7 +13,6 @@ projects.
 |---|---|
 | [`core/`](core/) | Complete 32-bit Tomato CPU, Tomato OS, board harness, and Icarus tests |
 | [`hdmi_test/`](hdmi_test/) | Independent 640×480 display/pinout bring-up |
-| [`ethernet_test/`](ethernet_test/) | Experimental LAN8720A RMII/UDP echo bring-up; no Tomato CPU or Internet claim |
 
 The complete machine lives in `core/`. Current register, ISA, OS, and clock
 facts are maintained in [`../../docs/status.md`](../../docs/status.md); the
@@ -88,7 +86,6 @@ not evidence of physical execution.
 | [`core/tb/`](core/tb/) | Unit, program, OS, and integration testbenches |
 | [`core/constr/`](core/constr/) | Nexys A7 constraints |
 | [`hdmi_test/`](hdmi_test/) | Standalone display bring-up |
-| [`ethernet_test/`](ethernet_test/) | Standalone RMII/UDP echo bring-up |
 
 Generated `.tools/`, `build/`, and `sim/` directories are not source
 authorities.
