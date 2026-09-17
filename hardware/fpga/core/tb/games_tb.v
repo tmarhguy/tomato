@@ -15,6 +15,9 @@ module games_tb;
     wire        kb_rd, halted;
     reg  [12:0] tile_raddr = 13'd0;
     wire [31:0] tile_rdata;
+    wire [6:0]  ble_addr;
+    wire        ble_wr;
+    wire [7:0]  ble_wdata;
 
     always #5 clk = ~clk;
     always @(posedge clk) if (kb_rd) kb_ready <= 1'b0;
@@ -24,6 +27,7 @@ module games_tb;
         .kb_data(kb_data), .kb_ready(kb_ready), .kb_rd(kb_rd),
         .io_out(io_out), .disp_value(disp_value), .halted(halted),
         .tile_rclk(clk), .tile_raddr(tile_raddr), .tile_rdata(tile_rdata),
+        .ble_addr(ble_addr), .ble_wr(ble_wr), .ble_wdata(ble_wdata),
         .ble_rdata(32'd0)
     );
 
