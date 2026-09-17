@@ -77,7 +77,10 @@ figure.vt-embed div.vt-embed-keys > button{flex:none;min-width:44px;min-height:4
 figure.vt-embed div.vt-embed-keys > button:hover{border-color:var(--dust)}
 figure.vt-embed div.vt-embed-keys > button:active{border-color:var(--red)}
 figure.vt-embed div.vt-embed-keys > button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-.vt-embed-side{min-width:0}
+.vt-embed-side{
+  min-width:0;
+  touch-action:pan-y;
+}
 p.vt-embed-status{font-family:var(--site-mono);font-size:.78rem;color:var(--muted);margin:0}
 .vt-embed-hint{font-size:.8rem;color:var(--muted);margin:.8rem 0}
 .vt-embed-side .text-link{font-size:.85rem}
