@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tomato · Virtual FPGA</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#e7e8ed;background:#15171c}
+body{margin:0 auto;max-width:1280px;padding:24px}header{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+h1{font-size:23px;margin:0}p{color:#b9bec9;line-height:1.5}button,input,select{font:inherit;border-radius:7px;padding:9px 13px;border:1px solid #525866}
+button{background:#303540;color:white;cursor:pointer}button:active{background:#526685}button:focus-visible,canvas:focus-visible{outline:3px solid #99b9ff}
+main{display:grid;grid-template-columns:minmax(0,1fr) 265px;gap:24px;margin-top:20px}
+canvas{width:100%;image-rendering:pixelated;background:black;aspect-ratio:4/3;border-radius:3px}
+aside{background:#20242c;padding:18px;border-radius:12px}h2{font-size:16px;margin:0 0 12px}
+.pad{display:grid;grid-template-columns:repeat(3,48px);gap:6px;justify-content:center;margin:20px 0}
+.pad button{padding:10px 0}.up{grid-column:2}.left{grid-column:1}.bottom{grid-column:2}
+input,select{box-sizing:border-box;width:100%;margin:6px 0;background:#15171c;color:white}
+small{display:block;color:#b9bec9;line-height:1.5;margin:12px 0}.status{font-size:13px;color:#b9bec9}
+#notice{color:#ffd586}#pause{margin-left:auto}label{font-size:13px}
+@media(max-width:850px){main{grid-template-columns:1fr}aside{max-width:100%}}
+</style>
+<header><h1>Tomato · Virtual FPGA</h1><span class="status">Actual CPU RTL + current OS firmware</span><button id="pause">Pause</button><button id="reset">Reset OS</button></header>
+<main><section><canvas id="screen" width="640" height="480" tabindex="0" aria-label="Tomato screen. Use arrow keys and Enter to control."></canvas>
+<p>Click the screen, then use <b>↑ ↓ ← →</b> and <b>Enter</b>. The buttons below work too. From the initial menu, ↑ selects Envelop and Enter opens it.</p>
+<div id="stats" class="status">Starting…</div><p id="notice" role="status"></p>
+<h2>Chat transcript</h2><div id="chat" aria-live="polite" style="white-space:pre-wrap;font-size:14px;max-height:360px;overflow:auto;line-height:1.5"></div></section>
+<aside><h2>Five-button controller</h2>
+<div class="pad"><button class="up" data-key="30" aria-label="Up">↑</button><button class="left" data-key="17" aria-label="Left">←</button><button data-key="13" aria-label="Center">●</button><button data-key="16" aria-label="Right">→</button><button class="bottom" data-key="31" aria-label="Down">↓</button></div>
+<h2>Simulated phone</h2><button id="demo">Connect demo phone</button>
+<input id="contact-name" value="New contact" maxlength="32" aria-label="New simulated contact name">
+<button id="add-contact">Add / update contact 4</button>
+<small>This is a local test bridge, not real Bluetooth or Internet. Open Envelop, then connect to load three test contacts. Demo sends receive simulated server ACKs.</small>
+<label for="route">Send to conversation</label><select id="route"><option value="1">Ama Mensah</option><option value="2">Kofi</option><option value="3">Ada</option></select>
+<textarea id="message" rows="5" maxlength="2048" aria-label="Incoming test message" style="box-sizing:border-box;width:100%;background:#15171c;color:white;padding:10px">Hello</textarea>
+<button id="send">Send to Tomato</button> <button id="disconnect">Disconnect</button>
+<small>Compute preview: /calc 23 + 19, or /run followed by assignments, ALU operations, LOAD/STORE and RETURN. Separate instructions with newlines or semicolons. Raw LUT jobs are not supported by the current ISA.</small>
+<small>Envelop: ↑/↓ choose a character, Enter adds it, → sends, ← returns to contacts. Choose &lt; to delete. ← again exits.</small>
+</aside></main>
+<script>
+const token="__TOKEN__", canvas=document.querySelector("canvas"),ctx=canvas.getContext("2d",{alpha:false});
+let assets,paused=false,queue=[],running=false,total=0,lastStatus=0;
+const notice=document.querySelector("#notice"),stats=document.querySelector("#stats");
+function render(buffer){
+ const view=new DataView(buffer);lastStatus=view.getUint32(4,true);
+ const img=ctx.createImageData(640,480),font=assets.font,pal=assets.palette,paper=assets.paper;
+ for(let y=0;y<480;y++)for(let x=0;x<640;x++){
+  const w=view.getUint32(8+4*((y>>3)*80+(x>>3)),true);
+  const large=(w>>18)&1,row=large?(((w>>20)&1)*4+((y&7)>>1)):(y&7);
+  const col=large?(((w>>19)&1)*4+((x&7)>>1)):(x&7);
+  const ink=(font[(w&255)*8+row]>>col)&1;
+  let rgb;
+  if((w&65536)&&!ink){
+   const p=paper[(y>>1)*320+(x>>1)],shift=(w&131072)?2:0;
+   rgb=[((p>>8)&15)>>shift,((p>>4)&15)>>shift,(p&15)>>shift].map(v=>v*17);
+  }else{
+   const index=(w&65280)?(ink?(w>>8)&15:(w>>12)&15):(w&15);
+   rgb=pal[index];
+  }
+  const p=(y*640+x)*4;img.data[p]=rgb[0];img.data[p+1]=rgb[1];img.data[p+2]=rgb[2];img.data[p+3]=255;
+ }
+ ctx.putImageData(img,0,0);
+}
+function add(command,extra={}){if(queue.length<32)queue.push({command,...extra});}
+async function loop(){
+ if(running)return;running=true;
+ while(true){
+  if((paused||document.hidden)&&!queue.length){await new Promise(r=>setTimeout(r,80));continue;}
+  const request=queue.shift()||{command:"tick"},start=performance.now();
+  try{
+   const r=await fetch("/step",{method:"POST",headers:{"Content-Type":"application/json","X-Tomato-Token":token},body:JSON.stringify(request)});
+   if(!r.ok)throw Error(await r.text());
+   render(await r.arrayBuffer());total+=request.command==="boot"?400000:105000;
+   stats.textContent=(lastStatus&1?"CPU halted":"CPU running")+" · "+((lastStatus&2)?"Demo phone connected":"Phone disconnected")+" · "+Math.round(performance.now()-start)+" ms / step · simulation speed depends on this computer";
+   notice.textContent="";
+  }catch(e){notice.textContent=e.message;paused=true;document.querySelector("#pause").textContent="Resume";}
+  await new Promise(r=>setTimeout(r,10));
+ }
+}
+const keys={ArrowUp:30,ArrowDown:31,ArrowLeft:17,ArrowRight:16,Enter:13};
+document.addEventListener("keydown",e=>{
+ if(["INPUT","TEXTAREA","SELECT","BUTTON"].includes(e.target.tagName))return;
+ if(keys[e.key]!==undefined){e.preventDefault();if(!e.repeat)add("key",{key:keys[e.key]});}
+});
+document.querySelectorAll("[data-key]").forEach(b=>b.onclick=()=>{add("key",{key:Number(b.dataset.key)});canvas.focus();});
+document.querySelector("#pause").onclick=()=>{paused=!paused;document.querySelector("#pause").textContent=paused?"Resume":"Pause";};
+document.querySelector("#reset").onclick=()=>{queue=[];add("reset");canvas.focus();};
+document.querySelector("#demo").onclick=()=>{add("demo");canvas.focus();};
+document.querySelector("#disconnect").onclick=()=>add("disconnect");
+document.querySelector("#add-contact").onclick=()=>add("contact",{route:4,name:document.querySelector("#contact-name").value});
+document.querySelector("#send").onclick=()=>add("message",{route:Number(document.querySelector("#route").value),text:document.querySelector("#message").value});
+setInterval(async()=>{try{const rows=await(await fetch('/chat')).json();document.querySelector('#chat').textContent=rows.map(x=>`${x.from} · conversation ${x.route}\n${x.text}`).join('\n\n');}catch{}},750);
+(async()=>{try{assets=await(await fetch("/assets")).json();render(await(await fetch("/frame")).arrayBuffer());canvas.focus();loop();}catch(e){notice.textContent=e.message;}})();
+</script></html>

@@ -20,6 +20,7 @@ on:
     paths:
       - "hardware/fpga/core/rtl/**"
       - "hardware/fpga/core/constr/**"
+      - "hardware/fpga/core/tb/**"
       - "hardware/fpga/core/Makefile"
       - "hardware/fpga/common.mk"
       - "hardware/fpga/scripts/**"
@@ -28,20 +29,40 @@ on:
       - "software/assembler.py"
       - "tools/gen_fpga_burn.py"
       - "tools/gen_microcode_v1.py"
-      - "tools/gen_nrf8001_setup.py"
+      - "tools/nl_fixtures.json"
+      - "tools/remote_compile.py"
+      - "tools/render_envelop.py"
+      - "tools/test_envelop.py"
+      - "tools/test_os_layout.py"
+      - "tools/test_remote_compute.py"
+      - "tools/test_remote_service.py"
+      - "tools/test_virtual_tomato.py"
+      - "tools/virtual_tomato.*"
       - "docs/isa/tomato.v1.csv"
       - ".github/workflows/fpga-bitstream.yml"
   pull_request:
     paths:
       - "hardware/fpga/core/rtl/**"
       - "hardware/fpga/core/constr/**"
+      - "hardware/fpga/core/tb/**"
       - "hardware/fpga/core/Makefile"
       - "hardware/fpga/common.mk"
       - "hardware/fpga/scripts/**"
       - "software/os/**"
+      - "software/asm/**"
       - "software/assembler.py"
       - "tools/gen_fpga_burn.py"
       - "tools/gen_microcode_v1.py"
+      - "tools/nl_fixtures.json"
+      - "tools/remote_compile.py"
+      - "tools/render_envelop.py"
+      - "tools/test_envelop.py"
+      - "tools/test_os_layout.py"
+      - "tools/test_remote_compute.py"
+      - "tools/test_remote_service.py"
+      - "tools/test_virtual_tomato.py"
+      - "tools/virtual_tomato.*"
+      - "docs/isa/tomato.v1.csv"
 
 concurrency:
   group: fpga-${{ github.ref }}
@@ -54,6 +75,39 @@ env:
   BOOT: ${{ inputs.boot || 'tomato_os' }}
 
 jobs:
+  core-simulation:
+    name: core + Envelop + remote compute
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install simulation tools
+        run: sudo apt-get update && sudo apt-get install -y iverilog verilator g++
+      - name: Core and OS regressions
+        run: make -C hardware/fpga/core test
+      - name: Envelop and Virtual Tomato regressions
+        run: make -C hardware/fpga/core remote-test
+      - name: Layout and local-service contracts
+        run: |
+          set -euo pipefail
+          python3 tools/test_os_layout.py
+          python3 tools/virtual_tomato.py >/tmp/tomato-virtual-service.log 2>&1 &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          ready=0
+          for _ in {1..180}; do
+            if curl -fsS http://127.0.0.1:8766/session >/dev/null 2>&1; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" != 1 ]; then
+            cat /tmp/tomato-virtual-service.log
+            exit 1
+          fi
+          python3 tools/test_remote_service.py
+
   bitstream:
     name: yosys -> nextpnr -> .bit
     runs-on: ubuntu-latest

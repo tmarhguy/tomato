@@ -9,12 +9,13 @@ authoritative.
 
 | Material | Location / provenance | Terms and decision |
 |---|---|---|
-| Nordic nRF8001 UART setup data | `hardware/fpga/core/vendor/nrf8001/services.h`; copied from Adafruit_nRF8001 commit `5b331b370a980e90c0983a685da74996fe61dab1`, `utility/uart/services.h` | The exact 2012 Nordic Semiconductor notice is retained in the source. `tools/gen_nrf8001_setup.py` carries that notice into generated `software/os/envelop_setup.s`. This data is **not relicensed as Tomato work**. The referenced Nordic standard software licence is not included here, so redistribution rights beyond the retained notice remain an unresolved upstream-licence question. |
 | ENIAC photograph | `web/assets/engravings/eniac-penn.jpg`; U.S. Army photograph via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Classic_shot_of_the_ENIAC.jpg) | Public-domain U.S. government photograph; source attribution is preserved in `web/ATTRIBUTION.md`. |
 | Printable ASCII font ROM | Generator `tools/gen_font_rom.py` and generated `font_rom.v` | Project-authored data under Tomato's project licence unless a more specific notice appears in the generated file. |
 
-The nRF8001 ACI transport and service RTL outside the imported setup bytes is
-independently written Tomato work.
+Nordic-generated nRF8001 ACI setup bytes are intentionally not stored or
+redistributed. The repository ships only independently written transport RTL
+and project-authored simulator placeholders. Those placeholders do not
+configure a physical radio.
 
 ## Tools and fetched dependencies
 

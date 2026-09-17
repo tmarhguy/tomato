@@ -11,7 +11,7 @@ entries**. **Desktop v1.2** names the workspace UI revision, not the OS version.
 |---|---|
 | [`tomato_os.s`](tomato_os.s) | Boot, desktop, menu, applications, games, framebuffer and input services |
 | [`envelop_lite.s`](envelop_lite.s) | Tomato-side Envelop client |
-| [`envelop_setup.s`](envelop_setup.s) | Generated/static setup records consumed by the client |
+| [`envelop_setup.s`](envelop_setup.s) | Simulator-only setup placeholder; Nordic-generated physical-radio bytes are not redistributed |
 | [`remote_exec.s`](remote_exec.s) | Bounded machine-side compute executor |
 
 The FPGA build concatenates these assembly sources into one checked image.
