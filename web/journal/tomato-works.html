@@ -28,10 +28,10 @@
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="An August 2026 milestone record of Tomato OS and its graphical interface running over HDMI on the FPGA computer." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Tomato, works, beautifully, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -39,7 +39,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Tomato works beautifully! — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="An August 2026 milestone record of Tomato OS and its graphical interface running over HDMI on the FPGA computer." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/tomato-works.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/tomato-works.html" />
@@ -53,7 +53,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Tomato works beautifully! — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="An August 2026 milestone record of Tomato OS and its graphical interface running over HDMI on the FPGA computer." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -62,7 +62,7 @@
   "@id": "https://tomato.tmarhguy.com/journal/tomato-works.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal/tomato-works.html",
   "name": "Tomato works beautifully! — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "An August 2026 milestone record of Tomato OS and its graphical interface running over HDMI on the FPGA computer.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -87,7 +87,7 @@
 <p class="deck">HDMI and a GUI on a TV — Tomato OS on about 2,300 lines of assembly.</p>
 <p class="byline">29 August 2026 · from the log</p>
 </div>
-</section><aside class="journal-decision" aria-label="The entry at a glance"><div><span>The starting point</span><p>Months of architecture and assembly</p></div><div><span>The move</span><p>Run Tomato OS on the FPGA</p></div><div><span>The result or direction</span><p>Menus, games, and HDMI output</p></div></aside>
+</section><aside class="journal-decision" aria-label="The entry at a glance"><div><span>Verified milestone</span><p>The complete FPGA computer booted the assembly-written Tomato OS</p></div><div><span>Historical wording</span><p>Later register and foreign-ISA claims on this dated page were proposals, not current capability</p></div><div><span>Current FPGA registers</span><p>256 × 32-bit · eight banks · r0 fixed to zero</p></div></aside>
 <section class="section section--journal">
 <div class="site-prose wrap">
 <figure class="figure figure--inset plate--ink">
@@ -103,7 +103,7 @@
 <p>It gets exciting because it is running on over <strong>2,300 lines of assembly code</strong> as Tomato OS.</p>
 <p>I have ported games like Tetris, Racer, Snake, an About Me page, and Fibonacci. I will add more features like Ping Pong, Tribonacci, Space Shooters, and more!</p>
 <figure class="figure figure--inset plate--ink">
-<img alt="Tomato OS main menu" decoding="async" height="540" loading="lazy" src="../assets/os/main-menu-screen.jpg" width="960"/>
+<img alt="Tomato OS main menu" decoding="async" height="1920" loading="lazy" src="../assets/os/main-menu-screen.jpg" width="2560"/>
 <figcaption class="caption">
 <span>Fig. — Main menu</span>
 <span>Six entries · THE MACHINE card</span>
@@ -111,21 +111,21 @@
 </figure>
 <div class="two-up">
 <figure class="plate plate--ink">
-<img alt="Tetris on Tomato OS" decoding="async" height="360" loading="lazy" src="../assets/os/tetris-screen.jpg" width="640"/>
+<img alt="Tetris on Tomato OS" decoding="async" height="900" loading="lazy" src="../assets/os/tetris-screen.jpg" width="1600"/>
 <figcaption class="plate-cap"><span>Tetris</span><span>HDMI out</span></figcaption>
 </figure>
 <figure class="plate plate--ink">
-<img alt="Racer on Tomato OS" decoding="async" height="360" loading="lazy" src="../assets/os/racer-screen.jpg" width="640"/>
+<img alt="Racer on Tomato OS" decoding="async" height="900" loading="lazy" src="../assets/os/racer-screen.jpg" width="1600"/>
 <figcaption class="plate-cap"><span>Racer</span><span>Seven lanes</span></figcaption>
 </figure>
 </div>
 <div class="two-up">
 <figure class="plate plate--ink">
-<img alt="Snake game over on Tomato OS" decoding="async" height="360" loading="lazy" src="../assets/os/snake-game-over-screen.jpg" width="640"/>
+<img alt="Snake game over on Tomato OS" decoding="async" height="900" loading="lazy" src="../assets/os/snake-game-over-screen.jpg" width="1600"/>
 <figcaption class="plate-cap"><span>Snake</span><span>Game over</span></figcaption>
 </figure>
 <figure class="plate plate--ink">
-<img alt="Fibonacci on Tomato OS" decoding="async" height="360" loading="lazy" src="../assets/os/fibonacci-screen.jpg" width="640"/>
+<img alt="Fibonacci on Tomato OS" decoding="async" height="900" loading="lazy" src="../assets/os/fibonacci-screen.jpg" width="1600"/>
 <figcaption class="plate-cap"><span>Fibonacci</span><span>Integer demo</span></figcaption>
 </figure>
 </div>
@@ -142,7 +142,7 @@
 </figure>
 <h2 id="read-moving-forward">Moving Forward</h2>
 <p>While this is exciting, I plan to reach the ultimate test, which is showing the steps it takes to actually compute operations.</p>
-<p><strong>Tomato is not another RISC-V.</strong> Its quirks alone point to a machine designed for extreme throughput at the lowest frequencies, doing things like <code>A + (B AND C)</code> in one cycle effortlessly. It is further running with a <a href="register-upgrade.html">32,768 General Purpose Register</a> file and extreme parametrization to allow other ISAs to natively run on it rather than using naive emulation.</p>
+<p><strong>Tomato is not another RISC-V.</strong> Its custom three-source Dual-LUT ALU can express operations such as <code>A + (B AND C)</code> in one ALU evaluation. The FPGA machine demonstrated here has <strong>256 × 32-bit registers</strong>, not the <a href="register-upgrade.html">historical 32,768-location proposal</a>. ISA profile files are exploration data for comparing operations with Tomato’s datapath; they do not establish foreign-binary or native compatibility.</p>
 <p>So, I will design it to show how it crunches through what are normally multi-instructions in the lowest step.</p>
 <p>While these logs are meant to be more professional, I want to admit I am genuinely happy with how far Tomato has come. Many projects start and end halfway. This project has outlived the original design and has come so far that they are like Hydrogen and Osmium at their atomic levels :)</p>
 <p>I am also happy I kept one thing true: <strong>making sure it can be easily implemented with readily available 74xx chips and discrete components.</strong> It's all the more reason (and rather coincidentally) that the ALU resolved into a 3-variable engine, and the immediate box remained a driver + decoder (for output enable control) over a hierarchical multiplexer, keeping delay paths deterministic and fairly constant regardless of mux size.</p>
@@ -159,7 +159,7 @@
 </main>
 <footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

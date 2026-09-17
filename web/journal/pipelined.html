@@ -28,10 +28,10 @@
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="A historical thought experiment on pipelined control for changing FPGA ALU configurations between adjacent instructions." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Pipelined, FPGA, tomato, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -39,7 +39,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Pipelined FPGA — what if — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="A historical thought experiment on pipelined control for changing FPGA ALU configurations between adjacent instructions." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/pipelined.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/pipelined.html" />
@@ -53,7 +53,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Pipelined FPGA — what if — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="A historical thought experiment on pipelined control for changing FPGA ALU configurations between adjacent instructions." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -62,7 +62,7 @@
   "@id": "https://tomato.tmarhguy.com/journal/pipelined.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal/pipelined.html",
   "name": "Pipelined FPGA — what if — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "A historical thought experiment on pipelined control for changing FPGA ALU configurations between adjacent instructions.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -97,7 +97,7 @@
 <p>It makes every sense to have that update happen timed just before it is used. Built on decode programmability, that is a pipelined design with two control units: the system control, and a finite state machine that only updates specific cells as required.</p>
 <p>The cells are majority, XNOR, XOR in one cycle; XNOR, AND, AND in about seven more; then some other combination in the next sequence. If all cells need to be changed, then you wait.</p>
 <figure class="figure">
-<img alt="Nexys A7 Artix-7 FPGA board with the lid off on the desk." height="1200" loading="lazy" src="../assets/story/hardware/nexys-a7.jpg" width="1600"/>
+<img alt="Nexys A7 Artix-7 FPGA board with the lid off on the desk." height="3413" loading="lazy" src="../assets/story/hardware/nexys-a7.jpg" width="2560"/>
 </figure>
 <p class="caption"><span>Fig. — Artix-7</span><span>Where the “what if” gets silicon before copper</span></p>
 <p>I take that from a comment my father, who worked on wind generators in Germany, quoted from his lead engineer: for the wind generators we are building, what if the winds stop? He answered: then we die. Flexibility must remain within the limits of physics. An 8-bit ALU that I started with is no longer recognizable for what it is now.</p>
@@ -115,7 +115,7 @@
 <footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script src="../js/arch-map.js?v=e66262bb" type="module"></script>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

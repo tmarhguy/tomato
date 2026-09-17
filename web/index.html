@@ -26,7 +26,7 @@
     }
   </script>
 <link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
-<link href="css/landing.css?v=7a75fdf3" rel="stylesheet"/>
+<link href="css/landing.css?v=1d60b609" rel="stylesheet"/>
 <script type="importmap">
     { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }
   </script>
@@ -36,7 +36,7 @@
 <link as="fetch" crossorigin="anonymous" href="assets/pcb/alu.glb" rel="preload" type="model/gltf-binary"/>
 <link href="css/navigation.css?v=224d88a5" rel="stylesheet"/>
 <link href="css/virtual.css?v=c99284c1" rel="stylesheet"/>
-<script defer="" src="js/navigation.js?v=c3d656fc"></script>
+<script defer="" src="js/navigation.js?v=cf819a71"></script>
 <!-- tomato-seo -->
   <meta name="description" content="Tomato is a custom 32-bit architecture: a complete FPGA computer and Tomato OS, a browser emulator, a physically built discrete ALU slice, and Envelop messaging." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, Dual-LUT ALU, FPGA computer, Nexys A7, Tomato OS, Envelop, browser emulator, discrete 74xx ALU" />
@@ -123,7 +123,7 @@
 <div class="hero-stage">
 <figure class="hero-board bench">
 <div class="bench-stage">
-<img alt="KiCad render of Tomato’s green circuit board, showing the two logic cells, chips, copper connections, and Penn Engineering mark" class="board-image" data-src-dark="assets/pcb/board-iso.webp" data-src-light="assets/pcb/board-iso-light.webp" fetchpriority="high" height="905" id="board-image" src="assets/pcb/board-iso.webp" width="1280"/>
+<img alt="KiCad render of Tomato’s green circuit board, showing the two logic cells, chips, copper connections, and Penn Engineering mark" class="board-image" data-src-dark="assets/pcb/board-iso.webp" data-src-light="assets/pcb/board-iso-light.webp" fetchpriority="high" height="1117" id="board-image" src="assets/pcb/board-iso.webp" width="1280"/>
 <script>
     (function () {
       var img = document.getElementById('board-image');
@@ -156,7 +156,7 @@
 <div class="hero-copy">
 <h1 id="hero-title">A computer whose logic<br/><em>changes with each instruction.</em></h1>
 <p class="hero-pitch">I designed the 32-bit processor, built the computer around it, and wrote the operating system it runs in my dorm.</p>
-<nav class="hero-journeys" aria-label="Ways to experience Tomato"><a class="hero-journey-primary" href="#virtual-world"><strong>Play Tomato OS</strong><span>Already booted below</span></a><a href="envelop.html"><strong>Message</strong><span>With Envelop</span></a><a href="compute.html"><strong>Compute</strong><span>See what ran</span></a></nav>
+<nav class="hero-journeys" aria-label="Ways to experience Tomato"><a class="hero-journey-primary" href="#virtual-world"><strong>Play Tomato OS</strong><span>Compiler already running</span></a><a href="envelop.html"><strong>Message the machine</strong><span>Text a computer</span></a><a href="compute.html"><strong>Understand compute</strong><span>See what ran</span></a></nav>
 <p class="hero-hook"><a href="#the-difference"><strong>524,288</strong> ALU configurations</a><span aria-hidden="true">·</span><a href="#running"><strong>Tomato OS</strong> running on FPGA</a></p>
 </div>
 </div>
@@ -164,7 +164,7 @@
 </section>
 <section aria-labelledby="intro-title" class="intro frame section-space tomato-overview" id="what-is-tomato">
 <div class="section-label"><span>01 / WHAT IS TOMATO?</span><span>Processor · software · hardware</span></div>
-<div class="overview-heading"><h2 id="intro-title">What is Tomato?</h2><p>A <strong>32-bit computer I designed from the processor up in my dorm, during sophomore year.</strong></p></div>
+<div class="overview-heading"><h2 id="intro-title">What is Tomato?</h2><p><strong>A computer I designed from scratch:</strong> its 32-bit processor, instruction set, circuit boards, assembler, and operating system.</p></div>
 <ul class="overview-bullets">
 <li><a href="#the-difference"><strong>Dual-LUT3 ALU · 524,288 configurations</strong> — <code>f(A,B,C) + g(A,B,C) + Cin</code> in one cycle.</a></li>
 <li><a href="isa.html"><strong>61 instructions plus NOP</strong> — 62 burned rows in a 512-row control ROM.</a></li>
@@ -173,15 +173,25 @@
 <li><a href="#immediate-box"><strong>16-format immediate box</strong> — <code>imm7</code>/<code>imm12</code>-style widths for native ISA remaps.</a></li>
 <li><a href="#control"><strong>Distributed control</strong> — local ROMs beside the units they drive.</a></li>
 <li><a href="os.html"><strong>Assembler + Tomato OS on FPGA</strong> — graphics, games, video, and input on my CPU.</a></li>
+<li><a href="envelop.html"><strong>Envelop inside Tomato OS</strong> — a messenger that lets a person text this computer and receive a provenance-labeled reply.</a></li>
 <li><a href="viewer.html"><strong>RTL and discrete 74xx</strong> — same architecture in FPGA, KiCad, and copper.</a></li>
-<li><a href="verification.html"><strong>130 billion ALU test vectors</strong> — simulation and formal checks at 1, 8, and 32 bits.</a></li>
+<li><a href="verification.html"><strong>A recorded 130-billion-vector ALU run</strong> — plus reproducible simulation and formal checks at 1, 8, and 32 bits.</a></li>
 </ul>
 <div class="overview-bottom"><p>Its logic can change with each instruction.</p><a class="text-link" href="#the-difference">See how it works</a></div>
+</section>
+<section class="meet-tomato frame" aria-labelledby="meet-title">
+<div class="meet-tomato-heading"><p class="eco-tag">ONE ARCHITECTURE · THREE WAYS TO EXPERIENCE IT</p><h2 id="meet-title">See the hardware.<br/><em>Run it. Then text it.</em></h2></div>
+<div class="meet-tomato-paths">
+<a href="viewer.html"><span>01 / PHYSICAL</span><strong>Inspect the fabricated ALU.</strong><p>Rotate its faithful KiCad model, then inspect the photographs and build record of the soldered Dual-LUT slice.</p><b>Tour the board →</b></a>
+<a href="#virtual-world"><span>02 / VIRTUAL</span><strong>Use Tomato OS.</strong><p>The same custom ISA runs the shipped OS in your browser. The Compiler is already open with live registers.</p><b>Try the computer →</b></a>
+<a href="envelop.html"><span>03 / CONNECTED</span><strong>Text the computer.</strong><p>Envelop can reach the Tomato OS app on the FPGA at my dorm desk when its verified bridge is online—and queues safely when it is away.</p><b>Message the machine →</b></a>
+</div>
+<p class="meet-tomato-boundary">The complete computer runs on FPGA. The physical discrete build currently proves its 8-bit ALU slice. Virtual and physical replies are always labeled.</p>
 </section>
 <section class="ecosystem-console frame" id="virtual-world" aria-labelledby="virtual-title">
 <div class="ecosystem-machine">
 <div class="section-label"><span>PLAY TOMATO</span><span>Virtual Tomato · keyboard or touch</span></div>
-<div class="ecosystem-console-heading"><div><p class="eco-tag">SHIPPED TOMATO OS APP</p><h2 id="virtual-title">The Compiler is already running.</h2></div><p>The real OS image boots directly into its Dual-LUT Compiler demo here. The operands, expected result, live output, and discovered LUT configuration are drawn by Tomato instructions—not by a mock overlay.</p></div>
+<div class="ecosystem-console-heading"><div><p class="eco-tag">SHIPPED TOMATO OS APP</p><h2 id="virtual-title">The Compiler is already running.</h2></div><p>Real OS output: operands, target, result, and discovered LUT values—not a mock overlay.</p></div>
 <figure class="vt-embed" id="vt-embed">
 <div class="vt-embed-grid">
 <div class="vt-embed-stage">
@@ -200,13 +210,13 @@
 <nav class="ecosystem-console-links" aria-label="Explore Tomato OS"><a href="virtual.html">Full Virtual Tomato</a><a href="os.html">Inside Tomato OS</a><a href="compute.html">Compute provenance</a></nav>
 </div>
 <aside class="ecosystem-message" id="envelop" aria-labelledby="envelop-title">
-<p class="eco-tag">TOMATO × ENVELOP</p>
+<p class="eco-tag">ONE OF TOMATO OS’S 14 APPS</p>
 <h2 id="envelop-title">Message the machine.</h2>
-<p>Envelop ships inside Tomato OS. Its browser messenger queues traffic for a nearby verified bridge; only a completed hardware job earns a Hardware Tomato label.</p>
-<figure><img src="assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp" width="1440" height="1000" loading="lazy" decoding="async" alt="Envelop open inside Tomato OS in the desktop Virtual Tomato browser emulator, with simulated phone controls"/><figcaption>Virtual Tomato · simulated phone · bridge offline</figcaption></figure>
-<a class="button button-red" href="https://tmarhguy.github.io/envelop/chat/">Open Envelop chat</a>
-<a class="text-link" href="envelop.html">How messages reach Tomato</a>
-<small>Hardware may be offline. Messages wait; ambiguous outcomes are never replayed virtually.</small>
+<p>This is not a contact named after the project. Envelop is an app running on Tomato OS, so you can open a browser and text the computer itself.</p>
+<figure><img src="assets/gallery/os/desktop-menu-v12-1280w.webp" width="1280" height="720" loading="lazy" decoding="async" alt="Landscape Tomato OS menu captured from the FPGA display path, with Envelop listed among the shipped applications"/><figcaption>Tomato OS on the FPGA · Envelop is the first app</figcaption></figure>
+<a class="button button-red" href="envelop.html">See how you text a computer</a>
+<a class="text-link" href="https://tmarhguy.github.io/envelop/chat/">Open Envelop chat</a>
+<small>Messages wait when hardware is away. Every reply says whether physical or Virtual Tomato answered.</small>
 </aside>
 </section>
 <section aria-labelledby="running-title" class="running section-space" id="running">
@@ -340,7 +350,7 @@ OR out, t1, t2</code></p><p><strong>Tomato · 2 ALU evaluations</strong><code>1.
 </div></section>
 <section aria-labelledby="build-title" class="frame section-space build" id="build-status"><div class="section-label"><span>08 / BUILT, TESTED, STILL BUILDING</span><span>Project record · September 2026</span></div><div class="section-heading"><h2 id="build-title">You can follow<br/>the whole thing.</h2><p>From the circuit design to the software on screen. The working prototype and the physical build each have a place in the story.</p></div>
 <div class="build-grid"><article><span class="state state-running">RUNNING</span><h3>A complete FPGA computer</h3><p>My custom CPU boots Tomato OS and drives an HDMI display. The FPGA faithfully implements the architecture, giving me a working system for developing and testing software.</p><a href="software.html">Software and running system</a></article><article id="iron"><span class="state">ON THE BENCH</span><h3>Discrete logic hardware</h3><p>I’ve soldered the Lot 07 ALU board. The register, memory, control, and other boards continue in parallel—bringing the same architecture into discrete logic.</p><a href="#status">See the physical ALU status</a></article><article id="whats-next"><span class="state state-planned">WHAT’S NEXT</span><h3>More software. More silicon.</h3><p>The faithful FPGA gives me a working computer to build on. My next focus is broader instruction mappings, compiler support for compound operations, and the tools to make them useful. Alongside that, I’m completing the remaining discrete boards—growing the software ecosystem and the physical computer together.</p><a href="isa.html">Instruction set and mappings</a></article></div>
-<div class="proof-row" id="verification"><div><span class="eyebrow">Verification, with a trail</span><h3>130 billion test vectors.<br/>2 hours 45 minutes of simulation.</h3></div><div class="prose"><p>I drove 130 billion Verilator test vectors through the 32-bit ALU, checking each result against a reference model. That run took <strong>2 hours 45 minutes</strong>. I also used formal verification to check the ALU’s mathematical behavior at 1, 8, and 32 bits.</p><p class="small-copy">These are ALU checks. They do not certify the entire computer or its physical timing. The verification page explains the scope and reproducible commands.</p><a class="text-link" href="verification.html">Inspect the evidence · Verilator + SymbiYosys</a></div></div>
+<div class="proof-row" id="verification"><div><span class="eyebrow">Recorded run + reproducible harness</span><h3>130 billion test vectors.<br/>2 hours 45 minutes of simulation.</h3></div><div class="prose"><p>I recorded a 130-billion-vector Verilator run through the 32-bit ALU, checking each result against a reference model. That run took <strong>2 hours 45 minutes</strong>. The repository includes the reproducible harness, while the full run log is not checked in. I also used formal verification to check the ALU’s mathematical behavior at 1, 8, and 32 bits.</p><p class="small-copy">These are ALU checks. They do not certify the entire computer or its physical timing. The verification page explains the scope and reproducible commands.</p><a class="text-link" href="verification.html">Inspect the evidence · Verilator + SymbiYosys</a></div></div>
 </section>
 <section aria-labelledby="evolution-title" class="frame section-space alu-evolution" id="alu-evolution"><div class="section-label"><span>PREDECESSOR → TOMATO</span><span>Compare two 8-bit ALU slices</span></div><div class="section-heading"><h2 id="evolution-title">A smaller board.<br/><em>A more flexible building block.</em></h2><p>The predecessor gave me a fixed menu of operations. Tomato combines programmable Boolean logic with arithmetic—and fits its 8-bit slice into about one-seventh the board area.</p></div><div class="evolution-charts"><figure class="evolution-chart"><figcaption><span>PCB area</span><strong>7.3× smaller</strong></figcaption><div class="metric-row"><span>Predecessor</span><b>72,900 mm²</b><i style="--bar:100%"></i></div><div class="metric-row tomato-metric"><span>Tomato</span><b>≈9,975 mm²</b><i style="--bar:13.683%"></i></div><p>Same 8-bit slice width. 270 × 270 mm → 99.95 × 99.80 mm; 86.3% less board area.</p></figure><figure class="evolution-chart"><figcaption><span>Input operands</span><strong>1.5× as many</strong></figcaption><div class="metric-row"><span>Predecessor</span><b>2 · A, B</b><i style="--bar:66.667%"></i></div><div class="metric-row tomato-metric"><span>Tomato</span><b>3 · A, B, C</b><i style="--bar:100%"></i></div><p>A third input lets the truth tables combine three values before arithmetic.</p></figure><figure class="evolution-chart"><figcaption><span>Result flags</span><strong>1.75× as many</strong></figcaption><div class="metric-row"><span>Predecessor</span><b>4 flags</b><i style="--bar:57.143%"></i></div><div class="metric-row tomato-metric"><span>Tomato</span><b>7 flags</b><i style="--bar:100%"></i></div><p>Tomato exposes Z, N, C, V, LT, GT and GTE. These describe the result; they are not extra operations.</p></figure><figure class="evolution-chart"><figcaption><span>Operation control space</span><strong>Fixed → configurable</strong></figcaption><div class="metric-row"><span>Predecessor</span><b>19 fixed operations</b><i style="--bar:0.00362396240234375%"></i></div><div class="metric-row tomato-metric"><span>Tomato</span><b>524,288 settings</b><i style="--bar:100%"></i></div><p>Different counts: a fixed operation menu versus configurable controls. Multiple settings can implement the same function; this is not a speed comparison.</p></figure><figure class="evolution-chart"><figcaption><span>Board area per bit</span><strong>7.3× denser layout</strong></figcaption><div class="metric-row"><span>Predecessor</span><b>≈9,112 mm² / bit</b><i style="--bar:100%"></i></div><div class="metric-row tomato-metric"><span>Tomato</span><b>≈1,247 mm² / bit</b><i style="--bar:13.683%"></i></div><p>Area divided by the same 8-bit width. This measures PCB packing, not transistor density.</p></figure><figure class="evolution-chart"><figcaption><span>Simulation cases</span><strong>130 billion checked</strong></figcaption><div class="metric-row"><span>Predecessor</span><b>1.24M+ vectors</b><i style="--bar:0.000953846%"></i></div><div class="metric-row tomato-metric"><span>Tomato</span><b>130B cases</b><i style="--bar:100%"></i></div><p>About 105,000× the rounded predecessor count. Different test harnesses and coverage; more cases alone do not establish correctness.</p></figure></div><details class="engineering-note evolution-detail"><summary>Compare the implementation, timing, power, and verification</summary><div class="comparison-scroll"><table class="evolution-table"><thead><tr><th>Measure</th><th>Predecessor</th><th>Tomato</th></tr></thead><tbody><tr><td>Building block</td><td>Monolithic 8-bit ALU</td><td>8-bit Dual-LUT slice; two slices make 16 bits, four make 32</td></tr><tr><td>Logic implementation</td><td>3,488 transistors: 624 discrete MOSFETs + 2,864 inside 74HC ICs</td><td>25 ICs per 8-bit slice; 74ACT151 truth tables and 74ACT283 adders</td></tr><tr><td>Arithmetic path</td><td>Separate arithmetic and logic paths; output selects the result</td><td>Two Boolean planes feed the same adder; no final arithmetic/logic selection mux</td></tr><tr><td>Control space</td><td>19 fixed operations</td><td>256 × 256 × 8 = 524,288 configurations, ≈27,600× the menu count; not that many distinct functions</td></tr><tr><td>Timing record</td><td>≈445 ns worst-case path; ≈16.5 MHz reported for a separate carry-bypass path</td><td>Combinational 74ACT logic and carry-select; no like-for-like measured speedup claimed</td></tr><tr><td>Power</td><td>5 V; documented 0.5–1 A range</td><td>5 V ACT/HCT logic; comparable measured current is not recorded here</td></tr><tr><td>Verification</td><td>1.24M+ automated vectors</td><td>10B cases at 8 bits; 130B at 32 bits in 2 h 45 min; 476 directed vectors and 5/5 separate formal jobs</td></tr><tr><td>Build record</td><td>Predecessor design, set aside before assembly</td><td>Fabricated and soldered in August 2026; DRC-clean board design</td></tr></tbody></table></div><p>Transistors and packaged ICs are different units. Delay paths, widths, and verification scopes differ; these figures do not establish a power or performance ratio.</p></details><div class="builder-links"><a class="text-link" href="https://alu.tmarhguy.com/">Original ALU and test record</a><a class="text-link" href="boards/07-alu.html">Tomato board specifications</a><a class="text-link" href="architecture.html#slice">Inside the Dual-LUT slice</a></div></section>
 <section aria-labelledby="builder-title" class="builder section-space" id="builder"><div class="frame builder-grid"><figure><img alt="Tyrone Marhguy, the designer of Tomato" height="2300" loading="lazy" src="assets/plates/me.jpg" width="2226"/><figcaption>TYRONE MARHGUY · GHANA → PHILADELPHIA</figcaption></figure><div><p class="eyebrow">A little about me</p><h2 id="builder-title">First principles.<br/><em>Then better primitives.</em></h2><div class="prose"><p>I’m Tyrone Marhguy, a Computer Engineering student at the University of Pennsylvania, Class of 2028.</p><p><strong>I start from first principles, reduce the problem to the right primitive, and iterate until the design is both correct and efficient.</strong> Tomato grew from that process: rethink the ALU, build a processor around it, then write the software that puts it to work.</p><p>The 8-bit ALU was my starting point. The Dual-LUT is the next iteration—less board area, a more flexible primitive, and a path to a complete computer.</p></div><div class="builder-links"><a class="text-link" href="https://alu.tmarhguy.com" rel="noopener noreferrer" target="_blank">Explore the original ALU</a><a class="text-link" href="about.html">More about me</a><a class="text-link" href="faq.html">Questions about the design</a></div></div></div></section>

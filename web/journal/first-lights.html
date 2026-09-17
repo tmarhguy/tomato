@@ -28,10 +28,10 @@
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="An August 2026 build record of the assembled Lot 07 board lighting up after its multiplexers, adders, LEDs, and headers were installed." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, First, lights, flux, tomato, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -39,7 +39,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="First lights and flux — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="An August 2026 build record of the assembled Lot 07 board lighting up after its multiplexers, adders, LEDs, and headers were installed." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/first-lights.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/first-lights.html" />
@@ -53,7 +53,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="First lights and flux — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="An August 2026 build record of the assembled Lot 07 board lighting up after its multiplexers, adders, LEDs, and headers were installed." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -62,7 +62,7 @@
   "@id": "https://tomato.tmarhguy.com/journal/first-lights.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal/first-lights.html",
   "name": "First lights and flux — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "An August 2026 build record of the assembled Lot 07 board lighting up after its multiplexers, adders, LEDs, and headers were installed.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -98,7 +98,7 @@
 <figcaption class="plate-cap"><span>Fig. 1 — Board test</span><span>Yay · the slice on the mat</span></figcaption>
 </figure>
 <figure class="plate">
-<video aria-label="Soldering lights on the loop — Tomato 07_alu on the bench." height="738" loop="" muted="" playsinline="" poster="../assets/assembly/work-setup.webp" preload="metadata" webkit-playsinline="" width="960">
+<video aria-label="Soldering lights on the loop — Tomato 07_alu on the bench." height="738" loop="" muted="" playsinline="" poster="../assets/assembly/work-setup.webp" preload="none" webkit-playsinline="" width="960">
 <source src="../assets/assembly/work-setup.mp4" type="video/mp4"/>
 </video>
 <figcaption class="plate-cap"><span>Fig. 2 — Lights</span><span>Soldering loop · board cutaways</span></figcaption>
@@ -107,10 +107,6 @@
 <p>It works. I have not given myself a moment to celebrate — from raw ambition, to ordering the PCBs, to a soldered board on the desk. Recruiting season has already started, and the semester (hardest, and most fun so far) is just beginning.</p>
 <h2 id="read-caps-later">Caps later</h2>
 <p>I left out the capacitors. They are not essential for the board to work immediately — tiny 0603s that matter for power-hungry switching, which is not the problem yet for basic LED testing. Brownouts can wait until full-speed runs without those caps in place.</p>
-<figure class="figure figure--inset">
-<video controls="" height="738" playsinline="" poster="../assets/assembly/work-setup.webp" preload="metadata" src="../assets/assembly/work-setup.mp4" width="960"></video>
-<figcaption class="caption"><span>Fig. 3 — The bench</span><span>Iron, flux, the lit slice</span></figcaption>
-</figure>
 <p>Earlier: the <a href="first-assembly.html">first assembly pass</a>. Next problem: something has to <a href="invisible-logic.html">drive the datapath</a> without becoming a throwaway FSM.</p>
 </div>
 <div class="wrap">
@@ -123,7 +119,7 @@
 </main>
 <footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

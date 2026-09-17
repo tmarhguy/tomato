@@ -78,6 +78,162 @@
       "caption": "The HDMI color-bar test before the OS demonstration.",
       "alt": "Color bars from the FPGA HDMI test",
       "link": "journal/pixels-on-glass.html"
+    },
+    "opcode-fpga": {
+      "src": "assets/compiler/opcode-sweep-fpga.mp4",
+      "poster": "assets/compiler/opcode-sweep-fpga.webp",
+      "title": "Search the hardware controls",
+      "caption": "FPGA recording · the compiler searches ALU control rows.",
+      "alt": "Opcode search running on the Tomato FPGA hardware compiler",
+      "link": "playground.html#compiler"
+    },
+    "desktop-home": {
+      "src": "assets/gallery/os/desktop-home-1280w.webp",
+      "title": "Wallpaper on Tomato OS",
+      "caption": "FPGA HDMI output · Tomato OS desktop and Ghana wallpaper.",
+      "alt": "Tomato OS desktop with Ghana wallpaper on the FPGA",
+      "link": "journal/wallpaper-polish.html"
+    },
+    "sudoku-book": {
+      "src": "assets/gallery/os/sudoku-book-1280w.webp",
+      "title": "The physical puzzle reference",
+      "caption": "Physical reference · the Sudoku book used while designing the interface.",
+      "alt": "Sudoku puzzle book on the desk",
+      "link": "journal/sudoku.html"
+    },
+    "sudoku-fpga": {
+      "src": "assets/gallery/os/sudoku-on-tomato-1280w.webp",
+      "title": "Sudoku on Tomato",
+      "caption": "FPGA HDMI output · Sudoku running with the five-button controls.",
+      "alt": "Sudoku running on Tomato OS over HDMI",
+      "link": "journal/sudoku.html"
+    },
+    "sudoku-solved": {
+      "src": "assets/gallery/os/sudoku-book-solved-1280w.webp",
+      "title": "The solved reference",
+      "caption": "Physical reference · a solved page from the same book, not an OS capture.",
+      "alt": "Solved Sudoku page from the puzzle book",
+      "link": "journal/sudoku.html"
+    },
+    "hdmi-adapter": {
+      "src": "assets/gallery/os/hdmi-capture-1280w.webp",
+      "title": "The capture adapter",
+      "caption": "Physical hardware · adapter packaging and manual, not a captured OS frame.",
+      "alt": "HDTV video capture adapter packaging and user manual",
+      "link": "journal/hdmi-captured.html"
+    },
+    "tomato-demo-video": {
+      "src": "assets/os/tomato-demo-os.mp4",
+      "poster": "assets/os/tomato-demo-os-poster.jpg",
+      "title": "Tomato OS captured directly",
+      "caption": "FPGA HDMI recording · direct OS output captured through the adapter.",
+      "alt": "Tomato OS Snake frame captured directly from FPGA HDMI output",
+      "link": "journal/hdmi-captured.html"
+    },
+    "alu-studio": {
+      "src": "assets/gallery/os/alu-studio-screen-1280w.webp",
+      "title": "One compound operation",
+      "caption": "Conceptual FPGA HDMI illustration · MASKADD only; not proof of all nine new instructions.",
+      "alt": "ALU Studio comparing Tomato MASKADD with a two-instruction reference sequence",
+      "link": "journal/isa-upgrade.html"
+    },
+    "envelop-virtual-desktop": {
+      "src": "assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp",
+      "title": "Envelop inside Virtual Tomato",
+      "caption": "Browser emulation · current OS image, simulated controls, bridge offline.",
+      "alt": "Envelop open inside Tomato OS in the desktop Virtual Tomato emulator",
+      "link": "virtual.html"
+    },
+    "envelop-entry-mobile": {
+      "src": "assets/documentation/infinix/tomato-envelop-entry-infinix.webp",
+      "title": "The Envelop entry point",
+      "caption": "UI documentation · real Infinix browser; no message was sent.",
+      "alt": "Tomato mobile Envelop explainer showing a person, message path, and labeled reply",
+      "link": "envelop.html"
+    },
+    "virtual-compiler-desktop": {
+      "src": "assets/documentation/desktop/tomato-virtual-os-compiler-desktop.webp",
+      "title": "Compiler in the browser machine",
+      "caption": "Browser emulation · generated OS image, not physical FPGA execution.",
+      "alt": "Compiler screen running inside Tomato OS in the desktop Virtual Tomato emulator",
+      "link": "virtual.html"
+    },
+    "virtual-envelop-mobile": {
+      "src": "assets/documentation/infinix/tomato-virtual-os-envelop-infinix.webp",
+      "title": "Virtual Tomato on a phone",
+      "caption": "Browser emulation · simulated peripherals and offline bridge at a real phone viewport.",
+      "alt": "Envelop open inside Tomato OS in the Virtual Tomato browser emulator on an Infinix phone",
+      "link": "virtual.html"
+    },
+    "compute-provenance": {
+      "src": "assets/documentation/desktop/tomato-compute-provenance-desktop.webp",
+      "title": "Keep the target visible",
+      "caption": "UI documentation · hardware and virtual execution remain separate labeled paths.",
+      "alt": "Compute preview showing Ask, Choose the target, and See the result with Virtual Tomato provenance",
+      "link": "compute.html"
+    },
+    "barrel-shift": {
+      "src": "assets/story/alu/barrel-shift.png",
+      "title": "The reused shifter",
+      "caption": "Retrospective Digital illustration · shifter for the proposed multiply/divide loop.",
+      "alt": "Digital schematic of the barrel shifter built from 2-to-1 multiplexers",
+      "link": "journal/mul-div.html"
+    },
+    "datapath-32b": {
+      "src": "assets/story/control/datapath-32b.png",
+      "title": "Memory in the datapath",
+      "caption": "Retrospective technical illustration · shared control and memory plumbing.",
+      "alt": "Block diagram of the 32-bit Tomato datapath and control",
+      "link": "journal/load-store.html"
+    },
+    "alu-cell-8to1": {
+      "src": "assets/story/alu/1b-cell-8to1.png",
+      "title": "A one-bit mux cell",
+      "caption": "Retrospective Digital illustration · opcode bits select the 74251-style cell.",
+      "alt": "Digital schematic of a one-bit ALU cell using an 8-to-1 multiplexer",
+      "link": "journal/act151.html"
+    },
+    "cla-spine": {
+      "src": "assets/story/alu/cla-74182.png",
+      "title": "The carry-lookahead spine",
+      "caption": "Retrospective Digital illustration · routing before NAND and 74283 consolidation.",
+      "alt": "Digital schematic wall of 74182 carry-lookahead chips",
+      "link": "journal/alu-refine.html"
+    },
+    "lut2-cell": {
+      "src": "assets/story/alu/lut2-cell.png",
+      "title": "The LUT2 experiment",
+      "caption": "Retrospective Digital illustration · stacked muxes led to a second LUT3 plane.",
+      "alt": "Digital schematic with hex control feeding stacked 4-to-1 multiplexers",
+      "link": "journal/arch-upgrade.html"
+    },
+    "routing-24cm": {
+      "src": "assets/story/kicad/24cm-routing.png",
+      "title": "The monolithic route",
+      "caption": "Retrospective KiCad illustration · the 32-bit board that prompted reusable slices.",
+      "alt": "KiCad routing of the abandoned 240 millimeter square 32-bit ALU board",
+      "link": "journal/downgrade.html"
+    },
+    "wide-machine": {
+      "src": "assets/story/arch/64b-machine.png",
+      "title": "The wide paper machine",
+      "caption": "Retrospective Digital illustration · context for the 40-bit word proposal.",
+      "alt": "Digital drawing of the wide Tomato machine with clock, EEPROMs, register file, and ALU slices",
+      "link": "journal/forty-bit.html"
+    },
+    "alu-32b-sheet": {
+      "src": "assets/story/arch/alu-32b-sheet.jpg",
+      "title": "The known 32-bit width",
+      "caption": "Retrospective schematic illustration · the machine width already understood and routed.",
+      "alt": "Tomato ALU 32-bit schematic sheet",
+      "link": "journal/falling-back.html"
+    },
+    "fsm-early": {
+      "src": "assets/story/control/fsm-early.png",
+      "title": "The interim sequencer",
+      "caption": "Retrospective technical illustration · a smoke-test FSM nearing a duplicate control unit.",
+      "alt": "Early finite-state machine diagram from the Tomato control sketches",
+      "link": "journal/lingering.html"
     }
   },
   "pages": {
@@ -110,26 +266,76 @@
       "sweep"
     ],
     "journal/mul-div.html": [
-      "main"
+      "barrel-shift"
+    ],
+    "journal/load-store.html": [
+      "datapath-32b"
+    ],
+    "journal/act151.html": [
+      "alu-cell-8to1"
+    ],
+    "journal/alu-refine.html": [
+      "cla-spine"
+    ],
+    "journal/arch-upgrade.html": [
+      "lut2-cell"
+    ],
+    "journal/downgrade.html": [
+      "routing-24cm"
     ],
     "journal/truth-latch.html": [
       "slice",
       "sweep"
     ],
     "journal/forty-bit.html": [
-      "decode"
+      "wide-machine"
     ],
     "journal/more-boards.html": [
       "schematic",
       "solder"
     ],
     "journal/lingering.html": [
-      "board",
-      "os"
+      "fsm-early"
+    ],
+    "journal/falling-back.html": [
+      "alu-32b-sheet"
     ],
     "journal/isa-as-a-wire.html": [
       "decode",
       "tetris"
+    ],
+    "journal/assembly-barrier.html": [
+      "opcode-fpga"
+    ],
+    "journal/wallpaper-polish.html": [
+      "desktop-home"
+    ],
+    "journal/sudoku.html": [
+      "sudoku-book",
+      "sudoku-fpga",
+      "sudoku-solved"
+    ],
+    "journal/hdmi-captured.html": [
+      "hdmi-adapter",
+      "tomato-demo-video"
+    ],
+    "journal/isa-upgrade.html": [
+      "alu-studio"
+    ],
+    "journal/envelop-message-app.html": [
+      "envelop-virtual-desktop"
+    ],
+    "journal/multiple-participants.html": [
+      "envelop-entry-mobile"
+    ],
+    "journal/synthesis-bypass.html": [
+      "virtual-compiler-desktop"
+    ],
+    "journal/integrate-virtual.html": [
+      "virtual-envelop-mobile"
+    ],
+    "journal/virtual-fallback.html": [
+      "compute-provenance"
     ]
   }
 }

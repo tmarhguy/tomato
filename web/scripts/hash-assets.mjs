@@ -105,11 +105,12 @@ function stampUrl(url, version) {
 
 /** Rewrite href=/src= CSS/JS references in an HTML document. Pure. */
 export function rewriteHtmlRefs(html, dir) {
-  return html.replace(/((?:href|src)=")([^"]+)(")/g, (m, pre, url, post) => {
+  const attributes = html.replace(/((?:href|src)=")([^"]+)(")/g, (m, pre, url, post) => {
     const target = resolveAsset(url, dir);
     if (!target) return m;
     return `${pre}${stampUrl(url, contentHash(target))}${post}`;
   });
+  return rewriteJsRefs(attributes, dir);
 }
 
 /** Rewrite relative `./x.js` / `../x.js` imports in a served page module. Pure. */

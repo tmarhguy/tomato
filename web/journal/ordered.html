@@ -28,10 +28,10 @@
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="An August 2026 procurement record for the fabricated Lot 07 boards and enough DigiKey parts to assemble two ALU slices." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Ordered, Tomato, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -39,7 +39,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Ordered Tomato — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="An August 2026 procurement record for the fabricated Lot 07 boards and enough DigiKey parts to assemble two ALU slices." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/ordered.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/ordered.html" />
@@ -53,7 +53,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Ordered Tomato — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="An August 2026 procurement record for the fabricated Lot 07 boards and enough DigiKey parts to assemble two ALU slices." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -62,7 +62,7 @@
   "@id": "https://tomato.tmarhguy.com/journal/ordered.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal/ordered.html",
   "name": "Ordered Tomato — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "An August 2026 procurement record for the fabricated Lot 07 boards and enough DigiKey parts to assemble two ALU slices.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -93,18 +93,18 @@
 <p class="">After months of schematic churn, opcode tables, and the occasional 40-bit detour, the dual-LUT ALU is no longer a KiCad fantasy. Copper is being etched. Chips are in a warehouse in Minnesota. I am genuinely excited.</p>
 <div class="two-up">
 <figure class="plate">
-<img alt="07_alu board render." src="../assets/pcb/alu_8b_board.webp"/>
+<img alt="07_alu board render." src="../assets/pcb/alu_8b_board.webp" width="1394" height="1400"/>
 <figcaption class="plate-cap"><span>Fig. 1</span><span>Board render</span></figcaption>
 </figure>
 <figure class="plate">
-<img alt="Routed top copper of 07_alu." src="../assets/pcb/alu_8b_pcb.jpg"/>
+<img alt="Routed top copper of 07_alu." src="../assets/pcb/alu_8b_pcb.jpg" width="1400" height="1333"/>
 <figcaption class="plate-cap"><span>Fig. 1b</span><span>Top copper · DRC clean</span></figcaption>
 </figure>
 </div>
 <h2 id="read-fabrication">Fabrication</h2>
 <p>The existential “one more routing pass” voice is quiet. It was not buying much anymore. Board 07_alu, an 8-bit dual-LUT slice, ordered for under six dollars — cheap enough to spin again if the fab errs. ETA about two weeks to Philadelphia. That was the point of keeping the board small.</p>
 <figure class="figure">
-<img alt="JLCPCB order confirmation." src="../assets/plates/jlcpcb.jpg"/>
+<img alt="JLCPCB order confirmation." src="../assets/plates/jlcpcb.jpg" width="1200" height="796"/>
 </figure>
 <p class="caption"><span>Fig. 2 — JLCPCB</span><span>Copper incoming</span></p>
 <h2 id="read-digikey-order-100884560">DigiKey — order 100884560</h2>
@@ -126,7 +126,7 @@
 </div>
 <p>Subtotal $48.93. Total with ship, tariff, and tax about $61. All lines immediate. Samsung 100nF caps were backordered; Yageo substituted. HCT688 over HC688 for cleaner 5V ACT margins.</p>
 <figure class="figure">
-<img alt="DigiKey order confirmation." src="../assets/plates/digikey.jpg"/>
+<img alt="DigiKey order confirmation." src="../assets/plates/digikey.jpg" width="1000" height="712"/>
 </figure>
 <p class="caption"><span>Fig. 3 — DigiKey</span><span>Ten lines · two boards of silicon</span></p>
 <h2 id="read-what-happens-next">What happens next</h2>
@@ -143,7 +143,7 @@
 </main>
 <footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

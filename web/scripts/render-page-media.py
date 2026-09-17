@@ -7,7 +7,12 @@ data=json.loads((ROOT/'data/page-media.json').read_text())
 for page,keys in data['pages'].items():
  if page=='index.html':raise ValueError('Homepage media is intentionally excluded')
  p=ROOT/page;s=p.read_text();prefix='../' if '/' in page else ''
- s=re.sub(r'<!-- page-media:start -->.*?<!-- page-media:end -->','',s,flags=re.S)
+ s=re.sub(
+  r'<!-- page-media:start -->.*?<!-- page-media:end -->\s*(?=</main>)',
+  '',
+  s,
+  flags=re.S,
+ )
  cards=[]
  for key in keys:
   a=data['assets'][key];src=a['src']

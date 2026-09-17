@@ -28,10 +28,10 @@
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="A dated board-design decision to replace one 240 mm assembly with cascaded 16-bit cells and distributed flag handling." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Downgrade, upgrade, tomato, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -39,7 +39,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Downgrade for an upgrade — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="A dated board-design decision to replace one 240 mm assembly with cascaded 16-bit cells and distributed flag handling." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/downgrade.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/downgrade.html" />
@@ -53,7 +53,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Downgrade for an upgrade — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="A dated board-design decision to replace one 240 mm assembly with cascaded 16-bit cells and distributed flag handling." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -62,7 +62,7 @@
   "@id": "https://tomato.tmarhguy.com/journal/downgrade.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal/downgrade.html",
   "name": "Downgrade for an upgrade — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "A dated board-design decision to replace one 240 mm assembly with cascaded 16-bit cells and distributed flag handling.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -94,11 +94,11 @@
 <p>To keep manufacturing efficient and reusable, slice into 16-bit macro cells designed to cascade into 16b × n. Four cells is a 64-bit logic unit. Inner boards do not need flag registers or overflow generation. Eliminating those chips should not constrain Tomato.</p>
 <div class="two-up two-up--match">
 <figure class="plate">
-<img alt="KiCad routing of the abandoned ~240 mm square 32-bit board." height="1120" loading="lazy" src="../assets/story/kicad/24cm-routing.png" width="1120"/>
+<img alt="KiCad routing of the abandoned ~240 mm square 32-bit board." height="1600" loading="lazy" src="../assets/story/kicad/24cm-routing.png" width="1390"/>
 <figcaption class="plate-cap"><span>Fig. — Then</span><span>240 mm · poster copper</span></figcaption>
 </figure>
 <figure class="plate">
-<img alt="KiCad 3D render of the 07_alu 8-bit Dual-LUT slice that actually went to fab." height="1120" loading="lazy" src="../assets/pcb/alu_8b_board.webp" width="1120"/>
+<img alt="KiCad 3D render of the 07_alu 8-bit Dual-LUT slice that actually went to fab." height="1400" loading="lazy" src="../assets/pcb/alu_8b_board.webp" width="1394"/>
 <figcaption class="plate-cap"><span>Fig. — Grandchild</span><span>07_alu · ~100 mm</span></figcaption>
 </figure>
 </div>
@@ -114,7 +114,7 @@
 </main>
 <footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

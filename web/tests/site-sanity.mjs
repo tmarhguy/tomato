@@ -9,6 +9,7 @@ import { spawn } from "node:child_process";
 import { readdirSync, readFileSync, statSync, existsSync } from "node:fs";
 import { dirname, join, normalize, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { gzipSync } from "node:zlib";
 import test from "node:test";
 import http from "node:http";
 
@@ -138,6 +139,7 @@ function resolveHref(fromFile, href) {
   if (!clean) return null;
   if (/^(https?:|mailto:|data:|javascript:)/i.test(clean)) return null;
   if (clean.startsWith("//")) return null;
+  if (clean.startsWith("/")) return normalize(resolve(WEB, "." + clean));
   const base = dirname(fromFile);
   return normalize(resolve(base, clean));
 }
@@ -207,6 +209,7 @@ test("no root-absolute asset or page paths (breaks nested pages and local previe
   const bad = [];
   for (const file of htmlFiles()) {
     const html = readFileSync(file, "utf8");
+    if (relWeb(file) === "404.html") continue;
     for (const { name, value } of attrs(html, ["href", "src", "poster"])) {
       if (value.startsWith("/") && !value.startsWith("//")) {
         bad.push(`${relWeb(file)} ${name}="${value}"`);
@@ -218,6 +221,15 @@ test("no root-absolute asset or page paths (breaks nested pages and local previe
     bad.push(`css/magazine.css url(${m[1]})`);
   }
   assert.deepEqual(bad, [], bad.join("\n"));
+});
+
+test("404 uses deployment-root paths at arbitrary nesting and stays noindex", () => {
+  const html = readFileSync(join(WEB, "404.html"), "utf8");
+  assert.match(html, /name="robots" content="noindex, follow"/);
+  for (const { name, value } of attrs(html, ["href", "src"])) {
+    if (/^(?:https?:|mailto:|data:|#)/i.test(value)) continue;
+    assert.ok(value.startsWith("/"), `404.html ${name} must be root-absolute: ${value}`);
+  }
 });
 
 test("relative href/src resolve on disk", () => {
@@ -626,6 +638,68 @@ test("shipped clips are real MP4s with posters, not leftover GIFs", () => {
   magic(join(WEB, "assets/mark-dark.svg"), "<svg", "mark-dark.svg");
   magic(join(WEB, "assets/dip-dark.svg"), "<svg", "dip-dark.svg");
   magic(join(WEB, "assets/slice-dark.svg"), "<svg", "slice-dark.svg");
+});
+
+test("static delivery stays inside performance budgets", () => {
+  const MiB = 1024 * 1024;
+  const videos = walk(WEB).filter((p) => /\.(?:mp4|webm|mov)$/i.test(p));
+  for (const file of videos) {
+    assert.ok(statSync(file).size <= 20 * MiB, `${relWeb(file)} exceeds the 20 MiB deploy-video ceiling`);
+  }
+
+  const gzipBudgets = {
+    "css/magazine.css": 24_000,
+    "css/site.css": 15_000,
+    "css/navigation.css": 2_000,
+    "js/mast.js": 7_000,
+    "js/landing.js": 7_000,
+    "js/bench.js": 8_000,
+    "js/playground.js": 6_000,
+  };
+  for (const [file, ceiling] of Object.entries(gzipBudgets)) {
+    const bytes = gzipSync(readFileSync(join(WEB, file)), { level: 9 }).length;
+    assert.ok(bytes <= ceiling, `${file} gzip ${bytes} B exceeds ${ceiling} B`);
+  }
+
+  assert.ok(statSync(join(WEB, "assets/pcb/alu.glb")).size <= 8 * MiB, "alu.glb exceeds 8 MiB");
+  assert.ok(statSync(join(WEB, "data/tomato-os.bin")).size <= 1 * MiB, "firmware exceeds 1 MiB");
+});
+
+test("immutable local JavaScript references are content-versioned", () => {
+  const bad = [];
+  for (const file of htmlFiles()) {
+    const html = readFileSync(file, "utf8");
+    for (const match of html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+\.js(?:\?[^"']*)?)["']/gi)) {
+      const ref = match[1];
+      if (/^(?:https?:)?\/\//i.test(ref)) continue;
+      if (!/[?&]v=[0-9a-f]{8}(?:&|$)/i.test(ref)) bad.push(`${relWeb(file)} → ${ref}`);
+    }
+    for (const match of html.matchAll(/\bimport\(\s*["'](\.\.?\/[^"']+\.js(?:\?[^"']*)?)["']\s*\)/g)) {
+      const ref = match[1];
+      if (!/[?&]v=[0-9a-f]{8}(?:&|$)/i.test(ref)) bad.push(`${relWeb(file)} → ${ref}`);
+    }
+  }
+  for (const file of walk(join(WEB, "js")).filter((p) => p.endsWith(".js"))) {
+    const src = readFileSync(file, "utf8");
+    for (const match of src.matchAll(/(?:from\s*|import\(\s*)["'](\.\.?\/[^"']+\.js(?:\?[^"']*)?)["']/g)) {
+      const ref = match[1];
+      if (!/[?&]v=[0-9a-f]{8}(?:&|$)/i.test(ref)) bad.push(`${relWeb(file)} → ${ref}`);
+    }
+  }
+  const mast = readFileSync(join(WEB, "js/mast.js"), "utf8");
+  assert.match(mast, /media-lightbox\.js\?v=[0-9a-f]{8}/);
+  assert.deepEqual(bad, [], bad.join("\n"));
+});
+
+test("static autoplay is explicitly viewport-gated", () => {
+  const bad = [];
+  for (const file of htmlFiles()) {
+    const html = readFileSync(file, "utf8");
+    for (const match of html.matchAll(/<video\b[^>]*\bautoplay(?:=["'][^"']*["'])?[^>]*>/gi)) {
+      if (!/\bdata-auto-preview\b/i.test(match[0])) bad.push(relWeb(file));
+    }
+  }
+  assert.deepEqual(bad, [], `ungated static autoplay: ${bad.join(", ")}`);
 });
 
 test("every magazine page bootstraps Paper/Black before paint", () => {

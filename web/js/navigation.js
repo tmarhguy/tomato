@@ -8,13 +8,24 @@ for (const a of document.querySelectorAll('.site-menu nav a')) {
   if (primaryPages.has(a.href)) a.setAttribute('data-primary-page','');
 }
 // Silent previews start when visible; a deliberate pause stays paused.
-for (const video of document.querySelectorAll('[data-auto-preview]')) {
+// Uncontrolled editorial loops stay network-idle until they approach view.
+for (const video of document.querySelectorAll(
+  '[data-auto-preview], video:not([controls]):not(.ambient-video):not(.verify-hero-video):not(.lead-clip)'
+)) {
   video.muted = true;
   let visible = false, held = false, managedPause = false;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const deferred = !video.matches('[data-auto-preview]');
   video.autoplay = false;
+  if (deferred) video.preload = 'none';
   const update = () => {
-    if (visible && !document.hidden && !motion.matches && !held) video.play().catch(() => {});
+    if (visible && !document.hidden && !motion.matches && !held) {
+      if (deferred && video.preload === 'none') {
+        video.preload = 'metadata';
+        video.load();
+      }
+      video.play().catch(() => {});
+    }
     else if (!video.paused) { managedPause = true; video.pause(); }
   };
   video.addEventListener('pause', () => { if (managedPause) managedPause = false; else held = true; });

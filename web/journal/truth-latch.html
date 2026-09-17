@@ -28,11 +28,11 @@
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <link rel="stylesheet" href="../css/page-media.css?v=dd88a842"/>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="A July 2026 design note on latching the global truth table so Tomato’s LUT controls remain stable while an operation resolves." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Truth, table, latch, tomato, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -40,7 +40,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Truth table latch — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="A July 2026 design note on latching the global truth table so Tomato’s LUT controls remain stable while an operation resolves." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/truth-latch.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/truth-latch.html" />
@@ -54,7 +54,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Truth table latch — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="A July 2026 design note on latching the global truth table so Tomato’s LUT controls remain stable while an operation resolves." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -63,7 +63,7 @@
   "@id": "https://tomato.tmarhguy.com/journal/truth-latch.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal/truth-latch.html",
   "name": "Truth table latch — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "A July 2026 design note on latching the global truth table so Tomato’s LUT controls remain stable while an operation resolves.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -103,11 +103,13 @@
 </nav>
 </div>
 </section>
+
+
 <!-- page-media:start --><section class="media-evidence project-frame" aria-labelledby="media-evidence-title"><header><p class="kicker">From the build</p><h2 id="media-evidence-title">The work behind the words.</h2></header><div class="media-evidence-grid"><figure><a class="media-evidence-image" href="../assets/gallery/plates/alu-4b-final-640w.webp" aria-label="View larger: Four-bit ALU cell schematic"><img src="../assets/gallery/plates/alu-4b-final-640w.webp" alt="Four-bit ALU cell schematic" loading="lazy" decoding="async"/></a><figcaption><a href="../journal/mode-mux.html">Inside a four-bit cell</a><p>A historical slice design from the mode-mux redesign.</p></figcaption></figure><figure><video controls muted playsinline preload="none" poster="../assets/compiler/opcode-sweep-fpga.webp" aria-label="FPGA hardware compiler recording"><source src="../assets/compiler/opcode-sweep-fpga.mp4" type="video/mp4"/></video><figcaption><a href="../playground.html#compiler">The search on FPGA</a><p>The search loop tries ALU controls and holds a matching result.</p></figcaption></figure></div></section><!-- page-media:end -->
 </main>
 <footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

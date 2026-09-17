@@ -28,10 +28,10 @@
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="A June 2026 note on Tomato’s falling-edge sequencer, rising-edge data registers, and extra memory phase for load/store operations." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Load, store, pipeline, tomato, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -39,7 +39,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Load/store pipeline — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="A June 2026 note on Tomato’s falling-edge sequencer, rising-edge data registers, and extra memory phase for load/store operations." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/load-store.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/load-store.html" />
@@ -53,7 +53,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Load/store pipeline — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="A June 2026 note on Tomato’s falling-edge sequencer, rising-edge data registers, and extra memory phase for load/store operations." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -62,7 +62,7 @@
   "@id": "https://tomato.tmarhguy.com/journal/load-store.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal/load-store.html",
   "name": "Load/store pipeline — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "A June 2026 note on Tomato’s falling-edge sequencer, rising-edge data registers, and extra memory phase for load/store operations.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -95,14 +95,14 @@
 <div class="site-prose wrap">
 <p class="">Every opcode indexes a 48-bit word in the microcode ROM. The fields are not a mystery: alu-op, operand prep, carry select, shift, immediate overlay, writeback source, register and flag write enables, memory read/write, byte-lane mode, branch, stack, and the cycle count that tells the sequencer when to reset.</p>
 <figure class="figure">
-<img alt="Block diagram of the 32-bit datapath and control before footprints." height="800" loading="lazy" src="../assets/story/control/datapath-32b.png" width="1280"/>
+<img alt="Block diagram of the 32-bit datapath and control before footprints." height="631" loading="lazy" src="../assets/story/control/datapath-32b.png" width="675"/>
 </figure>
 <p class="caption"><span>Fig. — Datapath &amp; control</span><span>Boxes before footprints · memory is plumbing</span></p>
 <p>Writeback is a seven-way mux in the encoding: ALU, shift, PC+1, memory, I/O, register A, IR immediate, multiply. Memory ops buy a third phase. Everything else is fetch and execute.</p>
 <div class="table-wrap"><table><thead><tr><th>cycles</th><th>Phases</th><th>Counter</th></tr></thead><tbody><tr><td>1</td><td>FETCH + EXECUTE</td><td>Q=00, Q=01</td></tr><tr><td>2</td><td>FETCH + EXECUTE + MEM_WAIT</td><td>Q=00, Q=01, Q=10</td></tr></tbody></table></div>
 <p>Address bus source is another small field: IR address, ALU out, register B, PC, or SP. The load/store path is plumbing. The ALU remains the combinational monster. This sheet is how the rest of the machine talks to memory without inventing a second computer.</p>
 <figure class="figure">
-<img alt="Digital simulation: memory-mapped I/O bus arbiter passing after a red failure." height="800" loading="lazy" src="../assets/story/bus/mmio-passed.png" width="1280"/>
+<img alt="Digital simulation: memory-mapped I/O bus arbiter passing after a red failure." height="705" loading="lazy" src="../assets/story/bus/mmio-passed.png" width="596"/>
 </figure>
 <p class="caption"><span>Fig. — MMIO bus, passing</span><span>Arbiter green · memory is plumbing</span></p>
 </div>
@@ -119,7 +119,7 @@
 <footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script src="../js/arch-map.js?v=e66262bb" type="module"></script>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

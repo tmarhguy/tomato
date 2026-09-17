@@ -28,7 +28,7 @@
 <link href="css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link rel="stylesheet" href="css/navigation.css?v=224d88a5" />
-<script src="js/navigation.js?v=c3d656fc" defer></script>
+<script src="js/navigation.js?v=cf819a71" defer></script>
 <!-- tomato-seo -->
   <meta name="description" content="Tomato OS boots on the FPGA computer with a wallpapered Desktop v1.2, draws the menu, reads the controls, and runs games including Sudoku. Written in Tomato assembly; HDMI captures show the stream." />
   <meta property="og:description" content="Tomato OS boots on the FPGA computer with a wallpapered Desktop v1.2, draws the menu, reads the controls, and runs games including Sudoku. Written in Tomato assembly; HDMI captures show the stream." />
@@ -98,7 +98,7 @@
 <section class="section">
 <div class="site-prose">
 <figure class="plate plate--ink" id="watch">
-<video aria-label="Tomato OS menu and games over HDMI" autoplay="" controls="" height="540" loop="" muted="" playsinline="" poster="assets/os/tomato-demo-os-poster.jpg" preload="metadata" webkit-playsinline="" width="960">
+<video aria-label="Tomato OS menu and games over HDMI" controls="" height="540" loop="" muted="" playsinline="" poster="assets/os/tomato-demo-os-poster.jpg" preload="none" webkit-playsinline="" width="960">
 <source src="assets/os/tomato-demo-os.mp4" type="video/mp4"/>
 </video>
 <figcaption>Tomato OS demo · Desktop, menu, and games · clean HDMI capture · also in the <a href="gallery.html">gallery</a></figcaption>
@@ -111,8 +111,8 @@
 <figcaption>Sudoku · arrows move · Enter cycles 1–9 · <a href="journal/sudoku.html">dispatch</a></figcaption>
 </figure>
 <figure class="plate">
-<img alt="Clean HDMI capture path" decoding="async" height="720" loading="lazy" sizes="(max-width: 980px) 100vw, 45vw" src="assets/gallery/os/hdmi-capture-1280w.webp" srcset="assets/gallery/os/hdmi-capture-640w.webp 640w, assets/gallery/os/hdmi-capture-1280w.webp 1280w" width="1280"/>
-<figcaption>HDMI capture · OBS · not a camera of the screen · <a href="journal/hdmi-captured.html">dispatch</a></figcaption>
+<img alt="HDTV video capture adapter packaging and user manual" decoding="async" height="960" loading="lazy" sizes="(max-width: 980px) 100vw, 45vw" src="assets/gallery/os/hdmi-capture-1280w.webp" srcset="assets/gallery/os/hdmi-capture-640w.webp 640w, assets/gallery/os/hdmi-capture-1280w.webp 1280w" width="1280"/>
+<figcaption>Physical HDMI capture adapter · used with OBS · <a href="journal/hdmi-captured.html">dispatch</a></figcaption>
 </figure>
 </div>
 <div class="two-up">
@@ -219,31 +219,31 @@
 <p>Still frames from the same HDMI path — menu chrome, games, and the quirks table. The live tour is the demo at the top of this page.</p>
 <div class="two-up">
 <figure class="plate plate--ink">
-<img alt="System info screen on Tomato OS" height="540" loading="lazy" src="assets/os/system-info-screen.jpg" width="960"/>
+<img alt="System info screen on Tomato OS" height="900" loading="lazy" src="assets/os/system-info-screen.jpg" width="1600"/>
 <figcaption class="plate-cap"><span>System info</span><span>Quirks table</span></figcaption>
 </figure>
 <figure class="plate plate--ink">
-<img alt="Tetris on Tomato OS" height="540" loading="lazy" src="assets/os/tetris-screen.jpg" width="960"/>
+<img alt="Tetris on Tomato OS" height="900" loading="lazy" src="assets/os/tetris-screen.jpg" width="1600"/>
 <figcaption class="plate-cap"><span>Tetris</span><span>Tile RAM</span></figcaption>
 </figure>
 </div>
 <div class="two-up" style="margin-top: 1.25rem;">
 <figure class="plate plate--ink">
-<img alt="Snake game over on Tomato OS" height="540" loading="lazy" src="assets/os/snake-game-over-screen.jpg" width="960"/>
+<img alt="Snake game over on Tomato OS" height="900" loading="lazy" src="assets/os/snake-game-over-screen.jpg" width="1600"/>
 <figcaption class="plate-cap"><span>Snake</span><span>Game over</span></figcaption>
 </figure>
 <figure class="plate plate--ink">
-<img alt="Racer on Tomato OS" height="540" loading="lazy" src="assets/os/racer-screen.jpg" width="960"/>
+<img alt="Racer on Tomato OS" height="900" loading="lazy" src="assets/os/racer-screen.jpg" width="1600"/>
 <figcaption class="plate-cap"><span>Racer</span><span>Seven lanes</span></figcaption>
 </figure>
 </div>
 <div class="two-up" style="margin-top: 1.25rem;">
 <figure class="plate plate--ink">
-<img alt="Fibonacci on Tomato OS" height="540" loading="lazy" src="assets/os/fibonacci-screen.jpg" width="960"/>
+<img alt="Fibonacci on Tomato OS" height="900" loading="lazy" src="assets/os/fibonacci-screen.jpg" width="1600"/>
 <figcaption class="plate-cap"><span>Fibonacci</span><span>7-seg tracks</span></figcaption>
 </figure>
 <figure class="plate plate--ink">
-<img alt="About Tomato window" height="540" loading="lazy" src="assets/os/about-screen.jpg" width="960"/>
+<img alt="About Tomato window" height="900" loading="lazy" src="assets/os/about-screen.jpg" width="1600"/>
 <figcaption class="plate-cap"><span>About</span><span>Full window</span></figcaption>
 </figure>
 </div>
@@ -289,7 +289,7 @@
 <footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a aria-current="page" href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script src="js/arch-map.js?v=e66262bb" type="module"></script>
-<script defer="" src="js/mast.js?v=962ee819"></script>
+<script defer="" src="js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>

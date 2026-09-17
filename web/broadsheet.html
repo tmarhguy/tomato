@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>The Tomato — A Homebrew 32-bit CPU from Discrete Logic</title>
+<title>Tomato — A Complete FPGA Computer and a Discrete ALU Build</title>
 <meta content="Tomato: 256 × 32-bit FPGA registers, Dual-LUT ALU copper, Tomato OS v3.0, and an in-progress discrete machine." name="description"/>
 <meta content="#050505" name="theme-color"/>
 <script>
@@ -36,23 +36,23 @@
     }
   }
   </script>
-<meta content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" property="og:title"/>
+<meta content="Tomato — A Complete FPGA Computer and a Discrete ALU Build" property="og:title"/>
 <meta content="Tomato: 256 × 32-bit FPGA registers, Dual-LUT ALU copper, Tomato OS v3.0, and an in-progress discrete machine." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="https://tomato.tmarhguy.com/" property="og:url"/>
+<meta content="https://tomato.tmarhguy.com/broadsheet.html" property="og:url"/>
 <link href="https://tomato.tmarhguy.com/broadsheet.html" rel="canonical"/>
 <meta content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" property="og:image"/>
 <meta content="KiCad render of the Tomato Dual-LUT ALU board" property="og:image:alt"/>
 <meta content="The Tomato 32-bit CPU" property="og:site_name"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="@tmarhguy" name="twitter:site"/>
-<meta content="The Tomato — A Homebrew 32-bit CPU from Discrete Logic" name="twitter:title"/>
+<meta content="Tomato — A Complete FPGA Computer and a Discrete ALU Build" name="twitter:title"/>
 <meta content="Tomato: 256 × 32-bit FPGA registers, Dual-LUT ALU copper, Tomato OS v3.0, and an in-progress discrete machine." name="twitter:description"/>
 <meta content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" name="twitter:image"/>
 <meta content="Tyrone Marhguy" name="author"/>
 <link href="css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link rel="stylesheet" href="css/navigation.css?v=224d88a5" />
-<script src="js/navigation.js?v=c3d656fc" defer></script>
+<script src="js/navigation.js?v=cf819a71" defer></script>
 </head>
 <body class="project-document">
 <div class="page project-page project-broadsheet"><a class="project-skip" href="#main">Skip to content</a>
@@ -63,7 +63,7 @@
 <article class="lead-story">
 <div class="lead-hed">
 <p class="kicker">The machine</p>
-<h2 class="headline">A discrete <span style="color: var(--red);">32-bit polymorphic</span> CPU.</h2>
+<h1 class="headline">A complete FPGA computer.<br/><span style="color: var(--red);">A discrete ALU on copper.</span></h1>
 <p class="deck"><strong>256 × 32-bit registers</strong> in current FPGA RTL — eight banks of 32, with r0 fixed to zero.
                 Dual-LUT copper underneath —
                 <strong>10 billion</strong> Verilator vectors on the byte slice,
@@ -96,7 +96,7 @@
                 machine that synthesizes Boolean logic on the fly. Think computing <code>(A ∧ B) ⊕ (¬A ∧ C)</code>—the <strong style="color: var(--red);">SHA-256 Choose function</strong>—in a <strong style="color: var(--red);">single clock cycle</strong>, an operation that burns <strong>4 cycles</strong> on a conventional RISC-V core.</p>
 </div>
 </article>
-<a aria-label="Tomato 07_alu — board tour and the Dual-LUT slice. Open the 3D viewer." class="lead-gif" href="viewer.html"><img alt="" class="lead-lcp" decoding="async" fetchpriority="high" height="960" id="lead-lcp" sizes="(max-width: 860px) min(18rem, 88vw), min(30rem, 42vw)" src="assets/gallery/pcb/hero-640w.webp" srcset="assets/gallery/pcb/hero-640w.webp 640w, assets/gallery/pcb/hero-1280w.webp 1280w, assets/pcb/hero.webp 960w" width="960"/><video aria-hidden="true" class="lead-clip lead-clip--paper" disablepictureinpicture="" height="960" id="lead-spin" loop="" muted="" playsinline="" poster="assets/gallery/pcb/hero-640w.webp" preload="none" webkit-playsinline="" width="960"><source src="assets/pcb/hero.mp4" type="video/mp4"/></video><video aria-hidden="true" class="lead-clip lead-clip--night" disablepictureinpicture="" height="480" id="lead-night" loop="" muted="" playsinline="" poster="assets/gallery/pcb/immersion_black-640w.webp" preload="none" webkit-playsinline="" width="480"><source src="assets/pcb/immersion_black.mp4" type="video/mp4"/></video><script>(function () {
+<a aria-label="Tomato 07_alu — board tour and the Dual-LUT slice. Open the 3D viewer." class="lead-gif" href="viewer.html"><img alt="" class="lead-lcp" decoding="async" fetchpriority="high" height="640" id="lead-lcp" sizes="(max-width: 860px) min(18rem, 88vw), min(30rem, 42vw)" src="assets/gallery/pcb/hero-640w.webp" srcset="assets/gallery/pcb/hero-640w.webp 640w, assets/gallery/pcb/hero-1280w.webp 1280w, assets/pcb/hero.webp 960w" width="640"/><video aria-hidden="true" class="lead-clip lead-clip--paper" disablepictureinpicture="" height="960" id="lead-spin" loop="" muted="" playsinline="" poster="assets/gallery/pcb/hero-640w.webp" preload="none" webkit-playsinline="" width="960"><source src="assets/pcb/hero.mp4" type="video/mp4"/></video><video aria-hidden="true" class="lead-clip lead-clip--night" disablepictureinpicture="" height="480" id="lead-night" loop="" muted="" playsinline="" poster="assets/gallery/pcb/immersion_black-640w.webp" preload="none" webkit-playsinline="" width="480"><source src="assets/pcb/immersion_black.mp4" type="video/mp4"/></video><script>(function () {
                 var theme = document.documentElement.getAttribute("data-theme");
                 var dark = theme === "dark" || (theme !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
                 var paper = document.getElementById("lead-spin");
@@ -242,13 +242,13 @@
 <p class="ads-rate">Muxes, adders, and lamps are down — the slice is on the bench.</p>
 <div class="two-up two-up--match assembly-bench">
 <figure class="figure">
-<video aria-label="Placing and soldering 74xx parts on the Tomato ALU board." height="528" loop="" muted="" playsinline="" poster="assets/gallery/assembly/placing-and-soldering-640w.webp" preload="metadata" webkit-playsinline="" width="464">
+<video aria-label="Placing and soldering 74xx parts on the Tomato ALU board." height="528" loop="" muted="" playsinline="" poster="assets/gallery/assembly/placing-and-soldering-640w.webp" preload="none" webkit-playsinline="" width="464">
 <source src="assets/assembly/placing-and-soldering.mp4" type="video/mp4"/>
 </video>
 <p class="caption"><span>Fig. — Iron</span><span>Placing · soldering</span></p>
 </figure>
 <figure class="figure">
-<video aria-label="Soldering lights on loop — Tomato 07_alu on the bench." height="738" loop="" muted="" playsinline="" poster="assets/gallery/assembly/work-setup-640w.webp" preload="metadata" webkit-playsinline="" width="960">
+<video aria-label="Soldering lights on loop — Tomato 07_alu on the bench." height="738" loop="" muted="" playsinline="" poster="assets/gallery/assembly/work-setup-640w.webp" preload="none" webkit-playsinline="" width="960">
 <source src="assets/assembly/work-setup.mp4" type="video/mp4"/>
 </video>
 <p class="caption"><span>Fig. — Bench</span><span>Soldering lights · board cutaways</span></p>
@@ -373,9 +373,10 @@
 <article class="axiom">
 <p class="axiom-n">III. The Build Philosophy</p>
 <h3>74xx now. Transistors someday.</h3>
-<p>For now, Tomato is built exclusively from <strong>74xx series logic chips</strong>—driven purely by
-                manufacturability and brutal time constraints.(Someday, <strong>I will lay them out as raw transistors,
-                  just as I always intended.</strong> ) But even in its current form, Tomato has outgrown its ALU roots.
+<p>The discrete build uses <strong>74xx series logic chips</strong>—driven by
+                manufacturability and time constraints. The complete working computer currently runs on FPGA; the
+                soldered 74xx hardware is its 8-bit Dual-LUT ALU slice. Someday, <strong>I want to lay the design out as raw transistors.</strong>
+                Across those implementations, Tomato has outgrown its ALU roots.
                 It has taken on multiple shapes: <strong>8‑bit</strong>, <strong>32‑bit</strong>, even
                 <strong>40‑bit</strong> variants—it accommodates a <strong>banked 3‑Read‑1‑Write register-file design</strong> I explored for it and the very‑long instruction word
                 (<strong>VLIW</strong>) architecture it somehow demands.
@@ -396,7 +397,7 @@
 <div class="two-up two-up--sweeps compiler-reels" id="opcode-compiler">
 <figure class="figure" data-poster="assets/gallery/compiler/opcode-sweep-sim-640w.webp" data-src="assets/compiler/opcode-sweep-sim.mp4">
 <div class="sweep-media">
-<video height="1080" loop="" muted="" playsinline="" poster="assets/gallery/compiler/opcode-sweep-sim-640w.webp" preload="metadata" webkit-playsinline="" width="1680">
+<video height="1080" loop="" muted="" playsinline="" poster="assets/gallery/compiler/opcode-sweep-sim-640w.webp" preload="none" webkit-playsinline="" width="1680">
 <source src="assets/compiler/opcode-sweep-sim.mp4" type="video/mp4"/>
 </video>
 </div>
@@ -404,7 +405,7 @@
 </figure>
 <figure class="figure" data-poster="assets/gallery/compiler/opcode-sweep-fpga-640w.webp" data-src="assets/compiler/opcode-sweep-fpga.mp4">
 <div class="sweep-media sweep-media--fpga">
-<video height="544" id="opcode-compiler-fpga" loop="" muted="" playsinline="" poster="assets/gallery/compiler/opcode-sweep-fpga-640w.webp" preload="metadata" webkit-playsinline="" width="480">
+<video height="544" id="opcode-compiler-fpga" loop="" muted="" playsinline="" poster="assets/gallery/compiler/opcode-sweep-fpga-640w.webp" preload="none" webkit-playsinline="" width="480">
 <source src="assets/compiler/opcode-sweep-fpga.mp4" type="video/mp4"/>
 </video>
 </div>
@@ -490,7 +491,7 @@
 <p class="ads-bar"><span>Then and now</span><span>Authority of copper</span></p>
 <a class="ad-face ad-face--then" href="boards/01-alu.html"><p class="ad-face-kicker"><span>Then · lot 01</span><span>Predecessor</span></p><span class="ad-face-shot"><img alt="Discrete MOSFET hybrid ALU — the predecessor." decoding="async" height="1120" loading="lazy" src="assets/plates/legacy-alu_full_3d.webp" width="1120"/></span><div class="ad-face-copy"><p class="ad-no">01</p><h3>ALU</h3><p class="ad-stamp">3,488 CMOS hybrid</p><p class="ad-blurb"><strong>3,488</strong>discrete CMOS transistors ·<strong>19 operations</strong>·<strong>5 flags</strong>· power hungry ·<strong>270×270 mm</strong>. Parasitic capacitance and
                   extreme assembly time forced the pivot—not the idea.</p><dl class="ad-facts"><div><dt>Outline</dt><dd>270 × 270 mm</dd></div><div><dt>Ops / flags</dt><dd>19 · 5</dd></div><div><dt>Authority</dt><dd>Paper · proven</dd></div></dl><p class="ad-cta">Open alu.tmarhguy.com</p></div></a>
-<a class="ad-face ad-face--now" href="journal.html"><p class="ad-face-kicker"><span>Now · lot 07</span><span>Soldered</span></p><span class="ad-face-shot"><img alt="Half-soldered 07_alu Dual-LUT slice next to its Digital simulation." decoding="async" height="1120" loading="lazy" sizes="(max-width: 860px) min(100vw - 1.7rem, 22rem), min(22rem, 36vw)" src="assets/gallery/assembly/half-soldered-plate-640w.webp" srcset="assets/gallery/assembly/half-soldered-plate-640w.webp 640w, assets/gallery/assembly/half-soldered-plate-1280w.webp 1280w, assets/assembly/half-soldered-plate.webp 1120w" width="1120"/></span><div class="ad-face-copy"><p class="ad-no">07</p><h3>ALU</h3><p class="ad-stamp">Dual-LUT · soldered</p><p class="ad-blurb">Every<strong>74ACT151</strong>is down on one board, the<strong>74ACT283</strong>adders with them, and seven LEDs of the debug wall. The slice sits next to the sim.</p><dl class="ad-facts"><div><dt>Footprint</dt><dd>99.95 × 99.80 mm</dd></div><div><dt>Density</dt><dd>25 logic ICs / 8b</dd></div><div><dt>Authority</dt><dd>In assembly · August 2026</dd></div></dl><p class="ad-cta">Open the Journal</p></div></a>
+<a class="ad-face ad-face--now" href="journal.html"><p class="ad-face-kicker"><span>Now · lot 07</span><span>Soldered</span></p><span class="ad-face-shot"><img alt="Half-soldered 07_alu Dual-LUT slice next to its Digital simulation." decoding="async" height="640" loading="lazy" sizes="(max-width: 860px) min(100vw - 1.7rem, 22rem), min(22rem, 36vw)" src="assets/gallery/assembly/half-soldered-plate-640w.webp" srcset="assets/gallery/assembly/half-soldered-plate-640w.webp 640w, assets/gallery/assembly/half-soldered-plate-1280w.webp 1280w, assets/assembly/half-soldered-plate.webp 1120w" width="640"/></span><div class="ad-face-copy"><p class="ad-no">07</p><h3>ALU</h3><p class="ad-stamp">Dual-LUT · soldered</p><p class="ad-blurb">Every<strong>74ACT151</strong>is down on one board, the<strong>74ACT283</strong>adders with them, and seven LEDs of the debug wall. The slice sits next to the sim.</p><dl class="ad-facts"><div><dt>Footprint</dt><dd>99.95 × 99.80 mm</dd></div><div><dt>Density</dt><dd>25 logic ICs / 8b</dd></div><div><dt>Authority</dt><dd>In assembly · August 2026</dd></div></dl><p class="ad-cta">Open the Journal</p></div></a>
 <div class="works">
 <p class="ad-colhead">The path forward · green is done · gold is now</p>
 <ol aria-label="Board lots" class="works-track">
@@ -585,12 +586,12 @@
       const io = new IntersectionObserver((entries, obs) => {
         if (!entries[0]?.isIntersecting) return;
         obs.disconnect();
-        import("./js/bench.js");
+        import("./js/bench.js?v=29899518");
       }, { rootMargin: "280px" });
       io.observe(bench);
     }
   </script>
-<script defer="" src="js/mast.js?v=962ee819"></script>
+<script defer="" src="js/mast.js?v=7cf4c39a"></script>
 <script defer="" src="js/compiler-reels.js?v=09bb9c63"></script>
 </body>
 </html>

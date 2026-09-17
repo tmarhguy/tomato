@@ -18,7 +18,8 @@
 <link href="css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link href="css/navigation.css?v=224d88a5" rel="stylesheet"/>
 <link href="css/status.css?v=2e138924" rel="stylesheet"/>
-<script defer src="js/navigation.js?v=c3d656fc"></script>
+<link href="css/message.css?v=3c33542d" rel="stylesheet"/>
+<script defer src="js/navigation.js?v=cf819a71"></script>
 <!-- tomato-seo -->
 <meta name="description" content="Envelop is the messenger that connects a person to the Envelop client inside Tomato OS, through a queued backend and a nearby verified bridge. Hardware and Virtual Tomato replies remain explicitly labeled."/>
 <meta name="robots" content="index, follow, max-image-preview:large"/>
@@ -30,17 +31,17 @@
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://tomato.tmarhguy.com/envelop.html"/>
 <link rel="canonical" href="https://tomato.tmarhguy.com/envelop.html"/>
-<meta property="og:image" content="https://tomato.tmarhguy.com/assets/gallery/os/desktop-menu-v12-1280w.webp"/>
-<meta property="og:image:width" content="1280"/>
-<meta property="og:image:height" content="720"/>
-<meta property="og:image:alt" content="Tomato OS menu captured from the FPGA display path; Envelop is one of fourteen menu entries"/>
+<meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-envelop.webp"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Envelop running inside Virtual Tomato with the simulated phone controls visible"/>
 <meta property="og:site_name" content="The Tomato 32-bit CPU"/>
 <meta property="og:locale" content="en_US"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Message Tomato with Envelop — Tomato"/>
 <meta name="twitter:description" content="A messenger whose Tomato-side client runs inside Tomato OS, with every hardware or virtual outcome labeled."/>
-<meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/gallery/os/desktop-menu-v12-1280w.webp"/>
-<meta name="twitter:image:alt" content="Tomato OS menu captured from the FPGA display path"/>
+<meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-envelop.webp"/>
+<meta name="twitter:image:alt" content="Envelop running inside Virtual Tomato"/>
 <script type="application/ld+json">{
   "@context":"https://schema.org",
   "@type":"WebPage",
@@ -59,22 +60,32 @@
 <header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="virtual.html">Play Tomato</a><a aria-current="page" href="envelop.html">Message Tomato</a><a href="architecture.html">Engineering</a><a href="journal.html">Journal</a><a href="gallery.html">Gallery</a><a href="status.html">Status</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle hidden type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="https://tmarhguy.github.io/envelop/chat/">Open Envelop chat</a><a href="compute.html">Compute preview</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">ISA</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Board tour</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
 <main class="project-main" id="main">
 <nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="index.html">Home</a></nav>
-<section class="status-intro project-frame">
-<p class="kicker">Tomato × Envelop</p>
-<h1>Message a computer.</h1>
-<p class="deck">Envelop is a separate messaging project. Its web and native clients, queue, and nearby bridge live outside Tomato; its small client and bounded compute executor are assembly linked into <strong>Tomato OS v3.0</strong>.</p>
-<nav class="status-actions" aria-label="Try Envelop"><a href="https://tmarhguy.github.io/envelop/chat/">Open Envelop web chat</a><a href="virtual.html">Try the local OS demo</a><a href="compute.html">Understand compute</a><a href="#path">Follow the data path</a></nav>
-</section>
-<div class="status-body project-frame">
-<section class="status-group" id="path"><header><p class="kicker">01 / The message path</p><h2>Each piece has one job.</h2></header><div class="status-cards"><article><h3>Person + Envelop</h3><p>You write in the external Envelop web app. Its backend keeps the message queued; an acknowledgement means Tomato accepted it, not that a human read it.</p></article><article><h3>Verified nearby bridge</h3><p>A bridge is considered online only while an authenticated lease is current and the nearby device has verified Tomato’s exact <code>ENVELOP/1</code> identity. Source support alone is not an online claim.</p></article><article><h3>Envelop in Tomato OS</h3><p>The assembly client receives the message inside the 14-entry OS, draws the conversation, and sends a bounded reply through the Tomato CPU.</p></article></div><p class="deck"><code>person → Envelop web app → backend queue → nearby verified bridge → Envelop in Tomato OS → Tomato CPU → labeled reply</code></p></section>
-<section class="status-group" id="provenance"><header><p class="kicker">02 / Provenance</p><h2>“Tomato” is not one execution target.</h2></header><div class="status-cards"><article><h3>Hardware Tomato</h3><p>This label is valid only after an active bridge reports a completed job on the FPGA Tomato. A timeout is an unknown outcome and never triggers an automatic virtual replay.</p></article><article><h3>Virtual Tomato</h3><p>An explicit browser preview runs separately in the functional ISA-level emulator. It is not sent to the FPGA and is never queued for later hardware execution.</p><a href="virtual.html">Run the emulator</a></article><article><h3>RTL simulation</h3><p>Local Icarus-driven execution is simulation, not physical execution. It verifies a development path without claiming a programmed board is currently connected.</p></article></div></section>
-<section class="status-group" id="messaging-compute"><header><p class="kicker">03 / Messaging and compute</p><h2>Conversation first. Bounded programs second.</h2></header><div class="status-feature"><figure><img alt="Envelop open inside Tomato OS in the Virtual Tomato browser emulator on an Infinix phone" src="assets/documentation/infinix/tomato-virtual-os-envelop-infinix.webp" width="1080" height="2207" loading="lazy" decoding="async"/><figcaption>Current OS image · real Infinix browser · Virtual Tomato CPU emulator · simulated peripherals · bridge offline</figcaption></figure><div><article><h3>Messaging</h3><p>Messages may wait for hardware. They are not silently converted into simulated replies.</p><a href="https://tmarhguy.github.io/envelop/chat/">Message with Envelop</a></article><article><h3>Compute preview</h3><p>Supported expressions become a transparent, bounded program. Every result names its target; unsupported requests fail rather than inventing an answer.</p><a href="compute.html">Read the compute boundary</a></article></div></div></section>
-<section class="status-group" id="status"><header><p class="kicker">04 / What is established</p><h2>Source-complete is not the same as live.</h2></header><div class="status-cards"><article><h3>Implemented</h3><p>Envelop firmware, setup data, bounded executor, browser emulator, and local simulation are present in the repository.</p></article><article><h3>Hardware-dependent</h3><p>A programmed FPGA, attached radio, active bridge, and physical reply require current live evidence.</p></article><article><h3>Deployment-dependent</h3><p>The hosted Envelop service may differ from this working tree. The links open the public interface; availability must be observed there.</p><a href="status.html">See Tomato status</a></article></div></section>
+<section class="message-hero project-frame">
+<div class="message-hero-copy">
+<p class="kicker">Tomato OS × Envelop</p>
+<h1>Message the machine.</h1>
+<p class="deck">Tomato is not a mascot in a chat list. It is the computer at the other end: Envelop runs inside Tomato OS, receives your message, and returns a reply labeled with the machine that answered.</p>
+<div class="message-actions"><a class="message-action-primary" href="https://tmarhguy.github.io/envelop/chat/">Text Tomato in Envelop</a><a href="#how">See what happens after Send</a></div>
 </div>
+<figure class="message-hero-proof"><img src="assets/gallery/os/desktop-menu-v12-1280w.webp" width="1280" height="720" fetchpriority="high" decoding="async" alt="Landscape capture of Tomato OS running on the FPGA, with Envelop listed first among fourteen applications"/><figcaption><strong>Tomato OS on the FPGA</strong><span>Envelop is the first of 14 shipped apps · current hardware recording</span></figcaption></figure>
+</section>
+<section class="message-reveal project-frame" id="how" aria-labelledby="reveal-title">
+<div><p class="kicker">01 / After you press Send</p><h2 id="reveal-title">Your browser does not pretend to be the computer.</h2></div>
+<div class="message-reveal-copy"><p>Envelop keeps the message queued until a nearby verified bridge can reach the Envelop app inside Tomato OS. The Tomato CPU receives it there. A reply comes back with its origin attached.</p><p>If physical Tomato is away, your message waits. You may start a separate Virtual Tomato preview, but Envelop never converts an uncertain hardware attempt into a simulated success.</p></div>
+<ol class="message-route" aria-label="Message route from a person to Tomato and back"><li><span>01</span><strong>You</strong><small>Write in Envelop</small></li><li><span>02</span><strong>Queue</strong><small>Wait safely</small></li><li><span>03</span><strong>Bridge</strong><small>Verify Tomato</small></li><li><span>04</span><strong>Tomato OS</strong><small>Open Envelop</small></li><li><span>05</span><strong>Tomato CPU</strong><small>Reply with provenance</small></li></ol>
+</section>
+<section class="message-powers project-frame" aria-labelledby="powers-title">
+<div class="message-powers-heading"><p class="kicker">02 / Separation of powers</p><h2 id="powers-title">Each side does one honest job.</h2><p>Tomato explains the machine. Envelop handles the conversation. The label on the reply tells you where those worlds met.</p></div>
+<div class="message-power-grid"><article><span>TOMATO</span><h3>The computer</h3><p>A custom 32-bit CPU, its assembly-written OS, and the Envelop endpoint that runs on it.</p><a href="os.html">Inside Tomato OS</a></article><article><span>ENVELOP</span><h3>The messenger</h3><p>The public chat, identity, queue, unread state, typing feedback, and nearby bridge that carry the conversation.</p><a href="https://tmarhguy.github.io/envelop/">Meet Envelop</a></article><article><span>THE REPLY</span><h3>The evidence</h3><p><strong>Physical Tomato</strong> means completed hardware execution. <strong>Virtual Tomato</strong> means an explicit browser preview. A timeout means unknown.</p><a href="verification.html">Read the evidence boundary</a></article></div>
+</section>
+<section class="message-next project-frame" aria-labelledby="next-title">
+<div><p class="kicker">03 / More than chat</p><h2 id="next-title">Ask it to compute.</h2><p>Supported language can become a bounded Tomato program. Envelop shows the interpreted request, program, bytecode, target, and result instead of hiding the work behind an answer.</p></div>
+<nav aria-label="Continue the journey"><a href="https://tmarhguy.github.io/envelop/chat/">Open Envelop chat <span>→</span></a><a href="compute.html">Understand compute <span>→</span></a><a href="virtual.html">Run Tomato OS locally <span>→</span></a></nav>
+</section>
 </main>
 <footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>Play the machine. Message it with Envelop.<br/>Know which target answered.</p><a href="https://tmarhguy.github.io/envelop/chat/">Open Envelop chat</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a aria-current="page" href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Tomato source</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer src="js/mast.js?v=962ee819"></script>
+<script defer src="js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer src="js/vercel-analytics.js?v=c08440a3"></script>
 <script defer src="js/vercel-speed-insights.js?v=0d39aa70"></script>

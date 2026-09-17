@@ -35,7 +35,7 @@
         "Dual-LUT ALU",
         "LUT3 adder",
         "524288 ALU configurations",
-        "32768 registers",
+        "256 × 32-bit FPGA registers",
         "immediate box",
         "hardware opcode compiler",
         "130 billion test vectors",
@@ -139,7 +139,7 @@
     },
     "isa.html": {
       "title": "Tomato ISA — Tomato",
-      "description": "Tomato ISA: 53 burned opcodes in a 512-row instruction ROM. Authority is docs/isa/tomato.v1.csv—native mnemonics mapped onto the Dual-LUT datapath.",
+      "description": "Tomato ISA: 61 instructions plus NOP occupy 62 burned rows in a 512-row instruction ROM. The authoritative tomato.v1.csv maps native mnemonics onto the Dual-LUT datapath.",
       "keywords": [
         "Tomato ISA",
         "tomato.v1.csv",
