@@ -660,6 +660,14 @@ h1 {
     flex-wrap: wrap;
   }
   .front-links a { font-size: .75rem; }
+  .hero-journeys {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+  .hero-journeys strong {
+    font-size: clamp(.68rem, 2.8vw, .78rem);
+    white-space: nowrap;
+  }
   .board-meta { grid-template-columns: 1fr auto; align-items: start; }
   .board-meta__lot { grid-column: 1 / -1; order: 3; }
   .hero-deck { max-width: 32rem; font-size: 1.0625rem; margin-top: 0; }
@@ -1254,31 +1262,35 @@ h1 {
 /* Homepage journeys stay secondary to the physical board. */
 .hero-journeys {
   display: grid;
-  grid-template-columns: 1.35fr 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   width: min(40rem, 100%);
   margin: .35rem 0;
-  border: 1px solid var(--line);
+  gap: .75rem;
 }
 .hero-journeys a {
   min-width: 0;
-  min-height: 48px;
-  padding: .55rem .8rem;
+  min-height: 40px;
+  padding: .45rem .9rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
   text-decoration: none;
-  text-align: left;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: .04em;
 }
-.hero-journeys a + a { border-left: 1px solid var(--line); }
-.hero-journeys strong { font-size: .875rem; line-height: 1.25; }
-.hero-journeys span { color: var(--muted); font-size: .7rem; line-height: 1.35; }
-.hero-journeys a:hover strong { color: var(--accent); }
+.hero-journeys a + a { border-color: var(--accent); color: var(--accent); }
+.hero-journeys strong { font-size: .75rem; line-height: 1.25; }
+.hero-journeys span { display: none; }
+.hero-journeys a:hover { border-color: var(--text); color: var(--text); }
 .hero-journeys .hero-journey-primary {
-  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  background: transparent;
   color: var(--text);
 }
-.hero-journeys .hero-journey-primary span { color: var(--muted); }
-.hero-journeys .hero-journey-primary:hover strong { color: var(--accent); }
 
 /* One focused OS console with a compact Envelop companion. */
 .ecosystem-console {
@@ -1335,7 +1347,7 @@ h1 {
 .ecosystem-message img {
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 40 / 27;
   object-fit: contain;
   object-position: center;
   border: 1px solid var(--line);
@@ -1376,18 +1388,9 @@ h1 {
     width: fit-content;
     max-width: 100%;
     margin: 0;
-    gap: 1rem;
+    gap: .75rem;
     justify-self: start;
-    border: 0;
   }
-  .hero-journeys a {
-    min-height: 0;
-    padding: .2rem 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .hero-journeys a + a { border-left: 0; }
-  .hero-journeys strong { font-size: .76rem; }
-  .hero-journeys span { display: none; }
   .hero-hook {
     width: 100%;
     justify-content: flex-start;
