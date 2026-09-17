@@ -282,8 +282,52 @@ test('journal entries number from the oldest upward and adjust to new entries', 
  const source = readFileSync(new URL('../js/journal-index.js',import.meta.url),'utf8');
  for (const count of [1,34,35]) {
   const nodes=Array.from({length:count},()=>({textContent:''}));
-  runInNewContext(source,{document:{querySelectorAll:()=>nodes.map(n=>({querySelector:()=>n}))}});
+  const entries=nodes.map(number=>({
+   textContent:'',hidden:false,
+   querySelector:selector=>selector==='.journal-number'?number:null,
+  }));
+  runInNewContext(source,{document:{querySelectorAll:()=>entries,querySelector:()=>null}});
   assert.equal(nodes[0].textContent,String(count).padStart(2,'0'));
   assert.equal(nodes.at(-1).textContent,'01');
  }
+});
+
+test('journal search and period controls filter without renumbering history', () => {
+ const source = readFileSync(new URL('../js/journal-index.js',import.meta.url),'utf8');
+ const listeners={};
+ const search={value:'',addEventListener:(type,fn)=>{listeners[type]=fn;}};
+ const period={value:'',addEventListener:(type,fn)=>{listeners[type]=fn;}};
+ const count={textContent:''};
+ const empty={hidden:true};
+ const tools={addEventListener:()=>{}};
+ const rows=[
+  ['15 Sep 2026','FPGA synthesis bypass'],
+  ['28 Aug 2026','Pixels on the glass'],
+  ['Origin','Welcome to Tomato'],
+ ].map(([date,text])=>({
+  textContent:text,hidden:false,
+  number:{textContent:''},
+  date:{textContent:date},
+  querySelector(selector){return selector==='.journal-number'?this.number:selector==='.journal-date'?this.date:null;},
+ }));
+ const controls={
+  '[data-journal-search]':search,
+  '[data-journal-period]':period,
+  '[data-journal-count]':count,
+  '[data-journal-empty]':empty,
+  '[data-journal-tools]':tools,
+ };
+ runInNewContext(source,{document:{
+  querySelectorAll:()=>rows,
+  querySelector:selector=>controls[selector]||null,
+ }});
+ assert.equal(count.textContent,'3');
+ search.value='fpga';listeners.input();
+ assert.deepEqual(rows.map(row=>row.hidden),[false,true,true]);
+ assert.equal(count.textContent,'1');
+ search.value='';period.value='Aug 2026';listeners.change();
+ assert.deepEqual(rows.map(row=>row.hidden),[true,false,true]);
+ period.value='Jun 2026';listeners.change();
+ assert.equal(count.textContent,'0');
+ assert.equal(empty.hidden,false);
 });
