@@ -24,8 +24,8 @@
 <link href="css/magazine.css?v=4f8da71e" rel="stylesheet"/>
 <link href="css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="css/brand.css?v=7700e16c" rel="stylesheet"/>
-<link href="css/navigation.css?v=4247b616" rel="stylesheet"/>
-<script defer="" src="js/navigation.js?v=c3d656fc"></script>
+<link href="css/navigation.css?v=224d88a5" rel="stylesheet"/>
+<script defer="" src="js/navigation.js?v=cf819a71"></script>
 <!-- tomato-seo -->
   <meta name="description" content="I’m a Computer Engineering student at the University of Pennsylvania, Class of 2028. I started with an 8-bit ALU and kept building toward a computer whose hardware and software I could understand myself." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, UPenn, homebrew CPU author, Achimota, open hardware, I’m, Tyrone, Marhguy, engineering, student, university, pennsylvania, class, started, 8-bit, toward" />
@@ -68,11 +68,11 @@
 </head>
 <body class="project-document">
 <div class="page project-page project-about"><a class="project-skip" href="#main">Skip to content</a>
-<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="index.html#what-is-tomato">The idea</a><a href="index.html#running">See it run</a><a href="architecture.html">Engineering</a><a href="journal.html">Build journal</a><a href="faq.html">FAQ</a><a href="gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Message Tomato</a><a href="architecture.html">Engineering</a><a href="journal.html">Journal</a><a href="gallery.html">Gallery</a><a href="status.html">Status</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
 <main class="project-main" id="main">
 <nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="index.html">Home</a></nav><section aria-labelledby="about-title" class="project-hero project-hero-split">
 <div class="project-hero-media">
-<img alt="Tyrone Marhguy, designer of Tomato" decoding="async" fetchpriority="high" height="1200" src="assets/plates/me.jpg" width="960"/>
+<img alt="Tyrone Marhguy, designer of Tomato" decoding="async" fetchpriority="high" height="2300" src="assets/plates/me.jpg" width="2226"/>
 </div>
 <div class="project-hero-copy">
 <p class="kicker">About me</p>
@@ -112,8 +112,8 @@
               Ghana flag, because the paper is printed in Ashtown Valley even when the copper lands in Philadelphia.</p>
 <figure style="margin: 2rem 0;">
 <div style="display: flex; gap: 1rem; justify-content: center;">
-<img alt="ENIAC at the Moore School, 1946" src="assets/engravings/eniac-penn.jpg" style="width: calc(50% - 0.5rem); border-radius: 4px; box-shadow: inset 0 0 0 1px var(--line);"/>
-<img alt="07_alu board render" src="assets/pcb/alu_8b_board.jpg" style="width: calc(50% - 0.5rem); border-radius: 4px; box-shadow: inset 0 0 0 1px var(--line);"/>
+<img alt="ENIAC at the Moore School, 1946" src="assets/engravings/eniac-penn.jpg" style="width: calc(50% - 0.5rem); border-radius: 4px; box-shadow: inset 0 0 0 1px var(--line);" width="630" height="455"/>
+<img alt="07_alu board render" src="assets/pcb/alu_8b_board.jpg" style="width: calc(50% - 0.5rem); border-radius: 4px; box-shadow: inset 0 0 0 1px var(--line);" width="1394" height="1400"/>
 </div>
 <figcaption style="text-align: center; font-style: italic; color: var(--muted); margin-top: .75rem; font-size: .875rem;">Then: ENIAC at the Moore School (U.S. Army). Now: The 07_alu slice.</figcaption>
 </figure>
@@ -276,7 +276,7 @@
 <td>RTL &amp; emulation · <a href="https://pennovation.upenn.edu">Pennovation</a></td>
 </tr>
 <tr>
-<td><a href="https://education.howard.edu/affiliated-programs/stem-summer-camp-verizon-innovative-learning">Howard
+<td><a href="https://education.howard.edu/affiliated-programs/hu-stem-achievers-program">Howard
                         STEM Achievers</a> — STEM Instructor</td>
 <td>Jun–Jul 2026</td>
 <td>AR/VR</td>
@@ -345,9 +345,9 @@
 </div>
 </section>
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="architecture.html">Architecture</a><a href="verification.html">Verification</a><a href="isa.html">Instruction set</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="playground.html">Playground</a><a href="boards.html">Board catalog</a><a href="board.html">Board workspace</a><a href="viewer.html">3D tour</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="source.html">Source</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a aria-current="page" href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a aria-current="page" href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer="" src="js/mast.js?v=962ee819"></script>
+<script defer="" src="js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>

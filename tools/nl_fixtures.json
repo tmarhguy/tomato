@@ -1,0 +1,408 @@
+{
+  "_doc": "Controlled natural language fixtures. Single source consumed by tomato/tools/test_remote_compute.py (Python, RTL-executed) and envelop/website/chat/virtual/compiler.test.mjs (JS, compile-level). Invariant: a complete valid semantic span may be recovered from surrounding filler; unknown words inside that span reject; unsupported operations reject; ambiguous input rejects; correction guidance is declarative rather than a confirmation question. `canonical` is asserted byte-identical across implementations. v2 adds variadic functions. v3 adds xnor/not and /run aliases. v4 promotes dual-LUT operations. v5 adds OP of/between/with forms and extra shells. v6 adds deterministic semantic-span recovery around arbitrary prefix filler.",
+  "version": 7,
+  "compute": [
+    {
+      "input": "What is (57 + 19) AND 0x3F?",
+      "expected": 12,
+      "understood": "(57 + 19) & 0x3F",
+      "canonical": "/run\nR0=57\nR1=19\nADD R0,R0,R1\nR1=63\nAND R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "What is 93 plus 47 minus 8 on Tomato?",
+      "expected": 132,
+      "understood": "(93 + 47) - 8",
+      "canonical": "/run\nR0=93\nR1=47\nADD R0,R0,R1\nR1=8\nSUB R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "Hey Tomato, could you please calculate 93 plus 47 minus 8 for me?",
+      "expected": 132,
+      "understood": "(93 + 47) - 8",
+      "canonical": "/run\nR0=93\nR1=47\nADD R0,R0,R1\nR1=8\nSUB R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is 783 + and(45, 34)?",
+      "expected": 815,
+      "understood": "783 + (45 & 34)",
+      "canonical": "/run\nR0=783\nR1=45\nR2=34\nAND R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "and(45, 34)",
+      "expected": 32,
+      "understood": "45 & 34",
+      "canonical": "/run\nR0=45\nR1=34\nAND R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is and(or(1, 2), 3)?",
+      "expected": 3,
+      "understood": "(1 | 2) & 3",
+      "canonical": "/run\nR0=1\nR1=2\nOR R0,R0,R1\nR1=3\nAND R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is 5 plus and(1, 2)?",
+      "expected": 5,
+      "understood": "5 + (1 & 2)",
+      "canonical": "/run\nR0=5\nR1=1\nR2=2\nAND R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is 89 + and(34, 84) on tomato?",
+      "expected": 89,
+      "understood": "89 + (34 & 84)",
+      "canonical": "/run\nR0=89\nR1=34\nR2=84\nAND R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is 5 plus (1 & 2)?",
+      "expected": 5,
+      "understood": "5 + (1 & 2)",
+      "canonical": "/run\nR0=5\nR1=1\nR2=2\nAND R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "R7 + 4",
+      "expected": 4,
+      "understood": "R7 + 4",
+      "canonical": "/run\nR0=4\nOR R1,R7,R7\nADD R1,R1,R0\nRETURN R1"
+    },
+    {
+      "input": "R3",
+      "expected": 0,
+      "understood": "R3",
+      "canonical": "/run\nRETURN R3"
+    },
+    {
+      "input": "(R1 ^ R2) & 0xFF",
+      "expected": 0,
+      "understood": "(R1 ^ R2) & 0xFF",
+      "canonical": "/run\nOR R0,R1,R1\nXOR R0,R0,R2\nR3=255\nAND R0,R0,R3\nRETURN R0"
+    },
+    {
+      "input": "calculate 7 minus 10",
+      "expected": 4294967293,
+      "understood": "7 - 10",
+      "canonical": "/run\nR0=7\nR1=10\nSUB R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what does 2 plus 3 equal?",
+      "expected": 5,
+      "understood": "2 + 3",
+      "canonical": "/run\nR0=2\nR1=3\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "can tomato calculate 6 xor 3?",
+      "expected": 5,
+      "understood": "6 ^ 3",
+      "canonical": "/run\nR0=6\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "compute ~0x0F",
+      "expected": 4294967280,
+      "understood": "~0x0F",
+      "canonical": "/run\nR0=15\nR1=4294967295\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "evaluate (10 + 2) & 20",
+      "expected": 4,
+      "understood": "(10 + 2) & 20",
+      "canonical": "/run\nR0=10\nR1=2\nADD R0,R0,R1\nR1=20\nAND R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is 5 plus 7 on tomato please?",
+      "expected": 12,
+      "understood": "5 + 7",
+      "canonical": "/run\nR0=5\nR1=7\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "on tomato, what is 82938 + 283345",
+      "expected": 366283,
+      "understood": "82938 + 283345",
+      "canonical": "/run\nR0=82938\nR1=283345\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "and(83, 456, 34)",
+      "expected": 0,
+      "understood": "(83 & 456) & 34",
+      "canonical": "/run\nR0=83\nR1=456\nAND R0,R0,R1\nR1=34\nAND R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "nand(45, 34, 3)",
+      "expected": 4294967295,
+      "understood": "~(((45 & 34) & 3))",
+      "canonical": "/run\nR0=45\nR1=34\nAND R0,R0,R1\nR1=3\nAND R0,R0,R1\nR1=4294967295\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "and(83, 456, 34) + nand(45, 34, 3)",
+      "expected": 4294967295,
+      "understood": "((83 & 456) & 34) + ~(((45 & 34) & 3))",
+      "canonical": "/run\nR0=83\nR1=456\nAND R0,R0,R1\nR1=34\nAND R0,R0,R1\nR1=45\nR2=34\nAND R1,R1,R2\nR2=3\nAND R1,R1,R2\nR2=4294967295\nXOR R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is plus(1, 2, 3, 4)?",
+      "expected": 10,
+      "understood": "((1 + 2) + 3) + 4",
+      "canonical": "/run\nR0=1\nR1=2\nADD R0,R0,R1\nR1=3\nADD R0,R0,R1\nR1=4\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is minus(10, 3, 2)?",
+      "expected": 5,
+      "understood": "(10 - 3) - 2",
+      "canonical": "/run\nR0=10\nR1=3\nSUB R0,R0,R1\nR1=2\nSUB R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is nor(6, 3)?",
+      "expected": 4294967288,
+      "understood": "~((6 | 3))",
+      "canonical": "/run\nR0=6\nR1=3\nOR R0,R0,R1\nR1=4294967295\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is or(1, 2, 3) + xor(4, 5, 6) + plus(7, 8)?",
+      "expected": 25,
+      "understood": "(((1 | 2) | 3) + ((4 ^ 5) ^ 6)) + (7 + 8)",
+      "canonical": "/run\nR0=1\nR1=2\nOR R0,R0,R1\nR1=3\nOR R0,R0,R1\nR1=4\nR2=5\nXOR R1,R1,R2\nR2=6\nXOR R1,R1,R2\nADD R0,R0,R1\nR1=7\nR2=8\nADD R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "89 + 90",
+      "expected": 179,
+      "understood": "89 + 90",
+      "canonical": "/run\nR0=89\nR1=90\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "xnor(5, 3)",
+      "expected": 4294967289,
+      "understood": "~((5 ^ 3))",
+      "canonical": "/run\nR0=5\nR1=3\nXOR R0,R0,R1\nR1=4294967295\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what is not(5)?",
+      "expected": 4294967290,
+      "understood": "~5",
+      "canonical": "/run\nR0=5\nR1=4294967295\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "andn(6, 3)",
+      "expected": 4,
+      "understood": "andn(6, 3)",
+      "canonical": "/run\nR0=6\nR1=3\nANDN R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "orn(6, 3)",
+      "expected": 4294967294,
+      "understood": "orn(6, 3)",
+      "canonical": "/run\nR0=6\nR1=3\nORN R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "maskadd(1, 2, 3)",
+      "expected": 3,
+      "understood": "maskadd(1, 2, 3)",
+      "canonical": "/run\nR0=1\nR1=2\nR2=3\nMASKADD R0,R0,R1,R2\nRETURN R0"
+    },
+    {
+      "input": "andadd(1, 2, 3)",
+      "expected": 3,
+      "understood": "andadd(1, 2, 3)",
+      "canonical": "/run\nR0=1\nR1=2\nR2=3\nANDADD R0,R0,R1,R2\nRETURN R0"
+    },
+    {
+      "input": "xorand(1, 2, 3)",
+      "expected": 0,
+      "understood": "xorand(1, 2, 3)",
+      "canonical": "/run\nR0=1\nR1=2\nR2=3\nXORAND R0,R0,R1,R2\nRETURN R0"
+    },
+    {
+      "input": "what is xnor(1, 2, 3) + not(4)?",
+      "expected": 4294967290,
+      "understood": "~(((1 ^ 2) ^ 3)) + ~4",
+      "canonical": "/run\nR0=1\nR1=2\nXOR R0,R0,R1\nR1=3\nXOR R0,R0,R1\nR1=4294967295\nXOR R0,R0,R1\nR1=4\nR2=4294967295\nXOR R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "oradd(1, 2, 3)",
+      "expected": 6,
+      "understood": "oradd(1, 2, 3)",
+      "canonical": "/run\nR0=1\nR1=2\nR2=3\nORADD R0,R0,R1,R2\nRETURN R0"
+    },
+    {
+      "input": "xoradd(1, 2, 3)",
+      "expected": 6,
+      "understood": "xoradd(1, 2, 3)",
+      "canonical": "/run\nR0=1\nR1=2\nR2=3\nXORADD R0,R0,R1,R2\nRETURN R0"
+    },
+    {
+      "input": "what is xor of 5 and 3",
+      "expected": 6,
+      "understood": "5 ^ 3",
+      "canonical": "/run\nR0=5\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "what's the xor of 5 and 3",
+      "expected": 6,
+      "understood": "5 ^ 3",
+      "canonical": "/run\nR0=5\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "xor of 6 and 3",
+      "expected": 5,
+      "understood": "6 ^ 3",
+      "canonical": "/run\nR0=6\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "xor between 6 and 3",
+      "expected": 5,
+      "understood": "6 ^ 3",
+      "canonical": "/run\nR0=6\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "xor of 5 with 3",
+      "expected": 6,
+      "understood": "5 ^ 3",
+      "canonical": "/run\nR0=5\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "xor of 1 and 2 and 3",
+      "expected": 0,
+      "understood": "(1 ^ 2) ^ 3",
+      "canonical": "/run\nR0=1\nR1=2\nXOR R0,R0,R1\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "the and of 45 and 34",
+      "expected": 32,
+      "understood": "45 & 34",
+      "canonical": "/run\nR0=45\nR1=34\nAND R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "sum of 2 and 3",
+      "expected": 5,
+      "understood": "2 + 3",
+      "canonical": "/run\nR0=2\nR1=3\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "difference of 10 and 3",
+      "expected": 7,
+      "understood": "10 - 3",
+      "canonical": "/run\nR0=10\nR1=3\nSUB R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "tell me xor of 5 and 3",
+      "expected": 6,
+      "understood": "5 ^ 3",
+      "canonical": "/run\nR0=5\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "give me the xor of 5 and 3",
+      "expected": 6,
+      "understood": "5 ^ 3",
+      "canonical": "/run\nR0=5\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "how much is 2 plus 3",
+      "expected": 5,
+      "understood": "2 + 3",
+      "canonical": "/run\nR0=2\nR1=3\nADD R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "not of 5",
+      "expected": 4294967290,
+      "understood": "~5",
+      "canonical": "/run\nR0=5\nR1=4294967295\nXOR R0,R0,R1\nRETURN R0"
+    },
+    {
+      "input": "Hey Tomato, can you tell me the xor of 5 and 3?",
+      "expected": 6,
+      "understood": "5 ^ 3",
+      "canonical": "/run\nR0=5\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+    }
+  ],
+  "chat": [
+    {
+      "input": "hello tomato"
+    },
+    {
+      "input": "tell me about tomato"
+    },
+    {
+      "input": "please"
+    },
+    {
+      "input": "what is the time on tomato"
+    }
+  ],
+  "errors": [
+    {
+      "input": "ohj yea, you are so good, ok what is 34 - 2345",
+      "py_error": "UNKNOWN_WORD",
+      "js_error": "ohj"
+    },
+    {
+      "input": "i can teype gibveradklaeira adkn adihe adn adraioerh 345 + nand(2345, 3534, 235)",
+      "py_error": "UNKNOWN_WORD",
+      "js_error": "teype"
+    },
+    {
+      "input": "whqa it xor of 5 and 3",
+      "py_error": "UNKNOWN_WORD",
+      "js_error": "whqa"
+    },
+    {
+      "input": "93 plus 47 squared minus 8",
+      "py_error": "UNKNOWN_WORD",
+      "js_error": "squared"
+    },
+    {
+      "input": "what is and(1)?",
+      "py_error": "FN_ARITY",
+      "js_error": "two arguments"
+    },
+    {
+      "input": "what is nand(7)?",
+      "py_error": "FN_ARITY",
+      "js_error": "two arguments"
+    },
+    {
+      "input": "what is and(1, 2, 3, 4, 5, 6, 7, 8, 9)?",
+      "py_error": "FN_ARITY",
+      "js_error": "two arguments"
+    },
+    {
+      "input": "5 * 3",
+      "py_error": "UNSUPPORTED_OP",
+      "js_error": "not installed"
+    },
+    {
+      "input": "what is 10 / 2?",
+      "py_error": "UNSUPPORTED_OP",
+      "js_error": "not installed"
+    },
+    {
+      "input": "2 and(1,2)",
+      "py_error": "UNSUPPORTED",
+      "js_error": "parenthesis"
+    },
+    {
+      "input": "what is not(1, 2)?",
+      "py_error": "FN_ARITY",
+      "js_error": "not needs exactly one"
+    },
+    {
+      "input": "what is andn(1)?",
+      "py_error": "FN_ARITY",
+      "js_error": "exactly two arguments"
+    },
+    {
+      "input": "what is maskadd(1, 2)?",
+      "py_error": "FN_ARITY",
+      "js_error": "exactly three arguments"
+    },
+    {
+      "input": "xorr of 5 and 3",
+      "py_error": "Closest supported operator: xor",
+      "js_error": "Closest supported operator: xor"
+    },
+    {
+      "input": "xor of 5",
+      "py_error": "Supported forms: xor of a and b",
+      "js_error": "Supported forms: xor of a and b"
+    },
+    {
+      "input": "product of 2 and 3",
+      "py_error": "UNSUPPORTED_OP",
+      "js_error": "not installed"
+    }
+  ]
+}

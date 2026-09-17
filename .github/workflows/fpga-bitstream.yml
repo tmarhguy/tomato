@@ -1,0 +1,189 @@
+name: fpga-bitstream
+
+# Cloud bitstream for the Nexys A7-100T (xc7a100tcsg324-1).
+# Open flow: yosys -> nextpnr-xilinx -> prjxray -> .bit (~1h+ single-threaded).
+# Run this in cloud so the laptop stays free; download the .bit artifact and
+# flash locally with: openFPGALoader -b nexys_a7_100 nexys_top.bit
+#
+# Refresh burn BEFORE synth: rtl/burn/*.vh are baked into the bitstream, so
+# every OS/microcode change needs `burn` then `fpga` (same as local).
+
+on:
+  workflow_dispatch:
+    inputs:
+      boot:
+        description: "Guest program to burn (BOOT=)"
+        required: false
+        default: "tomato_os"
+  push:
+    branches: [main]
+    paths:
+      - "hardware/fpga/core/rtl/**"
+      - "hardware/fpga/core/constr/**"
+      - "hardware/fpga/core/tb/**"
+      - "hardware/fpga/core/Makefile"
+      - "hardware/fpga/common.mk"
+      - "hardware/fpga/scripts/**"
+      - "software/os/**"
+      - "software/asm/**"
+      - "software/assembler.py"
+      - "tools/gen_fpga_burn.py"
+      - "tools/gen_microcode_v1.py"
+      - "tools/nl_fixtures.json"
+      - "tools/remote_compile.py"
+      - "tools/render_envelop.py"
+      - "tools/test_envelop.py"
+      - "tools/test_os_layout.py"
+      - "tools/test_remote_compute.py"
+      - "tools/test_remote_service.py"
+      - "tools/test_virtual_tomato.py"
+      - "tools/virtual_tomato.*"
+      - "docs/isa/tomato.v1.csv"
+      - ".github/workflows/fpga-bitstream.yml"
+  pull_request:
+    paths:
+      - "hardware/fpga/core/rtl/**"
+      - "hardware/fpga/core/constr/**"
+      - "hardware/fpga/core/tb/**"
+      - "hardware/fpga/core/Makefile"
+      - "hardware/fpga/common.mk"
+      - "hardware/fpga/scripts/**"
+      - "software/os/**"
+      - "software/asm/**"
+      - "software/assembler.py"
+      - "tools/gen_fpga_burn.py"
+      - "tools/gen_microcode_v1.py"
+      - "tools/nl_fixtures.json"
+      - "tools/remote_compile.py"
+      - "tools/render_envelop.py"
+      - "tools/test_envelop.py"
+      - "tools/test_os_layout.py"
+      - "tools/test_remote_compute.py"
+      - "tools/test_remote_service.py"
+      - "tools/test_virtual_tomato.py"
+      - "tools/virtual_tomato.*"
+      - "docs/isa/tomato.v1.csv"
+
+concurrency:
+  group: fpga-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  # Must match hardware/fpga/scripts/setup-oss-cad.sh (Linux asset name differs).
+  OSS_TAG: "2026-08-28"
+  OSS_BUILD: "20260828"
+  BOOT: ${{ inputs.boot || 'tomato_os' }}
+
+jobs:
+  core-simulation:
+    name: core + Envelop + remote compute
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Install simulation tools
+        run: sudo apt-get update && sudo apt-get install -y iverilog verilator g++
+      - name: Core and OS regressions
+        run: make -C hardware/fpga/core test
+      - name: Envelop and Virtual Tomato regressions
+        run: make -C hardware/fpga/core remote-test
+      - name: Layout and local-service contracts
+        run: |
+          set -euo pipefail
+          python3 tools/test_os_layout.py
+          python3 tools/virtual_tomato.py >/tmp/tomato-virtual-service.log 2>&1 &
+          server=$!
+          trap 'kill "$server" 2>/dev/null || true' EXIT
+          ready=0
+          for _ in {1..180}; do
+            if curl -fsS http://127.0.0.1:8766/session >/dev/null 2>&1; then
+              ready=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$ready" != 1 ]; then
+            cat /tmp/tomato-virtual-service.log
+            exit 1
+          fi
+          python3 tools/test_remote_service.py
+
+  bitstream:
+    name: yosys -> nextpnr -> .bit
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    defaults:
+      run:
+        working-directory: hardware/fpga/core
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: System deps (cmake, ninja, venv)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build python3-venv
+
+      - uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # main 2026-09-16
+
+      # OSS CAD Suite supplies yosys. The repo's setup-oss-cad.sh is
+      # darwin-only, so fetch the Linux asset directly to the same path
+      # env.sh expects (hardware/fpga/.tools/oss-cad-suite).
+      - name: OSS CAD Suite (Linux, yosys)
+        run: |
+          OSS_DIR="${GITHUB_WORKSPACE}/hardware/fpga/.tools/oss-cad-suite"
+          if [[ ! -f "${OSS_DIR}/environment" ]]; then
+            ASSET="oss-cad-suite-linux-x64-${OSS_BUILD}.tgz"
+            curl -fL "https://github.com/YosysHQ/oss-cad-suite-build/releases/download/${OSS_TAG}/${ASSET}" -o /tmp/oss.tgz
+            mkdir -p "${GITHUB_WORKSPACE}/hardware/fpga/.tools"
+            tar -xzf /tmp/oss.tgz -C "${GITHUB_WORKSPACE}/hardware/fpga/.tools"
+          fi
+          test -f "${OSS_DIR}/environment"
+
+      # Prjxray bitgen (xc7frames2bit + fasm2frames wrapper). The setup script
+      # no-ops via its stamp file, so cache the repo build, venv and stamp.
+      # NOTE: the whole prjxray dir is cached because fasm2frames.py imports
+      # the `prjxray` python package from the repo root at bitgen runtime.
+      - name: Cache prjxray tools
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: |
+            hardware/fpga/.tools/prjxray
+            hardware/fpga/.tools/prjxray-venv
+            hardware/fpga/.tools/prjxray-tools.stamp
+            hardware/fpga/.tools/fasm2frames
+          key: prjxray-${{ runner.os }}-v1
+
+      - name: Build prjxray tools
+        run: ../scripts/setup-prjxray-tools.sh
+
+      # ChipDB is one-time per part (~GBs RAM, minutes). nextpnr comes from
+      # floating nixpkgs, so regenerate when the Makefile/flow changes.
+      - name: Cache chipdb
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: hardware/fpga/core/build/chipdb
+          key: chipdb-xc7a100tcsg324-1-${{ hashFiles('hardware/fpga/common.mk', 'hardware/fpga/core/Makefile') }}
+
+      - name: Burn guest image
+        run: make burn BOOT="${BOOT}"
+
+      - name: Synthesis + place/route + bitstream
+        run: |
+          set -o pipefail
+          mkdir -p build
+          ../scripts/env.sh make fpga 2>&1 | tee build/fpga-ci.log
+
+      - name: Hash bitstream
+        run: sha256sum build/nexys_top.bit | tee build/nexys_top.bit.sha256
+
+      - name: Upload bitstream + logs
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: nexys_top-${{ github.sha }}
+          path: |
+            hardware/fpga/core/build/nexys_top.bit
+            hardware/fpga/core/build/nexys_top.bit.sha256
+            hardware/fpga/core/build/nexys_top.fasm
+            hardware/fpga/core/build/synthesis.log
+            hardware/fpga/core/build/fpga-ci.log
+            hardware/fpga/core/rtl/burn/BOOT.txt

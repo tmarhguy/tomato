@@ -1,6 +1,9 @@
 # Tomato FPGA metrics (evidence log)
 
-Only numbers with an in-tree artifact. Gaps stay gaps.
+Runtime clocks and CPI below are reproducible from in-tree source and tests.
+The post-route resource/Fmax figures are a recorded prior run; its raw
+nextpnr log is not checked in, so treat them as an evidence note, not as a
+result reproducible from this file alone.
 
 ## Full CPU — `hardware/fpga/core`
 
@@ -12,7 +15,7 @@ Post-route on `xc7a100tcsg324-1`, top `nexys_top`, from `nextpnr-xilinx`. Reprod
 | Synthesis options | `synth_xilinx -flatten -abc9 -nodsp` |
 | Board oscillator | 100 MHz (Digilent pin E3) |
 | CPU clock | **6.25 MHz** (100 ÷ 16, `CPU_DIV_LOG2 = 4`) |
-| Pixel clock | **25 MHz** (100 ÷ 4), 640×480@60 |
+| Pixel clock | **25 MHz** (100 ÷ 4), 640×480 nominal-60-Hz timing: 800×525 totals produce **~59.52 Hz** |
 | Bitstream | `build/nexys_top.bit`, 3.8 MB |
 
 ### Utilisation
@@ -32,14 +35,20 @@ The block RAM is 16K × 32 of data memory (20 RAMB36) plus the glyph ROM. No DSP
 
 ### Timing
 
-`nextpnr` analyses every domain against `--freq 100`, which is far above what any of them actually runs at.
+The current Makefile passes `--freq 90`. That is the configured
+place-and-route timing target for named clocks, not a runtime frequency or a
+measured Fmax. The table below records a prior nextpnr run; no raw log is
+checked in.
 
 | Clock | Runs at | Post-route Fmax | Margin |
 |-------|---------|-----------------|--------|
 | `cpu_clk` | 6.25 MHz | **104.18 MHz** | 16× |
 | `pix_clk` | 25 MHz | **189.93 MHz** | 7.6× |
 
-The old Vivado project closed against a relaxed 125 ns (8 MHz) constraint and never had a checked-in report. This supersedes it: the constraint is now the real 10 ns oscillator period, and the CPU's own critical path measures under 10 ns.
+The old Vivado project closed against a relaxed 125 ns (8 MHz) constraint and
+never had a checked-in report. The current XDC instead constrains the real
+100 MHz input oscillator with a 10 ns period. The recorded CPU-domain Fmax
+above is not the 6.25 MHz runtime clock and is not the 90 MHz build target.
 
 ## Icarus CPI — `hardware/fpga/core` (`make cpi`)
 
@@ -56,7 +65,12 @@ Sim-only: cycle + fetch-retire from reset release to halt. **Not** a board MHz c
 
 Mixed average ≈ **2.13**. Microcode `cycles` is 1 (F+E) or 2 (F+E+M). Full table: [CPI.md](CPI.md).
 
-At 6.25 MHz and ~2.13 CPI that is roughly **2.9 M instructions/s**, which paints the OS desktop — 4800 cells cleared plus chrome — in about 11 ms.
+The unweighted mean of these six samples is ~2.13 CPI. Applying that simulated
+instruction mix to the configured 6.25 MHz clock projects roughly **2.9
+million instructions/s**. This is a workload-derived calculation, not measured
+board throughput, emulator speed, or a universal operations/s rating. The
+roughly 11 ms desktop-paint figure is likewise a cycle-model projection, not a
+wall-clock FPGA measurement.
 
 ## ALU Sky130 (not the FPGA CPU)
 

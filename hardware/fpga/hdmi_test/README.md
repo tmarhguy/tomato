@@ -1,8 +1,9 @@
 # hdmi_test — 12-bit DVI PMOD bring-up (open-source flow)
 
-640×480@60 color bars pushed out of a Nexys A7-100T through the **PMOD 12-bit DVI
-v1.1b** (TFP410) on headers **JC + JD**. This is the pinout and timing reference
-for everything that follows on the display side, including Tomato OS.
+640×480 nominal-60-Hz color bars pushed out of a Nexys A7-100T through the
+**PMOD 12-bit DVI v1.1b** (TFP410) on headers **JC + JD**. The 25 MHz pixel
+clock and 800×525 totals produce ~59.52 Hz. This is the pinout and timing
+reference for everything that follows on the display side, including Tomato OS.
 
 Story: [Pixels on the Glass](../../../docs/log/2026-08-28%20-%20Pixels%20on%20the%20Glass.md) ·
 [The PMOD Pivot](../../../docs/log/2026-08-26%20-%20The%20PMOD%20Pivot.md)
@@ -12,7 +13,7 @@ Story: [Pixels on the Glass](../../../docs/log/2026-08-28%20-%20Pixels%20on%20th
 | Part | `xc7a100tcsg324-1` |
 | Top | `main` ← [`rtl/main.sv`](rtl/main.sv) |
 | Constraints | [`constr/hdmi.xdc`](constr/hdmi.xdc) |
-| Pixel clock | 25 MHz (100 MHz ÷ 4), forwarded on `ODDR` |
+| Pixel clock | 25 MHz (100 MHz ÷ 4), forwarded on `ODDR`; ~59.52 Hz frame rate |
 | Output | R/G on JC, B + `CLK`/`HS`/`VS`/`DE` on JD |
 
 Keep this around after the CPU works. It is the reference the core's board layer

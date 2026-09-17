@@ -10,6 +10,15 @@
       : "light";
   }
 
+  function savedMode() {
+    try {
+      const saved = localStorage.getItem(KEY);
+      return saved === "dark" || saved === "light" ? saved : null;
+    } catch {
+      return null;
+    }
+  }
+
   function defaultMode() {
     /* Sitewide dark-first — Paper is an explicit choice */
     return "dark";
@@ -556,11 +565,12 @@
 
   const scheme = typeof matchMedia === "function" ? matchMedia("(prefers-color-scheme: dark)") : null;
   function onSystem(event) {
-    // Phone / OS appearance toggle should drive the site the same way the in-page control does.
+    // Follow the OS only while the user has no explicit saved preference.
+    if (savedMode()) return;
     const mode = event && typeof event.matches === "boolean"
       ? (event.matches ? "dark" : "light")
       : systemMode();
-    set(mode);
+    apply(mode);
   }
   if (scheme) {
     if (scheme.addEventListener) scheme.addEventListener("change", onSystem);
@@ -582,7 +592,7 @@
     const src = (script && script.getAttribute("src")) || "js/mast.js";
     const prefix = src.startsWith("../") ? "../" : "";
     const tag = document.createElement("script");
-    tag.src = prefix + "js/media-lightbox.js";
+    tag.src = prefix + "js/media-lightbox.js?v=b953edf7";
     tag.onload = () => {
       if (window.tomatoMediaLightbox && typeof window.tomatoMediaLightbox.scan === "function") {
         window.tomatoMediaLightbox.scan();

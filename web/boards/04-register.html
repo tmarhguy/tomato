@@ -27,10 +27,10 @@
 <link href="../css/magazine.css?v=4f8da71e" rel="stylesheet"/>
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
-<link rel="stylesheet" href="../css/navigation.css?v=4247b616" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="The unbuilt Lot 04 proposal explored a 32,768-location SRAM register file; current FPGA RTL instead exposes 256 × 32-bit registers." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato PCB, KiCad lot, discrete ALU board, Lot, Register, file, tomato, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -38,7 +38,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Lot 04 — Register file — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="The unbuilt Lot 04 proposal explored a 32,768-location SRAM register file; current FPGA RTL instead exposes 256 × 32-bit registers." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/boards/04-register.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/boards/04-register.html" />
@@ -52,7 +52,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Lot 04 — Register file — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="The unbuilt Lot 04 proposal explored a 32,768-location SRAM register file; current FPGA RTL instead exposes 256 × 32-bit registers." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -61,7 +61,7 @@
   "@id": "https://tomato.tmarhguy.com/boards/04-register.html#webpage",
   "url": "https://tomato.tmarhguy.com/boards/04-register.html",
   "name": "Lot 04 — Register file — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "The unbuilt Lot 04 proposal explored a 32,768-location SRAM register file; current FPGA RTL instead exposes 256 × 32-bit registers.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -71,13 +71,13 @@
 </head>
 <body class="project-document">
 <div class="page project-page project-board-detail"><a class="project-skip" href="#main">Skip to content</a>
-<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Message Tomato</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Journal</a><a href="../gallery.html">Gallery</a><a href="../status.html">Status</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
 <main class="project-main" id="main">
 <nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../boards.html">Board catalog</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
 <div class="project-hero-copy">
 <p class="kicker">Lot 04 · Register · In design</p>
 <h1 class="project-title" id="page-title">256 names, three reads, one write — the monstrous GPR file.</h1>
-<p class="deck">Tomato’s register board implements a <strong>3-read-1-write</strong> file of <a href="../journal/register-upgrade.html"><strong>32,768 GPR</strong></a> — the full 15-bit depth of <span class="mono">AS6C62256</span> parts already in the BOM (half a Blackwell SM's physical 65,536 × 32-bit file, one context). Plus the instruction register sheet.</p>
+<p class="deck">This unbuilt discrete-board design proposes a <strong>3-read-1-write</strong>, 32,768-location SRAM file. It is not the current FPGA implementation: today’s RTL has <strong>256 × 32-bit registers</strong> in eight banks, with r0 hardwired to zero. The instruction register sheet is part of the same board proposal.</p>
 <p class="byline">KiCad · <code>04_register</code> · <a href="../journal/register-upgrade.html#why-32768">Why 32,768?</a></p>
 </div>
 </section>
@@ -107,10 +107,10 @@
 </div>
 </div>
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script src="../js/arch-map.js?v=e66262bb" type="module"></script>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

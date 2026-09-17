@@ -6,9 +6,17 @@ Pointing a phone at a monitor works, technically. It just does not do the machin
 
 So I ordered an **HDMI capture device**. Together with OBS Studio, I can now record the actual HDMI stream coming straight out of Tomato instead of filming the display from the outside.
 
-<p align="center"><img src="../../web/assets/os/hdmi-capture.webp" alt="Clean HDMI capture of Tomato OS" width="50%" /></p>
+<p align="center"><img src="../../web/assets/os/hdmi-capture.webp" alt="HDTV video capture adapter packaging and user manual" width="50%" /></p>
 
-<p align="center"><img src="../../web/assets/orders/hdmi-capture-receipt.webp" alt="HDMI capture device order" width="50%" /></p>
+*Physical hardware · the HDMI-to-USB capture adapter and manual, not a captured OS frame.*
+
+<p align="center"><img src="../../web/assets/orders/hdmi-capture-receipt.webp" alt="HDMI capture device order receipt" width="50%" /></p>
+
+*Order evidence · receipt for the capture device.*
+
+<p align="center"><a href="../../web/assets/os/tomato-demo-os.mp4"><img src="../../web/assets/os/tomato-demo-os-poster.jpg" alt="Tomato OS Snake frame captured directly from FPGA HDMI output" width="70%" /></a></p>
+
+*FPGA HDMI recording · direct Tomato OS output captured through the adapter; select the poster to play the MP4.*
 
 That means clean recordings of TomatoOS, the applications, games, graphics, and whatever else I build next—and a much better record of what the machine actually looked like at each stage of development.
 

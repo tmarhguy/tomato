@@ -79,6 +79,10 @@ ALU/reg_b/IR_ADDR
           → register_file[ADDR_W]  (written at EXECUTE rising edge)
 ```
 
+<p align="center"><img src="../../web/assets/story/control/datapath-32b.png" alt="Block diagram of the 32-bit Tomato datapath and control" width="70%" /></p>
+
+*Retrospective technical illustration · the pre-footprint datapath diagram showing the shared control and memory plumbing discussed here.*
+
 > **Timing note**: In `verilog-exports/main.v` the RAM output feeds byte_lane_decoder **directly** (combinatorial). The register write and the memory read settle in the same EXECUTE cycle — this is correct. In `hardware/digital/modules/main.v` there is an extra `DIG_Register_BUS_i20` latch in that path which delays memory data by one cycle and breaks writeback. **Only the exported version has correct load timing.**
 
 ---

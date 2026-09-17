@@ -6,6 +6,10 @@ If I understand exactly what the hardware can do in one cycle, I can design algo
 
 That matters on Tomato because the execution unit can evaluate operations of the form $f(a, b, c) + g(a, b, c) + cin$ in **one cycle**.
 
+<p align="center"><a href="../../web/assets/compiler/opcode-sweep-fpga.mp4"><img src="../../web/assets/compiler/opcode-sweep-fpga.webp" alt="Opcode search running on the Tomato FPGA hardware compiler" width="70%" /></a></p>
+
+*FPGA hardware recording · the compiler searches ALU control rows; select the poster to play the capture.*
+
 A compiler—or even a programmer writing ordinary assembly—may see an expression such as an XOR3 combined with some unusual NAND/NOR function and break it into several familiar instructions. Tomato may already be able to perform that entire expression directly.
 
 That exposes an interesting problem: **assembly itself can become an abstraction barrier.**

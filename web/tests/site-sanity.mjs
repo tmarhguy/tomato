@@ -9,6 +9,7 @@ import { spawn } from "node:child_process";
 import { readdirSync, readFileSync, statSync, existsSync } from "node:fs";
 import { dirname, join, normalize, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { gzipSync } from "node:zlib";
 import test from "node:test";
 import http from "node:http";
 
@@ -34,6 +35,15 @@ const REQUIRED = [
   "js/alu.js",
   "js/playground.js",
   "playground.html",
+  "virtual.html",
+  "envelop.html",
+  "js/virtual.js",
+  "js/virtual-embed.js",
+  "js/tomato-cpu.js",
+  "js/tomato-screen.js",
+  "css/virtual.css",
+  "data/tomato-os.bin",
+  "data/tomato-os.json",
   "assets/favicon.svg",
   "assets/mark.svg",
   "assets/mark-dark.svg",
@@ -93,6 +103,9 @@ const NAV = [
   "isa.html",
   "software.html",
   "os.html",
+  "envelop.html",
+  "compute.html",
+  "status.html",
   "playground.html",
   "journal.html",
   "boards.html",
@@ -126,6 +139,7 @@ function resolveHref(fromFile, href) {
   if (!clean) return null;
   if (/^(https?:|mailto:|data:|javascript:)/i.test(clean)) return null;
   if (clean.startsWith("//")) return null;
+  if (clean.startsWith("/")) return normalize(resolve(WEB, "." + clean));
   const base = dirname(fromFile);
   return normalize(resolve(base, clean));
 }
@@ -195,6 +209,7 @@ test("no root-absolute asset or page paths (breaks nested pages and local previe
   const bad = [];
   for (const file of htmlFiles()) {
     const html = readFileSync(file, "utf8");
+    if (relWeb(file) === "404.html") continue;
     for (const { name, value } of attrs(html, ["href", "src", "poster"])) {
       if (value.startsWith("/") && !value.startsWith("//")) {
         bad.push(`${relWeb(file)} ${name}="${value}"`);
@@ -206,6 +221,15 @@ test("no root-absolute asset or page paths (breaks nested pages and local previe
     bad.push(`css/magazine.css url(${m[1]})`);
   }
   assert.deepEqual(bad, [], bad.join("\n"));
+});
+
+test("404 uses deployment-root paths at arbitrary nesting and stays noindex", () => {
+  const html = readFileSync(join(WEB, "404.html"), "utf8");
+  assert.match(html, /name="robots" content="noindex, follow"/);
+  for (const { name, value } of attrs(html, ["href", "src"])) {
+    if (/^(?:https?:|mailto:|data:|#)/i.test(value)) continue;
+    assert.ok(value.startsWith("/"), `404.html ${name} must be root-absolute: ${value}`);
+  }
 });
 
 test("relative href/src resolve on disk", () => {
@@ -290,6 +314,39 @@ test("playground wires Dual-LUT emulator modules", () => {
   assert.match(html, /id=["']pg-hero["']/);
   assert.match(html, /id=["']pg-bench["']/);
   assert.match(html, /id=["']pg-detail["']/);
+});
+
+test("virtual board page boots the shipped firmware image", () => {
+  const html = readFileSync(join(WEB, "virtual.html"), "utf8");
+  assert.match(html, /<script(?=[^>]*type=["']module["'])(?=[^>]*src=["']js\/virtual\.js)[^>]*>/);
+  assert.match(html, /id=["']vt-stage["']/);
+  assert.match(html, /id=["']vt-screen["']/);
+  assert.match(html, /id=["']vt-stats["']/);
+  assert.match(html, /id=["']vt-fullscreen["']/);
+  assert.match(html, /id=["']vt-hide["']/);
+  const ui = readFileSync(join(WEB, "js/virtual.js"), "utf8");
+  assert.match(ui, /from ["']\.\/tomato-cpu\.js(\?[^"']*)?["']/);
+  assert.match(ui, /fetch\(["']data\/tomato-os\.bin["']\)/);
+  const bin = readFileSync(join(WEB, "data/tomato-os.bin"));
+  assert.equal(bin.subarray(0, 4).toString("latin1"), "TOM1");
+  assert.ok(bin.length > 100_000, "web image suspiciously small");
+  assert.ok(bin.length < 1_000_000, "web image too fat for the tab");
+  const manifest = JSON.parse(readFileSync(join(WEB, "data/tomato-os.json"), "utf8"));
+  assert.equal(manifest.image, "data/tomato-os.bin");
+  assert.equal(manifest.bytes, bin.length);
+  for (const rel of Object.keys(manifest.files)) {
+    assert.ok(existsSync(join(WEB, "..", rel)), `web image source missing: ${rel}`);
+  }
+  const home = readFileSync(join(WEB, "index.html"), "utf8");
+  assert.match(home, /virtual\.html/);
+  assert.match(home, /<script(?=[^>]*type=["']module["'])(?=[^>]*src=["']js\/virtual-embed\.js)[^>]*>/);
+  assert.match(home, /id=["']vt-embed["']/);
+  assert.match(home, /id=["']vt-embed-screen["']/);
+  assert.match(home, /id=["']vt-embed-play["']/);
+  assert.match(home, /id=["']vt-embed-status["']/);
+  const embed = readFileSync(join(WEB, "js/virtual-embed.js"), "utf8");
+  assert.match(embed, /from ["']\.\/tomato-cpu\.js(\?[^"']*)?["']/);
+  assert.match(embed, /fetch\(["']data\/tomato-os\.bin["']\)/);
 });
 
 test("3D viewer page is the light 07_alu tour", () => {
@@ -395,11 +452,12 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/placing-and-soldering-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/assembly/half-soldered-plate-640w.webp")));
   assert.ok(existsSync(join(WEB, "assets/gallery/pcb/pcb-arrive-640w.webp")));
-  // First slide is the full OS demo (video); solder station second — Sep 12 order
+  // First slide is the current Envelop-in-OS browser evidence, explicitly virtual.
   const slides = html.slice(html.indexOf('class="gallery-slides"'));
   const firstSrc = slides.match(/data-src="([^"]+)"/);
-  assert.equal(firstSrc && firstSrc[1], "assets/os/tomato-demo-os.mp4");
-  const order = ["os-demo", "solder-station", "desktop-home", "desktop-menu-v12", "system-info", "sudoku-v3", "alu-studio"]
+  assert.equal(firstSrc && firstSrc[1], "assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp");
+  assert.ok(existsSync(join(WEB, "assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp")));
+  const order = ["envelop-journey", "os-demo", "solder-station", "desktop-home", "desktop-menu-v12", "system-info", "sudoku-v3", "alu-studio"]
     .map((slug) => slides.indexOf(`data-slug="${slug}"`));
   assert.ok(order.every((i) => i >= 0), "gallery missing an opening slide");
   assert.deepEqual([...order].sort((a, b) => a - b), order, "gallery opening order drifted");
@@ -415,28 +473,28 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
   assert.match(js, /deferSrc/);
 });
 
-test("homepage explains register capacity with bounded comparisons", () => {
+test("homepage uses current ISA and register facts", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
-  for (const phrase of ["32,768", "65,536", "storage capacity only", "NVIDIA Blackwell SM", "15 address bits", "RV32I", "x0"]) {
-    assert.ok(html.includes(phrase), `homepage missing register context: ${phrase}`);
+  for (const phrase of ["61 instructions plus NOP", "62 burned rows", "256 × 32-bit FPGA registers", "r0 is hardwired to zero"]) {
+    assert.ok(html.includes(phrase), `homepage missing canonical fact: ${phrase}`);
   }
-  assert.match(html, /journal\/register-upgrade\.html/);
-  assert.match(html, /https:\/\/docs\.nvidia\.com\/cuda\/blackwell-tuning-guide/);
-  const journal = readFileSync(join(WEB, "journal.html"), "utf8");
-  assert.match(journal, /journal\/register-upgrade\.html/);
-  assert.match(journal, /js\/journal-index\.js/);
-  assert.match(journal, /32,768/);
-  assert.match(journal, /journal\/tomato-works\.html/);
-  const upgrade = readFileSync(join(WEB, "journal/register-upgrade.html"), "utf8");
-  assert.match(upgrade, /SETBANK2/);
-  assert.match(upgrade, /AS6C62256/);
-  assert.match(upgrade, /General Purpose Register File/);
-  assert.match(upgrade, /why-32768/);
-  assert.match(upgrade, /Blackwell SM/);
-  assert.match(upgrade, /15-bit address space/);
-  assert.match(upgrade, /waste|disconnected/i);
-  const works = readFileSync(join(WEB, "journal/tomato-works.html"), "utf8");
-  assert.match(works, /register-upgrade\.html/);
+  assert.doesNotMatch(html, /<strong>32,768 × 32-bit registers<\/strong>/);
+});
+
+test("public speed claims distinguish runtime, timing, and emulation", () => {
+  const home = readFileSync(join(WEB, "index.html"), "utf8");
+  const faq = readFileSync(join(WEB, "faq.html"), "utf8");
+  const status = readFileSync(join(WEB, "status.html"), "utf8");
+  const virtual = readFileSync(join(WEB, "virtual.html"), "utf8");
+  assert.match(status, /default CPU clock is 6\.25 MHz; 90 MHz is only the nextpnr timing target/);
+  for (const html of [home, faq]) {
+    assert.match(html, /one .*configuration per CPU clock|one of .*configurations per CPU clock/);
+    assert.match(html, /default 6\.25 MHz FPGA CPU/);
+    assert.match(html, /10\.5 ms/);
+    assert.doesNotMatch(html, /about 1[–-]10(?:&nbsp;|\u00a0|\s)*MHz/i);
+  }
+  assert.match(virtual, /guest timer models a 6\.25 MHz CPU/);
+  assert.match(virtual, /not a 6\.25 MHz or cycle-accurate emulator/);
 });
 
 test("homepage routes compiler evidence to the complete playground", () => {
@@ -582,6 +640,68 @@ test("shipped clips are real MP4s with posters, not leftover GIFs", () => {
   magic(join(WEB, "assets/slice-dark.svg"), "<svg", "slice-dark.svg");
 });
 
+test("static delivery stays inside performance budgets", () => {
+  const MiB = 1024 * 1024;
+  const videos = walk(WEB).filter((p) => /\.(?:mp4|webm|mov)$/i.test(p));
+  for (const file of videos) {
+    assert.ok(statSync(file).size <= 20 * MiB, `${relWeb(file)} exceeds the 20 MiB deploy-video ceiling`);
+  }
+
+  const gzipBudgets = {
+    "css/magazine.css": 24_000,
+    "css/site.css": 15_000,
+    "css/navigation.css": 2_000,
+    "js/mast.js": 7_000,
+    "js/landing.js": 7_000,
+    "js/bench.js": 8_000,
+    "js/playground.js": 6_000,
+  };
+  for (const [file, ceiling] of Object.entries(gzipBudgets)) {
+    const bytes = gzipSync(readFileSync(join(WEB, file)), { level: 9 }).length;
+    assert.ok(bytes <= ceiling, `${file} gzip ${bytes} B exceeds ${ceiling} B`);
+  }
+
+  assert.ok(statSync(join(WEB, "assets/pcb/alu.glb")).size <= 8 * MiB, "alu.glb exceeds 8 MiB");
+  assert.ok(statSync(join(WEB, "data/tomato-os.bin")).size <= 1 * MiB, "firmware exceeds 1 MiB");
+});
+
+test("immutable local JavaScript references are content-versioned", () => {
+  const bad = [];
+  for (const file of htmlFiles()) {
+    const html = readFileSync(file, "utf8");
+    for (const match of html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+\.js(?:\?[^"']*)?)["']/gi)) {
+      const ref = match[1];
+      if (/^(?:https?:)?\/\//i.test(ref)) continue;
+      if (!/[?&]v=[0-9a-f]{8}(?:&|$)/i.test(ref)) bad.push(`${relWeb(file)} → ${ref}`);
+    }
+    for (const match of html.matchAll(/\bimport\(\s*["'](\.\.?\/[^"']+\.js(?:\?[^"']*)?)["']\s*\)/g)) {
+      const ref = match[1];
+      if (!/[?&]v=[0-9a-f]{8}(?:&|$)/i.test(ref)) bad.push(`${relWeb(file)} → ${ref}`);
+    }
+  }
+  for (const file of walk(join(WEB, "js")).filter((p) => p.endsWith(".js"))) {
+    const src = readFileSync(file, "utf8");
+    for (const match of src.matchAll(/(?:from\s*|import\(\s*)["'](\.\.?\/[^"']+\.js(?:\?[^"']*)?)["']/g)) {
+      const ref = match[1];
+      if (!/[?&]v=[0-9a-f]{8}(?:&|$)/i.test(ref)) bad.push(`${relWeb(file)} → ${ref}`);
+    }
+  }
+  const mast = readFileSync(join(WEB, "js/mast.js"), "utf8");
+  assert.match(mast, /media-lightbox\.js\?v=[0-9a-f]{8}/);
+  assert.deepEqual(bad, [], bad.join("\n"));
+});
+
+test("static autoplay is explicitly viewport-gated", () => {
+  const bad = [];
+  for (const file of htmlFiles()) {
+    const html = readFileSync(file, "utf8");
+    for (const match of html.matchAll(/<video\b[^>]*\bautoplay(?:=["'][^"']*["'])?[^>]*>/gi)) {
+      if (!/\bdata-auto-preview\b/i.test(match[0])) bad.push(relWeb(file));
+    }
+  }
+  assert.deepEqual(bad, [], `ungated static autoplay: ${bad.join(", ")}`);
+});
+
 test("every magazine page bootstraps Paper/Black before paint", () => {
   for (const file of htmlFiles()) {
     const html = readFileSync(file, "utf8");
@@ -662,7 +782,9 @@ test("Vercel build is the web test suite on the web/ folder", () => {
 test("sitemap, robots, and canonical tags ship", () => {
   const sitemap = readFileSync(join(WEB, "sitemap.xml"), "utf8");
   assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/verification\.html<\/loc>/);
-  assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/index\.html<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/envelop\.html<\/loc>/);
+  assert.doesNotMatch(sitemap, /404\.html|index\.html/);
+  assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/<\/loc>/);
   const robots = readFileSync(join(WEB, "robots.txt"), "utf8");
   assert.match(robots, /Sitemap:\s*https:\/\/tomato\.tmarhguy\.com\/sitemap\.xml/);
   const manifest = JSON.parse(readFileSync(join(WEB, "site.webmanifest"), "utf8"));

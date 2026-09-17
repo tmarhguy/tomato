@@ -1,404 +1,250 @@
 
-
-<h1 align="center">Tomato - 32b Discrete Computer</h1>
-<p align="center"><strong>32-bit Computer. The oddest machine built in a dorm.</strong></p>
-
-![Status](<https://img.shields.io/badge/Status-Active%20Development-2ea043>) ![Architecture](https://img.shields.io/badge/Architecture-32--bit-011F5B) ![License](https://img.shields.io/badge/License-SHL--2.1-990000) ![Logic](<https://img.shields.io/badge/Logic-74xx%20Discrete-EAB308>)
-
-![ALU](<https://img.shields.io/badge/ALU-Dual--LUT%2074ACT-DC2626>) ![ISA](<https://img.shields.io/badge/ISA-512%20Opcodes-2563EB>) ![Microcode](<https://img.shields.io/badge/Microcode-Modular%20Decode-7C3AED>) ![PCB](<https://img.shields.io/badge/PCB-KiCad%2010-F59E0B?logo=kicad&logoColor=white>)
-
-**Before Tomato, there was the transistor board.**
-Same story, same narrative—but this time, it had to be smarter.
-
-<p align="center"><em>By Tyrone Marhguy · Computer Engineering ’28</em></p>
-
-Before Tomato, there was an [8-bit ALU](https://alu.tmarhguy.com) built from roughly **3,488 discrete CMOS transistors** across a massive **270×270 mm** board. It was a beast in its own right: capable of **19 operations**, sporting **5 flags**, and power hungry.
-
-But for a solo dorm-room project, the manufacturing costs ballooned exponentially, so I needed a pivot. Same story, same narrative—but this time, it had to be smarter. **Welcome to Tomato!**
-
-The paper: **[tomato.tmarhguy.com](https://tomato.tmarhguy.com/)** · the site: **[web/README](web/README.md)** · the vault: **[docs/log/](docs/log/)**.
-
-<table align="center">
-  <tr>
-    <td align="center" width="33%"><img src="web/assets/pcb/alu_8b_board.webp" alt="Tomato 07_alu — Dual-LUT PCB board render" /></td>
-    <td align="center" width="33%"><img src="web/assets/assembly/half-soldered-plate.webp" alt="Tomato 07_alu — first population, next to Digital" /></td>
-    <td align="center" width="33%"><img src="web/assets/pcb/alu_8b_pcb.jpg" alt="Tomato 07_alu — routed top copper, two nibble cells" /></td>
-  </tr>
-</table>
-<p align="center"><em>Lot 07 Dual-LUT PCB · board · on the iron · top copper · <a href="https://tomato.tmarhguy.com/software.html">software</a> · <a href="https://tomato.tmarhguy.com/playground.html">playground</a></em></p>
+<h1 align="center">Tomato</h1>
+<p align="center"><strong>A 32-bit computer architecture built from copper to browser.</strong></p>
+<p align="center">
+  <a href="https://github.com/tmarhguy/tomato/actions/workflows/documentation.yml"><img alt="Documentation guardrails" src="https://github.com/tmarhguy/tomato/actions/workflows/documentation.yml/badge.svg"></a>
+  <a href="docs/status.md"><img alt="Status: active development" src="https://img.shields.io/badge/status-active%20development-2ea043"></a>
+  <a href="docs/architecture.md"><img alt="Architecture: 32-bit" src="https://img.shields.io/badge/architecture-32--bit-011F5B"></a>
+  <a href="docs/isa/README.md"><img alt="ISA: 62 burned rows" src="https://img.shields.io/badge/ISA-62%20burned%20rows-DC2626"></a>
+  <a href="LICENSE"><img alt="License: SHL-2.1" src="https://img.shields.io/badge/license-SHL--2.1-990000"></a>
+</p>
 
 <p align="center">
-  <img src="web/assets/os/desktop-home.webp" alt="Tomato OS Desktop v1.2 with Ghana wallpaper on the FPGA" width="70%" />
+  <img src="web/assets/assembly/half-soldered-plate-wide.jpg" alt="Physically assembled Tomato Dual-LUT ALU slice" width="48%">
+  <a href="web/assets/os/tomato-demo-os.mp4"><img src="web/assets/os/tomato-demo-os-fast.gif" alt="Accelerated preview of Tomato OS running on FPGA Tomato" width="48%"></a>
 </p>
-<p align="center"><em>Desktop v1.2 · wallpaper on the FPGA · <a href="https://tomato.tmarhguy.com/journal/wallpaper-polish.html">dispatch</a> · <a href="https://tomato.tmarhguy.com/os.html">OS sheet</a></em></p>
+<p align="center"><em>Physical ALU slice · <a href="web/assets/os/tomato-demo-os.mp4">FPGA Tomato OS recording (4× preview)</a></em></p>
 
-Tomato grew around a **[dual-LUT3](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>)** fused into an adder — **52 burned opcodes** in a **[512-row ROM](docs/isa/tomato.v1.csv)**, not a fixed 19-op decode — built for linear scale. The ALU is **two independent 3-input LUTs plus a ripple adder per 4-bit nibble**: `out = f(a,b,c) + g(a,b,c) + cin`. That ROM fans out into modular control boards that sit next to the hardware they actually drive. The [design journal](docs/log/) is where the arguments live; this README is the map.
+The animation is a sped-up preview of the complete FPGA machine.
 
-The dual-LUT slice is **[on the iron](<docs/log/2026-08-18 - First Phase of Assembly.md>)** — muxes and adders down on one [`07_alu`](hardware/kicad/boards/07_alu/README.md) board.
+Tomato is one architecture expressed at several layers:
 
-*See log: [First Phase of Assembly](<docs/log/2026-08-18 - First Phase of Assembly.md>)*
+- a fabricated and soldered **8-bit 74xx Dual-LUT ALU slice**;
+- a complete **FPGA Tomato** on the Nexys A7-100T that boots the
+  assembly-written Tomato OS;
+- **TOMATO OS v3.0**, written in Tomato assembly, with 14 menu entries;
+- a functional **Virtual Tomato** ISA emulator in the browser;
+- editable Digital schematics, KiCad boards, RTL, an assembler, and focused verification.
 
-| Metric | Transistor Board (Previous) | Tomato ALU (Current) | Optimization Achieved |
-|--------|-----------------------------|----------------------|-----------------------|
-| **Architecture** | 8-bit | 32-bit | 4× datapath width |
-| **Logic Base** | ~3,488 discrete CMOS transistors | Dual-LUT3 + Ripple Adder | Massive density increase |
-| **Ops Space** | 19 fixed operations | **52 burned opcodes** (512-row ROM) | Microcoded, extensible ISA |
-| **Footprint** | Single massive 270×270 mm PCB | Modular 4-bit slice boards | Better routing, linear cost |
-| **Control** | Fixed decode logic | 512-row microcode ROM | Programmable ISA overlay |
+The complete discrete computer remains a goal. The assembled ALU slice is real
+hardware, but it is not a complete discrete machine. The complete running
+computer in this repository is the FPGA implementation.
 
----
-
-## It boots!
-
-Tomato runs as synthesizable Verilog on a Nexys A7, paints a 640×480 monitor, and boots an OS written in Tomato assembly.
-
-**[Tomato OS](software/os/tomato_os.s)** now has a Ghana-inspired bitmap desktop,
-an 80×60 text overlay, large headings, and twelve applications. The games are
-Snake, Tetris, Sudoku and Racer. ALU Studio executes `MASKADD` and `XORAND` on the
-CPU and compares their outputs with reference instruction sequences. Five
-buttons control the interface. Plates sit with the PCB hero above; the full walkthrough is on the **[OS sheet](https://tomato.tmarhguy.com/os.html)**.
-
-| Layer     | What it is                                                | Where                                                        |
-| --------- | --------------------------------------------------------- | ------------------------------------------------------------ |
-| CPU       | Multi-cycle Von Neumann core, 6.25 MHz on Artix-7          | [hardware/fpga/core/rtl/](hardware/fpga/core/rtl/)            |
-| Registers | 32,768 × 32-bit GPR (15-bit SRAM depth; `SETBANK2` superbank) | [regs.v](hardware/fpga/core/rtl/regs.v) · [register upgrade](https://tomato.tmarhguy.com/journal/register-upgrade.html) |
-| ISA       | 52 burned opcodes out of 512 ROM rows                      | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv)              |
-| Vocabulary| 19 pseudo-instructions that expand into burned opcodes      | [docs/isa/tomato.v1.pseudo.csv](docs/isa/tomato.v1.pseudo.csv) |
-| Assembler | Two-pass, driven by those CSVs                             | [software/assembler.py](software/assembler.py)                |
-| OS        | Bitmap desktop, 12 apps and four games, in Tomato assembly          | [software/os/tomato_os.s](software/os/tomato_os.s)            |
-| Tests     | 20 module benches plus boot, menu, and games end-to-end    | `make -C hardware/fpga/core test`                             |
-| Paper     | Architecture · ISA · Software                              | [tomato.tmarhguy.com](https://tomato.tmarhguy.com/)           |
-
----
-
-## Why Tomato
-
-Tomato is intentionally a **[build log machine](<docs/log/Welcome to Tomato 32.md>)**. Every odd choice is documented somewhere in [docs/log/](docs/log/) — what was tried, what broke routing, what was too slow on the bench, what got deleted to recover PCB area. If you love computers because you like *how* they are built, not just what they run, that journal is the real entry point. Start with [Welcome to Tomato 32](<docs/log/Welcome%20to%20Tomato%2032.md>).
-
-**The ALU is the center.** Most CPUs hide a small ALU behind a conventional encoding. Tomato flipped it: the bit-slice is a programmable logic plane — half a million theoretical `(lutA, lutB, csel)` programs per slice — with an adder wired through it. The opcode ROM names a *practical* subset. Matching every LUT pair to its own instruction was never the goal; [dark silicon](<docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md>) stays in the catalogs until a program actually needs it.
-
-**Building beats spreadsheets.** Instruction width, bank counts, and profile matrices are fun to expand. Copper, EEPROMs, and weeks at the wire wrap are not. When a wider word width doubled the explanation burden without doubling silicon on the bench, the answer was to [fall back to 32b](<docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md>) and ship what already routes.
-
-**Decode travels with the datapath.** One central microcode blob is elegant in simulation and miserable on a breadboard — shift controls leaving the ALU board, flag writes leaving memory control, PC fields split across ROM bytes. Tomato split decode into [small boards](<docs/log/2026-06-16%20-%20Microcode%20Control%20Modularization.md>) with local EEPROMs so ribbons stay short and each slice can be brought up alone.
-
-**Clever, but only at the right scale.** Naïve `shift → add` multiply is easy and takes forever — “slower than I am when half-asleep.” A Wallace tree is fast and eats the board. The answer was a [priority-encoder loop](<docs/log/2026-06-15%20-%20Multiplication%20and%20Division.md>) that jumps over zero bits. Same story for the display: K-map gates were *correct* and physically absurd; one shared ROM plus latches made sharing invisible ([segment display log](<docs/log/2026-06-19%20-%20ALU%20segment%20display%20design.md>)).
-
-**ISA as a wire.** Tomato is a [parametric datapath](<docs/log/2026-08-15%20-%20ISA%20as%20a%20Wire.md>): the overlay word, immediate box, and dual-LUT absorb a foreign encoding as a map onto muxes — not an emulator. A casual family count sits around **~37** ([profiles.csv](docs/isa/profiles.csv) has more rows because variants are listed separately). The integer is not a ceiling; it moves as the datapath does.
-
----
-
-## Table of Contents
-
-- [Why Tomato](#why-tomato)
-- [It boots](#it-boots)
-- [Architecture at a glance](#architecture-at-a-glance)
-- [Source of truth](#source-of-truth)
-- [Repository map](#repository-map)
-- [Key hardware modules](#key-hardware-modules)
-- [ISA and opcodes](#isa-and-opcodes)
-- [Run in Digital](#run-in-digital)
-- [Project status](#project-status)
-- [Documentation index](#documentation-index)
-- [Conventions](#conventions)
-- [License](#license)
-- [Author](#author)
-
-The paper is **[tomato.tmarhguy.com](https://tomato.tmarhguy.com/)**. Site notes: **[web/README](web/README.md)**.
-
----
+**Explore:** [architecture](docs/architecture.md) ·
+[current status](docs/status.md) ·
+[Tomato OS](software/os/README.md) ·
+[ISA](docs/isa/README.md) ·
+[compute](docs/compute.md) ·
+[documentation index](docs/README.md) ·
+[project site](https://tomato.tmarhguy.com/)
 
 ## Architecture at a glance
 
-### 32-bit instruction word
+These curated diagrams explain the system; the
+[interactive GitDiagram](https://gitdiagram.com/tmarhguy/tomato) provides a
+zoomable, generated map of the public repository's default branch.
 
-Fetch, IR, ALU datapath, and register operands are **32-bit**. The instruction layout is tight: **9-bit opcode**, four **5-bit** register indices, and a **3-bit** bank select fill the word — with low bits often double-booked as immediate or branch/jump mode overlay depending on the mnemonic.
+**Visual entry points:** [interactive repository map](https://gitdiagram.com/tmarhguy/tomato) ·
+[architecture guide](docs/architecture.md) ·
+[web architecture](https://tomato.tmarhguy.com/architecture.html) ·
+[ISA reference](https://tomato.tmarhguy.com/isa.html) ·
+[run Virtual Tomato](https://tomato.tmarhguy.com/virtual.html)
 
-Typical field packing (ALU register ops):
+### One architecture, several realizations
 
-| Field    | Bits | Slice       | Role                                            |
-| -------- | ---- | ----------- | ----------------------------------------------- |
-| Opcode   | 9    | `[31:23]` | Indexes microcode ROM (**512 rows**)      |
-| `rd`   | 5    | `[22:18]` | Destination (5-bit index within bank)           |
-| `rA`   | 5    | `[17:13]` | ALU operand A                                   |
-| `rB`   | 5    | `[12:8]`  | ALU operand B                                   |
-| `rC`   | 5    | `[7:3]`   | ALU operand C                                   |
-| `BANK` | 3    | `[2:0]`   | Primary bank in the word (8 banks → 256 regs visible without changing the superbank latch) |
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="web/assets/gallery/diagrams/system-realizations-dark.svg">
+  <img src="web/assets/gallery/diagrams/system-realizations-light.svg" alt="Editable Tomato sources flow into discrete hardware, FPGA, RTL simulation, browser emulation, and their evidence layers" width="100%">
+</picture>
 
-Each operand is **5 + 3b bank** in the instruction word, plus a **7-bit superbank latch** outside the word: physical address `{superbank[6:0], BANK[2:0], reg[4:0]}` (15 bits). `SETBANK2` updates the latch; ordinary ops keep the 32-bit encoding.
+The four realization boxes are deliberately separate. The assembled discrete
+hardware proves the ALU slice; the FPGA is the complete machine; Icarus runs
+the RTL locally; and the browser is a functional ISA emulator.
+[Diagram source](docs/diagrams/system-realizations.mmd).
 
+### From source files to runnable artifacts
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="web/assets/gallery/diagrams/artifact-pipeline-dark.svg">
+  <img src="web/assets/gallery/diagrams/artifact-pipeline-light.svg" alt="Tomato ISA and OS sources generate shared FPGA burn headers and a browser firmware image" width="100%">
+</picture>
+
+The generated FPGA burn and browser image share the same OS and control data.
+They do not share an execution engine: the FPGA and Icarus execute Verilog,
+while `tomato-cpu.js` mirrors the ISA-level behavior in JavaScript.
+[Diagram source](docs/diagrams/artifact-pipeline.mmd).
+
+### Inside FPGA Tomato
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="web/assets/gallery/diagrams/fpga-datapath-dark.svg">
+  <img src="web/assets/gallery/diagrams/fpga-datapath-light.svg" alt="FPGA Tomato datapath from program counter and memory through decode, registers, execution, writeback, and memory-mapped peripherals" width="100%">
+</picture>
+
+The board harness owns clocks, pins, keypad debounce, glyph rendering, DVI, and
+seven-segment output. The machine core exposes those facilities as ports and
+memory-mapped windows, keeping board-specific wiring outside the CPU RTL.
+[Diagram source](docs/diagrams/fpga-datapath.mmd).
+
+### Authority and state boundaries
+
+- **Edit:** Digital schematics, ISA CSVs, assembly sources, and FPGA/browser
+  implementation source.
+- **Regenerate:** `.mem` images, `rtl/burn/*.vh`, `tomato-os.bin`, and
+  bitstreams. These are derived artifacts, not design authorities.
+- **Runtime state:** FPGA RAM, registers, framebuffer, compiler, radio mailbox,
+  and the browser machine are volatile. Reset or reload restores the compiled
+  image; this repository has no application database.
+- **External systems:** Envelop clients, durable queues, hosted services, and
+  the nearby bridge belong to the separate Envelop project.
+
+## What runs now
+
+| Layer | Current, repository-backed statement |
+|---|---|
+| Architecture | 32-bit datapath and instruction word |
+| ALU | Custom three-source Dual-LUT ALU: two LUT3 functions feed an adder, `f(a,b,c) + g(a,b,c) + carry` |
+| ISA | **61 instructions plus NOP, 62 burned rows** in a 512-row control ROM |
+| Register array | **256 × 32-bit physical entries**, addressed as 3 bank bits plus a 5-bit register field; `r0` is hardwired to zero |
+| FPGA | 100 MHz board input; **6.25 MHz** default CPU and 25 MHz pixel clocks; 90 MHz is only the nextpnr timing target |
+| OS | The complete FPGA computer boots assembly-written **TOMATO OS v3.0**, with 14 menu entries including Envelop |
+| Browser | Functional ISA-level emulation; not cycle-accurate RTL or physical execution |
+| Hardware compiler | Counter FSM searches all **65,536 LUT pairs** for one fixed A/B/C/carry/output example; a hit verifies that example, not a general function |
+| ALU verification | A **130-billion-vector** 32-bit ALU run is recorded and its harness is reproducible; the full run log is not checked in |
+
+The 256-entry FPGA array is an implementation and ISA choice, not a documented
+Artix-7 capacity limit. Its asynchronous 3-read/1-write shape maps to
+distributed RAM. The historical 32,768-register proposal instead used mirrored
+external SRAM plus a seven-bit superbank and `SETBANK2`; neither the superbank
+nor that instruction exists in the current FPGA RTL and burned ISA.
+
+For evidence paths and the distinction between source-complete,
+hardware-dependent, and deployed behavior, use
+[`docs/status.md`](docs/status.md). Historical journal entries can describe
+earlier designs and counts; they do not override current sources.
+
+## See it, run it, inspect it
+
+### Browser
+
+Open the [Tomato site](https://tomato.tmarhguy.com/) and choose the Virtual
+Tomato experience. Its checked-in OS image is generated from the assembly and
+control data in this repository. Results there must be labeled virtual.
+
+<p align="center">
+  <a href="https://tomato.tmarhguy.com/virtual.html"><img src="web/assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp" alt="Play with Tomato OS in the Virtual Tomato browser emulator" width="720"></a>
+</p>
+<p align="center"><strong><a href="https://tomato.tmarhguy.com/virtual.html">Play with Virtual Tomato →</a></strong><br><em>Functional ISA emulation with simulated peripherals—not FPGA or discrete-hardware execution.</em></p>
+
+### Local RTL simulation
+
+Icarus Verilog can boot the OS and print its framebuffer without an FPGA:
+
+```bash
+make -C hardware/fpga/core os
 ```
-[31:23]  opcode
-[22:18]  rd
-[17:13]  rA
-[12: 8]  rB
-[ 7: 3]  rC
-[ 2: 0]  BANK (+ mode bits for branches/jumps)
+
+Run the focused core regression:
+
+```bash
+make -C hardware/fpga/core test
 ```
 
-**Overlay encodings** (same slices reinterpreted by microcode):
+These commands prove simulation behavior, not a currently programmed board.
 
-| Mnemonic class      | Overlay               | Notes                                                    |
-| ------------------- | --------------------- | -------------------------------------------------------- |
-| Branches            | `[2:0]` = `COND`  | Taken when selected flag is set                          |
-| Jumps / calls       | `[0]` abs vs PC-rel | `0` = absolute target in low bits; `1` = PC + offset |
-| `ADDI` / imm12    | `[12:8]` imm-high   | Immediate high nibble; low pieces in other fields        |
-| Load / store offset | `[12:8]` imm-high   | Address =`rA` + sign-extended immediate                |
+### Assemble a Tomato program
 
-Native ALU syntax (conceptual):
-
-```asm
-opcode  rd, rA, rB, rC    ; rd = f(a,b,c) + g(a,b,c) + cin
+```bash
+python3 software/assembler.py software/asm/counter.s \
+  -o /tmp/counter.mem --list
+python3 software/assembler.py --selftest
 ```
 
-See [opcode-map.csv](docs/opcode-map.csv) for mnemonic layout and [Load Store Pipeline Analysis](<docs/log/2026-06-11%20-%20Load%20Store%20Pipeline%20Analysis.md>) for the 48-bit microcode control fields.
+The assembler reads the burned ISA and pseudo-instruction CSVs rather than
+carrying a private opcode table.
 
-### Register file
+### FPGA build
 
-**32,768 × 32-bit GPR locations** on the full 15-bit address depth of the `AS6C62256` SRAMs (3R1W). The instruction word still names a **256-register window** (`register:5` + `bank:3`); the upper seven bits live in a latched **superbank** changed by `SETBANK2`. Path: 32 → 256 → 32,768 — see the [register-upgrade dispatch](https://tomato.tmarhguy.com/journal/register-upgrade.html).
+The default flow is Yosys → nextpnr-xilinx → Project X-Ray. An optional Linux
+Vivado batch target is also provided. Building a bitstream does not prove that
+a board is currently programmed.
 
-### Datapath and control
-
-```
-Program Counter ──► Memory ──► Instruction Register (32b)
-                                      │
-          ┌───────────────────────────┼───────────────────────────┐
-          │                           │                           │
-          ▼                           ▼                           ▼
-   Register File 3R1W            alu-control              mem-io / mem-bus
-          │                           │                           │
-          ▼                           ▼                           ▼
-   Dual-LUT ALU 32b ◄──────── (drives)                   Memory ◄── pc-control ──► PC
-          │
-          ▼
-   Writeback Mux ─────────────────► Register File
-
-   IR ──► shift-mul-control ──► ALU
+```bash
+make fpga-setup
+make fpga
 ```
 
-Control is split into small boards (each with a local EEPROM) that decode the same opcode from the IR. See [Microcode Control Modularization](<docs/log/2026-06-16%20-%20Microcode%20Control%20Modularization.md>). For Mermaid diagrams in Cursor, install extension `bierner.markdown-mermaid` (listed in [.vscode/extensions.json](.vscode/extensions.json)).
+Programming is intentionally a separate, hardware-changing action; see
+[`hardware/fpga/README.md`](hardware/fpga/README.md).
 
-### ALU bit-slice
+## Proof across the stack
 
-```
-alu_out = adder( f(a, b, c), g(a, b, c), carry_in )
-```
+<table>
+  <tr>
+    <td width="33%" align="center" valign="middle"><img src="web/assets/pcb/alu_8b_board.webp" alt="Rendered Tomato Lot 07 Dual-LUT ALU PCB" height="180"></td>
+    <td width="33%" align="center" valign="middle"><img src="web/assets/story/digital/main-tomato-v1-burn.webp" alt="Tomato architecture in the Digital logic simulator" height="180"></td>
+    <td width="33%" align="center" valign="middle"><img src="web/assets/assembly/fpga-board-pmod.webp" alt="Nexys A7 board used for FPGA Tomato display output" height="180"></td>
+  </tr>
+</table>
 
-Per bit-slice there are **524,288** theoretical `(lutA, lutB, csel)` combinations; the **512-row** opcode ROM exposes what programs need today. The LUT3 feeds the adder directly — [no mode mux at the end of the slice](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>) — logic rides the arithmetic path instead of racing it. Carry select uses **74251** muxes where **74151** cost routing and drive strength ([74251 note](<docs/log/2026-06-26%20-%20ALU%20-%20Redesign%20with%2074251.md>)). Authority: [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv).
+- **Physical scope:** [`hardware/kicad/boards/07_alu/`](hardware/kicad/boards/07_alu/)
+- **Editable logic:** [`hardware/digital/`](hardware/digital/)
+- **Complete FPGA machine:** [`hardware/fpga/core/`](hardware/fpga/core/)
+- **Machine software:** [`software/`](software/)
+- **Verification:** [`verification/`](verification/)
+- **Evidence and asset provenance:** [`docs/assets.md`](docs/assets.md)
 
----
+## Envelop and compute
 
-## Source of truth
+Envelop is a separate messaging project. Its Tomato-side client and bounded
+compute executor are linked into Tomato OS; its user clients, backend, and
+nearby bridge live outside this repository.
 
-| Layer              | Authority                                                  | Consumers                                               |
-| ------------------ | ---------------------------------------------------------- | ------------------------------------------------------- |
-| Logic / timing     | [hardware/digital/modules/*.dig](hardware/digital/modules/) | KiCad bring-up, Verilog export                          |
-| Opcode mnemonics   | [docs/opcode-map.csv](docs/opcode-map.csv)                  | Assembly reference, ROM programming                     |
-| Microcode fields   | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv)            | Single ISA / ROM authority                              |
-| LUT programs       | [docs/isa/lut.csv](docs/isa/lut.csv)                        | ALU primitive catalog                                   |
-| Control ROM images | [microcode/*.hex](microcode/)                               | Digital control boards                                  |
-| Physical PCB       | [hardware/kicad/boards/](hardware/kicad/boards/)            | Fab / assembly                                          |
-| ALU sign-off       | [verification/](verification/)                              | Digital export →`rtl/*.v` → formal + directed + UVM |
+The intended hardware message path is:
 
-**Policy:** Digital `.dig` schematics are editable source. Exported Verilog in `verification/rtl/` is **read-only** — copy from Digital, then run sign-off.
+`person → Envelop web app → backend queue → nearby verified bridge → Envelop in Tomato OS → Tomato CPU → labeled reply`
 
-**No Digital install?** `make test` from the repo root (or `make test` in `verification/`) runs the zero-provisioning open tier — vector extraction, formal inventory, and the FPGA ALU proofs — with no exports or licenses. Full sign-off is `make signoff` after the export step above.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="web/assets/gallery/diagrams/envelop-boundary-dark.svg">
+  <img src="web/assets/gallery/diagrams/envelop-boundary-light.svg" alt="Envelop hardware path from person and backend queue through a verified bridge to FPGA Tomato, with virtual preview kept separate" width="100%">
+</picture>
 
----
+Source in a repository is not evidence that a bridge is active or that a reply
+ran on hardware. Bridge software is available in the separate Envelop project,
+but a nearby authenticated bridge and completed FPGA job require live evidence.
+Virtual previews are explicit, separate, and labeled. See
+[`docs/compute.md`](docs/compute.md) for the current boundary.
+[Diagram source](docs/diagrams/envelop-boundary.mmd).
 
 ## Repository map
 
-```
-tomato/
-├── docs/
-│   ├── isa/              # opcodes, alu8 catalog, profiles
-│   ├── log/              # Design journal (Obsidian vault)
-│   └── alu/              # LaTeX ALU reference docs
-├── hardware/
-│   ├── digital/modules/  # Digital schematics (.dig) — logic source of truth
-│   ├── kicad/boards/     # Numbered PCB designs (01_alu … 08_display)
-│   ├── fpga/             # Nexys A7 — core (CPU + Tomato OS), hdmi_test (DVI PMOD)
-│   └── verilog/          # Export policy (read-only netlists)
-├── microcode/            # Per-board control ROM hex images
-├── verification/         # ALU harness: formal, directed, UVM
-├── firmware/             # Stub — not started
-├── software/             # Stub — not started
-└── web/                  # Broadsheet — tomato.tmarhguy.com (assets/ = all plates)
-```
+| Path | Purpose |
+|---|---|
+| [`docs/`](docs/) | Canonical guides, ISA contracts, and historical journal |
+| [`hardware/digital/`](hardware/digital/) | Editable architecture schematics |
+| [`hardware/kicad/`](hardware/kicad/) | PCB designs and assembly records |
+| [`hardware/fpga/`](hardware/fpga/) | Complete machine, board harness, and simulation |
+| [`software/`](software/) | Assembler, programs, and Tomato OS |
+| [`microcode/`](microcode/) | Control-ROM packaging |
+| [`verification/`](verification/) | ALU and implementation checks |
+| [`web/`](web/) | Project site and browser emulator |
 
----
+## Documentation and history
 
-## Key hardware modules
+Start with [`docs/README.md`](docs/README.md). It separates current canonical
+guidance from the dated [`docs/log/`](docs/log/) engineering record. The
+journal preserves decisions, wrong turns, and superseded designs as history;
+use the [current journal index](docs/log/README.md) to navigate it.
 
-### Digital schematics
+Documentation authority and terminology are defined in
+[`docs/documentation-policy.md`](docs/documentation-policy.md). When prose and
+executable sources disagree, that policy determines which source wins.
 
-| Module                                                                                                                                                                                                                                                                                                                                                                                               | Role                              |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| [main.dig](hardware/digital/modules/main.dig)                                                                                                                                                                                                                                                                                                                                                         | Top-level CPU integration         |
-| [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.dig)                                                                                                                                                                                                                                                                                                                                       | 32-bit ALU                        |
-| [alu-control.dig](hardware/digital/modules/alu-control.dig), [ir-reg-control.dig](hardware/digital/modules/ir-reg-control.dig), [mem-bus-control.dig](hardware/digital/modules/mem-bus-control.dig), [mem-io-control.dig](hardware/digital/modules/mem-io-control.dig), [pc-control.dig](hardware/digital/modules/pc-control.dig), [shift-mul-control.dig](hardware/digital/modules/shift-mul-control.dig) | Modular decode ROM boards         |
-| [register.dig](hardware/digital/modules/register.dig), [program-counter.dig](hardware/digital/modules/program-counter.dig), [mul-div.dig](hardware/digital/modules/mul-div.dig)                                                                                                                                                                                                                         | Datapath slices                   |
-| [alu-display-control.dig](hardware/digital/modules/alu-display-control.dig)                                                                                                                                                                                                                                                                                                                           | 32-digit hex display for bring-up |
+## License and author
 
-<p align="center">
-  <img src="web/assets/story/digital/main-tomato-v1-burn.webp" alt="Tomato main.dig — tomato-v1-burn top-level Digital schematic" width="80%" />
-</p>
-<p align="center"><em>main.dig · tomato-v1-burn · control, ALU, memory, IR, PC, and bus on one sheet · <a href="hardware/digital/modules/main.dig">open in Digital</a></em></p>
+Tomato is licensed under the [Solderpad Hardware License 2.1](LICENSE).
+Architecture and project by **Tyrone Marhguy**, Computer Engineering ’28,
+University of Pennsylvania.
 
-ALU verification ladder: `alu-1b-final` → 2x `alu-4b` → 4x `alu-8b` → `alu-32b-final`.
-
-### KiCad boards
-
-| Board | Path                                                                                             | Role                                                                                      | Status            |
-| ----- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- | ----------------- |
-| 01    | [01_alu/](hardware/kicad/boards/01_alu/)                                                          | Early ALU experiments                                                                     | Historical        |
-| 02    | [02_shift_encoder/](hardware/kicad/boards/02_shift_encoder/)                                      | Shift encoder + mul-div control                                                           | In design         |
-| 03    | [03_memory/](hardware/kicad/boards/03_memory/)                                                    | Memory, byte-lane decoder, VGA                                                            | In design         |
-| 04    | [04_register/](hardware/kicad/boards/04_register/)                                                | Register file, IR                                                                         | In design         |
-| 05    | [05_program_counter/](hardware/kicad/boards/05_program_counter/)                                  | PC, stack pointer                                                                         | In design         |
-| 06    | [06_data_bus/](hardware/kicad/boards/06_data_bus/)                                                | Data bus, wb_mux, bus arbitration                                                         | In design         |
-| 07    | [07_alu/](hardware/kicad/boards/07_alu/)                                                          | Dual-LUT ALU PCB —**[board doc + figures](hardware/kicad/boards/07_alu/README.md)** | Populating        |
-| 08    | [08_alu_fsm/](hardware/kicad/boards/08_alu_fsm/), [08_display/](hardware/kicad/boards/08_display/) | FSM bring-up, display                                                                     | In design         |
-
-<p align="center">
-  <img src="web/assets/pcb/alu_8b_board.webp" alt="Tomato ALU PCB — board render" width="47%" />
-  <img src="web/assets/pcb/alu_8b_pcb.jpg" alt="Tomato ALU PCB — top-layer layout" width="50%" />
-</p>
-<p align="center"><em>Lot 07 · left: board render · right: routed top copper · two 4-bit cells, flag logic, opcode/operand LED bring-up (<a href="hardware/kicad/boards/07_alu/README.md">full ALU board doc</a>)</em></p>
-
----
-
-## ISA and opcodes
-
-**512-row opcode ROM** — enough for native ALU ops, load/store, branches, shifts, and mul/div without empty decode fanout. See **[ISA as a Wire](<docs/log/2026-08-15%20-%20ISA%20as%20a%20Wire.md>)**.
-
-| Resource             | Path                                            | Role                                                                                        |
-| -------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| Mnemonic cheat sheet | [docs/opcode-map.csv](docs/opcode-map.csv)       | 32-bit encoding, syntax, groups                                                             |
-| Microcode catalog    | [docs/isa/tomato.v1.csv](docs/isa/tomato.v1.csv) | **Source of truth** — burn opcodes + ROM map                                         |
-| ALU programs         | [docs/isa/lut.csv](docs/isa/lut.csv)             | LUT primitive catalog                                                                       |
-| ISA maps             | [docs/isa/profiles.csv](docs/isa/profiles.csv)   | Parametric maps onto native opcodes.**~37 families**; CSV rows are the sweep database |
-
-An ISA is a mapping from an external encoding onto the overlay word, immediate box, and dual-LUT — not a separate hardware ISA, and not an interpreter.
-
----
-
-## Run in Digital
-
-1. Install [Digital](https://github.com/hneemann/Digital) by Heinrich Hneemann — download `Digital.zip` from [Releases](https://github.com/hneemann/Digital/releases), unpack, run `Digital.jar` (Java required).
-2. In Digital: **File → Open** → `hardware/digital/modules/main.dig`.
-3. Press **Run** (or single-step with the clock controls).
-
-Other entry points: [alu-32b-final.dig](hardware/digital/modules/alu-32b-final.dig) (ALU only), [alu-display-control.dig](hardware/digital/modules/alu-display-control.dig) (display bring-up). ALU sign-off: [verification/README.md](verification/README.md).
-
----
-
-## Project status
-
-**As of September 2026**
-
-| Area                          | Status                | Notes                                                                             |
-| ----------------------------- | --------------------- | --------------------------------------------------------------------------------- |
-| Architecture                  | **32-bit**      | Fell back from a 40b word; see [Falling back to 32b](<docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md>) |
-| ALU PCB (`07_alu`)          | Populating / lit      | [First lights](<docs/log/2026-08-21%20-%20First%20Lights%20and%20Flux.md>) · [assembly](<docs/log/2026-08-18%20-%20First%20Phase%20of%20Assembly.md>) |
-| Opcode ROM                    | 512 rows · **52 burned** | Practical ISA; ALU config space is larger — [ISA README](docs/isa/README.md) |
-| Register file                 | **32,768 GPR** (3R1W) | 15-bit `AS6C62256` depth; 256-reg window + `SETBANK2` superbank |
-| FPGA core + Tomato OS         | Boots on Nexys A7     | Desktop v1.2, wallpaper, Sudoku, HDMI — [It boots](#it-boots) |
-| `main.dig` + control boards | In progress           | Modular decode on bench                                                           |
-| ALU verification              | Passing on 32b export | ALU-only sign-off — [verification/](verification/)                                                     |
-| ALU ASIC characterization     | Sky130 HD mapped      | [6531 µm², 512 cells, ~210 MHz est.](verification/synthesis/README.md)           |
-| Peripheral PCBs               | In design             | Register, memory, PC, data bus                                                    |
-| Firmware / software           | Tomato OS on FPGA     | Assembler + OS in [software/](software/)                                          |
-
-**Bring-up direction:** Build peripherals and modular control boards — not a throwaway FSM that becomes Tomato anyway. The ALU PCB can be exercised through `alu-display-control` and simulation vectors while fab runs ([lingering catch](<docs/log/2026-07-31%20-%20The%20lingering%20thoughts.md>)).
-
----
-
-## Documentation index
-
-### Architecture decisions
-
-| Log                                                                                                      | Topic                                             |
-| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
-| [Web Optimization](<docs/log/2026-08-16%20-%20Web%20Optimization.md>) | What actually ships in the paper’s 3D |
-| [ISA as a Wire](<docs/log/2026-08-15%20-%20ISA%20as%20a%20Wire.md>)                                       | Parametric datapath — ISA is a first-class input |
-| [Falling back to 32b](<docs/log/2026-07-31%20-%20Falling%20back%20to%2032b.md>)                           | Revert to 32-bit — current direction             |
-| [The lingering catch](<docs/log/2026-07-31%20-%20The%20lingering%20thoughts.md>)                          | FSM vs full control unit bring-up                 |
-| [Microcode Control Modularization](<docs/log/2026-06-16%20-%20Microcode%20Control%20Modularization.md>)   | Split decode boards                               |
-| [Elimination of Mode Multiplexers](<docs/log/2026-06-27%20-%20Elimination%20of%20Mode%20Multiplexers.md>) | LUT3 pass-through into adder                      |
-
-### Datapath deep dives
-
-| Log                                                                                              | Topic                              |
-| ------------------------------------------------------------------------------------------------ | ---------------------------------- |
-| [Multiplication and Division](<docs/log/2026-06-15%20-%20Multiplication%20and%20Division.md>)     | Priority-encoder mul/div           |
-| [Load Store Pipeline Analysis](<docs/log/2026-06-11%20-%20Load%20Store%20Pipeline%20Analysis.md>) | Microcode bit fields, cycle timing |
-| [ALU segment display design](<docs/log/2026-06-19%20-%20ALU%20segment%20display%20design.md>)     | 32-digit multiplexed display       |
-| [ALU — Redesign with 74251](<docs/log/2026-06-26%20-%20ALU%20-%20Redesign%20with%2074251.md>)    | Carry mux routing tradeoff         |
-
-### Subsystem READMEs
-
-| README                                                    | Content                                        |
-| --------------------------------------------------------- | ---------------------------------------------- |
-| [verification/README.md](verification/README.md)           | ALU sign-off harness                           |
-| [hardware/kicad/README.md](hardware/kicad/README.md)       | KiCad overview                                 |
-| [07_alu board doc](hardware/kicad/boards/07_alu/README.md) | Dual-LUT ALU PCB — schematics, layout, pinout |
-| [hardware/digital/README.md](hardware/digital/README.md)   | Digital simulation                             |
-| [hardware/fpga/README.md](hardware/fpga/README.md)       | Nexys A7 — Tomato OS on a monitor, open-source flow |
-| [microcode/README.md](microcode/README.md)                 | Control ROM packing                            |
-
-### Full design journal
-
-[docs/log/](docs/log/) — build log from discrete gates through the parametric datapath. Origin: [Welcome to Tomato 32](<docs/log/Welcome%20to%20Tomato%2032.md>). The paper: [web/README](web/README.md).
-
----
-
-## Conventions
-
-| Change type             | Workflow                                                                              |
-| ----------------------- | ------------------------------------------------------------------------------------- |
-| Architecture / tradeoff | New entry in`docs/log/` — the default way decisions get made                       |
-| Opcode / mnemonic       | Update`opcode-map.csv` and microcode hex                                            |
-| Microcode fields        | Edit`docs/isa/tomato.v1.csv`, then `python3 tools/gen_microcode_v1.py --pack-rom` |
-| Logic / timing          | Edit Digital`.dig` → export Verilog → `make signoff`                            |
-| Physical board          | KiCad in`hardware/kicad/boards/`                                                    |
-
----
-
-## License
-
-Tomato is licensed under **[Solderpad Hardware License 2.1](LICENSE)** (SHL-2.1,
-`Apache-2.0 WITH SHL-2.1`) — open hardware + RTL + scripts + docs. You may
-study, build, fork, and commercialize **with attribution**; do not strip
-copyright or present the dual-LUT architecture as unrelated work.
-
-[![LICENSE](<https://img.shields.io/badge/LICENSE-SHL--2.1%20terms-990000>)](LICENSE) [![LICENSE-APACHE](<https://img.shields.io/badge/LICENSE--APACHE-Apache%202.0-990000>)](LICENSE-APACHE) [![NOTICE](<https://img.shields.io/badge/NOTICE-Copyright%20and%20attribution-990000>)](NOTICE) [![THIRD_PARTY_NOTICES.md](<https://img.shields.io/badge/THIRD__PARTY__NOTICES.md-PDK%20and%20tool%20licenses-990000>)](THIRD_PARTY_NOTICES.md)
-
-SHL-2.1 was restored in preference to Apache-2.0 WITH SHL-2.1 while patent strategy is
-under review: CERN-OHL-P grants an express patent licence to Make Products from
-Covered Source; SHL’s “Rights” definition excludes Patents. That is not legal
-advice and does not create patent rights — public disclosure can still affect
-patentability. See [NOTICE](NOTICE).
-
-**Architecture credit:** Tomato dual-LUT bit-slice datapath — Tyrone Marhguy /
-Tomato project.
-
----
-
-## Author
-
-**Tyrone Marhguy** — Computer Engineering '28, [University of Pennsylvania](https://www.upenn.edu/)
-
-Tomato is a solo hardware architecture project: discrete-logic CPU design, KiCad PCBs, Digital simulation, and a public build log. Questions, collabs, or “why did you route it that way?” — reach out.
-
-[![Email](https://img.shields.io/badge/Email-tmarhguy@gmail.com-D14836?logo=gmail&logoColor=white)](mailto:tmarhguy@gmail.com) [![Edu Email](https://img.shields.io/badge/Email-tmarhguy@engineering.upenn.edu-011F5B)](mailto:tmarhguy@engineering.upenn.edu) [![Twitter](https://img.shields.io/badge/Twitter-@marhguy__tyrone-1DA1F2?logo=twitter&logoColor=white)](https://twitter.com/marhguy_tyrone)
-
- [![Instagram](https://img.shields.io/badge/Instagram-@tmarhguy-E4405F?logo=instagram&logoColor=white)](https://instagram.com/tmarhguy) [![Substack](https://img.shields.io/badge/Substack-@tmarhguy-FF6719?logo=substack&logoColor=white)](https://substack.com/@tmarhguy) [![Paper](https://img.shields.io/badge/Paper-tomato.tmarhguy.com-2ea043)](https://tomato.tmarhguy.com/) [![GitHub](https://img.shields.io/badge/GitHub-@tmarhguy-181717?logo=github&logoColor=white)](https://github.com/tmarhguy)
-
-![University of Pennsylvania](<https://img.shields.io/badge/University%20of%20Pennsylvania-Computer%20Engineering-011F5B>) ![Class of 2028](<https://img.shields.io/badge/Class%20of-2028-990000>) ![Verification](<https://img.shields.io/badge/Verification-Formal%20%2B%20UVM-0891B2>)
-
-### September 2026 FPGA / OS update
-
-The build retains 384 KiB of program/data RAM (6× the earlier 64 KiB) and a **32,768-location** register file on the full 15-bit SRAM depth (`SETBANK2` superbank; ordinary instructions still see a 256-reg window). After a blank screen on hardware at 100 MHz, the board default is restored to
-6.25 MHz (`CPU_DIV_LOG2=4`). The earlier 100.94 MHz timing report did not
-establish reliable operation on the physical board. Tomato OS v3 adds the Ghana wallpaper, Sudoku, restored Racer and
-ALU Studio. A millisecond timer keeps game speed independent of CPU speed.
+[Contributing](CONTRIBUTING.md) · [security](SECURITY.md) ·
+[citation](CITATION.cff) · [third-party notices](THIRD_PARTY_NOTICES.md)

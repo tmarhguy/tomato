@@ -93,3 +93,14 @@ set_property -dict { PACKAGE_PIN H2 IOSTANDARD LVCMOS33 SLEW FAST DRIVE 8 } [get
 set_property -dict { PACKAGE_PIN G4 IOSTANDARD LVCMOS33 SLEW FAST DRIVE 8 } [get_ports {dvi_b[1]}]
 set_property -dict { PACKAGE_PIN G2 IOSTANDARD LVCMOS33 SLEW FAST DRIVE 8 } [get_ports dvi_de]
 set_property -dict { PACKAGE_PIN F3 IOSTANDARD LVCMOS33 SLEW FAST DRIVE 8 } [get_ports dvi_vs]
+
+## ---- JA: nRF8001 Envelop Lite --------------------------------------------
+## User orientation: JA1 RDY, JA2 ACT, JA3 RST, JA7 SCK, JA8 MISO,
+## JA9 MOSI, JA10 REQ. JA4/3Vo is deliberately disconnected.
+set_property -dict { PACKAGE_PIN C17 IOSTANDARD LVCMOS33 } [get_ports ble_rdy_n]
+set_property -dict { PACKAGE_PIN D18 IOSTANDARD LVCMOS33 } [get_ports ble_act]
+set_property -dict { PACKAGE_PIN E18 IOSTANDARD LVCMOS33 } [get_ports ble_rst_n]
+set_property -dict { PACKAGE_PIN D17 IOSTANDARD LVCMOS33 } [get_ports ble_sck]
+set_property -dict { PACKAGE_PIN E17 IOSTANDARD LVCMOS33 } [get_ports ble_miso]
+set_property -dict { PACKAGE_PIN F18 IOSTANDARD LVCMOS33 } [get_ports ble_mosi]
+set_property -dict { PACKAGE_PIN G18 IOSTANDARD LVCMOS33 } [get_ports ble_req_n]

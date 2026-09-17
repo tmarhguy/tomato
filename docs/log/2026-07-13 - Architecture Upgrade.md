@@ -10,4 +10,8 @@ The problem there was that true dual 4to1 multiplexer is hard if not impossible 
 
 If 4 chips are needed for an lut2 (4to1 mux), why not simply build a second multiplexer (lut3), costs two extra chips compared to masked invert and identical chip compared to lut2, but offers astronomical operational space.
 
+<p align="center"><img src="../../web/assets/story/alu/lut2-cell.png" alt="Digital schematic with hex control feeding stacked 4-to-1 multiplexers" width="70%" /></p>
+
+*Retrospective technical illustration · the LUT2 mux experiment that led to a second independent LUT3 plane.*
+
 I need to acknowledge the operational redundancies offered from the maximum mathematical sample space. For instance, and(a, b, c) + xnor(a, b, c) == xnor(a, b, c) + and(a, b, c). Future progress with clarify the relevant and unique operational space while eliminating Boolean noise.

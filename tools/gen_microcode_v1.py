@@ -38,12 +38,16 @@ ROM_FILES = {
 DUAL = {
     "MASKADD": (0xAA, 0xC0, 0),  # A + (B & C), three register operands
     "XORAND":  (0x96, 0x80, 0),  # (A ^ B ^ C) + (A & B & C)
+    "CSEL":   (0xAC, 0x00, 0),  # rC ? rA : rB (MUX_C_AB), branchless select
+    "ANDADD": (0x88, 0xF0, 0),  # (A & B) + C, masked accumulate
+    "ORADD":  (0xEE, 0xF0, 0),  # (A | B) + C
+    "XORADD": (0x66, 0xF0, 0),  # (A ^ B) + C
     "ADD":   (0xAA, 0xCC, 0),
     "ADDI":  (0xAA, 0xCC, 0),
     "ADC":   (0xAA, 0xCC, 4),   # + carry flag
     "SUB":   (0xAA, 0x33, 1),
     "SBC":   (0xAA, 0x33, 4),   # - with carry-in
-    "RSB":   (0x33, 0xCC, 1),   # B - A = ~A + B + 1
+    "RSB":   (0x55, 0xCC, 1),   # B - A = ~A + B + 1
     "CMP":   (0xAA, 0x33, 1),
     "CMN":   (0xAA, 0xCC, 0),   # flags from A+B
     "CMPI":  (0xAA, 0x33, 1),
@@ -211,6 +215,28 @@ def burn_core_rows():
             operation=expression, why="compound three-input ALU", ir_imm_sel="1",
             reg_we="1", flags_we="1", cycles="1", encoding="reg_reg",
         ))
+    for addr, name, expression in [
+        (0x0A, "ANDN", "rd = rA & ~rB"),
+        (0x0B, "ORN", "rd = rA | ~rB"),
+    ]:
+        add(base_row(
+            rom_addr=f"0x{addr:02X}", region="alu-reg", mnemonic=name,
+            group="alu-reg", status="burn", semantic_op=name,
+            operation=expression, why="masked two-input ALU", ir_imm_sel="1",
+            reg_we="1", flags_we="1", cycles="1", encoding="reg_reg",
+        ))
+    for addr, name, expression in [
+        (0x0C, "CSEL", "rd = rC ? rA : rB"),
+        (0x0D, "ANDADD", "rd = (rA & rB) + rC"),
+        (0x0E, "ORADD", "rd = (rA | rB) + rC"),
+        (0x0F, "XORADD", "rd = (rA ^ rB) + rC"),
+    ]:
+        add(base_row(
+            rom_addr=f"0x{addr:02X}", region="alu-reg", mnemonic=name,
+            group="alu-reg", status="burn", semantic_op=name,
+            operation=expression, why="compound three-input ALU", ir_imm_sel="1",
+            reg_we="1", flags_we="1", cycles="1", encoding="reg_reg",
+        ))
     add(base_row(
         rom_addr="0x07", region="alu-reg", mnemonic="CMP", group="alu-reg",
         status="burn", semantic_op="CMP", operation="flags = rA - rB",
@@ -231,6 +257,17 @@ def burn_core_rows():
             group="muldiv", status="burn", semantic_op=name, operation=op,
             ir_imm_sel="1", wb_sel=str(wb), reg_we="1",
             mul_en=str(mul), div_en=str(div), cycles="1", encoding="reg_reg",
+        ))
+    for addr, name, expression in [
+        (0x17, "ADC", "rd = rA + rB + C"),
+        (0x18, "SBC", "rd = rA - rB + C_in"),
+        (0x19, "RSB", "rd = rB - rA"),
+    ]:
+        add(base_row(
+            rom_addr=f"0x{addr:02X}", region="alu-reg", mnemonic=name,
+            group="alu-reg", status="burn", semantic_op=name,
+            operation=expression, why="carry / reverse subtract", ir_imm_sel="1",
+            reg_we="1", flags_we="1", cycles="1", encoding="reg_reg",
         ))
     add(base_row(
         rom_addr="0x20", region="alu-imm", mnemonic="ADDI", group="alu-imm",
@@ -665,6 +702,7 @@ def fix_burn_row(row):
         "MUL", "MULH", "MULHU", "DIV", "DIVU", "REM", "REMU",
         "MOVA", "NOT", "NEG", "INC", "DEC", "NAND", "NOR", "XNOR",
         "ADC", "SBC", "RSB", "ANDN", "ORN", "MVN", "TST", "TEQ",
+        "CSEL", "ANDADD", "ORADD", "XORADD",
         "ZERO", "ONE", "ALLONES",
     }
     if sem in reg_reg:

@@ -27,12 +27,12 @@
 <link href="../css/magazine.css?v=4f8da71e" rel="stylesheet"/>
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
-<link rel="stylesheet" href="../css/navigation.css?v=4247b616" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <link rel="stylesheet" href="../css/page-media.css?v=dd88a842"/>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="A July 2026 design note weighing a minimal ALU sequencer against building the remaining reusable computer boards." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, lingering, catch, tomato, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -40,7 +40,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="The lingering catch — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="A July 2026 design note weighing a minimal ALU sequencer against building the remaining reusable computer boards." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/lingering.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/lingering.html" />
@@ -54,7 +54,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="The lingering catch — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="A July 2026 design note weighing a minimal ALU sequencer against building the remaining reusable computer boards." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -63,7 +63,7 @@
   "@id": "https://tomato.tmarhguy.com/journal/lingering.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal/lingering.html",
   "name": "The lingering catch — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "A July 2026 design note weighing a minimal ALU sequencer against building the remaining reusable computer boards.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -79,7 +79,7 @@
 </head>
 <body class="project-document">
 <div class="page project-page project-article journal-redesign"><a class="project-skip" href="#main">Skip to content</a>
-<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Message Tomato</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Journal</a><a href="../gallery.html">Gallery</a><a href="../status.html">Status</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
 <main data-journal-kind="engineering" class="project-main" id="main">
 <nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../journal.html">Journal</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
 <div class="project-hero-copy">
@@ -95,7 +95,7 @@
 <h2 id="read-the-fsm-option">The FSM option</h2>
 <p>A bare FSM can be kept simple: counter, a few mux selects, hard-wired vectors. Simple FSMs tend only to count. Useful for smoke tests, not for ISA behavior or multi-cycle sequences. A complex FSM that actually exercises LUT programs and multi-phase timing starts to duplicate the control unit — same ROM decode, same field fanout, same wiring problem already written down. Building that twice is double work. The design keeps drifting toward “just enough control to be Tomato” without the payoff of a runnable machine.</p>
 <figure class="figure">
-<img alt="Early finite-state machine diagram from the Tomato control sketches." height="800" loading="lazy" src="../assets/story/control/fsm-early.png" width="1280"/>
+<img alt="Early finite-state machine diagram from the Tomato control sketches." height="1466" loading="lazy" src="../assets/story/control/fsm-early.png" width="1958"/>
 </figure>
 <p class="caption"><span>Fig. — Early FSM</span><span>Smoke-test sequencer · or Tomato by another name</span></p>
 <h2 id="read-the-peripherals-option">The peripherals option</h2>
@@ -109,11 +109,11 @@
 </nav>
 </div>
 </section>
-<!-- page-media:start --><section class="media-evidence project-frame" aria-labelledby="media-evidence-title"><header><p class="kicker">From the build</p><h2 id="media-evidence-title">The work behind the words.</h2></header><div class="media-evidence-grid"><figure><a class="media-evidence-image" href="../assets/gallery/assembly/board-test-1280w.webp" aria-label="View larger: Physical Tomato ALU board on the test bench"><img src="../assets/gallery/assembly/board-test-1280w.webp" srcset="../assets/gallery/assembly/board-test-640w.webp 640w, ../assets/gallery/assembly/board-test-1280w.webp 1280w" sizes="(max-width: 650px) 90vw, 45vw" alt="Physical Tomato ALU board on the test bench" loading="lazy" decoding="async"/></a><figcaption><a href="../journal/first-lights.html">The assembled ALU</a><p>Lot 07 on the bench during board testing.</p></figcaption></figure><figure><a class="media-evidence-image" href="../assets/gallery/os/main-menu-screen-1280w.webp" aria-label="View larger: Tomato OS main menu on a display"><img src="../assets/gallery/os/main-menu-screen-1280w.webp" srcset="../assets/gallery/os/main-menu-screen-640w.webp 640w, ../assets/gallery/os/main-menu-screen-1280w.webp 1280w" sizes="(max-width: 650px) 90vw, 45vw" alt="Tomato OS main menu on a display" loading="lazy" decoding="async"/></a><figcaption><a href="../os.html">Tomato OS on screen</a><p>The menu running through the FPGA display path.</p></figcaption></figure></div></section><!-- page-media:end -->
+<!-- page-media:start --><section class="media-evidence project-frame" aria-labelledby="media-evidence-title"><header><p class="kicker">From the build</p><h2 id="media-evidence-title">The work behind the words.</h2></header><div class="media-evidence-grid"><figure><a class="media-evidence-image" href="../assets/gallery/assembly/board-test-1280w.webp" aria-label="View larger: Physical Tomato ALU board on the test bench"><img src="../assets/gallery/assembly/board-test-1280w.webp" srcset="../assets/gallery/assembly/board-test-640w.webp 640w, ../assets/gallery/assembly/board-test-1280w.webp 1280w" sizes="(max-width: 650px) 90vw, 45vw" alt="Physical Tomato ALU board on the test bench" loading="lazy" decoding="async" width="1280" height="960"/></a><figcaption><a href="../journal/first-lights.html">The assembled ALU</a><p>Lot 07 on the bench during board testing.</p></figcaption></figure><figure><a class="media-evidence-image" href="../assets/gallery/os/main-menu-screen-1280w.webp" aria-label="View larger: Tomato OS main menu on a display"><img src="../assets/gallery/os/main-menu-screen-1280w.webp" srcset="../assets/gallery/os/main-menu-screen-640w.webp 640w, ../assets/gallery/os/main-menu-screen-1280w.webp 1280w" sizes="(max-width: 650px) 90vw, 45vw" alt="Tomato OS main menu on a display" loading="lazy" decoding="async" width="1280" height="960"/></a><figcaption><a href="../os.html">Tomato OS on screen</a><p>The menu running through the FPGA display path.</p></figcaption></figure></div></section><!-- page-media:end -->
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

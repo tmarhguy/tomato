@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-// Minimal 640x480@60 → 12-bit DVI PMOD (TFP410) on JC+JD
+// Minimal 640x480 nominal-60-Hz (~59.52 Hz) → 12-bit DVI PMOD on JC+JD
 module main (
     input  logic        clk,          // 100 MHz
     input  logic        cpu_resetn,   // active-low
@@ -35,7 +35,7 @@ module main (
     end
     assign led = blink[23];
 
-    // 640x480@60 (25 MHz)
+    // 640x480 nominal-60-Hz: 25 MHz / (800 * 525) = 59.52 Hz
     localparam int H_VISIBLE = 640;
     localparam int H_FP      = 16;
     localparam int H_SYNC    = 96;

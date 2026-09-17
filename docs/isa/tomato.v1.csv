@@ -24,12 +24,12 @@ rom_addr,region,mnemonic,group,seq_cycles,status,operation,why,ir_imm_sel,alu_op
 0x07,alu-reg,CMP,alu-reg,1,burn,flags = rA - rB,branches,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,CMP,
 0x08,alu-reg,MASKADD,alu-reg,1,burn,rd = rA + (rB & rC),compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,MASKADD,
 0x09,alu-reg,XORAND,alu-reg,1,burn,rd = (rA ^ rB ^ rC) + (rA & rB & rC),compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XORAND,
-0x0A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x0B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x0C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x0D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x0E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x0F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x0A,alu-reg,ANDN,alu-reg,1,burn,rd = rA & ~rB,masked two-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ANDN,
+0x0B,alu-reg,ORN,alu-reg,1,burn,rd = rA | ~rB,masked two-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ORN,
+0x0C,alu-reg,CSEL,alu-reg,1,burn,rd = rC ? rA : rB,compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,CSEL,
+0x0D,alu-reg,ANDADD,alu-reg,1,burn,rd = (rA & rB) + rC,compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ANDADD,
+0x0E,alu-reg,ORADD,alu-reg,1,burn,rd = (rA | rB) + rC,compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ORADD,
+0x0F,alu-reg,XORADD,alu-reg,1,burn,rd = (rA ^ rB) + rC,compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XORADD,
 0x10,alu-reg,MUL,muldiv,1,burn,rd = low(rA*rB),,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,,reg_reg,MUL,
 0x11,alu-reg,MULH,muldiv,1,burn,rd = high(rA*rB),,1,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,,reg_reg,MULH,
 0x12,alu-reg,DIV,muldiv,1,burn,rd = rA / rB,,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,,reg_reg,DIV,
@@ -37,9 +37,9 @@ rom_addr,region,mnemonic,group,seq_cycles,status,operation,why,ir_imm_sel,alu_op
 0x14,alu-reg,MULHU,muldiv,1,burn,rd = high unsigned,,1,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,,reg_reg,MULHU,
 0x15,alu-reg,DIVU,muldiv,1,burn,rd = rA / rB unsigned,,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,,reg_reg,DIVU,
 0x16,alu-reg,REMU,muldiv,1,burn,rd = rA % rB unsigned,,1,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,,reg_reg,REMU,
-0x17,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x18,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x19,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x17,alu-reg,ADC,alu-reg,1,burn,rd = rA + rB + C,carry / reverse subtract,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ADC,
+0x18,alu-reg,SBC,alu-reg,1,burn,rd = rA - rB + C_in,carry / reverse subtract,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,SBC,
+0x19,alu-reg,RSB,alu-reg,1,burn,rd = rB - rA,carry / reverse subtract,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,RSB,
 0x1A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
 0x1B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
 0x1C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot

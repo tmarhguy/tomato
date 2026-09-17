@@ -24,6 +24,10 @@ alu_out = adder( f(a, b, c), g(a, b, c), carry_in )
 
 where `f` and `g` are independent 3-input LUTs (`lutA`, `lutB`) and `carry_in` is selected by `csel`.
 
+<p align="center"><img src="../../web/assets/story/arch/64b-machine.png" alt="Digital drawing of the wide Tomato machine with clock, EEPROMs, register file, and ALU slices" width="70%" /></p>
+
+*Retrospective technical illustration · the earlier wide paper machine used to frame the 40-bit word-width proposal.*
+
 At the bit-slice level that is **524,288** distinct `(lutA, lutB, csel)` combinations. The current 10-bit opcode indexes only **1,024** microcode rows. That is enough for a practical ISA, but it uses a small fraction of what the hardware can express — the catalog today covers on the order of ~90 verified primitives, and most mnemonics share the same LUT program anyway.
 
 Matching every theoretical LUT pair to its own opcode was never the goal. The real loss in the 32-bit design is narrower:

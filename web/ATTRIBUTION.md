@@ -1,13 +1,17 @@
 # Image attribution
 
-Figures are Tomato’s own work, ornaments drawn for the paper, or a public-domain plate noted below.
+Unless a row says otherwise, photographs, screen captures, diagrams, renders,
+videos, and drawn ornaments are original Tomato / Tyrone Marhguy work.
+Tool-generated images name the editable source or generating tool; generation
+does not imply that Digital, KiCad, or another tool endorses Tomato. The single
+third-party historical photograph is identified with its public-domain source.
 
 | File | Source |
 |------|--------|
 | `assets/pcb/alu_8b_board.jpg` | KiCad render, board `07_alu` |
 | `assets/pcb/immersion_black.mp4` | KiCad 3D orbit of `07_alu` — dark immersion, H.264 from the black GIF |
 | `assets/pcb/immersion_black.webp` | Poster still for the dark-stock orbit |
-| `assets/pcb/hero.mp4` | Front-page plate — 07_alu tour, H.264 from `hero.mp4` |
+| `assets/pcb/hero.mp4` | Tomato-authored 07_alu KiCad render tour, encoded as H.264 |
 | `assets/pcb/hero.webp` | Poster still for the front-page tour |
 | `assets/compiler/opcode-sweep-sim.mp4` | Opcode-space sweep in simulation — H.264 from `opcode_sweep_sim.mp4` |
 | `assets/compiler/opcode-sweep-fpga.mp4` | Same FSM on Artix‑7 — H.264 from `fpga_opcode_sweep.mp4` |
@@ -55,6 +59,17 @@ Figures are Tomato’s own work, ornaments drawn for the paper, or a public-doma
 | `assets/story/open-source/openroad-activity.webp` | OpenROAD / FOSS P&amp;R research |
 | `assets/plates/mouser-pmod-1.jpg` | Mouser order — Digilent PMOD VGA in transit |
 | `assets/plates/mouser-pmod-2.jpg` | Mouser checkout summary for the same PMOD order |
-| `assets/engravings/eniac-penn.jpg` | ENIAC at the Moore School, 1946. U.S. Army Photo, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Classic_shot_of_the_ENIAC.jpg) |
+| `assets/engravings/eniac-penn.jpg` | ENIAC at the Moore School, 1946. Public-domain U.S. Army photograph, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Classic_shot_of_the_ENIAC.jpg) |
 
-PCB, schematic, and simulation figures are original Tomato / Tyrone Marhguy work, licensed with the rest of the repository (Apache-2.0 WITH SHL-2.1).
+Digital is GPL-3.0-licensed authoring software by Helmut Neemann; KiCad is
+GPL-3.0-licensed authoring software. The Tomato-authored `.dig`/KiCad designs
+and their renders are project outputs, not copies of those applications. See
+[`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md) for the legal boundary.
+
+No synthetic generative-image source is currently identified in this published
+asset catalog. If one is added, record the generator, date, prompt/source
+record location, edits, and redistribution basis here before publication.
+
+Original Tomato assets are distributed under the repository's stated
+`Apache-2.0 WITH SHL-2.1` terms. Third-party material remains under the terms
+named for that item.

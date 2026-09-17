@@ -1,0 +1,91 @@
+/* Virtual board + homepage embed, shared theme.
+ *
+ * One source for both: virtual.html links this sheet, index.html reuses the
+ * embed half. Everything is token-driven (rule/wash/ink/muted/red/site-ui),
+ * so light/dark mode follows the paper with no extra work.
+ */
+
+/* ---- compact head: one slim bar, the screen gets the rest ---- */
+.vt-head{margin:0 0 .75rem}
+.vt-head-row{display:flex;align-items:baseline;gap:1.25rem;flex-wrap:wrap}
+.vt-title{margin:0;font-family:var(--site-display);font-size:clamp(1.2rem, 2.4vw, 1.5rem);font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.vt-sub{margin:0;font-size:.85rem;color:var(--muted)}
+.vt-sub a{color:inherit}
+
+/* ---- full board page (virtual.html) ---- */
+.vt-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:1.5rem;margin-top:1rem;align-items:start}
+.vt-screen{display:block;margin:0 auto;background:#000;border-radius:var(--site-r-frame);image-rendering:pixelated;aspect-ratio:4/3;height:auto;outline:1px solid var(--rule);outline-offset:-1px;
+/* Fit the view height with breathing space: never wider than the column,
+   never taller than the viewport minus the slim chrome above and below. */
+width:min(100%, max(20rem, calc((100vh - 18rem) * 4 / 3)));
+width:min(100%, max(20rem, calc((100svh - 18rem) * 4 / 3)));}
+.vt-screen:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.vt-panel{border:1px solid var(--rule);border-radius:var(--site-r-frame);background:var(--bg);padding:1.25rem clamp(1.25rem, 3vw, 1.5rem);font-size:.95rem}
+.vt-panel h2{margin:0 0 .45rem;font-family:var(--site-ui);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.vt-panel h2:not(:first-child){margin-top:1.25rem}
+.vt-pad{display:grid;grid-template-columns:repeat(3,3rem);gap:.45rem;justify-content:center;margin:1rem 0}
+.vt-pad button{padding:.6rem 0}
+.vt-up{grid-column:2}.vt-left{grid-column:1}.vt-bottom{grid-column:2}
+.vt-panel button{border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);font-family:var(--site-ui);font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--ink);cursor:pointer;padding:.55rem .9rem;transition:border-color .15s var(--site-ease), background .15s var(--site-ease)}
+.vt-panel button:hover{border-color:var(--dust)}
+.vt-panel button:active{border-color:var(--red);background:color-mix(in srgb, var(--red) 12%, var(--wash))}
+.vt-panel button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.vt-row{display:flex;gap:.45rem;flex-wrap:wrap;margin:.35rem 0}
+.vt-panel label{display:block;margin:.6rem 0 .35rem;font-family:var(--site-ui);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.vt-panel input,.vt-panel select{box-sizing:border-box;width:100%;margin:0;padding:.55rem .7rem;border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);font-family:var(--site-mono);font-size:.9rem;color:var(--ink)}
+.vt-status{font-family:var(--site-mono);font-size:.82rem;color:var(--muted)}
+.vt-note{font-size:.9rem;color:var(--muted)}
+#vt-notice{color:var(--red)}
+@media(max-width:60rem){.vt-layout{grid-template-columns:1fr}}
+
+/* ---- stage: toolbar above, screen + panel below ---- */
+.vt-toolbar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin:0 0 1rem}
+.vt-toolbar .vt-row{margin:0 0 0 auto}
+.vt-toolbar button{border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);font-family:var(--site-ui);font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--ink);cursor:pointer;padding:.55rem .9rem}
+.vt-toolbar button:hover{border-color:var(--dust)}
+.vt-toolbar button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.vt-panel{max-height:calc(100svh - 18rem);overflow:auto}
+.vt-hide-ui .vt-layout{grid-template-columns:minmax(0,1fr)}
+.vt-hide-ui .vt-panel{display:none}
+.vt-proof{max-width:64rem;margin:2.5rem auto 0}
+.vt-proof img{display:block;width:100%;height:auto;max-height:46rem;object-fit:contain;object-position:top center;border:1px solid var(--rule);border-radius:var(--site-r-frame);background:var(--wash)}
+.vt-proof figcaption{margin-top:.65rem;color:var(--muted);font-size:.82rem;line-height:1.5}
+.vt-about{margin-top:1.5rem}
+.vt-about summary{cursor:pointer;font-family:var(--site-ui);font-size:.85rem;font-weight:700;letter-spacing:.04em;color:var(--ink)}
+.vt-about summary:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* ---- fullscreen immersion: the Tomato screen fills the display ---- */
+.vt-stage:fullscreen{background:#000;padding:clamp(.75rem, 2vmin, 1.5rem);overflow:auto}
+.vt-stage:fullscreen .vt-layout{grid-template-columns:minmax(0,1fr) 300px;align-items:start;max-width:120rem;margin:0 auto}
+.vt-stage:fullscreen .vt-screen{width:min(100%, calc((100vh - 9rem) * 4 / 3));width:min(100%, calc((100svh - 9rem) * 4 / 3))}
+.vt-stage:fullscreen .vt-toolbar{max-width:120rem;margin:0 auto 1rem}
+.vt-stage:fullscreen .vt-panel{max-height:calc(100vh - 9rem);max-height:calc(100svh - 9rem)}
+.vt-stage:fullscreen.vt-hide-ui .vt-layout{grid-template-columns:minmax(0,1fr)}
+.vt-stage::backdrop{background:#000}
+
+/* ---- homepage embed (index.html #running): small screen left, controls right ---- */
+.vt-embed{max-width:58rem;margin:2rem auto 0}
+.vt-embed-grid{display:grid;grid-template-columns:minmax(0,1fr) 13.5rem;gap:1.25rem;align-items:start}
+.vt-embed-stage{position:relative;border:1px solid var(--rule);border-radius:var(--site-r-frame);overflow:hidden;background:#000;min-width:0}
+.vt-embed-screen{display:block;width:100%;height:auto;aspect-ratio:4/3;image-rendering:pixelated;background:#000}
+.vt-embed-play{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;width:100%;background:rgba(0,0,0,.55);border:0;cursor:pointer;color:#f1f1ed;font-family:var(--site-ui)}
+.vt-embed-play[hidden]{display:none}
+.vt-embed-play .vt-embed-playbtn{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:.7rem 1.4rem;border:1px solid var(--red);border-radius:999px;background:var(--red);color:var(--bg);font-weight:700;font-size:.95rem;letter-spacing:.02em}
+.vt-embed-play small{font-size:.8rem;opacity:.85}
+figure.vt-embed div.vt-embed-keys{display:grid;grid-template-columns:repeat(3,2.75rem);gap:.4rem;justify-content:start;margin:.8rem 0}
+figure.vt-embed div.vt-embed-keys > button{flex:none;min-width:44px;min-height:44px;width:2.75rem;padding:.45rem 0;border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);color:var(--ink);font-family:var(--site-ui);font-size:.85rem;font-weight:700;cursor:pointer}
+figure.vt-embed div.vt-embed-keys > button:hover{border-color:var(--dust)}
+figure.vt-embed div.vt-embed-keys > button:active{border-color:var(--red)}
+figure.vt-embed div.vt-embed-keys > button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.vt-embed-side{min-width:0}
+p.vt-embed-status{font-family:var(--site-mono);font-size:.78rem;color:var(--muted);margin:0}
+.vt-embed-hint{font-size:.8rem;color:var(--muted);margin:.8rem 0}
+.vt-embed-side .text-link{font-size:.85rem}
+.vt-embed figcaption{margin-top:.6rem;font-size:.85rem;color:var(--muted)}
+@media(max-width:48rem){.vt-embed-grid{grid-template-columns:minmax(0,1fr) 11rem}}
+@media(max-width:40rem){
+  .vt-embed-grid{grid-template-columns:1fr;gap:1rem}
+  .vt-embed-side{text-align:center}
+  figure.vt-embed div.vt-embed-keys{justify-content:center;margin-inline:auto}
+  .vt-embed-hint{margin-inline:auto;max-width:22rem}
+}

@@ -25,6 +25,10 @@ A bare FSM can be kept simple — counter, a few mux selects, hard-wired test ve
 
 A complex FSM that actually exercises LUT programs, operand routing, and multi-phase timing starts to **duplicate the control unit** — same ROM decode, same field fanout, same wiring problem documented in the microcode modularization log. Building that twice is double work.
 
+<p align="center"><img src="../../web/assets/story/control/fsm-early.png" alt="Early finite-state machine diagram from the Tomato control sketches" width="70%" /></p>
+
+*Retrospective technical illustration · the early smoke-test sequencer that risked becoming Tomato's control unit by another name.*
+
 The FSM path is proving slow anyway. The design keeps drifting toward "just enough control to be Tomato" without the payoff of a runnable machine.
 
 ---

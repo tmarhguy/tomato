@@ -1,0 +1,19 @@
+flowchart TB
+    subgraph External["Outside this repository — Envelop services"]
+        PERSON["Person"] --> APP["Envelop web / native client"]
+        APP --> QUEUE["Durable backend queue"]
+        QUEUE --> BRIDGE["Nearby authenticated bridge"]
+    end
+
+    subgraph Machine["This repository — FPGA Tomato"]
+        RADIO["nRF8001 / ACI mailbox"] --> CLIENT["Envelop OS client<br/>envelop_lite.s"]
+        CLIENT --> EXEC["Bounded executor<br/>remote_exec.s"]
+        EXEC --> CPU["Tomato CPU"]
+        CPU --> RESULT["Target-labeled result"]
+    end
+
+    BRIDGE -->|"ENVELOP/1 identity + job"| RADIO
+    RESULT --> BRIDGE
+
+    APP -. "explicit preview; never a hardware fallback" .-> VIRTUAL["Virtual Tomato<br/>browser emulator"]
+    VIRTUAL -. "labeled virtual result" .-> APP

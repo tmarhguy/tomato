@@ -1,4 +1,16 @@
 .DEFAULT_GOAL := all
+.PHONY: virtual
+virtual:
+	python3 $(ROOT)/tools/virtual_tomato.py
+.PHONY: remote-test
+remote-test:
+	python3 $(ROOT)/tools/test_remote_compute.py
+	python3 $(ROOT)/tools/test_envelop.py
+	python3 $(ROOT)/tools/test_virtual_tomato.py
+.PHONY: envelop-preview
+envelop-preview:
+	python3 $(ROOT)/tools/test_envelop.py
+	python3 $(ROOT)/tools/render_envelop.py $(SIM)/envelop_frame.mem -o $(SIM)/envelop.png
 # Tomato core — Icarus simulation, burn packaging, and the open-source bitstream
 #
 #   make test                     unit + program regression (Icarus, no nix needed)
@@ -35,19 +47,32 @@ ASM_SRC := $(ROOT)/software/asm
 OS_SRC  := $(ROOT)/software/os
 
 PROG_MEM := tb/mem/counter.mem tb/mem/fib.mem tb/mem/collatz.mem tb/mem/call.mem tb/mem/bytes.mem \
-	tb/mem/ecall.mem tb/mem/io.mem tb/mem/softops.mem tb/mem/kb_mmio.mem
+	tb/mem/ecall.mem tb/mem/io.mem tb/mem/softops.mem tb/mem/kb_mmio.mem tb/mem/p0p1.mem
 
-TBS := shift lane wb bus sp regs ir pc vga muldiv alu control hex videoout keypad main counter fidelity \
+TBS := shift lane wb bus sp regs ir pc vga muldiv alu compiler control hex videoout keypad main counter fidelity \
 	kb_io burn_boot compound exhibit
+
+.PHONY: nrf-idle-test
+nrf-idle-test: $(SIM)/nrf8001_idle_tb.vvp
+	$(VVP) $<
+
+$(SIM)/nrf8001_idle_tb.vvp: rtl/nrf8001_idle.v tb/nrf8001_idle_tb.v | $(SIM)
+	$(IVERILOG) -g2012 -s nrf8001_idle_tb -o $@ $^
+
+.PHONY: nrf-aci-test
+nrf-aci-test: $(SIM)/nrf8001_aci_tb.vvp
+	$(VVP) $<
+
+$(SIM)/nrf8001_aci_tb.vvp: rtl/nrf8001_aci.v tb/nrf8001_aci_tb.v | $(SIM)
+	$(IVERILOG) -g2012 -s nrf8001_aci_tb -o $@ $^
 
 # ---- open-source bitstream flow ---------------------------------------------
 TOP        := nexys_top
 SRC        := $(RTL) $(BOARD)
 XDC        := constr/nexys.xdc
-# nextpnr --freq is one number for every named clock. cpu_clk actually runs at
-# 6.25 MHz (100/16) and pix_clk at 25 MHz; 100 MHz was a vanity Fmax check that
-# fails when a rebuild places ~2.5 % worse (97.5 MHz this pass). 90 still
-# proves an order of magnitude of margin without aborting a legal route.
+# nextpnr --freq is one timing target for every named clock. cpu_clk actually
+# runs at 6.25 MHz (100/16) and pix_clk at 25 MHz. 90 MHz asks place-and-route
+# to close well above both runtime domains; it is not a runtime or Fmax claim.
 FREQ_MHZ   := 90
 YOSYS_INC  := rtl
 # -nodsp: a 33x33 multiply tiles across several DSP48s wired PCOUT→PCIN, and
@@ -89,8 +114,9 @@ burn-check: microcode
 
 asm: $(PROG_MEM) tb/mem/tomato_os.mem
 
-tb/mem/tomato_os.mem: $(OS_SRC)/tomato_os.s
-	$(ASM) $< -o $@
+tb/mem/tomato_os.mem: $(OS_SRC)/tomato_os.s $(OS_SRC)/envelop_lite.s $(OS_SRC)/envelop_setup.s $(OS_SRC)/remote_exec.s $(ROOT)/software/assembler.py | $(SIM)
+	cat $(filter %.s,$^) > $(SIM)/tomato_os_all.s
+	$(ASM) $(SIM)/tomato_os_all.s --strict-layout --max-words 16384 -o $@
 
 tb/mem/counter.mem: $(ASM_SRC)/counter.s
 	$(ASM) $< -o $@
@@ -117,6 +143,9 @@ tb/mem/kb_mmio.mem: $(ASM_SRC)/kb_mmio.s
 	$(ASM) $< -o $@
 
 tb/mem/softops.mem: $(ASM_SRC)/softops.s
+	$(ASM) $< -o $@
+
+tb/mem/p0p1.mem: $(ASM_SRC)/p0p1.s
 	$(ASM) $< -o $@
 
 # ---- unit benches -----------------------------------------------------------
@@ -152,6 +181,9 @@ $(SIM)/muldiv_tb.vvp: rtl/shift.v rtl/muldiv.v tb/muldiv_tb.v | $(SIM)
 
 $(SIM)/alu_tb.vvp: rtl/alu.v tb/alu_tb.v | $(SIM)
 	$(IVERILOG) -o $@ rtl/alu.v tb/alu_tb.v
+
+$(SIM)/compiler_tb.vvp: rtl/alu.v rtl/compiler_fsm.v tb/compiler_tb.v | $(SIM)
+	$(IVERILOG) -o $@ rtl/alu.v rtl/compiler_fsm.v tb/compiler_tb.v
 
 $(SIM)/control_tb.vvp: rtl/control.v tb/control_tb.v | $(SIM)
 	$(IVERILOG) -o $@ rtl/control.v tb/control_tb.v
@@ -210,7 +242,7 @@ os: $(SIM)/os_tb.vvp
 games: $(SIM)/games_tb.vvp
 	$(VVP) $<
 
-test: burn-check $(foreach t,$(TBS),$(SIM)/$(t)_tb.vvp) $(SIM)/prog_tb.vvp $(SIM)/os_tb.vvp $(SIM)/games_tb.vvp $(SIM)/board_lint.vvp
+test: burn-check nrf-aci-test $(foreach t,$(TBS),$(SIM)/$(t)_tb.vvp) $(SIM)/prog_tb.vvp $(SIM)/os_tb.vvp $(SIM)/games_tb.vvp $(SIM)/board_lint.vvp
 	$(call RUN_TB,shift)
 	$(call RUN_TB,lane)
 	$(call RUN_TB,wb)
@@ -222,6 +254,7 @@ test: burn-check $(foreach t,$(TBS),$(SIM)/$(t)_tb.vvp) $(SIM)/prog_tb.vvp $(SIM
 	$(call RUN_TB,vga)
 	$(call RUN_TB,muldiv)
 	$(call RUN_TB,alu)
+	$(call RUN_TB,compiler)
 	$(call RUN_TB,control)
 	$(call RUN_TB,hex)
 	$(call RUN_TB,videoout)
@@ -258,6 +291,9 @@ test: burn-check $(foreach t,$(TBS),$(SIM)/$(t)_tb.vvp) $(SIM)/prog_tb.vvp $(SIM
 	@echo "=== prog kb_mmio ==="
 	@$(VVP) $(SIM)/prog_tb.vvp +PROG=kb_mmio +EXPECT_R1=126 +EXPECT_R2=1 +KB=126 +EXPECT_DISP=1 | tee $(SIM)/prog_kb_mmio.log
 	@grep -q '^PASS:' $(SIM)/prog_kb_mmio.log
+	@echo "=== prog p0p1 ==="
+	@$(VVP) $(SIM)/prog_tb.vvp +PROG=p0p1 +EXPECT_R1=1 | tee $(SIM)/prog_p0p1.log
+	@grep -q '^PASS:' $(SIM)/prog_p0p1.log
 	@echo "=== tomato_os ==="
 	@$(VVP) $(SIM)/os_tb.vvp +KEYS=0d11 | tee $(SIM)/os_tb.log
 	@grep -q '^PASS:' $(SIM)/os_tb.log
@@ -278,6 +314,7 @@ progs: $(SIM)/prog_tb.vvp
 	$(VVP) $< +PROG=softops +EXPECT_R1=129 +EXPECT_R6=129 +EXPECT_DISP=129
 	$(VVP) $< +PROG=io +EXPECT_R1=65 +KB=65 +EXPECT_DISP=65
 	$(VVP) $< +PROG=kb_mmio +EXPECT_R1=126 +EXPECT_R2=1 +KB=126 +EXPECT_DISP=1
+	$(VVP) $< +PROG=p0p1 +EXPECT_R1=1
 
 # CPI → reports/CPI.md (sim metrics; not a board Fmax claim)
 cpi: $(SIM)/prog_tb.vvp
@@ -310,9 +347,24 @@ $(TBS): %: $(SIM)/%_tb.vvp
 clean: clean-fpga
 	rm -rf $(SIM)
 	rm -f tb/mem/fib.mem tb/mem/collatz.mem tb/mem/call.mem tb/mem/bytes.mem
-	rm -f tb/mem/ecall.mem tb/mem/io.mem tb/mem/softops.mem tb/mem/kb_mmio.mem
+	rm -f tb/mem/ecall.mem tb/mem/io.mem tb/mem/softops.mem tb/mem/kb_mmio.mem tb/mem/p0p1.mem
 
-$(SIM)/compound_tb.vvp: $(RTL) tb/compound_tb.v | $(SIM)
+$(SIM)/compound_tb.vvp: $(RTL) tb/compound_tb.v tb/mem/compound.mem | $(SIM)
 	$(IVERILOG) -o $@ $(RTL) tb/compound_tb.v
 $(SIM)/exhibit_tb.vvp: $(RTL) tb/exhibit_tb.v tb/mem/tomato_os.mem | $(SIM)
 	$(IVERILOG) -o $@ $(RTL) tb/exhibit_tb.v
+
+# ---- Vivado fast flow (Linux only, Vivado ML Standard) ----------------------
+# Multithreaded synth+impl for the same part; ~10 min vs ~1h+ open flow.
+# Vivado does not run on macOS — copy the repo to a Linux box/VM first.
+# Refresh burn before building: `make burn BOOT=tomato_os` (burn is baked in).
+VIVADO_BUILD := build/vivado
+.PHONY: vivado vivado-program
+vivado: burn
+	@mkdir -p $(VIVADO_BUILD)
+	vivado -mode batch -nojournal -nolog -notrace -source vivado.tcl | tee $(VIVADO_BUILD)/vivado.log
+	@sha256sum $(VIVADO_BUILD)/nexys_top.bit | tee $(VIVADO_BUILD)/nexys_top.bit.sha256
+
+vivado-program: $(VIVADO_BUILD)/nexys_top.bit
+	openFPGALoader -b nexys_a7_100 $(VIVADO_BUILD)/nexys_top.bit
+

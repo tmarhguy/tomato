@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html class="project-document" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#050505" name="theme-color"/>
+<script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("tomato.theme");
+        if (saved === "dark" || saved === "light") {
+          document.documentElement.setAttribute("data-theme", saved);
+          document.documentElement.style.colorScheme = saved;
+        } else {
+          document.documentElement.setAttribute("data-theme", "dark");
+          document.documentElement.style.colorScheme = "dark";
+        }
+      } catch (e) {}
+    })();
+  </script>
+<title>Run Tomato in your browser — Tomato</title>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+
+
+
+<link href="css/magazine.css?v=4f8da71e" rel="stylesheet"/>
+<link href="css/site.css?v=5142da6b" rel="stylesheet"/>
+<link href="css/brand.css?v=7700e16c" rel="stylesheet"/>
+<link rel="stylesheet" href="css/navigation.css?v=224d88a5" />
+<script src="js/navigation.js?v=cf819a71" defer></script>
+<!-- tomato-seo -->
+  <meta name="description" content="Run Tomato OS in your browser: a functional emulator boots the shipped firmware, draws the menu, plays the games, and opens Envelop with a simulated demo phone. No install, no FPGA." />
+  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, Tomato OS in browser, CPU emulator, FPGA CPU, Nexys A7, TomatoOS, Envelop demo, Tyrone Marhguy, UPenn computer engineering, Run, Tomato, your, browser, shipped, firmware, draws, plays, opens" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="author" content="Tyrone Marhguy" />
+  <meta name="application-name" content="The Tomato 32-bit CPU" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="author" type="text/plain" href="humans.txt" />
+  <meta property="og:title" content="Run Tomato in your browser — Tomato" />
+  <meta property="og:description" content="A functional emulator boots the shipped Tomato OS firmware in your browser: menu, games, and Envelop with a simulated demo phone." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/virtual.html" />
+  <link rel="canonical" href="https://tomato.tmarhguy.com/virtual.html" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
+  <meta property="og:site_name" content="The Tomato 32-bit CPU" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@tmarhguy" />
+  <meta name="twitter:creator" content="@tmarhguy" />
+  <meta name="twitter:title" content="Run Tomato in your browser — Tomato" />
+  <meta name="twitter:description" content="A functional emulator boots the shipped Tomato OS firmware in your browser: menu, games, and Envelop with a simulated demo phone." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tomato.tmarhguy.com/virtual.html#webpage",
+  "url": "https://tomato.tmarhguy.com/virtual.html",
+  "name": "Run Tomato in your browser — Tomato",
+  "description": "A functional emulator boots the shipped Tomato OS firmware in your browser: menu, games, and Envelop with a simulated demo phone.",
+  "isPartOf": {
+    "@id": "https://tomato.tmarhguy.com/#website"
+  },
+  "inLanguage": "en-US"
+}</script>
+  <!-- /tomato-seo -->
+<link rel="stylesheet" href="css/virtual.css?v=c99284c1" />
+</head>
+<body class="project-document">
+<div class="page project-page project-virtual"><a class="project-skip" href="#main">Skip to content</a>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a aria-current="page" href="virtual.html">Play Tomato</a><a href="envelop.html">Message Tomato</a><a href="architecture.html">Engineering</a><a href="journal.html">Journal</a><a href="gallery.html">Gallery</a><a href="status.html">Status</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="virtual.html">Virtual Tomato</a><a href="envelop.html">Envelop</a><a href="https://tmarhguy.github.io/envelop/chat/">Envelop chat</a><a href="compute.html">Compute</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
+<main class="project-main" id="main">
+<nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="index.html">Home</a></nav><section aria-labelledby="page-title" class="vt-head">
+<div class="vt-head-row">
+<h1 class="vt-title" id="page-title">Run Tomato in your browser</h1>
+<p class="vt-sub">Functional emulator · <a href="os.html">Tomato OS</a> · <a href="software.html">Software</a> · <a href="playground.html">Playground</a></p>
+</div>
+</section>
+<section class="section">
+<div class="wrap">
+<noscript>
+<p class="slice-lede">Enable JavaScript to run the virtual Tomato board.</p>
+</noscript>
+<div class="vt-stage" id="vt-stage">
+<div class="vt-toolbar">
+<div class="vt-status" id="vt-stats" role="status">Loading…</div>
+<span class="vt-status" id="vt-firmware">firmware …</span>
+<div class="vt-row"><button id="vt-fullscreen" type="button">Fullscreen</button> <button id="vt-hide" type="button">Hide controls</button></div>
+</div>
+<div class="vt-layout" id="vt-main">
+<section aria-label="Tomato screen">
+<canvas class="vt-screen" id="vt-screen" width="640" height="480" tabindex="0" aria-label="Tomato screen. Click, then use arrow keys and Enter."></canvas>
+<p class="vt-note">Click the screen, then use <b>↑ ↓ ← →</b> and <b>Enter</b> — keys work whenever the screen or controls have focus, including fullscreen. From the menu, ↑ selects Envelop and Enter opens it.</p>
+<p class="vt-note" id="vt-notice" role="status"></p>
+</section>
+<aside class="vt-panel" aria-label="Controls">
+<h2>Five-button controller</h2>
+<div class="vt-pad"><button class="vt-up" data-key="30" aria-label="Up">↑</button><button class="vt-left" data-key="17" aria-label="Left">←</button><button data-key="13" aria-label="Center">●</button><button data-key="16" aria-label="Right">→</button><button class="vt-bottom" data-key="31" aria-label="Down">↓</button></div>
+<div class="vt-row"><button id="vt-pause" type="button">Pause</button> <button id="vt-reset" type="button">Reset OS</button></div>
+<h2>Simulated phone</h2>
+<div><button id="vt-demo" type="button">Connect demo phone</button></div>
+<label for="vt-contact-name">New contact name</label>
+<input id="vt-contact-name" value="New contact" maxlength="32"/>
+<div><button id="vt-add-contact" type="button">Add / update contact 4</button></div>
+<label for="vt-route">Send to conversation</label>
+<select id="vt-route"><option value="1">Ama Mensah</option><option value="2">Kofi</option><option value="3">Ada</option></select>
+<label for="vt-message">Incoming test message</label>
+<input id="vt-message" value="Hello" maxlength="256"/>
+<div class="vt-row"><button id="vt-send" type="button">Send to Tomato</button> <button id="vt-disconnect" type="button">Disconnect</button></div>
+<p class="vt-note">A local test bridge, not Bluetooth or the Internet. Open Envelop, connect to load three test contacts. In Envelop: ↑/↓ choose a character, Enter adds it, → sends, ← goes back.</p>
+</aside>
+</div>
+</div>
+<figure class="vt-proof"><img src="assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp" width="1440" height="1000" loading="lazy" decoding="async" alt="Envelop open in Tomato OS inside the desktop Virtual Tomato emulator, with simulated phone controls"/><figcaption>Current generated OS image · browser CPU emulator · simulated phone · bridge offline · no FPGA or Internet messaging.</figcaption></figure>
+</section>
+<section class="section">
+<div class="wrap site-prose">
+<details class="vt-about">
+<summary>About this emulator</summary>
+<h2>What is running here</h2>
+<p>The current OS assembly — <span class="mono">software/os/tomato_os.s</span> plus the Envelop app, assembled by <span class="mono">software/assembler.py</span> — repacked by <span class="mono">tools/build_web_image.py</span> into one 187&nbsp;KB image (<span class="mono">web/data/tomato-os.bin</span>) and executed by a small CPU core (<span class="mono">web/js/tomato-cpu.js</span>) that decodes the microcode tables from the hardware source. Every pixel is painted by real Tomato instructions.</p>
+<p>It is a <strong>functional emulator</strong>: behavior, not timing. Its guest timer models a 6.25 MHz CPU, but execution speed is set by the browser's time-and-step budget, so this is not a 6.25 MHz or cycle-accurate emulator. It proves what the software does, not what the silicon does — the Verilator sims, formal checks, and the FPGA remain ground truth. Scripted sessions replay through the same core file in <span class="mono">web/tests/tomato-emu.mjs</span> on every site build.</p>
+ <h2>Envelop and remote compute</h2><p><a href="envelop.html">Envelop</a> connects a person to the client inside Tomato OS through a queued backend and a nearby verified bridge. This browser demo uses a local simulated phone: it never claims Internet, radio, or FPGA execution. Hardware and Virtual Tomato are separate targets, and a timeout never triggers automatic virtual replay. <a href="compute.html">Read the compute boundary</a>.</p><h2>Run it locally instead</h2>
+<p>For the cycle-level machine with the desktop harness: <span class="mono">python3 tools/virtual_tomato.py</span>, then open <span class="mono">http://127.0.0.1:8766</span>. Regression: <span class="mono">python3 tools/test_virtual_tomato.py</span>.</p>
+<nav aria-label="Go deeper" class="slice-more">
+<a href="os.html">Tomato OS sheet</a>
+<a href="compute.html">Compute preview</a>
+<a href="https://tmarhguy.github.io/envelop/">Envelop</a>
+<a href="https://tmarhguy.github.io/envelop/chat/">Envelop web chat</a>
+<a href="software.html">Assembler &amp; toolchain</a>
+<a href="isa.html">ISA sheet</a>
+<a href="https://github.com/tmarhguy/tomato/blob/main/tools/build_web_image.py">Image builder source</a>
+</nav>
+</details>
+</div>
+</section>
+</main>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a aria-current="page" href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+</div>
+<script src="js/virtual.js?v=d4a23e0d" type="module"></script>
+<script defer="" src="js/mast.js?v=7cf4c39a"></script>
+<!-- tomato-vercel -->
+<script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
+<script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>
+<!-- /tomato-vercel -->
+</body>
+</html>

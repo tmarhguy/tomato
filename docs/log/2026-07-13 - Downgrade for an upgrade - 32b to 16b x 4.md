@@ -5,3 +5,7 @@ I am handling the concept of flag propagation with critical design as internal b
 The current design of propagating zero flags as Zero In and Zero out per cell handles the notorious zero flag. Others remain trivial by their identities. For instance Carry out flag is Sum(n+1) bit and so on.
 
 The additional consequence of this downgrade for upgrade is the board size reduces from the initial squeezed up 240mm by 240mm design to about half of that (true dimensions is yet to be confirmed). I estimated 120mm by 120mm but with extreme reusability of the fabricated boards with no waste.
+
+<p align="center"><img src="../../web/assets/story/kicad/24cm-routing.png" alt="KiCad routing of the abandoned 240 millimeter square 32-bit ALU board" width="70%" /></p>
+
+*Retrospective KiCad illustration · the monolithic 32-bit routing problem that prompted reusable 16-bit macro cells.*

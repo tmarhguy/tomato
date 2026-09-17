@@ -2,7 +2,7 @@
   "name": "tomato-web",
   "private": true,
   "type": "module",
-  "description": "Static broadsheet for The Tomato — live at tomato.tmarhguy.com",
+  "description": "Static project site and functional Tomato browser emulator",
   "scripts": {
     "start": "node scripts/serve.mjs",
     "test": "node --test tests/*.mjs",
@@ -17,14 +17,16 @@
     "apply-seo": "node scripts/apply-seo.mjs",
     "apply-vercel": "node scripts/apply-vercel.mjs",
     "hash:assets": "node scripts/hash-assets.mjs",
-    "build-isa": "node scripts/build-isa.mjs"
+    "build-isa": "node scripts/build-isa.mjs",
+    "build:diagrams": "node scripts/build-readme-diagrams.mjs"
   },
   "devDependencies": {
     "@gltf-transform/core": "^4.2.1",
     "@gltf-transform/extensions": "^4.2.1",
     "@gltf-transform/functions": "^4.2.1",
+    "@mermaid-js/mermaid-cli": "^11.17.0",
     "draco3dgltf": "^1.5.7",
-    "sharp": "^0.35.3",
+    "sharp": "^0.35.4",
     "write-good": "^1.0.8"
   },
   "engines": {

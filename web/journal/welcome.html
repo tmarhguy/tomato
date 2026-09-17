@@ -27,11 +27,11 @@
 <link href="../css/magazine.css?v=4f8da71e" rel="stylesheet"/>
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
-<link rel="stylesheet" href="../css/navigation.css?v=4247b616" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="The opening Tomato 32 build-log entry, introducing the project’s path from simple gates to a configurable datapath." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Welcome, Tomato, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -39,7 +39,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Welcome to Tomato 32 — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="The opening Tomato 32 build-log entry, introducing the project’s path from simple gates to a configurable datapath." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/welcome.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/welcome.html" />
@@ -53,7 +53,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Welcome to Tomato 32 — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="The opening Tomato 32 build-log entry, introducing the project’s path from simple gates to a configurable datapath." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -62,7 +62,7 @@
   "@id": "https://tomato.tmarhguy.com/journal/welcome.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal/welcome.html",
   "name": "Welcome to Tomato 32 — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "The opening Tomato 32 build-log entry, introducing the project’s path from simple gates to a configurable datapath.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -78,7 +78,7 @@
 </head>
 <body class="project-document">
 <div class="page project-page project-article journal-redesign"><a class="project-skip" href="#main">Skip to content</a>
-<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Message Tomato</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Journal</a><a href="../gallery.html">Gallery</a><a href="../status.html">Status</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
 <main data-journal-kind="engineering" class="project-main" id="main">
 <nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../journal.html">Journal</a></nav><section aria-labelledby="page-title" class="project-hero project-hero-text">
 <div class="project-hero-copy">
@@ -87,10 +87,11 @@
 <p class="deck">A build log for the questions that come up and the answers settled for — from simple gates to a parametric datapath.</p>
 <p class="byline">Tyrone Marhguy · the vault opens</p>
 </div>
-</section><aside class="journal-decision" aria-label="The entry at a glance"><div><span>The starting point</span><p>Questions become design decisions</p></div><div><span>The move</span><p>Keep a dated build journal</p></div><div><span>The result or direction</span><p>Follow the machine as it changes</p></div></aside>
+</section><aside class="journal-decision" aria-label="Historical warning"><div><span>Historical journal warning</span><p>Entries preserve proposals, experiments, wrong turns, and facts as known on their dates</p></div><div><span>Not current authority</span><p>Do not use a dated entry as the current machine specification</p></div><div><span>Current facts</span><p>Use the status, architecture, ISA, RTL, physical evidence, and software sources for the question at hand</p></div></aside>
 <section class="section section--journal">
 <div class="site-prose wrap">
-<p class="">This is a build log for Tomato 32. It keeps track of the questions that come up and the answers settled for. It is focused on constraints explored and the journey from building simple logic gates to a parametric datapath — a machine where an ISA is a map onto muxes, not a second computer in copper.</p>
+<p class=""><strong>Historical record:</strong> this build log intentionally preserves ideas that were later revised or rejected. Claims in an entry describe its date; they do not override current FPGA RTL, physical/KiCad evidence, burned ROM/ISA tables, software sources, or the <a href="../status.html">current status</a>. In particular, ISA profile files are exploration data, not foreign-binary or native-compatibility claims.</p>
+<p>This is a build log for Tomato 32. It keeps track of the questions that come up and the answers settled for. It is focused on constraints explored and the journey from building simple logic gates to a configurable datapath.</p>
 <figure class="figure plate--square">
 <img alt="Half-soldered Tomato 07_alu held next to its Digital simulation." height="1120" loading="lazy" src="../assets/assembly/half-soldered-plate.webp" width="1120"/>
 </figure>
@@ -151,7 +152,7 @@
 <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/boards/02_shift_encoder/README.md"><code>hardware/kicad/boards/02_shift_encoder/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/boards/02-shift.html"><img alt="link" src="https://img.shields.io/badge/link-2563EB?style=for-the-badge"/></a></td></tr>
 <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/kicad/boards/07_alu/README.md"><code>hardware/kicad/boards/07_alu/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/boards/07-alu.html"><img alt="link" src="https://img.shields.io/badge/link-2563EB?style=for-the-badge"/></a></td></tr>
 <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/fpga/core/README.md"><code>hardware/fpga/core/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/architecture.html"><img alt="link" src="https://img.shields.io/badge/link-2563EB?style=for-the-badge"/></a></td></tr>
-<tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/fpga/tomato/README.md"><code>hardware/fpga/tomato/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/architecture.html"><img alt="link" src="https://img.shields.io/badge/link-2563EB?style=for-the-badge"/></a></td></tr>
+<tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/hardware/fpga/README.md"><code>hardware/fpga/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/architecture.html"><img alt="link" src="https://img.shields.io/badge/link-2563EB?style=for-the-badge"/></a></td></tr>
 <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/README.md"><code>verification/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/verification.html"><img alt="link" src="https://img.shields.io/badge/link-2563EB?style=for-the-badge"/></a></td></tr>
 <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/formal/README.md"><code>verification/formal/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/formal/README.md"><img alt="link" src="https://img.shields.io/badge/link-2563EB?style=for-the-badge"/></a></td></tr>
 <tr><td><a href="https://github.com/tmarhguy/tomato/blob/main/verification/rtl/README.md"><code>verification/rtl/README.md</code></a></td><td><a class="shield" href="https://tomato.tmarhguy.com/source.html#/blob/main/verification/rtl/README.md"><img alt="link" src="https://img.shields.io/badge/link-2563EB?style=for-the-badge"/></a></td></tr>
@@ -179,9 +180,9 @@
 </div>
 </section>
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

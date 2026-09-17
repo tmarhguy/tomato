@@ -41,6 +41,8 @@ TomatoOS now has applications, lists, graphics, input, and now even a **wallpape
 
 <p align="center"><img src="../../web/assets/os/desktop-home.webp" alt="Tomato OS desktop with Ghana wallpaper on the FPGA" width="70%" /></p>
 
+*FPGA HDMI output · Tomato OS desktop and Ghana wallpaper running on the Nexys A7 display path.*
+
 In other words, it is becoming exactly what I dreamt it could be months ago, when I first found out that **building computers from scratch was even a thing people could do.**
 
 Right now, I am polishing things as tiny as the spacing between text.

@@ -3,7 +3,7 @@ module compound_tb;
     reg clk=0, reset=1;
     wire halted;
     main uut(.clk(clk),.reset(reset),.kb_data(8'd0),.kb_ready(1'b0),
-        .tile_rclk(clk),.tile_raddr(13'd0),.halted(halted));
+        .tile_rclk(clk),.tile_raddr(13'd0),.halted(halted),.ble_rdata(32'd0));
     always #5 clk=~clk;
     task tick; begin @(posedge clk); #1; end endtask
     integer i,j,n,mask_exec,xor_exec;

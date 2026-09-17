@@ -4,8 +4,14 @@ module exhibit_tb;
     reg [7:0] kb_data=0;
     reg kb_ready=0;
     wire kb_rd,halted;
+    wire [7:0] io_out,ble_wdata;
+    wire [31:0] disp_value,tile_rdata;
+    wire [6:0] ble_addr;
+    wire ble_wr;
     main #(.CPU_HZ(1000000)) uut(.clk(clk),.reset(reset),.kb_data(kb_data),.kb_ready(kb_ready),
-        .kb_rd(kb_rd),.halted(halted),.tile_rclk(clk),.tile_raddr(13'd0));
+        .kb_rd(kb_rd),.io_out(io_out),.disp_value(disp_value),.halted(halted),
+        .tile_rclk(clk),.tile_raddr(13'd0),.tile_rdata(tile_rdata),
+        .ble_addr(ble_addr),.ble_wr(ble_wr),.ble_wdata(ble_wdata),.ble_rdata(32'd0));
     always #5 clk=~clk;
     always @(posedge clk) if(kb_rd) kb_ready<=0;
     task tick;begin @(posedge clk);#1;end endtask
@@ -38,7 +44,7 @@ module exhibit_tb;
         for(i=0;i<8192;i=i+1) begin uut.vga0.lo[i]=0;uut.vga0.hi[i]=0;end
         $readmemh("tb/mem/tomato_os.mem",uut.dmem);
         tick;tick;reset=0;wait_n(200000);
-        repeat(3) key(8'h1e,20000); // wrap from top -> Sudoku (index 9)
+        repeat(9) key(8'h1f,20000); // down from top -> Sudoku (index 9)
         key(8'h0d,200000);
         if(uut.dmem[14'hf00]!==5) $fatal(1,"Sudoku not initialized");
         key(8'h0d,50000);
@@ -69,13 +75,13 @@ module exhibit_tb;
         capture("/tmp/tomato-alu.tiles");
         key(8'h0d,200000);
         key(8'h1f,20000);key(8'h0d,200000); // ALU Studio -> Racer
-        if(uut.regs0.mem[28]!==1) $fatal(1,"Racer not launched");
+        if(uut.regs0.mem[28]!==2) $fatal(1,"Racer not launched");
         key(8'h10,120000);
-        if(uut.regs0.mem[28]!==2) $fatal(1,"Racer right failed");
+        if(uut.regs0.mem[28]!==3) $fatal(1,"Racer right failed");
         key(8'h11,120000);
-        if(uut.regs0.mem[28]!==1) $fatal(1,"Racer left failed");
+        if(uut.regs0.mem[28]!==2) $fatal(1,"Racer left failed");
         capture("/tmp/tomato-racer.tiles");
-        uut.regs0.mem[29]=1;uut.regs0.mem[30]=39;
+        uut.regs0.mem[29]=2;uut.regs0.mem[30]=39;
         key(8'h1e,100000);
         if(uut.vga0.lo[28*80+26][7:0]!=="C") $fatal(1,"Racer collision missing");
         key(8'h0d,200000);

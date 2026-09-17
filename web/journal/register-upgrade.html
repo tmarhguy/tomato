@@ -27,12 +27,12 @@
 <link href="../css/magazine.css?v=4f8da71e" rel="stylesheet"/>
 <link href="../css/site.css?v=5142da6b" rel="stylesheet"/>
 <link href="../css/brand.css?v=7700e16c" rel="stylesheet"/>
-<link rel="stylesheet" href="../css/navigation.css?v=4247b616" />
-<script src="../js/navigation.js?v=c3d656fc" defer></script>
+<link rel="stylesheet" href="../css/navigation.css?v=224d88a5" />
+<script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <link rel="stylesheet" href="../css/page-media.css?v=dd88a842"/>
 <!-- tomato-seo -->
-  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="description" content="A historical August 2026 discrete-register proposal for 32,768 SRAM locations; current FPGA RTL uses 256 × 32-bit registers." />
   <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, Register, Upgrade, tomato, 32-bit" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
@@ -40,7 +40,7 @@
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
   <meta property="og:title" content="Register Upgrade — The Tomato" />
-  <meta property="og:description" content="The Tomato 32-bit CPU" />
+  <meta property="og:description" content="A historical August 2026 discrete-register proposal for 32,768 SRAM locations; current FPGA RTL uses 256 × 32-bit registers." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/register-upgrade.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/register-upgrade.html" />
@@ -54,7 +54,7 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="Register Upgrade — The Tomato" />
-  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
+  <meta name="twitter:description" content="A historical August 2026 discrete-register proposal for 32,768 SRAM locations; current FPGA RTL uses 256 × 32-bit registers." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
@@ -63,7 +63,7 @@
   "@id": "https://tomato.tmarhguy.com/journal/register-upgrade.html#webpage",
   "url": "https://tomato.tmarhguy.com/journal/register-upgrade.html",
   "name": "Register Upgrade — The Tomato",
-  "description": "The Tomato 32-bit CPU",
+  "description": "A historical August 2026 discrete-register proposal for 32,768 SRAM locations; current FPGA RTL uses 256 × 32-bit registers.",
   "isPartOf": {
     "@id": "https://tomato.tmarhguy.com/#website"
   },
@@ -79,17 +79,17 @@
 </head>
 <body class="project-document">
 <div class="page project-page project-article journal-redesign"><a class="project-skip" href="#main">Skip to content</a>
-<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../index.html#what-is-tomato">The idea</a><a href="../index.html#running">See it run</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Build journal</a><a href="../faq.html">FAQ</a><a href="../gallery.html">Gallery</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
+<header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="../index.html"><img alt="" height="40" src="../assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Message Tomato</a><a href="../architecture.html">Engineering</a><a href="../journal.html">Journal</a><a href="../gallery.html">Gallery</a><a href="../status.html">Status</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="../index.html">Home</a><a href="../architecture.html">Architecture</a><a href="../playground.html">Playground</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../isa.html">ISA</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Build journal</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../viewer.html">Tour the board</a><a href="../source.html">Source</a><a href="../board.html">Board workspace</a></nav></details></header>
 <main data-journal-kind="engineering" class="project-main" id="main">
 <nav aria-label="Breadcrumb" class="project-breadcrumb"><a href="../journal.html">Journal</a></nav><section aria-labelledby="reg-title" class="project-hero project-hero-text">
 <div class="project-hero-copy">
 <p class="kicker">Dispatch · General Purpose Register File</p>
 
 <h1 class="project-title" id="reg-title">The address pins were there.<br/>I used all fifteen.</h1>
-<p class="deck bank-open__deck">A register-file upgrade from 32 to 32,768 locations, using a banked address and the SRAM already chosen for the machine.</p>
+<p class="deck bank-open__deck">A historical proposal to grow a discrete SRAM register file from 32 to 32,768 locations. Current FPGA RTL uses 256 × 32-bit registers.</p>
 <p class="byline">29 August 2026 · from the log · <a href="#why-32768">Why 32,768?</a></p>
 </div>
-</section><aside class="journal-decision" aria-label="The entry at a glance"><div><span>The starting point</span><p>Unused SRAM address depth</p></div><div><span>The move</span><p>Add a seven-bit superbank latch</p></div><div><span>The result or direction</span><p>32,768 locations, 32-bit instructions</p></div></aside><nav class="journal-chapters" aria-label="In this entry"><span>In this entry</span><a href="#read-why-32-768-general-purpose-register-file">More address space. The same instruction width.</a><a href="#read-32-gpr-256-gpr-32-768-gpr">32 GPR  256 GPR  32,768 GPR</a><a href="#read-secondary-bank-is-state-not-a-field">Secondary bank is state, not a field</a><a href="#read-why-plain-sram-gives-tomato-3r1w">Why plain SRAM gives Tomato 3R1W</a><a href="#read-the-waste-that-started-this">The waste that started this</a><a href="#read-sram-upgrade-as6c6264-as6c62256">SRAM upgrade: AS6C6264  AS6C62256</a><a href="#read-how-absurd">How absurd?</a><a href="#read-final-organization">Final organization</a><a href="#read-next">Implementation checklist</a></nav>
+</section><aside class="journal-decision" aria-label="Historical warning"><div><span>Historical proposal</span><p>The 32,768-location superbank design was not adopted in current FPGA RTL</p></div><div><span>Current FPGA fact</span><p>256 × 32-bit registers · eight banks of 32 · r0 fixed to zero</p></div><div><span>Read this page as</span><p>A dated design exploration, not current machine specification</p></div></aside><nav class="journal-chapters" aria-label="In this entry"><span>In this entry</span><a href="#read-why-32-768-general-purpose-register-file">More address space. The same instruction width.</a><a href="#read-32-gpr-256-gpr-32-768-gpr">32 GPR  256 GPR  32,768 GPR</a><a href="#read-secondary-bank-is-state-not-a-field">Secondary bank is state, not a field</a><a href="#read-why-plain-sram-gives-tomato-3r1w">Why plain SRAM gives Tomato 3R1W</a><a href="#read-the-waste-that-started-this">The waste that started this</a><a href="#read-sram-upgrade-as6c6264-as6c62256">SRAM upgrade: AS6C6264  AS6C62256</a><a href="#read-how-absurd">How absurd?</a><a href="#read-final-organization">Final organization</a><a href="#read-next">Implementation checklist</a></nav>
 <section class="section section--room section--journal" id="why-32768">
 <div class="wrap">
 <article class="faq-gpr faq-gpr--panel">
@@ -98,7 +98,7 @@
 <h2 class="faq-gpr__title" id="read-why-32-768-general-purpose-register-file">More address space. The same instruction width.</h2>
 </header>
 <div class="faq-gpr__body">
-<p class="faq-gpr__lead">Tomato exposes <strong>32,768 32-bit GPR locations</strong> because the selected discrete SRAMs (<span class="mono">AS6C62256-55PCN</span>, 32K × 8) already provide a full <strong>15-bit address space</strong>. The chips, buses, and mirrored 3R1W structure are already in the design — exposing anything less would leave usable address depth disconnected.</p>
+<p class="faq-gpr__lead">This proposal would expose <strong>32,768 32-bit GPR locations</strong> because the selected discrete SRAMs (<span class="mono">AS6C62256-55PCN</span>, 32K × 8) provide a full <strong>15-bit address space</strong>. It describes a proposed mirrored 3R1W discrete structure, not the current FPGA register file.</p>
 <p class="faq-gpr__punch">That is <strong>128 KiB of logical register storage</strong>. The comparison with half a Blackwell SM concerns capacity only; it does not compare access behavior or performance.</p>
 </div>
 <aside aria-label="At a glance" class="faq-gpr__aside">
@@ -129,7 +129,7 @@
 <span class="bank-steps__n">256 GPR</span>
 <span class="bank-steps__how">+ <span class="mono">bank:3</span></span>
 </li>
-<li class="is-now">
+<li>
 <span class="bank-steps__n">32,768 GPR</span>
 <span class="bank-steps__how">+ <span class="mono">superbank:7</span></span>
 </li>
@@ -141,7 +141,7 @@
 </article>
 </div>
 </section>
-<section class="section section--journal">
+<section class="section section--journal"><div class="wrap site-prose"><p><strong>Historical warning — current context (16 September 2026):</strong> this entry records a 32,768-location discrete-memory proposal. Current FPGA RTL implements 256 × 32-bit registers in eight banks, with r0 hardwired to zero. <span class="mono">SETBANK2</span> and the seven-bit superbank are not present in that RTL.</p></div>
 <div class="site-prose wrap">
 <p class="">It was only right to start Tomato with the conventional <strong>32 general-purpose registers</strong>. But there was an obvious waste: the discrete register file was already going to use parallel asynchronous SRAMs with thousands of available addresses.</p>
 <nav aria-label="Related dispatches" class="see-also">
@@ -397,7 +397,7 @@ MUL r2, r9, r20
 <li>Yosys and the rest of the open-source FPGA flow for hardware bring-up</li>
 </ol>
 </article>
-<p class="prose-foot">This started as trying not to waste an SRAM. Now Tomato has <strong>32,768 GPR</strong> — because the chips come with <strong>15 address bits</strong>, and using any less is a waste.</p>
+<p class="prose-foot">This proposal started as an attempt not to waste SRAM address pins. It would have exposed <strong>32,768 GPR</strong>; current FPGA Tomato instead has <strong>256 × 32-bit registers</strong>.</p>
 </div>
 <div class="wrap">
 <nav class="pager">
@@ -406,11 +406,13 @@ MUL r2, r9, r20
 </nav>
 </div>
 </section>
+
+
 <!-- page-media:start --><section class="media-evidence project-frame" aria-labelledby="media-evidence-title"><header><p class="kicker">From the build</p><h2 id="media-evidence-title">The work behind the words.</h2></header><div class="media-evidence-grid"><figure><a class="media-evidence-image" href="../assets/plates/digital-main.jpg" aria-label="View larger: Tomato main schematic in Digital"><img src="../assets/plates/digital-main.jpg" alt="Tomato main schematic in Digital" loading="lazy" decoding="async"/></a><figcaption><a href="../architecture.html">The complete simulated machine</a><p>Datapath and control connected in Digital.</p></figcaption></figure><figure><a class="media-evidence-image" href="../assets/gallery/os/main-menu-screen-1280w.webp" aria-label="View larger: Tomato OS main menu on a display"><img src="../assets/gallery/os/main-menu-screen-1280w.webp" srcset="../assets/gallery/os/main-menu-screen-640w.webp 640w, ../assets/gallery/os/main-menu-screen-1280w.webp 1280w" sizes="(max-width: 650px) 90vw, 45vw" alt="Tomato OS main menu on a display" loading="lazy" decoding="async"/></a><figcaption><a href="../os.html">Tomato OS on screen</a><p>The menu running through the FPGA display path.</p></figcaption></figure></div></section><!-- page-media:end -->
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../architecture.html">Architecture</a><a href="../verification.html">Verification</a><a href="../isa.html">Instruction set</a><a href="../software.html">Software</a><a href="../os.html">Tomato OS</a><a href="../playground.html">Playground</a><a href="../boards.html">Board catalog</a><a href="../board.html">Board workspace</a><a href="../viewer.html">3D tour</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../source.html">Source</a><a href="../status.html">What exists today</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
-<script defer="" src="../js/mast.js?v=962ee819"></script>
+<script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
 <script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
 <script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>

@@ -37,7 +37,8 @@ module os_tb;
         .clk(clk), .reset(reset),
         .kb_data(kb_data), .kb_ready(kb_ready), .kb_rd(kb_rd),
         .io_out(io_out), .disp_value(disp_value), .halted(halted),
-        .tile_rclk(clk), .tile_raddr(tile_raddr), .tile_rdata(tile_rdata)
+        .tile_rclk(clk), .tile_raddr(tile_raddr), .tile_rdata(tile_rdata),
+        .ble_rdata(32'd0)
     );
 
     // Same handshake as the keypad: the key clears when the CPU reads it.
@@ -200,8 +201,21 @@ module os_tb;
         if (want_dump) dump_screen;
         if (!$test$plusargs("NO_NAV_CHECK")) begin
         press(8'h1E); repeat (settle) tick;
+        if (uut.regs0.mem[20] !== 13 || uut.vga0.lo[54*80+9][7:0] !== "E")
+            $fatal(1,"Envelop missing at end of launcher");
+        press(8'h10); repeat (settle) tick;
+        // Envelop Lite landmarks match the firmware UI test (envelop_tb):
+        // title at (2,2), CONTACTS header at (2,7).
+        if (uut.vga0.lo[2*80+2][7:0] !== "E" ||
+            uut.vga0.lo[7*80+2][7:0] !== "C")
+            $fatal(1,"Envelop Lite screen missing");
+        press(8'h11); repeat (settle) tick;
+        press(8'h1E); repeat (settle) tick;
+        if (uut.regs0.mem[20] !== 12 || uut.vga0.lo[51*80+9][7:0] !== "C")
+            $fatal(1,"Compiler missing before Envelop");
+        press(8'h1E); repeat (settle) tick;
         if (uut.regs0.mem[20] !== 11 || uut.vga0.lo[48*80+9][7:0] !== "R")
-            $fatal(1,"Racer missing at end of launcher");
+            $fatal(1,"Racer missing before Compiler");
         press(8'h1E); repeat (settle) tick;
         if (uut.regs0.mem[20] !== 10 ||
             uut.vga0.lo[45*80+9][15:8] !== 8'hf0 ||
@@ -214,6 +228,8 @@ module os_tb;
         press(8'h11); repeat (settle) tick;
         if (uut.regs0.mem[20] !== 10 || uut.vga0.lo[45*80+39][7:0] !== "A")
             $fatal(1, "return failed to retain focus");
+        press(8'h1F); repeat (settle) tick;
+        press(8'h1F); repeat (settle) tick;
         press(8'h1F); repeat (settle) tick;
         press(8'h1F); repeat (settle) tick;
         if (uut.regs0.mem[20] !== 0 ||

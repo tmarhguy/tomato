@@ -2,7 +2,7 @@
 
 <p align="center"><strong>512-row opcode ROM · assembler vocabulary · parametric maps.</strong></p>
 
-![ROM](https://img.shields.io/badge/ROM-512%20rows-2563EB) ![Burn](https://img.shields.io/badge/Burn-52%20opcodes-DC2626)
+![ROM](https://img.shields.io/badge/ROM-512%20rows-2563EB) ![Burn](https://img.shields.io/badge/Burn-62%20rows-DC2626)
 
 **Burn authority:** [`tomato.v1.csv`](tomato.v1.csv) — the microcode ROM.  
 **Assembler vocabulary:** [`tomato.v1.pseudo.csv`](tomato.v1.pseudo.csv) — mnemonics that expand into burns (no new ROM rows).
@@ -13,7 +13,7 @@
   <img src="../../web/assets/compiler/opcode-sweep-sim.webp" alt="Opcode sweep in simulation" width="48%" />
   <img src="../../web/assets/compiler/opcode-sweep-fpga.webp" alt="Opcode sweep on FPGA" width="48%" />
 </p>
-<p align="center"><em>Opcode sweep · sim and FPGA · rows of <code>tomato.v1.csv</code></em></p>
+<p align="center"><em>Opcode-sweep evidence from simulation and a documented FPGA run; see the source record for provenance.</em></p>
 
 | File | Role |
 |------|------|
@@ -33,14 +33,29 @@ cd hardware/fpga/core && make burn             # embed into rtl/burn/
 python3 software/assembler.py --selftest       # vocabulary vs burns
 ```
 
-**Policy:** solidified burn ops stay. Add new burns in `burn_core_rows()` when you need them. Empty ROM rows are `status=nop`. Pseudos never invent opcodes.
+**Policy:** solidified burned instructions stay. Add new burns in
+`burn_core_rows()` only with an intentional ISA change. Empty ROM rows are
+`status=nop`. Pseudos never invent opcodes.
 
 ---
 
 ## Locked decisions
 
-- **Not a ~20-opcode lean map.** v1 ships **52 burned opcodes** (instruction set proper; idle `NOP` at row 0 sits beside them in the ROM). Unused rows are `status=nop` (no growth phantoms). The Dual-LUT **configuration space** (`256 × 256 × 8` carry selects) is much larger; that is not “524,288 installed instructions.”
-- **Register file is 32,768 × 32-bit.** Address = `{superbank:7, bank:3, register:5}` on `AS6C62256` depth. The instruction word still carries only `bank:3` + `register:5` (a 256-reg window); `SETBANK2` updates the latched superbank. See the [register-upgrade dispatch](https://tomato.tmarhguy.com/journal/register-upgrade.html).
-- **No tile VPU.** Display is CPU-painted tile RAM + independent VGA scanout (`software/os/DISPLAY.md`). Games stay software; a future rect blitter is optional.
+- **Exact count.** v1 has **61 instructions plus NOP, 62 burned rows**.
+  Unused rows are safe NOP rows. The Dual-LUT configuration space
+  (`256 × 256 × 8` carry selections) is much larger; it is not an installed
+  instruction count.
+- **Physical register array is 256 × 32-bit.** Current FPGA RTL combines three
+  bank bits with each five-bit register field and keeps `r0` hardwired to zero.
+  The historical 32,768-entry discrete-SRAM proposal required a seven-bit
+  superbank and `SETBANK2`; neither is present in the current RTL or burned
+  ISA. This is not a documented Artix-7 capacity limit.
+- **Display is CPU-painted tile RAM plus independent scanout.** Games remain
+  software; a future blitter is not a current capability.
 - **ISA is a first-class input.** Overlay word + immediate box + dual-LUT absorb foreign encodings as maps onto muxes. Casual family count ~37 (CSV has more rows). See [ISA as a Wire](../log/2026-08-15%20-%20ISA%20as%20a%20Wire.md). Maps cover compute, shift, and register-access; not x86 segmentation or ARM TrustZone.
-- **Software sheet.** OS, assembler, and stack live on [tomato.tmarhguy.com/software.html](https://tomato.tmarhguy.com/software.html) and in [`software/`](../../software/).
+- **Software.** OS, assembler, and stack live in
+  [`software/`](../../software/) and are summarized in the
+  [Tomato OS guide](../../software/os/README.md).
+
+Current fact wording comes from [`../status.md`](../status.md); dated journal
+entries remain historical and may describe superseded ISA or register designs.
