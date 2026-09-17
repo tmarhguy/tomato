@@ -1,3 +1,5 @@
+> **Companion-project provenance:** Imported from Envelop’s engineering log on 17 September 2026. Original wording is preserved; referenced media is mirrored into Tomato’s gallery.
+
 > **Historical, noncanonical log (2026-09-15).** This records the project at
 > the time and may be superseded. See
 > [`docs/status.md`](../docs/status.md) for current facts and compute provenance.
