@@ -251,7 +251,7 @@ module games_tb;
         press(8'h1F);
         press(8'h0D);
         wait_str(7, 6, "SNAKE", 5, "snake title");
-        wait_str(24, 23, "press to sta", 11, "snake start prompt");
+        wait_str(24, 23, "press to sta", 12, "snake start prompt");
         press(8'h10);                    // start (already heading right)
         n = 0;
         count_glyph(db0, 20, 14, 59, 33, 8'hDB);
@@ -284,7 +284,7 @@ module games_tb;
         press(8'h1F);
         press(8'h0D);
         wait_str(7, 6, "TETRIS", 6, "tetris title");
-        wait_str(33, 25, "press to sta", 11, "tetris start prompt");
+        wait_str(33, 25, "press to sta", 12, "tetris start prompt");
         press(8'h10);
         n = 0;
         count_glyph(db0, 30, 16, 49, 35, 8'hDB);
