@@ -18,7 +18,10 @@ directory an architectural authority.
 | ALU board render | `web/assets/pcb/alu_8b_board.webp` | Lot 07 PCB design |
 | ALU routed board | `web/assets/pcb/alu_8b_pcb.jpg` | Board layout, not assembled hardware |
 | Digital schematic | `web/assets/story/digital/main-tomato-v1-burn.webp` | Editable architecture schematic view |
+| Envelop browser conversation | `web/assets/envelop/envelop-demo.mp4` + `envelop-demo-poster.webp` | Browser UI recording of a hello and Tomato’s multi-message reply; not physical-hardware evidence |
 | Envelop in current OS image | `web/assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp` | Browser-emulated OS UI with simulated peripherals; not FPGA or online bridge evidence |
+| Envelop FPGA frameport | `web/assets/gallery/os/envelop-as-seen-on-fpga-frameport.png` | FPGA display-path capture; reported bridge state applies only to the captured frame |
+| Envelop FPGA compute result | `web/assets/gallery/os/tomato-envelop-from-fpga-frameport.webp` | Optimized FramePort capture of a bounded result; not current bridge-availability evidence |
 | Compiler in current OS image | `web/assets/documentation/desktop/tomato-virtual-os-compiler-desktop.webp` | Browser-emulated current compiler screen |
 | Real-phone responsive pages | `web/assets/documentation/infinix/*.webp` | Current local site rendered on the documented Infinix; UI-only evidence |
 
