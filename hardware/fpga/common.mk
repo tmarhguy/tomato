@@ -119,11 +119,7 @@ synth: $(JSON)
 $(JSON): $(SRC) | $(BUILD)
 	@$(MAKE) --no-print-directory check-tools
 	@echo "==> yosys $(TOP)"
-	yosys -q -p 'read_verilog -lib $(XILINX_CELLS); \
-	             read_verilog $(YOSYS_READ) $(SRC); \
-	             hierarchy -check -top $(TOP); \
-	             synth_xilinx -flatten -abc9 $(SYNTH_OPTS) -top $(TOP); \
-	             write_json $(JSON)'
+	yosys -q -p 'read_verilog -lib $(XILINX_CELLS); read_verilog $(YOSYS_READ) $(SRC); hierarchy -check -top $(TOP); synth_xilinx -flatten -abc9 $(SYNTH_OPTS) -top $(TOP); write_json $(JSON)'
 
 pnr: $(FASM)
 
