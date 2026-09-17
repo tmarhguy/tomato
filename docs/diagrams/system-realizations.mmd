@@ -1,0 +1,37 @@
+flowchart TB
+    subgraph Sources["Editable sources and contracts"]
+        DIGITAL["Digital schematics<br/>hardware/digital"]
+        ISA["Burned ISA and pseudos<br/>docs/isa/*.csv"]
+        OS["Tomato OS and applications<br/>software/os/*.s"]
+        RTL["Machine RTL<br/>hardware/fpga/core/rtl"]
+        KICAD["Board designs<br/>hardware/kicad"]
+    end
+
+    subgraph Realizations["What can execute or be inspected"]
+        SLICE["Discrete 8-bit ALU slice<br/>assembled 74xx hardware"]
+        FPGA["FPGA Tomato<br/>complete Nexys A7 machine"]
+        SIM["RTL simulation<br/>Icarus testbenches"]
+        VIRTUAL["Virtual Tomato<br/>browser ISA emulator"]
+    end
+
+    subgraph Evidence["Checks and evidence"]
+        VERIFY["ALU verification<br/>formal + directed + optional UVM"]
+        CORETEST["Core, program, and OS tests"]
+        WEBTEST["Browser emulator + site tests"]
+        PHOTOS["PCB, assembly, and capture assets"]
+    end
+
+    DIGITAL --> KICAD --> SLICE
+    DIGITAL --> RTL
+    ISA --> RTL
+    OS --> RTL
+    RTL --> FPGA
+    RTL --> SIM
+    ISA --> VIRTUAL
+    OS --> VIRTUAL
+    DIGITAL --> VERIFY
+    RTL --> CORETEST
+    SIM --> CORETEST
+    VIRTUAL --> WEBTEST
+    SLICE --> PHOTOS
+    FPGA --> PHOTOS

@@ -25,6 +25,7 @@ with their source:
 - [FPGA core](../hardware/fpga/core/README.md)
 - [software](../software/README.md)
 - [verification](../verification/README.md)
+- [web and browser emulator](../web/README.md)
 
 ## Canonical versus historical
 

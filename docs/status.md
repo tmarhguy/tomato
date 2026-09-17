@@ -34,7 +34,7 @@ journal entries, or an available build target into a deployment claim.
 | Physical scope | A discrete ALU slice has been built; the complete running computer is the FPGA implementation. | `hardware/kicad/`, `web/assets/pcb/`, `hardware/fpga/core/` |
 | Dual-LUT ALU | The custom ALU takes three 32-bit sources; two independently programmed LUT3 functions feed an adder as `f(a,b,c) + g(a,b,c) + carry`. | `hardware/fpga/core/rtl/alu.v`, `hardware/digital/`, `hardware/kicad/boards/07_alu/` |
 | ISA count | **61 instructions plus NOP, 62 burned rows** in a 512-row control ROM. Pseudos do not add burned rows. | `docs/isa/tomato.v1.csv`; consistency check: `tools/gen_microcode_v1.py --check` |
-| Registers | The current FPGA register file is **256 × 32-bit**, arranged as eight banks of 32 registers with `r0` hardwired to zero. | `hardware/fpga/core/rtl/regs.v` |
+| Register array | The current FPGA RTL physically declares **256 × 32-bit entries**, addressed as `{bank[2:0], register[4:0]}`, with `r0` hardwired to zero. The current burned ISA does not establish access to a 32,768-entry superbank. | `hardware/fpga/core/rtl/regs.v`, `hardware/fpga/core/rtl/ir.v`, `docs/isa/tomato.v1.csv` |
 | Tomato OS | The assembled source identifies **TOMATO OS v3.0** and contains **14 menu entries**. `Desktop v1.2` is the workspace UI revision, not the OS version. | `software/os/tomato_os.s` (`s_title`, `s_sp_tag`, `menu_items`, `n_menu`) |
 | Envelop in Tomato OS | Envelop is one of those 14 entries. Its firmware, setup data, and bounded remote executor are linked into the OS image. | `software/os/envelop_lite.s`, `envelop_setup.s`, `remote_exec.s`, FPGA core `Makefile` |
 | Browser execution | The public browser implementation is a functional ISA-level emulator, not cycle-accurate RTL. Its checked-in image is derived from OS assembly and control data. | `web/js/tomato-cpu.js`, `tools/build_web_image.py`, `web/data/tomato-os.*` |
@@ -86,6 +86,13 @@ Use this path when explaining the integrated system:
 ## Known documentation drift
 
 The 32,768-register/`SETBANK2` proposal is a historical discrete-memory design,
-not current FPGA behavior. Current FPGA RTL implements **256 × 32-bit
-registers** in eight banks. Dated journal entries preserve superseded designs
-as history and must identify them as such.
+not current FPGA behavior. It depended on mirrored external SRAM and an
+additional seven-bit superbank latch. Current FPGA RTL instead declares a
+**256 × 32-bit physical array** addressed by three bank bits and a five-bit
+register field; neither the superbank latch nor `SETBANK2` is present in the
+RTL or burned ISA.
+
+This is an implementation and ISA distinction, not a demonstrated Artix-7
+capacity ceiling. The present asynchronous 3-read/1-write array maps to
+distributed RAM; the repository does not contain a failed 32,768-entry FPGA
+implementation or evidence that raw block-RAM capacity was exhausted.

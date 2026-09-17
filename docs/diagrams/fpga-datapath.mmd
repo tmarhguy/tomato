@@ -1,0 +1,29 @@
+flowchart TB
+    PC["Program counter"] --> DMEM["16K × 32<br/>program/data memory"]
+    DMEM --> IR["32-bit instruction register"]
+    IR --> DECODE["9-bit opcode<br/>512-row control"]
+    IR --> REGS["256 × 32 physical array<br/>3 read / 1 write"]
+
+    REGS --> ALU["Dual-LUT ALU<br/>f(a,b,c) + g(a,b,c) + carry"]
+    REGS --> SHIFTMUL["Shift / multiply / divide"]
+    DMEM --> LANE["Byte/word lane"]
+    ALU --> WB["Writeback mux"]
+    SHIFTMUL --> WB
+    LANE --> WB
+    PC --> WB
+    WB --> REGS
+    ALU --> ADDR["Memory address / store path"]
+    REGS --> ADDR
+
+    ADDR --> DMEM
+    ADDR --> TILE["0x300000<br/>80 × 60 tile framebuffer"]
+    ADDR --> IO["0x780000<br/>I/O window"]
+    IO --> KEYIO["base<br/>keyboard + timer"]
+    IO --> COMPILER["0x780080<br/>Dual-LUT compiler FSM"]
+    IO --> RADIO["0x780100<br/>nRF8001 ACI mailbox"]
+
+    KEYS["Nexys buttons"] --> KEYIO
+    TILE --> VIDEO["25 MHz scanout<br/>640 × 480 DVI"]
+    CLOCK["100 MHz board clock"] --> CPUCLK["6.25 MHz CPU clock"]
+    CPUCLK --> PC
+    CPUCLK --> REGS

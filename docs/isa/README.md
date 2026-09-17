@@ -45,10 +45,11 @@ python3 software/assembler.py --selftest       # vocabulary vs burns
   Unused rows are safe NOP rows. The Dual-LUT configuration space
   (`256 × 256 × 8` carry selections) is much larger; it is not an installed
   instruction count.
-- **Register file is 256 × 32-bit.** The current FPGA RTL implements eight
-  banks of 32 registers, with `r0` hardwired to zero. The 32,768-register
-  `SETBANK2` proposal appears in historical material but is not present in the
-  current FPGA implementation.
+- **Physical register array is 256 × 32-bit.** Current FPGA RTL combines three
+  bank bits with each five-bit register field and keeps `r0` hardwired to zero.
+  The historical 32,768-entry discrete-SRAM proposal required a seven-bit
+  superbank and `SETBANK2`; neither is present in the current RTL or burned
+  ISA. This is not a documented Artix-7 capacity limit.
 - **Display is CPU-painted tile RAM plus independent scanout.** Games remain
   software; a future blitter is not a current capability.
 - **ISA is a first-class input.** Overlay word + immediate box + dual-LUT absorb foreign encodings as maps onto muxes. Casual family count ~37 (CSV has more rows). See [ISA as a Wire](../log/2026-08-15%20-%20ISA%20as%20a%20Wire.md). Maps cover compute, shift, and register-access; not x86 segmentation or ARM TrustZone.

@@ -1,0 +1,22 @@
+flowchart TB
+    ISA["docs/isa/tomato.v1.csv"] --> MCGEN["gen_microcode_v1.py"]
+    MCGEN --> MCMEM["8 × 512-byte<br/>microcode planes"]
+    MCMEM --> BURN["gen_fpga_burn.py"]
+
+    OSSRC["tomato_os.s + linked<br/>Envelop/compute modules"] --> ASM["assembler.py"]
+    ISA --> ASM
+    ASM --> OSMEM["32-bit OS memory image"]
+    OSMEM --> BURN
+
+    BURN --> VH["Synthesizable burn headers<br/>rtl/burn/*.vh"]
+    VH --> CORE["Tomato machine RTL"]
+    CORE --> ICARUS["Icarus<br/>simulation + tests"]
+    CORE --> SYNTH["Yosys → nextpnr-xilinx<br/>→ Project X-Ray"]
+    SYNTH --> BIT["Nexys A7 bitstream"]
+
+    OSMEM --> WEBPACK["build_web_image.py"]
+    VH --> WEBPACK
+    DISPLAY["Font + palette + wallpaper"] --> WEBPACK
+    WEBPACK --> BIN["web/data/tomato-os.bin"]
+    BIN --> JSCPU["tomato-cpu.js"]
+    JSCPU --> BROWSER["Virtual Tomato"]

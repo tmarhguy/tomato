@@ -34,11 +34,19 @@ program counter → memory → instruction register
                  writeback and memory
 ```
 
-The current FPGA register file is **256 × 32-bit**, arranged as eight banks of
-32 registers. `r0` is hardwired to zero. Older journal entries describe a
-32,768-register superbank design; that design is historical and is not present
-in the current FPGA RTL. Authority:
-[`hardware/fpga/core/rtl/regs.v`](../hardware/fpga/core/rtl/regs.v).
+The current FPGA RTL declares a **256 × 32-bit physical register array**. Each
+address combines three bank bits with a five-bit register field; `r0` is
+hardwired to zero. Its asynchronous 3-read/1-write shape maps to distributed
+RAM on the Artix-7.
+
+Older journal entries describe a 32,768-register discrete-SRAM proposal. That
+design required mirrored external SRAM, a seven-bit superbank latch, and
+`SETBANK2`; none is present in the current FPGA RTL or burned ISA. The current
+size is therefore an implementation and ISA choice, not a documented Artix-7
+capacity limit. Authority:
+[`hardware/fpga/core/rtl/regs.v`](../hardware/fpga/core/rtl/regs.v),
+[`hardware/fpga/core/rtl/ir.v`](../hardware/fpga/core/rtl/ir.v), and
+[`isa/tomato.v1.csv`](isa/tomato.v1.csv).
 
 ## Dual-LUT ALU
 
@@ -81,7 +89,9 @@ The FPGA machine uses word addressing. Its principal windows are:
 |---|---:|---|
 | Data/program memory | `0x000000` | 16,384 × 32-bit program, data, and stack |
 | Framebuffer | `0x300000` | 80 × 60 text tiles |
-| Keyboard | `0x780000` | Keycode and ready/consume interface |
+| Keyboard and timer | `0x780000` | Keycode, ready/consume, milliseconds, and CPU-frequency words |
+| Dual-LUT compiler | `0x780080` | Fixed-example LUT-pair search registers |
+| nRF8001 ACI mailbox | `0x780100` | Machine-side radio controller window |
 
 The board harness provides 640×480 scanout, five-button input, clock/reset,
 and seven-segment output. These board-specific facilities are kept outside the

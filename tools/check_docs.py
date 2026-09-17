@@ -19,6 +19,12 @@ MAX_IMAGE_BYTES = 6 * 1024 * 1024
 CANONICAL_PREFIX = "https://tomato.tmarhguy.com/"
 INDEXABLE_EXCEPTIONS = {"404.html"}
 HISTORICAL_PARTS = {"log", "journal"}
+README_DIAGRAMS = (
+    "system-realizations",
+    "artifact-pipeline",
+    "fpga-datapath",
+    "envelop-boundary",
+)
 
 
 class DocumentParser(HTMLParser):
@@ -84,7 +90,18 @@ def local_target(source: Path, raw: str, site_root: Path | None = None) -> Path 
 
 def markdown_checks(errors: list[str]) -> None:
     pattern = re.compile(r"!?\[[^\]]*]\(([^)\s]+)(?:\s+['\"][^)]*['\"])?\)")
-    roots = [ROOT / "README.md", ROOT / "THIRD_PARTY_NOTICES.md", ROOT / "docs"]
+    roots = [
+        ROOT / "README.md",
+        ROOT / "THIRD_PARTY_NOTICES.md",
+        ROOT / "docs",
+        ROOT / "hardware" / "README.md",
+        ROOT / "hardware" / "fpga" / "README.md",
+        ROOT / "hardware" / "fpga" / "core" / "README.md",
+        ROOT / "software" / "README.md",
+        ROOT / "software" / "os" / "README.md",
+        ROOT / "verification" / "README.md",
+        ROOT / "web" / "README.md",
+    ]
     markdown: list[Path] = []
     for item in roots:
         markdown.extend(
@@ -208,6 +225,26 @@ def policy_checks(errors: list[str]) -> None:
     for path in WEB.rglob("*"):
         if path.is_file() and (path.name in blocked or path.suffix.lower() in blocked_suffixes):
             errors.append(f"{path.relative_to(ROOT)}: private/download artifact in public site")
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    if "```mermaid" in readme:
+        errors.append("README.md: native Mermaid block bypasses rendered diagram assets")
+    for name in README_DIAGRAMS:
+        source = ROOT / "docs" / "diagrams" / f"{name}.mmd"
+        if not source.exists():
+            errors.append(f"docs/diagrams/{name}.mmd: missing Mermaid source")
+        for variant in ("light", "dark"):
+            rel = f"web/assets/gallery/diagrams/{name}-{variant}.svg"
+            target = ROOT / rel
+            if not target.exists():
+                errors.append(f"{rel}: missing rendered README diagram")
+                continue
+            if rel not in readme:
+                errors.append(f"README.md: missing rendered diagram reference {rel}")
+            try:
+                ET.parse(target)
+            except (ET.ParseError, OSError) as exc:
+                errors.append(f"{rel}: invalid SVG ({exc})")
 
 
 def performance_claim_checks(errors: list[str]) -> None:
