@@ -4,6 +4,10 @@ I have spent the entire day, and much of that was waiting on synthesis, routing,
 
 Fast iteration needs something more. As it is, I have already proven that Tomato works extensively. To iterate on Envelop, I have designed a Python preview script to allow me to interact with the code written, with button keys, like I would if the same code were burned to the FPGA.
 
+<p align="center"><img src="../../web/assets/documentation/desktop/tomato-virtual-os-compiler-desktop.webp" alt="Compiler screen running inside Tomato OS in the desktop Virtual Tomato emulator" width="70%" /></p>
+
+*Browser emulation · the generated OS image in the functional CPU emulator; this preview shortens iteration but is not physical FPGA execution.*
+
 This has been a tough friction point, and initially with my frustration with Vivado ([Exploring Beyond Vivado](<./2026-08-28%20-%20Exploring%20Beyond%20Vivado%20-%20Open-Source%20Synthesis%20Pivot.md>)), I lamented on the cycle taking forever — but I had not worked with FPGA enough to fully appreciate it if I skipped those layers into, say, a Python preview. But now, I have built sufficient base intuition to skip to Python.
 
 This Python preview will act like a GitHub feature branch :) Maybe it took me too long to find this friction point and eliminate it! The realization of the hours this workflow will save me thrills me, but leaves me with at least two seemingly orthogonal thoughts:

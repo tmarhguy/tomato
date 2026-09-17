@@ -16,4 +16,8 @@ I have overhauled this logic layer to prioritize efficiency and routing symmetry
 
 The core arithmetic logic has been transitioned to a 74283-based implementation. The 32-bit ALU is now modularized into eight discrete 4-bit slices, with each slice paired to a dedicated 74283 chip. This allows for a clean, repetitive layout in KiCad that mirrors the natural 4-bit flow of the logic, facilitating shorter signal paths and improved timing stability for higher theoretical MHz target.
 
+<p align="center"><img src="../../web/assets/story/alu/cla-74182.png" alt="Digital schematic wall of 74182 carry-lookahead chips" width="70%" /></p>
+
+*Retrospective technical illustration · the carry-lookahead spine before NAND consolidation and localized 74283 slices reduced routing pressure.*
+
 The routing is now strictly localized to these slices, aligning perfectly with the intended hardware-software co-design goals.

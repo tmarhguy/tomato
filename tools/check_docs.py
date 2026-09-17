@@ -103,6 +103,25 @@ def markdown_checks(errors: list[str]) -> None:
             if target and not target.exists():
                 errors.append(f"{path.relative_to(ROOT)}: missing Markdown target {raw}")
 
+    # Historical prose may intentionally retain dead references, but local
+    # media embedded in dated dispatches must remain renderable.
+    media_suffixes = IMAGE_SUFFIXES | {".mp4", ".webm"}
+    dated_logs = sorted((ROOT / "docs" / "log").glob("????-??-?? - *.md"))
+    html_media = re.compile(
+        r"<(?:img|video)\b[^>]*\b(?:src|poster)=[\"']([^\"']+)[\"']",
+        re.IGNORECASE,
+    )
+    for path in dated_logs:
+        text = path.read_text(encoding="utf-8")
+        refs = pattern.findall(text) + html_media.findall(text)
+        for raw in refs:
+            split = urlsplit(unquote(raw.strip()))
+            if Path(split.path).suffix.lower() not in media_suffixes:
+                continue
+            target = local_target(path, raw)
+            if target and not target.exists():
+                errors.append(f"{path.relative_to(ROOT)}: missing local media target {raw}")
+
 
 def html_checks(errors: list[str]) -> list[Path]:
     pages = files_under(WEB, {".html"})

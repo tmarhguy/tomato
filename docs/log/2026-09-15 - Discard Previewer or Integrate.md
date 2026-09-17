@@ -4,6 +4,10 @@ There was an enormous wait time to get the fresh bitstream from each iteration, 
 
 Now, instead of discarding this or keeping this virtual render sitting in the repo unused, I am integrating it into the website so anyone can see what the FPGA would render, pixel for pixel. It is an amazing outcome for an unrelated problem I was solving.
 
+<p align="center"><img src="../../web/assets/documentation/infinix/tomato-virtual-os-envelop-infinix.webp" alt="Envelop open inside Tomato OS in the Virtual Tomato browser emulator on an Infinix phone" width="45%" /></p>
+
+*Browser emulation · current OS image with simulated peripherals and an offline bridge, shown at a real phone viewport; not FPGA hardware.*
+
 It's live. `web/virtual.html` is ready — run it with `cd web && npm run serve`, open `/virtual.html`, and you're using Tomato OS (menu, games, Envelop + demo phone) with real firmware executing in the tab.
 
 This follows [Synthesis Bypass](<./2026-09-14%20-%20Synthesis%20Bypass.md>) and [Envelop — Tomato gets a message app](<./2026-09-14%20-%20Envelop%20-%20Tomato%20gets%20a%20message%20app.md>).

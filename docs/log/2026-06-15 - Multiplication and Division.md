@@ -14,6 +14,9 @@ To solve this, I’m moving away from naïve sequencing toward a high-speed, spa
     
 3. **The Feedback Loop:** Since the encoder is purely combinational and has no memory, I’ve added a 16-bit feedback loop. An adder subtracts the last shifted value from the multiplier, "clearing" the bit we just processed. This updated value is latched and fed back into the encoder for the next cycle.
     
+<p align="center"><img src="../../web/assets/story/alu/barrel-shift.png" alt="Digital schematic of the barrel shifter built from 2-to-1 multiplexers" width="70%" /></p>
+
+*Retrospective technical illustration · the simulated shifter reused by the proposed multiply/divide feedback loop.*
 
 #### The Advantages
 

@@ -1,4 +1,4 @@
-# hdmi_test — the bring-up that first lit a monitor: 640x480@60 colour bars
+# hdmi_test — 640x480 nominal-60-Hz (~59.52 Hz) colour-bar bring-up
 # out of the 12-bit DVI PMOD, with no Vivado anywhere in the flow.
 #
 #   make setup                    # one-time: OSS CAD Suite + prjxray bitgen

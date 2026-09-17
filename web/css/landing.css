@@ -1089,8 +1089,8 @@ h1 {
 .running-layout{align-items:start}
 .running-layout h2{margin-top:0}
 .compiler-layout{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-.compiler-media-pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;min-width:0;align-items:start}
-.compiler-media-pair figure{margin:0;min-width:0;display:flex;flex-direction:column}
+.compiler-media-pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;min-width:0;align-items:stretch}
+.compiler-media-pair figure{height:100%;margin:0;min-width:0;display:flex;flex-direction:column}
 .compiler-media-pair .compiler-frame{height:15rem;min-height:15rem;max-height:15rem;background:#050505;display:grid;place-items:center;overflow:hidden}
 .compiler-media-pair .compiler-frame video{display:block;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;object-position:center;background:#050505}
 .compiler-media-pair figcaption,.compiler-media-pair p{font:.8125rem/1.6 var(--sans);color:var(--muted);margin-top:.7rem}
@@ -1276,7 +1276,6 @@ h1 {
 .hero-journeys .hero-journey-primary {
   background: color-mix(in srgb, var(--accent) 7%, transparent);
   color: var(--text);
-  box-shadow: inset 3px 0 0 var(--accent);
 }
 .hero-journeys .hero-journey-primary span { color: var(--muted); }
 .hero-journeys .hero-journey-primary:hover strong { color: var(--accent); }

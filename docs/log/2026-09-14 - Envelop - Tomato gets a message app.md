@@ -6,4 +6,8 @@ The goals were to connect to a screen and then text my phone. Two simple goals, 
 
 Now, Envelop does what you think it does: you send a message, and receive on a connected device — a phone for a start. I will add a quick custom iOS app just to keep this real and functional, with my own customization just for Tomato.
 
+<p align="center"><img src="../../web/assets/documentation/desktop/tomato-virtual-os-envelop-desktop.webp" alt="Envelop open inside Tomato OS in the desktop Virtual Tomato emulator" width="70%" /></p>
+
+*Browser emulation · current Tomato OS image with Envelop and simulated phone controls; the bridge is offline and this is not FPGA or live-message evidence.*
+
 I captured Envelop's first message: **Hello, Hello Ghanafo!** (people of Ghana!). For my final act of love, I built a computer from scratch just to tell you how much I miss us!

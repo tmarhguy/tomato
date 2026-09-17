@@ -63,10 +63,9 @@ $(SIM)/nrf8001_idle_tb.vvp: rtl/nrf8001_idle.v tb/nrf8001_idle_tb.v | $(SIM)
 TOP        := nexys_top
 SRC        := $(RTL) $(BOARD)
 XDC        := constr/nexys.xdc
-# nextpnr --freq is one number for every named clock. cpu_clk actually runs at
-# 6.25 MHz (100/16) and pix_clk at 25 MHz; 100 MHz was a vanity Fmax check that
-# fails when a rebuild places ~2.5 % worse (97.5 MHz this pass). 90 still
-# proves an order of magnitude of margin without aborting a legal route.
+# nextpnr --freq is one timing target for every named clock. cpu_clk actually
+# runs at 6.25 MHz (100/16) and pix_clk at 25 MHz. 90 MHz asks place-and-route
+# to close well above both runtime domains; it is not a runtime or Fmax claim.
 FREQ_MHZ   := 90
 YOSYS_INC  := rtl
 # -nodsp: a 33x33 multiply tiles across several DSP48s wired PCOUT→PCIN, and

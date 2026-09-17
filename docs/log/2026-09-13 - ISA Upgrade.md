@@ -12,6 +12,10 @@ Two of these combo moves already had names (MASKADD and XORAND). But the hardwar
 
 So I spent the evening naming nine of them. The easy and obvious ones first, then the carry and three-input ones:
 
+<p align="center"><img src="../../web/assets/os/alu-studio-screen.jpg" alt="ALU Studio comparing Tomato MASKADD with a two-instruction reference sequence" width="70%" /></p>
+
+*Conceptual FPGA HDMI illustration · ALU Studio demonstrates one compound operation, MASKADD; it is not evidence that all nine new instructions were tested in this frame.*
+
 - **ANDN** keeps the bits of A except where B has them. Clearing bits without taking a detour through a NOT first.
 - **ORN** is its mirror.
 - **CSEL** picks A or B depending on C. Making a choice without branching off somewhere else, which is one of my favorite things a computer can do.

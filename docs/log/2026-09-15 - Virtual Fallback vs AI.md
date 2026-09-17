@@ -6,6 +6,10 @@ This imo is closest anyone anywhere in the world can get as close as possible to
 
 I however notieced not so many people can write quality assembly with no syntax and in the stule that tomat understands, so instead, I uypgraded envelop as a top level "cleaner" and precompiler. It converts into tomato assmebly, and shows you throughout the message that went to tomato, and whta tomato processed, including the hex code! So much transparency because, the goal is to see what tomato is really doing behind the sceneces and so on.
 
+<p align="center"><img src="../../web/assets/documentation/desktop/tomato-compute-provenance-desktop.webp" alt="Compute preview showing Ask, Choose the target, and See the result with Virtual Tomato provenance" width="70%" /></p>
+
+*UI documentation · hardware and virtual execution are separate, visibly labeled paths; this capture demonstrates provenance boundaries, not a completed hardware job.*
+
 It is easy to wonder what component is really doing what especially when abstractions are involbe, but tomato is meant to audaciously be as transparent as linux if not way more transparent down to what each wire is conducting!
 
 All features ahve been built and tested, and as usual, i will do a few housekeeping and tightening. As I will always alued to using the python previewer and cached rebuild, iteration as as fast as changing header size in an html!

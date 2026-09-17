@@ -62,4 +62,8 @@ No fourth read port. No 40-bit RAM widening on bring-up. The ALU PCB (`07_alu`) 
 
 Ship **32b Tomato**. Run Digital on `main.dig`, keep verification on the 32b ALU export, and put fab time toward peripherals and control boards — not another word-width pivot.
 
+<p align="center"><img src="../../web/assets/story/arch/alu-32b-sheet.jpg" alt="Tomato ALU 32-bit schematic sheet" width="70%" /></p>
+
+*Retrospective schematic illustration · the 32-bit machine width already understood well enough to route and verify.*
+
 The swing was useful. The answer is not more weirdness; it is the machine we already know how to wire.
