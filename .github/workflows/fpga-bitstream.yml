@@ -116,6 +116,7 @@ jobs:
       - name: Synthesis + place/route + bitstream
         run: |
           set -o pipefail
+          mkdir -p build
           ../scripts/env.sh make fpga 2>&1 | tee build/fpga-ci.log
 
       - name: Hash bitstream
