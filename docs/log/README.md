@@ -13,8 +13,13 @@ content is intentionally not rewritten.
 
 ## September 2026
 
+- 15 Sep — [Envelop — Parsing, Simplest](<2026-09-15 - Envelop Parsing - Simplest.md>)
+- 15 Sep — [Envelop — Scope Optimization](<2026-09-15 - Envelop Scope Optimization.md>)
 - 15 Sep — [Virtual Fallback vs AI](<2026-09-15 - Virtual Fallback vs AI.md>)
 - 15 Sep — [Discard Previewer or Integrate](<2026-09-15 - Discard Previewer or Integrate.md>)
+- 14 Sep — [Envelop — Website and World Connect](<2026-09-14 - Envelop Website and World Connect.md>)
+- 14 Sep — [Envelop — Native Bridge](<2026-09-14 - Envelop Native Bridge.md>)
+- 14 Sep — [Envelop — Origin](<2026-09-14 - Envelop Origin.md>)
 - 14 Sep — [Synthesis Bypass](<2026-09-14 - Synthesis Bypass.md>)
 - 14 Sep — [Multiple Participants](<2026-09-14 - Multiple Participants.md>)
 - 14 Sep — [Envelop — Tomato gets a message app](<2026-09-14 - Envelop - Tomato gets a message app.md>)
