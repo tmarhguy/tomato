@@ -422,7 +422,16 @@ def assemble(src: str, ops: dict, *, symbols: dict | None = None,
                 rd, rb = parse_reg(operands[0]), parse_reg(operands[1])
                 words[addr] = enc_r(op, rd, 0, rb)
 
-            elif mnem in {"MASKADD", "XORAND", "CSEL", "ANDADD", "ORADD", "XORADD"}:
+            elif mnem in {
+                "MASKADD", "XORAND", "CSEL", "ANDADD", "ORADD", "XORADD",
+                "XORBC", "XORBO", "XORBX", "ANDBO", "ANDBX", "ANDBC",
+                "ORBC", "ORBO", "ORBX",
+                "NANDAND", "NANDOR", "NANDXOR", "NANDNAND", "NANDNOR", "NANDXNOR",
+                "NORAND", "NOROR", "NORXOR", "NORNAND", "NORNOR", "NORXNOR",
+                "ANDNAND", "ANDNOR", "ANDXNOR",
+                "ORNAND", "ORNOR", "ORXNOR",
+                "XORNAND", "XORNOR", "XORXNOR",
+            }:
                 if len(operands) != 4:
                     raise ValueError(f"{mnem} rd, rA, rB, rC")
                 rd, ra, rb, rc = map(parse_reg, operands)

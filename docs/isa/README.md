@@ -20,7 +20,9 @@
 | `tomato.v1.csv` | Microcode ROM rows — burn opcodes + unused NOP slots |
 | `tomato.v1.pseudo.csv` | Pseudos (`CALL`, `BEQZ`, `LI`, …) for the assembler |
 | `datapath-audit.csv` | Derived checklist vs FPGA RTL (keep in sync with v1) |
-| `lut.csv` | ALU LUT primitive catalog (hardware reference) |
+| `lut.csv` | Curated ALU LUT primitives (hardware reference subset) |
+| `luts.csv` | Full 256-entry Dual-LUT `f` map + nested Boolean names |
+| `lut-nested-fuse.csv` | `outer(A, inner(B,C))` nests that fuse to one LUT cycle |
 | `profiles/` + `profiles.csv` | Parametric maps onto Tomato (CSV rows are the sweep database) |
 
 ---

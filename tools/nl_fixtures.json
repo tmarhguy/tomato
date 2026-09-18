@@ -23,8 +23,8 @@
     {
       "input": "what is 783 + and(45, 34)?",
       "expected": 815,
-      "understood": "783 + (45 & 34)",
-      "canonical": "/run\nR0=783\nR1=45\nR2=34\nAND R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+      "understood": "maskadd(783, 45, 34)",
+      "canonical": "/run\nR0=783\nR1=45\nR2=34\nMASKADD R0,R0,R1,R2\nRETURN R0"
     },
     {
       "input": "and(45, 34)",
@@ -35,26 +35,26 @@
     {
       "input": "what is and(or(1, 2), 3)?",
       "expected": 3,
-      "understood": "(1 | 2) & 3",
-      "canonical": "/run\nR0=1\nR1=2\nOR R0,R0,R1\nR1=3\nAND R0,R0,R1\nRETURN R0"
+      "understood": "andbo(3, 1, 2)",
+      "canonical": "/run\nR0=3\nR1=1\nR2=2\nANDBO R0,R0,R1,R2\nRETURN R0"
     },
     {
       "input": "what is 5 plus and(1, 2)?",
       "expected": 5,
-      "understood": "5 + (1 & 2)",
-      "canonical": "/run\nR0=5\nR1=1\nR2=2\nAND R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+      "understood": "maskadd(5, 1, 2)",
+      "canonical": "/run\nR0=5\nR1=1\nR2=2\nMASKADD R0,R0,R1,R2\nRETURN R0"
     },
     {
       "input": "what is 89 + and(34, 84) on tomato?",
       "expected": 89,
-      "understood": "89 + (34 & 84)",
-      "canonical": "/run\nR0=89\nR1=34\nR2=84\nAND R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+      "understood": "maskadd(89, 34, 84)",
+      "canonical": "/run\nR0=89\nR1=34\nR2=84\nMASKADD R0,R0,R1,R2\nRETURN R0"
     },
     {
       "input": "what is 5 plus (1 & 2)?",
       "expected": 5,
-      "understood": "5 + (1 & 2)",
-      "canonical": "/run\nR0=5\nR1=1\nR2=2\nAND R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+      "understood": "maskadd(5, 1, 2)",
+      "canonical": "/run\nR0=5\nR1=1\nR2=2\nMASKADD R0,R0,R1,R2\nRETURN R0"
     },
     {
       "input": "R7 + 4",
@@ -71,8 +71,8 @@
     {
       "input": "(R1 ^ R2) & 0xFF",
       "expected": 0,
-      "understood": "(R1 ^ R2) & 0xFF",
-      "canonical": "/run\nOR R0,R1,R1\nXOR R0,R0,R2\nR3=255\nAND R0,R0,R3\nRETURN R0"
+      "understood": "andbx(0xFF, R1, R2)",
+      "canonical": "/run\nR0=255\nANDBX R0,R0,R1,R2\nRETURN R0"
     },
     {
       "input": "calculate 7 minus 10",
@@ -119,20 +119,20 @@
     {
       "input": "and(83, 456, 34)",
       "expected": 0,
-      "understood": "(83 & 456) & 34",
-      "canonical": "/run\nR0=83\nR1=456\nAND R0,R0,R1\nR1=34\nAND R0,R0,R1\nRETURN R0"
+      "understood": "andbc(34, 83, 456)",
+      "canonical": "/run\nR0=34\nR1=83\nR2=456\nANDBC R0,R0,R1,R2\nRETURN R0"
     },
     {
       "input": "nand(45, 34, 3)",
       "expected": 4294967295,
-      "understood": "~(((45 & 34) & 3))",
-      "canonical": "/run\nR0=45\nR1=34\nAND R0,R0,R1\nR1=3\nAND R0,R0,R1\nR1=4294967295\nXOR R0,R0,R1\nRETURN R0"
+      "understood": "nandand(3, 45, 34)",
+      "canonical": "/run\nR0=3\nR1=45\nR2=34\nNANDAND R0,R0,R1,R2\nRETURN R0"
     },
     {
       "input": "and(83, 456, 34) + nand(45, 34, 3)",
       "expected": 4294967295,
-      "understood": "((83 & 456) & 34) + ~(((45 & 34) & 3))",
-      "canonical": "/run\nR0=83\nR1=456\nAND R0,R0,R1\nR1=34\nAND R0,R0,R1\nR1=45\nR2=34\nAND R1,R1,R2\nR2=3\nAND R1,R1,R2\nR2=4294967295\nXOR R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+      "understood": "andbc(34, 83, 456) + nandand(3, 45, 34)",
+      "canonical": "/run\nR0=34\nR1=83\nR2=456\nANDBC R0,R0,R1,R2\nR2=3\nR1=45\nR3=34\nNANDAND R2,R2,R1,R3\nADD R0,R0,R2\nRETURN R0"
     },
     {
       "input": "what is plus(1, 2, 3, 4)?",
@@ -155,8 +155,8 @@
     {
       "input": "what is or(1, 2, 3) + xor(4, 5, 6) + plus(7, 8)?",
       "expected": 25,
-      "understood": "(((1 | 2) | 3) + ((4 ^ 5) ^ 6)) + (7 + 8)",
-      "canonical": "/run\nR0=1\nR1=2\nOR R0,R0,R1\nR1=3\nOR R0,R0,R1\nR1=4\nR2=5\nXOR R1,R1,R2\nR2=6\nXOR R1,R1,R2\nADD R0,R0,R1\nR1=7\nR2=8\nADD R1,R1,R2\nADD R0,R0,R1\nRETURN R0"
+      "understood": "(orbo(3, 1, 2) + xorbx(6, 4, 5)) + (7 + 8)",
+      "canonical": "/run\nR0=3\nR1=1\nR2=2\nORBO R0,R0,R1,R2\nR2=6\nR1=4\nR3=5\nXORBX R2,R2,R1,R3\nADD R0,R0,R2\nR2=7\nR3=8\nADD R2,R2,R3\nADD R0,R0,R2\nRETURN R0"
     },
     {
       "input": "89 + 90",
@@ -257,8 +257,8 @@
     {
       "input": "xor of 1 and 2 and 3",
       "expected": 0,
-      "understood": "(1 ^ 2) ^ 3",
-      "canonical": "/run\nR0=1\nR1=2\nXOR R0,R0,R1\nR1=3\nXOR R0,R0,R1\nRETURN R0"
+      "understood": "xorbx(3, 1, 2)",
+      "canonical": "/run\nR0=3\nR1=1\nR2=2\nXORBX R0,R0,R1,R2\nRETURN R0"
     },
     {
       "input": "the and of 45 and 34",

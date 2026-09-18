@@ -1,0 +1,50 @@
+# Tomato Dual-LUT — nested fuse candidates of shape outer(A, inner(B, C)).
+# These two-cycle Boolean nests collapse to one f-LUT (g=0, cin=0).
+# Index: idx = 4*C + 2*B + A. Full map: luts.csv. example_decimal uses A=5,B=7,C=3.
+lut_hex,lut,outer,inner,nested_form,truth_abc,example_decimal
+0x01,1,nor,or,nor(A, or(B, C)),10000000,4294967288
+0x02,2,and,nor,and(A, nor(B, C)),01000000,0
+0x08,8,and,andn,and(A, andn(B, C)),00010000,4
+0x10,16,nor,orn,nor(A, orn(B, C)),00001000,0
+0x14,20,nor,xnor,nor(A, xnor(B, C)),00101000,0
+0x15,21,nor,and,nor(A, and(B, C)),10101000,4294967288
+0x20,32,andn,orn,andn(A, orn(B, C)),00000100,0
+0x28,40,and,xor,and(A, xor(B, C)),00010100,4
+0x2A,42,and,nand,and(A, nand(B, C)),01010100,4
+0x40,64,nor,nand,nor(A, nand(B, C)),00000010,2
+0x41,65,nor,xor,nor(A, xor(B, C)),10000010,4294967290
+0x51,81,nor,andn,nor(A, andn(B, C)),10001010,4294967290
+0x54,84,nor,nor,nor(A, nor(B, C)),00101010,2
+0x56,86,xor,or,xor(A, or(B, C)),01101010,2
+0x57,87,nand,or,nand(A, or(B, C)),11101010,4294967290
+0x59,89,xnor,andn,xnor(A, andn(B, C)),10011010,4294967294
+0x65,101,xor,orn,xor(A, orn(B, C)),10100110,4294967290
+0x69,105,xor,xnor,xor(A, xnor(B, C)),10010110,4294967294
+0x6A,106,xor,and,xor(A, and(B, C)),01010110,6
+0x75,117,nand,orn,nand(A, orn(B, C)),10101110,4294967290
+0x7D,125,nand,xnor,nand(A, xnor(B, C)),10111110,4294967294
+0x7F,127,nand,and,nand(A, and(B, C)),11111110,4294967294
+0x80,128,and,and,and(A, and(B, C)),00000001,1
+0x82,130,and,xnor,and(A, xnor(B, C)),01000001,1
+0x8A,138,and,orn,and(A, orn(B, C)),01010001,5
+0x95,149,xor,nand,xor(A, nand(B, C)),10101001,4294967289
+0x96,150,xor,xor,xor(A, xor(B, C)),01101001,1
+0x9A,154,xnor,orn,xnor(A, orn(B, C)),01011001,5
+0xA2,162,andn,andn,andn(A, andn(B, C)),01000101,1
+0xA6,166,xor,andn,xor(A, andn(B, C)),01100101,1
+0xA8,168,and,or,and(A, or(B, C)),00010101,5
+0xA9,169,xor,nor,xor(A, nor(B, C)),10010101,4294967293
+0xAB,171,or,nor,or(A, nor(B, C)),11010101,4294967293
+0xAE,174,or,andn,or(A, andn(B, C)),01110101,5
+0xBA,186,orn,orn,orn(A, orn(B, C)),01011101,5
+0xBE,190,or,xor,or(A, xor(B, C)),01111101,5
+0xBF,191,or,nand,or(A, nand(B, C)),11111101,4294967293
+0xD5,213,nand,nand,nand(A, nand(B, C)),10101011,4294967291
+0xD7,215,nand,xor,nand(A, xor(B, C)),11101011,4294967291
+0xEA,234,or,and,or(A, and(B, C)),01010111,7
+0xEB,235,or,xnor,or(A, xnor(B, C)),11010111,4294967295
+0xEF,239,or,orn,or(A, orn(B, C)),11110111,4294967295
+0xF7,247,nand,andn,nand(A, andn(B, C)),11101111,4294967291
+0xFB,251,orn,andn,orn(A, andn(B, C)),11011111,4294967295
+0xFD,253,nand,nor,nand(A, nor(B, C)),10111111,4294967295
+0xFE,254,or,or,or(A, or(B, C)),01111111,7

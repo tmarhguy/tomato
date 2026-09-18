@@ -68,10 +68,17 @@ It then walks the same records sequentially. No host machine code is accepted.
 | Bytecode | Record bytes |
 |---|---|
 | 1 SET | op, dst, immediateBE32 (6 total) |
-| 2..8 ADD/SUB/AND/OR/XOR/MASKADD/XORAND | op,dst,a,b,c (5); binary ops ignore c but validate it |
+| 2..6 ADD/SUB/AND/OR/XOR | op,dst,a,b,c (5); binary ops ignore c but validate it |
+| 7..11 MASKADD/XORAND/ANDADD/ORADD/XORADD | op,dst,a,b,c (5) |
+| 12..13 ANDN/ORN | op,dst,a,b,c (5); c pad 0 |
+| 14..31 Dual-LUT nests (XORBC…NORXOR) | op,dst,a,b,c (5); `~(A⊗(B⊕C))` forms |
 | 32 LOAD | op,dst,offset8 (3) |
 | 33 STORE | op,src,offset8 (3) |
+| 34..45 Dual-LUT nests (NORNAND…XORXNOR) | op,dst,a,b,c (5); 32/33 reserved for memory |
 | 48 RETURN | op,src (2); must end payload |
+
+Nested Boolean forms such as `nand(34, 235, 2355)` fuse to one Dual-LUT opcode
+(e.g. **23 NANDAND** = `~(A & (B & C))`) matching Envelop’s website compiler.
 
 Reply frame type **33**, same route: tokenBE32,status8,resultBE32 (9 bytes).
 Status 0 is success. Errors: 1 INVALID_OPCODE, 2 PROGRAM_TOO_LONG,
