@@ -43,8 +43,11 @@ def main():
                     "I reply from a dorm table I call home.",
                     "Tyrone Marhguy built me transistor-up!",
                     "Try 23 + 19 on my dual-LUT ALU!"],greeting
-  for source,expected in [('What is (57 + 19) AND 0x3F?',12),('what is 5 plus 7?',12),('what is 783 + and(45, 34)?',815),('and(45, 34)',32),('what is and(or(1, 2), 3)?',3),('what is 5 plus and(1, 2)?',5),('what is 89 + and(34, 84) on tomato?',89),('/calc ~0',0xffffffff),('45 & 19',1),('and(83, 456, 34)',0),('nand(45, 34, 3)',0xffffffff),('and(83, 456, 34) + nand(45, 34, 3)',0xffffffff),('plus(1, 2, 3, 4)',10),('minus(10, 3, 2)',5),('nor(6, 3)',0xfffffff8),('or(1,2,3) + xor(4,5,6) + plus(7,8)',25),('89 + 90',179),('xnor(5, 3)',0xfffffff9),('what is not(5)?',0xfffffffa),('andn(6, 3)',4),('orn(6, 3)',0xfffffffe),('maskadd(1, 2, 3)',3),('andadd(1, 2, 3)',3),('oradd(1, 2, 3)',6),('xoradd(1, 2, 3)',6),('xorand(1, 2, 3)',0),('what is xnor(1, 2, 3) + not(4)?',0xfffffffa),('maskadd(1,2,3)+xorand(4,5,6)',14)]:
-    parsed=interpret(source);job(parsed['canonical'],expected)
+  for source,expected in [('What is (57 + 19) AND 0x3F?',12),('what is 5 plus 7?',12),('what is 783 + and(45, 34)?',815),('and(45, 34)',32),('what is and(or(1, 2), 3)?',3),('what is 5 plus and(1, 2)?',5),('what is 89 + and(34, 84) on tomato?',89),('/calc ~0',0xffffffff),('45 & 19',1),('and(83, 456, 34)',0),('nand(45, 34, 3)',0xffffffff),('nand(34, 235, 2355)',0xffffffdd),('and(83, 456, 34) + nand(45, 34, 3)',0xffffffff),('plus(1, 2, 3, 4)',10),('minus(10, 3, 2)',5),('nor(6, 3)',0xfffffff8),('or(1,2,3) + xor(4,5,6) + plus(7,8)',25),('89 + 90',179),('xnor(5, 3)',0xfffffff9),('what is not(5)?',0xfffffffa),('andn(6, 3)',4),('orn(6, 3)',0xfffffffe),('maskadd(1, 2, 3)',3),('andadd(1, 2, 3)',3),('oradd(1, 2, 3)',6),('xoradd(1, 2, 3)',6),('xorand(1, 2, 3)',0),('what is xnor(1, 2, 3) + not(4)?',0xfffffffa),('maskadd(1,2,3)+xorand(4,5,6)',14)]:
+    parsed=interpret(source)
+    if source.startswith('nand(34'):
+      assert 23 in bytes.fromhex(parsed['job']),(parsed['job'],'expected NANDAND opcode 23')
+    job(parsed['canonical'],expected)
   for src in ['what is and(1)?','what is nand(7)?','what is and(1, 2, 3, 4, 5, 6, 7, 8, 9)?','what is not(1, 2)?','what is andn(1)?','what is maskadd(1, 2)?','what is xorand(1, 2, 3, 4)?']:
     try:interpret(src)
     except CompileError as e:assert 'FN_ARITY' in str(e),(src,e)
@@ -83,6 +86,8 @@ def main():
   job('/run R0=1;R1=2;R2=3;XORADD R3,R0,R1,R2;RETURN R3',6)
   job('/run R0=6;R1=3;ANDN R2,R0,R1;RETURN R2',4)
   job('/run R0=6;R1=3;ORN R2,R0,R1;RETURN R2',0xfffffffe)
+  job('/run R0=1;R1=2;R2=3;XORBX R3,R0,R1,R2;RETURN R3',0)  # 1^(2^3)=0
+  job('/run R0=2355;R1=34;R2=235;NANDAND R3,R0,R1,R2;RETURN R3',0xffffffdd)
   rng=random.Random(42)
   for op in ('ADD','SUB','AND','OR','XOR','MASKADD','XORAND'):
    for _ in range(2):
@@ -97,7 +102,7 @@ def main():
   job('',error='REGISTER_RANGE',raw=bytes([1,1,8,0,0,0,1,48,0]))
   job('',error='MISSING_RETURN',raw=bytes([1,1,0,0,0,0,1]))
   job('',error='MALFORMED_PROGRAM',raw=bytes([1,48,0,0]))
-  job('',error='UNSUPPORTED_RAW_LUT',raw=bytes([1,16,0,0,0,1,48,0]))
+  # Opcode 16 is XORBX (Dual-LUT), not raw LUT — reject an out-of-range op instead.
   job('',error='INVALID_OPCODE',raw=bytes([1,99,0,0,0,0,48,0]))
   job('',error='PROGRAM_TOO_LONG',raw=bytes([1])+bytes([32,0,0])*32+bytes([48,0]))
   tick(20)

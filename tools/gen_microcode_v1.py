@@ -38,10 +38,40 @@ ROM_FILES = {
 DUAL = {
     "MASKADD": (0xAA, 0xC0, 0),  # A + (B & C), three register operands
     "XORAND":  (0x96, 0x80, 0),  # (A ^ B ^ C) + (A & B & C)
+    "XORBC":   (0x6A, 0x00, 0),  # A ^ (B & C)
+    "XORBO":   (0x56, 0x00, 0),  # A ^ (B | C)
+    "XORBX":   (0x96, 0x00, 0),  # A ^ (B ^ C)
+    "ANDBO":   (0xA8, 0x00, 0),  # A & (B | C)
+    "ANDBX":   (0x28, 0x00, 0),  # A & (B ^ C)
+    "ANDBC":   (0x80, 0x00, 0),  # A & (B & C)
+    "ORBC":    (0xEA, 0x00, 0),  # A | (B & C)
+    "ORBO":    (0xFE, 0x00, 0),  # A | (B | C)
+    "ORBX":    (0xBE, 0x00, 0),  # A | (B ^ C)
     "CSEL":   (0xAC, 0x00, 0),  # rC ? rA : rB (MUX_C_AB), branchless select
     "ANDADD": (0x88, 0xF0, 0),  # (A & B) + C, masked accumulate
     "ORADD":  (0xEE, 0xF0, 0),  # (A | B) + C
     "XORADD": (0x66, 0xF0, 0),  # (A ^ B) + C
+    "NANDAND": (0x7F, 0x00, 0),
+    "NANDOR":  (0x57, 0x00, 0),
+    "NANDXOR": (0xD7, 0x00, 0),
+    "NANDNAND":(0xD5, 0x00, 0),
+    "NANDNOR": (0xFD, 0x00, 0),
+    "NANDXNOR":(0x7D, 0x00, 0),
+    "NORAND":  (0x15, 0x00, 0),
+    "NOROR":   (0x01, 0x00, 0),
+    "NORXOR":  (0x41, 0x00, 0),
+    "NORNAND": (0x40, 0x00, 0),
+    "NORNOR":  (0x54, 0x00, 0),
+    "NORXNOR": (0x14, 0x00, 0),
+    "ANDNAND": (0x2A, 0x00, 0),
+    "ANDNOR":  (0x02, 0x00, 0),
+    "ANDXNOR": (0x82, 0x00, 0),
+    "ORNAND":  (0xBF, 0x00, 0),
+    "ORNOR":   (0xAB, 0x00, 0),
+    "ORXNOR":  (0xEB, 0x00, 0),
+    "XORNAND": (0x95, 0x00, 0),
+    "XORNOR":  (0xA9, 0x00, 0),
+    "XORXNOR": (0x69, 0x00, 0),
     "ADD":   (0xAA, 0xCC, 0),
     "ADDI":  (0xAA, 0xCC, 0),
     "ADC":   (0xAA, 0xCC, 4),   # + carry flag
@@ -235,6 +265,45 @@ def burn_core_rows():
             rom_addr=f"0x{addr:02X}", region="alu-reg", mnemonic=name,
             group="alu-reg", status="burn", semantic_op=name,
             operation=expression, why="compound three-input ALU", ir_imm_sel="1",
+            reg_we="1", flags_we="1", cycles="1", encoding="reg_reg",
+        ))
+    # Nested Boolean forms outer(A, inner(B, C)) → one Dual-LUT cycle (g=0).
+    for addr, name, expression in [
+        (0x1A, "XORBC", "rd = rA ^ (rB & rC)"),
+        (0x1B, "XORBO", "rd = rA ^ (rB | rC)"),
+        (0x1C, "XORBX", "rd = rA ^ (rB ^ rC)"),
+        (0x1D, "ANDBO", "rd = rA & (rB | rC)"),
+        (0x1E, "ANDBX", "rd = rA & (rB ^ rC)"),
+        (0x1F, "ANDBC", "rd = rA & (rB & rC)"),
+        (0x25, "ORBC", "rd = rA | (rB & rC)"),
+        (0x26, "ORBO", "rd = rA | (rB | rC)"),
+        (0x27, "ORBX", "rd = rA | (rB ^ rC)"),
+        (0x28, "NANDAND", "rd = ~(rA & (rB & rC))"),
+        (0x2A, "NANDOR", "rd = ~(rA & (rB | rC))"),
+        (0x2B, "NANDXOR", "rd = ~(rA & (rB ^ rC))"),
+        (0x2C, "NANDNAND", "rd = ~(rA & ~(rB & rC))"),
+        (0x2D, "NANDNOR", "rd = ~(rA & ~(rB | rC))"),
+        (0x2E, "NANDXNOR", "rd = ~(rA & ~(rB ^ rC))"),
+        (0x2F, "NORAND", "rd = ~(rA | (rB & rC))"),
+        (0x32, "NOROR", "rd = ~(rA | (rB | rC))"),
+        (0x33, "NORXOR", "rd = ~(rA | (rB ^ rC))"),
+        (0x34, "NORNAND", "rd = ~(rA | ~(rB & rC))"),
+        (0x35, "NORNOR", "rd = ~(rA | ~(rB | rC))"),
+        (0x36, "NORXNOR", "rd = ~(rA | ~(rB ^ rC))"),
+        (0x37, "ANDNAND", "rd = rA & ~(rB & rC)"),
+        (0x38, "ANDNOR", "rd = rA & ~(rB | rC)"),
+        (0x39, "ANDXNOR", "rd = rA & ~(rB ^ rC)"),
+        (0x3A, "ORNAND", "rd = rA | ~(rB & rC)"),
+        (0x3B, "ORNOR", "rd = rA | ~(rB | rC)"),
+        (0x3C, "ORXNOR", "rd = rA | ~(rB ^ rC)"),
+        (0x3D, "XORNAND", "rd = rA ^ ~(rB & rC)"),
+        (0x3E, "XORNOR", "rd = rA ^ ~(rB | rC)"),
+        (0x3F, "XORXNOR", "rd = rA ^ ~(rB ^ rC)"),
+    ]:
+        add(base_row(
+            rom_addr=f"0x{addr:02X}", region="alu-reg", mnemonic=name,
+            group="alu-reg", status="burn", semantic_op=name,
+            operation=expression, why="nested Boolean Dual-LUT", ir_imm_sel="1",
             reg_we="1", flags_we="1", cycles="1", encoding="reg_reg",
         ))
     add(base_row(
@@ -703,6 +772,13 @@ def fix_burn_row(row):
         "MOVA", "NOT", "NEG", "INC", "DEC", "NAND", "NOR", "XNOR",
         "ADC", "SBC", "RSB", "ANDN", "ORN", "MVN", "TST", "TEQ",
         "CSEL", "ANDADD", "ORADD", "XORADD",
+        "XORBC", "XORBO", "XORBX", "ANDBO", "ANDBX", "ANDBC",
+        "ORBC", "ORBO", "ORBX",
+        "NANDAND", "NANDOR", "NANDXOR", "NANDNAND", "NANDNOR", "NANDXNOR",
+        "NORAND", "NOROR", "NORXOR", "NORNAND", "NORNOR", "NORXNOR",
+        "ANDNAND", "ANDNOR", "ANDXNOR",
+        "ORNAND", "ORNOR", "ORXNOR",
+        "XORNAND", "XORNOR", "XORXNOR",
         "ZERO", "ONE", "ALLONES",
     }
     if sem in reg_reg:
