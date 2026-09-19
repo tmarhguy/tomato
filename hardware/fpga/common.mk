@@ -57,6 +57,8 @@ endif
 PART     ?= xc7a100tcsg324-1
 FAMILY   ?= artix7
 FREQ_MHZ ?= 100
+NEXTPNR_SEEDS ?= 1
+FREQ_FALLBACK_MHZ ?=
 BUILD    ?= build
 
 CHIPDB   := $(BUILD)/chipdb/chipdb.bin
@@ -129,15 +131,33 @@ pnr: $(FASM)
 # and refuses to run. Skipping those arcs is the only way past it; every real
 # path still gets analysed against --freq.
 $(FASM): $(JSON) $(CHIPDB) $(XDC)
-	@echo "==> nextpnr-xilinx $(TOP) @ $(FREQ_MHZ) MHz"
-	nextpnr-xilinx \
+	@ok=0; \
+	for s in $(NEXTPNR_SEEDS); do \
+	  echo "==> nextpnr-xilinx $(TOP) @ $(FREQ_MHZ) MHz (seed $$s)"; \
+	  if nextpnr-xilinx \
 		--chipdb $(CHIPDB) \
 		--xdc $(XDC) \
 		--json $(JSON) \
 		--write $(ROUTED) \
 		--fasm $(FASM) \
 		--freq $(FREQ_MHZ) \
-		--ignore-loops $(NEXTPNR_EXTRA)
+		--seed $$s \
+		--ignore-loops $(NEXTPNR_EXTRA); then ok=1; break; fi; \
+	  echo "    timing miss at seed $$s"; \
+	done; \
+	if [ $$ok -eq 0 ] && [ -n "$(FREQ_FALLBACK_MHZ)" ]; then \
+	  echo "==> $(FREQ_MHZ) MHz missed; retrying @ $(FREQ_FALLBACK_MHZ) MHz"; \
+	  if nextpnr-xilinx \
+		--chipdb $(CHIPDB) \
+		--xdc $(XDC) \
+		--json $(JSON) \
+		--write $(ROUTED) \
+		--fasm $(FASM) \
+		--freq $(FREQ_FALLBACK_MHZ) \
+		--seed 1 \
+		--ignore-loops $(NEXTPNR_EXTRA); then ok=1; fi; \
+	fi; \
+	[ $$ok -eq 1 ]
 
 bit: $(BIT)
 

@@ -205,6 +205,8 @@ module pcctrl (
     assign pclinkwe  = pc[5];
     assign cycles    = pc[7:6];
     assign pccond    = d1[2:0];
-    assign spop      = d1[5:4];
+    // PUSH 0xC0 → 2, POP 0xC1 → 1, matching burn/mc_pc_sp_mul_control.vh.
+    // A 512-row ROM put opcode[4] on a long LUT tree into the SP carry chain.
+    assign spop      = (op[8:1] == 8'h60) ? (op[0] ? 2'd1 : 2'd2) : 2'b00;
     assign halt      = ((op == 9'h0FF) | (op == 9'h0E2)) & exec;
 endmodule

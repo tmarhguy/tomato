@@ -45,6 +45,12 @@ GENFONT := python3 $(ROOT)/tools/gen_font_rom.py
 BOOT    ?= tomato_os
 ASM_SRC := $(ROOT)/software/asm
 OS_SRC  := $(ROOT)/software/os
+# Redistributable envelop_setup.s is a simulator stub. A local Nordic ACI
+# image at .local/envelop_setup.nordic.s is required for a physical radio.
+ENVELOP_SETUP := $(wildcard $(ROOT)/.local/envelop_setup.nordic.s)
+ifeq ($(ENVELOP_SETUP),)
+ENVELOP_SETUP := $(OS_SRC)/envelop_setup.s
+endif
 
 PROG_MEM := tb/mem/counter.mem tb/mem/fib.mem tb/mem/collatz.mem tb/mem/call.mem tb/mem/bytes.mem \
 	tb/mem/ecall.mem tb/mem/io.mem tb/mem/softops.mem tb/mem/kb_mmio.mem tb/mem/p0p1.mem
@@ -74,6 +80,8 @@ XDC        := constr/nexys.xdc
 # runs at 6.25 MHz (100/16) and pix_clk at 25 MHz. 90 MHz asks place-and-route
 # to close well above both runtime domains; it is not a runtime or Fmax claim.
 FREQ_MHZ   := 90
+NEXTPNR_SEEDS := 1 2 3 5 8 13
+FREQ_FALLBACK_MHZ := 80
 YOSYS_INC  := rtl
 # -nodsp: a 33x33 multiply tiles across several DSP48s wired PCOUT→PCIN, and
 # nextpnr places the halves in different DSP columns, where no cascade wire
@@ -104,7 +112,11 @@ pack-isa lean-isa:
 	$(GENBURN) --boot $(BOOT)
 	@echo "ISA packed (tomato.v1.csv) + FPGA burn refreshed (boot=$(BOOT))"
 
-burn: microcode tb/mem/tomato_os.mem
+burn: microcode
+	@echo "==> Envelop setup $(ENVELOP_SETUP)"
+	@mkdir -p $(SIM)
+	cat $(OS_SRC)/tomato_os.s $(OS_SRC)/envelop_lite.s $(ENVELOP_SETUP) $(OS_SRC)/remote_exec.s > $(SIM)/tomato_os_all.s
+	$(ASM) $(SIM)/tomato_os_all.s --strict-layout --max-words 16384 -o tb/mem/tomato_os.mem
 	$(GENBURN) --boot $(BOOT)
 	@echo "FPGA burn ready: boot=$(BOOT)"
 	@echo "Next: make fpga program   (re-synth — burn is baked into the .bit)"
@@ -114,8 +126,9 @@ burn-check: microcode
 
 asm: $(PROG_MEM) tb/mem/tomato_os.mem
 
-tb/mem/tomato_os.mem: $(OS_SRC)/tomato_os.s $(OS_SRC)/envelop_lite.s $(OS_SRC)/envelop_setup.s $(OS_SRC)/remote_exec.s $(ROOT)/software/assembler.py | $(SIM)
-	cat $(filter %.s,$^) > $(SIM)/tomato_os_all.s
+tb/mem/tomato_os.mem: $(OS_SRC)/tomato_os.s $(OS_SRC)/envelop_lite.s $(OS_SRC)/envelop_setup.s $(OS_SRC)/remote_exec.s $(wildcard $(ROOT)/.local/envelop_setup.nordic.s) $(ROOT)/software/assembler.py | $(SIM)
+	@echo "==> Envelop setup $(ENVELOP_SETUP)"
+	cat $(OS_SRC)/tomato_os.s $(OS_SRC)/envelop_lite.s $(ENVELOP_SETUP) $(OS_SRC)/remote_exec.s > $(SIM)/tomato_os_all.s
 	$(ASM) $(SIM)/tomato_os_all.s --strict-layout --max-words 16384 -o $@
 
 tb/mem/counter.mem: $(ASM_SRC)/counter.s

@@ -22,22 +22,22 @@ module sp (
     output [23:0] sp_out
 );
     reg  [23:0] sp;
-    wire [23:0] delta =
-        (sp_op == 2'd1) ? 24'd1 :
-        (sp_op == 2'd2) ? -24'sd1 :
-                          24'd0;
-    wire [23:0] sp_next = sp + delta;
-    wire        do_op   = exec & (sp_op != 2'd0);
+    wire        inc     = (sp_op == 2'd1);
+    wire        dec     = (sp_op == 2'd2);
+    wire        load    = (sp_op == 2'd3);
+    // +1 or -1; nop/load do not consume the sum.
+    wire [23:0] sp_next = sp + {{23{dec}}, 1'b1};
+    wire        do_op   = exec & (inc | dec | load);
 
     always @(posedge clk) begin
         if (rst)
             sp <= 24'h3E00;
         else if (do_op) begin
-            if (sp_op == 2'd3) sp <= load_in[23:0];
-            else               sp <= sp_next;
+            if (load) sp <= load_in[23:0];
+            else      sp <= sp_next;
         end
     end
 
     // op==2: present post-dec on bus
-    assign sp_out = (sp_op == 2'd2) ? sp_next : sp;
+    assign sp_out = dec ? sp_next : sp;
 endmodule
