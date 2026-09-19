@@ -105,18 +105,19 @@ memory-mapped windows, keeping board-specific wiring outside the CPU RTL.
 | Architecture | 32-bit datapath and instruction word |
 | ALU | Custom three-source Dual-LUT ALU: two LUT3 functions feed an adder, `f(a,b,c) + g(a,b,c) + carry` |
 | ISA | **61 instructions plus NOP, 62 burned rows** in a 512-row control ROM |
-| Register array | **256 × 32-bit physical entries**, addressed as 3 bank bits plus a 5-bit register field; `r0` is hardwired to zero |
+| Register array | Discrete (primary): **32,768 × 32-bit**. FPGA: **256 × 32-bit**, addressed as 3 bank bits plus a 5-bit register field; `r0` is hardwired to zero — no space for more on that implementation |
 | FPGA | 100 MHz board input; **6.25 MHz** default CPU and 25 MHz pixel clocks; 90 MHz is only the nextpnr timing target |
 | OS | The complete FPGA computer boots assembly-written **TOMATO OS v3.0**, with 14 menu entries including Envelop |
 | Browser | Functional ISA-level emulation; not cycle-accurate RTL or physical execution |
 | Hardware compiler | Counter FSM searches all **65,536 LUT pairs** for one fixed A/B/C/carry/output example; a hit verifies that example, not a general function |
 | ALU verification | A **130-billion-vector** 32-bit ALU run is recorded and its harness is reproducible; the full run log is not checked in |
 
-The 256-entry FPGA array is an implementation and ISA choice, not a documented
-Artix-7 capacity limit. Its asynchronous 3-read/1-write shape maps to
-distributed RAM. The historical 32,768-register proposal instead used mirrored
-external SRAM plus a seven-bit superbank and `SETBANK2`; neither the superbank
-nor that instruction exists in the current FPGA RTL and burned ISA.
+The architectural register count is **32,768**, because discrete is the
+superior design constraint. FPGA implementation remains **256 × 32-bit**
+because there is no space for a larger file; its 3-read/1-write array maps to
+distributed RAM. Discrete uses external SRAM plus a seven-bit superbank and
+`SETBANK2`. Neither the superbank nor that instruction exists in the current
+FPGA RTL and burned ISA.
 
 For evidence paths and the distinction between source-complete,
 hardware-dependent, and deployed behavior, use

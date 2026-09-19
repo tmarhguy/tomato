@@ -475,17 +475,36 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
 
 test("homepage uses current ISA and register facts", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
-  for (const phrase of ["61 instructions plus NOP", "62 burned rows", "256 × 32-bit FPGA registers", "r0 is hardwired to zero"]) {
+  for (const phrase of [
+    "61 instructions plus NOP",
+    "62 burned rows",
+    "32,768 discrete registers",
+    "256 × 32-bit FPGA registers",
+    "r0 is hardwired to zero",
+    "no space for more",
+  ]) {
     assert.ok(html.includes(phrase), `homepage missing canonical fact: ${phrase}`);
   }
+  assert.match(html, /primary count/);
   assert.doesNotMatch(html, /<strong>32,768 × 32-bit registers<\/strong>/);
 });
 
 test("homepage Virtual Tomato controls suppress double-tap zoom locally", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
+  const virtual = readFileSync(join(WEB, "virtual.html"), "utf8");
   const css = readFileSync(join(WEB, "css/virtual.css"), "utf8");
-  assert.match(css, /\.vt-embed-side\s*\{[^}]*touch-action:\s*pan-y/s);
+  const board = readFileSync(join(WEB, "js/virtual.js"), "utf8");
+  const embed = readFileSync(join(WEB, "js/virtual-embed.js"), "utf8");
+  assert.match(css, /\.vt-embed-side\s*\{[^}]*touch-action:\s*manipulation/s);
+  assert.match(css, /\.vt-pad\s*\{[^}]*touch-action:\s*manipulation/s);
+  assert.match(css, /\.vt-pad button\{[^}]*touch-action:\s*manipulation/);
+  assert.match(css, /figure\.vt-embed div\.vt-embed-keys > button\{[^}]*touch-action:\s*manipulation/);
+  assert.match(board, /pointerdown/);
+  assert.match(board, /e\.preventDefault\(\)/);
+  assert.match(embed, /pointerdown/);
+  assert.match(embed, /e\.preventDefault\(\)/);
   assert.doesNotMatch(html, /user-scalable\s*=\s*no|maximum-scale\s*=\s*1/i);
+  assert.doesNotMatch(virtual, /user-scalable\s*=\s*no|maximum-scale\s*=\s*1/i);
 });
 
 test("public speed claims distinguish runtime, timing, and emulation", () => {
