@@ -115,8 +115,7 @@ int main(int argc,char**argv) {
  auto output=[&](){
   // CPU frozen while reading a coherent tile snapshot through its actual RAM port.
   std::cout.write("TOM1",4);
-  uint32_t status=cpu.halted|(radio.attached?2:0)|(cpu.menu_selection<<8)|
-                  (uint32_t(cpu.activity_leds)<<16);
+  uint32_t status=cpu.halted|(radio.attached?2:0)|(cpu.menu_selection<<8);
   auto word=[&](uint32_t w){for(int i=0;i<4;i++)std::cout.put((w>>(8*i))&255);};
   word(status);
   for(int i=0;i<4800;i++){

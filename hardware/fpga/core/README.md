@@ -136,7 +136,7 @@ make cpi         # cycles-per-instruction table → reports/CPI.md
 | `btnr` | M17 | Right — `0x10` |
 | `dvi_*` | JC + JD | 12-bit DVI PMOD, same map as [`hdmi_test`](../hdmi_test/) |
 | `seg`, `an`, `dp` | — | last register writeback, in hex |
-| `led[15:0]` | — | live activity: beat / halt / Envelop RX·TX pulses / Dual-LUT sweep or writeback |
+| `led[15]` | — | heartbeat: the CPU clock is alive even if the monitor is dark |
 
 The four arrow keycodes are also their own CP437 glyphs, so the OS can draw a key it just read without a lookup table.
 

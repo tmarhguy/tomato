@@ -44,6 +44,12 @@ remote_next:
     ADDI r11,r0,1
     CMP r18,r11
     BEQ remote_set
+    ADDI r11,r0,16
+    CMP r18,r11
+    BEQ remote_raw_unsupported
+    ADDI r11,r0,17
+    CMP r18,r11
+    BEQ remote_raw_unsupported
     ADDI r11,r0,32
     CMP r18,r11
     BEQ remote_memory
@@ -53,20 +59,12 @@ remote_next:
     ADDI r11,r0,48
     CMP r18,r11
     BEQ remote_return
-    ; ALU + Dual-LUT nest ops: 2..31 and 34..45 (32/33 are LOAD/STORE).
     ADDI r11,r0,2
     CMP r18,r11
     BLT remote_invalid_opcode
-    ADDI r11,r0,32
-    CMP r18,r11
-    BLT remote_alu_ok
-    ADDI r11,r0,34
-    CMP r18,r11
-    BLT remote_invalid_opcode
-    ADDI r11,r0,46
+    ADDI r11,r0,14
     CMP r18,r11
     BGE remote_invalid_opcode
-remote_alu_ok:
     ADDI r11,r24,5
     CMP r23,r11
     BLT remote_bad_format
@@ -127,96 +125,6 @@ remote_alu_ok:
     ADDI r11,r0,13
     CMP r18,r11
     BEQ remote_orn
-    ADDI r11,r0,14
-    CMP r18,r11
-    BEQ remote_xorbc
-    ADDI r11,r0,15
-    CMP r18,r11
-    BEQ remote_xorbo
-    ADDI r11,r0,16
-    CMP r18,r11
-    BEQ remote_xorbx
-    ADDI r11,r0,17
-    CMP r18,r11
-    BEQ remote_andbo
-    ADDI r11,r0,18
-    CMP r18,r11
-    BEQ remote_andbx
-    ADDI r11,r0,19
-    CMP r18,r11
-    BEQ remote_andbc
-    ADDI r11,r0,20
-    CMP r18,r11
-    BEQ remote_orbc
-    ADDI r11,r0,21
-    CMP r18,r11
-    BEQ remote_orbo
-    ADDI r11,r0,22
-    CMP r18,r11
-    BEQ remote_orbx
-    ADDI r11,r0,23
-    CMP r18,r11
-    BEQ remote_nandand
-    ADDI r11,r0,24
-    CMP r18,r11
-    BEQ remote_nandor
-    ADDI r11,r0,25
-    CMP r18,r11
-    BEQ remote_nandxor
-    ADDI r11,r0,26
-    CMP r18,r11
-    BEQ remote_nandnand
-    ADDI r11,r0,27
-    CMP r18,r11
-    BEQ remote_nandnor
-    ADDI r11,r0,28
-    CMP r18,r11
-    BEQ remote_nandxnor
-    ADDI r11,r0,29
-    CMP r18,r11
-    BEQ remote_norand
-    ADDI r11,r0,30
-    CMP r18,r11
-    BEQ remote_noror
-    ADDI r11,r0,31
-    CMP r18,r11
-    BEQ remote_norxor
-    ADDI r11,r0,34
-    CMP r18,r11
-    BEQ remote_nornand
-    ADDI r11,r0,35
-    CMP r18,r11
-    BEQ remote_nornor
-    ADDI r11,r0,36
-    CMP r18,r11
-    BEQ remote_norxnor
-    ADDI r11,r0,37
-    CMP r18,r11
-    BEQ remote_andnand
-    ADDI r11,r0,38
-    CMP r18,r11
-    BEQ remote_andnor
-    ADDI r11,r0,39
-    CMP r18,r11
-    BEQ remote_andxnor
-    ADDI r11,r0,40
-    CMP r18,r11
-    BEQ remote_ornand
-    ADDI r11,r0,41
-    CMP r18,r11
-    BEQ remote_ornor
-    ADDI r11,r0,42
-    CMP r18,r11
-    BEQ remote_orxnor
-    ADDI r11,r0,43
-    CMP r18,r11
-    BEQ remote_xornand
-    ADDI r11,r0,44
-    CMP r18,r11
-    BEQ remote_xornor
-    ADDI r11,r0,45
-    CMP r18,r11
-    BEQ remote_xorxnor
     JMP remote_invalid_opcode
 remote_add:
     ADD r15,r12,r13
@@ -264,126 +172,6 @@ remote_andn:
     JMP remote_next
 remote_orn:
     ORN r15,r12,r13
-    SW r15,r10,0
-    JMP remote_next
-remote_xorbc:
-    XORBC r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_xorbo:
-    XORBO r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_xorbx:
-    XORBX r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_andbo:
-    ANDBO r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_andbx:
-    ANDBX r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_andbc:
-    ANDBC r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_orbc:
-    ORBC r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_orbo:
-    ORBO r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_orbx:
-    ORBX r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_nandand:
-    NANDAND r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_nandor:
-    NANDOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_nandxor:
-    NANDXOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_nandnand:
-    NANDNAND r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_nandnor:
-    NANDNOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_nandxnor:
-    NANDXNOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_norand:
-    NORAND r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_noror:
-    NOROR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_norxor:
-    NORXOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_nornand:
-    NORNAND r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_nornor:
-    NORNOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_norxnor:
-    NORXNOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_andnand:
-    ANDNAND r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_andnor:
-    ANDNOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_andxnor:
-    ANDXNOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_ornand:
-    ORNAND r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_ornor:
-    ORNOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_orxnor:
-    ORXNOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_xornand:
-    XORNAND r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_xornor:
-    XORNOR r15,r12,r13,r14
-    SW r15,r10,0
-    JMP remote_next
-remote_xorxnor:
-    XORXNOR r15,r12,r13,r14
     SW r15,r10,0
     JMP remote_next
 remote_set:

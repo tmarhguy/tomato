@@ -21,13 +21,7 @@ module compiler_fsm (
     input         wr,
     input  [2:0]  sel,
     input  [31:0] wdata,
-    output [31:0] rdata,
-    output        busy_o,
-    output        done_o,
-    output        hit_o,
-    output        held_o,
-    output [15:0] count_o,
-    output [15:0] latched_o
+    output [31:0] rdata
 );
     reg [31:0] a, b, c, expected;
     reg        cin;
@@ -88,10 +82,4 @@ module compiler_fsm (
         (sel == 3'd5) ? alu_out :
         (sel == 3'd6) ? {28'b0, held, done, hit, busy} :
                         {16'b0, count};
-    assign busy_o    = busy;
-    assign done_o    = done;
-    assign hit_o     = hit;
-    assign held_o    = held;
-    assign count_o   = count;
-    assign latched_o = latched;
 endmodule

@@ -5,15 +5,11 @@ module nrf8001_aci_tb;
  reg [7:0] wdata=0;
  wire [31:0] rdata;
  wire rst_n,req_n,sck,mosi;
- wire tx_pulse,rx_pulse;
  reg [7:0] reply[0:32],captured[0:32];
  integer i,j;
  always #5 clk=~clk;
  nrf8001_aci #(.RESET_CYCLES(4),.SETTLE_CYCLES(4),
-   .TIMEOUT_CYCLES(400),.HALF_CYCLES(4),.PULSE_CYCLES(8)) dut(
-   .clk(clk),.reset(reset),.addr(addr),.wr(wr),.wdata(wdata),.rdata(rdata),
-   .rdy_n(rdy_n),.miso(miso),.rst_n(rst_n),.req_n(req_n),.sck(sck),.mosi(mosi),
-   .tx_pulse(tx_pulse),.rx_pulse(rx_pulse));
+   .TIMEOUT_CYCLES(400),.HALF_CYCLES(4)) dut(.*);
  task write_reg;
   input [6:0] a; input [7:0] d;
   begin @(negedge clk);addr=a;wdata=d;wr=1;

@@ -105,14 +105,12 @@ module nexys_top #(
     wire [7:0]  io_out;
     wire [31:0] disp_value;
     wire        halted;
-    wire [15:0] activity_leds;
     wire [12:0] tile_raddr;
     wire [31:0] tile_rdata;
     wire [6:0] ble_addr;
     wire ble_wr;
     wire [7:0] ble_wdata;
     wire [31:0] ble_rdata;
-    wire radio_tx_pulse, radio_rx_pulse;
 
     main cpu (
         .clk        (cpu_clk),
@@ -123,7 +121,6 @@ module nexys_top #(
         .io_out     (io_out),
         .disp_value (disp_value),
         .halted     (halted),
-        .activity_leds(activity_leds),
         .tile_rclk  (pix_clk),
         .tile_raddr (tile_raddr),
         .tile_rdata (tile_rdata),
@@ -139,8 +136,7 @@ module nexys_top #(
         .req_n (ble_req_n),
         .sck   (ble_sck),
         .mosi  (ble_mosi), .rdy_n(ble_rdy_n), .miso(ble_miso),
-        .addr(ble_addr), .wr(ble_wr), .wdata(ble_wdata), .rdata(ble_rdata),
-        .tx_pulse(radio_tx_pulse), .rx_pulse(radio_rx_pulse)
+        .addr(ble_addr), .wr(ble_wr), .wdata(ble_wdata), .rdata(ble_rdata)
     );
 
     // ---- scanout ----------------------------------------------------------
@@ -188,8 +184,8 @@ module nexys_top #(
     );
 
     // Slow blink proves the CPU clock is alive even with the monitor dark.
-    // Activity LEDs: bit15 beat (from CPU), 14 halted, 13 RX, 12 TX,
-    // 11:0 compiler sweep / latched opcodes / writeback chatter.
-    assign led = {activity_leds[15:14], radio_rx_pulse, radio_tx_pulse,
-                  activity_leds[11:0]};
+    reg [22:0] beat;
+    always @(posedge cpu_clk) beat <= beat + 1'b1;
+
+    assign led = {beat[22], halted, kb_ready, sw[12:8], io_out};
 endmodule
