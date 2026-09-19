@@ -79,11 +79,14 @@ function bind() {
     }
   });
   document.querySelectorAll("[data-key]").forEach((b) => {
-    b.addEventListener("click", () => {
+    b.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      e.preventDefault();
       keyQueue.push(Number(b.dataset.key));
       canvas.focus();
     });
   });
+  document.querySelector(".vt-pad")?.addEventListener("dblclick", (e) => e.preventDefault());
   document.querySelector("#vt-pause").addEventListener("click", (e) => {
     paused = !paused;
     e.target.textContent = paused ? "Resume" : "Pause";

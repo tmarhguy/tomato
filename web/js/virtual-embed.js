@@ -68,11 +68,14 @@ if (figure) {
   });
 
   figure.querySelectorAll("[data-key]").forEach((b) => {
-    b.addEventListener("click", () => {
+    b.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      e.preventDefault();
       keyQueue.push(Number(b.dataset.key));
       canvas.focus();
     });
   });
+  figure.querySelector(".vt-embed-keys")?.addEventListener("dblclick", (e) => e.preventDefault());
 
   async function start() {
     play.disabled = true;

@@ -5,16 +5,13 @@
  * so light/dark mode follows the paper with no extra work.
  */
 
-/* ---- compact head: one slim bar, the screen gets the rest ---- */
-.vt-head{margin:0 0 .75rem}
-.vt-head-row{display:flex;align-items:baseline;gap:1.25rem;flex-wrap:wrap}
-.vt-title{margin:0;font-family:var(--site-display);font-size:clamp(1.2rem, 2.4vw, 1.5rem);font-weight:700;letter-spacing:-.02em;color:var(--ink)}
-.vt-sub{margin:0;font-size:.85rem;color:var(--muted)}
-.vt-sub a{color:inherit}
+/* ---- page head: same column as breadcrumb/stage, compact so the screen keeps the rest ---- */
+.project-virtual .vt-head{padding-block:1rem 1.25rem;margin-bottom:1.25rem}
+.project-virtual .vt-head .project-title{font-size:clamp(1.85rem,4.2vw,3.1rem);text-wrap:balance}
 
 /* ---- full board page (virtual.html) ---- */
 .vt-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:1.5rem;margin-top:1rem;align-items:start}
-.vt-screen{display:block;margin:0 auto;background:#000;border-radius:var(--site-r-frame);image-rendering:pixelated;aspect-ratio:4/3;height:auto;outline:1px solid var(--rule);outline-offset:-1px;
+.vt-screen{display:block;margin:0 auto;background:#000;border-radius:var(--site-r-frame);image-rendering:pixelated;aspect-ratio:4/3;height:auto;outline:1px solid var(--rule);outline-offset:-1px;touch-action:manipulation;
 /* Fit the view height with breathing space: never wider than the column,
    never taller than the viewport minus the slim chrome above and below. */
 width:min(100%, max(20rem, calc((100vh - 18rem) * 4 / 3)));
@@ -23,10 +20,10 @@ width:min(100%, max(20rem, calc((100svh - 18rem) * 4 / 3)));}
 .vt-panel{border:1px solid var(--rule);border-radius:var(--site-r-frame);background:var(--bg);padding:1.25rem clamp(1.25rem, 3vw, 1.5rem);font-size:.95rem}
 .vt-panel h2{margin:0 0 .45rem;font-family:var(--site-ui);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .vt-panel h2:not(:first-child){margin-top:1.25rem}
-.vt-pad{display:grid;grid-template-columns:repeat(3,3rem);gap:.45rem;justify-content:center;margin:1rem 0}
-.vt-pad button{padding:.6rem 0}
+.vt-pad{display:grid;grid-template-columns:repeat(3,3rem);gap:.45rem;justify-content:center;margin:1rem 0;touch-action:manipulation}
+.vt-pad button{padding:.6rem 0;touch-action:manipulation;-webkit-user-select:none;user-select:none}
 .vt-up{grid-column:2}.vt-left{grid-column:1}.vt-bottom{grid-column:2}
-.vt-panel button{border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);font-family:var(--site-ui);font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--ink);cursor:pointer;padding:.55rem .9rem;transition:border-color .15s var(--site-ease), background .15s var(--site-ease)}
+.vt-panel button{border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);font-family:var(--site-ui);font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--ink);cursor:pointer;padding:.55rem .9rem;transition:border-color .15s var(--site-ease), background .15s var(--site-ease);touch-action:manipulation;-webkit-user-select:none;user-select:none}
 .vt-panel button:hover{border-color:var(--dust)}
 .vt-panel button:active{border-color:var(--red);background:color-mix(in srgb, var(--red) 12%, var(--wash))}
 .vt-panel button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
@@ -41,7 +38,7 @@ width:min(100%, max(20rem, calc((100svh - 18rem) * 4 / 3)));}
 /* ---- stage: toolbar above, screen + panel below ---- */
 .vt-toolbar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin:0 0 1rem}
 .vt-toolbar .vt-row{margin:0 0 0 auto}
-.vt-toolbar button{border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);font-family:var(--site-ui);font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--ink);cursor:pointer;padding:.55rem .9rem}
+.vt-toolbar button{border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);font-family:var(--site-ui);font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--ink);cursor:pointer;padding:.55rem .9rem;touch-action:manipulation}
 .vt-toolbar button:hover{border-color:var(--dust)}
 .vt-toolbar button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 .vt-panel{max-height:calc(100svh - 18rem);overflow:auto}
@@ -72,15 +69,16 @@ width:min(100%, max(20rem, calc((100svh - 18rem) * 4 / 3)));}
 .vt-embed-play[hidden]{display:none}
 .vt-embed-play .vt-embed-playbtn{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:.7rem 1.4rem;border:1px solid var(--red);border-radius:999px;background:var(--red);color:var(--bg);font-weight:700;font-size:.95rem;letter-spacing:.02em}
 .vt-embed-play small{font-size:.8rem;opacity:.85}
-figure.vt-embed div.vt-embed-keys{display:grid;grid-template-columns:repeat(3,2.75rem);gap:.4rem;justify-content:start;margin:.8rem 0}
-figure.vt-embed div.vt-embed-keys > button{flex:none;min-width:44px;min-height:44px;width:2.75rem;padding:.45rem 0;border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);color:var(--ink);font-family:var(--site-ui);font-size:.85rem;font-weight:700;cursor:pointer}
+figure.vt-embed div.vt-embed-keys{display:grid;grid-template-columns:repeat(3,2.75rem);gap:.4rem;justify-content:start;margin:.8rem 0;touch-action:manipulation}
+figure.vt-embed div.vt-embed-keys > button{flex:none;min-width:44px;min-height:44px;width:2.75rem;padding:.45rem 0;border:1px solid var(--rule);border-radius:var(--site-r-chip);background:var(--wash);color:var(--ink);font-family:var(--site-ui);font-size:.85rem;font-weight:700;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}
 figure.vt-embed div.vt-embed-keys > button:hover{border-color:var(--dust)}
 figure.vt-embed div.vt-embed-keys > button:active{border-color:var(--red)}
 figure.vt-embed div.vt-embed-keys > button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 .vt-embed-side{
   min-width:0;
-  touch-action:pan-y;
+  touch-action:manipulation;
 }
+.vt-embed-screen,.vt-embed-play{touch-action:manipulation}
 p.vt-embed-status{font-family:var(--site-mono);font-size:.78rem;color:var(--muted);margin:0}
 .vt-embed-hint{font-size:.8rem;color:var(--muted);margin:.8rem 0}
 .vt-embed-side .text-link{font-size:.85rem}
@@ -91,4 +89,5 @@ p.vt-embed-status{font-family:var(--site-mono);font-size:.78rem;color:var(--mute
   .vt-embed-side{text-align:center}
   figure.vt-embed div.vt-embed-keys{justify-content:center;margin-inline:auto}
   .vt-embed-hint{margin-inline:auto;max-width:22rem}
+  .vt-stage,.vt-panel,.vt-embed{touch-action:manipulation}
 }
