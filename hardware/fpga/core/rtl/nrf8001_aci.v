@@ -7,11 +7,14 @@ module nrf8001_aci #(
     parameter RESET_CYCLES = 62500,
     parameter SETTLE_CYCLES = 250000,
     parameter TIMEOUT_CYCLES = 625000,
-    parameter HALF_CYCLES = 4
+    parameter HALF_CYCLES = 4,
+    // ~50 ms stretch at 6.25 MHz so board LEDs are visible.
+    parameter PULSE_CYCLES = 312500
 ) (
     input clk, reset, input [6:0] addr, input wr,
     input [7:0] wdata, output [31:0] rdata,
-    input rdy_n, miso, output reg rst_n, req_n, sck, mosi
+    input rdy_n, miso, output reg rst_n, req_n, sck, mosi,
+    output reg tx_pulse, rx_pulse
 );
     reg [7:0] cmd [0:31];
     reg [7:0] evt [0:31];
@@ -25,6 +28,7 @@ module nrf8001_aci #(
     reg [2:0] bit_no;
     reg [7:0] received;
     reg done, fault;
+    reg [18:0] tx_timer, rx_timer;
     (* ASYNC_REG = "TRUE" *) reg [1:0] rdy_sync;
     always @(posedge clk) rdy_sync <= {rdy_sync[0], rdy_n};
     wire busy = state != IDLE;
@@ -40,6 +44,7 @@ module nrf8001_aci #(
             sck <= 0; mosi <= 0; done <= 0; fault <= 0;
             cmd_len <= 0; evt_len <= 0; divider <= 0;
             byte_no <= 0; bit_no <= 0; received <= 0; last_byte <= 1;
+            tx_pulse <= 0; rx_pulse <= 0; tx_timer <= 0; rx_timer <= 0;
         end else begin
             case (state)
             RESET: if (timer == RESET_CYCLES-1) begin
@@ -57,6 +62,7 @@ module nrf8001_aci #(
                     byte_no <= 0; bit_no <= 0; received <= 0;
                     mosi <= cmd_len[0];
                     last_byte <= cmd_len > 1 ? {1'b0,cmd_len} : 6'd1;
+                    tx_pulse <= 1'b1; tx_timer <= PULSE_CYCLES[18:0];
                 end
             end
             READY: if (!rdy_sync[1]) begin
@@ -97,11 +103,22 @@ module nrf8001_aci #(
             end else divider <= divider + 1'b1;
             RELEASE: if (rdy_sync[1]) begin
                 state <= IDLE; done <= 1;
+                if (evt_len != 0) begin
+                    rx_pulse <= 1'b1; rx_timer <= PULSE_CYCLES[18:0];
+                end
             end else if (timer == TIMEOUT_CYCLES-1) begin
                 state <= IDLE; done <= 1; fault <= 1;
             end else timer <= timer + 1'b1;
             default: state <= RESET;
             endcase
+            if (!(wr && addr == 0 && wdata[0] && state == IDLE)) begin
+                if (tx_timer != 0) tx_timer <= tx_timer - 1'b1;
+                else tx_pulse <= 1'b0;
+            end
+            if (!(rdy_sync[1] && state == RELEASE && evt_len != 0)) begin
+                if (rx_timer != 0) rx_timer <= rx_timer - 1'b1;
+                else rx_pulse <= 1'b0;
+            end
         end
     end
 endmodule

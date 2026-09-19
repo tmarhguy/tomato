@@ -33,6 +33,7 @@ module main #(parameter CPU_HZ = 6250000) (
     output [7:0]  io_out,      // last OUT byte (UART TX / LED)
     output [31:0] disp_value,  // last nonzero WB / store (board 7-seg)
     output        halted,
+    output [15:0] activity_leds, // board LED row: beat/halt/RX/TX + activity
     // Tile RAM scanout port — driven by rtl/board/videoout.v
     input         tile_rclk,
     input  [12:0] tile_raddr,
@@ -83,9 +84,14 @@ module main #(parameter CPU_HZ = 6250000) (
     wire        compiler_hit = kb_hit && memaddr[7] && !memaddr[8];
     wire        compiler_wr = exec && cmemwr && compiler_hit;
     wire [31:0] compiler_rdata;
+    wire        compiler_busy, compiler_done, compiler_hit_flag, compiler_held;
+    wire [15:0] compiler_count, compiler_latched;
     compiler_fsm compiler0 (
         .clk(clk), .reset(reset), .wr(compiler_wr),
-        .sel(memaddr[2:0]), .wdata(wbdata), .rdata(compiler_rdata)
+        .sel(memaddr[2:0]), .wdata(wbdata), .rdata(compiler_rdata),
+        .busy_o(compiler_busy), .done_o(compiler_done),
+        .hit_o(compiler_hit_flag), .held_o(compiler_held),
+        .count_o(compiler_count), .latched_o(compiler_latched)
     );
     assign ble_addr = memaddr[6:0];
     assign ble_wr = exec && cmemwr && ble_hit;
@@ -179,6 +185,48 @@ module main #(parameter CPU_HZ = 6250000) (
         else if (disp_reg | disp_mem) disp <= wbdata;
     end
     assign disp_value = disp;
+
+    // Board LED activity: writeback chatter for apps; Dual-LUT sweep while
+    // the hardware compiler searches; freeze on latched opcodes after a hit,
+    // then release to writeback after a short hold so leaving the compiler
+    // does not leave the row stuck forever.
+    reg [11:0] wb_leds;
+    reg [15:0] sweep_or;
+    reg [21:0] latch_hold; // ~0.67 s at 6.25 MHz
+    reg [22:0] beat;
+    wire       wb_any = exec & ((cregwe & (addrw != 5'd0)) | cmemwr);
+    always @(posedge clk) begin
+        if (reset) begin
+            wb_leds <= 12'h0;
+            sweep_or <= 16'h0;
+            latch_hold <= 22'h0;
+            beat <= 23'h0;
+        end else begin
+            beat <= beat + 1'b1;
+            if (wb_any)
+                wb_leds <= wbdata[11:0];
+            if (compiler_busy) begin
+                sweep_or <= sweep_or | compiler_count;
+                latch_hold <= 22'h0;
+            end else if (compiler_done | compiler_held) begin
+                if (latch_hold != 22'h3FFFFF)
+                    latch_hold <= latch_hold + 1'b1;
+            end else begin
+                sweep_or <= 16'h0;
+                latch_hold <= 22'h0;
+            end
+            // Fresh GO clears the sticky OR so a new search animates cleanly.
+            if (compiler_wr && (memaddr[2:0] == 3'd5) && wbdata[0])
+                sweep_or <= 16'h0;
+        end
+    end
+    wire [11:0] freeze12 = compiler_latched[11:0] | sweep_or[11:0] | 12'h001;
+    wire [11:0] activity_low =
+        compiler_busy ? compiler_count[11:0] :
+        ((compiler_done | compiler_held) && (latch_hold != 22'h3FFFFF)) ? freeze12 :
+        wb_leds;
+    // Bits 13:12 reserved for Envelop RX/TX pulses (board top overlays them).
+    assign activity_leds = {beat[22], halted, 1'b0, 1'b0, activity_low};
 
     regs regs0 (
         .clk      (clk),

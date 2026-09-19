@@ -1,7 +1,34 @@
 """Strict preview compiler; never evaluates ALU results. Bytecode ABI v1+v2 (single-cycle dual-LUT)."""
 import re
 import ast
-OPS={'ADD':2,'SUB':3,'AND':4,'OR':5,'XOR':6,'MASKADD':7,'XORAND':8,'ANDADD':9,'ORADD':10,'XORADD':11,'ANDN':12,'ORN':13}
+OPS={
+    'ADD':2,'SUB':3,'AND':4,'OR':5,'XOR':6,
+    'MASKADD':7,'XORAND':8,'ANDADD':9,'ORADD':10,'XORADD':11,'ANDN':12,'ORN':13,
+    'XORBC':14,'XORBO':15,'XORBX':16,'ANDBO':17,'ANDBX':18,'ANDBC':19,
+    'ORBC':20,'ORBO':21,'ORBX':22,
+    'NANDAND':23,'NANDOR':24,'NANDXOR':25,'NANDNAND':26,'NANDNOR':27,'NANDXNOR':28,
+    'NORAND':29,'NOROR':30,'NORXOR':31,
+    'NORNAND':34,'NORNOR':35,'NORXNOR':36,
+    'ANDNAND':37,'ANDNOR':38,'ANDXNOR':39,
+    'ORNAND':40,'ORNOR':41,'ORXNOR':42,
+    'XORNAND':43,'XORNOR':44,'XORXNOR':45,
+}
+BOOL3_OPS=frozenset(k for k in OPS if OPS[k]>=14)
+TRI4_OPS=frozenset({'MASKADD','XORAND','ANDADD','ORADD','XORADD'})|BOOL3_OPS
+# outer:inner → Dual-LUT nest mnemonic (matches envelop lut-fuse.mjs)
+OUTER_INNER={
+    'XOR:AND':'XORBC','XOR:OR':'XORBO','XOR:XOR':'XORBX',
+    'AND:OR':'ANDBO','AND:XOR':'ANDBX','AND:AND':'ANDBC',
+    'OR:AND':'ORBC','OR:OR':'ORBO','OR:XOR':'ORBX',
+    'NAND:AND':'NANDAND','NAND:OR':'NANDOR','NAND:XOR':'NANDXOR',
+    'NAND:NAND':'NANDNAND','NAND:NOR':'NANDNOR','NAND:XNOR':'NANDXNOR',
+    'NOR:AND':'NORAND','NOR:OR':'NOROR','NOR:XOR':'NORXOR',
+    'NOR:NAND':'NORNAND','NOR:NOR':'NORNOR','NOR:XNOR':'NORXNOR',
+    'AND:NAND':'ANDNAND','AND:NOR':'ANDNOR','AND:XNOR':'ANDXNOR',
+    'OR:NAND':'ORNAND','OR:NOR':'ORNOR','OR:XNOR':'ORXNOR',
+    'XOR:NAND':'XORNAND','XOR:NOR':'XORNOR','XOR:XNOR':'XORXNOR',
+}
+COMMUTE_OUTER=frozenset({'XOR','AND','OR','NAND','NOR','XNOR'})
 class CompileError(ValueError): pass
 
 LEADING_SHELL=re.compile(r'^(?:(?:on|for|from)\s+tomato,\s*|(?:could you please|would you please|can you please|can tomato calc(?:ulate)?|can tomato compute|could tomato calc(?:ulate)?|how much is|how much would|what does|what is|what would|tell me(?:\s+the)?|give me(?:\s+the)?|show me(?:\s+the)?|work out|figure out|(?:the\s+)?(?:result|value|answer)\s+(?:of|to|is)|can you|could you|would you|please (?:calculate|compute|calc|evaluate)|calculate|compute|evaluate|do you know|i (?:need|want)(?:\s+to know)?|find(?:\s+me)?|please|hey|hi|hello)(?:\s+tomato)?,?\s+)',re.I)
@@ -13,8 +40,9 @@ OF_TERM=re.compile(r'(?:plus|minus|or|xor|nand|nor|xnor|sum|difference)\b',re.I)
 OP_VOCAB=('plus','minus','and','or','xor','nand','nor','xnor','not','sum','add')
 FNOPS={'plus':'+','minus':'-','and':'&','or':'|','xor':'^','nand':'&','nor':'|','xnor':'^'}
 FNNEG={'nand','nor','xnor'}
-FNHEAD=re.compile(r'\b(plus|minus|and|or|xor|nand|nor|xnor|not|andn|orn|maskadd|xorand|andadd|oradd|xoradd)\s*\(',re.I)
-FNOP=re.compile(r'(plus|minus|and|or|xor|nand|nor|xnor|not|andn|orn|maskadd|xorand|andadd|oradd|xoradd|[+\-&|^~(,])\s*$',re.I)
+_BOOL3_FN='|'.join(k.lower() for k in BOOL3_OPS)
+FNHEAD=re.compile(r'\b(plus|minus|and|or|xor|nand|nor|xnor|not|andn|orn|maskadd|xorand|andadd|oradd|xoradd|'+_BOOL3_FN+r')\s*\(',re.I)
+FNOP=re.compile(r'(plus|minus|and|or|xor|nand|nor|xnor|not|andn|orn|maskadd|xorand|andadd|oradd|xoradd|'+_BOOL3_FN+r'|[+\-&|^~(,])\s*$',re.I)
 FNOPERAND=re.compile(r'[0-9A-Za-z_)]\s*$')
 
 def strip_shells(expression):
@@ -120,8 +148,8 @@ def expand_fn(s,depth=0,after_operand=False):
         if len(args)!=1 or not all(args):raise CompileError("ERR FN_ARITY: not(a) needs exactly one argument")
         made='~('+expand_fn(args[0],depth+1)+')'
         return before+made+expand_fn(s[j:],depth,True)
-    if name in ('maskadd','xorand','andadd','oradd','xoradd','andn','orn'):
-        need=3 if name in ('maskadd','xorand','andadd','oradd','xoradd') else 2
+    if name in ('maskadd','xorand','andadd','oradd','xoradd','andn','orn') or name in {k.lower() for k in BOOL3_OPS}:
+        need=2 if name in ('andn','orn') else 3
         if len(args)!=need or not all(args):raise CompileError(f"ERR FN_ARITY: {name} needs exactly {need} arguments")
         ea=[expand_fn(a,depth+1) for a in args]
         made=f"{name}({', '.join(ea)})"
@@ -151,7 +179,8 @@ def lower_expression(expression,explicit=False):
     expression=expand_fn(expression)
     for word,op in [('plus','+'),('minus','-'),('and','&'),('or','|'),('xor','^')]:
         expression=re.sub(r'\b'+word+r'\b',op,expression,flags=re.I)
-    if explicit or re.match(r'^(?:[0-9(~+\-^&|]|R[0-7]\b|(?:maskadd|xorand|andadd|oradd|xoradd|andn|orn)\s*\()',expression,re.I) or (re.search(r'\d',expression) and re.search(r'[+\-&|^~]|\bof\b',expression)):
+    bool3_pat='|'.join(k.lower() for k in BOOL3_OPS)
+    if explicit or re.match(r'^(?:[0-9(~+\-^&|]|R[0-7]\b|(?:maskadd|xorand|andadd|oradd|xoradd|andn|orn|nand|nor|xnor|'+bool3_pat+r')\s*\()',expression,re.I) or (re.search(r'\d',expression) and re.search(r'[+\-&|^~]|\bof\b',expression)):
         canonical,understood=expression_program(expression)
         return expression,canonical,understood
     return None
@@ -203,8 +232,62 @@ def interpret(source):
 BINOPS={ast.Add:'ADD',ast.Sub:'SUB',ast.BitAnd:'AND',ast.BitOr:'OR',ast.BitXor:'XOR'}
 UNSUP={ast.Mult:'*',ast.Div:'/',ast.Mod:'%',ast.FloorDiv:'//',ast.Pow:'**',ast.LShift:'<<',ast.RShift:'>>'}
 SYM={'ADD':'+','SUB':'-','AND':'&','OR':'|','XOR':'^'}
-TRI_OPS={'maskadd':'MASKADD','xorand':'XORAND','andadd':'ANDADD','oradd':'ORADD','xoradd':'XORADD'}
+TRI_OPS={
+    'maskadd':'MASKADD','xorand':'XORAND','andadd':'ANDADD','oradd':'ORADD','xoradd':'XORADD',
+    **{k.lower():k for k in BOOL3_OPS},
+}
 BIN2_OPS={'andn':'ANDN','orn':'ORN'}
+
+def fuse_bool_nest(outer_op, left, right):
+    if right and right[0]=='bin':
+        name=OUTER_INNER.get(f'{outer_op}:{right[1]}')
+        if name:return ('tri',name,name.lower(),[left,right[2],right[3]])
+    if left and left[0]=='bin' and outer_op in COMMUTE_OUTER:
+        name=OUTER_INNER.get(f'{outer_op}:{left[1]}')
+        if name:return ('tri',name,name.lower(),[right,left[2],left[3]])
+    return None
+
+def fuse_not_nest(node):
+    if not node or node[0]!='not' or node[1][0]!='bin':return None
+    inner=node[1]
+    outer={'AND':'NAND','OR':'NOR','XOR':'XNOR'}.get(inner[1])
+    if not outer:return None
+    return fuse_bool_nest(outer, inner[2], inner[3])
+
+def fuse_ast(n):
+    k=n[0]
+    if k=='bin':
+        _,op,l,r=n
+        l,r=fuse_ast(l),fuse_ast(r)
+        nest=fuse_bool_nest(op,l,r)
+        if nest:return nest
+        if op=='ADD':
+            if l[0]=='bin' and l[1] in ('AND','OR','XOR'):
+                return ('tri',{'AND':'ANDADD','OR':'ORADD','XOR':'XORADD'}[l[1]],None,[l[2],l[3],r])
+            if r[0]=='bin' and r[1]=='AND':
+                return ('tri','MASKADD',None,[l,r[2],r[3]])
+            if r[0]=='bin' and r[1] in ('OR','XOR'):
+                return ('tri',{'OR':'ORADD','XOR':'XORADD'}[r[1]],None,[r[2],r[3],l])
+        if op in ('AND','OR') and r[0]=='not':
+            return ('bin2',op+'N',(op+'n').lower(),[l,r[1]])
+        return ('bin',op,l,r)
+    if k=='not':
+        # Collapse ~(and/or/xor …) before the child fuses into ANDBC/…
+        child=n[1]
+        neg_outer={'AND':'NAND','OR':'NOR','XOR':'XNOR'}.get(child[1] if child[0]=='bin' else None)
+        if child[0]=='bin' and neg_outer:
+            l,r=fuse_ast(child[2]),fuse_ast(child[3])
+            nest=fuse_bool_nest(neg_outer,l,r)
+            if nest:return nest
+            return ('not',('bin',child[1],l,r))
+        a=fuse_ast(child)
+        collapsed=fuse_not_nest(('not',a))
+        return collapsed if collapsed else ('not',a)
+    if k=='tri':
+        return ('tri',n[1],n[2],[fuse_ast(a) for a in n[3]])
+    if k=='bin2':
+        return ('bin2',n[1],n[2],[fuse_ast(a) for a in n[3]])
+    return n
 
 def expression_program(expression):
     if len(expression)>1024:raise CompileError('ERR SOURCE_TOO_LONG')
@@ -244,13 +327,16 @@ def expression_program(expression):
         raise CompileError('ERR UNSUPPORTED_EXPRESSION: use + - & | ^ ~ and parentheses')
     try:root=parse(tree.body)
     except RecursionError:raise CompileError('ERR EXPRESSION_SYNTAX')
+    root=fuse_ast(root)
     def show(n):
         k=n[0]
         if k=='const':return n[2]
         if k=='reg':return f'R{n[1]}'
         if k=='not':
             s=show(n[1]);return '~'+(s if n[1][0] in ('const','reg') else f'({s})')
-        if k=='tri':return f"{n[2]}({', '.join(show(a) for a in n[3])})"
+        if k=='tri':
+            label=n[2] if n[2] else n[1].lower()
+            return f"{label}({', '.join(show(a) for a in n[3])})"
         if k=='bin2':return f"{n[2]}({', '.join(show(a) for a in n[3])})"
         return f'({show(n[2])} {SYM[n[1]]} {show(n[3])})'
     understood=show(root);understood=understood[1:-1] if understood.startswith('(') and understood.endswith(')') else understood
@@ -338,7 +424,7 @@ def compile_job(source):
         parts=line.replace(',',' ').split();op=parts[0].upper()
         if op in ('LUT','LUTCFG','LUTEXEC'):raise CompileError('ERR UNSUPPORTED_RAW_LUT: ISA extension not installed')
         if op in OPS:
-            n=4 if op in ('MASKADD','XORAND','ANDADD','ORADD','XORADD') else 3
+            n=4 if op in TRI4_OPS else 3
             if len(parts)!=n+1:raise CompileError('ERR OPERANDS')
             rr=[reg(x) for x in parts[1:]]
             if n==3:rr.append(0)
