@@ -1,0 +1,32 @@
+# Tomato
+
+> A functional 32-bit computer built from scratch in a dorm by Tyrone Marhguy, a Ghanaian computer engineering student at the University of Pennsylvania (Penn / UPenn), Penn Engineering Class of 2028.
+
+Tomato is an independent 32-bit architecture: Dual-LUT ALU, Tomato OS on FPGA, a browser emulator (Virtual Tomato), and Envelop to text the physical machine. The complete computer runs on FPGA. The discrete build currently proves an 8-bit ALU slice. There is no public JSON compute API. Hardware jobs require an Envelop lease.
+
+Today the machine is FPGA RTL plus discrete 74xx copper. A long-term goal is an ASIC implementation of Tomato — not a tapeout yet. Tomato is built for chip designers, RTL and verification engineers, University of Pennsylvania students, and students in Ghana who want a complete, inspectable computer they can run.
+
+## Use it
+
+- [Play Tomato OS](https://tomato.tmarhguy.com/virtual.html): run the shipped OS in the browser
+- [Message Tomato](https://tomato.tmarhguy.com/envelop.html): Envelop, when a verified bridge holds a lease
+- [Envelop chat](https://tmarhguy.github.io/envelop/chat/): web chat client
+- [Contact](https://tomato.tmarhguy.com/contact.html): email and elsewhere
+
+## Engineering
+
+- [Architecture](https://tomato.tmarhguy.com/architecture.html): Dual-LUT datapath
+- [ISA](https://tomato.tmarhguy.com/isa.html): 91 instructions plus NOP (92 burned rows)
+- [Tomato OS](https://tomato.tmarhguy.com/os.html): assembly OS
+- [Verification](https://tomato.tmarhguy.com/verification.html): Verilator + formal
+- [Status](https://tomato.tmarhguy.com/status.html): what exists today
+- [FPGA register file](https://tomato.tmarhguy.com/architecture.html): 256 × 32-bit on FPGA (no space for more); 32,768 is the discrete-faithful count
+- [Source](https://github.com/tmarhguy/tomato): RTL, assembler, OS, KiCad
+
+## About
+
+- [About Tyrone Marhguy](https://tomato.tmarhguy.com/about.html): Ghana → Philadelphia; Achimota School; University of Pennsylvania, Penn Engineering, Class of 2028
+- [FAQ](https://tomato.tmarhguy.com/faq.html)
+- [Build journal](https://tomato.tmarhguy.com/journal.html)
+- [What agents can do](https://tomato.tmarhguy.com/skill.md)
+- [Longer digest](https://tomato.tmarhguy.com/llms-full.txt)

@@ -29,7 +29,7 @@ cd web && npm run serve
 
 ## Current website direction
 
-The homepage leads with the interactive ALU board and the sentence “A computer whose logic changes with each instruction.” The text keeps its natural height; the board fills the remaining opening viewport. The site explains the configurable datapath, running FPGA software, discrete build, hardware compiler, and verification with diagrams and working examples.
+The homepage leads with the interactive ALU board and the sentence “A functional 32-bit computer built from scratch in a dorm.” The older line — that its logic can change with each instruction — sits in the What is Tomato? section and the footer. The text keeps its natural height; the board fills the remaining opening viewport. The site explains the configurable datapath, running FPGA software, discrete build, hardware compiler, and verification with diagrams and working examples.
 
 Read [`docs/status.md`](../docs/status.md) and [`docs/documentation-policy.md`](../docs/documentation-policy.md) before changing design or project claims. They record current facts, evidence boundaries, and which source wins. The old newspaper presentation is historical context, not the current design authority.
 
@@ -94,7 +94,7 @@ The journal takes [`docs/log/`](../docs/log/) and typesets it. It currently runs
 
 ## What the paper is now describing
 
-[`architecture.html`](https://tomato.tmarhguy.com/architecture.html), [`isa.html`](https://tomato.tmarhguy.com/isa.html), and [`software.html`](https://tomato.tmarhguy.com/software.html) cover the datapath, the ROM plus assembler vocabulary, and Tomato OS on HDMI. The burned ISA is **61 instructions plus NOP, 62 burned rows** in a 512-row control ROM. The architectural register file is **32,768 × 32-bit** locations — that is the primary count, because discrete is the superior design constraint. FPGA implementation remains **256 × 32-bit** entries (`{bank[2:0], register[4:0]}`, `r0` hardwired to zero) because there is no space for more on that fabric; the current burned ISA addresses that 256-entry FPGA array. Envelop messaging and the compute boundary live on [`envelop.html`](https://tomato.tmarhguy.com/envelop.html) and [`compute.html`](https://tomato.tmarhguy.com/compute.html). Source: [hardware/fpga/core](../hardware/fpga/core/README.md) · [software/os/tomato_os.s](../software/os/tomato_os.s).
+[`architecture.html`](https://tomato.tmarhguy.com/architecture.html), [`isa.html`](https://tomato.tmarhguy.com/isa.html), and [`software.html`](https://tomato.tmarhguy.com/software.html) cover the datapath, the ROM plus assembler vocabulary, and Tomato OS on HDMI. The burned ISA is **91 instructions plus NOP, 92 burned rows** in a 512-row control ROM. The architectural register file is **32,768 × 32-bit** locations — that is the primary count, because discrete is the superior design constraint. FPGA implementation remains **256 × 32-bit** entries (`{bank[2:0], register[4:0]}`, `r0` hardwired to zero) because there is no space for more on that fabric; the current burned ISA addresses that 256-entry FPGA array. Envelop messaging and the compute boundary live on [`envelop.html`](https://tomato.tmarhguy.com/envelop.html) and [`compute.html`](https://tomato.tmarhguy.com/compute.html). Source: [hardware/fpga/core](../hardware/fpga/core/README.md) · [software/os/tomato_os.s](../software/os/tomato_os.s).
 
 ### Tomato OS on the glass
 
@@ -123,7 +123,7 @@ web/
 ├── envelop.html            # Messaging product boundary
 ├── compute.html            # Hardware vs virtual compute labels
 ├── architecture.html       # Datapath & overlay word
-├── isa.html                # 61 instructions + NOP, 62 burned rows
+├── isa.html                # 91 instructions + NOP, 92 burned rows
 ├── software.html           # Assembler, Tomato OS, stack
 ├── os.html                 # Desktop v1.2 / OS v3.0 sheet
 ├── playground.html         # Dual-LUT emulator

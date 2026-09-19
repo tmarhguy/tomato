@@ -27,16 +27,20 @@
 <link href="css/brand.css?v=7700e16c" rel="stylesheet"/>
 <link rel="stylesheet" href="css/navigation.css?v=224d88a5" />
 <script src="js/navigation.js?v=cf819a71" defer></script>
+<link rel="stylesheet" href="css/virtual.css?v=01da990e" />
+<link rel="stylesheet" href="css/landing.css?v=321f9e55">
 <!-- tomato-seo -->
-  <meta name="description" content="How Envelop compiles bounded compute requests for Tomato, keeps hardware and virtual execution separate, and labels every result with its provenance." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, Tomato OS in browser, CPU emulator, FPGA CPU, Nexys A7, TomatoOS, Envelop demo, Tyrone Marhguy, UPenn computer engineering, Run, Tomato, your, browser, shipped, firmware, draws, plays, opens" />
+  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="keywords" content="Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, How, Tomato, Executes, Envelop, Compute, 32-bit" />
+  <meta name="dcterms.subject" content="chip design, 32-bit CPU, ASIC, RTL, FPGA, Ghana, University of Pennsylvania, Penn Engineering, Class of 2028, computer architecture" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
+  <link rel="alternate" type="text/plain" title="LLM index" href="llms.txt" />
   <meta property="og:title" content="How Tomato Executes Envelop Compute — Tomato" />
-  <meta property="og:description" content="The Tomato-side execution boundary: bounded bytecode, private machine state, explicit targets, and provenance-labeled results." />
+  <meta property="og:description" content="The Tomato 32-bit CPU" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/compute.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/compute.html" />
@@ -50,24 +54,52 @@
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="How Tomato Executes Envelop Compute — Tomato" />
-  <meta name="twitter:description" content="The Tomato-side execution boundary: bounded bytecode, private machine state, explicit targets, and provenance-labeled results." />
+  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://tomato.tmarhguy.com/compute.html#webpage",
-  "url": "https://tomato.tmarhguy.com/compute.html",
-  "name": "How Tomato Executes Envelop Compute — Tomato",
-  "description": "The Tomato-side execution boundary: bounded bytecode, private machine state, explicit targets, and provenance-labeled results.",
-  "isPartOf": {
-    "@id": "https://tomato.tmarhguy.com/#website"
-  },
-  "inLanguage": "en-US"
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://tomato.tmarhguy.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "How Tomato Executes Envelop Compute",
+          "item": "https://tomato.tmarhguy.com/compute.html"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://tomato.tmarhguy.com/compute.html#webpage",
+      "url": "https://tomato.tmarhguy.com/compute.html",
+      "name": "How Tomato Executes Envelop Compute — Tomato",
+      "description": "The Tomato 32-bit CPU",
+      "isPartOf": {
+        "@id": "https://tomato.tmarhguy.com/#website"
+      },
+      "inLanguage": "en-US",
+      "keywords": "Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, How, Tomato, Executes, Envelop, Compute, 32-bit",
+      "creator": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "chip designers, computer engineers, RTL and verification engineers, University of Pennsylvania students, students in Ghana and elsewhere"
+      }
+    }
+  ]
 }</script>
   <!-- /tomato-seo -->
-<link rel="stylesheet" href="css/virtual.css?v=01da990e" />
-<link rel="stylesheet" href="css/landing.css?v=321f9e55"></head>
+</head>
 <body><a class="skip-link" href="#main">Skip to content</a><header class="project-nav project-frame"><a aria-label="Tomato home" class="project-wordmark" href="index.html"><img alt="" height="40" src="assets/mark-dark.svg" width="34"/><span>tomato</span></a><nav aria-label="Primary" class="project-primary"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Message Tomato</a><a href="architecture.html">Engineering</a><a href="journal.html">Journal</a><a href="gallery.html">Gallery</a><a href="status.html">Status</a></nav><button aria-label="Switch to light theme" class="project-theme" data-theme-toggle="" hidden="" type="button">Light mode</button><details class="site-menu"><summary aria-label="Open all pages"><span></span><span></span><span></span></summary><nav aria-label="All pages"><a href="index.html">Home</a><a href="architecture.html">Architecture</a><a href="playground.html">Playground</a><a href="software.html">Software</a><a href="os.html">Tomato OS</a><a href="virtual.html">Virtual Tomato</a><a href="envelop.html">Envelop</a><a href="https://tmarhguy.github.io/envelop/chat/">Envelop chat</a><a href="compute.html">Compute</a><a href="isa.html">ISA</a><a href="gallery.html">Gallery</a><a href="journal.html">Build journal</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="status.html">What exists today</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="viewer.html">Tour the board</a><a href="source.html">Source</a><a href="board.html">Board workspace</a></nav></details></header>
 <main id="main" class="frame section-space ecosystem"><p class="eco-tag">TOMATO-SIDE EXECUTION · BOUNDED ABI · LABELED TARGET</p><div class="ecosystem-heading"><h1>Envelop writes the program.<br/>Tomato runs it.</h1><p>This page explains the machine boundary: what bytecode Tomato accepts, what state it may touch, and what evidence is required before a result may be labeled Physical Tomato. <a href="https://tmarhguy.github.io/envelop/">Envelop owns the messaging product and controlled-language experience.</a></p></div>
 <figure class="ecosystem-proof"><img src="assets/documentation/desktop/tomato-compute-provenance-desktop.webp" width="1440" height="1000" loading="lazy" decoding="async" alt="Tomato compute preview showing the request, target choice, and a result labeled Virtual Tomato"/><figcaption>Documentation example · Virtual Tomato label shown explicitly · this page capture is UI evidence, not a fresh execution or physical result.</figcaption></figure>
@@ -76,4 +108,8 @@ R0 = R0 &amp; 63
 RETURN R0</pre><small>Simplified view — actual bytecode v1 uses explicit R0/R1 (see local preview). Shown before anything runs.</small></article><article><h2>2. Choose the target</h2><p>The preview tries an eligible connected hardware route first for every new job.</p><p>Hardware execution and Virtual Tomato preview are separate explicit actions. A hardware timeout is an unknown outcome and does not offer or trigger an automatic replay.</p><small>A timeout means no confirmed result — not proof hardware never ran. Starting a virtual preview creates a separate, visibly labeled job.</small></article><article><h2>3. See the result</h2><p><strong>12 / 0x0000000C</strong></p><p>This example was verified on CPU RTL running the OS. The answer is labeled <strong>Virtual Tomato</strong> when virtual.</p><small>Completed virtual jobs are never replayed on hardware later. Results name target + provenance.</small></article></div>
 <section class="section-space"><h2>One request. Two separate responsibilities.</h2><p><strong>Envelop owns interpretation and delivery.</strong> It preserves what you typed, shows the controlled-language interpretation, compiles supported input, queues physical work, and presents the result.</p><p><strong>Tomato owns execution.</strong> Its bounded executor runs the supplied program against private registers and memory, then returns an answer with enough provenance for Envelop to label the target. Virtual Tomato is a separate explicit preview, never a silent replay.</p></section>
 <section><h2>Run the local preview</h2><p>From a current Tomato checkout with the simulation toolchain installed:</p><pre>python3 tools/virtual_tomato.py</pre><p>Open the local preview at <code>http://127.0.0.1:8766</code>. Up → Center opens Envelop. Connect the demo phone, wait for the greeting, then send <code>What is (57 + 19) AND 0x3F?</code>: expect <code>12 / 0x0000000C</code>. Send <code>Hello</code>: greeting + two short instructions. Send unsupported <code>/calc 1 / 0</code>: readable compiler error; the OS keeps running.</p><p>In Envelop’s Mac app, select Tomato → <strong>Use Tomato</strong>. The welcome screen also offers <strong>Try Tomato locally</strong>. The service compiles the request; choosing a separate virtual preview runs the OS on a fresh CPU RTL instance.</p><p>Try <code>45 &amp; 19</code>, <code>what is 5 plus 7?</code>, <code>and(45, 34)</code>, or a small program:</p><pre>/run R0=42; RETURN R0</pre><h3>Current limits — enforced, not hidden</h3><p>The remote ABI has eight private registers R0–R7, 256 private 32-bit memory words, and at most 32 straight-line instructions with a mandatory final RETURN. Arithmetic wraps to 32 bits. It supports ADD / SUB / AND / OR / XOR / MASKADD / XORAND and private LOAD / STORE.</p><p>Raw LUT configuration, multiplication, division, loops and arbitrary OS memory access are unsupported. Unsupported expressions return useful errors; the app never invents an answer. Greeting / help / unknown chat get bounded replies.</p><p>A timeout means no confirmed hardware result, not proof that the hardware never ran. Virtual results are labeled and never queued for later hardware replay.</p></section>
-<div class="ecosystem-links"><a href="virtual.html">Play the public board →</a><a href="https://tmarhguy.github.io/envelop/">Discover Envelop →</a><a href="https://tmarhguy.github.io/envelop/chat/">Open Envelop web chat →</a><a href="https://github.com/tmarhguy/tomato">Tomato source →</a><a href="envelop.html">Back to the story →</a></div></main><footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a aria-current="page" href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="https://tmarhguy.github.io/envelop/">Envelop · message Tomato</a><a href="#main">Back to top</a></div></footer><script src="js/mast.js?v=7cf4c39a"></script></body></html>
+<div class="ecosystem-links"><a href="virtual.html">Play the public board →</a><a href="https://tmarhguy.github.io/envelop/">Discover Envelop →</a><a href="https://tmarhguy.github.io/envelop/chat/">Open Envelop web chat →</a><a href="https://github.com/tmarhguy/tomato">Tomato source →</a><a href="envelop.html">Back to the story →</a></div></main><footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="contact.html">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a aria-current="page" href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="https://tmarhguy.github.io/envelop/">Envelop · message Tomato</a><a href="#main">Back to top</a></div></footer><script src="js/mast.js?v=7cf4c39a"></script><!-- tomato-vercel -->
+  <script src="js/vercel-analytics.js?v=c08440a3" defer></script>
+  <script src="js/vercel-speed-insights.js?v=0d39aa70" defer></script>
+<!-- /tomato-vercel -->
+</body></html>

@@ -29,12 +29,14 @@
 <link rel="stylesheet" href="css/page-media.css?v=dd88a842"/>
 <!-- tomato-seo -->
   <meta name="description" content="I built Tomato around a configurable 32-bit arithmetic and logic engine. Follow an instruction from memory, through the controls and calculation, to the register that keeps the result." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, dual-LUT datapath, microcode ROM, 32-bit instruction word, Von Neumann, bit-slice ALU, modular decode, 07_alu, board catalog, How, fits, together, built, tomato, around, configurable, 32-bit, arithmetic, engine, follow" />
+  <meta name="keywords" content="Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, dual-LUT datapath, microcode ROM, 32-bit instruction word, Von Neumann, bit-slice ALU, modular decode, 07_alu, board catalog, How, fits, together, built, tomato, around, configurable, 32-bit, arithmetic, engine, follow" />
+  <meta name="dcterms.subject" content="chip design, 32-bit CPU, ASIC, RTL, FPGA, Ghana, University of Pennsylvania, Penn Engineering, Class of 2028, computer architecture" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
+  <link rel="alternate" type="text/plain" title="LLM index" href="llms.txt" />
   <meta property="og:title" content="How the computer fits together — Tomato" />
   <meta property="og:description" content="I built Tomato around a configurable 32-bit arithmetic and logic engine. Follow an instruction from memory, through the controls and calculation, to the register that keeps the result." />
   <meta property="og:type" content="website" />
@@ -55,15 +57,44 @@
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://tomato.tmarhguy.com/architecture.html#webpage",
-  "url": "https://tomato.tmarhguy.com/architecture.html",
-  "name": "How the computer fits together — Tomato",
-  "description": "I built Tomato around a configurable 32-bit arithmetic and logic engine. Follow an instruction from memory, through the controls and calculation, to the register that keeps the result.",
-  "isPartOf": {
-    "@id": "https://tomato.tmarhguy.com/#website"
-  },
-  "inLanguage": "en-US"
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://tomato.tmarhguy.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "How the computer fits together",
+          "item": "https://tomato.tmarhguy.com/architecture.html"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://tomato.tmarhguy.com/architecture.html#webpage",
+      "url": "https://tomato.tmarhguy.com/architecture.html",
+      "name": "How the computer fits together — Tomato",
+      "description": "I built Tomato around a configurable 32-bit arithmetic and logic engine. Follow an instruction from memory, through the controls and calculation, to the register that keeps the result.",
+      "isPartOf": {
+        "@id": "https://tomato.tmarhguy.com/#website"
+      },
+      "inLanguage": "en-US",
+      "keywords": "Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, dual-LUT datapath, microcode ROM, 32-bit instruction word, Von Neumann, bit-slice ALU, modular decode, 07_alu, board catalog, How, fits, together, built, tomato, around, configurable, 32-bit, arithmetic, engine, follow",
+      "creator": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "chip designers, computer engineers, RTL and verification engineers, University of Pennsylvania students, students in Ghana and elsewhere"
+      }
+    }
+  ]
 }</script>
   <!-- /tomato-seo -->
 </head>
@@ -132,7 +163,7 @@
 <nav aria-label="Jump into the machine" class="site-hero__actions">
 <a class="is-primary" href="#slice">Dual-LUT slice</a>
 <a href="#word">The word</a>
-<a href="#register-file">256 FPGA registers</a>
+<a href="#register-file">Registers</a>
 <a href="viewer.html">Tour the board</a>
 </nav>
 </div>
@@ -245,7 +276,7 @@
 <article class="terrain-card">
 <p class="numeral">I. Opcode</p>
 <h3>Nine bits. 512 rows.</h3>
-<p>61 instructions plus NOP occupy 62 burned rows. The 512-row control ROM leaves the rest unmapped.</p>
+<p>91 instructions plus NOP occupy 92 burned rows. The 512-row control ROM leaves the rest unmapped.</p>
 </article>
 <article class="terrain-card">
 <p class="numeral">II. Registers</p>
@@ -275,13 +306,13 @@
 
 <!-- page-media:start --><section class="media-evidence project-frame" aria-labelledby="media-evidence-title"><header><p class="kicker">From the build</p><h2 id="media-evidence-title">The work behind the words.</h2></header><div class="media-evidence-grid"><figure><a class="media-evidence-image" href="assets/gallery/assembly/board-test-1280w.webp" aria-label="View larger: Physical Tomato ALU board on the test bench"><img src="assets/gallery/assembly/board-test-1280w.webp" srcset="assets/gallery/assembly/board-test-640w.webp 640w, assets/gallery/assembly/board-test-1280w.webp 1280w" sizes="(max-width: 650px) 90vw, 45vw" alt="Physical Tomato ALU board on the test bench" loading="lazy" decoding="async"/></a><figcaption><a href="journal/first-lights.html">The assembled ALU</a><p>Lot 07 on the bench during board testing.</p></figcaption></figure><figure><a class="media-evidence-image" href="assets/gallery/assembly/placing-and-soldering-1280w.webp" aria-label="View larger: Placing and soldering components on the Tomato ALU"><img src="assets/gallery/assembly/placing-and-soldering-1280w.webp" srcset="assets/gallery/assembly/placing-and-soldering-640w.webp 640w, assets/gallery/assembly/placing-and-soldering-1280w.webp 1280w" sizes="(max-width: 650px) 90vw, 45vw" alt="Placing and soldering components on the Tomato ALU" loading="lazy" decoding="async"/></a><figcaption><a href="journal/first-assembly.html">Placing the logic</a><p>Assembly of the discrete ALU, one package at a time.</p></figcaption></figure></div></section><!-- page-media:end -->
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a aria-current="page" href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="contact.html">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a aria-current="page" href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script src="js/arch-map.js?v=e66262bb" type="module"></script>
 <script defer="" src="js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
-<script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
-<script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>
+  <script src="js/vercel-analytics.js?v=c08440a3" defer></script>
+  <script src="js/vercel-speed-insights.js?v=0d39aa70" defer></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

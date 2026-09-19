@@ -30,42 +30,73 @@
 <link rel="stylesheet" href="css/navigation.css?v=224d88a5" />
 <script src="js/navigation.js?v=cf819a71" defer></script>
 <!-- tomato-seo -->
-  <meta name="description" content="Tomato OS boots on the FPGA computer with a wallpapered Desktop v1.2, draws the menu, reads the controls, and runs games including Sudoku. Written in Tomato assembly; HDMI captures show the stream." />
-  <meta property="og:description" content="Tomato OS boots on the FPGA computer with a wallpapered Desktop v1.2, draws the menu, reads the controls, and runs games including Sudoku. Written in Tomato assembly; HDMI captures show the stream." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato OS, HDMI desktop, 80x60 framebuffer, Snake, Tetris, tomato_os.s, tile RAM, processor, operating, system, tomato, boots, draws, reads, controls, games, wrote" />
+  <meta name="description" content="Tomato OS boots on the FPGA computer, draws the menu, reads the controls, and runs games. I wrote it in Tomato’s own assembly language. These recordings show the hardware and software working together." />
+  <meta name="keywords" content="Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, Tomato OS, HDMI desktop, 80x60 framebuffer, Snake, Tetris, tomato_os.s, tile RAM, processor, operating, system, tomato, boots, draws, reads, controls, games, wrote" />
+  <meta name="dcterms.subject" content="chip design, 32-bit CPU, ASIC, RTL, FPGA, Ghana, University of Pennsylvania, Penn Engineering, Class of 2028, computer architecture" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
+  <link rel="alternate" type="text/plain" title="LLM index" href="llms.txt" />
   <meta property="og:title" content="My processor. My operating system — Tomato" />
+  <meta property="og:description" content="Tomato OS boots on the FPGA computer, draws the menu, reads the controls, and runs games. I wrote it in Tomato’s own assembly language. These recordings show the hardware and software working together." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/os.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/os.html" />
-  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/gallery/os/desktop-home-1280w.webp" />
+  <meta property="og:image" content="https://tomato.tmarhguy.com/assets/gallery/os/main-menu-screen-1280w.webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Tomato OS Desktop v1.2 with wallpaper" />
+  <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="My processor. My operating system — Tomato" />
-  <meta name="twitter:description" content="Tomato OS boots on the FPGA computer, draws the wallpapered desktop, reads the controls, and runs games — including Sudoku." />
-  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/gallery/os/desktop-home-1280w.webp" />
-  <meta name="twitter:image:alt" content="Tomato OS Desktop v1.2 with wallpaper" />
+  <meta name="twitter:description" content="Tomato OS boots on the FPGA computer, draws the menu, reads the controls, and runs games. I wrote it in Tomato’s own assembly language. These recordings show the hardware and software working together." />
+  <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/gallery/os/main-menu-screen-1280w.webp" />
+  <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://tomato.tmarhguy.com/os.html#webpage",
-  "url": "https://tomato.tmarhguy.com/os.html",
-  "name": "My processor. My operating system — Tomato",
-  "description": "Tomato OS boots on the FPGA computer with a wallpapered Desktop v1.2, draws the menu, reads the controls, and runs games including Sudoku. Written in Tomato assembly; HDMI captures show the stream.",
-  "isPartOf": {
-    "@id": "https://tomato.tmarhguy.com/#website"
-  },
-  "inLanguage": "en-US"
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://tomato.tmarhguy.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "My processor. My operating system",
+          "item": "https://tomato.tmarhguy.com/os.html"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://tomato.tmarhguy.com/os.html#webpage",
+      "url": "https://tomato.tmarhguy.com/os.html",
+      "name": "My processor. My operating system — Tomato",
+      "description": "Tomato OS boots on the FPGA computer, draws the menu, reads the controls, and runs games. I wrote it in Tomato’s own assembly language. These recordings show the hardware and software working together.",
+      "isPartOf": {
+        "@id": "https://tomato.tmarhguy.com/#website"
+      },
+      "inLanguage": "en-US",
+      "keywords": "Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, Tomato OS, HDMI desktop, 80x60 framebuffer, Snake, Tetris, tomato_os.s, tile RAM, processor, operating, system, tomato, boots, draws, reads, controls, games, wrote",
+      "creator": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "chip designers, computer engineers, RTL and verification engineers, University of Pennsylvania students, students in Ghana and elsewhere"
+      }
+    }
+  ]
 }</script>
   <!-- /tomato-seo -->
 </head>
@@ -103,7 +134,7 @@
 </video>
 <figcaption>Tomato OS demo · Desktop, menu, and games · clean HDMI capture · also in the <a href="gallery.html">gallery</a></figcaption>
 </figure>
-<p class="">ALU verification, whole-machine simulation, and FPGA demonstrations are different evidence. Tomato OS exercises keypad MMIO, tile RAM, HDMI timing, the menu loop, and the current 256 × 32-bit FPGA register file. The CPU writes an 80×60 character field over a bitmap wallpaper; a separate scanout block reads it and drives the monitor. No GPU — games are loops in asm.</p>
+<p class="">ALU verification, whole-machine simulation, and FPGA demonstrations are different evidence. Tomato OS exercises keypad MMIO, tile RAM, HDMI timing, the menu loop, and the current 256 × 32-bit FPGA register file. Discrete architecture still counts <strong>32,768</strong> as primary. The CPU writes an 80×60 character field over a bitmap wallpaper; a separate scanout block reads it and drives the monitor. No GPU — games are loops in asm.</p>
 <p>The clip above is the full tour: boot into Desktop v1.2, walk the application list, and open the games people ask about first — Tetris, Snake, Racer, Sudoku, Fibonacci — all painted by the CPU and scanned out over the DVI PMOD. Same recording lives in the <a href="gallery.html">gallery</a> under Tomato OS.</p>
 <div class="two-up">
 <figure class="plate">
@@ -286,13 +317,13 @@
 </div>
 </div>
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a aria-current="page" href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="contact.html">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a aria-current="page" href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script src="js/arch-map.js?v=e66262bb" type="module"></script>
 <script defer="" src="js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
-<script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
-<script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>
+  <script src="js/vercel-analytics.js?v=c08440a3" defer></script>
+  <script src="js/vercel-speed-insights.js?v=0d39aa70" defer></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

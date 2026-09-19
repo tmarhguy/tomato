@@ -161,6 +161,25 @@ test("compiler MMIO matches the counter FSM and the OS can deep-boot it", () => 
   assert.equal(ui.compilerRead(5), 0xbc);
 });
 
+test("os: repeated downs in the compiler keep decrementing A", () => {
+  const ui = bootOs();
+  ui.key(30); ui.step(TICK);
+  ui.key(30); ui.step(TICK);
+  ui.key(13); ui.step(TICK * 2);
+  assert.equal(ui.compilerRead(0), 0x89);
+  let n = 0;
+  for (let i = 0; i < 80 && n < 8; i++) {
+    if (!ui.kbReady) {
+      ui.key(31);
+      n++;
+    }
+    ui.step(TICK);
+  }
+  ui.step(TICK * 4);
+  assert.ok(n >= 8, `only delivered ${n} downs`);
+  assert.equal(ui.compilerRead(0), (0x89 - n) >>> 0);
+});
+
 test("os: demo phone delivers contacts and a greeting", () => {
   const t = bootOs();
   const replies = [];

@@ -65,12 +65,18 @@ if (rows.length !== 512) {
 
 const burns = rows.filter((r) => r.status === "burn");
 const nops = rows.filter((r) => r.status === "nop");
+const nopBurned = burns.some((r) => String(r.mnemonic).toUpperCase() === "NOP");
+const insnCount = nopBurned ? burns.length - 1 : burns.length;
+const isaFact = `${insnCount} instructions plus NOP`;
+const burnedFact = `${burns.length} burned rows`;
+const isaBlurb = `Tomato ISA: ${isaFact} occupy ${burnedFact} in a 512-row instruction ROM. The authoritative tomato.v1.csv maps native mnemonics onto the Dual-LUT datapath.`;
 
 const payload = {
   source: "docs/isa/tomato.v1.csv",
   generated: new Date().toISOString().slice(0, 10),
   romSlots: rows.length,
   burned: burns.length,
+  instructions: insnCount,
   open: nops.length,
   rows: rows.map((r) => ({
     addr: r.rom_addr,
@@ -114,7 +120,7 @@ const groupLabels = {
   stack: "Stack / I/O",
 };
 
-let catalog = `<header class="isa-sheet-head" id="catalog"><div><p class="kicker">02 / BURNED</p><h2 id="catalog-title">The ${burns.length} opcodes in use.</h2></div><p>Every burn below is a real ROM row from <span class="mono">tomato.v1.csv</span>. Spacing stays even so new burns can land without redesigning the sheet.</p></header>`;
+let catalog = `<header class="isa-sheet-head" id="catalog"><div><p class="kicker">02 / BURNED</p><h2 id="catalog-title">The ${isaFact}.</h2></div><p>Every burn below is a real ROM row from <span class="mono">tomato.v1.csv</span>. Spacing stays even so new burns can land without redesigning the sheet.</p></header>`;
 for (const g of groupOrder) {
   const list = byGroup.get(g);
   catalog += `<section class="isa-group" id="group-${esc(g)}" aria-labelledby="g-${esc(g)}">`;
@@ -172,11 +178,15 @@ if (!html.includes("<!-- isa-generated:start -->")) {
 }
 html = html.replace(/<!-- isa-generated:start -->[\s\S]*?<!-- isa-generated:end -->/, block);
 
-// Keep the static hero/stats counts in sync with the CSV.
+// Keep the static hero, SEO, and catalog copy in sync with the CSV.
 html = html.replace(
-  /(<p class="deck">Nine opcode bits index a 512-row control ROM\. <strong>)(\d+)(<\/strong>)/,
-  `$1${burns.length}$3`
+  /<p class="deck">Nine opcode bits index a 512-row control ROM\.[^<]*(?:<strong>[^<]*<\/strong>[^<]*)*<\/p>/,
+  `<p class="deck">Nine opcode bits index a 512-row control ROM. <strong>${isaFact}</strong> occupy <strong>${burnedFact}</strong>. The rest stay open as the map grows.</p>`
+);
+html = html.replace(
+  /Tomato ISA: \d+ instructions plus NOP occupy \d+ burned rows in a 512-row instruction ROM\. The authoritative tomato\.v1\.csv maps native mnemonics onto the Dual-LUT datapath\./g,
+  isaBlurb
 );
 writeFileSync(htmlPath, html);
 
-console.log(`ISA build: ${burns.length} burned / ${rows.length} slots → ${jsonPath}`);
+console.log(`ISA build: ${isaFact}, ${burnedFact} / ${rows.length} slots → ${jsonPath}`);

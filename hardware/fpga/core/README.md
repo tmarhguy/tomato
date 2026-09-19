@@ -34,7 +34,7 @@ entries**. Desktop v1.2 is the workspace UI revision. The FPGA RTL declares a
 **256 × 32-bit physical register array** addressed by three bank bits and a
 five-bit register field, with `r0` hardwired to zero. This is an implementation
 and ISA choice, not a documented Artix-7 capacity limit. The ISA has
-**61 instructions plus NOP, 62 burned rows** in its 512-row control ROM.
+**91 instructions plus NOP, 92 burned rows** in its 512-row control ROM.
 
 Historical screenshots and journal entries may display older versions, entry
 counts, burn counts, or register designs. They do not override current assembly,

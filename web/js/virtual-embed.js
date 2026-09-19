@@ -6,6 +6,7 @@
  */
 import { Tomato, loadImage } from "./tomato-cpu.js?v=47cc72f7";
 import { paintDirty, paintFull } from "./tomato-screen.js?v=a9760af7";
+import { KEYMAP, createKeypad } from "./virtual-keys.js?v=ee6519da";
 
 const BOOT_INSTR = 200000;
 const FRAME_BUDGET_MS = 8;
@@ -31,9 +32,7 @@ if (figure) {
   let running = false;
   let visible = false;
   new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }, {threshold: 0}).observe(figure);
-  const keyQueue = [];
-
-  const KEYMAP = { ArrowUp: 30, ArrowDown: 31, ArrowLeft: 17, ArrowRight: 16, Enter: 13 };
+  const keypad = createKeypad();
 
   function status() {
     if (!cpu) return;
@@ -45,8 +44,7 @@ if (figure) {
     if (!running) return;
     requestAnimationFrame(frame);
     if (document.hidden || !visible) return;
-    while (keyQueue.length > 0 && !cpu.kbReady) cpu.key(keyQueue.shift());
-    if (keyQueue.length > 32) keyQueue.splice(0, keyQueue.length - 32);
+    keypad.pump(cpu);
     const start = performance.now();
     let n = 0;
     while (!cpu.halted && n < FRAME_INSTR_CAP && performance.now() - start < FRAME_BUDGET_MS) {
@@ -55,24 +53,44 @@ if (figure) {
       n += chunk;
     }
     steps += n;
+    keypad.pump(cpu);
     paintDirty(cpu, image, imgData, ctx);
     status();
   }
 
   document.addEventListener("keydown", (e) => {
     if (!running || !figure.contains(document.activeElement)) return;
-    if (KEYMAP[e.key] !== undefined) {
-      e.preventDefault();
-      if (!e.repeat) keyQueue.push(KEYMAP[e.key]);
-    }
+    const code = KEYMAP[e.key];
+    if (code === undefined) return;
+    e.preventDefault();
+    if (!e.repeat) keypad.press(code);
+  });
+  document.addEventListener("keyup", (e) => {
+    const code = KEYMAP[e.key];
+    if (code === undefined) return;
+    keypad.release(code);
+  });
+  window.addEventListener("blur", () => keypad.clear());
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) keypad.clear();
   });
 
   figure.querySelectorAll("[data-key]").forEach((b) => {
     b.addEventListener("pointerdown", (e) => {
       if (e.pointerType === "mouse" && e.button !== 0) return;
       e.preventDefault();
-      keyQueue.push(Number(b.dataset.key));
+      const code = Number(b.dataset.key);
+      b.setPointerCapture(e.pointerId);
+      keypad.press(code);
       canvas.focus();
+    });
+    b.addEventListener("pointerup", (e) => {
+      keypad.release(Number(b.dataset.key));
+      if (b.hasPointerCapture(e.pointerId)) b.releasePointerCapture(e.pointerId);
+    });
+    b.addEventListener("pointercancel", (e) => {
+      keypad.release(Number(b.dataset.key));
+      if (b.hasPointerCapture(e.pointerId)) b.releasePointerCapture(e.pointerId);
     });
   });
   figure.querySelector(".vt-embed-keys")?.addEventListener("dblclick", (e) => e.preventDefault());

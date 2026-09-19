@@ -31,15 +31,17 @@
 <script src="../js/navigation.js?v=cf819a71" defer></script>
 <link rel="stylesheet" href="../css/journal-article.css?v=c63d95f2"/>
 <!-- tomato-seo -->
-  <meta name="description" content="A dated ALU refinement note covering NAND generate logic, reused inverter gates, and 74283 nibble adders." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, Tomato journal, design log, engineering notebook, ALU, refinement, tomato, 32-bit" />
+  <meta name="description" content="The Tomato 32-bit CPU" />
+  <meta name="keywords" content="Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, Tomato journal, design log, engineering notebook, ALU, refinement, tomato, 32-bit" />
+  <meta name="dcterms.subject" content="chip design, 32-bit CPU, ASIC, RTL, FPGA, Ghana, University of Pennsylvania, Penn Engineering, Class of 2028, computer architecture" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="../site.webmanifest" />
   <link rel="author" type="text/plain" href="../humans.txt" />
+  <link rel="alternate" type="text/plain" title="LLM index" href="../llms.txt" />
   <meta property="og:title" content="ALU refinement — The Tomato" />
-  <meta property="og:description" content="A dated ALU refinement note covering NAND generate logic, reused inverter gates, and 74283 nibble adders." />
+  <meta property="og:description" content="The Tomato 32-bit CPU" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://tomato.tmarhguy.com/journal/alu-refine.html" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/journal/alu-refine.html" />
@@ -49,30 +51,68 @@
   <meta property="og:image:alt" content="The Tomato 32-bit CPU" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:updated_time" content="2026-06-26" />
+  <meta property="article:published_time" content="2026-06-26" />
+  <meta property="article:modified_time" content="2026-06-26" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
   <meta name="twitter:title" content="ALU refinement — The Tomato" />
-  <meta name="twitter:description" content="A dated ALU refinement note covering NAND generate logic, reused inverter gates, and 74283 nibble adders." />
+  <meta name="twitter:description" content="The Tomato 32-bit CPU" />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
-  "@type": "Article",
-  "@id": "https://tomato.tmarhguy.com/journal/alu-refine.html#webpage",
-  "url": "https://tomato.tmarhguy.com/journal/alu-refine.html",
-  "name": "ALU refinement — The Tomato",
-  "description": "A dated ALU refinement note covering NAND generate logic, reused inverter gates, and 74283 nibble adders.",
-  "isPartOf": {
-    "@id": "https://tomato.tmarhguy.com/#website"
-  },
-  "inLanguage": "en-US",
-  "headline": "ALU refinement",
-  "author": {
-    "@type": "Person",
-    "name": "Tyrone Marhguy"
-  },
-  "datePublished": "26 June 2026 · ALU"
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://tomato.tmarhguy.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Journal",
+          "item": "https://tomato.tmarhguy.com/journal.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "ALU refinement",
+          "item": "https://tomato.tmarhguy.com/journal/alu-refine.html"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://tomato.tmarhguy.com/journal/alu-refine.html#webpage",
+      "url": "https://tomato.tmarhguy.com/journal/alu-refine.html",
+      "name": "ALU refinement — The Tomato",
+      "description": "The Tomato 32-bit CPU",
+      "isPartOf": {
+        "@id": "https://tomato.tmarhguy.com/#website"
+      },
+      "inLanguage": "en-US",
+      "keywords": "Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, Tomato journal, design log, engineering notebook, ALU, refinement, tomato, 32-bit",
+      "creator": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "chip designers, computer engineers, RTL and verification engineers, University of Pennsylvania students, students in Ghana and elsewhere"
+      },
+      "dateModified": "2026-06-26",
+      "datePublished": "2026-06-26",
+      "headline": "ALU refinement",
+      "author": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      }
+    }
+  ]
 }</script>
   <!-- /tomato-seo -->
 </head>
@@ -106,12 +146,12 @@
 </div>
 </section>
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="../index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="../contact.html">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="../virtual.html">Play Tomato</a><a href="../envelop.html">Envelop</a><a href="../compute.html">Compute</a><a href="../os.html">Tomato OS</a><a href="../software.html">Software</a><a href="../architecture.html">Architecture</a><a href="../status.html">Status</a><a href="../gallery.html">Gallery</a><a href="../journal.html">Journal</a><a href="../isa.html">Instruction set</a><a href="../playground.html">Playground</a><a href="../boards.html">Boards</a><a href="../verification.html">Verification</a><a href="../source.html">Source</a><a href="../faq.html">FAQ</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script defer="" src="../js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
-<script defer="" src="../js/vercel-analytics.js?v=c08440a3"></script>
-<script defer="" src="../js/vercel-speed-insights.js?v=0d39aa70"></script>
+  <script src="../js/vercel-analytics.js?v=c08440a3" defer></script>
+  <script src="../js/vercel-speed-insights.js?v=0d39aa70" defer></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

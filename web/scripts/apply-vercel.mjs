@@ -46,7 +46,7 @@ function stripOld(html) {
 let count = 0;
 for (const file of walk(web)) {
   const rel = relative(web, file).split("\\").join("/");
-  if (rel === "broadsheet.html") continue;
+  if (rel === "broadsheet.html" || rel === "404.html") continue;
   let html = readFileSync(file, "utf8");
   if (!html.includes("</body>")) continue;
   html = stripOld(html);

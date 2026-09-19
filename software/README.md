@@ -49,7 +49,7 @@ The assembler holds no opcode table of its own. It reads both CSVs at startup, s
 
 | File | Holds |
 |------|-------|
-| [`tomato.v1.csv`](../docs/isa/tomato.v1.csv) | The 512-row control ROM: **61 instructions plus NOP, 62 burned rows** |
+| [`tomato.v1.csv`](../docs/isa/tomato.v1.csv) | The 512-row control ROM: **91 instructions plus NOP, 92 burned rows** |
 | [`tomato.v1.pseudo.csv`](../docs/isa/tomato.v1.pseudo.csv) | Pseudo-instructions that expand into already-burned instructions |
 
 Check the second one against the first at any time:

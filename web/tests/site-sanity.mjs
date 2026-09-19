@@ -39,6 +39,7 @@ const REQUIRED = [
   "envelop.html",
   "js/virtual.js",
   "js/virtual-embed.js",
+  "js/virtual-keys.js",
   "js/tomato-cpu.js",
   "js/tomato-screen.js",
   "css/virtual.css",
@@ -80,6 +81,10 @@ const REQUIRED = [
   "verification.html",
   "sitemap.xml",
   "robots.txt",
+  "llms.txt",
+  "llms-full.txt",
+  "skill.md",
+  "contact.html",
   "site.webmanifest",
   "humans.txt",
   ".well-known/security.txt",
@@ -476,8 +481,8 @@ test("gallery ships responsive WebP variants and LCP preload", () => {
 test("homepage uses current ISA and register facts", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
   for (const phrase of [
-    "61 instructions plus NOP",
-    "62 burned rows",
+    "91 instructions plus NOP",
+    "92 burned rows",
     "32,768 discrete registers",
     "256 × 32-bit FPGA registers",
     "r0 is hardwired to zero",
@@ -489,12 +494,32 @@ test("homepage uses current ISA and register facts", () => {
   assert.doesNotMatch(html, /<strong>32,768 × 32-bit registers<\/strong>/);
 });
 
+test("Envelop page ships the chat / OS / board proof row", () => {
+  const html = readFileSync(join(WEB, "envelop.html"), "utf8");
+  for (const file of [
+    "assets/envelop/chat-on-tomato.webp",
+    "assets/envelop/envelop-on-tomato.webp",
+    "assets/envelop/tomato-compute.webp",
+  ]) {
+    assert.ok(existsSync(join(WEB, file)), `missing ${file}`);
+    assert.ok(html.includes(file), `envelop.html missing ${file}`);
+  }
+  assert.equal((html.match(/class="message-proof-shot"/g) || []).length, 3);
+});
+
 test("homepage Virtual Tomato controls suppress double-tap zoom locally", () => {
   const html = readFileSync(join(WEB, "index.html"), "utf8");
   const virtual = readFileSync(join(WEB, "virtual.html"), "utf8");
   const css = readFileSync(join(WEB, "css/virtual.css"), "utf8");
   const board = readFileSync(join(WEB, "js/virtual.js"), "utf8");
   const embed = readFileSync(join(WEB, "js/virtual-embed.js"), "utf8");
+  const keys = readFileSync(join(WEB, "js/virtual-keys.js"), "utf8");
+  assert.match(board, /virtual-keys\.js/);
+  assert.match(embed, /virtual-keys\.js/);
+  assert.match(board, /keyup/);
+  assert.match(embed, /keyup/);
+  assert.match(keys, /REPEAT_DELAY_MS/);
+  assert.match(keys, /REPEAT_INTERVAL_MS/);
   assert.match(css, /\.vt-embed-side\s*\{[^}]*touch-action:\s*manipulation/s);
   assert.match(css, /\.vt-pad\s*\{[^}]*touch-action:\s*manipulation/s);
   assert.match(css, /\.vt-pad button\{[^}]*touch-action:\s*manipulation/);
@@ -811,8 +836,13 @@ test("sitemap, robots, and canonical tags ship", () => {
   assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/envelop\.html<\/loc>/);
   assert.doesNotMatch(sitemap, /404\.html|index\.html/);
   assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/<\/loc>/);
+  assert.match(sitemap, /<loc>https:\/\/tomato\.tmarhguy\.com\/contact\.html<\/loc>/);
   const robots = readFileSync(join(WEB, "robots.txt"), "utf8");
   assert.match(robots, /Sitemap:\s*https:\/\/tomato\.tmarhguy\.com\/sitemap\.xml/);
+  assert.match(robots, /User-agent:\s*GPTBot/);
+  assert.match(robots, /User-agent:\s*CCBot/);
+  assert.match(readFileSync(join(WEB, "llms.txt"), "utf8"), /Play Tomato OS/);
+  assert.match(readFileSync(join(WEB, "skill.md"), "utf8"), /no public JSON API/i);
   const manifest = JSON.parse(readFileSync(join(WEB, "site.webmanifest"), "utf8"));
   assert.equal(manifest.short_name, "Tomato");
   assert.match(readFileSync(join(WEB, "humans.txt"), "utf8"), /Tyrone Marhguy/);
@@ -837,7 +867,18 @@ test("pages ship rich SEO metadata block", () => {
   assert.match(index, /SymbiYosys/);
   assert.match(verify, /Verilator gauntlet/);
   assert.match(index, /"@type": "WebSite"/);
+  assert.match(index, /"@type": "Organization"/);
+  assert.match(index, /"@type": "Person"/);
+  assert.match(index, /"@type": "ResearchProject"/);
+  assert.match(index, /Ghana/);
+  assert.match(index, /ASIC/);
+  assert.match(index, /University of Pennsylvania/);
+  assert.match(index, /Class of 2028/);
   assert.match(verify, /"@type": "TechArticle"/);
+  const faq = readFileSync(join(WEB, "faq.html"), "utf8");
+  assert.match(faq, /"@type": "FAQPage"/);
+  const contact = readFileSync(join(WEB, "contact.html"), "utf8");
+  assert.match(contact, /mailto:tmarhguy@gmail.com/);
   const seo = JSON.parse(readFileSync(join(WEB, "data/seo.json"), "utf8"));
   assert.ok(Array.isArray(seo.globalKeywords) && seo.globalKeywords.length >= 10);
 });

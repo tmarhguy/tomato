@@ -31,12 +31,14 @@
 <script src="js/navigation.js?v=cf819a71" defer></script>
 <!-- tomato-seo -->
   <meta name="description" content="Two programmable truth tables feed one adder: f(A,B,C) + g(A,B,C) + carry. Try familiar operations, then build compound ones. The ALU has 524,288 control configurations; some produce the same function." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, ALU emulator, dual-LUT simulator, opcode compiler demo, 74ACT151, bit-slice trace, interactive CPU, Change, inputs, Follow, result, programmable, truth, tables, adder, carry, familiar, operations, build" />
+  <meta name="keywords" content="Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, ALU emulator, dual-LUT simulator, opcode compiler demo, 74ACT151, bit-slice trace, interactive CPU, Change, inputs, Follow, result, programmable, truth, tables, adder, carry, familiar, operations, build" />
+  <meta name="dcterms.subject" content="chip design, 32-bit CPU, ASIC, RTL, FPGA, Ghana, University of Pennsylvania, Penn Engineering, Class of 2028, computer architecture" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
+  <link rel="alternate" type="text/plain" title="LLM index" href="llms.txt" />
   <meta property="og:title" content="Change the inputs. Follow the result — Tomato" />
   <meta property="og:description" content="Two programmable truth tables feed one adder: f(A,B,C) + g(A,B,C) + carry. Try familiar operations, then build compound ones. The ALU has 524,288 control configurations; some produce the same function." />
   <meta property="og:type" content="website" />
@@ -57,15 +59,44 @@
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://tomato.tmarhguy.com/playground.html#webpage",
-  "url": "https://tomato.tmarhguy.com/playground.html",
-  "name": "Change the inputs. Follow the result — Tomato",
-  "description": "Two programmable truth tables feed one adder: f(A,B,C) + g(A,B,C) + carry. Try familiar operations, then build compound ones. The ALU has 524,288 control configurations; some produce the same function.",
-  "isPartOf": {
-    "@id": "https://tomato.tmarhguy.com/#website"
-  },
-  "inLanguage": "en-US"
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://tomato.tmarhguy.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Change the inputs. Follow the result",
+          "item": "https://tomato.tmarhguy.com/playground.html"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://tomato.tmarhguy.com/playground.html#webpage",
+      "url": "https://tomato.tmarhguy.com/playground.html",
+      "name": "Change the inputs. Follow the result — Tomato",
+      "description": "Two programmable truth tables feed one adder: f(A,B,C) + g(A,B,C) + carry. Try familiar operations, then build compound ones. The ALU has 524,288 control configurations; some produce the same function.",
+      "isPartOf": {
+        "@id": "https://tomato.tmarhguy.com/#website"
+      },
+      "inLanguage": "en-US",
+      "keywords": "Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, ALU emulator, dual-LUT simulator, opcode compiler demo, 74ACT151, bit-slice trace, interactive CPU, Change, inputs, Follow, result, programmable, truth, tables, adder, carry, familiar, operations, build",
+      "creator": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "chip designers, computer engineers, RTL and verification engineers, University of Pennsylvania students, students in Ghana and elsewhere"
+      }
+    }
+  ]
 }</script>
   <!-- /tomato-seo -->
 </head>
@@ -100,13 +131,13 @@
 </div>
 </section>
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a aria-current="page" href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="contact.html">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a aria-current="page" href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script src="js/playground.js?v=131f01b1" type="module"></script>
 <script defer="" src="js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
-<script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
-<script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>
+  <script src="js/vercel-analytics.js?v=c08440a3" defer></script>
+  <script src="js/vercel-speed-insights.js?v=0d39aa70" defer></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

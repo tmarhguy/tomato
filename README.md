@@ -5,7 +5,7 @@
   <a href="https://github.com/tmarhguy/tomato/actions/workflows/documentation.yml"><img alt="Documentation guardrails" src="https://github.com/tmarhguy/tomato/actions/workflows/documentation.yml/badge.svg"></a>
   <a href="docs/status.md"><img alt="Status: active development" src="https://img.shields.io/badge/status-active%20development-2ea043"></a>
   <a href="docs/architecture.md"><img alt="Architecture: 32-bit" src="https://img.shields.io/badge/architecture-32--bit-011F5B"></a>
-  <a href="docs/isa/README.md"><img alt="ISA: 62 burned rows" src="https://img.shields.io/badge/ISA-62%20burned%20rows-DC2626"></a>
+  <a href="docs/isa/README.md"><img alt="ISA: 92 burned rows" src="https://img.shields.io/badge/ISA-92%20burned%20rows-DC2626"></a>
   <a href="LICENSE"><img alt="License: SHL-2.1" src="https://img.shields.io/badge/license-SHL--2.1-990000"></a>
 </p>
 
@@ -104,7 +104,7 @@ memory-mapped windows, keeping board-specific wiring outside the CPU RTL.
 |---|---|
 | Architecture | 32-bit datapath and instruction word |
 | ALU | Custom three-source Dual-LUT ALU: two LUT3 functions feed an adder, `f(a,b,c) + g(a,b,c) + carry` |
-| ISA | **61 instructions plus NOP, 62 burned rows** in a 512-row control ROM |
+| ISA | **91 instructions plus NOP, 92 burned rows** in a 512-row control ROM |
 | Register array | Discrete (primary): **32,768 × 32-bit**. FPGA: **256 × 32-bit**, addressed as 3 bank bits plus a 5-bit register field; `r0` is hardwired to zero — no space for more on that implementation |
 | FPGA | 100 MHz board input; **6.25 MHz** default CPU and 25 MHz pixel clocks; 90 MHz is only the nextpnr timing target |
 | OS | The complete FPGA computer boots assembly-written **TOMATO OS v3.0**, with 14 menu entries including Envelop |

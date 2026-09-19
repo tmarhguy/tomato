@@ -28,12 +28,14 @@
 <script defer="" src="js/navigation.js?v=cf819a71"></script>
 <!-- tomato-seo -->
   <meta name="description" content="I’m a Computer Engineering student at the University of Pennsylvania, Class of 2028. I started with an 8-bit ALU and kept building toward a computer whose hardware and software I could understand myself." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, Tyrone Marhguy, UPenn computer engineering, UPenn, homebrew CPU author, Achimota, open hardware, I’m, Tyrone, Marhguy, engineering, student, university, pennsylvania, class, started, 8-bit, toward" />
+  <meta name="keywords" content="Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, homebrew CPU author, Achimota, open hardware, I’m, Tyrone, Marhguy, engineering, student, university, pennsylvania, class, started, 8-bit, toward" />
+  <meta name="dcterms.subject" content="chip design, 32-bit CPU, ASIC, RTL, FPGA, Ghana, University of Pennsylvania, Penn Engineering, Class of 2028, computer architecture" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
+  <link rel="alternate" type="text/plain" title="LLM index" href="llms.txt" />
   <meta property="og:title" content="I’m Tyrone Marhguy — Tomato" />
   <meta property="og:description" content="I’m a Computer Engineering student at the University of Pennsylvania, Class of 2028. I started with an 8-bit ALU and kept building toward a computer whose hardware and software I could understand myself." />
   <meta property="og:type" content="website" />
@@ -54,15 +56,228 @@
   <meta name="twitter:image:alt" content="The Tomato 32-bit CPU" />
   <script type="application/ld+json">{
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://tomato.tmarhguy.com/about.html#webpage",
-  "url": "https://tomato.tmarhguy.com/about.html",
-  "name": "I’m Tyrone Marhguy — Tomato",
-  "description": "I’m a Computer Engineering student at the University of Pennsylvania, Class of 2028. I started with an 8-bit ALU and kept building toward a computer whose hardware and software I could understand myself.",
-  "isPartOf": {
-    "@id": "https://tomato.tmarhguy.com/#website"
-  },
-  "inLanguage": "en-US"
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://tomato.tmarhguy.com/about.html#person",
+      "name": "Tyrone Marhguy",
+      "url": "https://tomato.tmarhguy.com/about.html",
+      "description": "Ghanaian computer engineering student at the University of Pennsylvania (Penn / UPenn), Class of 2028, Penn Engineering. Designer of Tomato, a 32-bit CPU: FPGA and discrete 74xx today, with a long-term ASIC goal.",
+      "jobTitle": "Computer Engineering student, Class of 2028",
+      "nationality": {
+        "@type": "Country",
+        "name": "Ghana"
+      },
+      "homeLocation": [
+        {
+          "@type": "Place",
+          "name": "Ghana",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "GH"
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "Philadelphia",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Philadelphia",
+            "addressRegion": "PA",
+            "addressCountry": "US"
+          }
+        }
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "@id": "https://www.upenn.edu/#org",
+          "name": "University of Pennsylvania",
+          "alternateName": [
+            "Penn",
+            "UPenn",
+            "Penn Engineering"
+          ],
+          "url": "https://www.upenn.edu",
+          "department": "School of Engineering and Applied Science"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Achimota School"
+        }
+      ],
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://www.upenn.edu/#org",
+        "name": "University of Pennsylvania",
+        "alternateName": [
+          "Penn",
+          "UPenn",
+          "Penn Engineering"
+        ],
+        "url": "https://www.upenn.edu",
+        "department": "School of Engineering and Applied Science"
+      },
+      "memberOf": {
+        "@type": "Organization",
+        "name": "University of Pennsylvania Class of 2028",
+        "url": "https://www.upenn.edu"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "classYear",
+          "value": "2028"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "school",
+          "value": "University of Pennsylvania"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "college",
+          "value": "Penn Engineering"
+        }
+      ],
+      "knowsAbout": [
+        {
+          "@type": "Thing",
+          "name": "chip design"
+        },
+        {
+          "@type": "Thing",
+          "name": "computer architecture"
+        },
+        {
+          "@type": "Thing",
+          "name": "ASIC"
+        },
+        {
+          "@type": "Thing",
+          "name": "RTL"
+        },
+        {
+          "@type": "Thing",
+          "name": "FPGA"
+        },
+        {
+          "@type": "Thing",
+          "name": "discrete 74xx logic"
+        },
+        {
+          "@type": "Thing",
+          "name": "formal verification"
+        },
+        {
+          "@type": "Thing",
+          "name": "custom ISA"
+        },
+        {
+          "@type": "Thing",
+          "name": "open-source EDA"
+        }
+      ],
+      "sameAs": [
+        "https://github.com/tmarhguy",
+        "https://github.com/tmarhguy/tomato",
+        "https://tmarhguy.com",
+        "https://www.linkedin.com/in/tmarhguy",
+        "https://twitter.com/marhguy_tyrone",
+        "https://www.instagram.com/tmarhguy",
+        "https://en.wikipedia.org/wiki/Tyrone_Marhguy"
+      ]
+    },
+    {
+      "@type": "ResearchProject",
+      "@id": "https://tomato.tmarhguy.com/#project",
+      "name": "Tomato",
+      "url": "https://tomato.tmarhguy.com/",
+      "description": "A functional 32-bit computer designed in a dorm: Dual-LUT ALU, custom ISA, Tomato OS on FPGA, discrete 74xx ALU in copper. The long-term goal is an ASIC implementation. Built by Tyrone Marhguy, a Ghanaian engineer at the University of Pennsylvania, Penn Engineering Class of 2028, for chip designers, RTL engineers, and students who want an inspectable machine.",
+      "founder": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "keywords": "Tomato, 32-bit CPU, chip design, ASIC, RTL, FPGA, Dual-LUT ALU, custom ISA, discrete 74xx, formal verification, Ghana, Ghanaian chip designer, Philadelphia, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Achimota School, Tomato OS",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "chip design"
+        },
+        {
+          "@type": "Thing",
+          "name": "computer architecture"
+        },
+        {
+          "@type": "Thing",
+          "name": "ASIC"
+        },
+        {
+          "@type": "Thing",
+          "name": "RTL"
+        },
+        {
+          "@type": "Thing",
+          "name": "FPGA"
+        },
+        {
+          "@type": "Thing",
+          "name": "discrete 74xx logic"
+        },
+        {
+          "@type": "Thing",
+          "name": "formal verification"
+        },
+        {
+          "@type": "Thing",
+          "name": "custom ISA"
+        },
+        {
+          "@type": "Thing",
+          "name": "open-source EDA"
+        }
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "chip designers, computer engineers, RTL and verification engineers, University of Pennsylvania students, students in Ghana and elsewhere"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://tomato.tmarhguy.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "I’m Tyrone Marhguy",
+          "item": "https://tomato.tmarhguy.com/about.html"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://tomato.tmarhguy.com/about.html#webpage",
+      "url": "https://tomato.tmarhguy.com/about.html",
+      "name": "I’m Tyrone Marhguy — Tomato",
+      "description": "I’m a Computer Engineering student at the University of Pennsylvania, Class of 2028. I started with an 8-bit ALU and kept building toward a computer whose hardware and software I could understand myself.",
+      "isPartOf": {
+        "@id": "https://tomato.tmarhguy.com/#website"
+      },
+      "inLanguage": "en-US",
+      "keywords": "Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, homebrew CPU author, Achimota, open hardware, I’m, Tyrone, Marhguy, engineering, student, university, pennsylvania, class, started, 8-bit, toward",
+      "creator": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "chip designers, computer engineers, RTL and verification engineers, University of Pennsylvania students, students in Ghana and elsewhere"
+      }
+    }
+  ]
 }</script>
   <!-- /tomato-seo -->
 </head>
@@ -345,12 +560,12 @@
 </div>
 </section>
 </main>
-<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a aria-current="page" href="about.html">About</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="project-footer project-frame"><div class="project-footer-top"><a class="project-footer-brand" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a href="contact.html">Get in touch</a></div><nav aria-label="All project pages" class="project-footer-links"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a aria-current="page" href="about.html">About</a><a href="contact.html">Contact</a></nav><div class="project-footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 </div>
 <script defer="" src="js/mast.js?v=7cf4c39a"></script>
 <!-- tomato-vercel -->
-<script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
-<script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>
+  <script src="js/vercel-analytics.js?v=c08440a3" defer></script>
+  <script src="js/vercel-speed-insights.js?v=0d39aa70" defer></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
-<title>Tomato — A computer whose logic changes with each instruction</title>
+<title>Tomato — A functional 32-bit computer built from scratch in a dorm</title>
 <meta content="#050505" name="theme-color"/>
 <script>
     try {
@@ -38,17 +38,19 @@
 <link href="css/virtual.css?v=01da990e" rel="stylesheet"/>
 <script defer="" src="js/navigation.js?v=cf819a71"></script>
 <!-- tomato-seo -->
-  <meta name="description" content="Tomato is a custom 32-bit architecture: a complete FPGA computer and Tomato OS, a browser emulator, a physically built discrete ALU slice, and Envelop messaging." />
-  <meta name="keywords" content="Tomato CPU, homebrew CPU, 32-bit CPU, custom ISA, Dual-LUT ALU, FPGA computer, Nexys A7, Tomato OS, Envelop, browser emulator, discrete 74xx ALU" />
+  <meta name="description" content="A 32-bit computer designed from the logic level up in a dorm: ISA, OS, games, verification, and a fabricated ALU. Run it in the browser or text the machine." />
+  <meta name="keywords" content="Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, polymorphic CPU, LUT3 adder, 524288 ALU configurations, 256 × 32-bit FPGA registers, immediate box, 130 billion test vectors, Tomato OS, discrete 74xx, expressiveness per cycle, tomato.tmarhguy.com, Tomato, functional, 32-bit, built, scratch, dorm, designed, level, games, verification, fabricated, browser" />
+  <meta name="dcterms.subject" content="chip design, 32-bit CPU, ASIC, RTL, FPGA, Ghana, University of Pennsylvania, Penn Engineering, Class of 2028, computer architecture" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Tyrone Marhguy" />
   <meta name="application-name" content="The Tomato 32-bit CPU" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="author" type="text/plain" href="humans.txt" />
-  <meta property="og:title" content="Tomato — A computer whose logic changes with each instruction" />
-  <meta property="og:description" content="Tomato is a custom 32-bit architecture: a complete FPGA computer and Tomato OS, a browser emulator, a physically built discrete ALU slice, and Envelop messaging." />
+  <link rel="alternate" type="text/plain" title="LLM index" href="llms.txt" />
+  <meta property="og:title" content="Tomato — A functional 32-bit computer built from scratch in a dorm" />
+  <meta property="og:description" content="A 32-bit computer designed from the logic level up in a dorm: ISA, OS, games, verification, and a fabricated ALU. Run it in the browser or text the machine." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://tomato.tmarhguy.com" />
+  <meta property="og:url" content="https://tomato.tmarhguy.com/" />
   <link rel="canonical" href="https://tomato.tmarhguy.com/" />
   <meta property="og:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta property="og:image:width" content="1200" />
@@ -56,11 +58,12 @@
   <meta property="og:image:alt" content="KiCad render of the Tomato ALU circuit board" />
   <meta property="og:site_name" content="The Tomato 32-bit CPU" />
   <meta property="og:locale" content="en_US" />
+  <meta property="og:updated_time" content="2026-09-23" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@tmarhguy" />
   <meta name="twitter:creator" content="@tmarhguy" />
-  <meta name="twitter:title" content="Tomato — A computer whose logic changes with each instruction" />
-  <meta name="twitter:description" content="Tomato is a custom 32-bit architecture: a complete FPGA computer and Tomato OS, a browser emulator, a physically built discrete ALU slice, and Envelop messaging." />
+  <meta name="twitter:title" content="Tomato — A functional 32-bit computer built from scratch in a dorm" />
+  <meta name="twitter:description" content="A 32-bit computer designed from the logic level up in a dorm: ISA, OS, games, verification, and a fabricated ALU. Run it in the browser or text the machine." />
   <meta name="twitter:image" content="https://tomato.tmarhguy.com/assets/og/tomato-board.webp" />
   <meta name="twitter:image:alt" content="KiCad render of the Tomato ALU circuit board" />
   <script type="application/ld+json">{
@@ -76,27 +79,271 @@
         "Tomato 32-bit CPU",
         "Tomato CPU"
       ],
-      "description": "A custom 32-bit architecture with a complete FPGA machine, Tomato OS, a browser emulator, a physically built discrete ALU slice, and Envelop messaging.",
+      "description": "A 32-bit computer designed from the logic level up in a dorm: Dual-LUT CPU on FPGA and discrete 74xx, Tomato OS, and a fabricated ALU. ASIC is a long-term goal.",
       "publisher": {
-        "@type": "Person",
-        "name": "Tyrone Marhguy",
-        "url": "https://github.com/tmarhguy"
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
       }
     },
     {
+      "@type": "Organization",
+      "@id": "https://tomato.tmarhguy.com/#organization",
+      "name": "Tomato",
+      "url": "https://tomato.tmarhguy.com/",
+      "logo": "https://tomato.tmarhguy.com/assets/favicon.svg",
+      "description": "Independent 32-bit computer project by Tyrone Marhguy: Dual-LUT CPU, Tomato OS, FPGA, and discrete 74xx. ASIC is a long-term goal, not a current tapeout.",
+      "founder": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "keywords": "Tomato, 32-bit CPU, chip design, ASIC, RTL, FPGA, Dual-LUT ALU, custom ISA, discrete 74xx, formal verification, Ghana, Ghanaian chip designer, Philadelphia, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Achimota School, Tomato OS",
+      "sameAs": [
+        "https://github.com/tmarhguy/tomato"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://tomato.tmarhguy.com/about.html#person",
+      "name": "Tyrone Marhguy",
+      "url": "https://tomato.tmarhguy.com/about.html",
+      "description": "Ghanaian computer engineering student at the University of Pennsylvania (Penn / UPenn), Class of 2028, Penn Engineering. Designer of Tomato, a 32-bit CPU: FPGA and discrete 74xx today, with a long-term ASIC goal.",
+      "jobTitle": "Computer Engineering student, Class of 2028",
+      "nationality": {
+        "@type": "Country",
+        "name": "Ghana"
+      },
+      "homeLocation": [
+        {
+          "@type": "Place",
+          "name": "Ghana",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "GH"
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "Philadelphia",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Philadelphia",
+            "addressRegion": "PA",
+            "addressCountry": "US"
+          }
+        }
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "@id": "https://www.upenn.edu/#org",
+          "name": "University of Pennsylvania",
+          "alternateName": [
+            "Penn",
+            "UPenn",
+            "Penn Engineering"
+          ],
+          "url": "https://www.upenn.edu",
+          "department": "School of Engineering and Applied Science"
+        },
+        {
+          "@type": "EducationalOrganization",
+          "name": "Achimota School"
+        }
+      ],
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "@id": "https://www.upenn.edu/#org",
+        "name": "University of Pennsylvania",
+        "alternateName": [
+          "Penn",
+          "UPenn",
+          "Penn Engineering"
+        ],
+        "url": "https://www.upenn.edu",
+        "department": "School of Engineering and Applied Science"
+      },
+      "memberOf": {
+        "@type": "Organization",
+        "name": "University of Pennsylvania Class of 2028",
+        "url": "https://www.upenn.edu"
+      },
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "classYear",
+          "value": "2028"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "school",
+          "value": "University of Pennsylvania"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "college",
+          "value": "Penn Engineering"
+        }
+      ],
+      "knowsAbout": [
+        {
+          "@type": "Thing",
+          "name": "chip design"
+        },
+        {
+          "@type": "Thing",
+          "name": "computer architecture"
+        },
+        {
+          "@type": "Thing",
+          "name": "ASIC"
+        },
+        {
+          "@type": "Thing",
+          "name": "RTL"
+        },
+        {
+          "@type": "Thing",
+          "name": "FPGA"
+        },
+        {
+          "@type": "Thing",
+          "name": "discrete 74xx logic"
+        },
+        {
+          "@type": "Thing",
+          "name": "formal verification"
+        },
+        {
+          "@type": "Thing",
+          "name": "custom ISA"
+        },
+        {
+          "@type": "Thing",
+          "name": "open-source EDA"
+        }
+      ],
+      "sameAs": [
+        "https://github.com/tmarhguy",
+        "https://github.com/tmarhguy/tomato",
+        "https://tmarhguy.com",
+        "https://www.linkedin.com/in/tmarhguy",
+        "https://twitter.com/marhguy_tyrone",
+        "https://www.instagram.com/tmarhguy",
+        "https://en.wikipedia.org/wiki/Tyrone_Marhguy"
+      ]
+    },
+    {
+      "@type": "ResearchProject",
+      "@id": "https://tomato.tmarhguy.com/#project",
+      "name": "Tomato",
+      "url": "https://tomato.tmarhguy.com/",
+      "description": "A functional 32-bit computer designed in a dorm: Dual-LUT ALU, custom ISA, Tomato OS on FPGA, discrete 74xx ALU in copper. The long-term goal is an ASIC implementation. Built by Tyrone Marhguy, a Ghanaian engineer at the University of Pennsylvania, Penn Engineering Class of 2028, for chip designers, RTL engineers, and students who want an inspectable machine.",
+      "founder": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "keywords": "Tomato, 32-bit CPU, chip design, ASIC, RTL, FPGA, Dual-LUT ALU, custom ISA, discrete 74xx, formal verification, Ghana, Ghanaian chip designer, Philadelphia, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Achimota School, Tomato OS",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "chip design"
+        },
+        {
+          "@type": "Thing",
+          "name": "computer architecture"
+        },
+        {
+          "@type": "Thing",
+          "name": "ASIC"
+        },
+        {
+          "@type": "Thing",
+          "name": "RTL"
+        },
+        {
+          "@type": "Thing",
+          "name": "FPGA"
+        },
+        {
+          "@type": "Thing",
+          "name": "discrete 74xx logic"
+        },
+        {
+          "@type": "Thing",
+          "name": "formal verification"
+        },
+        {
+          "@type": "Thing",
+          "name": "custom ISA"
+        },
+        {
+          "@type": "Thing",
+          "name": "open-source EDA"
+        }
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "chip designers, computer engineers, RTL and verification engineers, University of Pennsylvania students, students in Ghana and elsewhere"
+      }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://github.com/tmarhguy/tomato#code",
+      "name": "Tomato RTL and software",
+      "codeRepository": "https://github.com/tmarhguy/tomato",
+      "url": "https://tomato.tmarhguy.com/source.html",
+      "programmingLanguage": [
+        "SystemVerilog",
+        "Verilog",
+        "Assembly",
+        "JavaScript"
+      ],
+      "runtimePlatform": "Xilinx Artix-7 Nexys A7 FPGA",
+      "author": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "keywords": "RTL, FPGA, ASIC flow, LibreLane, Dual-LUT, Tomato ISA"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://tomato.tmarhguy.com/os.html#software",
+      "name": "Tomato OS",
+      "applicationCategory": "OperatingSystem",
+      "operatingSystem": "Tomato",
+      "url": "https://tomato.tmarhguy.com/os.html",
+      "description": "Assembly-written operating system for the Tomato 32-bit computer. Runs on FPGA and in the browser emulator.",
+      "author": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "name": "Tomato OS on FPGA",
+      "description": "Hardware recording of Tomato OS on a Nexys A7 Artix-7 FPGA, HDMI output.",
+      "thumbnailUrl": "https://tomato.tmarhguy.com/assets/os/tomato-demo-os-poster.jpg",
+      "contentUrl": "https://tomato.tmarhguy.com/assets/os/tomato-demo-os.mp4",
+      "uploadDate": "2026-08-01"
+    },
+    {
       "@type": "WebPage",
-      "@id": "https://tomato.tmarhguy.com#webpage",
-      "url": "https://tomato.tmarhguy.com",
-      "name": "Tomato — A computer whose logic changes with each instruction",
-      "description": "Play Tomato OS in a browser or message Tomato with Envelop. The complete computer runs on FPGA; the physical discrete build currently proves an ALU slice.",
+      "@id": "https://tomato.tmarhguy.com/#webpage",
+      "url": "https://tomato.tmarhguy.com/",
+      "name": "Tomato — A functional 32-bit computer built from scratch in a dorm",
+      "description": "A 32-bit computer designed from the logic level up in a dorm: ISA, OS, games, verification, and a fabricated ALU. Run it in the browser or text the machine.",
       "isPartOf": {
         "@id": "https://tomato.tmarhguy.com/#website"
       },
       "inLanguage": "en-US",
+      "keywords": "Tomato CPU, chip design, ASIC, RTL, Ghana, Ghanaian engineer, Ghanaian chip designer, semiconductor, custom silicon, computer architecture, homebrew CPU, 32-bit CPU, custom ISA, dual-LUT ALU, FPGA CPU, Artix-7, Nexys A7, 74xx logic, 74ACT, KiCad PCB, TomatoOS, hardware opcode compiler, formal verification, SymbiYosys, Verilator, Yosys, nextpnr, LibreLane, open-source ASIC, Tyrone Marhguy, University of Pennsylvania, Penn, UPenn, Penn Engineering, Class of 2028, Penn Engineering Class of 2028, UPenn computer engineering, Achimota School, Ashtown Valley, polymorphic CPU, LUT3 adder, 524288 ALU configurations, 256 × 32-bit FPGA registers, immediate box, 130 billion test vectors, Tomato OS, discrete 74xx, expressiveness per cycle, tomato.tmarhguy.com, Tomato, functional, 32-bit, built, scratch, dorm, designed, level, games, verification, fabricated, browser",
+      "creator": {
+        "@id": "https://tomato.tmarhguy.com/about.html#person"
+      },
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "chip designers, computer engineers, RTL and verification engineers, University of Pennsylvania students, students in Ghana and elsewhere"
+      },
+      "dateModified": "2026-09-23",
       "about": {
         "@type": "Thing",
         "name": "Tomato homebrew 32-bit CPU",
-        "description": "A custom 32-bit architecture with explicit FPGA, physical ALU, browser-emulator, and messaging provenance."
+        "description": "A 32-bit computer designed from the logic level up in a dorm: Dual-LUT CPU on FPGA and discrete 74xx, Tomato OS, and a fabricated ALU. ASIC is a long-term goal."
       }
     }
   ]
@@ -154,26 +401,27 @@
 <div class="hero-bar">
 <div class="hero-bar__inner frame">
 <div class="hero-copy">
-<h1 id="hero-title">A computer whose logic<br/><em>changes with each instruction.</em></h1>
-<p class="hero-pitch">I designed the 32-bit processor, built the computer around it, and wrote the operating system it runs in my dorm.</p>
+<h1 id="hero-title">A functional 32-bit computer<br/><em>built from scratch in a dorm.</em></h1>
+<p class="hero-pitch">Designed from the logic level up — microarchitecture, ISA, assembler, OS, games, UI, and the tools that verify it. The ALU is designed, fabricated, and assembled. Run it in the browser or text the computer in my dorm. Built as a sophomore.</p>
 <nav class="hero-journeys" aria-label="Ways to experience Tomato"><a class="hero-journey-primary" href="#virtual-world"><strong>Play Tomato OS</strong><span>Start from Home</span></a><a aria-label="Message Tomato via Envelop" href="envelop.html"><strong>Message Tomato</strong><span>Reach the machine in my dorm</span></a></nav>
-<p class="hero-hook"><a href="#the-difference"><strong>524,288</strong> ALU configurations</a><span aria-hidden="true">·</span><a href="#running"><strong>Tomato OS</strong> running on FPGA</a></p>
+<p class="hero-hook"><a href="#virtual-world"><strong>Run it</strong> in the browser</a><span aria-hidden="true">·</span><a href="envelop.html"><strong>Text it</strong> when Tomato is awake</a></p>
 </div>
 </div>
 </div>
 </section>
 <section aria-labelledby="intro-title" class="intro frame section-space tomato-overview" id="what-is-tomato">
 <div class="section-label"><span>01 / WHAT IS TOMATO?</span><span>Processor · software · hardware</span></div>
-<div class="overview-heading"><h2 id="intro-title">What is Tomato?</h2><p><strong>A computer I designed from scratch in my dorm:</strong> its 32-bit processor, instruction set, circuit boards, assembler, operating system, and a live messaging app you can text—and it replies from my dorm room.</p></div>
+<div class="overview-heading"><h2 id="intro-title">What is Tomato?</h2><p><strong>A functional 32-bit computer I designed from the logic level up in my dorm.</strong> The ALU is designed, fabricated, and assembled. You can run the machine in a browser, or text the one on my desk.</p></div>
 <ul class="overview-bullets">
-<li><a href="#the-difference"><strong>Dual-LUT3 ALU · 524,288 configurations</strong> — <code>f(A,B,C) + g(A,B,C) + Cin</code> in one cycle.</a></li>
-<li><a href="isa.html"><strong>61 instructions plus NOP</strong> — 62 burned rows in a 512-row control ROM.</a></li>
-<li><a href="#the-difference"><strong>Three-source datapath</strong> — compound Boolean and arithmetic without intermediate steps.</a></li>
+<li><a href="os.html"><strong>Assembler + Tomato OS on FPGA</strong> — graphics, games, video, and input on my CPU.</a></li>
+<li><a href="#virtual-world"><strong>Virtual Tomato</strong> — the shipped OS image, executed by actual Tomato instructions in your browser.</a></li>
+<li><a href="envelop.html"><strong>Envelop inside Tomato OS</strong> — the way a person reaches this computer, with every reply labeled physical or virtual.</a></li>
+<li><a href="isa.html"><strong>91 instructions plus NOP</strong> — 92 burned rows in a 512-row control ROM.</a></li>
 <li><a href="architecture.html#register-file"><strong>32,768 discrete registers</strong> is the primary count; FPGA stays at <strong>256 × 32-bit FPGA registers</strong> because there is no space for more — eight banks of 32; r0 is hardwired to zero.</a></li>
+<li><a href="#the-difference"><strong>Dual-LUT3 ALU · 524,288 configurations</strong> — <code>f(A,B,C) + g(A,B,C) + Cin</code> in one cycle.</a></li>
+<li><a href="#the-difference"><strong>Three-source datapath</strong> — compound Boolean and arithmetic without intermediate steps.</a></li>
 <li><a href="#immediate-box"><strong>16-format immediate box</strong> — <code>imm7</code>/<code>imm12</code>-style widths for native ISA remaps.</a></li>
 <li><a href="#control"><strong>Distributed control</strong> — local ROMs beside the units they drive.</a></li>
-<li><a href="os.html"><strong>Assembler + Tomato OS on FPGA</strong> — graphics, games, video, and input on my CPU.</a></li>
-<li><a href="envelop.html"><strong>Envelop inside Tomato OS</strong> — a messenger that lets a person text this computer and receive a provenance-labeled reply.</a></li>
 <li><a href="viewer.html"><strong>RTL and discrete 74xx</strong> — same architecture in FPGA, KiCad, and copper.</a></li>
 <li><a href="verification.html"><strong>A recorded 130-billion-vector ALU run</strong> — plus reproducible simulation and formal checks at 1, 8, and 32 bits.</a></li>
 </ul>
@@ -184,9 +432,9 @@
 <div class="meet-tomato-paths">
 <a href="viewer.html"><span>01 / PHYSICAL</span><strong>Inspect the fabricated ALU.</strong><p>Rotate its faithful KiCad model, then inspect the photographs and build record of the soldered Dual-LUT slice.</p><b>Tour the board →</b></a>
 <a href="#virtual-world"><span>02 / VIRTUAL</span><strong>Use Tomato OS.</strong><p>The same custom ISA runs the shipped OS in your browser. It starts at Home so you can choose what to run.</p><b>Try the computer →</b></a>
-<a href="envelop.html"><span>03 / CONNECTED</span><strong>Text the computer.</strong><p>Envelop can reach the Tomato OS app on the FPGA at my dorm desk when its verified bridge is online—and queues safely when it is away.</p><b>Message the machine →</b></a>
+<a href="envelop.html"><span>03 / CONNECTED</span><strong>Text the computer.</strong><p>Envelop is how a person reaches Tomato OS on the FPGA at my desk. When a verified bridge holds a lease, Tomato is awake in Philadelphia. When it doesn’t, Tomato is sleeping — leave a message.</p><b>Message the machine →</b></a>
 </div>
-<p class="meet-tomato-boundary">The complete computer runs on FPGA. The physical discrete build currently proves its 8-bit ALU slice. Virtual and physical replies are always labeled.</p>
+<p class="meet-tomato-boundary">The complete computer runs on FPGA. The physical discrete build currently proves its 8-bit ALU slice. When a verified bridge holds a lease, Tomato is awake in Philadelphia. When it doesn’t, Tomato is sleeping — leave a message, or talk to Virtual Tomato. Virtual and physical replies are always labeled.</p>
 </section>
 <section class="ecosystem-console frame" id="virtual-world" aria-labelledby="virtual-title">
 <div class="ecosystem-machine">
@@ -201,7 +449,7 @@
 <div class="vt-embed-side">
 <p class="vt-embed-status" id="vt-embed-status" role="status" aria-live="polite">Loading Tomato OS…</p>
 <div aria-label="Controller" class="vt-embed-keys" role="group"><button aria-label="Up" class="vt-up" data-key="30" type="button">↑</button><button aria-label="Left" class="vt-left" data-key="17" type="button">←</button><button aria-label="Enter" data-key="13" type="button">●</button><button aria-label="Right" data-key="16" type="button">→</button><button aria-label="Down" class="vt-bottom" data-key="31" type="button">↓</button></div>
-<p class="vt-embed-hint">Move through Home with the arrow controls, then press ● to open the selected app.</p>
+<p class="vt-embed-hint">Move through Home with the arrow controls, then press ● to open the selected app. Hold an arrow to keep moving.</p>
 <a class="text-link" href="virtual.html">Open full screen + demo chat</a>
 </div>
 </div>
@@ -216,7 +464,7 @@
 <figure><img src="assets/envelop/envelop-demo.gif" width="640" height="432" loading="lazy" decoding="async" alt="Animated Envelop browser demo showing a hello sent to Tomato and Tomato’s multi-message reply"/><figcaption>Envelop browser demo · hello sent · Tomato replies from the dorm</figcaption></figure>
 <a class="button button-red" href="envelop.html">See how you text a computer</a>
 <a class="text-link" href="https://tmarhguy.github.io/envelop/chat/">Open Envelop chat</a>
-<small>Messages wait when hardware is away. Every reply says whether physical or Virtual Tomato answered.</small>
+<small>If the dorm machine is unplugged, Tomato is sleeping, not down. Messages wait. Every reply says whether physical or Virtual Tomato answered.</small>
 </aside>
 </section>
 <section aria-labelledby="running-title" class="running section-space" id="running">
@@ -369,12 +617,12 @@ OR out, t1, t2</code></p><p><strong>Tomato · 2 ALU evaluations</strong><code>1.
 </section>
 <section aria-labelledby="explore-title" class="explore frame section-space" id="engineering"><div class="section-label"><span>09 / OPEN THE WORK</span><span>Schematics, software, and the decisions in between</span></div><h2 id="explore-title">Go as deep as you like.</h2><div class="explore-grid"><a href="architecture.html"><span>01</span><h3>Understand the design</h3><p>Datapath, instruction format, and the decisions that shape the machine.</p></a><a href="playground.html"><span>02</span><h3>Experiment with the logic</h3><p>Change inputs, program the truth tables, and trace the result.</p></a><a href="faq.html"><span>03</span><h3>Ask why it looks this way</h3><p>Two LUTs, three inputs, verification, and the hardware compiler—answered plainly.</p></a><a href="journal.html"><span>04</span><h3>Follow the build</h3><p>The breakthroughs, soldering sessions, wrong turns, and next steps.</p></a><a href="source.html"><span>05</span><h3>Read the source</h3><p>Logic schematics, board layouts, test harnesses, and assembly.</p></a></div></section>
 </main>
-<footer class="front-footer frame"><div class="footer-top"><a class="footer-logo" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a class="text-link" href="mailto:tmarhguy@gmail.com">Get in touch</a></div><nav aria-label="All project pages" class="footer-nav"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a></nav><div class="footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato" rel="noopener noreferrer" target="_blank">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
+<footer class="front-footer frame"><div class="footer-top"><a class="footer-logo" href="index.html">tomato</a><p>A computer whose logic changes with each instruction.<br/>Designed by Tyrone Marhguy.</p><a class="text-link" href="contact.html">Get in touch</a></div><nav aria-label="All project pages" class="footer-nav"><a href="virtual.html">Play Tomato</a><a href="envelop.html">Envelop</a><a href="compute.html">Compute</a><a href="os.html">Tomato OS</a><a href="software.html">Software</a><a href="architecture.html">Architecture</a><a href="status.html">Status</a><a href="gallery.html">Gallery</a><a href="journal.html">Journal</a><a href="isa.html">Instruction set</a><a href="playground.html">Playground</a><a href="boards.html">Boards</a><a href="verification.html">Verification</a><a href="source.html">Source</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav><div class="footer-meta"><span>© 2026 Tyrone Marhguy</span><a href="https://github.com/tmarhguy/tomato" rel="noopener noreferrer" target="_blank">Open hardware · Explore on GitHub</a><a href="#main">Back to top</a></div></footer>
 <script src="js/landing.js?v=c7c2c24d" type="module"></script>
-<script src="js/virtual-embed.js?v=8ded2c20" type="module"></script>
+<script src="js/virtual-embed.js?v=e79d5f37" type="module"></script>
 <!-- tomato-vercel -->
-<script defer="" src="js/vercel-analytics.js?v=c08440a3"></script>
-<script defer="" src="js/vercel-speed-insights.js?v=0d39aa70"></script>
+  <script src="js/vercel-analytics.js?v=c08440a3" defer></script>
+  <script src="js/vercel-speed-insights.js?v=0d39aa70" defer></script>
 <!-- /tomato-vercel -->
 </body>
 </html>

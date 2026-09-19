@@ -24,12 +24,12 @@ rom_addr,region,mnemonic,group,seq_cycles,status,operation,why,ir_imm_sel,alu_op
 0x07,alu-reg,CMP,alu-reg,1,burn,flags = rA - rB,branches,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,CMP,
 0x08,alu-reg,MASKADD,alu-reg,1,burn,rd = rA + (rB & rC),compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,MASKADD,
 0x09,alu-reg,XORAND,alu-reg,1,burn,rd = (rA ^ rB ^ rC) + (rA & rB & rC),compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XORAND,
-0x0A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x0B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x0C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x0D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x0E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x0F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x0A,alu-reg,ANDN,alu-reg,1,burn,rd = rA & ~rB,masked two-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ANDN,
+0x0B,alu-reg,ORN,alu-reg,1,burn,rd = rA | ~rB,masked two-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ORN,
+0x0C,alu-reg,CSEL,alu-reg,1,burn,rd = rC ? rA : rB,compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,CSEL,
+0x0D,alu-reg,ANDADD,alu-reg,1,burn,rd = (rA & rB) + rC,compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ANDADD,
+0x0E,alu-reg,ORADD,alu-reg,1,burn,rd = (rA | rB) + rC,compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ORADD,
+0x0F,alu-reg,XORADD,alu-reg,1,burn,rd = (rA ^ rB) + rC,compound three-input ALU,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XORADD,
 0x10,alu-reg,MUL,muldiv,1,burn,rd = low(rA*rB),,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,,reg_reg,MUL,
 0x11,alu-reg,MULH,muldiv,1,burn,rd = high(rA*rB),,1,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,,reg_reg,MULH,
 0x12,alu-reg,DIV,muldiv,1,burn,rd = rA / rB,,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,,reg_reg,DIV,
@@ -37,47 +37,47 @@ rom_addr,region,mnemonic,group,seq_cycles,status,operation,why,ir_imm_sel,alu_op
 0x14,alu-reg,MULHU,muldiv,1,burn,rd = high unsigned,,1,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,,reg_reg,MULHU,
 0x15,alu-reg,DIVU,muldiv,1,burn,rd = rA / rB unsigned,,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,,reg_reg,DIVU,
 0x16,alu-reg,REMU,muldiv,1,burn,rd = rA % rB unsigned,,1,0,0,0,0,7,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,,reg_reg,REMU,
-0x17,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x18,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x19,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x1A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x1B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x1C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x1D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x1E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x1F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x17,alu-reg,ADC,alu-reg,1,burn,rd = rA + rB + C,carry / reverse subtract,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ADC,
+0x18,alu-reg,SBC,alu-reg,1,burn,rd = rA - rB + C_in,carry / reverse subtract,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,SBC,
+0x19,alu-reg,RSB,alu-reg,1,burn,rd = rB - rA,carry / reverse subtract,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,RSB,
+0x1A,alu-reg,XORBC,alu-reg,1,burn,rd = rA ^ (rB & rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XORBC,
+0x1B,alu-reg,XORBO,alu-reg,1,burn,rd = rA ^ (rB | rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XORBO,
+0x1C,alu-reg,XORBX,alu-reg,1,burn,rd = rA ^ (rB ^ rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XORBX,
+0x1D,alu-reg,ANDBO,alu-reg,1,burn,rd = rA & (rB | rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ANDBO,
+0x1E,alu-reg,ANDBX,alu-reg,1,burn,rd = rA & (rB ^ rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ANDBX,
+0x1F,alu-reg,ANDBC,alu-reg,1,burn,rd = rA & (rB & rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ANDBC,
 0x20,alu-imm,ADDI,alu-imm,1,burn,rd = rA + imm13,constants,3,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,off13s,ADDI,
 0x21,alu-imm,ANDI,alu-imm,1,burn,rd = rA & imm,,7,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,imm16z,ANDI,
 0x22,alu-imm,ORI,alu-imm,1,burn,rd = rA | imm,,7,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,imm16z,ORI,
 0x23,alu-imm,XORI,alu-imm,1,burn,rd = rA ^ imm,,7,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,imm16z,XORI,
 0x24,alu-imm,LUI,alu-imm,1,burn,rd = imm20 << 12,VGA/MMIO base,11,0,0,0,0,5,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,imm20,LUI,
-0x25,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x26,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x27,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x28,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x25,alu-reg,ORBC,alu-reg,1,burn,rd = rA | (rB & rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ORBC,
+0x26,alu-reg,ORBO,alu-reg,1,burn,rd = rA | (rB | rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ORBO,
+0x27,alu-reg,ORBX,alu-reg,1,burn,rd = rA | (rB ^ rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ORBX,
+0x28,alu-reg,NANDAND,alu-reg,1,burn,rd = ~(rA & (rB & rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NANDAND,
 0x29,alu-imm,RORI,alu-imm,1,burn,rd = rA ror imm,,0,0,0,0,3,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,RORI,
-0x2A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x2B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x2C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x2D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x2E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x2F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x2A,alu-reg,NANDOR,alu-reg,1,burn,rd = ~(rA & (rB | rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NANDOR,
+0x2B,alu-reg,NANDXOR,alu-reg,1,burn,rd = ~(rA & (rB ^ rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NANDXOR,
+0x2C,alu-reg,NANDNAND,alu-reg,1,burn,rd = ~(rA & ~(rB & rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NANDNAND,
+0x2D,alu-reg,NANDNOR,alu-reg,1,burn,rd = ~(rA & ~(rB | rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NANDNOR,
+0x2E,alu-reg,NANDXNOR,alu-reg,1,burn,rd = ~(rA & ~(rB ^ rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NANDXNOR,
+0x2F,alu-reg,NORAND,alu-reg,1,burn,rd = ~(rA | (rB & rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NORAND,
 0x30,alu-imm,ZERO,alu-imm,1,burn,rd = 0,,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ZERO,
 0x31,alu-imm,ONE,alu-imm,1,burn,rd = 1,,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ONE,
-0x32,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x33,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x34,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x35,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x36,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x37,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x38,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x39,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x3A,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x3B,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x3C,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x3D,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x3E,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
-0x3F,system,NOP,system,1,nop,no operation,idle / padding,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOP,unused-slot
+0x32,alu-reg,NOROR,alu-reg,1,burn,rd = ~(rA | (rB | rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NOROR,
+0x33,alu-reg,NORXOR,alu-reg,1,burn,rd = ~(rA | (rB ^ rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NORXOR,
+0x34,alu-reg,NORNAND,alu-reg,1,burn,rd = ~(rA | ~(rB & rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NORNAND,
+0x35,alu-reg,NORNOR,alu-reg,1,burn,rd = ~(rA | ~(rB | rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NORNOR,
+0x36,alu-reg,NORXNOR,alu-reg,1,burn,rd = ~(rA | ~(rB ^ rC)),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,NORXNOR,
+0x37,alu-reg,ANDNAND,alu-reg,1,burn,rd = rA & ~(rB & rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ANDNAND,
+0x38,alu-reg,ANDNOR,alu-reg,1,burn,rd = rA & ~(rB | rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ANDNOR,
+0x39,alu-reg,ANDXNOR,alu-reg,1,burn,rd = rA & ~(rB ^ rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ANDXNOR,
+0x3A,alu-reg,ORNAND,alu-reg,1,burn,rd = rA | ~(rB & rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ORNAND,
+0x3B,alu-reg,ORNOR,alu-reg,1,burn,rd = rA | ~(rB | rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ORNOR,
+0x3C,alu-reg,ORXNOR,alu-reg,1,burn,rd = rA | ~(rB ^ rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ORXNOR,
+0x3D,alu-reg,XORNAND,alu-reg,1,burn,rd = rA ^ ~(rB & rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XORNAND,
+0x3E,alu-reg,XORNOR,alu-reg,1,burn,rd = rA ^ ~(rB | rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XORNOR,
+0x3F,alu-reg,XORXNOR,alu-reg,1,burn,rd = rA ^ ~(rB ^ rC),nested Boolean Dual-LUT,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,XORXNOR,
 0x40,shift,LSL,shift,1,burn,LSL,,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,LSL,
 0x41,shift,LSR,shift,1,burn,LSR,,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,LSR,
 0x42,shift,ASR,shift,1,burn,ASR,,1,0,0,0,2,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,,reg_reg,ASR,

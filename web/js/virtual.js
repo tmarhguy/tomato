@@ -11,6 +11,7 @@
  */
 import { Tomato, loadImage } from "./tomato-cpu.js?v=47cc72f7";
 import { paintDirty, paintFull } from "./tomato-screen.js?v=a9760af7";
+import { KEYMAP, createKeypad } from "./virtual-keys.js?v=ee6519da";
 
 const BOOT_INSTR = 200000;
 const FRAME_BUDGET_MS = 8;
@@ -26,8 +27,8 @@ const fwEl = document.querySelector("#vt-firmware");
 let image = null;
 let cpu = null;
 let paused = false;
-let keyQueue = [];
 let steps = 0;
+const keypad = createKeypad();
 
 function renderFull() {
   paintFull(cpu, image, imgData, ctx);
@@ -43,17 +44,10 @@ function status() {
   statsEl.textContent = `${run} · ${phone} · ${steps} steps`;
 }
 
-function pumpKeys() {
-  while (keyQueue.length > 0 && !cpu.kbReady) {
-    cpu.key(keyQueue.shift());
-  }
-  if (keyQueue.length > 32) keyQueue.splice(0, keyQueue.length - 32);
-}
-
 function frame() {
   requestAnimationFrame(frame);
-  if (!cpu || (paused && keyQueue.length === 0)) return;
-  pumpKeys();
+  if (!cpu || (paused && keypad.idle())) return;
+  keypad.pump(cpu, paused);
   const start = performance.now();
   let n = 0;
   while (!cpu.halted && n < FRAME_INSTR_CAP && performance.now() - start < FRAME_BUDGET_MS) {
@@ -62,28 +56,46 @@ function frame() {
     n += chunk;
   }
   steps += n;
-  pumpKeys();
+  keypad.pump(cpu, paused);
   renderDirty();
   status();
 }
-
-const KEYMAP = { ArrowUp: 30, ArrowDown: 31, ArrowLeft: 17, ArrowRight: 16, Enter: 13 };
 
 function bind() {
   document.addEventListener("keydown", (e) => {
     const tag = e.target && e.target.tagName;
     if (tag === "INPUT" || tag === "SELECT" || tag === "BUTTON" || tag === "TEXTAREA") return;
-    if (KEYMAP[e.key] !== undefined) {
-      e.preventDefault();
-      if (!e.repeat) keyQueue.push(KEYMAP[e.key]);
-    }
+    const code = KEYMAP[e.key];
+    if (code === undefined) return;
+    e.preventDefault();
+    if (!e.repeat) keypad.press(code);
+  });
+  document.addEventListener("keyup", (e) => {
+    const code = KEYMAP[e.key];
+    if (code === undefined) return;
+    e.preventDefault();
+    keypad.release(code);
+  });
+  window.addEventListener("blur", () => keypad.clear());
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) keypad.clear();
   });
   document.querySelectorAll("[data-key]").forEach((b) => {
     b.addEventListener("pointerdown", (e) => {
       if (e.pointerType === "mouse" && e.button !== 0) return;
       e.preventDefault();
-      keyQueue.push(Number(b.dataset.key));
+      const code = Number(b.dataset.key);
+      b.setPointerCapture(e.pointerId);
+      keypad.press(code);
       canvas.focus();
+    });
+    b.addEventListener("pointerup", (e) => {
+      keypad.release(Number(b.dataset.key));
+      if (b.hasPointerCapture(e.pointerId)) b.releasePointerCapture(e.pointerId);
+    });
+    b.addEventListener("pointercancel", (e) => {
+      keypad.release(Number(b.dataset.key));
+      if (b.hasPointerCapture(e.pointerId)) b.releasePointerCapture(e.pointerId);
     });
   });
   document.querySelector(".vt-pad")?.addEventListener("dblclick", (e) => e.preventDefault());
@@ -93,7 +105,7 @@ function bind() {
     canvas.focus();
   });
   document.querySelector("#vt-reset").addEventListener("click", () => {
-    keyQueue = [];
+    keypad.clear();
     cpu.reset();
     cpu.step(BOOT_INSTR);
     steps += BOOT_INSTR;

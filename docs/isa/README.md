@@ -43,7 +43,7 @@ python3 software/assembler.py --selftest       # vocabulary vs burns
 
 ## Locked decisions
 
-- **Exact count.** v1 has **61 instructions plus NOP, 62 burned rows**.
+- **Exact count.** v1 has **91 instructions plus NOP, 92 burned rows**.
   Unused rows are safe NOP rows. The Dual-LUT configuration space
   (`256 × 256 × 8` carry selections) is much larger; it is not an installed
   instruction count.

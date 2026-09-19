@@ -58,8 +58,8 @@ out = f(a, b, c) + g(a, b, c) + carry_in
 ```
 
 The theoretical LUT/carry configuration space is not an instruction count.
-The installed ISA is the subset named by the control ROM: **61 instructions
-plus NOP, 62 burned rows** in a 512-row ROM.
+The installed ISA is the subset named by the control ROM: **91 instructions
+plus NOP, 92 burned rows** in a 512-row ROM.
 
 The editable architecture source is under
 [`hardware/digital/`](../hardware/digital/); the current FPGA realization is

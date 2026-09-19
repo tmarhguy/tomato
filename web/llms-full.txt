@@ -1,0 +1,32 @@
+# Tomato — site digest
+
+A functional 32-bit computer built from scratch in a dorm by Tyrone Marhguy, a Ghanaian computer engineering student at the University of Pennsylvania (Penn / UPenn), Penn Engineering Class of 2028. Full page index: https://tomato.tmarhguy.com/llms.txt
+
+## What it is
+
+Tomato includes a Dual-LUT ALU (`f(A,B,C) + g(A,B,C) + Cin`), a custom ISA (91 instructions plus NOP; 92 burned rows in a 512-row control ROM), Tomato OS written in assembly, a browser emulator that executes the shipped OS image, and Envelop for messaging the FPGA on the desk when a verified bridge holds a lease.
+
+FPGA register file: 256 × 32-bit because there is no space for more. Discrete-faithful architecture count: 32,768 registers. FPGA CPU clock in the current Nexys build: 6.25 MHz (100 MHz ÷ 16).
+
+This is chip-design work: RTL, verification, ISA, OS, and a discrete 74xx ALU slice. An ASIC implementation is a long-term goal. There is no tapeout yet.
+
+## What exists today
+
+- Tomato OS runs on FPGA (menus, games, video, input).
+- Virtual Tomato runs the same OS in the browser.
+- The discrete ALU board is fabricated and soldered; the rest of the discrete computer is still being built.
+- ALU verification includes a recorded 130-billion-vector Verilator run plus formal checks at 1, 8, and 32 bits. Whole-CPU formal verification is not done.
+
+## How to reach it
+
+- Play: https://tomato.tmarhguy.com/virtual.html
+- Message: https://tomato.tmarhguy.com/envelop.html
+- Contact: https://tomato.tmarhguy.com/contact.html (email tmarhguy@gmail.com)
+- There is no pricing, signup, or public job API.
+
+## Builder
+
+Tyrone Marhguy — Ghana → Philadelphia. Achimota School. University of Pennsylvania, Penn Engineering, Class of 2028. About: https://tomato.tmarhguy.com/about.html
+GitHub: https://github.com/tmarhguy/tomato
+
+Audience: chip designers, computer engineers, RTL and verification engineers, University of Pennsylvania students, and students in Ghana and elsewhere.

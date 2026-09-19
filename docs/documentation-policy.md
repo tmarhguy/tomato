@@ -35,7 +35,7 @@ entry remains valid as history but must not override current code or
 ## Claim rules
 
 - Pair mutable numerical claims with their source path or generate them.
-- Use the exact ISA wording: **61 instructions plus NOP, 62 burned rows**.
+- Use the exact ISA wording: **91 instructions plus NOP, 92 burned rows**.
 - Use **TOMATO OS v3.0** for the OS and **Desktop v1.2** only for the workspace
   UI revision. Count the current menu as 14 entries.
 - Keep routing target, oscillator, pixel clock, and CPU runtime clock distinct.
