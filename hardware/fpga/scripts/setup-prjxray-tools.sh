@@ -28,6 +28,26 @@ if [[ ! -d "${PRJXRAY}/.git" ]]; then
 fi
 
 if [[ ! -x "${PRJXRAY}/build/tools/xc7frames2bit" ]]; then
+  # macOS: the newest CLT SDK can ship arm64e.x1 TBD slices that the bundled
+  # ld/TAPI cannot parse ("unknown architecture arm64e.x1-macos" in
+  # libSystem.B.tbd), which fails CMake's compiler check on an otherwise fine
+  # toolchain. Pin the newest SDK without those slices when SDKROOT is unset.
+  if [[ "$(uname -s)" == "Darwin" && -z "${SDKROOT:-}" ]]; then
+    for sdk in $(ls -d /Library/Developer/CommandLineTools/SDKs/MacOSX*.sdk 2>/dev/null | sort -Vr); do
+      tbd="${sdk}/usr/lib/libSystem.B.tbd"
+      if [[ -f "${tbd}" ]] && ! grep -q "arm64e\.x1" "${tbd}" 2>/dev/null; then
+        export SDKROOT="${sdk}"
+        echo "==> pinning SDKROOT=${SDKROOT} (default SDK TBD has arm64e.x1 slices ld cannot parse)"
+        break
+      fi
+    done
+  fi
+  # A previous failed configure leaves a stale CMakeCache behind; a retry with
+  # a fixed SDKROOT must start clean or cmake reuses the broken check.
+  if [[ -f "${PRJXRAY}/build/CMakeCache.txt" ]]; then
+    echo "==> clearing stale cmake cache (previous configure failed)"
+    rm -rf "${PRJXRAY}/build"
+  fi
   echo "==> building xc7frames2bit"
   cmake -S "${PRJXRAY}" -B "${PRJXRAY}/build" -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
