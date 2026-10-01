@@ -1,0 +1,81 @@
+[[programming-model]]
+== Programming model
+
+This chapter shows how to write, assemble, and run software for the machine.
+It demonstrates code blocks, register conventions, and the assembler contract.
+
+=== Assembler
+
+`software/assembler.py` is a two-pass assembler driven by the ISA CSVs,
+not by a private opcode table.
+Pseudos in `tomato.v1.pseudo.csv` (such as `CALL`, `BEQZ`, or `LI`) expand
+into burned rows and never invent opcodes.
+
+[source,bash]
+----
+python3 software/assembler.py software/asm/counter.s \
+  -o /tmp/counter.mem --list
+python3 software/assembler.py --selftest
+----
+
+The selftest checks assembler vocabulary against the burned ISA.
+The microcode check is:
+
+[source,bash]
+----
+python3 tools/gen_microcode_v1.py --check
+----
+
+=== Minimal program
+
+[source,asm]
+----
+; counter.s -- minimal Tomato program
+    LI   r1, 0          ; pseudo: expand to burned immediate op
+    LI   r2, 1
+loop:
+    ADD  r1, r1, r2     ; r1 = r1 + r2
+    ST   [0x10], r1     ; store to word 0x10
+    JMP  loop
+----
+
+Registers `r0` through `r31` address the current banked file in the FPGA
+build; `r0` reads as zero and discards writes.
+Immediate, branch, and jump fields overlay the 32-bit word by instruction
+class; the 9-bit opcode selects the control row.
+
+=== Operating system
+
+The FPGA machine boots assembly-written operating system v3.0, with
+14 menu entries including messaging and compiler front ends.
+Sources live in `software/os/*.s`; the menu table and title strings in
+`software/os/tomato_os.s` are authoritative for version and count.
+
+[source,bash]
+----
+# Boot the OS in RTL simulation (no FPGA required)
+make -C hardware/fpga/core os
+----
+
+NOTE: Desktop v1.2 is the workspace UI revision, not the OS version.
+Quote the OS as v3.0 and the menu as 14 entries.
+
+=== Controlled-language compiler
+
+A deterministic controlled-language front end compiles bounded phrases
+into machine bytecode; the machine executes the result.
+Unknown words and unsupported operators fail closed rather than being
+guessed. The grammar contract is `docs/nl-grammar.md`.
+
+Example session (labels preserved):
+
+[source,text]
+----
+> xor of 5 and 3
+understood: xor(5, 3)
+result: 6 / 0x00000006   [Virtual Tomato]
+----
+
+Results must carry their execution label: _Virtual Tomato_, _RTL
+simulation_, or _Hardware Tomato_ (only with live completion evidence).
+

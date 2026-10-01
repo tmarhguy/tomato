@@ -1,0 +1,41 @@
+[[limitations]]
+== Known limitations
+
+This chapter lists explicit non-claims so readers do not infer more than
+the repository proves.
+
+=== Hardware boundaries
+
+* The assembled discrete hardware is an ALU slice, not a complete
+  discrete computer. The complete discrete machine remains a goal.
+* The FPGA register file is 256 x 32-bit. The 32,768-entry discrete file
+  (external SRAM, seven-bit superbank, `SETBANK2`) is not in the FPGA RTL
+  or the burned ISA.
+* Building a bitstream does not prove a board is currently programmed.
+* A programmed board without a completed, bridge-recorded job does not
+  prove a physical reply.
+
+=== Verification boundaries
+
+* The 130-billion-vector ALU run is recorded; its harness is reproducible,
+  but the full run log is not checked in.
+* A compiler FSM hit verifies one fixed A/B/C/carry/output example, not a
+  general function or full truth table.
+* Simulation and emulator results are not hardware evidence, even when
+  they share OS and control data with the FPGA build.
+
+=== Deployment boundaries
+
+* Public site content and hosted backends may differ from the working tree
+  until deployed. Verify the artifact before using "live now" or "online".
+* Messaging clients, backend, and bridge software outside this repository
+  are required for any end-to-end hardware message; their absence here is
+  a scope boundary, not a defect.
+* Dated entries under `docs/log/` preserve superseded word widths,
+  register designs, ISA counts, and preview integrations as history.
+  Do not use them to establish present status unless a current guide
+  confirms it.
+
+For the full status vocabulary and update procedure, see
+`docs/documentation-policy.md` and `docs/status.md`.
+

@@ -1,0 +1,75 @@
+[[introduction]]
+== Introduction
+
+This chapter states what the system is, what it is not, and how to read
+the rest of the manual.
+It uses the canonical vocabulary from `docs/status.md`.
+
+=== Purpose and scope
+
+The project is one 32-bit architecture expressed at several layers:
+
+* a physically assembled 8-bit 74xx Dual-LUT ALU slice (proves the ALU
+  construction, not a complete discrete computer);
+* a complete FPGA machine on the Nexys A7-100T that boots the
+  assembly-written operating system (the complete running computer);
+* a functional browser ISA emulator (functional behavior only, not
+  cycle-accurate RTL or physical execution);
+* local RTL simulation driven by Icarus Verilog.
+
+The complete discrete computer remains a goal.
+Source presence alone never proves deployment, programming of a board,
+or availability of an external bridge.
+
+Section <<architecture>> defines the machine.
+Section <<verification>> defines what has been checked and how to reproduce it.
+Section <<limitations>> states explicit non-claims.
+
+=== How to read this manual
+
+* Chapters, sections, and subsections are numbered (`sectnums`).
+* The left navigation mirrors the document hierarchy and collapses
+  per chapter; see the tip on the title page.
+* Cross-references such as <<memory-map-fpga>> navigate within this
+  single-page manual.
+* External links (for example https://stnolting.github.io/neorv32[NEORV32],
+  the visual reference for this theme) open the referenced site.
+
+=== Conventions
+
+Inline code such as `r0`, `SETBANK2`, or `0x780000` denotes register,
+instruction, or address literals.
+File paths such as `hardware/fpga/core/rtl/regs.v` are repository-relative.
+Status words follow `docs/documentation-policy.md`:
+
+* _Implemented_ — present in current source.
+* _Verified_ — a named reproducible check passed against that source.
+* _Hardware-demonstrated_ — direct evidence identifies the hardware shown.
+* _Deployed_ — the artifact is confirmed at its public endpoint.
+* _Preview_ — intentionally incomplete behavior.
+* _Planned_ — no current implementation claim.
+
+NOTE: Emulator screenshots, simulation logs, and generated bitstreams are
+evidence of the target they ran on only.
+Label every result with its execution target.
+
+=== Source map
+
+The editable authorities for this project are:
+
+[width="100%",cols="30%,70%",options="header"]
+|===
+|Question |Authority
+|Architecture schematics |`hardware/digital/`
+|FPGA behavior |`hardware/fpga/core/rtl/`
+|Burned instruction set |`docs/isa/tomato.v1.csv`
+|Assembler pseudos |`docs/isa/tomato.v1.pseudo.csv`
+|Operating system |`software/os/*.s`
+|Browser emulator behavior |`web/js/tomato-cpu.js`
+|Current prose facts |`docs/status.md`
+|Historical rationale |`docs/log/`
+|===
+
+Generated burns, memory images, screenshots, and packaged artifacts are
+derivatives, not editable authorities.
+

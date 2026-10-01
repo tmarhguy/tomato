@@ -1,0 +1,75 @@
+[[interfaces]]
+== Interfaces
+
+This chapter defines the software-visible windows, with base addresses,
+access widths, and side effects.
+All addresses in this chapter are word addresses unless noted.
+
+=== From sources to runnable artifacts
+
+[source,text]
+----
+ISA CSVs + assembly sources
+  -> .mem images, rtl/burn/*.vh, browser firmware image
+  -> FPGA bitstream (Yosys/nextpnr) or browser emulation
+----
+
+.Source-to-artifact pipeline
+image::artifact-pipeline-light.svg[Source to artifact pipeline,70%,align="center"]
+
+Figure provenance: rendered from `docs/diagrams/artifact-pipeline.mmd`.
+FPGA and browser images share OS and control data but not an execution
+engine: the FPGA and Icarus execute Verilog, while the browser mirrors
+ISA-level behavior.
+
+=== Display and input
+
+[width="100%",cols="28%,22%,50%",options="header"]
+|===
+|Facility |Window |Notes
+|Text framebuffer |`0x300000` |80 x 60 tiles; CPU-painted tile RAM plus independent scanout
+|Keyboard / timer |`0x780000` |Keycode, ready/consume handshake, milliseconds, CPU-frequency words
+|Buttons |via harness |Five Nexys buttons, debounced in the harness
+|Video out |via harness |640x480 scanout at 25 MHz pixel clock (~59.52 Hz refresh)
+|Seven-segment |via harness |Board-level status output
+|===
+
+Reading the keycode without consuming it does not advance the queue;
+the consume word acknowledges the read.
+Display is CPU-painted tile RAM: games and UI remain software, and no
+blitter is currently claimed.
+
+=== Compiler and radio windows
+
+[width="100%",cols="28%,22%,50%",options="header"]
+|===
+|Facility |Window |Notes
+|Dual-LUT compiler |`0x780080` |Fixed-example `{lutB,lutA}` search registers
+|Radio mailbox |`0x780100` |Machine-side radio controller window
+|===
+
+The compiler window exposes one fixed search at a time; see
+<<architecture>> for its scope limits.
+The radio window is the machine side of the messaging path only;
+clients, backend, and bridge live outside this repository.
+
+=== Messaging boundary
+
+.Intended hardware message path (requires a live bridge)
+image::envelop-boundary-light.svg[Messaging boundary,70%,align="center"]
+
+Figure provenance: rendered from `docs/diagrams/envelop-boundary.mmd`.
+
+The intended path is:
+
+[source,text]
+----
+person -> client app -> backend queue -> nearby verified bridge
+  -> machine-side client -> CPU -> labeled reply
+----
+
+CAUTION: Source code for a bridge does not prove a bridge is active.
+"Online" requires an unexpired authenticated bridge lease after the bridge
+verifies the machine identity. Virtual previews are explicit, separate,
+and labeled; they are never queued for hardware execution.
+

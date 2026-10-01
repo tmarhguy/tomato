@@ -241,6 +241,13 @@ Documentation authority and terminology are defined in
 [`docs/documentation-policy.md`](docs/documentation-policy.md). When prose and
 executable sources disagree, that policy determines which source wins.
 
+## Documentation
+
+Detailed architecture, implementation, verification, and technical
+documentation is available in the project documentation.
+The technical reference manual source is [`docs/index.adoc`](docs/index.adoc);
+build the static manual locally with `make docs` (requires Asciidoctor).
+
 ## License and author
 
 Tomato is licensed under the [Solderpad Hardware License 2.1](LICENSE).

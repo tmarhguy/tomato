@@ -58,4 +58,13 @@ web:
 web-test:
 	@cd web && npm test
 
-.PHONY: all help test signoff gauntlet-smoke gauntlet-10b gauntlet-130b gauntlet-claim fpga-test fpga fpga-program fpga-setup hdmi hdmi-program web web-test
+docs:
+	@./scripts/build-docs.sh
+
+docs-clean:
+	@rm -rf build/docs
+
+docs-open:
+	@if command -v open >/dev/null 2>&1; then open build/docs/index.html; elif command -v xdg-open >/dev/null 2>&1; then xdg-open build/docs/index.html; else echo "docs: built build/docs/index.html (no opener found)"; fi
+
+.PHONY: all help test signoff gauntlet-smoke gauntlet-10b gauntlet-130b gauntlet-claim fpga-test fpga fpga-program fpga-setup hdmi hdmi-program web web-test docs docs-clean docs-open

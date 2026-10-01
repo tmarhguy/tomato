@@ -1,0 +1,114 @@
+[[architecture]]
+== Architecture
+
+This chapter describes the programmer-visible machine: datapath width,
+register state, instruction and control model, and memory organization.
+
+=== Overview
+
+Tomato is a 32-bit Von Neumann machine with a multi-cycle core.
+The instruction register, datapath, registers, and ALU are 32 bits wide.
+
+.Four realizations of one architecture
+image::system-realizations-light.svg[Four realizations of one architecture,60%,align="center"]
+
+Figure provenance: rendered from `docs/diagrams/system-realizations.mmd`;
+the discrete box proves the ALU slice, the FPGA box is the complete machine,
+Icarus runs RTL locally, and the browser is a functional ISA emulator.
+
+=== Datapath
+
+The core fetch-decode-execute path is:
+
+[source,text]
+----
+program counter -> memory -> instruction register
+                             |
+                      register file 3R1W
+                             |
+               dual-LUT ALU / shift / mul-div
+                             |
+                   writeback and memory
+----
+
+.Inside the FPGA machine
+image::fpga-datapath-light.svg[FPGA Tomato datapath,70%,align="center"]
+
+Figure provenance: rendered from `docs/diagrams/fpga-datapath.mmd`.
+The board harness owns clocks, pins, keypad debounce, glyph rendering,
+DVI, and seven-segment output; the machine core exposes those facilities
+as ports and memory-mapped windows.
+
+=== Dual-LUT ALU
+
+Each ALU bit applies two independently programmed three-input truth
+tables, then combines their outputs through the arithmetic carry path:
+
+[stem]
+++++
+out = f(a, b, c) + g(a, b, c) + c_{in}
+++++
+
+The theoretical LUT/carry configuration space is not an instruction count.
+The installed instruction set is the subset named by the control ROM:
+*91 instructions plus NOP, 92 burned rows* in a 512-row control ROM.
+Authority: `docs/isa/tomato.v1.csv`; consistency check
+`python3 tools/gen_microcode_v1.py --check`.
+
+.One ALU bit slice (schematic, not to scale)
+image::alu-bit-slice.svg[One Dual-LUT ALU bit slice,55%,align="center"]
+
+=== Register state
+
+[width="100%",cols="30%,25%,45%",options="header"]
+|===
+|Realization |Array |Addressing
+|Discrete architecture (primary) |32,768 x 32-bit |External SRAM plus seven-bit superbank and `SETBANK2`
+|FPGA implementation |256 x 32-bit |`{bank[2:0], register[4:0]}`, `r0` hardwired to zero
+|===
+
+The FPGA array is asynchronous 3-read/1-write and maps to distributed RAM
+on the Artix-7.
+Neither the superbank latch nor `SETBANK2` is present in current FPGA RTL
+or the burned ISA; those belong to the discrete architecture.
+Authority: `hardware/fpga/core/rtl/regs.v`,
+`hardware/fpga/core/rtl/ir.v`.
+
+WARNING: Do not describe the 256-entry FPGA file as the architectural
+limit, and do not describe the 32,768-entry discrete file as implemented
+in the FPGA. Keep the two realizations distinct.
+
+=== Instruction and control model
+
+The 32-bit instruction word uses a 9-bit opcode and overlays operand,
+immediate, branch, and jump fields according to instruction class.
+The opcode addresses a 512-row control space; burned rows cover ALU
+operations, memory, control flow, shift, multiply/divide, and system
+behavior, while unused rows are safe NOP rows.
+
+In the discrete design, decode is divided among local control boards so
+control travels with the subsystem it drives.
+In the FPGA machine, equivalent control is implemented in RTL and
+generated burn tables.
+The machine-readable ISA wins over prose when row names or counts disagree.
+
+=== Memory organization
+
+[[memory-map-fpga]]
+.FPGA memory and I/O windows (word addresses)
+image::memory-map.svg[FPGA memory and I/O windows,55%,align="center"]
+
+[width="100%",cols="28%,22%,50%",options="header"]
+|===
+|Window |Base (word) |Purpose
+|Data / program memory |`0x000000` |16,384 x 32-bit program, data, and stack
+|Framebuffer |`0x300000` |80 x 60 text tiles
+|Keyboard and timer |`0x780000` |Keycode, ready/consume, milliseconds, CPU-frequency words
+|Dual-LUT compiler |`0x780080` |Fixed-example LUT-pair search registers
+|Radio mailbox |`0x780100` |Machine-side radio controller window
+|===
+
+Addressing is word-based.
+Board-specific scanout and input facilities are kept outside the machine
+RTL where practical; see <<interfaces>>.
+

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="300" viewBox="0 0 560 300" role="img" aria-label="One Dual-LUT ALU bit slice">
+  <rect x="0" y="0" width="560" height="300" fill="#ffffff"/>
+  <style>
+    text { font-family: monospace; }
+    .box { fill: #ffffff; stroke: #333333; stroke-width: 1.5; }
+    .wire { stroke: #333333; stroke-width: 1.5; fill: none; }
+    .lbl { font-size: 13px; fill: #111111; }
+    .small { font-size: 11px; fill: #444444; }
+    .title { font-size: 14px; font-weight: bold; fill: #111111; }
+  </style>
+  <text x="20" y="28" class="title">Dual-LUT ALU bit slice: out = f(a,b,c) + g(a,b,c) + carry</text>
+  <rect x="30" y="60" width="120" height="70" class="box"/>
+  <text x="55" y="88" class="lbl">LUT3 f</text>
+  <text x="40" y="108" class="small">f(a,b,c)</text>
+  <rect x="30" y="160" width="120" height="70" class="box"/>
+  <text x="55" y="188" class="lbl">LUT3 g</text>
+  <text x="40" y="208" class="small">g(a,b,c)</text>
+  <text x="8" y="80" class="small">a</text>
+  <text x="8" y="100" class="small">b</text>
+  <text x="8" y="120" class="small">c</text>
+  <line x1="20" y1="78" x2="30" y2="78" class="wire"/>
+  <line x1="20" y1="98" x2="30" y2="98" class="wire"/>
+  <line x1="20" y1="118" x2="30" y2="118" class="wire"/>
+  <line x1="20" y1="178" x2="30" y2="178" class="wire"/>
+  <line x1="20" y1="198" x2="30" y2="198" class="wire"/>
+  <line x1="20" y1="218" x2="30" y2="218" class="wire"/>
+  <rect x="330" y="90" width="150" height="110" class="box"/>
+  <text x="365" y="120" class="lbl">adder</text>
+  <text x="345" y="142" class="small">f + g + carry_in</text>
+  <text x="345" y="160" class="small">-&gt; out, carry_out</text>
+  <line x1="150" y1="95" x2="330" y2="115" class="wire"/>
+  <line x1="150" y1="195" x2="330" y2="155" class="wire"/>
+  <text x="240" y="260" class="small">carry_in</text>
+  <line x1="300" y1="258" x2="380" y2="200" class="wire"/>
+  <line x1="480" y1="130" x2="530" y2="130" class="wire"/>
+  <line x1="430" y1="200" x2="430" y2="258" class="wire"/>
+  <line x1="430" y1="258" x2="530" y2="258" class="wire"/>
+  <text x="532" y="134" class="small">out</text>
+  <text x="532" y="262" class="small">carry</text>
+</svg>

@@ -1,0 +1,69 @@
+[[verification]]
+== Verification
+
+This chapter states what has been checked, with commands that reproduce
+each claim. Simulation evidence is labeled simulation; it never stands in
+for physical execution.
+
+=== Strategy
+
+[width="100%",cols="32%,38%,30%",options="header"]
+|===
+|Layer |Method |Reproduce
+|ISA consistency |Microcode checker |`python3 tools/gen_microcode_v1.py --check`
+|Assembler vocabulary |Selftest |`python3 software/assembler.py --selftest`
+|Core regression |Icarus testbenches |`make -C hardware/fpga/core test`
+|OS boot in simulation |Icarus OS run |`make -C hardware/fpga/core os`
+|ALU / datapath |Directed + formal + gauntlet |`make gauntlet-smoke`
+|===
+
+NOTE: The table above is the verification contract.
+A passing build or simulation does not prove a board is programmed.
+
+=== Focused checks
+
+[source,bash]
+----
+python3 tools/gen_microcode_v1.py --check
+python3 software/assembler.py --selftest
+make -C hardware/fpga/core burn-check
+----
+
+The first two check the ISA and assembler contracts.
+The third checks the FPGA burn against the ISA source.
+Full simulation and hardware programming are separate activities.
+
+=== ALU record
+
+The verification record reports a completed 130-billion-vector 32-bit ALU
+run against a reference model.
+The harness and reproduction command are checked in; the full run log and
+artifact are not.
+
+[source,bash]
+----
+# FPGA ALU gauntlet (Verilator + SymbiYosys on the core copy)
+# smoke: ~1 min | 10b: ~7 min | 130b: ~2-3 h | claim: formal + 10b + 130b
+make gauntlet-smoke
+make gauntlet-10b
+make gauntlet-130b
+make gauntlet-claim
+----
+
+Details and scope limits live in `verification/gauntlet/README.md`.
+The counter-FSM search over all 65,536 LUT pairs verifies one fixed
+example per hit; it does not prove a general function.
+
+=== Simulation vs hardware
+
+* _RTL simulation_ means the local Icarus-driven machine and testbenches.
+  Label its results simulation, never physical execution.
+* _Virtual_ means the browser ISA-level emulator. It is host-budgeted
+  functional execution, not a 6.25 MHz or cycle-accurate emulator.
+* _Hardware_ means the FPGA machine with live completion evidence from an
+  active bridge. Source, screenshots, tests, or build output alone do not
+  qualify.
+
+WARNING: A timeout on a hardware job means the outcome is unknown.
+Do not silently replay it virtually and present the replay as hardware output.
+

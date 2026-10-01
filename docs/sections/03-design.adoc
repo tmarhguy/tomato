@@ -1,0 +1,85 @@
+[[design]]
+== Design
+
+This chapter records the microarchitecture: how the RTL realizes the
+machine in <<architecture>>.
+It is an implementation description, not a second ISA.
+
+=== Pipeline and control
+
+The FPGA core is a multi-cycle machine, not a pipelined superscalar.
+One instruction occupies the fetch, decode, register-read, execute, and
+writeback resources in sequence; control is a 512-row microcode ROM
+addressed by the 9-bit opcode.
+
+[source,text]
+----
+IF:  PC -> memory -> IR
+ID:  opcode -> 512-row control ROM -> control bundle
+EX:  3R1W register read -> ALU / shift / mul-div / lane
+WB:  writeback mux -> register file or memory / MMIO
+----
+
+Key RTL (authoritative over prose):
+
+* `hardware/fpga/core/rtl/main.v` — top-level machine core
+* `hardware/fpga/core/rtl/control.v` — control bundle and sequencing
+* `hardware/fpga/core/rtl/pc.v`, `sp.v` — program counter and stack pointer
+* `hardware/fpga/core/rtl/regs.v` — 256 x 32 physical array
+* `hardware/fpga/core/rtl/alu.v` — Dual-LUT ALU plus carry chain
+* `hardware/fpga/core/rtl/shift.v`, `muldiv.v`, `lane.v` — side units
+* `hardware/fpga/core/rtl/bus.v`, `wb.v` — memory path and writeback mux
+
+=== ALU and function search
+
+The ALU computes `f(a,b,c) + g(a,b,c) + carry` per bit, where `f` and `g`
+are independently programmed LUT3 functions.
+Shift, multiply/divide, and byte/word lane operations bypass or extend the
+ALU result through the writeback mux.
+
+A bounded hardware compiler searches LUT pairs for one fixed example:
+
+* enumerates all 65,536 `{lutB, lutA}` pairs;
+* holds A, B, C, carry, and expected output fixed;
+* stops at the first matching pair.
+
+A hit verifies only that fixed example, not a full truth table or a
+general function.
+Authority: `hardware/fpga/core/rtl/compiler_fsm.v`.
+
+[source,verilog]
+----
+// Per-bit Dual-LUT ALU sketch (simplified; see rtl/alu.v)
+wire f = lut3_flut(a[i], b[i], c[i], lut_f);
+wire g = lut3_glut(a[i], b[i], c[i], lut_g);
+assign {carry[i+1], out[i]} = f + g + carry[i];
+----
+
+=== Clocking and reset
+
+The Nexys A7 oscillator is 100 MHz.
+The default RTL divides it for two synchronous domains:
+
+[stem]
+++++
+f_{cpu} = \frac{100\ \mathrm{MHz}}{16} = 6.25\ \mathrm{MHz},
+\qquad
+f_{pixel} = \frac{100\ \mathrm{MHz}}{4} = 25\ \mathrm{MHz}
+++++
+
+The 90 MHz number in the build is the nextpnr place-and-route timing
+target (`FREQ_MHZ := 90`), not an oscillator value, CPU frequency,
+measured Fmax, or instruction rate.
+
+TIP: When quoting clocks, always name the domain: board input, CPU
+runtime, pixel clock, or routing target. Never collapse them to one number.
+
+=== Board harness boundary
+
+The board harness (`rtl/board/`) owns clocks, pins, keypad debounce, glyph
+rendering, DVI scanout, and seven-segment output.
+The machine core sees those facilities only through the windows in
+<<memory-map-fpga>>.
+This keeps board-specific wiring outside the CPU RTL and preserves the
+same core across simulation, FPGA, and emulator front ends.
+

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="340" viewBox="0 0 560 340" role="img" aria-label="FPGA memory and IO windows">
+  <rect x="0" y="0" width="560" height="340" fill="#ffffff"/>
+  <style>
+    text { font-family: monospace; }
+    .box { fill: #ffffff; stroke: #333333; stroke-width: 1.5; }
+    .addr { font-size: 12px; font-weight: bold; fill: #111111; }
+    .desc { font-size: 11px; fill: #333333; }
+    .title { font-size: 14px; font-weight: bold; fill: #111111; }
+  </style>
+  <text x="20" y="28" class="title">FPGA word-address map (see Interfaces)</text>
+  <rect x="60" y="50" width="440" height="52" class="box"/>
+  <text x="75" y="72" class="addr">0x000000 data / program memory</text>
+  <text x="75" y="90" class="desc">16,384 x 32-bit program, data, stack</text>
+  <rect x="60" y="112" width="440" height="52" class="box"/>
+  <text x="75" y="134" class="addr">0x300000 framebuffer</text>
+  <text x="75" y="152" class="desc">80 x 60 text tiles, CPU-painted</text>
+  <rect x="60" y="174" width="440" height="52" class="box"/>
+  <text x="75" y="196" class="addr">0x780000 keyboard + timer</text>
+  <text x="75" y="214" class="desc">keycode, ready/consume, ms, CPU-freq words</text>
+  <rect x="60" y="236" width="215" height="52" class="box"/>
+  <text x="75" y="258" class="addr">0x780080 compiler</text>
+  <text x="75" y="276" class="desc">LUT-pair search regs</text>
+  <rect x="285" y="236" width="215" height="52" class="box"/>
+  <text x="300" y="258" class="addr">0x780100 radio</text>
+  <text x="300" y="276" class="desc">machine-side mailbox</text>
+  <text x="60" y="312" class="desc">Word addressing. Board harness (clocks, DVI, buttons) is outside the core.</text>
+</svg>

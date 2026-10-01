@@ -1,0 +1,56 @@
+[[performance]]
+== Performance
+
+This chapter gives the clock, throughput, and video numbers with exact
+wording. Each number names its domain; domains are never merged.
+
+=== Clocks
+
+[width="100%",cols="34%,33%,33%",options="header"]
+|===
+|Quantity |Value |Meaning
+|Board oscillator |100 MHz |Nexys A7 input clock
+|CPU clock (default) |6.25 MHz |Board clock divided by 16 (`CPU_DIV_LOG2 = 4`)
+|Pixel clock |25 MHz |Board clock divided by 4; 640x480 scanout at ~59.52 Hz
+|Routing target |90 MHz |nextpnr `--freq` timing target, not a runtime frequency
+|===
+
+[stem]
+++++
+f_{cpu} = 100\ \mathrm{MHz} / 16 = 6.25\ \mathrm{MHz},
+\qquad
+f_{refresh} \approx \frac{25\ \mathrm{MHz}}{800 \times 525} \approx 59.52\ \mathrm{Hz}
+++++
+
+The 90 MHz value is the configured place-and-route timing target in
+`hardware/fpga/core/Makefile` (`FREQ_MHZ := 90`).
+It is not an oscillator value, CPU runtime frequency, measured Fmax, or
+instruction rate.
+
+=== Throughput projection
+
+At 6.25 MHz, instruction throughput depends on cycles per instruction
+(CPI). Checked-in Icarus samples range from 2.000 to 2.556 CPI;
+converting the unweighted ~2.13-CPI summary gives a workload-derived
+projection, not measured board throughput:
+
+[stem]
+++++
+\mathrm{MIPS} \approx \frac{6.25}{2.13} \approx 2.9
+++++
+
+Authority: `hardware/fpga/core/reports/CPI.md` and `METRICS.md`.
+Do not present this as a universal operations-per-second rating.
+
+=== Browser execution budget
+
+Virtual execution is host-budgeted functional execution.
+A guest-timer constant models a 6.25 MHz CPU for timer purposes, while the
+UI loop runs as many ISA steps as an 8 ms / 60,000-step frame budget
+permits. It must not be described as a 6.25 MHz or cycle-accurate emulator.
+Authority: `web/js/tomato-cpu.js`, `web/js/virtual.js`.
+
+IMPORTANT: Throughput, oscillator, pixel clock, routing target, and
+emulator budget are different metrics.
+State the domain with every number.
+

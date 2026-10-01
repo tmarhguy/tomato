@@ -1,0 +1,62 @@
+= Tomato Technical Reference Manual
+:toc: left
+:toclevels: 3
+:toc-title: Contents
+:sectnums:
+:sectnumlevels: 3
+:icons: font
+:source-highlighter: rouge
+:rouge-style: github
+:stem: latexmath
+:docinfo: shared
+:docinfodir: theme
+:imagesdir: images/manual
+:idprefix:
+:idseparator: -
+:experimental:
+:reproducible:
+:revnumber: 1.0
+:revdate: 2026-10-01
+
+// Project identity lives here. Theme files under theme/ contain no
+// hardcoded project names and work unchanged in other repositories.
+
+[.lead]
+This manual is the detailed technical reference for the project.
+It describes architecture, interfaces, programming model, verification,
+implementation, and performance in one numbered, navigable document.
+
+The concise project overview stays in the repository
+link:../../README.md[root README].
+Current facts and claim boundaries are defined in
+link:../status.md[docs/status.md]; when prose and executable sources
+disagree, link:../documentation-policy.md[documentation-policy.md]
+determines which source wins.
+
+[source,bash]
+----
+# Build this manual locally (requires Asciidoctor, no Node.js)
+make docs
+# Output: build/docs/index.html
+----
+
+TIP: The left table of contents is collapsible.
+Select an arrow (pass:[▸] / pass:[▾]) to expand or collapse a chapter;
+selecting the chapter title itself navigates normally.
+State persists in your browser via `localStorage`.
+With JavaScript disabled, the full table of contents remains usable.
+
+// Chapter assembly. Convention (required by the AsciiDoc include model):
+// every file under sections/ starts with a [[chapter-id]] anchor on its
+// first line and ends with a trailing blank line. Without both, a chapter
+// opening "==" can glue to the previous file's final paragraph or table
+// and silently drop out of the section hierarchy.
+include::sections/01-introduction.adoc[]
+include::sections/02-architecture.adoc[]
+include::sections/03-design.adoc[]
+include::sections/04-interfaces.adoc[]
+include::sections/05-programming-model.adoc[]
+include::sections/06-verification.adoc[]
+include::sections/07-implementation.adoc[]
+include::sections/08-performance.adoc[]
+include::sections/09-limitations.adoc[]
